@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Magictoolbox product list template for Magento store. 
+ * Allow use MagicTools on product list page. 
+ * @mail support@magictoolbox.com
+ */
+
+//echo "file=" . __FILE__ . "</br>";
+$_productCollection = $this->getLoadedProductCollection();
+/*
+echo "count=" . $_productCollection->count() . "</br>";
+echo "getSize=" . $_productCollection->getSize() . "</br>";
+*/
+
+$subCategory = Mage::registry('current_category');
+$parentCategory = null;
+
+if ($subCategory != null) {
+$parentCategory = Mage::getModel('catalog/category')->load($subCategory->getParentId()); 
+}
+
+
+if($_productCollection && $_productCollection->count()) {
+    $productsListFileName = 'list_original.phtml';
+	
+	if ($parentCategory != null) {
+		if (strtolower($parentCategory->getName()) == 'collections') {
+			$productsListFileName = "collection-products.phtml";
+		}
+	}
+	
+    require(dirname(__FILE__) . '/' . $productsListFileName);
+    //require(dirname(__FILE__) . '/magictoolbox_list.phtml');
+}
+else {
+    echo "<div style='height:200px;background-color:#ffffff; margin:20px 20px 0 0'><p class='note-msg'>" . $this->__('New products arriving soon...') . "</p></div>";
+
+}
+?>

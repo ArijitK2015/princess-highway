@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+<!--
+Default layout, loads most of the pages
+-->
+
+    <default>
+        <reference name="left">
+            <block type="catalog/navigation" name="catalog.leftnav.custom" template="catalog/navigation/left.custom.phtml"/>
+            <action method="unsetChild"><name>left.permanent.callout</name></action>
+        </reference>
+
+        <reference name="right">
+            <action method="unsetChild"><name>right.permanent.callout</name></action>
+            <remove name="paypal.partner.right.logo"/>
+        </reference>
+        
+        <reference name="root">
+            <remove name="global_messages" />
+        </reference>
+
+	<reference name="head">
+		<!--Removing item set in the page.xml we don't need anymore-->
+		<action method="removeItem"><type>skin_css</type><name>css/styles.css</name></action>
+		
+		<!--Add extra items -->
+		<action method="addJs"><script>jquery/jquery-1.10.2.min.js</script></action>
+		<action method="addJs"><script>jquery/noconflict.js</script></action>
+		<action method="addJs"><script>slide_show/fadeslideshow.js</script></action>
+		<action method="addJs"><script>effects/common.js</script></action>
+		<action method="addJs"><script>extjs/comodo/trustlogo.js</script></action>
+	</reference>
+
+
+
+        <reference name="content">
+            <block type="core/template" name="alert_global_messages" template="core/messages.phtml" before="-" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="jquery_noconflict" template="jquery/noconflict.phtml" before="-" />
+        </reference>
+    </default>
+
+
+    <!--Remove unwanted links from the account login dashboard -->
+    <customer_account>
+
+        <reference name="customer_account_navigation">
+            <action method="removeLinkByName"><name>recurring_profiles</name></action>
+            <action method="removeLinkByName"><name>billing_agreements</name></action>
+            <action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
+            <action method="removeLinkByName"><name>newsletter</name></action>
+        </reference>
+
+        <remove name="catalog.leftnav.custom" />
+
+    </customer_account>
+
+
+    <catalog_category_default translate="label">
+        <reference name="head">
+            <block type="core/template" name="magiczoom_header" template="magiczoom/header.phtml" />
+        </reference>
+        
+        <reference name="product_list">
+            <action method="setTemplate"><template>magiczoom/list.phtml</template></action>
+            <action method="setColumnCount"><columns>4</columns></action>
+        </reference>
+
+        <remove name="left" />
+        <remove name="right" />
+        <remove name="catalog.leftnav.custom" />
+        <remove name="catalog.leftnav" />    
+    </catalog_category_default>
+
+
+    
+    <catalog_category_view>
+        <reference name="head">
+            <block type="core/template" name="magiczoom_header" template="magiczoom/header.phtml" />
+        </reference>
+        
+        <reference name="product_list">
+
+                        
+            <action method="setTemplate"><template>magiczoom/list.phtml</template></action>
+            <action method="setColumnCount"><columns>4</columns></action>
+        </reference>
+    </catalog_category_view>
+
+    
+    
+    <catalog_category_layered translate="label">
+        <reference name="head">  
+            <block type="core/template" name="magiczoom_header" template="magiczoom/header.phtml" />            
+            <!-- action method="addItem"><type>skin_js</type><name>js/jquery.js</name></action -->           
+            <!-- action method="addJs"><script>jquery.js</script></action -->
+            
+            
+            <action method="addJs"><script>jquery/jquery-1.10.1.min.js</script></action> 
+            <action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
+            <action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>              
+            <action method="addJs"><script>jquery/noconflict.js</script></action>  
+            
+            <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
+	    <action method="addJs"><script>calendar/calendar.js</script></action>
+	    <action method="addJs"><script>calendar/calendar-setup.js</script></action>
+            <action method="addJs"><script>calendar/calendar-setup.js</script></action>
+	    <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
+            
+        </reference>
+
+        <reference name="product_list_toolbar">
+            
+        </reference>
+
+        <reference name="product_list">        
+            <!-- block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/ --> 
+            <block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml">
+                <action method="unsetChild"><child>category_filter</child></action>
+            </block>               
+            <action method="setTemplate"><template>magiczoom/list.phtml</template></action>
+            <action method="setColumnCount"><columns>4</columns></action>
+        </reference>
+ 
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+
+        <remove name="left" />
+        <remove name="right" />
+        <remove name="catalog.leftnav.custom" />
+        <remove name="catalog.leftnav" />
+    </catalog_category_layered>
+
+
+    <!-- Product View Page -->
+    <catalog_product_view>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+
+
+
+            <!-- Add jQuery and Javascript libraries -->
+            <reference name="head">
+                <!-- 
+                <action method="addJs"><script>jquery/jquery-ui.min.js</script></action>
+                <action method="addJs"><script>tabber/styleswitcher.js</script></action>
+                <action method="addJs"><script>tabber/tabber.js</script></action>
+                <action method="addCss"><stylesheet>css/tabber.css</stylesheet></action>
+                <action method="addItem"><type>skin_js</type><name>js/jcarousellite_1.0.1.js</name></action>
+                -->
+            </reference>
+
+            <!-- Increase the maximum amount of products listed on the Upsell section -->
+            <reference name="product.info.upsell">
+                <action method="setItemLimit"><type>upsell</type><limit>12</limit></action>
+                <!-- The next line is required to rendered all items on one line: (Set to same value as Item Limit) -->
+                <action method="setColumnCount"><columns>12</columns></action>
+            </reference>
+		          
+    </catalog_product_view>
+
+    
+    <!-- Review Product List Page -->
+    <review_product_list>
+        <reference name="head">  
+            <block type="core/template" name="magiczoom_header" template="magiczoom/header.phtml" />            
+            <!-- action method="addItem"><type>skin_js</type><name>js/jquery.js</name></action -->           
+            <!-- action method="addJs"><script>jquery.js</script></action -->
+            
+            
+            <action method="addJs"><script>jquery/jquery-1.10.1.min.js</script></action> 
+            <action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
+            <action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>              
+            <action method="addJs"><script>jquery/noconflict.js</script></action>  
+            
+            <action method="addJs"><script>varien/product.js</script></action>
+            <action method="addJs"><script>varien/configurable.js</script></action>
+	    <action method="addJs"><script>calendar/calendar.js</script></action>
+	    <action method="addJs"><script>calendar/calendar-setup.js</script></action>
+            <action method="addJs"><script>calendar/calendar-setup.js</script></action>
+	    <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
+            
+        </reference>
+
+        <reference name="product_list_toolbar">
+            
+        </reference>
+
+        <reference name="product_list">        
+            <block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/> 
+              
+            <action method="setTemplate"><template>magiczoom/list.phtml</template></action>
+            <action method="setColumnCount"><columns>4</columns></action>
+        </reference>        
+        <reference name="root">
+                <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+    </review_product_list>
+
+    <!-- Review Product View Page -->
+    <review_product_view>
+        <reference name="root">
+                <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+    </review_product_view>
+
+    <tag_list_index translate="label">
+        <label>Tags List (All Available)</label>
+        <!-- Mage_Tag -->
+        <reference name="root">
+	            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="left">
+            <remove name="tags_popular" />
+        </reference>
+    </tag_list_index>
+
+<!--
+	Bundle Product Page
+-->
+<PRODUCT_TYPE_bundle>
+	<!-- Change default template -->
+	<reference name="product.info">
+		<action method="setTemplate">
+			<template>catalog/product/view_bundle.phtml</template>
+		</action>
+	</reference>
+</PRODUCT_TYPE_bundle>
+
+
+<!--
+	Contact Us Page
+-->
+<contacts_index_index>
+	<!-- Change default label -->
+	<label>Product Enquiries</label>
+	<!-- Change default template -->
+	<reference name="root">
+		<action method="setTemplate">
+			<template>page/1column.phtml</template>
+		</action>
+		<!-- Change default header title -->
+		<action method="setHeaderTitle" translate="title" module="contacts">
+			<title>Product Enquiries</title>
+		</action>
+	</reference>
+	<!-- Change default title -->
+	<reference name="head">
+		<action method="setTitle">
+			<title>Product Enquiries</title>
+		</action>
+	</reference>
+	<reference name="contactForm">
+		<!-- Add the ask our stylist image -->
+		<block type="cms/block" name="ask-our-stylist-img">
+			<action method="setBlockId"><block_id>ask-our-stylist-img</block_id></action>
+		</block>
+	</reference>
+</contacts_index_index>
+
+</layout>

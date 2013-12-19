@@ -1,0 +1,11 @@
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+?>
+
+<div style="border:0px solid green; float:right; width:350px">
+<?php
+$_img = '<img src="' . $this->helper('catalog/image')->init($_product, 'image') . '" alt="'.$this->htmlEscape($_product->getName()).'" />';
+echo $_img;
+?>
+</div>

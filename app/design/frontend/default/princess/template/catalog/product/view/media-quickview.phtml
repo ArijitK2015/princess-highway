@@ -1,0 +1,20 @@
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+ 
+<div id="quickview-image-browser">
+	<div id="product-image">
+		<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+		    <?php
+				$_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image').'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" width="300" height="300" />';
+		        echo $_helper->productAttribute($_product, $_img, 'image');
+		    ?>
+		<?php else: ?>
+		    <?php
+		        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(300).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" width="300" height="300" />';
+		        echo $_helper->productAttribute($_product, $_img, 'image');
+		    ?>
+		<?php endif; ?>
+	</div>
+</div>

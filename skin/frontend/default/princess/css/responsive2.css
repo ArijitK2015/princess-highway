@@ -1,0 +1,857 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/10/2013, 8:33:26 AM
+    Author     : cpham
+*/
+
+
+
+/* ==================================================
+   Large Desktop
+================================================== */
+@media (min-width:980px) {
+		
+        /* ==================================================
+           Off
+        ================================================== */			        
+
+
+        /* ==================================================
+           Navigation
+        ================================================== */    
+        #content .std .sub-category-menu {}
+        #content .std .sub-category-menu ul { list-style: none; } 
+        #content .std .sub-category-menu ul li.pronav-unsorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul { list-style: none; }
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted ul { list-style: none; }
+        #content .std .menu-promo { display: none; }
+
+	/* ==================================================
+	   Title
+	================================================== */			
+
+
+	/* ==================================================
+	   Catalog Product View
+	================================================== */		
+        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: block; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile { display: none; }
+}
+
+
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:1px) and (max-width:979px) {
+    /* ==================================================
+       CTA
+    ================================================== */    
+    .cta-two-column { line-height: 0px; margin-top: 20px; width:100% }
+    .cta-two-column img { margin: 0px; padding: 0px; }
+    .cta-two-column .cta-one,
+    .cta-two-column .cta-two { background-color: yellow; display: inline-block; line-height: 0px; margin: 0px; padding: 0px; width:48.5% }
+    .cta-two-column .cta-two { float:right; text-align: right }
+    .cta-two-column .cta-one img,
+    .cta-two-column .cta-two img{ line-height: 0px; width:100% }
+
+    .cta-three-column { line-height: 0px; margin-top: 20px; width:100% }
+    .cta-three-column img { margin: 0px; padding: 0px; }
+    .cta-three-column .cta-one,    
+    .cta-three-column .cta-two,     
+    .cta-three-column .cta-three { background-color: red; display: inline-block; line-height: 0px; margin: 0px; padding: 0px; width:32% }
+    .cta-three-column .cta-two { margin-left: 1.5% }
+    .cta-three-column .cta-three { float: right }   
+    .cta-three-column .cta-one img,
+    .cta-three-column .cta-two img,
+    .cta-three-column .cta-three img { line-height: 0px; width:100% }
+    
+    .catalog-category-view .category-products > .pagination { font-size: 12px; height: 22px; left: auto; margin:2px 140px 0px 0px; position: absolute; right:-138px; text-align: right; top: auto; width: 140px; }
+}
+
+
+/* ==================================================
+   Portrait Tablet to Landscape and Desktop
+================================================== */
+@media (min-width:768px) and (max-width:979px) {
+
+    
+        /* ==================================================
+           Off
+        ================================================== */			        
+        
+        /* ==================================================
+           Navigation
+        ================================================== */    
+        #content .std .sub-category-menu {}
+        #content .std .sub-category-menu ul { list-style: none; } 
+        #content .std .sub-category-menu ul li.pronav-unsorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul { list-style: none; }
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted ul { list-style: none; }
+        #content .std .menu-promo { display: none; }
+        
+
+        /* ==================================================
+           carousels
+        ================================================== */
+        .carousel-one #collaboration-carousel {}
+        .carousel-one #collaboration-carousel .carousel-inner,
+        .carousel-one #collaboration-carousel .carousel-indicators { display: inline-table  }
+        .carousel-one #collaboration-carousel .carousel-inner { }
+        .carousel-one #collaboration-carousel .carousel-inner .item {  }
+        .carousel-one #collaboration-carousel .carousel-inner .item img { width:100% }
+        .carousel-one #collaboration-carousel .carousel-indicators li img {  width: 100%; }
+        
+
+	/* ==================================================
+	   Title
+	================================================== */			
+        
+        
+        /* ==================================================
+           Sections
+        ================================================== */    
+        .cms-home #content { height: auto !important; }
+        #calltoactions { margin-top: 0px; }
+        #footer-credits {}                
+        footer > .container,
+        #footer-credits > .container,
+        #calltoactions > .container{
+            margin-right: 0;
+            margin-left: 0;
+            width: 100%;
+        }        
+        footer,
+        #footer-credits { margin-left: 10px; margin-right: 10px; }        
+        footer > .container > .row > .span12,
+        #footer-credits .container > .row > .span12,
+        #calltoactions .container > .row > .span12 { width: auto; }
+        #calltoactions .container > .row > .span6 { width: auto; }
+        
+
+        /* ==================================================
+           Section footer-credits
+        ================================================== */          
+        #footer-credits .credits,      
+        #footer-credits .credits a { font-size: 9px; margin: 0px; }
+        #footer-credits ul { display: none }
+        #footer-credits .container { border: none;  }   
+
+        
+        /* ==================================================
+           Section call to action
+        ================================================== */                  
+        #calltoactions img { max-width: 100%; }              
+        
+        
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */        		               
+        .catalog-category-view .category-products {  }
+        .catalog-category-view .category-products .pagination { font-size: 12px; height: 22px; left: auto; position: absolute; right:-140px; text-align: right; top: auto; width: 140px; }
+        .catalog-category-view .category-products .toolbar-div { background-color: transparent }
+        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: block; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile { display: none; }        
+        .catalog-category-view .category-products .toolbar-div #FilterView { width: 351px; }
+        .catalog-category-view .category-products .toolbar-div .toolbar-item-group-layout fieldset .select-sort { width:70px; }        
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder { width:100%;}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions { width:100%; }
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content .filter-nav {}            
+        .catalog-category-view .category-products .products-grid-container { background-color: transparent; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid { }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item {  line-height:normal; margin-bottom:40px; margin-right:0px; width:23%; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(4n-2),
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(4n-1),
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(4n) { margin-left:2.5%; } 
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container  { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable { background-color: transparent; width:100%;   }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer { background-color:transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a > img { height:auto; width: 100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer .MagicToolboxSelectorsContainer { width:23%; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+        
+        
+	/* ==================================================
+	   Product View
+	================================================== */	
+        .catalog-product-view #product-media { background-color: transparent; float: left; width:380px; }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage,
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }        
+        .catalog-product-view #product-shop { background-color: transparent; float: right; width:40%; }
+        
+        .catalog-product-view #product-shop #producttabs { width:auto; }
+        .catalog-product-view #product-shop #producttabs .std { font-size: 11pt }
+        .catalog-product-view #product-shop #producttabs .tabbable{ width:100%; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs {}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li { padding: 0px; width: 95px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li:last-child { margin-right: 0px; width: 94px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a { padding: 5px 7px; }
+        .catalog-product-view #product-shop #priceandsqu {}
+        .catalog-product-view #product-shop #priceandsqu .price-box { width: 215px }
+        .catalog-product-view #product-shop #priceandsqu .price-box .old-price {}
+        .catalog-product-view #product-shop #priceandsqu .price-box .special-price {}     
+        .catalog-product-view #product-shop #productpurchase { width:auto; }
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper > div { width:100%} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour{ } 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size{ margin: 20px 0px 0px 0px;}    
+        .catalog-product-view #product-shop #productpurchase .product-options-bottom { width:100%} 
+       
+        .catalog-product-view #suggestivetabs { }
+        .catalog-product-view #suggestivetabs #wearitwith {}
+        .catalog-product-view #suggestivetabs #wearitwith .item { height: auto; width:19%; float:left }
+        .catalog-product-view #suggestivetabs #wearitwith .item .price-box { display: none }
+        .catalog-product-view #suggestivetabs #wearitwith img { height: auto; width:100% }
+        .catalog-product-view #reviews #customer-reviews #review-form textarea { width: 90%}          
+	        
+        .catalog-product-view .product-view-bundle #product-media { background-color: transparent; float: left; width:47% }    
+        .catalog-product-view .product-view-bundle #product-media img { width:100%; height:auto }    
+        .catalog-product-view .product-view-bundle #product-shop { float: right; width:47%; }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns { width:70%;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box div:first-child { margin-bottom: 5px  }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box > div { display: block; margin: 0px; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns select { width: 100% }
+      	        
+}
+
+
+
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:640px) and (max-width:767px) {	
+    
+        /* ==================================================
+           Off
+        ================================================== */			
+
+        /* ==================================================
+           images
+        ================================================== */	    
+
+
+        /* ==================================================
+           common
+        ================================================== */    
+
+        
+        /* ==================================================
+           Navigation
+        ================================================== */    
+        #content .std .sub-category-menu {}
+        #content .std .sub-category-menu ul { list-style: none; } 
+        #content .std .sub-category-menu ul li.pronav-unsorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul { list-style: none; }
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted ul { list-style: none; }
+        #content .std .menu-promo { display: none; }   
+
+        
+        /* ==================================================
+           Sections
+        ================================================== */    
+
+        
+        /* ==================================================
+           Section footer-credits
+        ================================================== */          
+
+
+        /* ==================================================
+           carousels
+        ================================================== */
+        
+ 
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */        		               
+        .catalog-category-view .category-products { }
+        .catalog-category-view .category-products .toolbar-div { background-color: transparent }
+        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: block; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile { display: none; }           
+        .catalog-category-view .category-products .toolbar-div #FilterView { width: 258px; }                
+        .catalog-category-view .category-products .toolbar-div #filterset .toolbar-item-group-layout { padding-left: 5px; padding-right: 5px }        
+        .catalog-category-view .category-products .toolbar-div #filterset .toolbar-item-group-layout fieldset .select-sort { width:90px; }
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset { margin-bottom: 0px; margin-top: 0px;}
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset label { display:none; }
+        .catalog-category-view .category-products .toolbar-div .filter-options {  vertical-align: top }
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions { height: 42px; margin: 0px 5px;}
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions .icon-caret-down,
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions .icon-caret-up { display:none; }
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions img.icon-filter { display:block; height: auto; margin: 0px; width:30px   }
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions { }
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content .filter-nav {}        
+        .catalog-category-view .category-products .products-grid-container { background-color: transparent; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid { }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item {  line-height:normal; height: auto; margin-bottom:40px; margin-right:0px; width:32%; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(3n-1),
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(3n) { margin-left:2%; }         
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container  { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable { background-color: transparent; width:100%;   }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a > img { height:auto; width: 100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer .MagicToolboxSelectorsContainer {  width:32% }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .old-price .price,
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .special-price .price { font-size: 8pt }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+        
+
+	/* ==================================================
+	   Product View
+	================================================== */		        
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage,
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }        
+        .catalog-product-view #product-shop {}
+        .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }   
+        .catalog-product-view #product-shop #productsocial { display: none }
+        .catalog-product-view #product-shop #producttabs {}
+        .catalog-product-view #product-shop #producttabs .std { font-size: 11pt }
+        .catalog-product-view #product-shop #producttabs .tabbable{}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs {}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li { padding: 0px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a { padding: 5px 7px; }
+        .catalog-product-view #product-shop #priceandsqu {}
+        .catalog-product-view #product-shop #priceandsqu .price-box { width: 215px }
+        .catalog-product-view #product-shop #priceandsqu .price-box .old-price {}
+        .catalog-product-view #product-shop #priceandsqu .price-box .special-price {}     
+        .catalog-product-view #product-shop #productpurchase {}
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper { vertical-align: top; }
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper > div { display:inline-table; width:47.5%} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size {float:right } 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour { }        
+        .catalog-product-view #suggestivetabs #wearitwith {}
+        .catalog-product-view #suggestivetabs #wearitwith .item { height: auto; width:19%; float:left }
+        .catalog-product-view #suggestivetabs #wearitwith .item .price-box { display: none }
+        .catalog-product-view #suggestivetabs #wearitwith img { height: auto; width:100% }
+        .catalog-product-view #reviews #customer-reviews #review-form textarea { width: 90%}  
+
+    
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addtocart-controls .btn-add-cart { width:130px }      
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addto-controls .addtowishlist a { width:110px}
+        
+        .catalog-product-view .product-view-bundle #product-shop div.product-name { background-color: transparent; margin-top: 0px; }   
+        .catalog-product-view .product-view-bundle #product-media { background-color: transparent; float: left; width:52% }    
+        .catalog-product-view .product-view-bundle #product-media img { width:100%; height:auto }    
+        .catalog-product-view .product-view-bundle #product-shop { background-color: transparent; float: right; width:44%; }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div { width: 100%; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns { width:60%;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box div:first-child { margin-bottom: 5px  }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box > div { display: block; margin: 0px; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns select { width: 100% }
+      
+
+        
+	/* ==================================================
+	   ProNav Menu Styles
+	================================================== */		
+
+        
+	/* ==================================================
+	   Checkout
+	================================================== */			
+}
+
+@media (min-width:641px) and (max-width:720px) {
+        .catalog-category-view .category-products .toolbar-div { background-color: transparent }
+        .catalog-category-view .category-products .toolbar-div #FilterView { width: 297px; }        
+}
+
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:1px) and (max-width:640px) {
+         /* ==================================================
+           carousels
+        ================================================== */
+        .carousel-one #collaboration-carousel {}
+        .carousel-one #collaboration-carousel .carousel-inner { display: inline-table; width: 88.5% }
+        .carousel-one #collaboration-carousel .carousel-inner .item { width: 100% }
+        .carousel-one #collaboration-carousel .carousel-inner .item img { width: 100% }
+        .carousel-one #collaboration-carousel .carousel-indicators { margin-top: 0px;  margin-left: 1%; width: 8.5%; }
+        .carousel-one #collaboration-carousel .carousel-indicators li { display: inline-table; float: right; height: auto; width:100%; margin: 0px; }
+        .carousel-one #collaboration-carousel .carousel-indicators li img { width: 100%; }
+                
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */  
+        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: block; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile { display: none; }           
+        .catalog-category-view .category-products .toolbar-div #FilterSort fieldset > label,
+        .catalog-category-view .category-products .toolbar-div #FilterView fieldset > label { display: block;}
+        .catalog-category-view .category-products .toolbar-div #FilterView fieldset > ul > li { margin: -5px 6px 0px 0px; }          
+    
+}
+
+
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:481px) and (max-width:640px) {	
+
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */        		               
+        .catalog-category-view .category-products { }
+        .catalog-category-view .category-products .toolbar-div { background-color: transparent }
+        .catalog-category-view .category-products .toolbar-div .toolbar-item-group-layout { margin-bottom: 5px; }               
+        .catalog-category-view .category-products .toolbar-div .toolbar-item-group-layout .select-sort { width:90px; }             
+        .catalog-category-view .category-products .toolbar-div #FilterSort { width: 194px; }
+        .catalog-category-view .category-products .toolbar-div #FilterView { width: 253px; }  
+        .catalog-category-view .category-products .toolbar-div #FilterView ul { width: 66%; }        
+        .catalog-category-view .category-products .toolbar-div #FilterView ul li { margin-right: 12%; }
+        .catalog-category-view .category-products .toolbar-div #FilterView ul li:last-child { margin-right: 0%; }        
+        .catalog-category-view .category-products > .pagination { display: none; }
+        .catalog-category-view .category-products .toolbar-div .pagination { border: 1px solid #D8D8D8; float: left; height: 30px; margin: 0px 0px 5px 0px; position: relative; right: auto; top: auto; left: auto; text-align: left; width:99.6%  }
+        .catalog-category-view .category-products .toolbar-div .pagination label { width:48%; text-indent: 15px; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li { text-indent: 0px;  }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(3),
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(4) { float: right; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(3) { margin-right: 30px }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(4) { margin-right: -60px; }        
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav { width: 51%; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li { float: left; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li.disabled > a { padding: 5px 0px; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a { float: none; }        
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a.next,
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a.previous { font-size: 20pt; padding: 2px 10px; }       
+        .catalog-category-view .category-products .products-grid-container { background-color: transparent; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item { line-height:normal; height: auto; margin-bottom:40px; margin-right:0px; width:32%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(3n-1),
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(3n) { margin-left:2%; }         
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container  { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable { background-color: transparent; width:100%;   }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a > img { height:auto; width: 100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer .MagicToolboxSelectorsContainer {  width:32% }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .old-price .price,
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .special-price .price { font-size: 8pt }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+            
+
+	/* ==================================================
+	   Product View
+	================================================== */		        
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage,
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }        
+        .catalog-product-view #product-shop {}        
+        .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }   
+        .catalog-product-view #product-shop #productsocial { display: none }
+        .catalog-product-view #product-shop #producttabs {}
+        .catalog-product-view #product-shop #producttabs .std { font-size: 11pt }
+        .catalog-product-view #product-shop #producttabs .tabbable{}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs {}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li { padding: 0px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a { padding: 5px 7px; }
+        .catalog-product-view #product-shop #priceandsqu {}
+        .catalog-product-view #product-shop #priceandsqu .price-box { width: 215px }
+        .catalog-product-view #product-shop #priceandsqu .price-box .old-price {}
+        .catalog-product-view #product-shop #priceandsqu .price-box .special-price {}     
+        .catalog-product-view #product-shop #productpurchase {}
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper { vertical-align: top; }
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper > div { display:inline-table; width:47.5%} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size {float:right } 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour { }        
+        .catalog-product-view #suggestivetabs #wearitwith {}
+        .catalog-product-view #suggestivetabs #wearitwith .item { height: auto; width:19%; float:left }
+        .catalog-product-view #suggestivetabs #wearitwith .item .price-box { display: none }
+        .catalog-product-view #suggestivetabs #wearitwith img { height: auto; width:100% }
+        .catalog-product-view #reviews #customer-reviews #review-form textarea { width: 90%}
+        .catalog-product-view .product-view-bundle #product-media { background-color: transparent; display: block; }    
+        .catalog-product-view .product-view-bundle #product-media img { width:100%; float: none; height:auto }    
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addtocart-controls { float: right;  }    
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addto-controls { float: left; } 
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addtocart-controls .btn-add-cart { width:170px } 
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase .addto-controls .addtowishlist a { width:140px}        
+        .catalog-product-view .product-view-bundle #product-shop { background-color:transparent; display: block;  }              
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div { width: 100%; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div.clear {  display: none; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div { display: inline-block; width: 49%; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div:nth-child(2n) {  margin-left: 2% }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select { margin-top: 30px }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns { width:52%;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .bundle-conf-label { position: absolute; margin-top: -22px; margin-left: -100px }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .bundle-conf-label label { font-size: 10px ;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box div:first-child { margin-bottom: 5px  }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box > div { display: block; margin: 0px; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns select { width: 100% }        
+}
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:1px) and (max-width:639px) {
+
+
+        /* ==================================================
+           carousels
+        ================================================== */
+        .carousel-two #collaboration-carousel {}
+        .carousel-two #collaboration-carousel .carousel-inner,
+        .carousel-two #collaboration-carousel .carousel-indicators { display: block }
+        .carousel-two #collaboration-carousel .carousel-inner { width: 100% }
+        .carousel-two #collaboration-carousel .carousel-inner .item { width: 100% }
+        .carousel-two #collaboration-carousel .carousel-inner .item img { width: 100% }
+        .carousel-two #collaboration-carousel .carousel-indicators { margin-top: 10px; width: 100%; }
+        .carousel-two #collaboration-carousel .carousel-indicators li { display: inline-block; margin-right: 10px; width:18%; }
+        .carousel-two #collaboration-carousel .carousel-indicators li img { width: 100%; }     
+        .catalog-category-view .category-products .toolbar-div .filter-options,
+        .catalog-category-view .category-products .toolbar-div #FilterSort { border-width: 1px; clear: both; margin: 0px 8%; width:86% }
+        .catalog-category-view .category-products .toolbar-div .filter-options #btnShowFilterOptions { margin: 3px 0px 0px 0px;}
+        .catalog-category-view .category-products .toolbar-div #FilterSort fieldset > label,
+        .catalog-category-view .category-products .toolbar-div #FilterView fieldset > label { display: block;}
+        .catalog-category-view .category-products .toolbar-div #FilterView fieldset > ul > li { margin: -5px 6px 0px 0px; }                  
+        .catalog-category-view .category-products .pagination { display: none; }      
+        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: none !important; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile,
+        .catalog-category-view .category-products .toolbar-div #FilterSort,
+        .catalog-category-view .category-products .toolbar-div #FilterView,
+        .catalog-category-view .category-products .toolbar-div .pagination { clear: both; display: block; margin: 0px 8% 5px 8%; position: relative; width:84% }
+        .catalog-category-view .category-products .toolbar-div #FilterSort label { text-indent: 8px; }
+        .catalog-category-view .category-products .toolbar-div #FilterSort .select-sort { margin: 5px 0px 0px 0px; width:45% }        
+        .catalog-category-view .category-products .toolbar-div .pagination { border: 1px solid #D8D8D8; height: 30px; right: auto; top: auto; left: auto; text-align: left; }
+        
+        .catalog-category-view .category-products .toolbar-div .filter-options .btn-filter-options > label,        
+        .catalog-category-view .category-products .toolbar-div #FilterSort label,
+        .catalog-category-view .category-products .toolbar-div #FilterView label,
+        .catalog-category-view .category-products .toolbar-div .pagination label { width:43%; text-indent: 15px; }
+        .catalog-category-view .category-products .toolbar-div div.toolbar-item-group-layout .btn-filter-options span.icon-caret-up,
+        .catalog-category-view .category-products .toolbar-div div.toolbar-item-group-layout .btn-filter-options span.icon-caret-down { margin-left: 0px; }        
+        
+        .catalog-category-view .category-products .toolbar-div #FilterView ul { margin: 7px 0px 0px 0px; width: 56%; }
+        .catalog-category-view .category-products .toolbar-div #FilterView ul li,
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li { text-indent: 0px;  }
+        .catalog-category-view .category-products .toolbar-div #FilterView ul li { margin-left: 2px; margin-right: 12%; }
+        .catalog-category-view .category-products .toolbar-div #FilterView ul li:last-child { margin-right: 0%; }
+        //.catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(3) { margin-left: 43% }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(3),
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(4) { float: right; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(3) { margin-right: 30px }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav li:nth-child(4) { margin-right: -60px; }                      
+        //.catalog-category-view .category-products .toolbar-div #FilterView > label,
+        //.catalog-category-view .category-products .toolbar-div #FilterView > ul { display: none;}
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav { width: 54%; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li { float: left; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li.disabled > a { padding: 5px 0px; }
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a { float: none; }        
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a.next,
+        .catalog-category-view .category-products .toolbar-div .pagination ul.nav > li a.previous { font-size: 20pt; padding: 2px 10px; }
+        
+	/* ==================================================
+	   Product View
+	================================================== */	        
+        .catalog-product-view #suggestivetabs li { width: 48%; }
+        .catalog-product-view #suggestivetabs li:first-child { }
+        .catalog-product-view #suggestivetabs li:last-child { float: right; margin-right: 0px; }        
+}
+
+
+/* ==================================================
+   Landscape Phones
+================================================== */
+@media (min-width:321px) and (max-width:480px) {
+
+        /* ==================================================
+           Off
+        ================================================== */			
+
+
+
+        /* ==================================================
+           images
+        ================================================== */	    
+
+
+
+        /* ==================================================
+           common
+        ================================================== */    
+
+
+        /* ==================================================
+           Navigation
+        ================================================== */    
+        #content .std .sub-category-menu {}
+        #content .std .sub-category-menu ul { list-style: none; } 
+        #content .std .sub-category-menu ul li.pronav-unsorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul { list-style: none; }
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted ul { list-style: none; }
+        #content .std .menu-promo { display: none; }
+        
+        
+        /* ==================================================
+           Sections
+        ================================================== */    
+
+
+
+        /* ==================================================
+           Section footer-credits
+        ================================================== */          
+
+
+
+        /* ==================================================
+           Section call to action
+        ================================================== */                  
+
+
+        /* ==================================================
+           Title
+        ================================================== */		
+
+
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */        		               
+        .catalog-category-view .category-products { }
+        //.catalog-category-view .category-products .toolbar-div { background-color: transparent }
+        //.catalog-category-view .category-products .toolbar-div #FilterView { width: 190px; } 
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content {}
+        .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content .filter-nav {}        
+        .catalog-category-view .category-products .products-grid-container { background-color: transparent; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid { }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item {  line-height:normal; margin-bottom:40px; margin-right:0px; width:48%; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(even) { margin-left:2%; } 
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container  { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable { background-color: transparent; width:100%;   }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a > img { height:auto; width: 100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer .MagicToolboxSelectorsContainer { width: 48%; }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .old-price .price,
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .special-price .price { font-size: 8pt }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+        
+    
+        /* ==================================================
+	   Product View
+        ================================================== */		        	        
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage,
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }
+        .catalog-product-view #product-media .MagicToolboxContainer { background-color: transparent; width: 100% !important; }        
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom { background-color: transparent; height: auto; width:100% !important; }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom img { height: auto; width:100%; }
+	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs { margin-top: 15px; }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer { width:100% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul {}
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul li { width:20% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr img { height: auto; width:100% }        
+        .catalog-product-view #product-shop {}
+        .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }        
+        .catalog-product-view #product-shop #productsocial { display: none }
+        .catalog-product-view #product-shop #producttabs {}
+        .catalog-product-view #product-shop #producttabs .std { font-size: 11pt }
+        .catalog-product-view #product-shop #producttabs .tabbable{}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs {}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li { padding: 0px; width: 31.5%; margin-right: 2% }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li:last-child { margin-right: 0px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a { padding: 5px 7px; }
+        .catalog-product-view #product-shop #priceandsqu {}
+        .catalog-product-view #product-shop #priceandsqu .price-box { width: 215px }
+        .catalog-product-view #product-shop #priceandsqu .price-box .old-price {}
+        .catalog-product-view #product-shop #priceandsqu .price-box .special-price {}     
+        .catalog-product-view #product-shop #productpurchase {}        
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper {} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour,
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size { width:100% }        
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour{} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size{ margin: 20px 0px 0px 0px;}         
+
+        .catalog-product-view #suggestivetabs #wearitwith {}
+        .catalog-product-view #suggestivetabs #wearitwith .item { height: auto; width:19%; float:left }
+        .catalog-product-view #suggestivetabs #wearitwith .item .price-box { display: none }
+        .catalog-product-view #suggestivetabs #wearitwith img { height: auto; width:100% }
+        .catalog-product-view #reviews #customer-reviews #review-form textarea { width: 90%}    
+        .catalog-product-view #product-shop #productpurchase .addtocart-controls { float: none; width: 100% }
+        .catalog-product-view #product-shop #productpurchase .addto-controls { float:none; margin-top: 20px; width: 100%; } 
+        .catalog-product-view #product-shop #productpurchase .addtocart-controls .btn-add-cart { width:100% } 
+        .catalog-product-view #product-shop #productpurchase .addto-controls .addtowishlist a { width:100% }        
+    
+        .catalog-product-view .product-view-bundle #product-media { background-color: transparent; display: block; }    
+        .catalog-product-view .product-view-bundle #product-media img { width:100%; float: none; height:auto }    
+        .catalog-product-view .product-view-bundle #product-shop { background-color:transparent; display: block;  }              
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div { width: 100%; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div.clear {  display: none; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div { display: inline-block; width: 100%; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper > div > div:nth-child(2n) {  margin-left: 0px }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select { margin-top: 0px }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns { width:65%;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .bundle-conf-label { position: relative;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .bundle-conf-label label { font-size: 10px ;}
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box div:first-child { margin-bottom: 5px  }        
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns .input-box > div { display: block; margin: 0px; }
+        .catalog-product-view .product-view-bundle #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select .option-dropdowns select { width: 100% }
+                      
+
+        /* ==================================================
+           Checkout
+        ================================================== */			
+
+}
+
+@media (min-width:1px) and (max-width:479px) {
+
+    .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li {
+        padding: 0px;
+        width: 31.5%;
+        margin-right: 1.6%;
+    }
+    .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li:last-child {
+        margin-right: 0px;
+    }    
+}
+
+
+/* ==================================================
+   Portrait Phones
+================================================== */
+@media (max-width:320px) {
+
+      
+        /* ==================================================
+           Off
+        ================================================== */			
+
+
+        /* ==================================================
+           Common
+        ================================================== */    
+                
+        
+        /* ==================================================
+           Navigation
+        ================================================== */    
+        #content .std .sub-category-menu {}
+        #content .std .sub-category-menu ul { list-style: none; } 
+        #content .std .sub-category-menu ul li.pronav-unsorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul { list-style: none; }
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted {}
+        #content .std .sub-category-menu ul li.pronav-unsorted ul li.pronav-sorted ul { list-style: none; }
+        #content .std .menu-promo { display: none; }
+        
+
+        /* ==================================================
+           Sections
+        ================================================== */    
+
+        
+        /* ==================================================
+           Section footer-credits
+        ================================================== */          
+
+        
+        /* ==================================================
+           Title
+        ================================================== */			
+
+        
+	/* ==================================================
+	   Product Category Product List View
+	================================================== */        		               
+        .catalog-category-view .category-products { }        
+        //.catalog-category-view .category-products .toolbar-div .toolbar-item-group-layout .select-sort { width:60px; }
+        //.catalog-category-view .category-products .toolbar-div #FilterView { width: 126px; }
+        //.catalog-category-view .category-products .toolbar-div #FilterSort { padding: 0px 5px 0px 5px; }
+        //.catalog-category-view .category-products .toolbar-div #FilterSort > label { display: none;}
+        //.catalog-category-view .category-products .toolbar-div .filteroptions-placeholder {}
+        //.catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions {}
+        //.catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box {}
+        //.catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content {}
+        //.catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box .block-content .filter-nav {}        
+        .catalog-category-view .category-products .toolbar-div #FilterSort .select-sort { width: 40%; }
+        .catalog-category-view .category-products .products-grid-container { background-color: transparent; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid { }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item { line-height:normal; margin-bottom:40px; margin-left:0px; margin-right:0px; width:48%; } 
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item:nth-child(even) { margin-left:2%; } 
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container  { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable { background-color: transparent; width:100%;   }        
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer { background-color: transparent; width:100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer > a > img { height:auto; width: 100%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .grid-img-container .clickable .MagicToolboxContainer .MagicToolboxSelectorsContainer { width:48%; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .details .product-name, 
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .details .product-name a { font-size: 7pt }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box { }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .old-price .price,
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .price-box .special-price .price { font-size: 8pt }
+        .catalog-category-view .category-products .products-grid-container ul.products-grid > li.item .quick-view-link-nav { display: none; }
+        
+        
+	/* ==================================================
+	   Product View
+	================================================== */		                 
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage,
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }
+        .catalog-product-view #product-media .MagicToolboxContainer { background-color: transparent;  width: 100% !important; }        
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom img { height: auto; width:100% }
+	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs { }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer { width:100% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul {}
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul li { width:19% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr img { height: auto; width:100% }        
+        .catalog-product-view #product-shop {}
+        .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }
+        .catalog-product-view #product-shop #productsocial { display: none }
+        .catalog-product-view #product-shop #producttabs {}
+        .catalog-product-view #product-shop #producttabs .std { font-size: 11pt }
+        .catalog-product-view #product-shop #producttabs .tabbable{}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs {}
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li { padding: 0px; }
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a { padding: 5px 7px; }
+        .catalog-product-view #product-shop #priceandsqu {}
+        .catalog-product-view #product-shop #priceandsqu .price-box { width: 215px }
+        .catalog-product-view #product-shop #priceandsqu .price-box .old-price {}
+        .catalog-product-view #product-shop #priceandsqu .price-box .special-price {}     
+        .catalog-product-view #product-shop #productpurchase {}
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper {} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour,
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size { width:100% }                
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .colour{} 
+        .catalog-product-view #product-shop #productpurchase #product-options-wrapper .size{ margin: 20px 0px 0px 0px;}         
+        .catalog-product-view #product-shop #productpurchase .addtocart-controls .btn-add-cart { min-width:80px; max-width:125px }      
+        .catalog-product-view #product-shop #productpurchase .addto-controls .addtowishlist a { min-width:90px; max-width:126px}
+        .catalog-product-view #suggestivetabs #wearitwith {}
+        .catalog-product-view #suggestivetabs #wearitwith .item { height: auto; width:20%; float:left; display: inline-block; }
+        .catalog-product-view #suggestivetabs #wearitwith .item .price-box { display: none }
+        .catalog-product-view #suggestivetabs #wearitwith img { height: auto; width:100% }
+        .catalog-product-view #suggestivetabs #customer-reviews #product-review-table {}
+        .catalog-product-view #suggestivetabs #customer-reviews #product-review-table th { font-size: 9pt; line-height: 9pt; text-align: center; }
+        .catalog-product-view #reviews #customer-reviews #review-form textarea { width: 90%}       
+        
+}
+
+/* ==================================================
+   Retina Display
+================================================== */
+@media only screen and (-webkit-min-device-pixel-ratio:2)
+{
+	/* ==================================================
+	   Title
+	================================================== */			
+
+
+	/* ==================================================
+	   Product View
+	================================================== */		
+
+	
+}

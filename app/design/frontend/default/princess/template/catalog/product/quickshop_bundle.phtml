@@ -1,0 +1,445 @@
+<?php
+/**
+bundled product template
+*/
+
+
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+?>
+<script type="text/javascript">
+var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<?php
+$message = $this->getMessagesBlock()->getGroupedHtml();
+if (strlen($message) > 0) {
+	echo "<div id='messages_product_view'>" . $message . "</div>";
+}
+
+$productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+$productAvailability = false;
+if ($_product->getResource()->getAttribute('available_date') != null) {
+    $adate = strtotime($_product->getAvailableDate());
+    $today = Mage::getModel('core/date')->timestamp(time());
+    // can be ordered yet?
+    if ($today < $adate) {
+        $productAvailability = sprintf("Arrives %s", date("F Y", $adate));
+    }
+}
+?>
+
+<div id="modalgrab" class="product-view product-view-bundle">
+	<div class="product-essential">
+		<form action="<?php echo $this->getAddToCartUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+			<div class="no-display">
+				<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+				<input type="hidden" name="related_product" id="related-products-field" value="" />
+			</div>
+		
+			<div class="row">
+				<?php /* Render Magiczoom on this page cause product option dropdown not to populate.
+				<div class="span6" id="product-media">
+						<?php echo $this->getChildHtml('media') ?>
+				</div>	
+				*/ ?>
+				<div id="product-media" class="span5">
+					<div class="product-img-box">
+						<?php
+							$src = $this->helper('catalog/image')->init($_product, 'image');
+							echo sprintf("<img src='%s' alt='%s' />", $src, $this->htmlEscape($_product->getName()));
+						?>
+					</div>
+				</div>	   
+	
+				<div class="span6 offset1" id="product-shop">
+					<div class="product-name">
+						<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+					</div>					
+					<div id="priceandsqu">
+						<?php echo $this->getTierPriceHtml() ?>
+						<?php echo $this->getChildHtml('product_type_data') ?>
+						<!-- Use Factory X SKU Code instead <span class="product-sku">Item #: <?php echo nl2br($_product->getSku()) ?></span> -->
+						<span class="product-sku"><?php echo $this->__("Item #: %s", $this->getProduct()->getSku()) ?></span>
+
+						<?php echo $this->getChildHtml('extrahint') ?>
+
+						<?php
+						if ($productAvailability) {
+							echo sprintf("<div class=\"product-availability\">%s</div>", $productAvailability);
+						}
+						?>
+					</div>									
+
+
+					<!-- Email to friend Functionality - Removed for princesshighway theme. -->
+					<?php /* if ($this->canEmailToFriend()): ?>
+							<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+					<?php endif; */ ?>
+					
+					<div class="row">
+						<div class="span6" id="producttabs">
+							<div class="tabbable">
+
+								<ul id="myTab" class="nav nav-tabs">
+									<li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+									<li><a href="#short" data-toggle="tab">Fabric &amp; Care</a></li>
+									<li><a href="#dimensions" data-toggle="tab">Size &amp; Fit</a></li>
+								</ul>
+
+								<div class="tab-content">
+
+									<div class="tab-pane active" id="description">
+										<?php if ($_product->getDescription()): ?>
+											<div class="description">
+													<!--<h2><?php echo $this->__('Description') ?></h2>-->
+												<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+											</div>
+										<?php endif; ?>
+									</div>
+									<div class="tab-pane" id="short">
+										<?php if ($_product->getShortDescription()): ?>
+											<div class="short-description">
+													<!--<h2><?php echo $this->__('Short Description') ?></h2>-->
+												<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+											</div>
+										<?php endif; ?>
+									</div>
+
+									<div class="tab-pane " id="dimensions">
+										<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getsize_and_fit()), 'size_and_fit') ?></div>
+
+									</div>
+								</div>
+							</div>		   
+						</div>					
+					</div>
+					
+					<div class="row">
+						<div id="productpurchase" class="span6">
+							<?php if ($_product->isSaleable() && $this->canEmailToFriend()): // && $this->hasOptions()):?>
+								<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+								<div class="add-to-cart">
+									<?php /* echo $this->getChildHtml('addtocart') */ ?>
+								</div>
+							<?php endif;?>
+
+							<?php 
+							/*
+							add the looks mini nav
+							*/
+							$currentUrl = $this->helper('core/url')->getCurrentUrl();
+							$currentUrl = substr($currentUrl, strrpos($currentUrl, "/")+1);
+							?>
+							<?php echo $this->getChildHtml('other');?>
+							<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+								<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+							<?php endif;?>
+						</div>	
+					</div>	
+					
+					<div class="text-align-right" id="productsocial">
+						<?php echo $this->getChildHtml('alert_urls') ?>
+					</div>						
+				</div>	 
+			</div>	 			
+		</form>
+	</div>	 
+</div>
+<div class="row">
+	<div id="suggestivetabs" class="span12">
+		<div class="tabbable">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active"><a href="#reviews" data-toggle="tab">Product Reviews</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="reviews">
+					<?php echo $this->getChildHtml('product_review') ?>
+				</div>
+			</div>
+		</div>		        		              						 
+	</div>		        		              						 
+</div>	
+
+<?php /* echo $this->getChildHtml('product_additional_data') */ ?>
+<?php /* echo $this->getChildHtml('product_advancedreviews') */ ?>
+
+<script type="text/javascript">
+//<![CDATA[
+var productAddToCartForm = new VarienForm('product_addtocart_form');
+productAddToCartForm.submit = function(){
+		if (this.validator.validate()) {
+				this.form.submit();
+		}
+}.bind(productAddToCartForm);
+
+/*
+configurable selector functions (used in magiczoom/configurable.phtml)
+*/
+function colorSelected(id, value, product_image_src, product_big_image_src, color_div_id, product_id) {
+	// Disable all the size
+	jQuery("#size-container").children().each(
+		function() {
+			jQuery(this).addClass('size-disabled');
+		}
+	);
+	// Update the product image
+	jQuery(".MagicZoom img").attr("src", product_image_src);
+	// Update the big zoomed image
+	jQuery(".MagicZoomBigImageCont img").attr("src", product_big_image_src);
+	// Set the value of the attribute in the hidden field
+	document.getElementById(id).value = value;
+	// Unselect the previous swatch (CSS)
+	if (jQuery('.swatch-selected')) {
+		jQuery('.swatch-selected').removeClass('swatch-selected');
+	}
+	// Apply CSS selection on the swatch
+	jQuery("#"+color_div_id).addClass('swatch-selected');
+	// Refresh sizes and price through the ProductRefresh module
+	jQuery.ajax( {
+		url : "/productrefresh/index",
+		dataType : 'json',
+		type : 'get',
+		data : "product_id=" + product_id + "&color=" + value,
+		success : function(data) {
+			// If everything has worked
+			if (data.status == "SUCCESS") {
+				jQuery("#unavailable").remove();
+				// We go through every size box
+				jQuery("#size-container").children().each(
+					function() {
+						// Removing all the existing disabled class
+						if (jQuery(this).hasClass('size-disabled')) jQuery(this).removeClass('size-disabled');
+						// Adding the disabled class if this one is not available
+						if (jQuery.inArray(jQuery(this).attr("id"),data.sizes) == -1) {
+							jQuery("#attribute131").val("");
+							jQuery(this).addClass('size-disabled');
+							if (jQuery(this).hasClass('size-selected')) {
+								jQuery(this).removeClass('size-selected');
+							}
+						}
+					}
+				);
+				if (data.sizes.length == 0) {
+					jQuery("#size-container").append("<div id='unavailable'>Sorry, this color is currently out of stock.</div>");
+					// Unselect the previous size (CSS)
+					if (jQuery('.size-selected')) 
+					{
+						jQuery('.size-selected').removeClass('size-selected');
+					}
+				}
+				
+				// We calculate the new price
+				var totalPrice = 0.00;
+				totalPrice += parseFloat(jsonConf.basePrice);
+				// Based on the returned values
+				if (data.prices[value]>0) {
+					totalPrice += parseFloat(data.prices[value]);
+				}
+
+				// We are changing the price if the new price is different
+				// Or the special price if there is one							
+				if (jQuery(".special-price #product-price-"+product_id+"_clone").html() != "$"+totalPrice.toFixed(2) && jQuery(".special-price #product-price-"+product_id+"_clone").html() != null)
+				{
+					jQuery(".special-price #product-price-"+product_id+"_clone").replaceWith("<span id='product-price-"+product_id+"_clone' class='price'>$"+totalPrice.toFixed(2)+"</span>");
+					jQuery(".special-price #product-price-"+product_id+"_clone").effect("pulsate", {times:3}, 700);
+				}
+				else if (jQuery("#product-price-"+product_id+"_clone .price").html() != "$"+totalPrice.toFixed(2)) 
+				{
+					jQuery("#product-price-"+product_id+"_clone .price").replaceWith("<span class='price'>$"+totalPrice.toFixed(2)+"</span>");
+					jQuery("#product-price-"+product_id+"_clone .price").effect("pulsate", {times:3}, 700);
+				}
+			}
+		}
+	});
+}
+
+// Corresponding function for the size
+function sizeSelected(id, value, size_div_id) {
+	// We check if the div chosen is available or not
+	if (jQuery("#"+size_div_id).hasClass('size-disabled')) return;
+	// Set the value of the attribute in the hidden field
+	document.getElementById(id).value = value;
+	// Unselect the previous size (CSS)
+	if (jQuery('.size-selected')) {
+		jQuery('.size-selected').removeClass('size-selected');
+	}
+	// Apply CSS selection on the size
+	jQuery("#"+size_div_id).addClass('size-selected');
+}
+//]]>
+</script>
+</div>
+
+</div>
+<?php
+
+$optionCollection = $this->getProduct()->getTypeInstance()->getOptionsCollection();
+$selectionCollection = $this->getProduct()->getTypeInstance()->getSelectionsCollection($this->getProduct()->getTypeInstance()->getOptionsIds());
+$options = $optionCollection->appendSelections($selectionCollection);
+//Mage::log(count($options));
+$sizeAttrs = array(
+	9 => "size_clothing",
+	10 => "size_pants",
+	11 => "size_shoes",
+	13 => "size_belts"
+);
+
+// Mage_Bundle_Model_Option
+foreach($options as $option) {
+	//Mage::log(sprintf("option->%s,%s", get_class($option), $option->getId()));
+	$_selections = $option->getSelections();	
+	//Mage::log(sprintf("_selections=%d", count($_selections)));
+	if (count($_selections) == 0) {
+		continue;
+	}
+	$simpleId = $option->getId(); //product_simple->getProductId();
+	foreach($_selections as $selection) {
+		$product_simple = Mage::getModel('catalog/product')->load($selection->getId());
+		//Mage::log(sprintf("product_simple=%s", $product_simple->getAttributeSetId()));
+		$colour = $product_simple->getAttributeText('colour');
+		$sizeAttr = 'size_clothing';
+		if (array_key_exists($product_simple->getAttributeSetId(), $sizeAttrs)) {
+			$sizeAttr = $sizeAttrs[$product_simple->getAttributeSetId()];
+		}
+		$size = $product_simple->getAttributeText($sizeAttr);
+		//Mage::log(sprintf("%s->var=%s", $sizeAttr, $size));
+		$products['bundle_product'][$simpleId][$colour][$size]['colour'] = $colour;
+		$products['bundle_product'][$simpleId][$colour][$size]['size'] = $size;
+		$products['bundle_product'][$simpleId][$colour][$size]['price'] = $product_simple->getFinalPrice();
+		$products['bundle_product'][$simpleId][$colour][$size]['default'] = 0;
+		$products['bundle_product'][$simpleId][$colour][$size]['selectionid'] = $selection->getSelectionId();
+		$parentIds = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($product_simple->getId());
+		$products['bundle_img'][$simpleId][$colour]['img'] = "";
+		//Mage::log(sprintf("parents=%d", count($parentIds)));
+
+		$found = false;
+		$labelColour = strtolower(preg_replace("/[\s\W]+/", "-", $colour));
+		$match = sprintf("front_%s", $labelColour);
+		foreach($parentIds as $parent) {
+			$parentProduct = Mage::getModel('catalog/product')->load($parent);
+			// Varien_Data_Collection
+			$images = array_values($parentProduct->getMediaGalleryImages()->getItems());
+			for ($i = 0; $i < count($images) && !$found; $i++) {
+				$img = $images[$i];
+				//Mage::log(sprintf("label:%s==%s", $img->getLabel(), $match));
+				if ($img->getLabel() == $match) {
+					//Mage::log(sprintf("match=%s", $img->getFile()));
+					$a = (string)Mage::helper('catalog/image')->init($parentProduct, 'image', $img->getFile())->resize(75,75);
+					//Mage::log($a);
+					// use absolute paths
+					$a = str_replace(Mage::getBaseUrl(), "/", $a);
+					//Mage::log($a);
+					$products['bundle_img'][$simpleId][$colour]['img'] = $a;
+					$found = true;
+				}
+			}
+		}
+	}
+}
+?>
+<script type="text/javascript">	
+var products = <?php echo (isset($products) && count($products))?json_encode($products['bundle_product']):"\"\""; ?>;
+var product_imgs = <?php echo (isset($products) && count($products))?json_encode($products['bundle_img']):"\"\""; ?>;
+var base_url='<?php echo Mage::getBaseUrl()?>';
+var productid=jQuery('input[name$="product"]').val();
+	
+jQuery(document).ready(function(){
+
+	for(var p in products) {
+		var selector = jQuery('#bundle-color-' + p);
+		jQuery('#bundle-size-' + p).append(new Option('Choose a size ...',''))
+		for(var c in products[p]){
+			selector.append(new Option(c,c));
+		}
+		var img = product_imgs[p][c]['img'];
+		jQuery('#image-' + p).attr("src", img);
+	}
+});
+
+function choosecolor(id){
+	var color = jQuery('#bundle-color-'+id).val();
+	var bsid = 'bundle-size-' + id;
+	var size = jQuery('#' + bsid + ' :selected').val();
+	
+	/* To make this work with the changeSelection() from the bundle there are a few messy hacks. */
+
+	//Hack 1: set the size to nothing and call changeSelection() on it to update selection
+	jQuery('#' + bsid + ' option')[0].selected = true;
+	bundle.changeSelection(document.getElementById(bsid));
+	
+	jQuery('#' + bsid + ' option').each(function(i, option){ $(option).remove(); });
+	if (color == '') {
+		jQuery('#' + bsid).append(new Option('Choose a size ...',''));
+		jQuery('#bundle-option-' + id).val('');
+		jQuery('#bundle-option-' + id + '-qty-input').val(0);
+		jQuery('#bundle-option-' + id + '-qty-input').attr('disabled', 'disabled');
+		//jQuery('#the-price-'+id).val(0);
+
+		jQuery('#bundle-size-' + id).removeClass('required-entry');
+		//Hack 2: don't call the changeprice() because it doesn't work well with the bundle, instead call bundle.reloadPrice()
+		bundle.reloadPrice();
+		//changeprice(id);
+	}
+	else{				
+		// Hack 3: add required-entry to size to require that a size is selected.
+		var img = base_url + product_imgs[id][color]['img'];
+		jQuery('#image-'+id).attr("src", img);		
+		jQuery('#bundle-size-'+id).addClass('required-entry');
+		jQuery('#bundle-size-'+id).append(new Option('Choose a size ...',''));
+		
+		for (var key in products[id][color]) {
+			//console.log("key=" . key);
+			jQuery("<option>").attr("value", products[id][color][key].selectionid).text(key).appendTo('#' + bsid);
+		}
+	}
+	changeproduct(id);
+}
+
+function changeproduct(id){
+	var color=jQuery('#bundle-color-'+id).val();
+	var size=jQuery('#bundle-size-'+id).val();
+	if (size=="" || color == "") {
+		return
+	}
+	var selectid=products[id][color][size].selectionid;
+	var img=base_url+product_imgs[id][color]['img'];
+	var price=products[id][color][size]['price'];
+	jQuery('#bundle-option-'+id).val('');
+	jQuery('#bundle-option-'+id).val(selectid);
+	jQuery('#bundle-option-'+id+'-qty-input').val(1);
+	jQuery('#bundle-option-'+id+'-qty-input').removeAttr("disabled");
+	jQuery('#image-'+id).attr("src",img);
+
+	//Hack 4: Don't call the changeprice() because it doesn't work properly with the changeSelection() from bundle.
+	//jQuery('#the-price-'+id).val(price);
+	//changeprice(id);
+}
+
+function changeprice(id){
+	var total=0;
+	var num=0;		
+	jQuery("input.the-price").each(function (index){
+		myid=get_id(jQuery(this).attr('id'))
+		qty=jQuery('#bundle-option-'+myid+'-qty-input').val();
+		theprice=jQuery(this).val();
+		total += (theprice*qty);
+	});
+	total='$'+total.toFixed(2);
+	jQuery('#product-price-'+productid).html(total);
+}
+
+function get_id(val){
+	val=val.replace('the-price-','');
+	return val;
+}
+
+jQuery("input.the-price").each(function (index){
+	myid=get_id(jQuery(this).attr('id'));
+	color=jQuery('#bundle-color-'+myid).val();
+	if(color!=''){
+		img=base_url+product_imgs[myid][color]['img'];
+		jQuery('#image-'+myid).attr("src",img);
+	}	
+});
+</script>

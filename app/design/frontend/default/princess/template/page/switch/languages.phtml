@@ -1,0 +1,22 @@
+<?php
+/**
+ * Language switcher template
+ *
+ * @see Mage_Page_Block_Switch
+ */
+?>
+<?php if (count($this->getStores()) > 1): ?>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <?php echo $this->__('Switch Theme') ?> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <?php foreach ($this->getStores() as $_lang): ?>
+                <?php $_selected = ($_lang->getId() == $this->getCurrentStoreId()) ? ' class="active"' : '' ?>
+            <li <?php echo $_selected ?>>
+                <a  href="<?php echo $_lang->getCurrentUrl() ?>"><?php echo $this->htmlEscape($_lang->getName()) ?></a>
+            </li>
+                
+            <?php endforeach; ?>
+        </ul>
+    </li>
+<?php endif; ?>

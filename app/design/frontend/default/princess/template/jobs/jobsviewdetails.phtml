@@ -1,0 +1,95 @@
+
+<div id="main" class="main-div" style="border:0px solid #ffffff; height:512px; position:relative;">
+
+<div class="page-title" style="width:410px">
+	<h1>Careers<!-- Details --></h1>
+</div>
+<br>
+<?php
+$helper = new Xigmapro_Jobs_Helper_Data();
+
+$jobId = 1;
+if (array_key_exists("id", $_GET)) {
+	$jobId = reverse_escape($_GET['id']);
+}
+$title = 0;
+$jobs = Mage::getModel('Jobs/Jobs')->getCollection();
+//$cnt = count($jobs);
+foreach ($jobs as $job) {
+    $title = $title + 1;
+    //$job->setTitle($title);
+	if ($job->getId() == $jobId) {
+		$country = $job->getCountrys();
+		$position = $job->getPosition();
+		$location = $job->getLocations();
+		$hours = trim($job->getHours());
+		$entitlements = trim($job->getEntitlements());
+		$specific = $job->getRequirements();
+		$adminemaill = $job->getEmail();
+		$status = $helper->getJobStatus($job->getstatuss());
+/*		
+<p><span class="pf1002380"><?php echo $country; ?></span></p>		
+*/
+?>
+<div id="careers" style="width:95%;">
+<table class="stores" style="width:95%;">
+<tr>
+	<td colspan="2" class="title1"><?php echo $country . " :: " . $location; ?></td>
+</tr>	
+<tr>
+	<td class="label">Position title:</td>
+	<td><?php echo $position; ?></td>
+</tr>
+<tr>
+	<td class="label">Employment status:</td>
+	<td><?php echo $status; ?></td>
+</tr>
+<tr>
+	<td class="label">Location:</td>
+	<td><?php echo $location; ?></td>
+</tr>
+<?php
+if ($hours && strlen($hours)) {
+?>
+<tr>
+	<td class="label">Hours:</td>
+	<td><?php echo $hours; ?></td>
+</tr>
+<?php
+}
+
+if ($entitlements && strlen($entitlements)) {
+?>
+<tr>
+	<td class="label">Entitlements:</td>
+	<td><?php echo $entitlements; ?></td>
+</tr>
+<?php
+}
+?>
+<tr>
+	<td class="labely">Specific Requirements:</td>
+	<td><?php echo $specific; ?></td>
+</tr>
+<tr>
+	<td class="label">To Apply:</td>
+	<td>
+		<p>Email resume and expression of interest to: <?php echo "<a href='mailto:" . $adminemaill . "?subject=" . $position . "'>" . $adminemaill . "</a>"; ?>
+	</td>
+</tr>
+</table>
+
+</div>
+<?php
+}
+}
+?>
+</div>
+
+<?php
+function reverse_escape($str) {
+	$search = array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
+	$replace = array("\\","\0","\n","\r","\x1a","'",'"');
+	return str_replace($search,$replace,$str);
+} 
+?>

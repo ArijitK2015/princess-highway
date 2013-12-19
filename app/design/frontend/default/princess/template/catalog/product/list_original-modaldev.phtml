@@ -1,0 +1,887 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+ 
+$imageW = 200; //224
+$imageH = 226; //254
+?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php if(!$_productCollection->count()): ?>
+<<<<<<< HEAD
+<!-- Product Availability Requirements 
+================================================== -->	
+<?php
+$message = $this->getMessagesBlock()->getGroupedHtml();
+if (strlen($message) > 0) {
+	echo "<div id='messages_product_view'>" . $message . "</div>";
+}
+
+$productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+$productAvailability = false;
+if ($_product->getResource()->getAttribute('available_date') != null) {
+    $adate = strtotime($_product->getAvailableDate());
+    $today = Mage::getModel('core/date')->timestamp(time());
+    // can be ordered yet?
+    if ($today < $adate) {
+        $productAvailability = sprintf("Arrives %s", date("F Y", $adate) );
+    }
+}
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+=======
+
+>>>>>>> 009b7ca7eb0f8c7bb4dfe6a203cc8818e18686d2
+
+
+<div>
+	<p class="note-msg">
+		<?php echo $this->__('There are no products matching the selection.') ?>
+	</p>
+</div>
+<?php else: ?>
+<div class="category-products">
+    <div class="toolbar-div">
+
+
+<?php 
+
+    $sku = 'my-product-sku';
+    $product = Mage::getModel('catalog/product')->load($colour, 'colour');
+     
+    if ($product->getId()) {
+        echo $product->getName();
+    }
+    else {
+        echo 'Product not found with SKU of ' . $sku;
+    }
+    
+    $_productCollection->addFieldToFilter(array(
+	array('attribute'=>'colour'),
+       ));
+
+
+//    $_productCollection->addAttributeToFilter('colour', array('in' => $FilterColours)); 
+?>
+        
+<div style="position:absolute; top:20px; left:20px; z-index:9999; width:200px;  background-color:red;">
+<?php        
+    echo '<h2> ???? = ' . $_productCollection->count() . '</h2>';        
+?>        
+<?php        
+          foreach ($collection as $product) { echo '<br/>Product = ' . $_product->getName();}
+?>
+</div>
+        
+<!-- Filter Draft
+================================================== -->				
+<?php echo $this->getToolbarHtml() ?>
+
+<!-- End: Filter Draft
+================================================== -->	        
+    	
+        
+    </div>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <?php if ($_product->getTypeId() != "panel"): ?>
+            <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+                <?php // Product Image ?>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                <?php // Product description ?>
+                <div class="product-shop">
+                    <div class="f-fix">
+                        <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                        <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+
+                        <?php if($_product->getRatingSummary()): ?>
+                            <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                        <?php endif; ?>
+
+                        <?php if ($_product->getComingSoon() && preg_match("/^yes$/i", $_product->getAttributeText('coming_soon'))): ?>
+                            <div class="price-box"><b><?php echo $this->__('Coming Soon') ?></b></div>
+                        <?php else: ?>
+                            <?php echo $this->getPriceHtml($_product, true) ?>
+                        <?php endif; ?>
+
+                        <?php if ($_product->getTypeId() == "ugiftcert" || stripos($_product->getName(),"gift voucher")>0): ?>
+                            <script type="text/javascript">
+								jQuery('#product-price-<?php echo $_product->getId(); ?> .price').prepend("From ");
+							</script>
+                        <?php endif ?>
+
+                        <?php
+                        if ($_product->getResource()->getAttribute('in_store_only') != null)
+                        {
+                            $onlyInStore = $_product->getAttributeText('in_store_only');
+                        }
+                        ?>
+                        <?php if (isset($onlyInStore) && $onlyInStore == "Yes"): ?>
+                            <p class="add-to-cart"><b><?php echo $this->__('Only Available in Stores') ?></b></p>
+                        <?php elseif($_product->isSaleable()): ?>
+                            <p class="add-to-cart"><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+
+                        <div class="desc std">
+                            <?php echo $_product->getDescription(); ?>
+                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                        </div>
+
+                        <?php if ($_product->getShowAvailableUnits()):?>
+                            <?php
+                                $qtyStock = 0;
+                                if ($_product->getTypeId() == "configurable")
+                                {
+                                    $associatedProducts = $_product->getTypeInstance()->getUsedProducts();
+                                    // Fetch the associated products
+                                    foreach($associatedProducts as $child)
+                                    {
+                                        $qtyStock += Mage::getModel('cataloginventory/stock_item')->loadByProduct($child)->getQty();
+                                    }
+                                }
+                                else
+                                {
+                                    $qtyStock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty();
+                                }
+                            ?>
+                            <?php $qtyStockShowLimit = Mage::getStoreConfig('cataloginventory/options/show_products_left_limit'); ?>
+                            <?php if ($qtyStockShowLimit && $qtyStockShowLimit >= $qtyStock): ?>
+                                <div><b><?php echo $this->__('Only %s left', $qtyStock) ?></b></div>
+                            <?php endif; ?>
+                        <?php endif;?>
+
+                        <ul class="add-to-links">
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <?php endif; ?>
+                            <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php
+    $_collectionSize = $_productCollection->count();
+    $_columnCount = $this->getColumnCount();
+    $_columnCount = 4;
+    ?>
+    
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <div class="products-grid-container">
+			<ul class="products-grid">
+			<?php endif ?>
+				<li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+					<div class="grid-img-container">
+						<?php if($_product->isSaleable()): ?>
+							<?php if ($_product->getTypeId() == "panel"): ?>
+								<div class="clickable">
+									<?php if (Mage::helper('advertpanels')->isValidUrl($_product->getDescription())): ?>
+										<?php $link = $_product->getDescription(); ?>
+									<?php else: ?>
+										<?php $link = "javascript:void(0);"; ?>
+									<?php endif; ?>
+									<a href="<?php echo $link ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+										<img alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" width="<?php echo $imageW; ?>" height="<?php echo $imageH; ?>"
+												src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>" />
+									</a>
+								</div>
+							<?php else: ?>
+								<div class="clickable">
+									<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+										<img width="<?php echo $imageW; ?>" height="<?php echo $imageH; ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+									</a>
+								</div>
+							<?php endif; ?>
+						<?php else: ?>
+							<div class="clickable" style="width:<?php echo $imageW; ?>px; height:<?php echo $imageH; ?>px; background-image:url('<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>');">
+								<a style="padding-top:90px;" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+									<p class="availability out-of-stock" style="background-color:#fff; border-top:1px solid #FF1658; border-bottom:1px solid #FF1658">
+										<span><?php echo $this->__('Out of stock') ?></span>
+									</p>
+								</a>
+							</div>
+						<?php endif; ?>
+						<?php 
+							$productAvailability = false;
+							if ($_product->getResource()->getAttribute('available_date') != null) {
+								$adate = strtotime($_product->getAvailableDate());
+								$today = Mage::getModel('core/date')->timestamp(time());
+								// can be ordered yet?
+								if ($today < $adate) {
+									$productAvailability = sprintf("%s", date("M Y", $adate) );
+								}
+							}
+							else if ($_product->getResource()->getAttribute('in_store_only') != null) {
+								$onlyInStore = $_product->getAttributeText('in_store_only');
+							}
+							if ($productAvailability) {
+								echo sprintf("<b class='onlystores'>Arrives %s Pre-Order NOW!</b>", $productAvailability);
+							}
+							else if (isset($onlyInStore) && $onlyInStore == "Yes") {
+								echo "<b class='onlystores'>Only Available in Stores</b>";
+							}
+						?> 
+								
+					</div>
+					
+					<div style="text-align:center">
+						<?php if ($_product->getShowAvailableUnits()):?>
+							<?php 	
+								$qtyStock = 0;
+								if ($_product->getTypeId() == "configurable")
+								{
+									$associatedProducts = $_product->getTypeInstance()->getUsedProducts();
+									// Fetch the associated products
+									foreach($associatedProducts as $child)
+									{
+										$qtyStock += Mage::getModel('cataloginventory/stock_item')->loadByProduct($child)->getQty();
+									}
+								}
+								else 
+								{
+									$qtyStock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty();
+								}
+							?>
+							<?php $qtyStockShowLimit = Mage::getStoreConfig('cataloginventory/options/show_products_left_limit'); ?>
+							<?php if ($qtyStockShowLimit && $qtyStockShowLimit >= $qtyStock): ?>
+								<div class="product-units-left"><?php echo $this->__('Only %s left', $qtyStock) ?></div>
+							<?php endif; ?>
+						<?php endif;?>
+						<?php if ($_product->getTypeId() != "panel"): ?>
+							<span class="product-name">
+								<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+									<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+								</a>
+							</span>
+						<?php endif;?>
+						<?php
+							/*
+							$block = $this->getLayout()->createBlock("catalog/product");
+							$block->setData('product', $_product);
+							$block->setTemplate("catalog/product/available_sizes.phtml");
+							echo $block->toHtml();
+							*/
+							// echo $_product->getComingsoon() . ",commingsoon=[" . $_product->getAttributeText('comingsoon');
+							if ($_product->getComingsoon() && preg_match("/^yes$/i", $_product->getAttributeText('comingsoon'))) 
+							{
+								echo "<div class=\"price-box\"><b>Coming Soon</b></div>";
+							}
+							elseif ($_product->getTypeId() != "panel")
+							{
+								echo $this->getPriceHtml($_product, true);
+							}
+						?>
+						<?php if ($_product->getTypeId() == "ugiftcert" || stripos($_product->getName(),"gift voucher")>0): ?>
+							<script type="text/javascript">
+								jQuery('#product-price-<?php echo $_product->getId(); ?> .price').prepend("From ");
+							</script>
+						<?php endif; ?>
+					</div>
+					
+						<!-- Product Image Box
+						================================================== -->			
+	                    <div id="quickshopModal">
+
+		                    <!-- Button to trigger modal -->
+		                    <div id="quickshop">
+		                    	<a href="#myModal<?php echo $_product->getId() ?>" role="button" data-toggle="modal"><i class="icon-external-link"></i> Quick Shop</a>		                    	
+		                    </div>
+	
+							<!-- Modal -->
+							<div id="myModal<?php echo $_product->getId() ?>" class="span8 modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+									<!-- Close Modal Row
+									================================================== -->			
+									<div class="row">
+										<div class="span8 modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-sign"></i></button>
+										</div>										
+									
+									</div>
+
+									<!-- End: Close Modal Row
+									================================================== -->			
+
+									
+									
+									<!-- Product Body Row
+									================================================== -->			
+									<div class="row">
+
+
+											<!-- Product Image Box
+											================================================== -->			
+											<div class="span4" id="modal-media">
+
+
+
+									
+													<div class="products-grid-container">
+														<div class="grid-img-container">
+															<?php if($_product->isSaleable()): ?>
+																<?php if ($_product->getTypeId() == "panel"): ?>
+																	<div class="clickable">
+																		<?php if (Mage::helper('advertpanels')->isValidUrl($_product->getDescription())): ?>
+																			<?php $link = $_product->getDescription(); ?>
+																		<?php else: ?>
+																			<?php $link = "javascript:void(0);"; ?>
+																		<?php endif; ?>
+																		<a href="<?php echo $link ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+																			<img alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" width="<?php echo $imageW; ?>" height="<?php echo $imageH; ?>"
+																					src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>" />
+																		</a>
+																	</div>
+																<?php else: ?>
+																	<div class="clickable">
+																		<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+																			<img width="<?php echo $imageW; ?>" height="<?php echo $imageH; ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+																		</a>
+																	</div>
+																<?php endif; ?>
+															<?php else: ?>
+																<div class="clickable" style="width:<?php echo $imageW; ?>px; height:<?php echo $imageH; ?>px; background-image:url('<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imageW, $imageH); ?>');">
+																	<a style="padding-top:90px;" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+																		<p class="availability out-of-stock" style="background-color:#fff; border-top:1px solid #FF1658; border-bottom:1px solid #FF1658">
+																			<span><?php echo $this->__('Out of stock') ?></span>
+																		</p>
+																	</a>
+																</div>
+															<?php endif; ?>
+															<?php 
+																$productAvailability = false;
+																if ($_product->getResource()->getAttribute('available_date') != null) {
+																	$adate = strtotime($_product->getAvailableDate());
+																	$today = Mage::getModel('core/date')->timestamp(time());
+																	// can be ordered yet?
+																	if ($today < $adate) {
+																		$productAvailability = sprintf("%s", date("M Y", $adate) );
+																	}
+																}
+																else if ($_product->getResource()->getAttribute('in_store_only') != null) {
+																	$onlyInStore = $_product->getAttributeText('in_store_only');
+																}
+																if ($productAvailability) {
+																	echo sprintf("<b class='onlystores'>Arrives %s Pre-Order NOW!</b>", $productAvailability);
+																}
+																else if (isset($onlyInStore) && $onlyInStore == "Yes") {
+																	echo "<b class='onlystores'>Only Available in Stores</b>";
+																}
+															?> 
+																	
+														</div>
+														
+														<div style="text-align:center">
+															<?php if ($_product->getShowAvailableUnits()):?>
+																<?php 	
+																	$qtyStock = 0;
+																	if ($_product->getTypeId() == "configurable")
+																	{
+																		$associatedProducts = $_product->getTypeInstance()->getUsedProducts();
+																		// Fetch the associated products
+																		foreach($associatedProducts as $child)
+																		{
+																			$qtyStock += Mage::getModel('cataloginventory/stock_item')->loadByProduct($child)->getQty();
+																		}
+																	}
+																	else 
+																	{
+																		$qtyStock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty();
+																	}
+																?>
+																<?php $qtyStockShowLimit = Mage::getStoreConfig('cataloginventory/options/show_products_left_limit'); ?>
+																<?php if ($qtyStockShowLimit && $qtyStockShowLimit >= $qtyStock): ?>
+																	<div class="product-units-left"><?php echo $this->__('Only %s left', $qtyStock) ?></div>
+																<?php endif; ?>
+															<?php endif;?>
+															<?php if ($_product->getTypeId() != "panel"): ?>
+																<span class="product-name">
+																	<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+																		<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+																	</a>
+																</span>
+															<?php endif;?>
+															<?php
+																/*
+																$block = $this->getLayout()->createBlock("catalog/product");
+																$block->setData('product', $_product);
+																$block->setTemplate("catalog/product/available_sizes.phtml");
+																echo $block->toHtml();
+																*/
+																// echo $_product->getComingsoon() . ",commingsoon=[" . $_product->getAttributeText('comingsoon');
+																if ($_product->getComingsoon() && preg_match("/^yes$/i", $_product->getAttributeText('comingsoon'))) 
+																{
+																	echo "<div class=\"price-box\"><b>Coming Soon</b></div>";
+																}
+																elseif ($_product->getTypeId() != "panel")
+																{
+																	echo $this->getPriceHtml($_product, true);
+																}
+															?>
+															<?php if ($_product->getTypeId() == "ugiftcert" || stripos($_product->getName(),"gift voucher")>0): ?>
+																<script type="text/javascript">
+																	jQuery('#product-price-<?php echo $_product->getId(); ?> .price').prepend("From ");
+																</script>
+															<?php endif; ?>
+														</div>
+													</div>
+
+
+
+										    </div>
+							
+											<!-- End: Product Image Box
+											================================================== -->			
+
+
+
+											<!-- Product Details
+											================================================== -->					        
+									        <div class="span4" id="modal-shop">
+							
+													<!-- Product Title
+													================================================== -->					        
+								                    <div class="row">
+								                    	<div class="span4" id="modal-name">
+												        	<h1 id="myModalLabel"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+					
+												        </div>
+												    </div>
+								
+													<!-- End: Product Title
+													================================================== -->					        
+								
+								
+													<!-- Price SQU and Social Block
+													================================================== -->					        
+								                    <div class="row">
+										
+															<!-- Price and SQU
+															================================================== -->					        
+										                    <div class="span2" id="modalprice">
+											                	<?php echo $this->getPriceHtml($_product, true) ?>
+																	  	
+													        </div>					
+											
+															<!-- End: Price and SQU
+															================================================== -->					        					
+									
+															<!-- Social Block
+															================================================== -->					        
+										                    <div class="span2">
+																<div class="searchsocial align-right">
+													            	<ul>
+													                    <li class="pinterest"><a href="#" title=""><i class="icon-pinterest"></i></a></li>
+													                    <li class="facebook"><a href="#" title=""><i class="icon-facebook"></i></a></li>
+													                    <li class="instagram"><a href="#" title=""><i class="icon-instagram"></i></a></li>
+													                    <li class="youtube"><a href="#" title=""><i class="icon-youtube"></i></a></li>
+												                    </ul>
+											
+																</div>
+													        </div>		
+															
+															<!-- End: Social Block
+															================================================== -->					        
+													
+								                    </div>
+								                    				
+													<!-- End: Price SQU and Social Block
+													================================================== -->					        
+								
+								
+													<!-- Descriptions and Dimentions Tabs Block Row
+													================================================== -->					        
+								                    <div class="row">
+								
+									                    <div class="span4" id="producttabs">
+										                    <div class="tabbable">
+															    
+															    <!-- Tabs List
+																================================================== -->					        							    
+															    <ul id="myTab<?php echo $_product->getId() ?>" class="nav nav-tabs">
+															      <li class="active"><a href="#description<?php echo $_product->getId() ?>" data-toggle="tab">Description</a></li>
+															      <li><a href="#short<?php echo $_product->getId() ?>" data-toggle="tab">Fabric &amp; Care</a></li>
+															      <li><a href="#dimensions<?php echo $_product->getId() ?>" data-toggle="tab">Dimensions</a></li>
+															    </ul>
+								
+															    <!-- End: Tabs List
+																================================================== -->					        							    
+															    
+															    
+															    <!-- Tabs Content
+																================================================== -->					        							    							    
+															    <div class="tab-content">
+																    
+																    <!-- Description
+																	================================================== -->					        
+																	<div class="tab-pane active" id="description<?php echo $_product->getId() ?>">
+																	  	<?php if ($_product->getDescription()):?>
+																		  	<div class="description">
+																			  	<!--<h2><?php echo $this->__('Description') ?></h2>-->
+																		  		<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+																			</div>
+																		<?php endif;?>
+																    </div>
+								
+																    <!-- End: Description
+																	================================================== -->					        
+								
+								
+																    <!-- Fabric and Care
+																	================================================== -->					        
+																	<div class="tab-pane" id="short<?php echo $_product->getId() ?>">
+																	  	<?php if ($_product->getShortDescription()):?>
+																		  	<div class="short-description">
+																			  	<!--<h2><?php echo $this->__('Short Description') ?></h2>-->
+																		  		<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+																			</div>
+																		<?php endif;?>
+																    </div>
+								
+																    <!-- End: Fabric and Care
+																	================================================== -->					        
+										
+								  
+								
+																	<!-- Dimensions
+																	================================================== -->					        
+																    <div class="tab-pane " id="dimensions<?php echo $_product->getId() ?>">
+																		 <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getsize_and_fit()), 'size_and_fit') ?></div>
+								
+																    </div>
+								
+																    <!-- Emd: Dimensions
+																	================================================== -->					        
+															    
+															    </div>
+															</div>		        		              						 									
+												        </div>					
+													    <!-- End: Tabs Content
+														================================================== -->					        							    							    
+														
+														
+														<script>
+														$(function () {
+														    $('#myTab<?php echo $_product->getId() ?> a:last').tab('show');
+														  });
+														
+														
+														$('a[data-toggle="tab"]').on('shown', function (e) {
+														  e.target // activated tab
+														  e.relatedTarget // previous tab
+														});
+														</script>
+								
+								                    </div>
+								                    				
+													<!-- End: Descriptions and Dimentions Tabs Block Row
+													================================================== -->					        
+
+
+													<!-- Purchase Product Options
+													================================================== -->					        
+								                    <div class="row">								
+									                    <div class="span4" id="purchaseoptions">
+
+															<!-- Check if product is in stock 
+															================================================== -->																
+																									
+															
+
+
+
+
+
+										                    			            
+																<!-- Add to Bag
+																================================================== -->					        
+											                    <div class="row">				        
+											                    <div class="span2">
+					            									
+					            										
+											                    </div>
+	
+																<!-- Free Shipping Advert
+																================================================== -->					        
+											                    <div class="span2" id="freeshipping">
+					            									<a href="#" title=""><i class="icon-plane"></i>Free Shipping!</a>
+		
+											                    </div>
+												                </div>
+												                <!-- End: Add to Bag
+																================================================== -->	
+	
+									                    </div>									                    
+								                    </div>
+
+													<!-- End: Purchase Product Options
+													================================================== -->					        
+
+
+
+			    													            
+									        </div>
+							
+											<!-- End: Product Details
+											================================================== -->					        
+							
+
+
+
+						
+									</div>
+
+									<!-- End: Product Body Row
+									================================================== -->			
+
+							   	
+	
+		                    </div>
+							
+							<!-- End: QuickShop Modal
+							================================================== -->					        
+						</div> 
+					
+									 
+				</li>
+			<?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+			</ul>
+            
+            <button id="mylink<?php echo $_product->getId() ?>" name="mylinks<?php echo $_product->getId() ?>">link</button>
+            
+            <div id="mytest<?php echo $_product->getId() ?>" name="mytest<?php echo $_product->getId() ?>">qweqwe</div>
+            
+        <?php endif ?>
+        <script type="text/javascript">
+        $(document).ready(function(){   
+            
+            //$('#mylink<?php echo $_product->getId() ?>').click(function() { ('content.html #content')});
+            $('#mylink<?php echo $_product->getId() ?>').click(function() { alert('content.html #content'); });
+        
+            $("#myModal<?php echo $_product->getId() ?>").click(function () {
+                alert("111111111111111111");
+                //JQuery("body").on("click", "#theone", aClick).find("#theone").text("Can Click!");
+                $("mytest<?php echo $_product->getId() ?>").html("<h3>hello!!</h3>");
+            });
+
+            var loadUrl = "view.phtml";  
+            $("#myModal<?php echo $_product->getId() ?>").click(function(){  
+                $("mytest<?php echo $_product->getId() ?>").html(ajax_load).load(loadUrl);  
+            });  
+        });
+        </script>
+                                                
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+        <script type="text/javascript">
+        // Javascript to call 
+
+	    //  $(document).ready(function(){
+		//	    $('#myModal<?php echo $_product->getId() ?>').modal('show').success(function() {
+		//	        $('input:text:visible:first').focus();
+		//	    });  
+		//	});
+
+
+//	        jQuery(document).ready(function(){
+//			    jQuery('#myModal<?php echo $_product->getId() ?>').on('show', function () {
+
+
+	        
+			jQuery(document).ready(function() {
+			    // jQuery('#myModal<?php echo $_product->getId() ?>').modal('show');
+			    jQuery('#myModal<?php echo $_product->getId() ?>').on('shown', function() {
+//			        jQuery("#txtname").focus();
+		
+				//<![CDATA[
+						var productAddToCartForm = new VarienForm('product_addtocart_form');
+						productAddToCartForm.submit = function(){
+								if (this.validator.validate()) {
+										this.form.submit();
+								}
+						}.bind(productAddToCartForm);
+						// CONFIGURABLE SELECTOR FUNCTIONS (used in magiczoom/configurable.phtml)
+						function colorSelected(id, value, product_image_src, product_big_image_src, color_div_id, product_id)
+						{
+							// Disable all the size
+							jQuery("#size-container").children().not("#size-chart").each(
+								function()
+								{
+									jQuery(this).addClass('size-disabled');
+								}
+							);
+							// Update the product image
+							jQuery(".MagicZoom img").attr("src", product_image_src);
+							// Update the big zoomed image
+							jQuery(".MagicZoomBigImageCont img").attr("src", product_big_image_src);
+							// Set the value of the attribute in the hidden field
+							document.getElementById(id).value = value;
+							// Unselect the previous swatch (CSS)
+							if (jQuery('.swatch-selected')) 
+							{
+								jQuery('.swatch-selected').removeClass('swatch-selected');
+							}
+							// Remove the previous available div
+							if (jQuery("#available"))
+							{
+								jQuery("#available").remove();
+							}
+							// Apply CSS selection on the swatch
+							jQuery("#"+color_div_id).addClass('swatch-selected');
+							// Add the name of the color to the label
+							if (jQuery('#selected-color')) 
+							{
+								jQuery('#selected-color').remove();
+							}
+							var newColorLabelDiv = "<span id='selected-color'> "+color_div_id+"</span>";
+							jQuery('#color-selector-label').append(newColorLabelDiv);
+							// Refresh sizes and price through the ProductRefresh module
+							jQuery.ajax( {
+								url : "/productrefresh/index",
+								dataType : 'json',
+								type : 'get',
+								data : "product_id="+product_id+"&color="+value,
+								success : function(data) {
+									// If everything has worked
+									if (data.status == "SUCCESS")
+									{
+										jQuery("#unavailable").remove();
+										// We go through every size box
+										jQuery("#size-container").children().not("#size-chart").each(
+											function()
+											{
+												// Removing all the existing disabled class
+												if (jQuery(this).hasClass('size-disabled')) jQuery(this).removeClass('size-disabled');
+												// Adding the disabled class if this one is not available
+												if (jQuery.inArray(jQuery(this).attr("id"),data.sizes) == -1) 
+												{
+													jQuery("#attribute131").val("");
+													jQuery(this).addClass('size-disabled');
+													if (jQuery(this).hasClass('size-selected')) 
+													{
+														jQuery(this).removeClass('size-selected');
+													}
+												}
+											}
+										);
+										
+										if (data.sizes.length == 0) 
+										{
+											jQuery("#size-container").append("<div id='unavailable' style='margin-bottom:10px'>Sorry, this color is currently out of stock.</div>");
+											// Unselect the previous size (CSS)
+											if (jQuery('.size-selected')) 
+											{
+												jQuery('.size-selected').removeClass('size-selected');
+											}
+										}
+										
+										// We calculate the new price
+										var totalPrice = 0.00;
+										totalPrice += parseFloat(jsonConf.basePrice);
+										// Based on the returned values
+										if (data.prices[value]>0) {
+											totalPrice += parseFloat(data.prices[value]);
+										}
+		
+										// We are changing the price if the new price is different
+										// Or the special price if there is one							
+										if (jQuery(".special-price #product-price-"+product_id+"_clone").html() != "$"+totalPrice.toFixed(2) && jQuery(".special-price #product-price-"+product_id+"_clone").html() != null)
+										{
+											jQuery(".special-price #product-price-"+product_id+"_clone").replaceWith("<span id='product-price-"+product_id+"_clone' class='price'>$"+totalPrice.toFixed(2)+"</span>");
+											jQuery(".special-price #product-price-"+product_id+"_clone").effect("pulsate", {times:3}, 700);
+										}
+										else if (jQuery("#product-price-"+product_id+"_clone .price").html() != "$"+totalPrice.toFixed(2)) 
+										{
+											jQuery("#product-price-"+product_id+"_clone .price").replaceWith("<span class='price'>$"+totalPrice.toFixed(2)+"</span>");
+											jQuery("#product-price-"+product_id+"_clone .price").effect("pulsate", {times:3}, 700);
+										}
+									}
+								}
+							});
+						}
+						
+						// Corresponding function for the size
+						function sizeSelected(id, value, size_div_id)
+						{
+							// We check if the div chosen is available or not
+							if (jQuery("#"+size_div_id).hasClass('size-disabled')) return;
+							// Set the value of the attribute in the hidden field
+							document.getElementById(id).value = value;
+							// Unselect the previous size (CSS)
+							if (jQuery('.size-selected')) 
+							{
+								jQuery('.size-selected').removeClass('size-selected');
+							}
+							// Apply CSS selection on the size
+							jQuery("#"+size_div_id).addClass('size-selected');
+							<?php if ($_product->getShowAvailableUnits()): ?>
+								// Base URL in case we're using a subfolder
+								var base_url = '';
+								// Handle the HTTPS protocol
+								if (location.protocol == 'https:')
+								{
+									base_url="<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+								}
+								else
+								{
+									base_url='<?php echo Mage::getBaseUrl()?>';
+								}
+								jQuery.ajax( {
+									url : base_url+"productrefresh/index/unitsPerSize",
+									dataType : 'json',
+									type : 'get',
+									data : "product_id="+<?php echo $_product->getId() ?>+"&size="+size_div_id,
+									success : function(data) {
+										// If everything has worked
+										if (data.status == "SUCCESS")
+										{
+											if (jQuery("#available"))
+											{
+												jQuery("#available").remove();
+											}
+											if (data.units) 
+											{
+												var qtyStockShowLimit = <?php echo Mage::getStoreConfig('cataloginventory/options/show_products_left_limit');?>;
+												if (data.units <= qtyStockShowLimit)
+												{
+													jQuery("#size-container").append("<div id='available'>Only "+data.units+" left in this size.</div>");
+												}
+											}
+										}
+									}
+								});
+							<?php endif; ?>
+						}
+				//]]>
+
+			   // })
+			});
+
+  		</script>
+  			
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>

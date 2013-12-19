@@ -1,0 +1,18 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
+
+<div class="add-to-links">
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+    <a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, '<?php echo $_wishlistSubmitUrl ?>'); return false;" class="label label-info"><?php echo $this->__('Add to Wishlist') ?></a>
+<?php endif; ?>
+
+<!-- 20130724 @BEN_NICOLL remove compare product
+<?php
+    $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+?>
+<?php if($_compareUrl) : ?>
+    <a href="<?php echo $_compareUrl ?>" class="label label-info"><?php echo $this->__('Add to Compare') ?></a>
+<?php endif; ?>
+-->
+
+</div>

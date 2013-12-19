@@ -1,0 +1,84 @@
+<?php
+/**
+  check available date
+  - available_date
+
+  in-store only
+  - list stores?
+
+ */
+$_product = $this->getProduct();
+
+$buttonTitle = "Add to Bag";
+$availableDate = false;
+if ($_product->getResource()->getAttribute('available_date') != null) {
+	$adate = strtotime($_product->getAvailableDate());
+	//$adate = Mage::getModel('core/date')->timestamp(strtotime($adate));
+	$today = Mage::getModel('core/date')->timestamp(time());
+	//echo sprintf("adate=%s,%s", date("c", $adate), date("c", $today));
+	// can be ordered yet?
+	if ($today < $adate) {
+		$availableDate = sprintf("%s", date("F Y", $adate));
+		$buttonTitle = "Pre-Order";
+	}
+}
+
+//check that the attributes exist.
+if ($_product->getResource()->getAttribute('in_store_only') != null && $_product->getResource()->getAttribute('available_in_stores') != null) {
+	$onlyInStore = $_product->getAttributeText('in_store_only');
+	$availableStores = $_product->getAttributeText('available_in_stores');
+}
+
+if ($_product->isSaleable()) {
+	if (isset($onlyInStore) && isset($availableStores) && $onlyInStore == "Yes") {
+		if (!is_array($availableStores) || (is_array($availableStores) && in_array("no stores", $availableStores))) {
+			echo sprintf("<span class=\"only-in-stores\">%s</span>", $this->__('This item is ONLY available in stores'));
+			echo "<br><br>";
+		} else {
+			if (!is_array($availableStores)) {
+				$availableStores = array($availableStores);
+			}
+			if (count($availableStores) > 0) {
+				echo sprintf("<br><span class=\"only-in-stores\">%s</span><br>", $this->__('This item is only available in stores at the following locations:'));
+				echo "<ul>";
+				foreach ($availableStores as $store) {
+					if ($store != "no stores") {
+						echo sprintf("<li>%s</li>", $store);
+					}
+				}
+				echo "</ul>";
+				echo "<br><br>";
+			}
+		}
+	} else {
+		?>
+		
+		<?php //if(!$_product->isGrouped()):  ?>
+			<div class="addtocart-qty">
+				<span class="addtocart-qty-label">Quantity:</span>
+				<span class="addtocart-qty-value">
+					<input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" /></span>
+			</div>
+		<?php //endif;  ?>		    
+				<div class="addtocart-controls"> 
+					<button type="button" title="<?php echo $this->__($buttonTitle) ?>" class="btn btn-add-cart" onclick="productAddToCartForm.submit(this)">
+						
+							<span>
+								<?php echo $this->__($buttonTitle) ?>
+							</span>
+						
+					</button>
+			
+				<?php
+				if ($availableDate) {
+					echo sprintf("<p class=\"help-preorder-block\">&nbsp;&nbsp;<a target='_blank' href='/customer-support/#preorder'>%s</a></p>", $this->__('what is a pre-order?'));
+				}
+				?>
+				
+			</div>
+
+		<?php echo $this->getChildHtml('', true, true) ?>
+
+		<?php
+	}
+}

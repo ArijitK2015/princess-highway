@@ -1,0 +1,163 @@
+<?php
+/**
+see Mage_Contacts_IndexController
+*/
+$email = Mage::getStoreConfig('trans_email/ident_sales/email');
+
+$productId = Mage::app()->getRequest()->getParam('id'); 
+$soon = Mage::app()->getRequest()->getParam('soon'); 
+//echo "productId=" . $productId;
+
+$product = Mage::getModel('catalog/product')->load($productId);
+//print_r($product);
+
+$name = "";
+if ($product) 
+{
+	//echo $product->getName();
+	$name = $product->getName();
+}
+
+$selected = "";
+$message = "";
+if ($soon) 
+{
+	$selected = "selected";
+	$message = "Please notify me when this item arrives";
+}
+?>
+
+	<div id="messages_product_view">
+		<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+	</div>
+
+	<div id="contact_page">				
+		<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="contact-form">
+			<div class="row">
+				<div class="control-group group-1 span3">
+					<div class="controls">
+						<label for="name" class="required"><?php echo Mage::helper('contacts')->__('Name') ?><em>*</em></label>
+						<input name="name" id="name" title="<?php echo Mage::helper('contacts')->__('Name') ?>" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+					</div>
+					<div class="controls">
+						<label for="email" class="required"><?php echo Mage::helper('contacts')->__('Email Address') ?><em>*</em></label>
+						<input name="email" id="email" title="<?php echo Mage::helper('contacts')->__('Email') ?>" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="text" />
+					</div>
+					<div class="controls">
+						<label for="comment" class="required"><?php echo Mage::helper('contacts')->__('Your Enquiry') ?><em>*</em></label>
+						<select name="enquiry" class="select1">
+							<option value="-1"><?php echo $this->__('select...') ?></option>
+							<option value="What to wear"><?php echo $this->__('What to wear') ?></option>
+							<option value="Product availability"><?php echo $this->__('Product availability') ?></option>
+							<option value="Faulty"><?php echo $this->__('Faulty') ?></option>						
+							<option value="Seen something in the press"><?php echo $this->__('Seen something in the press') ?></option>
+							<option value="Feedback"><?php echo $this->__('Feedback') ?></option>
+							<option value="Other" <?php echo $selected; ?>><?php echo $this->__('Other') ?></option>
+						</select>					
+					</div>					
+				</div>
+				<div class="control-group group-2 span3">
+					<div class="controls">
+						<label for="telephone"><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+						<input name="telephone" id="telephone" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="" class="input-text" type="text" />					
+					</div>
+					<div class="controls">
+						<label for="state"><?php echo Mage::helper('contacts')->__('State') ?></label>
+						<select name="state" id="state" class="select1">
+							<option value="-1"><?php echo $this->__('select...') ?></option>
+							<option value="Australia Capital Territory"><?php echo $this->__('Australia Capital Territory') ?></option>
+							<option value="New South Wales"><?php echo $this->__('New South Wales') ?></option>
+							<option value="Northern Territory"><?php echo $this->__('Northern Territory') ?></option>
+							<option value="Queensland"><?php echo $this->__('Queensland') ?></option>
+							<option value="South Australia"><?php echo $this->__('South Australia') ?></option>
+							<option value="Tasmania"><?php echo $this->__('Tasmania') ?></option>
+							<option value="Victoria"><?php echo $this->__('Victoria') ?></option>
+							<option value="Western Australia"><?php echo $this->__('Western Australia') ?></option>
+							<option value="New Zealand"><?php echo $this->__('New Zealand') ?></option>
+							<option value="Other"><?php echo $this->__('Other') ?></option>
+						</select>					
+					</div>
+					<?php if ($name): ?>
+					<div class="controls">
+						<label for="product"><?php echo Mage::helper('contacts')->__('Item of Interest') ?></label>
+						<input name="product" id="product" value="<?php echo $name ?>" type="hidden" />
+						<?php echo $name ?>					
+					</div>
+					<?php endif; ?>				
+				</div>
+			</div>
+			<div class="row">			
+				<div class="control-group group-3 span6">
+					<div class="controls">
+						<label for="comment" class="required"><?php echo Mage::helper('contacts')->__('Your Message') ?><em>*</em></label>
+						<textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"><?php echo $message; ?></textarea>					
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="control-group group-4 span6">
+					<div class="controls">
+						<label id="preferred_label"><?php echo Mage::helper('contacts')->__('Preferred method of contact') ?></label>
+						<table border="0" class="preferred-contact-table">
+							<tr>
+								<td class="radio_td">
+									<input type="radio" name="contact" id="contact_email" value="Email" checked="checked" />									
+								</td>
+								<td class="preferred-contact-label">
+									<?php echo $this->__('Email') ?>
+								</td>
+								<td>&nbsp;</td>
+								<td class="radio_td">
+									<input type="radio" name="contact" id="contact_telephone" value="Telephone" />
+								</td>
+								<td class="preferred-contact-label">
+									<?php echo $this->__('Telephone') ?>
+								</td>
+								<td>&nbsp;</td>
+								<td class="radio_td">
+									<input type="radio" name="contact" id="contact_either" value="Either" />
+								</td>
+								<td class="preferred-contact-label">
+									<?php echo $this->__('Either') ?>
+									<input type="text" name="hideit" id="hideit" value="" />
+								</td>
+							</tr>
+						</table>					
+					</div>
+				</div>
+			</div>					
+			<div class="row">
+				<div class="span6">			
+					<button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+				</div>
+			</div>			
+		</form>
+		<div class="contact-text">
+			<div class="row">
+				<div class="span5">				
+					<p>We can help  with..</p>
+
+					<ul class="contacts-page-list">
+						<li>advice on all products online</li>
+						<li>sizing and fit information</li>
+						<li>offer a second opinion on items</li>
+						<li>recommend alternatives and outfit styling</li>
+						<li>provide information on out of stock products</li>
+						<li>and anything else you might need!</li>
+					</ul>
+				</div>
+			</div>
+		</div>						
+				
+	</div>
+
+	<div id="contact_page_right">
+		<?php echo $this->getChildHtml('ask-our-stylist-img') ?>
+	</div>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>

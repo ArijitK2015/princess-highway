@@ -1,0 +1,94 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/10/2013, 8:33:26 AM
+    Author     : cpham
+*/
+
+
+
+/* ==================================================
+   Large Desktop
+================================================== */
+@media (min-width:980px) {
+
+}
+
+
+/* ==================================================
+   Portrait Tablet to Landscape and Desktop
+================================================== */
+@media (min-width:768px) and (max-width:979px) {
+
+}
+
+
+/* ==================================================
+   Landscape Phone to Portrait Tablet
+================================================== */
+@media (min-width:481px) and (max-width:767px) {
+    
+        /* ==================================================
+            Store Map
+        ================================================== */
+        #main .map { display: block; width:100%;  margin-top:0px; }
+        #main .map #map_canvas { height: 350px !important; width: 100%;  margin-top:0px; }
+        #main .controls-column { display: block; width:100%; }
+        #main .controls-column .form { width:100%; margin:0 auto; padding:0px 0px 0px 0px; }
+        #main .controls-column .form .field2 { display: inline-block; width: 40% }
+        #main .controls-column .form .field2 input[type="text"] { width:56%}
+        #main .controls-column .form .field2 input[type="button"] { width:auto; margin-left:2px; }
+        #main .controls-column .form .reset-div { display: inline-block; float: right; width:auto; margin-top: 26px; }
+        
+}
+
+/* ==================================================
+   Landscape Phones
+================================================== */
+@media (min-width:321px) and (max-width:480px) {
+    
+        /* ==================================================
+            Store Map
+        ================================================== */
+        #main .map { display: block; width:100%;  margin-top:0px; }
+        #main .map #map_canvas { height: 350px !important; width: 100%;  margin-top:0px; }
+        #main .controls-column { display: block; width:100%; }
+        #main .controls-column .form { width:100%; margin:0 auto; padding:0px 0px 0px 0px; }
+        #main .controls-column .form .field2 { display: block; width: 100% }
+        #main .controls-column .form .field2 input[type="text"] { width:70%}
+        #main .controls-column .form .field2 input[type="button"] { width:auto; margin-left:2px; }
+        #main .controls-column .form .reset-div { display: block; }
+        
+        #scrollbar1 .overview .content .store .storeaddress { display: inline-block; margin-top: 10px; width:100% }
+        #scrollbar1 .overview .content .store .storedescription { display: inline-block; margin-top: 10px; width:42%; }
+        #scrollbar1 .overview .content .store .storedescription > span.openday  { width: 80px; clear:left; }
+        #scrollbar1 .overview .content .store .storedescription > span.opentime  { clear:right;  }        
+        		
+}
+
+
+/* ==================================================
+   Portrait Phones
+================================================== */
+@media (max-width:320px) {
+        /* ==================================================
+            Store Map
+        ================================================== */
+        #main .map { display: block; width:100%;  margin-top:0px; }
+        #main .map #map_canvas { height: 350px !important; width: 100%;  margin-top:0px; }
+        #main .controls-column { display: block; width:100%; }
+        #main .controls-column .form { width:100%; margin:0 auto; padding:0px 0px 0px 0px; }
+        #main .controls-column .form .field2 { display: block; width: 100% }
+        #main .controls-column .form .field2 input[type="text"] { width:70%}
+        #main .controls-column .form .field2 input[type="button"] { width:auto; margin-left:2px; }
+        #main .controls-column .form .reset-div { display: block; }
+        
+        #scrollbar1 .overview .content .store .storeaddress { display: inline-block; margin-top: 10px; width:100% }
+        #scrollbar1 .overview .content .store .storedescription { display: inline-block; margin-top: 10px; width:70%; }
+        #scrollbar1 .overview .content .store .storedescription > span.openday  { width: 80px; clear:left; }
+        #scrollbar1 .overview .content .store .storedescription > span.opentime  { clear:right;  }        
+}
+

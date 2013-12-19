@@ -1,0 +1,119 @@
+<?php
+$helper = new Xigmapro_Jobs_Helper_Data(); 
+
+$state = 1;
+$displayAll = false;
+if (array_key_exists("id", $_GET)) {
+	$state = reverse_escape($_GET['id']);
+}
+else $displayAll = true;
+
+$jobUrl = $this->getUrl('jobsviewdetails.html');
+
+
+$i = 0;
+$jobs = Mage::getModel('Jobs/Jobs')->getCollection();
+
+//print_r($jobs);
+//$jobs->setPageSize(5);
+//$jobs->setCurPage(2);
+//$size = $jobs->getSize();
+$cnt = count($jobs);
+foreach ($jobs as $item) {
+    $i = $i+1;
+    $item->setTitle($i);
+	if ($item->getId() == $state || $displayAll) {
+		$country = $item->getCountrys();
+	}
+}
+/*
+$cnt = 0;
+
+//print_r($jobs);
+//$jobs->setPageSize(5);
+//$jobs->setCurPage(2);
+//$size = $jobs->getSize();
+$cntsukhen = count($jobs);
+$arraycheck="";
+foreach ($jobs as $job) {
+    $cnt = $cnt+1;
+    $job->setTitle($cnt);
+	if($job->getStatus()!=0) {
+		$cca = $job->getCountrys();
+		$pos = strpos($arraycheck, $cca);
+		//echo $pos;
+		if ($pos != true) {
+			$arraycheck=$arraycheck.",".$job->getCountrys();
+			$pageurlsukhen = $this->getUrl('jobsview.html');
+			$idsukhen=$job->getId();
+?>
+<a href="<?php echo $pageurlsukhen."?id=".$idsukhen; ?>" style="font-weight:bold; text-decoration:none;">
+<?php echo $job->getCountrys(); ?>
+</a>
+<?php
+		}
+	}
+}
+*/
+?>
+<div id="main" class="main-div" style="border:0px solid #ffffff; height:512px; position:relative;">
+
+<div class="page-title" style="width:410px">
+	<h1>Careers</h1>
+</div>
+<br>
+<div id="careers" style="width:95%;">
+<table class="stores" width="100%">
+	<tr>
+		<td colspan="4" class="title1"><?php echo $displayAll ? "All" : $country; ?></td>
+	</tr>
+	<tr class="header2">
+		<td style="width:25%">location</td>
+		<td style="width:25%">positon/title</td>
+		<td style="width:25%">status</td>
+		<td style="width:25%">description</td>
+	</tr>
+<?php
+$title = 0;
+$jobId = 0;
+//$cnt = count($jobs);
+foreach ($jobs as $job) {
+	if (!$job->getstatus()) {
+		continue;
+	}
+	$title = $title + 1;
+	$job->setTitle($title);	
+	if ($job->getCountrys() == $country || $displayAll) {
+		// TODO: change to work type
+		$workType = $helper->getJobStatus($job->getstatuss());
+		//$workType = Xigmapro_Jobs_Helper_Data::$jobStatus[$job->getstatuss()];
+		$jobId = $job->getId();
+?>
+<tr>
+	<?php if($displayAll) { ?>
+	<td><?php echo $job->getCountrys() . " / " . $job->getLocations();?> </td>
+	<?php }else { ?>
+	<td><?php echo $job->getLocations();?> </td>
+	<?php } ?>
+	<td><?php echo $job->getPosition();?> </td>
+	<td><?php echo sprintf("%s", $workType); ?></td>	
+	<td><a href="<?php echo $jobUrl."?id=".$jobId; ?>">more info</a></td></tr>
+<?php
+//echo $item->getRequirements();
+
+}
+}
+?>
+
+</table>
+
+</div>
+</div>
+
+<?php
+function reverse_escape($str) {
+	$search = array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
+	$replace = array("\\","\0","\n","\r","\x1a","'",'"');
+	return str_replace($search,$replace,$str);
+} 
+?>

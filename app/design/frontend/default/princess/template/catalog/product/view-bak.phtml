@@ -1,0 +1,722 @@
+<?php
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<script type="text/javascript">
+// @TODO: imported from Factory X - check if this code is useful or useless
+function chooseStyle(title) 
+{
+  setActiveStyleSheet(title);
+}
+
+var tabberOptions = 
+{
+  onTabClick:
+	function(tabIndex) {
+    	chooseStyle(tabIndex+1);
+  	}
+};
+
+</script>
+
+
+
+<!-- Product Availability Requirements 
+================================================== -->	
+<?php
+$message = $this->getMessagesBlock()->getGroupedHtml();
+if (strlen($message) > 0) {
+	echo "<div id='messages_product_view'>" . $message . "</div>";
+}
+
+$productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+$productAvailability = false;
+if ($_product->getResource()->getAttribute('available_date') != null) {
+    $adate = strtotime($_product->getAvailableDate());
+    $today = Mage::getModel('core/date')->timestamp(time());
+    // can be ordered yet?
+    if ($today < $adate) {
+        $productAvailability = sprintf("Arrives %s", date("F Y", $adate) );
+    }
+}
+
+?>
+
+
+
+
+
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+<div class="product-view">
+    <div class="product-essential">
+
+
+	<!-- Add to cart form requirements
+	================================================== -->					        
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?> class="form">
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+
+        
+    <div class="row">
+		<div class="span12">
+			<div class="row">
+				
+				<!-- Product Image Box
+				================================================== -->			
+				<div class="span6" id="product-media">
+			        <div>
+			            <?php echo $this->getChildHtml('media') ?>
+			        </div>
+		        </div>
+
+				<!-- End: Product Image Box
+				================================================== -->			
+	
+
+				<!-- Product Details
+				================================================== -->					        
+		        <div class="span6" id="product-shop">
+
+					<!-- Product Title
+					================================================== -->					        
+                    <div class="product-name">
+				        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+				    </div>
+
+					<!-- End: Product Title
+					================================================== -->					        
+
+
+					<!-- Price SQU and Social Block
+					================================================== -->					        
+                    <div class="row">
+		
+						<!-- Price and SQU
+						================================================== -->					        
+	                    <div class="span3" id="priceandsqu">
+				        <?php echo $this->getTierPriceHtml() ?>
+				        <?php echo $this->getChildHtml('product_type_data') ?>
+				        <span class="product-sku">Item #: <?php echo nl2br($_product->getSku()) ?></span>
+
+
+				        <?php echo $this->getChildHtml('alert_urls') ?>
+				        <?php echo $this->getChildHtml('extrahint') ?>
+
+				        </div>					
+		
+						<!-- End: Price and SQU
+						================================================== -->					        					
+
+		
+						<!-- Social Block
+						================================================== -->					        
+
+	                    <div class="span3">
+							<div class="searchsocial">
+				            	<ul class="align-right">
+				                    <li class="pinterest"><a href="#" title=""><i class="icon-pinterest"></i></a></li>
+				                    <li class="facebook"><a href="#" title=""><i class="icon-facebook"></i></a></li>
+				                    <li class="instagram"><a href="#" title=""><i class="icon-instagram"></i></a></li>
+				                    <li class="youtube"><a href="#" title=""><i class="icon-youtube"></i></a></li>
+			                    </ul>
+		
+							</div>
+				        </div>		
+				        			
+				        <!-- Email to friend Functionality - Removed for princesshighway theme.
+				        <?php if ($this->canEmailToFriend()): ?>
+		                	<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+		                <?php endif; ?>
+						-->
+						
+						<!-- End: Social Block
+						================================================== -->					        
+					
+					
+                    </div>
+                    				
+					<!-- End: Price SQU and Social Block
+					================================================== -->					        
+
+
+					<!-- Descriptions and Dimentions Tabs Block
+					================================================== -->					        
+                    <div class="row">
+
+	                    <div class="span6" id="producttabs">
+		                    <div class="tabbable">
+							    
+							    <!-- Tabs List
+								================================================== -->					        							    
+							    <ul id="myTab" class="nav nav-tabs">
+							      <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+							      <li><a href="#short" data-toggle="tab">Fabric &amp; Care</a></li>
+							      <li><a href="#dimensions" data-toggle="tab">Dimensions</a></li>
+							    </ul>
+
+							    <!-- End: Tabs List
+								================================================== -->					        							    
+							    
+							    
+							    <!-- Tabs Content
+								================================================== -->					        							    							    
+							    <div class="tab-content">
+								    
+								    <!-- Description
+									================================================== -->					        
+									<div class="tab-pane active" id="description">
+									  	<?php if ($_product->getDescription()):?>
+										  	<div class="description">
+											  	<!--<h2><?php echo $this->__('Description') ?></h2>-->
+										  		<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+											</div>
+										<?php endif;?>
+								    </div>
+
+								    <!-- End: Description
+									================================================== -->					        
+
+
+								    <!-- Fabric and Care
+									================================================== -->					        
+									<div class="tab-pane" id="short">
+									  	<?php if ($_product->getShortDescription()):?>
+										  	<div class="short-description">
+											  	<!--<h2><?php echo $this->__('Short Description') ?></h2>-->
+										  		<div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+											</div>
+										<?php endif;?>
+								    </div>
+
+								    <!-- End: Fabric and Care
+									================================================== -->					        
+		
+  
+
+									<!-- Dimensions
+									================================================== -->					        
+								    <div class="tab-pane " id="dimensions">
+										 <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getsize_and_fit()), 'size_and_fit') ?></div>
+
+								    </div>
+
+								    <!-- Emd: Dimensions
+									================================================== -->					        
+							    
+							    </div>
+							</div>		        		              						 
+	
+	
+				        </div>					
+					    <!-- End: Tabs Content
+						================================================== -->					        							    							    
+
+
+                    </div>
+                    				
+					<!-- End: Descriptions and Dimentions Tabs Block
+					================================================== -->					        
+
+
+					<!-- Add To Cart and Options
+					================================================== -->					        
+                    <div id="productpurchase">
+
+
+		            <?php
+					$showFabricAndCare = true;
+					$showSizeAndFit = true;
+	
+					$catCollection = $_product->getCategoryCollection();
+					// export this collection to array so we could iterate on it's elements
+					$cats = $catCollection->exportToArray();
+	
+					?>
+
+				<?php if(!$_product->isSaleable()): ?>
+					<div>
+						<p class="availability out-of-stock">
+							<span>Sorry, this item is currently out of stock.</span>
+						</p>
+					</div>
+				<?php endif; ?>
+				<div>
+					<?php echo $this->getPriceHtml($_product, false, '_clone');?>
+                    <span id="product-sku"><?php echo $this->__("Item# %s", $this->getProduct()->getSku()) ?></span>
+                    <?php
+                    if ($productAvailability) {
+                        echo sprintf("<h2>%s</h2>", $productAvailability);
+                    }
+                    ?>
+				</div>
+				<div id="description">
+					<div class="tabber">
+						<div id="text-1" class="tabbertab" title="Description">
+							<?php $_description = $this->getProduct()->getDescription(); ?>
+							<?php if ($_description): ?>
+								<div class="description">
+									<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
+								</div>
+								
+						<?php endif; ?>
+
+						<?php if ($_product->getSizeAndFit() && $showSizeAndFit):?>
+								<div class="sizeandfit">
+									<?php echo $_helper->productAttribute($_product, nl2br($_product->getSizeAndFit()), 'size_and_fit') ?>
+								</div>
+						<?php endif;?>															
+					</div>
+					<div id="text-3" class="tabbertab" title="Fabric and Care">
+
+
+						<?php if ($_product->getShortDescription() && $showFabricAndCare):?>
+								<div class="fabricandcare">
+									<?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
+								</div>		
+						<?php endif;?>
+					</div>
+				</div>
+				</div><!-- /id="description -->
+
+			<div class="product-view-delimiter"></div>
+        	
+			<?php if ($_product->getTypeId() =="ugiftcert"): ?>
+				<?php echo $this->getChildHtml('product_type_data') ?>
+			<?php endif; ?>
+			
+			<?php if ($_product->isSaleable() && $this->canEmailToFriend()): // && $this->hasOptions()):?>
+				<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+				<div class="add-to-cart">
+					<?php echo $this->getChildHtml('addtocart') ?>
+				</div>
+			<?php endif;?>
+		
+			<?php if ($this->canEmailToFriend()): ?>
+				<div id="social-media">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>
+								<a name="fb_share" href="http://www.facebook.com/sharer.php?u=<?php echo $_product->getProductUrl() ;?>">
+									<img height="18" width="18" src="<?php echo $this->getSkinUrl('images/icons/facebook_product.gif'); ?>">
+								</a>
+							</td>
+							<td id="middle-social-td">
+								<a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>">
+									<img id="email-to-friend-icon" height="14" width="20" src="<?php echo $this->getSkinUrl('images/icons/email_icon_product.gif'); ?>">
+								</a>
+							</td>
+							<td id="right-social-td">
+								<?php echo $this->getChildHtml('Moii_Pinterest'); ?>
+							</td>
+						</tr>
+					</table>
+				
+					<ul id="information-links">
+						<li><a href="/contacts?id=<?php echo $this->getProduct()->getId(); ?>"><?php echo $this->__('Need Help ?'); ?></a></li>
+						<li><?php echo $this->getReviewsSummaryHtml($_product, false, true) ?></li>
+						<?php echo $this->getChildHtml('addto') ?>
+					</ul>
+
+				</div>
+
+			<?php endif; ?>
+			<?php echo $this->getChildHtml('other');?>
+			<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+				<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+			<?php endif;?>
+		</div>
+	
+		<div id="wear-with">
+			<?php echo $this->getChildHtml('upsell_products') ?>
+		</div>
+
+		</form>
+
+		<script type="text/javascript">
+		
+		//<![CDATA[
+				var productAddToCartForm = new VarienForm('product_addtocart_form');
+				productAddToCartForm.submit = function(){
+						if (this.validator.validate()) {
+								this.form.submit();
+						}
+				}.bind(productAddToCartForm);
+				// CONFIGURABLE SELECTOR FUNCTIONS (used in magiczoom/configurable.phtml)
+				function colorSelected(id, value, product_image_src, product_big_image_src, color_div_id, product_id)
+				{
+					// Disable all the size
+					jQuery("#size-container").children().not("#size-chart").each(
+						function()
+						{
+							jQuery(this).addClass('size-disabled');
+						}
+					);
+					// Update the product image
+					jQuery(".MagicZoom img").attr("src", product_image_src);
+					// Update the big zoomed image
+					jQuery(".MagicZoomBigImageCont img").attr("src", product_big_image_src);
+					// Set the value of the attribute in the hidden field
+					document.getElementById(id).value = value;
+					// Unselect the previous swatch (CSS)
+					if (jQuery('.swatch-selected')) 
+					{
+						jQuery('.swatch-selected').removeClass('swatch-selected');
+					}
+					// Remove the previous available div
+					if (jQuery("#available"))
+					{
+						jQuery("#available").remove();
+					}
+					// Apply CSS selection on the swatch
+					jQuery("#"+color_div_id).addClass('swatch-selected');
+					// Add the name of the color to the label
+					if (jQuery('#selected-color')) 
+					{
+						jQuery('#selected-color').remove();
+					}
+					var newColorLabelDiv = "<span id='selected-color'> "+color_div_id+"</span>";
+					jQuery('#color-selector-label').append(newColorLabelDiv);
+					// Refresh sizes and price through the ProductRefresh module
+					jQuery.ajax( {
+						url : "/productrefresh/index",
+						dataType : 'json',
+						type : 'get',
+						data : "product_id="+product_id+"&color="+value,
+						success : function(data) {
+							// If everything has worked
+							if (data.status == "SUCCESS")
+							{
+								jQuery("#unavailable").remove();
+								// We go through every size box
+								jQuery("#size-container").children().not("#size-chart").each(
+									function()
+									{
+										// Removing all the existing disabled class
+										if (jQuery(this).hasClass('size-disabled')) jQuery(this).removeClass('size-disabled');
+										// Adding the disabled class if this one is not available
+										if (jQuery.inArray(jQuery(this).attr("id"),data.sizes) == -1) 
+										{
+											jQuery("#attribute131").val("");
+											jQuery(this).addClass('size-disabled');
+											if (jQuery(this).hasClass('size-selected')) 
+											{
+												jQuery(this).removeClass('size-selected');
+											}
+										}
+									}
+								);
+								
+								if (data.sizes.length == 0) 
+								{
+									jQuery("#size-container").append("<div id='unavailable' style='margin-bottom:10px'>Sorry, this color is currently out of stock.</div>");
+									// Unselect the previous size (CSS)
+									if (jQuery('.size-selected')) 
+									{
+										jQuery('.size-selected').removeClass('size-selected');
+									}
+								}
+								
+								// We calculate the new price
+								var totalPrice = 0.00;
+								totalPrice += parseFloat(jsonConf.basePrice);
+								// Based on the returned values
+								if (data.prices[value]>0) {
+									totalPrice += parseFloat(data.prices[value]);
+								}
+
+								// We are changing the price if the new price is different
+								// Or the special price if there is one							
+								if (jQuery(".special-price #product-price-"+product_id+"_clone").html() != "$"+totalPrice.toFixed(2) && jQuery(".special-price #product-price-"+product_id+"_clone").html() != null)
+								{
+									jQuery(".special-price #product-price-"+product_id+"_clone").replaceWith("<span id='product-price-"+product_id+"_clone' class='price'>$"+totalPrice.toFixed(2)+"</span>");
+									jQuery(".special-price #product-price-"+product_id+"_clone").effect("pulsate", {times:3}, 700);
+								}
+								else if (jQuery("#product-price-"+product_id+"_clone .price").html() != "$"+totalPrice.toFixed(2)) 
+								{
+									jQuery("#product-price-"+product_id+"_clone .price").replaceWith("<span class='price'>$"+totalPrice.toFixed(2)+"</span>");
+									jQuery("#product-price-"+product_id+"_clone .price").effect("pulsate", {times:3}, 700);
+								}
+							}
+						}
+					});
+				}
+				
+				// Corresponding function for the size
+				function sizeSelected(id, value, size_div_id)
+				{
+					// We check if the div chosen is available or not
+					if (jQuery("#"+size_div_id).hasClass('size-disabled')) return;
+					// Set the value of the attribute in the hidden field
+					document.getElementById(id).value = value;
+					// Unselect the previous size (CSS)
+					if (jQuery('.size-selected')) 
+					{
+						jQuery('.size-selected').removeClass('size-selected');
+					}
+					// Apply CSS selection on the size
+					jQuery("#"+size_div_id).addClass('size-selected');
+					<?php if ($_product->getShowAvailableUnits()): ?>
+						// Base URL in case we're using a subfolder
+						var base_url = '';
+						// Handle the HTTPS protocol
+						if (location.protocol == 'https:')
+						{
+							base_url="<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+						}
+						else
+						{
+							base_url='<?php echo Mage::getBaseUrl()?>';
+						}
+						jQuery.ajax( {
+							url : base_url+"productrefresh/index/unitsPerSize",
+							dataType : 'json',
+							type : 'get',
+							data : "product_id="+<?php echo $_product->getId() ?>+"&size="+size_div_id,
+							success : function(data) {
+								// If everything has worked
+								if (data.status == "SUCCESS")
+								{
+									if (jQuery("#available"))
+									{
+										jQuery("#available").remove();
+									}
+									if (data.units) 
+									{
+										var qtyStockShowLimit = <?php echo Mage::getStoreConfig('cataloginventory/options/show_products_left_limit');?>;
+										if (data.units <= qtyStockShowLimit)
+										{
+											jQuery("#size-container").append("<div id='available'>Only "+data.units+" left in this size.</div>");
+										}
+									}
+								}
+							}
+						});
+					<?php endif; ?>
+				}
+		//]]>
+		</script>
+    </div>
+	
+	<?php echo $this->getChildHtml('product_additional_data') ?>
+	<?php echo $this->getChildHtml('product_advancedreviews') ?>
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+		                <?php if (!$this->hasOptions()):?>
+			                <div class="add-to-box">
+			                    <?php if($_product->isSaleable()): ?>
+			                        <?php echo $this->getChildHtml('addtocart') ?>
+			                        <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+			                            <span class="or"><?php echo $this->__('OR') ?></span>
+			                        <?php endif; ?>
+			                    <?php endif; ?>
+			                    <?php echo $this->getChildHtml('addto') ?>
+			                </div>
+			                <?php echo $this->getChildHtml('extra_buttons') ?>
+			            <?php elseif (!$_product->isSaleable()): ?>
+			                <div class="add-to-box">
+			                    <?php echo $this->getChildHtml('addto') ?>
+			                </div>
+			            <?php endif; ?>
+			
+			
+			            <?php echo $this->getChildHtml('other');?>
+			
+			            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+			                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+			            <?php endif;?>
+			            
+			            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+			            	<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+			            <?php endif;?>				    
+		            </div>
+
+					<!-- End: Add To Cart and Options
+					================================================== -->					        
+
+		            
+		        </div>
+
+				<!-- End: Product Details
+				================================================== -->					        
+
+		        
+		        
+			</div>
+		</div>
+    </div>
+    
+    </form>
+
+	<!-- End: Add to cart form requirements
+	================================================== -->					        
+
+
+
+<!-- Suggestive Tabs Block
+================================================== -->					        
+<div class="row">
+
+    <div id="suggestivetabs">
+        <div class="tabbable">
+		    
+		    <!-- Tabs List
+			================================================== -->					        							    
+		    <ul id="myTab" class="nav nav-tabs">
+		      <li class="active"><a href="#wearitwith" data-toggle="tab">Wear It With</a></li>
+		      <li><a href="#reviews" data-toggle="tab">Product Reviews</a></li>
+		      <li><a href="#otherspurchased" data-toggle="tab">Other People Purchased</a></li>
+		    </ul>
+
+		    <!-- End: Tabs List
+			================================================== -->					        							    
+		    
+		    
+		    <!-- Tabs Content
+			================================================== -->					        							    							    
+		    <div class="tab-content">
+			    
+			    <!-- Description
+				================================================== -->					        
+				<div class="tab-pane active" id="wearitwith">
+					<?php echo $this->getChildHtml('upsell_products') ?>
+				  	
+			    </div>
+
+			    <!-- End: Description
+				================================================== -->					        
+
+
+			    <!-- Fabric and Care
+				================================================== -->					        
+				<div class="tab-pane" id="reviews">
+					<?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+				  	
+			    </div>
+
+			    <!-- End: Fabric and Care
+				================================================== -->					        
+
+
+
+				<!-- Dimensions
+				================================================== -->					        
+			    <div class="tab-pane " id="otherspurchased">
+			  		<p>Section coming soon - Currently Showing Product Additional Data</p>
+			  		<?php echo $this->getChildHtml('product_additional_data') ?>
+
+			    </div>
+
+			    <!-- Emd: Dimensions
+				================================================== -->					        
+		    
+		    </div>
+		</div>		        		              						 
+
+
+    </div>					
+    <!-- End: Tabs Content
+	================================================== -->	
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+    //]]>
+    </script>

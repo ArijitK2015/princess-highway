@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+    <head>
+		<?php echo $this->getChildHtml('head') ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    </head>
+	
+    <body<?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+
+		<!-- Facebook Script Requirement -->    
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id))
+					return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=280177685359496";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+		<!-- End: Facebook Script Requirement -->   
+
+		<?php echo $this->getChildHtml('after_body_start') ?>
+
+		<!-- Header Section	-->
+		<header>
+			<!-- Navbar -->	
+			<section id="navbar">
+				<div class="container">
+					<div class="row">			
+						<div class="span12">
+							
+							<div class="storedetails">
+								<p><a href="/store-locator.html" class="navbarstores" title="Find your nearest princesshighway store">Stores</a> | <a href="/contact.html" class="navbarcontact" title="Contact princesshighway">Contact</a> | <span class="storephone"><a href="tel://(03) 8420 0336">(03) 8420 0336</a></span></p>
+							</div>
+							<div mobi-nav class="mobi-nav visible-phone  visible-tablet" >
+								<a href="#" class="mobi-nav-toggle"><img class="icon-menu" src="<?php echo $this->getSkinUrl('images/core/menu-icon.png') ?>" alt="main menu"></a>
+							</div>							
+							
+							<div class="toplinks">
+								<?php echo $this->getChildHtml('header') ?>
+							</div>
+							
+						</div>						
+					</div>
+				</div>				
+			</section>						
+			<!-- End: Navbar -->			
+		</header>
+		<!-- End: Header -->
+
+		<!-- Brand Section -->				
+		<section id="brand">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+
+						<!-- Logo Section -->						
+						<div class="logo">
+							<a href="/" title="princesshighway" id="transbrand"><img src="<?php echo $this->getSkinUrl('images/logos/princesshighway-logo-2.png') ?>" alt="princesshighway logo"></a>
+						</div>
+						<!-- End: Logo Section -->
+
+						<!-- Search and Social -->
+						<div class="searchsocial ">
+							<ul class="align-right">
+								<li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
+								<li class="facebookicon"><a href="https://www.facebook.com/princesshighwayclothing" title="Facebook">Facebook</a></li>
+								<li class="instagramicon"><a href="http://instagram.com/princesshighwayclothing" title="Instagram">Instagram</a></li>
+								<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
+							</ul>
+							<?php echo $this->getChildHtml('phsearch') ?>
+						</div>			
+						<!-- End: Search and Social -->
+						
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End: Brand Section -->				
+
+		<!-- Navigation Section -->
+		<section id="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<!-- Mobile Menu -->
+						<a id="mobile-nav" class="menu-nav" data-toggle="collapse" data-target=".nav-collapse"><span class="menu-icon"></span></a>
+
+						<!-- Standard Menu -->
+						<nav id="menu">
+							<?php echo $this->getChildHtml('topMenu') ?>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End: Navigation Section -->
+
+		<!-- Filters Section -->
+		<section id="filters">
+			<div class="container">
+				<div class="row">
+					<?php echo $this->getChildHtml('phfilters') ?>
+
+				</div>
+			</div>
+		</section>
+		<!-- End: Filters Section -->
+
+		<!-- Main Section -->
+		<section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<!-- Breadcrumbs -->
+						<?php echo $this->getChildHtml('breadcrumbs') ?>
+						<!-- End: Breadcrumbs -->
+
+						
+						<?php
+							/* Responsive Design : menu */
+							$_helper = $this->helper('catalog/output');
+							$subCategory = Mage::registry('current_category');		
+							if ($subCategory != null && $subCategory->getLevel() == 3) {
+								$parentCategory = Mage::getModel('catalog/category')->load($subCategory->getParentId()); 
+							} else {
+								$parentCategory = Mage::getModel('catalog/category')->load($subCategory->getId()); 	
+							}
+
+							$filter = new Mage_Widget_Model_Template_Filter();
+							$_widget = $filter->filter('{{widget type="pronav/category_widget_subcategories_list" levels="1" columns="1" thumbnail_images="No" category_images="No" selected_cat="Yes" template="pronav/items/widget/link/subcategories/sortedlist.phtml" id_path="category/' . $parentCategory->getId() .'"}}');             
+
+							echo '<div class="rsp-nav-group">';
+								echo '<div class="rsp-nav-header">';				
+									echo '<div class="rsp-nav-title rsp-nav-toggle">';
+										echo '<img class="icon-menu" src="' . $this->getSkinUrl('images/core/menu-icon-grey.png') . '" alt="main menu">';				
+										echo $parentCategory->getMetaTitle();
+										//echo $parentCategory->getName();
+									echo '</div>';
+
+								echo '</div>';
+
+								echo '<div class="rsp-nav-menu-toggle" style="display:none">';
+									echo '<ul class="rsp-nav-menu">';
+										echo $_widget;
+									echo '</ul>';
+								echo '</div>';
+							echo '</div>';
+						?>
+						
+						<!-- Middle Column -->
+						<?php echo $this->getChildHtml('global_messages') ?>
+						<?php echo $this->getChildHtml('content') ?>
+						<!-- End: Middle Column -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End: Main Content -->
+
+		<!-- Call To Actions -->
+		<section id="calltoactions">
+			<div class="container">
+				<div class="row">
+					<div class="span12" id="cta01">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cta-bottom')->toHtml(); ?>
+					</div>						
+				</div>
+			</div>
+		</section>
+		<!-- End: Call To Actions -->
+
+		<!-- Footer Section -->
+		<footer>
+			<div class="container" >
+				<div class="row" >
+					<?php echo $this->getChildHtml('footer') ?>
+					<?php echo $this->getChildHtml('global_notices') ?>
+				</div>
+			</div>
+		</footer>
+		<!-- End: Footer Section -->
+
+		<!-- Footer Credits -->
+		<section id="footer-credits">
+			<div class="container">
+				<div class="row">
+
+					<!-- Copyright and Credits -->
+					<div class="span6">
+						<p class="credits">&copy; princesshighway 2013. All rights reserved.</p>
+					</div>
+					<!-- End: Copyright and Credits -->
+
+					<!-- Payments Badges and Social2 -->	   
+					<div class="span6">
+						<ul class="align-right">
+							<li class="accepted-creditcards"><img width="125" src="/skin/frontend/princesshighway/default/images/payment_methods.png" alt="Payment Methods"></li>
+							<li class="comodo"><a href="javascript:if(window.open('http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.princesshighway.com.au/&x=6&y=5','tl_wnd_credentials'+(new Date()).getTime(),'toolbar=0,scrollbars=1,location=1,status=1,menubar=1,resizable=1,width=445,height=580,left=60,top=120')){};tLlB(tLTB);" onmouseover="tLeB(event, 'http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=C&amp;v_shortname=SC4&amp;v_search=http://www.princesshighway.com.au/&amp;x=6&amp;y=5', 'tl_popupSC4')" onmousemove="tLXB(event)" onmouseout="tLTC('tl_popupSC4')" ondragstart="return false;"><img src="http://www.princesshighway.com.au/skin/frontend/princesshighway/default/images/comodo/tl_transp.gif" border="0" onmousedown="return tLKB(event, 'http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&amp;v_shortname=SC4&amp;v_search=http://www.princesshighway.com.au/&amp;x=6&amp;y=5');" height="25" width="60" oncontextmenu="return tLLB(event);"></a></li>
+							<li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
+							<li class="facebookicon"><a href="https://www.facebook.com/princesshighwayclothing" title="Facebook">Facebook</a></li>
+							<li class="instagramicon"><a href="http://instagram.com/princesshighwayclothing" title="Instagram">Instagram</a></li>
+							<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
+						</ul>
+					</div>
+					<!-- End: Payments Badges and Social -->	            
+
+				</div>
+			</div>
+		</section>
+		<!-- End: Footer Credits -->
+
+		<!-- Javascript -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		
+		<script src="<?php echo $this->getSkinUrl('js/google-code-prettify/prettify.js'); ?>"></script>
+		<script src="<?php echo $this->getSkinUrl('js/bootstrap.js'); ?>"></script>      
+		<script src="//assets.pinterest.com/js/pinit.js" type="text/javascript"></script>
+		<script src="<?php echo $this->getSkinUrl('js/account.js'); ?>"></script>
+		<script src="<?php echo $this->getSkinUrl('js/responsive-navigation.js'); ?>"></script>
+
+		<?php echo $this->getChildHtml('before_body_end') ?>
+    </body>
+</html>
