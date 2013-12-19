@@ -1,0 +1,11 @@
+Thank you for completing the survey.
+
+<?php
+	$surveyID = $this->getCurrentSurvey();
+	
+	if($surveyID->customersurvey_id != '') {
+		if($surveyID->code != '') {
+			echo '<br/><br/>Completing this survey granted you the following offer:<br/><br/>'  . $surveyID->code_title . "<br/> Use promo code: " . $surveyID->code;
+		}
+	}
+?>

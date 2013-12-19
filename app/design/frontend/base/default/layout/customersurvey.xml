@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<layout version="1.0.0">
+
+	<customersurvey_index_index>
+	    <reference name="content">
+            <block type="customersurvey/list" name="index_page" template="customersurvey/list.phtml"/>
+        </reference>
+		<reference name="right">
+            <block type="customersurvey/block" name="survey_block" template="customersurvey/block.phtml"/>
+        </reference>
+	</customersurvey_index_index>
+	
+	<customersurvey_index_view>
+	    <reference name="content">
+            <block type="customersurvey/take" name="index_page" template="customersurvey/take.phtml"/>
+        </reference>
+	</customersurvey_index_view>
+	
+	<customersurvey_index_complete>
+	    <reference name="content">
+            <block type="customersurvey/complete" name="index_page" template="customersurvey/complete.phtml"/>
+        </reference>
+	</customersurvey_index_complete>
+</layout>

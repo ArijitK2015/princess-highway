@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright (c) 2010 Amasty
+ */
+-->
+
+<config>
+    <modules>
+        <Amasty_Cheapest>
+            <version>1.2.0</version>
+        </Amasty_Cheapest>
+    </modules>
+
+    <global>
+
+        <blocks>
+            <amcheapest>
+                <class>Amasty_Cheapest_Block</class>
+            </amcheapest>
+
+            <adminhtml>
+                <rewrite>
+                    <promo_quote_edit_tab_actions>Amasty_Cheapest_Block_Adminhtml_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+ 
+        <helpers>
+            <amcheapest>
+                <class>Amasty_Cheapest_Helper</class>
+            </amcheapest>
+        </helpers>
+
+        <events>
+            <salesrule_validator_process>
+                <observers>
+                    <amasty_cheapest_model_observer>
+                        <type>singleton</type>
+                        <class>Amasty_Cheapest_Model_Observer</class>
+                        <method>salesrule_validator_process</method>
+                    </amasty_cheapest_model_observer>
+                </observers>
+          </salesrule_validator_process>
+        </events>
+
+    </global>
+    
+     <frontend>
+
+        <routers>
+            <amcheapest>
+                <use>standard</use>
+                <args>
+                    <module>Amasty_Cheapest</module>
+                    <frontName>amcheapest</frontName>
+                </args>
+            </amcheapest>
+        </routers> 
+
+        <translate>
+            <modules>
+                <Amasty_Cheapest>
+                    <files>
+                        <default>Amasty_Cheapest.csv</default>
+                    </files>
+                </Amasty_Cheapest>
+            </modules>
+        </translate>
+        
+        <layout>
+              <updates>
+                  <amcheapest module="Amasty_Cheapest">
+                      <file>amcheapest.xml</file>
+                  </amcheapest>
+              </updates>
+        </layout>
+    
+    </frontend>
+
+</config>
