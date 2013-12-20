@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<checkout_onepage_success>
+		<!-- Change success template -->
+        <reference name="checkout.success">
+			<action method="setTemplate"><template>factoryx/westfield/success.phtml</template></action>
+        </reference>
+    </checkout_onepage_success>
+</layout>

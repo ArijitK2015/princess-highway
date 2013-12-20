@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>	
+	<modules>
+	<FactoryX_Layoutviewer>
+		<version>0.1.0</version>
+	</FactoryX_Layoutviewer></modules>
+
+	<global>
+		<models>
+			<factoryx_layoutviewer>
+				<class>FactoryX_Layoutviewer_Model</class>
+			</factoryx_layoutviewer>
+			
+			<core>
+				<rewrite>
+					<layout_update>FactoryX_Layoutviewer_Model_Layout_Update</layout_update>
+				</rewrite>
+			</core>
+			
+		</models>
+	
+		<events>
+			<controller_action_postdispatch>
+				<observers>
+					<factoryx_layoutviewer_model_observer>
+						<type>singleton</type>						
+						<class>FactoryX_Layoutviewer_Model_Observer</class>
+						<method>checkForLayoutDisplayRequest</method>
+					</factoryx_layoutviewer_model_observer>
+				</observers>
+			</controller_action_postdispatch>
+		</events>
+	</global>	
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_HtmlInject>
+            <version>0.1.0</version>
+        </FactoryX_HtmlInject>
+    </modules>
+    
+    <frontend>
+        <layout>
+            <updates>
+                <htmlinject module="FactoryX_HtmlInject">
+                    <file>factoryx/htmlinject.xml</file>
+                </htmlinject>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <global>
+        <helpers>
+            <htmlinject>
+                <class>FactoryX_HtmlInject_Helper</class>
+            </htmlinject>
+        </helpers>
+    </global>
+
+</config>

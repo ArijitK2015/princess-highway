@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <sales_email_order_shipment_items_not_shipped>
+        <block type="sales/order_email_shipment_items" name="items" template="email/order/shipment/items_not_shipped.phtml">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>email/order/items/shipment/not_shipped.phtml</template>
+            </action>
+        </block>
+        <block type="core/text_list" name="additional.product.info" />
+    </sales_email_order_shipment_items_not_shipped>
+</layout>

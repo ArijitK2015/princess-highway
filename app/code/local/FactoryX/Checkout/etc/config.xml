@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_Checkout>
+			<version>0.0.2</version>
+		</FactoryX_Checkout>
+	</modules>
+ 
+	<global>
+		<blocks>
+			<checkout>
+				<!--
+				Mage_Checkout_Block_Onepage_Shipping_Method_Available
+				Mage_Checkout_Block_Cart_Shipping
+				-->
+				<rewrite>
+					<onepage_shipping_method_available>FactoryX_Checkout_Block_Onepage_Shipping_Method_Available</onepage_shipping_method_available>
+					<cart_shipping>FactoryX_Checkout_Block_Cart_Shipping</cart_shipping>
+				</rewrite>
+			</checkout>
+		</blocks>
+		<helpers>
+			<fx_checkout>
+				<class>FactoryX_Checkout_Helper</class>
+			</fx_checkout>  
+		</helpers>
+	</global>
+</config>

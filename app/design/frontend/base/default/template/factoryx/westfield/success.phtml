@@ -1,0 +1,148 @@
+<?php // get session
+$session = Mage::getSingleton("core/session",  array("name"=>"frontend"));
+if (Mage::helper('westfield')->isEnabled() && $session->getData("from_westfield") === true): ?>
+	<?php
+	$createPixel = true;
+	// Build the Westfield affiliate (PHG) pixel string for inclusion in the page source (Ben Tubby September 2013)
+ 
+	// Get the order id, Set the order model, Load the order with the successful order id
+	$thisOrderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+	
+	$order = Mage::getModel('sales/order');
+	$order->loadByIncrementId($thisOrderId);
+ 
+	// Get the order grand total NOTE this should be total order - shipping (we don't charge commission on the shipping amount)
+	// Note this is needed for simple pixel only.
+	$grandTotal = $order->getGrandTotal() - $order->getShippingAmount();
+ 
+	// Get any coupon codes $order->getCouponCode();
+	// Get any gift certificate codes $order->getGiftcertCode();
+ 
+	// For the standard pixel, we need item specific information
+	$pixelItemsArray = "";
+	/*
+    $order->getAllItems() - refers to the all items parent and it's child (ref: configurable product and it's child items) 
+    $order->getAllVisibleItems() refers to the Parent items only (ref: configurable product only)
+    $order->getItemsCollection() - same as $order->getAllItems()
+    */
+	$items = $order->getAllItems();
+	
+	$itemCategory = "";
+	$itemPrice = 0;
+	$qty = 1;
+	foreach ($items as $item) {
+        $productType = $item->getProductType();
+        switch ($productType) {
+            case 'simple':
+                // ignore parents, as we are only interested in simples
+                $product = Mage::getModel('catalog/product')->load($item->getProductId());                
+                // get a category for each product in the order
+                // check if its part of a configurable or bundle
+                if ($product->getVisibility() == Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) {
+                    $parentItem = $item->getParentItem();
+                    if ($parentItem) {
+                		$itemPrice = number_format($parentItem->getPriceInclTax() - $parentItem->getDiscountAmount(), 2, '.','');
+                		$qty = $parentItem->getQtyOrdered();
+                		$product = Mage::getModel('catalog/product')->load($parentItem->getProductId());
+                		$categories = $product->getCategoryIds();
+                		// get the first category assigned to the item.  This is retailer specific
+                		if (count($categories)) {
+                			foreach ($categories as $categoryId) {
+                				$_cat = Mage::getModel('catalog/category')->load($categoryId);
+                				$itemCategory = $_cat->getName();
+                				break;
+                			}
+                		}
+                	}
+                }
+                else {
+            		$itemPrice = number_format($item->getPriceInclTax() - $item->getDiscountAmount(), 2, '.','');
+            		$qty = $item->getQtyOrdered();
+                    // get category
+    			    $categories = $product->getCategoryIds();
+    			    // get the first category assigned to the item.  This is retailer specific
+    			    if (count($categories)) {
+    			        $itemCategory = "";
+        			    foreach ($categories as $categoryId) {
+        				    $_cat = Mage::getModel('catalog/category')->load($categoryId);
+        				    $itemCategory = $_cat->getName();
+        				    break;
+        			    }
+        		    }
+        		}
+        		if (empty($itemCategory)) {
+        		    $itemCategory = "unknown";
+        		}
+        		$itemSku = $item->getSku();
+		        // Build the item array string
+		        $pixelItemsArray .= sprintf("[category:%s/sku:%s/value:%s/quantity:%s]", $itemCategory, $itemSku, $itemPrice, $qty);
+            	$itemCategory = "";
+            	$itemPrice = 0;
+            	$qty = 0;		        
+                break;
+            default: // ignore everything else
+                /*
+        		$itemPrice = number_format($item->getPriceInclTax() - $item->getDiscountAmount(), 2, '.','');
+        		$qty = $item->getQtyOrdered();
+                echo sprintf("parent:%s|%s<br/>", $itemPrice, $qty);
+                */
+        }
+	}
+	
+	$campaignId = Mage::helper('westfield')->getCampaignId();
+	$initialPixelString = sprintf("<img src=\"https://prf.hn/conversion/campaign:%s/conversionref:%s", $campaignId, $this->escapeHtml($thisOrderId));
+	if ($createPixel) {
+        //echo sprintf("initialPixelString=<code>%s</code></br>", $initialPixelString);
+    	echo sprintf("%s/currency:%s/%s\" height=\"1\" width=\"2\" />",
+    	    $initialPixelString,
+    	    Mage::app()->getStore()->getCurrentCurrencyCode(),
+    	    $this->escapeHtml($pixelItemsArray)
+        );
+    }
+?>
+<?php endif; ?>
+
+<div class="main-div success-container">
+
+	<div class="page-title">
+		<h1><?php echo $this->__('Your order has been received') ?></h1>
+	</div>
+
+	<div class="thank-you">
+		<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+		<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+
+		<?php if ($this->getOrderId()):?>
+		<?php if ($this->getCanViewOrder()) :?>
+			<p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+		<?php  else :?>
+			<p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?>.</p>
+		<?php endif;?>
+			<p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+		<?php if ($this->getViewOrder() && $this->getCanPrintOrder()) :?>
+			<p>
+				<?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+				<?php echo $this->getChildHtml() ?>
+			</p>
+		<?php endif;?>
+		<?php endif;?>
+
+		<?php if ($this->getAgreementRefId()): ?>
+			<p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+		<?php endif;?>
+
+		<?php if ($profiles = $this->getRecurringProfiles()):?>
+		<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+		<ul class="disc">
+		<?php foreach($profiles as $profile):?>
+		<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+			<li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+		<?php endforeach;?>
+		</ul>
+		<?php endif;?>
+	</div>
+
+	<div class="continue-shopping">
+		<button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+	</div>
+</div>

@@ -26,7 +26,6 @@ Default layout, loads most of the pages
 		<!--Add extra items -->
 		<action method="addJs"><script>jquery/jquery-1.10.2.min.js</script></action>
 		<action method="addJs"><script>jquery/noconflict.js</script></action>
-		<action method="addJs"><script>slide_show/fadeslideshow.js</script></action>
 		<action method="addJs"><script>effects/common.js</script></action>
 		<action method="addJs"><script>extjs/comodo/trustlogo.js</script></action>
 	</reference>

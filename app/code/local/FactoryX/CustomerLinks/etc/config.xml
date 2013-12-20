@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+        <FactoryX_CustomerLinks>
+            <version>0.1.0</version>
+        </FactoryX_CustomerLinks>
+    </modules>
+    <global>
+        <blocks>
+            <customer>
+				<!--
+				Mage_Customer_Block_Account_Navigation
+				-->
+                <rewrite>
+                    <account_navigation>FactoryX_CustomerLinks_Block_Account_Navigation</account_navigation>
+                </rewrite>
+            </customer>
+        </blocks>
+    </global>
+</config>

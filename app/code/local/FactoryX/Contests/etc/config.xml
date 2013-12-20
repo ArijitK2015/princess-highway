@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<FactoryX_Contests>
+			<version>0.7.2</version>
+		</FactoryX_Contests>
+	</modules>
+	
+	<admin>
+        <routers>
+		
+            <contests_admin>
+				<use>admin</use>
+				<args>
+					<module>FactoryX_Contests</module>
+					<frontName>contests_admin</frontName>
+				</args>
+            </contests_admin>	
+			
+        </routers>
+	</admin>
+	
+	<frontend>
+		<routers>
+			<contests>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_Contests</module>
+					<frontName>contests</frontName>
+				</args>
+			</contests>
+		</routers>
+		<layout>
+			<updates>
+				<contests module="FactoryX_Contests">
+					<file>factoryx/contests.xml</file>
+				</contests>
+			</updates>
+		</layout>
+		<translate>
+            <modules>
+                <FactoryX_Contests>
+                    <files>
+                        <default>FactoryX_Contests.csv</default>
+                    </files>
+                </FactoryX_Contests>
+            </modules>
+        </translate>
+	</frontend>
+	
+	<adminhtml>
+        <translate>
+            <modules>
+                <FactoryX_Contests>
+                    <files>
+                        <default>FactoryX_Contests.csv</default>
+                    </files>
+                </FactoryX_Contests>
+            </modules>
+        </translate>
+		<layout>
+            <updates>
+                <contests module="FactoryX_Contests">
+                    <file>factoryx/contests.xml</file>
+                </contests>
+            </updates>
+        </layout>
+	</adminhtml>
+	
+	<global>
+		
+		<models>
+			<contests>
+                <!-- Init model for mymod module -->
+                <class>FactoryX_Contests_Model</class>
+                <!-- Init db config handler for mymod models -->
+                <resourceModel>contests_mysql4</resourceModel>
+            </contests>
+
+            <!-- declaring model vs db table relation -->
+            <contests_mysql4>
+                <class>FactoryX_Contests_Model_Mysql4</class>
+                <!-- declare table test -->
+                <entities>
+					<contest>
+						<table>fx_contests_contest</table>
+					</contest>
+                    <referrer>
+                        <table>fx_contests_referrer</table>
+                    </referrer>
+					<referee>
+						<table>fx_contests_referee</table>
+					</referee>
+					<contest_winner>
+						<table>fx_contests_winner_tmp</table>
+					</contest_winner>
+					<store>
+						<table>fx_contests_store</table>
+					</store>
+                </entities>
+            </contests_mysql4>
+			
+			<!-- Extend URL Rewrite Model -->
+			<core>
+				<rewrite>
+					<url_rewrite>FactoryX_Contests_Model_Core_Url_Rewrite</url_rewrite>
+				</rewrite>
+			</core>
+		</models>
+		
+		<blocks>
+            <contests>
+                <class>FactoryX_Contests_Block</class>
+            </contests>
+        </blocks>
+		
+		<resources>
+			<contests_setup>
+				<setup>
+					<module>FactoryX_Contests</module>
+					<class>FactoryX_Contests_Model_Resource_Mysql4_Setup</class>
+				</setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>				
+			</contests_setup>
+            <contests_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </contests_write>
+            <contests_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </contests_read>
+        </resources>
+		
+		<helpers>
+			<contests>
+                <class>FactoryX_Contests_Helper</class>
+            </contests>
+        </helpers>
+		
+		<default>
+			<contests>
+				<options>
+					<allow_duplicate_referrals>yes</allow_duplicate_referrals>
+				</options>
+			</contests>
+	   </default>
+		
+		
+		<template>
+			<email>
+				<contests_options_template translate="label" module="contests">
+					<label>Contests Email</label>
+					<file>factoryx/contests.html</file>
+					<type>html</type>
+				</contests_options_template>
+			</email>
+		</template>
+
+	</global>
+	
+	<default>
+		<!-- Required for the in built Magento Captcha -->
+		<captcha>
+			<frontend>
+				<areas>
+					<contests>
+						<label>Contest Page</label>
+					</contests>
+				</areas>
+			</frontend>
+		</captcha>
+		<customer>
+			<captcha>
+				<always_for>
+					<contests>1</contests>
+				</always_for>
+			</captcha>
+		</customer>
+	</default>
+	
+	<crontab> 
+		<jobs> 
+			<FactoryX_Contests_manage>
+				<schedule>
+					<cron_expr>0 1 * * *</cron_expr>
+				</schedule>
+				<run>
+					<model>contests/observer::disableContests</model>
+					<model>contests/observer::enableContests</model>
+				</run>
+			</FactoryX_Contests_manage> 
+		</jobs> 
+	</crontab>
+
+</config>

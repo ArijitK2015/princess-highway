@@ -210,14 +210,14 @@ section#brand { padding-top:50px; position:relative; }
 .searchsocial ul { clear: both;  }
 .searchsocial ul li { list-style-type:none; margin-bottom:0; float:left; font-size:18px; margin-left:8px; margin-bottom: 5px; }
 .searchsocial ul li.comodo a { display:block; margin-right:5px; }
-.searchsocial ul li.pinteresticon a { background: url('/skin/frontend/princesshighway/default/images/core/pinterest.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.pinteresticon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/pinterest.png') 0px 32px; }
-.searchsocial ul li.facebookicon a { background: url('/skin/frontend/princesshighway/default/images/core/facebook.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.facebookicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/facebook.png') 0px 32px; }
-.searchsocial ul li.instagramicon a { background: url('/skin/frontend/princesshighway/default/images/core/instagram.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.instagramicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/instagram.png') 0px 32px; }
-.searchsocial ul li.youtubeicon a { background: url('/skin/frontend/princesshighway/default/images/core/youtube.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.youtubeicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/youtube.png') 0px 32px; }
+.searchsocial ul li.pinteresticon a { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+.searchsocial ul li.pinteresticon a:hover { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 32px; }
+.searchsocial ul li.facebookicon a { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+.searchsocial ul li.facebookicon a:hover { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 32px; }
+.searchsocial ul li.instagramicon a { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+.searchsocial ul li.instagramicon a:hover { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 32px; }
+.searchsocial ul li.youtubeicon a { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+.searchsocial ul li.youtubeicon a:hover { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 32px; }
 
 
 .searchsocial ul li.pinterest a { background:#BFBFBF; color:#FFFFFF; margin-right:5px; padding:5px 8px;
@@ -2329,7 +2329,7 @@ footer #fieldEmail { border:1px solid #070000; width:280px; height:28px; padding
 /* ==================================================
    Footer Credits
 ================================================== */
-#footer-credits { background:url('/skin/frontend/princesshighway/default/images/core/footercredits.png') center 0 no-repeat; margin-bottom:50px; }
+#footer-credits { background:url('/skin/frontend/default/princess/images/core/footercredits.png') center 0 no-repeat; margin-bottom:50px; }
 #footer-credits .container { border-top:1px solid #D8D8D8; padding-top:10px; }
 #footer-credits .span6 { vertical-align:middle; }
 #footer-credits .span6 .credits { margin-top:10px; }
@@ -2344,14 +2344,14 @@ footer #fieldEmail { border:1px solid #070000; width:280px; height:28px; padding
 #footer-credits ul li.mastercard a { }
 #footer-credits ul li.amex a { }
 #footer-credits ul li.comodo a { margin-right:5px; }
-#footer-credits ul li.pinteresticon a { background: url('/skin/frontend/princesshighway/default/images/core/pinterest.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-#footer-credits ul li.pinteresticon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/pinterest.png') 0px 32px; }
-#footer-credits ul li.facebookicon a { background: url('/skin/frontend/princesshighway/default/images/core/facebook.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-#footer-credits ul li.facebookicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/facebook.png') 0px 32px; }
-#footer-credits ul li.instagramicon a { background: url('/skin/frontend/princesshighway/default/images/core/instagram.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-#footer-credits ul li.instagramicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/instagram.png') 0px 32px; }
-#footer-credits ul li.youtubeicon a { background: url('/skin/frontend/princesshighway/default/images/core/youtube.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-#footer-credits ul li.youtubeicon a:hover { background: url('/skin/frontend/princesshighway/default/images/core/youtube.png') 0px 32px; }
+#footer-credits ul li.pinteresticon a { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+#footer-credits ul li.pinteresticon a:hover { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 32px; }
+#footer-credits ul li.facebookicon a { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+#footer-credits ul li.facebookicon a:hover { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 32px; }
+#footer-credits ul li.instagramicon a { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+#footer-credits ul li.instagramicon a:hover { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 32px; }
+#footer-credits ul li.youtubeicon a { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
+#footer-credits ul li.youtubeicon a:hover { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 32px; }
 
 
 /* ==================================================

@@ -1,0 +1,31 @@
+<div id="main" class="main-div" style="border:0px solid #ffffff; height:512px; position:relative;">
+<div class="page-title" style="width:410px">
+	<h1>Careers</h1>
+</div>
+<?php
+$i = 0;
+$collection = Mage::getModel('Jobs/Jobs')->getCollection();
+$cnt = count($collection);
+$arraycheck="";
+foreach ($collection as $item) {
+	//$item = array_unique($item);
+    $i = $i+1;
+    $item->setTitle($i);
+	if($item->getStatus() != 0) {
+		//echo $arraycheck;
+		$cca = $item->getCountrys();
+		$pos = strpos($arraycheck, $cca);
+		//echo $pos;
+		if ($pos != true) {
+			$arraycheck = $arraycheck ."," . $item->getCountrys();
+			$pageurl = "jobsview.html";
+			$id=$item->getId();
+			echo "<a href='" . $pageurl . "?id=" . $id . "' style='font-weight:bold; text-decoration:none;'>";
+    		echo $item->getCountrys();
+			echo "&nbsp;|&nbsp;";
+			echo "</a>";
+		}
+	}
+}
+?>
+</div>

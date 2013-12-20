@@ -17,7 +17,7 @@ function showBig() {
 </script>
 <?php
 $skin = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
-$theme = "frontend/princesshighway/default";
+$theme = "frontend/default/princess";
 
 $margin = 0;
 $marginTop = intval(self::$options->getValue('selectors-margin'));

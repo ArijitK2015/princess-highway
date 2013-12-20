@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+ 
+    <modules>
+		<FactoryX_ExportReview>
+			<version>0.0.2</version>
+		</FactoryX_ExportReview>
+    </modules>
+	
+	<global>
+		<blocks>
+			<factoryx_exportreview>
+				<class>FactoryX_ExportReview_Block_Review_Grid</class>
+			</factoryx_exportreview>
+			<adminhtml>
+				<rewrite>
+					<review_grid>FactoryX_ExportReview_Block_Review_Grid</review_grid>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+	</global>
+ 
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_ExportReview before="Mage_Adminhtml">FactoryX_ExportReview</FactoryX_ExportReview>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+ 
+</config>

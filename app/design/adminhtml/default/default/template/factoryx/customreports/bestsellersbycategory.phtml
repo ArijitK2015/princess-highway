@@ -1,0 +1,74 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-online-visitors"><?php echo Mage::helper('reports')->__('Custom Bestsellers By Category Report') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="information">
+	<p><?php echo $this->__('The default date range is set to 30 days.')?></p>
+	<p><?php echo $this->__('Attention: please note that these data may not be totally accurate due to the following reasons:'); ?></p>
+	<p><?php echo $this->__('- A product can be moved to a different category after an order has been placed.'); ?></p>
+	<p><?php echo $this->__('- A category can be deleted'); ?></p>
+	<p><?php echo $this->__('- A product can be in more than one category'); ?></p>
+	<p><?php echo $this->__('For these reasons, if a product is in several categories, it will be counted as a sale for all of these categories.'); ?></p>
+</div>
+<div>
+	<div class="entry-edit">
+		<form id="bestsellersbycategory_form" method="POST" action="<? echo $this->getFormAction(); ?>">
+			<input type="hidden" name="form_key" value="<? echo $this->getFormKey(); ?>" />
+			<div></div>
+			<div class="entry-edit-head">
+				<h4 class="icon-head head-edit-form fieldset-legent">Dates</h4>
+			</div>
+			<div id="worstsellers_report_base_fieldset" class="fieldset">
+				<ul>
+					<li class="fields">
+						<div class="field">
+							<label for="from"><?php echo Mage::helper('reports')->__('From:') ?></label>
+							<div class="input-box">
+								<input name="from" id="from" title="<?php echo Mage::helper('reports')->__('From:') ?>" value="<?php echo Mage::getSingleton('core/session')->getFrom() ?>"  class="input-text" type="text" />
+								<img title="Select Date" id="_from_trig" class="v-middle" alt="Select Date" src="<?php echo $this->getSkinUrl(). 'images/grid-cal.gif' ?>"/>
+							</div>
+						</div>
+					</li>
+					<script type="text/javascript">
+						//<![CDATA[
+						Calendar.setup({
+							inputField:  "from",
+							ifFormat:"%Y-%m-%d %H:%M:%S",
+							showsTime: true,
+							button:"_from_trig",
+							align: "B1",
+							singleClick: true
+						});
+						//]]>
+					</script>
+					<li class="fields">
+						<div class="field">
+							<label for="to"><?php echo Mage::helper('reports')->__('To:') ?></label>
+							<div class="input-box">
+								<input name="to" id="to" title="<?php echo Mage::helper('reports')->__('To:') ?>" value="<?php echo Mage::getSingleton('core/session')->getTo() ?>"  class="input-text" type="text" />
+								<img title="Select Date" id="_to_trig" class="v-middle" alt="Select Date" src="<?php echo $this->getSkinUrl(). 'images/grid-cal.gif' ?>"/>
+							</div>
+						</div>
+					</li>
+					<script type="text/javascript">
+						//<![CDATA[
+						Calendar.setup({
+							inputField:  "to",
+							ifFormat:"%Y-%m-%d %H:%M:%S",
+							showsTime: true,
+							button:"_to_trig",
+							align: "B1",
+							singleClick: true
+						});
+						//]]>
+					</script>
+				</ul>
+				<button type="submit" title="<?php echo $this->__('Set Dates') ?>" class="scalable task"><span><span><span><?php echo $this->__('Set Dates') ?></span></span></span></button>
+			</div>
+		</form>
+	</div>
+</div>
+<?php echo $this->getChildHtml('grid') ?>

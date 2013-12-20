@@ -1,0 +1,11 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-online-visitors"><?php echo Mage::helper('reports')->__('Custom Products With No Upsells Report') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="nb">
+	<p><?php echo Mage::helper('reports')->__('N.B.: the grid displays only configurable products. You can use the visibility and status filter to only get the products which are available on the store.'); ?></p>
+</div>
+<?php echo $this->getChildHtml('grid') ?>

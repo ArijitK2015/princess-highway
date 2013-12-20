@@ -1,0 +1,165 @@
+<?php
+/**
+add shipped from & shipped by
+ */
+?>
+<?php  $_order = $this->getShipment()->getOrder() ?>
+<?php echo $this->getChildHtml('order_info') ?>
+
+<div class="box-left">
+    <!--Billing Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-payment-method"><?php echo $this->helper('sales')->__('Payment Information') ?></h4>
+        </div>
+        <fieldset>
+            <div><?php echo $this->getChildHtml('order_payment') ?></div>
+            <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+        </fieldset>
+    </div>
+</div>
+<div class="box-right">
+    <!--Shipping Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-method"><?php echo $this->helper('sales')->__('Shipping and Tracking Information') ?></h4>
+        </div>
+            <fieldset>
+            	<div>
+            		<table cellspacing="0" class="form-list">
+					<colgroup class="label"></colgroup>
+					<colgroup class="value"></colgroup>
+					<tbody>
+	                <?php if($this->getShipment()->getTracksCollection()->count()): ?>
+					<tr id="row_shipment_tracker">
+	                	<td class="label" colspan="2">
+	                		<a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($this->getShipment()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track this shipment') ?>"><?php echo $this->__('Track this shipment') ?></a>
+						</td>
+					</tr>						
+	                <?php endif; ?>
+					<tr id="row_shipment_customer">
+						<td class="label"><label for="shipment_shipped_from">Customer Selection</label></td>
+						<td class="value">
+		                    <strong><?php echo $_order->getShippingDescription() ?></strong>
+		                    <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+		
+		                    <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+		                        <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
+		                    <?php else: ?>
+		                        <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
+		                    <?php endif; ?>
+		                    <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
+		
+		                    <?php echo $_excl; ?>
+		                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+		                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+		                    <?php endif; ?>
+						</td>
+					</tr>						
+					<tr id="row_shipment_shipped_from">
+						<td class="label"><label for="shipment_shipped_from">Shipped From</label></td>
+						<td class="value">
+							<?php
+							$shippingStoreId = $this->getShipment()->getShippedFrom();
+							$shippingStore = Mage::getModel('ustorelocator/location')->load($shippingStoreId);
+							if ($shippingStore == null) {
+								echo "No Store Assigned";
+							}
+							else {
+								echo $shippingStore->getTitle();
+							}							
+							?>
+						</td>
+					</tr>
+					<tr id="row_shipment_shipped_by">
+						<td class="label"><label for="shipment_shipped_by">Shipped By</label></td>
+						<td class="value">
+							<?php
+							$shippedBy = $this->getShipment()->getShippedBy();
+							if (!$shippedBy) {
+								$shippedBy = "Unknown";
+							}
+							echo sprintf("%s", $shippedBy);
+							?>
+						</td>
+					</tr>					
+					<tr id="row_shipment_shipped_selected">
+						<td class="label" colspan="2">
+				            <?php if (method_exists($this,"canCreateShippingLabel") && $this->canCreateShippingLabel()): ?>
+				            <div style="text-align: center; margin: 10px 0;">
+				                <?php echo $this->getCreateLabelButton()?>
+				                <?php if ($this->getShipment()->getShippingLabel()): ?>
+				                    <?php echo $this->getPrintLabelButton() ?>
+				                <?php endif ?>
+				                <?php if ($this->getShipment()->getPackages()): ?>
+				                    <?php echo $this->getShowPackagesButton() ?>
+				                <?php endif ?>
+				            </div>
+				            <?php endif ?>
+				            <div><?php echo $this->getChildHtml('shipment_tracking') ?></div>
+        				</td>
+        			</tr>
+					</tbody></table>
+				</div>				
+            </fieldset>            
+
+    <?php echo $this->getChildHtml('shipment_packaging') ?>
+    <script type="text/javascript">
+    //<![CDATA[
+        document.observe("dom:loaded", function() {
+            setTimeout(function(){
+                packaging.setConfirmPackagingCallback(function(){
+                    packaging.sendCreateLabelRequest();
+                });
+                packaging.setLabelCreatedCallback(function(response){
+                    setLocation("<?php echo $this->getUrl(
+                        '*/sales_order_shipment/view',
+                        array('shipment_id' => $this->getShipment()->getId())
+                    ); ?>");
+                });
+            }, 500);
+        });
+    //]]>
+    </script>
+    </div>
+</div>
+<!--
+<div class="box-left">
+	<div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-method"><?php echo $this->helper('sales')->__('Store Responsible for Shipping') ?></h4>
+        </div>
+        <fieldset>
+            <div>
+            	<b><?php echo "Store:  "?></b>
+            	<?php $shippingStoreId = $this->getShipment()->getShippedFrom(); 
+					$shippingStore = Mage::getModel('ustorelocator/location')->load($shippingStoreId);
+					if ($shippingStore == null) {
+						echo "No Store Assigned";
+					} else {
+						echo $shippingStore->getTitle();
+					}
+				?>
+			</div>
+        </fieldset>
+	</div>
+</div>
+-->
+<div class="clear"></div>
+
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+        <h4 class="icon-head head-products"><?php echo $this->helper('sales')->__('Items Shipped') ?></h4>
+        </div>
+</div>
+<div>
+
+</div>
+<?php echo $this->getChildHtml('shipment_items') ?>
+<?php echo $this->getChildHtml('shipment_packed') ?>
+
+<div class="box-left entry-edit">
+    <div class="entry-edit-head"><h4><?php echo $this->__('Shipment History') ?></h4></div>
+    <fieldset><?php echo $this->getChildHtml('order_comments') ?></fieldset>
+</div>
+<div class="clear"></div>

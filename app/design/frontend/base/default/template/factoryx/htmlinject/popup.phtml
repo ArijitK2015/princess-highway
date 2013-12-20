@@ -1,0 +1,158 @@
+<?php if (Mage::getStoreConfig('newsletter/popup/enable')): ?>
+<?php
+    $amount = Mage::getStoreConfig('newsletter/coupon/value');
+    $minimum = Mage::getStoreConfig('newsletter/coupon/spend');
+    $text = Mage::getStoreConfig('newsletter/popup/texttodisplay');
+    $terms = Mage::getStoreConfig('newsletter/popup/terms');
+    $referers = Mage::getStoreConfig('newsletter/popup/referers');
+    $homepageonly = Mage::getStoreConfig('newsletter/popup/homepageonly');
+    if ($homepageonly && !Mage::getBlockSingleton('page/html_header')->getIsHomePage()) {return;}
+    if ($referers){
+        $referersLimitation = explode(',',$referers);
+    }else{
+        $referersLimitation = null;
+    }
+?>
+    <div id="subpopup" style="display: none;">
+        <div id="close-popup">
+            <a href="javascript:void(0);"><img src="<?php echo $this->getSkinUrl('images/factoryx/contests/popup_close.gif');?>" alt="Close" width="29" height="29" /></a>
+        </div>
+        <div class="block" id="block-sub-popup">
+            <div class="block-content">
+                <div id="popup-sub-text">
+                    <?php 
+
+                        if ($text){
+                            echo $text;
+                        }else{
+                            echo "Subscribe to get $$amount voucher";                        
+                        }
+                        if ($minimum){
+                                echo " <sup>*</sup>";
+                        }
+
+                    ?>
+                    <input type="text" placeholder="Your Email Address" id="subpop-email" />
+                    <select id="subpop-state" name="state">
+                        <option value="Default" disabled selected><?php echo $this->__('State') ?></option>
+                        <?php if ($states = Mage::helper('campaignmonitor')->getCampaignMonitorStates()): ?>
+                            <?php sort($states); ?>
+                            <?php foreach ($states as $state): ?>
+                                <?php if ($state != "Unknown"): ?>
+                                    <option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                    <input type="submit" value="Subscribe" id="subpop-subscribe"/>
+                    <div class="minimum">
+                        <?php
+                            if ($minimum){
+                                if ($terms){
+                                    echo "<sup>*</sup> $terms";
+                                }else{                                
+                                    echo "<sup>*</sup> on $$minimum or more purchase";
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+        <script type="text/javascript">
+                     
+
+            // If the competition popup has got referer limitations
+            <?php if ($referersLimitation): ?>
+                // We first check if the http referer key is set in the server array
+                <?php if (array_key_exists('HTTP_REFERER',$_SERVER)): ?> 
+                    // We parse the url to get the referer host/domain
+                    <?php $refererInfo = parse_url($_SERVER['HTTP_REFERER']); ?>
+                    // We loop through the popup limitations
+                    <?php foreach ($referersLimitation as $refererLimitation): ?>
+                        // And check if the referer host contains one of the referer limitation
+                        <?php if ($refererInfo && strpos($refererInfo['host'], $refererLimitation) !== FALSE): ?>
+                            // If the cookie is present, the popup is showed
+                            if(!Mage.Cookies.get("hasRefused-subpopup"))
+                            {
+                                jQuery(document).ready(
+                                    function(){
+                                        // If the customer has just opened the competition page we hide the popup and remove the related cookie
+                                        if (Mage.Cookies.get("hasRefused-subpopup"))
+                                        {                                         
+                                            jQuery("#subpopup").fadeIn();
+                                        }
+                                    }
+                                );
+                            }
+                            <?php break; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php else: ?>
+                // If the cookie is present, the popup is showed
+                if(!Mage.Cookies.get("hasRefused-subpopup"))
+                {
+                    jQuery(document).ready(
+                        function(){
+                            // If the customer has just opened the competition page we hide the popup and remove the related cookie
+                            if (!Mage.Cookies.get("hasRefused-subpopup"))
+                            {                             
+                                jQuery("#subpopup").fadeIn();
+                            }
+                        }
+                    );
+                }
+            <?php endif; ?>
+
+            function validateEmail(email) { 
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            } 
+
+            if (location.protocol == 'https:')
+            {
+                base_url="<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+            }
+            else
+            {
+                base_url='<?php echo Mage::getBaseUrl()?>';
+            }
+            jQuery('#subpop-subscribe').click(function(){
+                // Expiry Date
+                var expDate = new Date();
+                expDate.setDate(expDate.getDate() + 365);   
+                var email = jQuery('#subpop-email').val();
+                var state = jQuery('#subpop-state').val();                
+                if (!validateEmail(email)) {alert('Please enter a valid email address');return;}
+                if (!state) {alert('Please select state');return;}
+                jQuery('#popup-sub-text').css({'padding-top':'36px','line-height':'16px','font-size':'16px'});
+                jQuery('#popup-sub-text').html('<img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif'); ?>"> Please wait while we subscribe your email...');                
+                jQuery.ajax( {
+                    url : base_url+"campaignmonitor/subscriber/new",
+                    dataType : 'json',
+                    type : 'post',
+                    data : {"email" :email,"popup":"true","state":state},
+                    success : function(data) {
+                        if (data.status == "subscribed"){
+                            jQuery('#popup-sub-text').html('Thank you, please check your email for coupon.');
+                        }else{
+                            jQuery('#popup-sub-text').html('Sorry, you have already subscribed.');
+                        }
+                        Mage.Cookies.set("hasRefused-subpopup", true, expDate);
+                    }
+                });
+            });
+            jQuery('#close-popup a').click(function(){
+                // Expiry Date
+                var expDate = new Date();
+                expDate.setDate(expDate.getDate() + 365);   
+                jQuery('#subpopup').fadeOut();
+                Mage.Cookies.set("hasRefused-subpopup", true, expDate);
+                return false;
+            });
+        </script>
+    </div>
+<?php endif; ?>

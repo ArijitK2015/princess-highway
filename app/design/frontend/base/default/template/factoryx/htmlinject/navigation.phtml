@@ -1,0 +1,16 @@
+
+<!-- Start script to adjust the navigation -->
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#nav > li > a').css({'padding-left':'0px','padding-right':'0px'});
+        // temp fix for css reload
+        jQuery('#nav').css('float','left');
+        var navMaxWidth = jQuery('.nav-container').outerWidth();
+        var navWith = jQuery('#nav').outerWidth();
+        var itemNo = jQuery('#nav').children().length;
+        var spaceToDivide = navMaxWidth - navWith;
+        var paddingX = Math.floor(spaceToDivide/itemNo/2);
+        jQuery('#nav > li > a').css({'padding-left':paddingX-4+'px','padding-right':paddingX+4+'px'});      
+    });
+</script>
+<!-- End script to adjust the navigation -->

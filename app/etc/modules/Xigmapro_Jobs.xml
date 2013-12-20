@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Xigmapro_Jobs>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Xigmapro_Jobs>
+    </modules>
+</config>

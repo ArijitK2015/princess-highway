@@ -1,0 +1,89 @@
+<?php
+$helper = new Xigmapro_Jobs_Helper_Data(); 
+
+$state = 1;
+$displayAll = false;
+if (array_key_exists("id", $_GET)) {
+	$state = reverse_escape($_GET['id']);
+}
+else {
+	$displayAll = true;
+}
+
+$jobUrl = $this->getUrl('jobsviewdetails.html');
+
+$jobs = Mage::getModel('Jobs/Jobs')->getCollection();
+$cnt = count($jobs);
+$index = 0;
+foreach ($jobs as $job) {
+    $job->setTitle($index++);
+	if ($job->getId() == $state || $displayAll) {
+		$country = $job->getCountrys();
+	}
+}
+?>
+<div id="main" class="main-div">
+
+<div class="page-title">
+	<h1>Careers</h1>
+</div>
+<br>
+<div id="careers">
+<table class="stores" width="100%">
+	<tr>
+		<td colspan="4" class="title1">
+		    <a href="/careers">&lt;&lt;</a>&nbsp;
+		    <?php echo $displayAll ? "All" : $country; ?></td>
+	</tr>
+	<tr class="header2">
+		<td>location</td>
+		<td>positon/title</td>
+		<td>status</td>
+		<td>description</td>
+	</tr>
+<?php
+$title = 0;
+$jobId = 0;
+if (count($jobs)) {
+    foreach ($jobs as $job) {
+    	if (!$job->getstatus()) {
+    		continue;
+    	}
+    	$title = $title + 1;
+    	$job->setTitle($title);	
+    	if ($job->getCountrys() == $country || $displayAll) {
+    		// TODO: change to work type
+    		$workType = $helper->getJobStatus($job->getstatuss());
+    		//$workType = Xigmapro_Jobs_Helper_Data::$jobStatus[$job->getstatuss()];
+    		$jobId = $job->getId();
+            ?>
+            <tr>
+            	<?php if ($displayAll): ?>
+                	<td><?php echo sprintf("%s / %s", $job->getCountrys(), $job->getLocations()); ?></td>
+                <?php else : ?>
+                	<td><?php echo $job->getLocations();?> </td>
+            	<?php endif ?>
+            	<td><?php echo $job->getPosition(); ?></td>
+            	<td><?php echo sprintf("%s", $workType); ?></td>	
+            	<td><a href="<?php echo sprintf("%s?id=%d", $jobUrl, $jobId); ?>">more info</a></td>
+            </tr>
+            <?php
+        }
+    }
+}
+else {
+    echo "<tr><td colspan='4'>Sorry, no jobs for this state</td></tr>";
+}
+?>
+</table>
+
+</div>
+</div>
+
+<?php
+function reverse_escape($str) {
+	$search = array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
+	$replace = array("\\","\0","\n","\r","\x1a","'",'"');
+	return str_replace($search,$replace,$str);
+} 
+?>

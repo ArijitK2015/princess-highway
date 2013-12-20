@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Page>
+            <version>0.1.0</version>
+        </FactoryX_Page>
+    </modules>
+    <global>
+        <page>
+            <layouts>
+                <one_column_fp module="page" translate="label">
+                    <label>front page</label>
+                    <template>page/1column-fp.phtml</template>
+                    <layout_handle>page_one_column_fp</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_fp>
+            </layouts>
+        </page>
+    </global>
+</config>

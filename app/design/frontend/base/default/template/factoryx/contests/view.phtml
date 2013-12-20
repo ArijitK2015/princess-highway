@@ -1,0 +1,468 @@
+<?php
+// Get the contest
+$contest = $this->getCurrentContest();
+
+// Session variables
+$customerSession = Mage::getSingleton('customer/session');
+$session = Mage::getSingleton('core/session');
+
+$name = $session->getContestName();
+$email = $session->getContestEmail();
+$mobile = $session->getContestMobile();
+$friends = $session->getContestFriends();
+if ($contest->getIsCompetition())
+{
+    $competition = $session->getContestCompetition();
+}
+
+if ($customerSession->isLoggedIn() && !$name)
+{
+    $name = $customerSession->getCustomer()->getName();
+    $email = $customerSession->getCustomer()->getEmail();
+}
+
+if (!Mage::app()->isSingleStoreMode())
+{
+    $storeCode = Mage::app()->getStore()->getCode();
+}
+else
+{
+    $storeCode = "";
+}
+?>
+
+<?php // No contest ?>
+<?php if (!$contest->getId()): ?>
+    <h1><?php echo $this->__('Sorry, this contest does not exist, you will be redirect in a few seconds'); ?></h1>
+    <script type="text/javascript">
+        function delayedRedirect(){
+            window.location = "<?php echo Mage::helper('contests')->getThankYouRedirectUrl(); ?>";
+        }
+        window.onload = setTimeout('delayedRedirect()', 2500)
+    </script>
+<?php // Contest disabled ?>
+<?php elseif (!$contest->getDisplayed()): ?>
+    <div class="main-div" style="height:500px; position:relative;">
+
+        <div class="page-title" >
+            <h1><?php echo $this->__('Sorry this contest has closed!') ?></h1>
+        </div>
+
+        <p><?php echo $this->__('If you would like to be kept up to date with future contests and promotions, then <a href="/subscribe">subscribe</a> to our mailing list.') ?></p>
+    </div>
+<?php // Refer A Friend Mode ?>
+<?php elseif ($contest->getType() == 1): ?>
+    <div id="rafPage">
+        <div id="rafBannerDiv" class="rafBannerDiv">
+            <table border="0">
+                <tr>
+                    <td>
+                        <?php
+						$imageUrl = Mage::getBaseUrl('media'). 'contest' . $contest->getImageUrl();
+					    list($width, $height, $type, $attr) = getimagesize($imageUrl);
+					    ?>
+						<img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+
+            <?php $this->getLayout()->getMessagesBlock()->setMessages($session->getMessages(true)); ?>
+			<div id='messages_product_view'>
+				<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+			</div>
+
+            <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $contest->getId() ?>" />
+                <table class="table1" border="0" width="100%">
+                    <tr>
+                        <td class="heading1">
+                            <?php echo $this->__('Your Details'); ?>
+                        </td>
+                        <td width="180">
+                            <label for="name" class="required">
+                                <?php echo $this->__('Name')?><em>*</em>
+                            </label>
+                            <input id="name" name="name" value="<?php echo $name ?>" class="input-text required-entry" />
+                        </td>
+                        <td width="180">
+                            <label for="mobile">
+                                <?php echo $this->__('Mobile')?>
+                            </label>
+                            <input id="mobile" name="mobile" value="<?php echo $mobile ?>" class="input-text validate-number" />
+                        </td>
+                        <td width="300">
+                            <label for="email" class="required">
+                                <?php echo $this->__('Email')?><em>*</em>
+                            </label>
+                            <br />
+                            <input id="email" name="email" value="<?php echo $email ?>" class="input-text2 required-entry validate-email" />
+                        </td>
+                        <td width="160">
+                            <label for="state" class="required">
+                                <?php echo $this->__('State')?><em>*</em>
+                            </label>
+                            <div class="input-box">
+                                <select id="state" name="state" class="validate-select">
+                                    <option value=""><?php echo $this->__('Select-->')?></option>
+                                    <?php $states = Mage::helper('contests')->getStates(); ?>
+                                    <?php foreach($states as $key => $value): ?>
+                                        <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <?php if ($contest->getIsCompetition()): ?>
+                        <tr>
+                            <td></td>
+                            <td colspan="4" style="padding-top:0px !important;">
+                                <label for="competition" class="required">
+                                    <?php echo $this->__('In %s words or less, %s', $contest->getMaximumWordCount(), $contest->getCompetitionText()) ?><em>*</em>
+                                </label>
+                                <br />
+                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
+                                    <?php echo $competition ?>
+                                </textarea>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <tr>
+                        <td class="contest-text" colspan="5">
+                            <?php echo $this->__('Click "Add Friend" to refer additional friends ... the more friends you refer the more entries you get to the prize draw.')?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <?php // Call the Magento Captcha system ?>
+                                        <?php echo $this->getChildHtml('form.additional.info') ?>
+                                    </td>
+                                    <td width="480">
+                                        <!-- dynamic friend table -->
+                                        <table class="table2" id="tblFriends" width="100%">
+                                            <?php
+                                            if ($friends && count($friends) > 0)
+                                            {
+                                                $cnt = 0;
+                                                foreach ($friends as $key => $val)
+                                                {
+                                                    $cnt++;
+                                                    // reset the label
+                                                    $label = "friend" . $cnt;
+                                                    echo     "<tr>
+                                                                <td class=\"heading2\">" . $cnt . Mage::helper('contests')->numberSuffix($cnt) . " Friends Email
+                                                                </td>
+                                                                <td>
+                                                                    <input type=\"textbox\" name=\"". $label . "\" id=\"" . $label . "\" class=\"input-text2 validate-email\" value=\"" . $val . "\" />
+                                                                </td>
+                                                            </tr>";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                echo     "<tr>
+                                                            <td class=\"heading2\">1st Friends Email</td>
+                                                            <td><input type=\"textbox\" name=\"friend1\" id=\"friend1\" class=\"input-text2 validate-email\" /></td>
+                                                        </tr>";
+                                            }
+                                            ?>
+                                        </table>
+
+                                        <table border="0">
+                                            <tr>
+                                                <td width="158"></td>
+
+                                                <td id="friendButtons">
+                                                    <button onclick="addRow('tblFriends');" id='addFriendButton' type="button" title="<?php echo $this->__('Add Friend') ?>" class="button">
+                                                        <span>
+                                                            <span>
+                                                                <?php echo $this->__('Add Friend') ?>
+                                                            </span>
+                                                        </span>
+                                                    </button>
+
+                                                    <button onclick="delRow('tblFriends');" id='delFriendButton' type="button" title="<?php echo $this->__('Remove Friend') ?>" class="button">
+                                                        <span>
+                                                            <span>
+                                                                <?php echo $this->__('Remove Friend') ?>
+                                                            </span>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="140"></td>
+                                                <td id="enterButton">
+                                                    <button type="submit" title="<?php echo $this->__('Enter Now') ?>" class="button">
+                                                        <span>
+                                                            <span>
+                                                                <?php echo $this->__('Enter Now') ?>
+                                                            </span>
+                                                        </span>
+                                                    </button>
+
+                                                    <button onclick="clearForm(this.form);" title="<?php echo $this->__('Reset') ?>" class="button">
+                                                        <span>
+                                                            <span>
+                                                                <?php echo $this->__('Reset') ?>
+                                                            </span>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <div id="details">
+                                            <div id="details-container">
+                                                <label for="close"><?php echo $this->__('Closes in') ?></label>
+                                                <div id="javascript-countdown">
+                                                    <script type="text/javascript">
+                                                        TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+                                                        BackColor = "#ffffff";
+                                                        ForeColor = "#000000";
+                                                        CountActive = true;
+                                                        CountStepper = -1;
+                                                        LeadingZero = true;
+                                                        DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
+                                                        FinishMessage = "<b>CLOSED!</b>";
+                                                    </script>
+                                                    <script type="text/javascript" src="/js/countdown/countdown.js"></script>
+                                                </div>
+                                                <div id="timer-container">
+                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td width="28%" class="timer"><?php echo $this->__('days') ?></td>
+                                                            <td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
+                                                            <td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
+                                                            <td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" id="tnc">
+                            <input name="terms" type="checkbox" checked>
+                            <?php echo $this->__('I have read and agree with the <a href="javascript:void(0);" onclick="popupTerms(\'%s\', %s);">terms and conditions</a>', $storeCode, $contest->getId())?>
+                            <?php if ($contest->getShareOnFacebook()): ?>
+                                &nbsp;|&nbsp;
+                                <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
+                                    <?php echo $this->__('Share on Facebook') ?>
+                                    <img border="1" src="<?php echo $this->getSkinUrl('images/icons/facebook.gif'); ?>" alt="<?php echo $this->__('Share on Facebook') ?>">
+                                </a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+<?php // Give Away mode ?>
+<?php elseif($contest->getType() == 2): ?>
+    <div class="main-div giveaway-container">
+
+        <?php $this->getLayout()->getMessagesBlock()->setMessages($session->getMessages(true)); ?>
+		<div id='messages_product_view'>
+			<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+		</div>
+
+        <div id="giveaway-left">
+
+            <div class="page-title" >
+                <h1><?php echo $this->__('Enter The Give Away Now!') ?></h1>
+            </div>
+
+            <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
+
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $contest->getId() ?>" />
+                <table border="0" width="100%" class="tbl1">
+
+                    <tr>
+                        <td colspan="2"><?php echo $this->__('Fill in your details below to enter this give away offer and we will also keep you in the loop about all our fashion alerts.') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="delimiter"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="label1">
+                            <label for="name" class="required">
+                                <?php echo $this->__('Name') ?><em>*</em>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="input-box">
+                                <input type="text" id="name" name="name" value="<?php echo $name; ?>" title="<?php echo $this->__('Name') ?>" class="input-text required-entry" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label2">
+                            <label for="email" class="required">
+                                <?php echo $this->__('Email Address') ?><em>*</em>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="input-box">
+                                <input type="text" name="email" id="email" value="<?php echo $email; ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label1">
+                            <label for="mobile"><?php echo $this->__('Mobile') ?></label>
+                        </td>
+                        <td>
+                            <div class="input-box">
+                                <input type="text" name="mobile" id="mobile" value="<?php echo $mobile; ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text validate-number" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label2">
+                            <label for="state">
+                                <?php echo $this->__('State') ?>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="input-box">
+                                <select id="state" name="state" class="validate-select">
+                                    <option value=""><?php echo $this->__('Select-->')?></option>
+                                    <?php $states = Mage::helper('contests')->getStates(); ?>
+                                    <?php foreach($states as $key => $value): ?>
+                                        <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+					
+					<?php if ($contest->getIsCompetition()): ?>
+                        <tr>
+                            <td class="label2">
+								<label for="competition" class="required">
+                                    <?php echo $this->__('In %s words or less, %s', $contest->getMaximumWordCount(), $contest->getCompetitionText()) ?><em>*</em>
+                                </label>
+							</td>
+							<td>
+                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
+                                    <?php echo $competition ?>
+                                </textarea>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <tr>
+                        <td colspan="2">
+                            <?php // Call the Magento Captcha system ?>
+                            <?php echo $this->getChildHtml('form.additional.info') ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label2"></td>
+                        <td>
+                            <label for="terms"><?php echo $this->__('I have read and agree with the <a href="javascript:void(0);" onclick="popupTerms(\'%s\', %s);">terms and conditions</a>', $storeCode, $contest->getId()); ?></label>
+                            <input name="terms" type="checkbox" checked>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="buttons-td">
+                           <button onclick="clearForm(this.form);" title="<?php echo $this->__('Reset') ?>" class="button"><span><span><?php echo $this->__('Reset') ?></span></span></button>
+                           &nbsp;
+                           <button type="submit" title="<?php echo $this->__('Enter') ?>" class="button"><span><span><?php echo $this->__('Enter') ?></span></span></button>
+                        </td>
+                    </tr>
+
+                    <?php if ($contest->getShareOnFacebook()): ?>
+                        <tr>
+                            <td></td>
+                            <td class="buttons-td">
+                                <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
+                                    <?php echo $this->__('Share on Facebook') ?>
+                                    <img border="1" src="<?php echo $this->getSkinUrl('images/icons/facebook.gif'); ?>" alt="<?php echo $this->__('Share on Facebook') ?>">
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                </table>
+            </form>
+
+            <div id="details">
+                <div id="details-container">
+                    <label for="close"><?php echo $this->__('Closes in') ?></label>
+                    <div id="javascript-countdown">
+                        <script type="text/javascript">
+                            TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+                            BackColor = "#ffffff";
+                            ForeColor = "#000000";
+                            CountActive = true;
+                            CountStepper = -1;
+                            LeadingZero = true;
+                            DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
+                            FinishMessage = "<b>CLOSED!</b>";
+                        </script>
+                        <script type="text/javascript" src="/js/countdown/countdown.js"></script>
+                    </div>
+                    <div id="timer-container">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td width="28%" class="timer"><?php echo $this->__('days') ?></td>
+                                <td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
+                                <td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
+                                <td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="giveaway-right">
+            <?php
+			$imageUrl = Mage::getBaseUrl('media'). 'contest' . $contest->getImageUrl();
+			list($width, $height, $type, $attr) = getimagesize($imageUrl);
+			?>
+			<img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+        </div>
+
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    //< ![CDATA[
+    var contestForm = new VarienForm('contestForm');
+    var state = '<?php echo $session->getContestState(); ?>';
+
+    oState = document.getElementById("state");
+    if (oState)
+    {
+        for(i=0;i<oState.length;i++)
+        {
+            if (oState.options[i].value == state)
+            {
+                oState.selectedIndex=i;
+            }
+        }
+    }
+    //]]>
+</script>

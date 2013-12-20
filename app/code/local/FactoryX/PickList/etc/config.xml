@@ -1,0 +1,87 @@
+<?xml version="1.0"?> 
+<config>
+	<modules> 
+		<FactoryX_PickList> 
+			<version>1.2.1</version> 
+		</FactoryX_PickList> 
+	</modules>
+	 
+	<global>
+		<!--
+		<models>
+			<picklist>
+				<class>FactoryX_Picklist_Model</class>
+			</picklist>
+			<picklist_mysql4>
+				<class>FactoryX_Picklist_Model_Mysql4</class>
+			</picklist_mysql4>
+		</models>
+		-->
+		<blocks>
+			<picklist>
+				<class>FactoryX_PickList_Block</class>
+			</picklist>
+		</blocks>
+        <helpers>
+            <picklist>
+                <class>FactoryX_PickList_Helper</class>
+            </picklist>
+        </helpers> 		
+	</global>
+	
+    <admin>
+    	<routers>
+			<picklist>
+				<use>admin</use>
+				<args>
+					<module>FactoryX_PickList</module>
+					<frontName>picklist</frontName>
+				</args>
+			</picklist>
+        </routers>
+    </admin>
+
+    <adminhtml>
+		<menu>
+			<factoryx_menu translate="title" module="picklist">
+				<title>FactoryX</title>
+				<sort_order>110</sort_order>               
+				<children>
+					<factoryx_menu_item_1 module="picklist">
+						<title>Generate Pick List</title>
+						<action>picklist/adminhtml_picklist</action>
+						<sort_order>2</sort_order>
+					</factoryx_menu_item_1>
+				</children>
+			</factoryx_menu>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin translate="title" module="adminhtml">
+					<children>
+						<factoryx_menu translate="title">
+							<title>FactoryX</title>
+							<sort_order>110</sort_order>
+							<children>
+								<factoryx_menu_item_1>
+									<title>Generate Pick List</title>
+									<sort_order>10</sort_order>
+								</factoryx_menu_item_1>
+							</children>		
+						</factoryx_menu>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+            <updates>
+                <picklist>
+                    <file>factoryx/picklist.xml</file>
+                </picklist>
+            </updates>
+        </layout>		
+    </adminhtml>     
+</config>

@@ -1,0 +1,214 @@
+/* Refer A Friend part */
+#rafBannerDiv table{width:100%}
+#rafBannerDiv table td{text-align:center}
+#rafPage #details-container label{margin:0 25px}
+#rafPage div.label {
+	padding-bottom:3px;
+}
+#rafPage input.input-text {
+	width:150px;
+}
+#rafPage select {
+	height:25px;
+	width:80px;
+}
+#rafPage .heading1 {
+	text-align:left;
+	text-transform:lowercase;
+	font-weight:normal;
+	padding:2px 4px 2px;
+}
+#rafPage .heading2 {
+	width:150px;
+	font-weight:bold;
+	text-align:left;
+	padding:2px 4px 2px;
+}
+
+#rafPage .table1 tbody tr td {
+	/* color:#616264; */
+	padding-top:10px;
+	text-transform:uppercase
+}
+#rafPage .table2 tbody tr td {
+	padding-top:4px;
+}
+
+#rafPage td.heading1 {
+	width:150px;	
+	font-weight:bold;
+	text-align:left;
+	padding-right:5px;
+	/* padding:41px 20px 2px; */
+}
+#rafPage .contest-text {
+	padding-bottom: 15px;
+    padding-top: 15px;
+    text-align: center;
+    font-size:15px;
+    
+}
+
+#rafPage td.heading1 {
+	border-top: 0;
+}
+
+#rafPage #promo{width:99%;margin-top: 5px; float: left}
+
+#rafPage #enterButton button.button span{background:url(../../images/btn_bg.gif) repeat scroll 0 0 rgba(0, 0, 0, 0)}
+
+#contestBannerDiv {
+
+}
+
+#rafPage #messages_product_view{margin:15px 0px 5px 0px; width:100%}
+#tblFriends{margin:0 0 5px 0}
+#friendButtons{padding:0 0 0 0}
+#enterButton{padding-top:4px}
+#tnc{text-align:center;padding:10px 0 20px 0}
+
+#rafPage button.button span {
+}
+#enterButton button.button span {
+	height:32px; 
+	padding-top:3px;
+	font-size:18px;
+	font-weight:bold;
+}
+#rafPage #contestForm li{list-style-type:none}
+#captcha-input-box-contests,
+#captcha-image-box-contests{text-align:center;margin-top:4px}
+#captcha-reload{margin-top:13px}
+#captcha_contests{float:none !important}
+#rafPage #contestForm input.input-text{width: 150px}
+#rafPage #contestForm select{width:90px;height:21px}
+#rafPage #contestForm input.input-text, 
+#rafPage #contestForm select{
+    float: left}
+#rafPage #contestForm input.input-text2{
+    padding: 2px;
+    width: 270px;
+}
+.contest-text{font-weight: bold;
+    font-size: 14px !important;
+    font-style: italic;
+    letter-spacing: 0.1em !important;
+    padding: 5px 40px;
+    text-align: left;
+    text-transform: none !important;}
+#terms-div{margin:20px 20px 20px 20px; background-color:#fff;text-align:left}
+#terms-div h1{font-weight:bold; font-size:18px}
+#terms-div ol {
+	list-style-type: decimal;
+	list-style-position: outside;
+	margin-left: 30px;
+}	
+#terms-div li {
+	padding: 5px 0 5px 0px;
+}
+#thankyou{width:100%}
+#thankyou div{background-color:#fff;width:100%;text-align:center;height:400px}
+h1.thanks-title {
+	font-size:25px !important;
+	font-weight:normal;
+	margin-top:180px;
+}
+/* End Refer A Friend Part */
+/* Give Away part */
+.giveaway-container{position:relative}
+#giveaway-left{float:left; width:60%}
+#giveaway-left #contestForm .tbl1{margin-top:15px}
+#giveaway-left #contestForm .tbl1 .delimiter{height:10px}
+#giveaway-left #contestForm .tbl1 .buttons-td{text-align:right}
+#giveaway-left #contestForm li{list-style-type:none}
+#details-container{padding-top:0px; width:130px}
+#javascript-countdown{margin:0 4px; font-size: 18px; vertical-align:middle; font-family:arial}
+#timer-container{font-size:10px; float:left; font-weight:bold}
+#timer-container table{width:130px}
+#giveaway-right{float:left; width:40%; text-align:center; position:relative}
+.giveaway-container input.input-text {
+	width:98%;
+}
+
+.giveaway-container label {
+	text-align:left;
+	font-weight:bold;	
+}	
+
+.giveaway-container .tbl1 td {
+	padding:3px 0px 3px 0;
+}
+
+.giveaway-container div#details {
+	border: 0px solid red;
+	width:130px;
+	text-align:left;
+	position:absolute;
+	z-index: 999;
+}
+
+.giveaway-container .timer {
+	text-align: center;
+	font-weight: bold;
+}
+
+.giveaway-fadeshow{height:560px; position:relative}
+.giveaway-fadeshow #fadeshow1{z-index: 1;float:left}
+/* End Give Away part */
+/* List Part */
+#contestsList{width:100%}
+#contestsList td{padding:5px;vertical-align:middle}
+.contest-image{text-align:center}
+.contest-date{font-style: italic}
+#contestsList h2{font-weight: bold}
+#contestsList h2,
+#contestsList p{padding:5px 0}
+/* End List Part */
+/* Popup Part */
+#popup {
+    background-color: #FFFFFF;
+    box-shadow: 1px 3px 8px 3px #000000;
+    height: 325px;
+    left: 50%;
+    margin-left: -225px;
+    margin-top: -167px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 450px;
+	z-index:10000;
+}
+#close-popup {
+    float: right;
+}
+#block-contests-popup {
+    margin-top: 35px;
+}
+#popup-text
+{
+color: #000;
+font-size: 38px;
+height: 100px;
+margin: 0 auto;
+padding-top: 25px;
+width: 395px;
+}
+#terms-link {
+    margin-top: 50px;
+}
+#terms-link a {
+	color:#000;
+    text-decoration: none;
+}
+#terms-link a:hover {
+    text-decoration: underline;
+}
+#link-div a:hover {
+    opacity: 0.8;
+}
+/* End Popup Part */
+/* Terms Part */
+#winTerms_close { width:13px; height:13px; background:url(../../images/btn_remove.gif) no-repeat scroll 0 0 transparent; position:absolute; top:3px; right:3px; cursor:pointer; z-index:1000; }
+#winTerms .table_window{background-color:#FFF}
+#winTerms_top{margin-left:10px}
+/* End Terms Part */

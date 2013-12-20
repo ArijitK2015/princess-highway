@@ -1,0 +1,60 @@
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraph.org/schema/">
+	<head>
+		<?php echo $this->getChildHtml('head') ?>
+	</head>
+	
+	<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+		<?php echo $this->getChildHtml('after_body_start') ?>
+		<div class="wrapper">
+			<?php echo $this->getChildHtml('global_notices') ?>
+			<div class="page">
+				<?php echo $this->getChildHtml('header') ?>
+				<div class="main-container col1-layout">
+					<div class="col-main">
+					<?php // echo $this->getChildHtml('global_messages') ?>
+					<?php //echo $this->getChildHtml('content') ?>
+					<?php
+					$timezone = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
+					date_default_timezone_set($timezone);
+					$datearray = array('year' => 2011,'month' => 6,'day' => 31,'hour' => 23,'minute' => 59,'second' => 59);
+					//$datearray = array('year' => 2011,'month' => 7,'day' => 28,'hour' => 17,'minute' => 50,'second' => 59);
+					$eos = new Zend_Date($datearray);
+					$today = new Zend_Date();
+					/*
+					echo "compare:" . $today->compare($eos);
+					echo "eos	: " . $eos->toString("dd/MM/Y HH:mm:ss") . "\n";
+					echo "today	: " . $today->toString("dd/MM/Y HH:mm:ss") . "\n";
+					*/
+					if ($today->compare($eos) >= 0) 
+					{
+						echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-fp')->toHtml();
+					}
+					else 
+					{
+						echo $this->getLayout()->createBlock('cms/block')->setBlockId('countdown')->toHtml();				
+					}
+					?>
+					</div>
+				</div>
+				
+				<div>
+					<table border="0" width="100%">
+						<tr>
+							<td style="width:50%"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-left')->toHtml(); ?></td>
+							<td style="width:50%"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-right')->toHtml(); ?></td>
+						</tr>
+					</table>
+				</div>
+				<?php echo $this->getChildHtml('before_body_end') ?>
+			</div>    
+		</div>
+		<?php echo $this->getChildHtml('footer') ?>
+		<?php echo $this->getAbsoluteFooter() ?>
+	</body>
+</html>

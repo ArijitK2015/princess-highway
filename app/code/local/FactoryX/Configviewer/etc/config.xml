@@ -1,0 +1,20 @@
+<config>
+    <modules>
+        <FactoryX_Configviewer>
+            <version>0.1.0</version>
+        </FactoryX_Configviewer>
+    </modules>
+    <global>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <factoryx_configviewer_model_observer>
+                        <type>singleton</type>                          
+                        <class>FactoryX_Configviewer_Model_Observer</class>
+                        <method>checkForConfigRequest</method>
+                    </factoryx_configviewer_model_observer>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+</config>    

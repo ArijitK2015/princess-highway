@@ -1,0 +1,14 @@
+<div id="thankyou">
+
+	<div>
+		<h1 class="thanks-title"><?php echo $this->__('Thank you and good luck!!!') ?></h1>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+function delayedRedirect(){
+    window.location = "<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url', true); ?>";
+}
+window.onload = setTimeout('delayedRedirect()', 2500)
+</script>

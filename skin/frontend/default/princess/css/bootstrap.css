@@ -6070,27 +6070,27 @@ a.badge:focus {
 
 /* custom start */
 .carousel-control.right {
-  background-image: url('/skin/frontend/princesshighway/default/images/core/rightarrowoff.png');
+  background-image: url('/skin/frontend/default/princess/images/core/rightarrowoff.png');
   background-position: 0px -0px;
   background-repeat: no-repeat; 
   display:block; height:21px; text-indent:-99999px; width:11px;
 }
 
 .carousel-control.right:hover {
-  background-image: url('/skin/frontend/princesshighway/default/images/core/rightarrowon.png');
+  background-image: url('/skin/frontend/default/princess/images/core/rightarrowon.png');
   background-position: 0px 0px;
   background-repeat: no-repeat;   
 }
 
 .carousel-control.left {
-  background-image: url('/skin/frontend/princesshighway/default/images/core/leftarrowoff.png');
+  background-image: url('/skin/frontend/default/princess/images/core/leftarrowoff.png');
   background-position: 0px 0px;
   background-repeat: no-repeat; 
   display:block; height:21px; text-indent:-99999px; width:11px;
 }
 
 .carousel-control.left:hover {
-  background-image: url('/skin/frontend/princesshighway/default/images/core/leftarrowon.png');
+  background-image: url('/skin/frontend/default/princess/images/core/leftarrowon.png');
   background-position: 0px 0px;
   background-repeat: no-repeat;   
 }

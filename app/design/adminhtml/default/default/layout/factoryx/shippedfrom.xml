@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<layout>
+<!-- <factoryx_shippedfrom_sales_order>
+    <update handle="adminhtml_sales_order_shipment_new"/>           
+    <update handle="adminhtml_sales_order_shipment_view"/>           
+</factoryx_shippedfrom_sales_order>
+-->
+<adminhtml_sales_order_shipment_view>
+	<reference name="form">
+        <action method="setTemplate">
+            <template>factoryx/shippedfrom/sales/order/shipment/view/form.phtml</template>
+        </action>
+    </reference>
+</adminhtml_sales_order_shipment_view>
+
+<adminhtml_sales_order_shipment_new>
+	<reference name="form"> 
+		<action method="setTemplate">
+			<template>factoryx/shippedfrom/sales/order/shipment/create/form.phtml</template>
+		</action> 
+	</reference> 
+</adminhtml_sales_order_shipment_new>
+</layout>
