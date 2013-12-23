@@ -14,6 +14,29 @@
                     <layout_handle>page_one_column_fp</layout_handle>
                     <is_default>1</is_default>
                 </one_column_fp>
+				<one_column_ebay module="page" translate="label">
+                    <label>1 column ebay</label>
+                    <template>page/1column-ebay.phtml</template>
+                    <layout_handle>page_one_column_ebay</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_ebay>
+                <one_column_collection module="page" translate="label">
+                    <label>1 column collection</label>
+                    <template>page/collection.phtml</template>
+                    <layout_handle>page_one_column_collection</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_collection>   
+                <one_column_navigation module="page" translate="label">
+                    <label>1 column navigation</label>
+                    <template>page/1navigation.phtml</template>
+                    <layout_handle>page_one_column_navigation</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_navigation>
+                <homepage module="page" translate="label">
+                    <label>Homepage</label>
+                    <template>page/homepage.phtml</template>
+                    <layout_handle>page_homepage</layout_handle>
+                </homepage>
             </layouts>
         </page>
     </global>

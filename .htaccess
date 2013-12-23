@@ -207,3 +207,19 @@
 ## http://developer.yahoo.com/performance/rules.html#etags
 
     #FileETag none
+#GTspeed
+<IfModule mod_headers.c>
+<FilesMatch "\.(css|js|jpe?g|png|gif)$">
+Header set Cache-Control "max-age=5259487, public"
+</FilesMatch>
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/css M5259487
+ExpiresByType text/javascript M5259487
+ExpiresByType application/x-javascript M5259487
+ExpiresByType image/jpeg M5259487
+ExpiresByType image/png M5259487
+ExpiresByType image/gif M5259487
+</IfModule>
+#GTspeed
