@@ -1,0 +1,212 @@
+Amber
+Amethyst
+Antique Rose
+Apricot
+Aqua
+Army
+Army Green
+Aubergine
+Baby-blue
+Beige
+Berry
+Black
+Black Brown
+Black Purple
+Black/Cream
+Black/Flesh
+Black/Fushia
+Black/Green
+Black/Grey
+Black/Navy
+Black/Orange
+Black/Pink
+Black/Red
+Black/Silver
+Black/Tan
+Black/White
+Black/Yellow
+Blackberry
+Blue
+Blue/Black
+Blue/Cream
+Blue/Grey
+Blue/Orange
+Blue/Red
+Blue/White
+Blush
+Bone
+Bordeaux
+Brick
+Bronze
+Brown
+Brown/Black
+Brown/Stone
+Burgundy
+Burnt Orange
+Camel
+Camo
+Caramel
+Chambray
+Charcoal
+Chartreuse
+Check
+Cherry
+Choc/Orange
+Chocolate
+Cinnamon
+Clear
+Cobalt
+Coffee
+Coral
+Coral/Creme
+Cream
+Cream/Black
+Cream/Blue
+Creme
+Creme/Black
+Crimson
+Dark Blue
+Dark Green
+Dark Grey
+Dark Pink
+Dark Red
+Deep Blue
+Deep Red
+Denim
+Dusty Blue
+Electric Blue
+Emerald
+Flame
+Floral
+Forest
+Fuschia
+Gold
+Gold/Black
+Gold/Silver
+Grape
+Green
+Green/Creme
+Green/Grey
+Green/Pink
+Green/Purple
+Green/White
+Grey
+Grey Marle
+Grey Pink
+Grey Red
+Grey/Black
+Grey/Brown
+Grey/Orange
+Gunmetal
+Hot Pink
+Ice Blue
+Ice Pink
+Indigo
+Jade
+Khaki
+Latte
+Lavender
+Lemon
+Leopard
+Light Beige
+Light Blue
+Light Grey
+Light Indigo
+Light Pink
+Lilac
+Lime
+Magenta
+Maroon
+Maroon/Black
+Melon
+Mint
+Mint/Green
+Mocha
+Mulit Dark
+Multi
+Multi-Bright
+Mushroom
+Mustard
+Natural
+Navy
+Navy Grey
+Navy/Beige
+Navy/Blue
+Navy/Creme
+Navy/Orange
+Navy/Red
+Navy/White
+Nude
+Oatmeal
+Off White
+Old Gold
+Olive
+Orange
+Orange/Blue
+Oyster
+Pale Blue
+Pastels
+Peach
+Pearl
+Peppermint
+Petrol
+Pink
+Pink/Black
+Pink/Blue
+Pink/Navy
+Pink/Orange
+Plum
+Print
+Purple
+Purple/Black
+Raspberry
+Red
+Red Marle
+Red/Black
+Red/Blue
+Red/Cream
+Red/Navy
+Red/White
+Rose
+Rose Pink
+Rose/Beige
+Royal
+Rust
+Sage
+Sand
+Sapphire
+Sea Blue
+Silver
+Sky Blue
+Smoke
+Snake
+Snow
+Spot
+Steel
+Stone
+Straw
+Strawberry
+Stripe
+Tan
+Tangerine
+Tartan
+Taupe
+Teal
+Terracotta
+Tiger
+Tobacco
+Tomato
+Turquoise
+Tweed
+Violet
+Watermelon
+White
+White/Black
+White/Blue
+White/Navy
+White/Red
+Wine
+Wood
+Yellow
+Yellow/Pink
+Zebra
