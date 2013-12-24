@@ -53,11 +53,11 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <input type="hidden" value="" name="cart[<?php echo $_item->getId() ?>][wishlist]" title="<?php echo $this->__('Move to Wishlist') ?>" class="checkbox" />
 
     </td>
-    <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+    <?php /* if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="col4 a-center">
         
     </td>
-    <?php endif ?>
+    <?php endif */ ?>
 
     <?php if ($canApplyMsrp): ?>
         <td class="col5 a-right"<?php if ($this->helper('tax')->displayCartBothPrices()): ?> colspan="2"<?php endif; ?>>

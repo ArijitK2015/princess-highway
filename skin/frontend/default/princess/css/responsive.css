@@ -264,7 +264,6 @@ base theme = Custom Twitter Bootstrap v2.3.2
     
     #pronav-selection-container { display:block; width: 35px; }
     #pronav-selection {display:none;}
-
     
     ul#pronav li.primary-pronav-item {
         float:none;
@@ -353,11 +352,8 @@ base theme = Custom Twitter Bootstrap v2.3.2
     
     .alert {margin-top: 20px; }
     
-    #content [class*="span"]
-    {
-        /*margin-left: 0;*/ 
-    }
-
+    #product-shop { width: 100% }
+        
     #content >  .container{
         margin-right: 0;
         margin-left: 0;
@@ -535,7 +531,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
 	   Product View
 	================================================== */		
 	#product-media .product-image img { width:400px; }
-	
+
         
         /* ==================================================
 	   CONTENT
@@ -560,6 +556,9 @@ base theme = Custom Twitter Bootstrap v2.3.2
         #shippingbox .shipping-form select
         {
             width: 200px;
+        }
+        .cart #shippingbox #shipping-zip-form .icon-caret-down { background-color: #fff; font-size: 17pt; position: absolute; left: auto; top: auto; 
+            margin-left: 188px; margin-top: 4px;  height: 22px; width: 24px; text-align: center; line-height: 22px;
         }
         
         .cart #shippingbox #shipping-zip-form input[type="text"] {
@@ -587,8 +586,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
         .account-login #registeredcustomers > form > .control-group { height: 110px;}          
         .account-login #registeredcustomers > form > .control-group > .controls { clear: both; display: block; margin-left: 0px; width: 100%; }        
         .account-login #newcustomers > button,
-        .account-login #registeredcustomers > form > button { margin-top: 0px; }
-
+        .account-login #registeredcustomers > form > button { margin-top: 0px; }        
 }
 
 
@@ -658,7 +656,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
 	   CHECKOUT
 	================================================== */           
         #firecheckout-form #billing-address ul.form-list li > fieldset > ul > li { 
-            margin-bottom: 10px; width:32%;
+            margin-bottom: 16px; width:32%;
         }       
         #firecheckout-form #billing-address ul.form-list li:nth-child(7), 
         #firecheckout-form #billing-address ul.form-list li:nth-child(6), 
@@ -677,7 +675,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
         }        
         
         #firecheckout-form #shipping-address ul.form-list li > fieldset > ul > li { 
-            margin-bottom: 10px; width:32%;
+            margin-bottom: 16px; width:32%;
         }
         #firecheckout-form #shipping-address ul.form-list li:nth-child(6), 
         #firecheckout-form #shipping-address ul.form-list li:nth-child(5),
@@ -1504,6 +1502,9 @@ base theme = Custom Twitter Bootstrap v2.3.2
         .cart #totalbox .btn-proceed-checkout,
         .cart #totalbox .totalset button.btn-checkout { display: block; margin-left: 5%; margin-right: 5%; width: 90%; }
         .cart input, #shippingbox select, .cart legend { font-size:  1em; }
+        .cart #shippingbox #shipping-zip-form .icon-caret-down { background-color: #fff; font-size: 17pt; position: absolute; left: auto; top: auto; 
+            margin-left: 414px; margin-top: 4px;  height: 22px; width: 24px; text-align: center; line-height: 22px;
+        }
         
         #shippingbox{
             float:left;
@@ -1708,9 +1709,8 @@ base theme = Custom Twitter Bootstrap v2.3.2
            Checkout
         ================================================== */	
         .firecheckout-set #checkout-additional .block-title { margin-top: 10px; }
-        #checkout-review #checkout-review-table tr td { padding: 5px; }
-        
-        #firecheckout-form #billing-address ul.form-list li > fieldset > ul > li { margin-bottom: 10px; width:100%; }
+        #checkout-review #checkout-review-table tr td { padding: 5px; }        
+        #firecheckout-form #billing-address ul.form-list li > fieldset > ul > li { margin-bottom: 16px; width:100%; }
         #firecheckout-form #billing-address ul.form-list li:nth-child(7),
         #firecheckout-form #billing-address ul.form-list li:nth-child(6),
         #firecheckout-form #billing-address ul.form-list li:nth-child(5),
@@ -1734,7 +1734,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
         #firecheckout-form #billing-address ul.form-list li:nth-child(9) .field { display: block; float: none; width: 100%; margin-bottom: 0px; }
         #firecheckout-form #billing-address ul.form-list li:nth-child(9) .field:last-child { float: none }
   
-        #firecheckout-form #shipping-address ul.form-list li > fieldset > ul > li { margin-bottom: 10px; width:100%; }
+        #firecheckout-form #shipping-address ul.form-list li > fieldset > ul > li { margin-bottom: 16px; width:100%; }
         #firecheckout-form #shipping-address ul.form-list li:nth-child(6), 
         #firecheckout-form #shipping-address ul.form-list li:nth-child(5),
         #firecheckout-form #shipping-address ul.form-list li:nth-child(4),
@@ -1749,7 +1749,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
         #firecheckout-form #shipping-address ul.form-list li:nth-child(7) { margin-top: 0px; }
         #firecheckout-form #shipping-address ul.form-list li:nth-child(8) { margin-top: 0px; }
         #firecheckout-form #shipping-address ul.form-list li:nth-child(9) { margin-top: 0px; }
-        #firecheckout-form #shipping-address ul.form-list li:nth-child(8) .field {display: block; width: 100%; margin-bottom: 0px !important; margin-top: 10px; }
+        #firecheckout-form #shipping-address ul.form-list li:nth-child(8) .field {display: block; width: 100%; margin-bottom: 0px !important; margin-top: 16px; }
         
         
         
@@ -2152,7 +2152,9 @@ base theme = Custom Twitter Bootstrap v2.3.2
         .cart #shippingbox form .shippingbutton,       
         .cart #totalbox .btn-proceed-checkout,
         .cart #totalbox .totalset button.btn-checkout { display: block; margin-left: 5%; margin-right: 5%; width: 90%; }
-        
+        .cart #shippingbox #shipping-zip-form .icon-caret-down { background-color: #fff; font-size: 17pt; position: absolute; left: auto; top: auto; 
+            margin-left: 254px; margin-top: 4px;  height: 22px; width: 24px; text-align: center; line-height: 22px;
+        }
         
 }
 

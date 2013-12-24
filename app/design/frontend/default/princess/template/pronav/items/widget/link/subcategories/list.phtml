@@ -22,10 +22,23 @@ $numColumns = $this->getData('columns');
 
 //Main cat Level + Num of Levels
 $higestLevel = $levelSelect+$MainCategoryLevel;
+
+		$columns = 3;
+		$column_count = 1;
+		$items_per_column = 5;
+		$item_per_column_count = 1;
+		
 ?>
 <li class="pronav-unsorted">
-	<ul <?php if($numColumns > 1): ?>class="columns-<?php echo($numColumns);?> columns-split"<?php endif; ?>>
+	<?php /* <ul <?php if($numColumns > 1): ?>class="columns-<?php echo($numColumns);?> columns-split"<?php endif; ?>> */ ?>
 	<?php foreach ($subcategories as $sid): ?>
+
+	<?php
+			if ($item_per_column_count == 1) {
+				echo "<ul>";
+			}	
+	?>
+			
 	<?php $_category = Mage::getModel('catalog/category')->load($sid); ?>
 		<?php if ($_category): ?>
 			
@@ -58,8 +71,20 @@ $higestLevel = $levelSelect+$MainCategoryLevel;
 				<?php endif; ?>		
 			
 		<?php endif; ?>
-	<?php $counter++;?>
+
+		<?php $counter++;?>
+
+		<?php 						
+			if ($item_per_column_count == $items_per_column) {			
+				echo "</ul>";			
+				$column_count++;
+				$item_per_column_count = 1;	
+			} else {
+				$item_per_column_count++;
+			}			
+		?>
+						
 	<?php endforeach;?>
 	<?php $categoryLevel = 0; ?>
-	</ul>
+	<?php /* </ul> */ ?>
 </li>

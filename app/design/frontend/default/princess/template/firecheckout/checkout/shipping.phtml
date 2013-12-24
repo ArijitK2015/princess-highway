@@ -146,8 +146,10 @@
                                             ><?php echo $this->__($fields[$field]['label']) ?><?php if ($required): ?><em>*</em><?php endif; ?></label>
                                         <div class="input-box">
                                             <?php if ('country_id' === $field) : ?>
+												<span class="icon-caret-down"></span>
                                                 <?php echo $this->getCountryHtmlSelect($_prefix) ?>
                                             <?php elseif ('region' === $field): ?>
+												<span class="icon-caret-down"></span>
                                                 <select id="<?php echo $_prefix ?>:region_id" name="<?php echo $_prefix ?>[region_id]"
                                                     title="<?php echo (empty($fields[$field]['title']) ? $this->__($fields[$field]['label']) : $this->__($fields[$field]['title'])) ?>"
                                                     class="validate-select<?php echo $required ? ' required-entry' : '' ?>" style="display:none;"

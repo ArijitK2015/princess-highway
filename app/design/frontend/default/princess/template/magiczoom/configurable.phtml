@@ -1,0 +1,285 @@
+<?php
+
+/**
+ * Magictoolbox configurable options template for Magento store.
+ * Allow use MagicTools with product attributes
+ * @mail support@magictoolbox.com
+ */
+$_product    = $this->getProduct();
+$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+?>
+<?php
+// START SWATCH FUNCTIONALITY
+// Based on http://www.deepcodeonline.com/blog/magento/how-to-create-a-simple-color-thumbnailswatchselector-in-magento/
+
+// Function declaration
+if (!function_exists("findColorImage")) {
+	function findColorImage($value, $arr, $key, $type)
+	{
+	$found = '';
+	$total = count($arr[$key]);
+	if($total>0)
+	{
+		for($i=0; $i<$total;$i++)
+		{
+			// If it matches the color listed in the attribute
+			if($value == $arr[$key][$i])
+			{
+				// Return the image src
+				$found = $arr[$type][$i];
+			}
+		}
+		return $found;
+	}
+	return $found;
+	}
+}
+
+// Get all the media gallery images associated with this product
+$_gallery = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages();
+// Count the images
+$imgcount = count($_gallery);
+// Global variables to compare the number of swatches and the number of colors
+$_numberOfSwatches = 0;
+$_numberOfColors = 0;
+
+if($imgcount > 0)
+{
+	// Arrays to contain the swatches and the product images
+	$swatches = array();
+	$images = array();
+	// Loop on the images
+	foreach ($_gallery as $_image)
+	{
+		// If image has a label
+		if($this->htmlEscape($_image['label']) != "")
+		{
+			// Get the label text of the image
+			$label = $this->htmlEscape($_image['label']);
+			// Break the label into an array
+			$arr_color = explode('_', $label);
+			// Get the image identifier
+			$identifier = $arr_color[0];
+			// Get the color value, but don't assume the label = identifier_colour
+			$color = "";
+			if (count($arr_color) > 1) {
+				$color = str_replace("-"," ",$arr_color[1]);
+			}
+			// If this is a color swatch
+			if($identifier == 'swatch')
+			{
+				// We increase the number of swatches
+				$_numberOfSwatches++;
+				// Let's store them into the array
+				$swatches['color'][] = strval($color);
+				// Swatch selector displayed resized in a 25pixels thumbnail
+				$swatches['image'][] = strval($this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(21));
+			}
+			// Else if this is a front picture
+			else if($identifier == 'front')
+			{
+				// We generate the big zoomed picture
+				$big = $this->helper('catalog/image')->init($_product, 'image',$_image->getFile())->__toString();
+				// We retrieve the size dimensions based on the magiczoom settings
+                $arr = array(200, 280);
+                try {
+                    $arr = getimagesize($_image->getPath());
+                }
+                catch(Exception $ex) {
+                }
+                list($w, $h) = Mage::helper('magiczoom/settings')->magicToolboxGetSizes('thumb', $arr);
+				// And generate the product picture displayed
+                $medium = $this->helper('catalog/image')->init($_product, 'small_image', $_image->getFile())->resize($w, $h)->__toString();
+				// And store everything into our array
+				$images['color'][] = strval($color);
+				$images['image'][] = $medium;
+				$images['big_image'][] = $big;
+			}
+		}
+	}
+}
+
+?>
+
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+
+<?php
+foreach($_attributes as $_attribute)
+{
+	echo '<div class="' . strtolower($_attribute->getLabel()) . '">';
+	echo '<div class="group-' . strtolower($_attribute->getLabel()) . '">';	
+	// We load the attribute
+	$attributeLoaded = Mage::getModel('catalog/resource_eav_attribute')->load($_attribute->getAttributeId());
+	// Retrieve the product attributes
+	$attrs  = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);
+	// If this is a color attribute		
+	// [IF-COLOR]
+	if($_attribute->getLabel()== 'Colour')
+	{
+		foreach($attrs as $attr) 
+		{
+			// If the attribute is found in the product attribute
+			// [IF-FOUND]
+			if(0 == strcmp($attributeLoaded->getAttributeCode(), $attr['attribute_code'])) 
+			{
+				// We count the number of colors found
+				$_numberOfColors = count($attr['values']);
+			} // [ELSE IF-FOUND]
+		} /// End foreach
+		
+		// If the number of swatches is different than the number of colors (it shouldn't happen if the image validator is working properly) 
+		// [IF-COLOR-DIFF-SWATCHES]
+		if($_numberOfColors != $_numberOfSwatches)
+		{
+		// We display the dropdown instead of the swatches selector
+		?>
+			<dl>
+			<dt><label><?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
+			<dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+				<div class="input-box">
+					<select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+						<option><?php echo $this->__('Choose an Option...') ?></option>
+					  </select>
+				  </div>
+			</dd>
+			</dl>
+		<?php 
+		}
+		else 
+		// [ELSE-COLOR-EQ-SWATCHES]
+		{
+			// Load the configurable attribute here which is the color
+			$attribute = $_product->getResource()->getAttribute($attributeLoaded->getAttributeCode());
+			$frontend = $attribute->getFrontend();
+			// Get the frontend labels and values of this attribute
+			$selectOptions = $frontend->getSelectOptions();
+			?>
+			<dl>
+			<dt><label id="color-selector-label">1. <?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
+			<dd><?php // We set a hidden field here to store the value of the color being selected ?>
+			<input name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" type="hidden" value="" />
+			<?php // This div will contain the swatches ?>
+			<div id="swatch-container">
+				<?php
+				foreach($selectOptions as $refer_color_properties)
+				{
+					// If the value of the option is not empty	
+					// [IF-VALUE]
+					if($refer_color_properties['value']!='')
+					{
+						// We retrieve the corresponding swatch
+						$color_image = findColorImage(strtolower($refer_color_properties['label']),$swatches,'color','image');
+						// If there was an swatch being returned	
+						// [IF-SWATCH]
+						if($color_image != '')
+						{
+							// Get the product base image for this color
+							$product_image = findColorImage(strtolower($refer_color_properties['label']),$images,'color','image');
+							// Get the product big zoomed image for this color
+							$product_big_image = findColorImage(strtolower($refer_color_properties['label']),$images,'color','big_image');
+							// Display the swatch div (the colorSelected JS function is declared in catalog/product/view.phtml)
+							?>
+							<div class="image-swatch" id="<?php echo str_replace(" ","-",$refer_color_properties['label']); ?>" onclick="colorSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $refer_color_properties['value'];?>','<?php echo $product_image; ?>','<?php echo $product_big_image; ?>','<?php echo str_replace(" ","-",$refer_color_properties['label']);?>','<?php echo $this->getProduct()->getId(); ?>')">
+								<?php 
+									// Display color swatch
+									echo "<img width='21' height='21' src='".$color_image."' alt='".$refer_color_properties['label']."'/>";
+								?>
+							</div>
+							<?php
+						} // [END IF-SWATCH]
+					} // [END IF-VALUE]
+				} // End foreach
+				?>
+			</div>
+			</dd
+			</dl>
+			<?php
+		} // [END IF-COLOR-DIFF-SWATCHES]
+	// END SWATCH FUNCTIONALITY
+	}
+	// START SIZE FUNCTIONALITY
+	elseif($_attribute->getLabel()== 'Size')
+	// [ELSE-IF-SIZE]
+	// Display the size
+	{
+		?>
+		<dl>
+			<dt><label>2. <?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span>			
+					<span id="size-chart">
+						<a target="_blank" href="<?php echo $this->getUrl('sizechart')?>"><?php echo $this->__('size chart[+]'); ?></a>
+					</span>
+				</label>		
+			</dt>
+			<dd>
+			<?php // We set a hidden field here to store the value of the attribute being selected ?>
+			<input name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" type="hidden" value="" />
+			<?php // This is the div which will contain the sizes ?>
+			<div id="size-container">
+			<?php
+			// Loop the attributes
+			foreach($attrs as $attr) 
+			{
+				// If the attribute is found
+				// [IF-FOUND]
+				if(0 == strcmp($attributeLoaded->getAttributeCode(), $attr['attribute_code'])) 
+				{
+					// Get the values
+					$options = $attr['values'];
+					// Loop the values
+					foreach($options as $option) {
+					// Display size box
+					?>
+						<div class="size-square" id="<?php echo $option['label']; ?>" onclick="sizeSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $option['value_index'];?>','<?php echo $option['label'];?>')">
+							<span><?php echo $option['label']; ?></span>
+						</div>
+					<?php
+					} // End foreach
+				} // [END IF-FOUND]
+			} // End foreach
+			?>		
+				</div>
+			</dd>
+		</dl>
+		<?php
+	}
+	else
+	// [ELSE-NOT-COLOR-NOR-SIZE]
+	// Display other attributes
+	{
+		?>
+		<dl>
+			<dt><label><?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
+			<dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+				<div class="input-box">
+					<select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+						<option><?php echo $this->__('Choose an Option...') ?></option>
+					  </select>
+				  </div>
+			</dd>
+		</dl>			
+		<?php
+	} // [END NOT-COLOR-NOR-SIZE]
+
+	echo '</div>';	
+	echo '<div id="' . strtolower($_attribute->getLabel()) . '-available-alert" class="span3">';	
+	echo '</div>';
+	echo '</div>';
+	
+} // End foreach
+// END SIZE FUNCTIONALITY
+if ($_numberOfColors == $_numberOfSwatches)
+{
+echo '<script type="text/javascript">
+jQuery(window).load(function(){
+     jQuery("#swatch-container div").first().trigger("click");
+});
+</script>';
+}
+?>
+
+<script type="text/javascript">
+var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
+// Extra JSON variable as the spConfig is unusable
+var jsonConf = <?php echo $this->getJsonConfig() ?>;
+</script>
+<?php endif;

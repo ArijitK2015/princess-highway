@@ -238,26 +238,26 @@ class Unirgy_Giftcert_Helper_Email
         $emailEnabled = Mage::getStoreConfig('ugiftcert/email/enabled', $store);
         $usePin       = Mage::getStoreConfig('ugiftcert/default/use_pin', $store);
         $pinFormat    = Mage::getStoreConfig('ugiftcert/email/pin_format', $store);
-
+        /* @var $gc Unirgy_Giftcert_Model_Cert */
         foreach ($giftcerts as $gc) {
             if(!$this->_checkSchedule($gc)){
                 continue; // if schedule to send is not today, skip sending
             }
             $email = $name = null;
             if (is_null($self)) {
-                $self = !$gc->getRecipientName(); // set $self to false if recipient name is present.
-                if (!$self && !$gc->getRecipientEmail()) {
+                $self = !$gc->getData('recipient_name') || $gc->getData('recipient_name') == $gc->getData('sender_name'); // set $self to false if recipient name is present.
+                if (!$self && !$gc->getData('recipient_email')) {
                     return $this; // if someone else is recipient, and no email address, don't send
                 }
                 if (!$self && !$emailEnabled) {
                     return $this; // if someone else is recipient, and email sending is disabled, don't send
                 }
-                $email = $self ? $order->getCustomerEmail() : $gc->getRecipientEmail();
-                $name  = $self ? $order->getBillingAddress()->getFirstname() : $gc->getRecipientName();
+                $email = $self ? $order->getCustomerEmail() : $gc->getData('recipient_email');
+                $name  = $self ? $order->getBillingAddress()->getName() : $gc->getData('recipient_name');
             }
             // save actual cert_number for later reference
-            $gcs[$gc->getCertNumber()] = $gc->getCertNumber() . ($usePin ? sprintf($pinFormat, $gc->getPin()) : '');
-            $amount = $gc->getAmount();
+            $gcs[$gc->getData('cert_number')] = $gc->getData('cert_number') . ($usePin ? sprintf($pinFormat, $gc->getData('pin')) : '');
+            $amount = $gc->getData('amount');
             $this->addCertHistory($gc, $email);
             $senderName = $gc->getData('sender_name');
             if (!$senderName) {

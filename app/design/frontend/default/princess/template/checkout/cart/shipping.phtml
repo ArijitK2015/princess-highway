@@ -12,16 +12,18 @@
                 <div class="control-group">
                     <label class="control-label" for="country" class="required"><?php echo $this->__('Country') ?><em>*</em></label>
                     <div class="controls">
-                        <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>
+                        <span class="icon-caret-down"></span>
+						<?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>						
                     </div>
                 </div>
             <?php //if($this->getStateActive()): ?>
                 <div class="control-group">
                     <label class="control-label" for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?><?php echo $this->__('State/Province') ?></label>
                     <div class="controls">
+						<span class="icon-caret-down"></span>
                         <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" style="display:none;"<?php echo ($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
                             <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
-                        </select>
+                        </select>						
                        <script type="text/javascript">
                        //<![CDATA[
                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
