@@ -1,92 +1,51 @@
-<script>
-function showBigModal() {
-	src = jQuery('#quickshop-modal .MagicToolboxContainer .MagicZoom img').attr('src');
-	w = jQuery('#quickshop-modal .MagicToolboxContainer .MagicZoom img').width();
-	h = jQuery('#quickshop-modal .MagicToolboxContainer .MagicZoom img').height();
-	if (w > 800) {
-		p = (800 / w);
-		w = 800;
-		h = h * p;
-	}
-	newWin = window.open(src,'bigImage','height=' + h + ',width=' + w);
-	if (window.focus) {
-		newWin.focus();
-	}
-	return false;
-}
-</script>
 <?php
-$skin = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
-$theme = "frontend/default/gorman";
-
-$margin = 0;
-$marginTop = intval(self::$options->getValue('selectors-margin'));
-$thumbWidth = intval(self::$options->getValue('thumb-max-width'));
-$count = 0;
+$m = intval(self::$options->getValue('selectors-margin'));
+$wm = intval(self::$options->getValue('thumb-max-width'));
 ?>
 
 <!-- Begin magiczoom -->
-<div class="MagicToolboxContainer" style="width:<?php echo $thumbWidth; ?>px;">
-		<div id="toolboxmessages">
-		    <?php if($main) echo $main; ?>
-		
-		    <?php if(isset($message)):?>
-		        <div class="MagicToolboxMessage"><?php echo $message?></div>
-		    <?php endif?>
-			
-			<?php echo '<span class="MagicToolboxMessage2"><a href="javascript:void(0)" onclick="javascript:return showBigModal();">Click here for full size image</a></span>'; ?>
+<div class="MagicToolboxContainer" style="max-width: <?php echo $wm?>px;">
+	<div id="toolboxmessages">
+		<?php if($main) echo $main; ?>
 
-		</div>
-    
-    
-    <?php if(count($thumbs)):?>
-    <div class="MagicToolboxContainerThumbs">
-		<button class="button carousel-button" id="prev">
-			<img alt="prev image" src="<?php echo sprintf('%s/%s/images/slider/arrow-prev.png', $skin, $theme); ?>" />
-		</button>
-		<div id="MagicToolboxSelectors<?php echo $pid?>" class="more-views MagicToolboxSelectorsContainer" style="margin-top: <?php echo $marginTop;?>px">
-		    <center><nobr>
-			<?php //<h4>echo $moviews</h4> ?>
-			<ul style="text-align:center;">
-			<?php foreach($thumbs as $thumb):?>
-				<?php $count++; ?>
-				<li><?php echo $thumb?></li>
-                                <?php 
-                                    /* Custom code: Shows only 5 thumbnails */
-                                    if ($count >=5) {                                      
-                                        break; 
-                                    }                                
-                                ?>
-			<?php endforeach?>
-			</ul>
-			</nobr></center>
-		</div>
-		<button class="button carousel-button" id="next">
-			<img alt="next image" src="<?php echo sprintf('%s/%s/images/slider/arrow-next.png', $skin, $theme); ?>" />	
-		</button>
+		<?php if(isset($message)):?>
+			<div class="MagicToolboxMessage"><?php echo $message?></div>
+		<?php endif?>
+		
+		<?php echo '<span class="MagicToolboxMessage2"><a href="javascript:void(0)" onclick="javascript:return showBigModal();">Click here for full size image</a></span>'; ?>
 	</div>
+
+    <?php if(count($thumbs) > 1):?>
+		<div id="MagicToolboxSelectors<?php echo $pid?>" class="MagicToolboxSelectorsContainer<?php echo $magicscroll;?>" style="margin-top: <?php echo $m;?>px">
+			<?php echo join("\n\t",$thumbs)?>
+			<div style="clear: both"></div>
+		</div>
+		<?php if(!empty($magicscroll)): ?>
+			<script type="text/javascript">
+				MagicScroll.extraOptions.MagicToolboxSelectors<?php echo $pid?> = MagicScroll.extraOptions.MagicToolboxSelectors<?php echo $pid?> || {};
+				MagicScroll.extraOptions.MagicToolboxSelectors<?php echo $pid?>.direction = 'right';
+				<?php if(self::$options->checkValue('width', 0)): ?>
+				MagicScroll.extraOptions.MagicToolboxSelectors<?php echo $pid?>.width = <?php echo $wm?>;
+				<?php endif?>
+			</script>
+		<?php endif?>
     <?php endif?>
 </div>
-<script type="text/javascript">
-jQuery(function() {
-	if (typeof jQuery('#MagicToolboxSelectors<?php echo $pid?>') != 'undefined') {
-		
-		<?php /*	
-		jQuery('#MagicToolboxSelectors<?php echo $pid?>').jCarouselLite({
-			btnNext: "#next",
-			btnPrev: "#prev",
-			circular: true,
-			visible: <?php echo ($count<4)?$count:4; ?>
-		});		 
-		 */ ?>
-					 
-		<?php // Remove the title to hide the name of the thumbnails ?>
-		jQuery('.MagicToolboxSelectorsContainer a').removeAttr("title");
-		<?php if ($count<4): ?>
-			<?php $margin = (4-$count)*35.5; ?>
-			jQuery('#MagicToolboxSelectors<?php echo $pid?>').css("margin-left","<?php echo $margin?>px").css("margin-right","<?php echo $margin?>px");
-		<?php endif; ?>
-	}
-});
-</script>
 <!-- End  -->
+<script type="text/javascript">
+	function showBigModal() {
+		src = jQuery('.MagicZoomBigImageCont img').attr('src');
+		w = jQuery('.MagicZoomBigImageCont img').width();
+		h = jQuery('.MagicZoomBigImageCont img').height();
+		if (w > 800) {
+			p = (800 / w);
+			w = 800;
+			h = h * p;
+		}
+		newWin = window.open(src,'bigImage','height=' + h + ',width=' + w);
+		if (window.focus) {
+			newWin.focus();
+		}
+		return false;
+	}
+</script>

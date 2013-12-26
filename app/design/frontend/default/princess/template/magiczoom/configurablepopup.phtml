@@ -7,6 +7,9 @@
  */
 $_product    = $this->getProduct();
 $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+
+$magicToolboxHelper = Mage::helper('magiczoom/settings');
+$tool = $magicToolboxHelper->loadTool('product');
 ?>
 <?php
 // START SWATCH FUNCTIONALITY
@@ -14,24 +17,19 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
 
 // Function declaration
 if (!function_exists("findColorImage")) {
-	function findColorImage($value, $arr, $key, $type)
-	{
-	$found = '';
-	$total = count($arr[$key]);
-	if($total>0)
-	{
-		for($i=0; $i<$total;$i++)
-		{
-			// If it matches the color listed in the attribute
-			if($value == $arr[$key][$i])
-			{
-				// Return the image src
-				$found = $arr[$type][$i];
-			}
-		}
-		return $found;
-	}
-	return $found;
+	function findColorImage($value, $arr, $key, $type) {
+    	$found = '';
+    	if (array_key_exists($key, $arr) && count($arr[$key]) > 0) {
+    		for($i = 0; $i < count($arr[$key]); $i++) {
+    			// If it matches the color listed in the attribute
+    			if ($value == $arr[$key][$i]) {
+                    // Return the image src
+    				$found = $arr[$type][$i];
+    			}
+    		}
+    		return $found;
+    	}
+    	return $found;
 	}
 }
 
@@ -87,7 +85,7 @@ if($imgcount > 0)
                 }
                 catch(Exception $ex) {
                 }
-                list($w, $h) = Mage::helper('magiczoom/settings')->magicToolboxGetSizes('thumb', $arr);
+                list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $arr);
 				// And generate the product picture displayed
                 $medium = $this->helper('catalog/image')->init($_product, 'small_image', $_image->getFile())->resize($w, $h)->__toString();
 				// And store everything into our array
@@ -137,7 +135,7 @@ foreach($_attributes as $_attribute)
 			<dt><label><?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
 			<dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
 				<div class="input-box">
-					<select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+					<select onchange="colorSelectedDropdown(this,'<?php echo $this->getProduct()->getId() ?>')" name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
 						<option><?php echo $this->__('Choose an Option...') ?></option>
 					  </select>
 				  </div>
@@ -159,7 +157,7 @@ foreach($_attributes as $_attribute)
 			<dd><?php // We set a hidden field here to store the value of the color being selected ?>
 			<input name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" type="hidden" value="" />
 			<?php // This div will contain the swatches ?>
-			<div id="swatch-container">rrrrrrrrrrrrrrrrrr
+			<div id="swatch-container">
 				<?php
 				foreach($selectOptions as $refer_color_properties)
 				{
@@ -179,7 +177,7 @@ foreach($_attributes as $_attribute)
 							$product_big_image = findColorImage(strtolower($refer_color_properties['label']),$images,'color','big_image');
 							// Display the swatch div (the colorSelected JS function is declared in catalog/product/view.phtml)
 							?>
-							<div class="image-swatch" id="<?php echo str_replace(" ","-",$refer_color_properties['label']); ?>" onclick="colorSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $refer_color_properties['value'];?>','<?php echo $product_image; ?>','<?php echo $product_big_image; ?>','<?php echo str_replace(" ","-",$refer_color_properties['label']);?>','<?php echo $this->getProduct()->getId(); ?>')">
+							<div class="image-swatch" id="<?php echo str_replace(array(" ","/"),"-",$refer_color_properties['label']); ?>" onclick="colorSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $refer_color_properties['value'];?>','<?php echo $product_image; ?>','<?php echo $product_big_image; ?>','<?php echo str_replace(array(" ","/"),"-",$refer_color_properties['label']);?>','<?php echo $this->getProduct()->getId(); ?>')">
 								<?php 
 									// Display color swatch
 									echo "<img width='21' height='21' src='".$color_image."' alt='".$refer_color_properties['label']."'/>";
@@ -229,7 +227,7 @@ foreach($_attributes as $_attribute)
 					foreach($options as $option) {
 					// Display size box
 					?>
-						<div class="size-square" id="<?php echo $option['label']; ?>" onclick="sizeSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $option['value_index'];?>','<?php echo $option['label'];?>')">
+						<div class="size-square" id="<?php echo str_replace(array(" ","/"),"-",$option['label']); ?>" onclick="sizeSelected('attribute<?php echo $_attribute->getAttributeId() ?>','<?php echo $option['value_index'];?>','<?php echo str_replace(array(" ","/"),"-",$option['label']);?>','<?php echo $this->getProduct()->getId(); ?>')">
 							<span><?php echo $option['label']; ?></span>
 						</div>
 					<?php
@@ -267,13 +265,24 @@ foreach($_attributes as $_attribute)
 	
 } // End foreach
 // END SIZE FUNCTIONALITY
-if ($_numberOfColors == $_numberOfSwatches)
-{
-echo '<script type="text/javascript">
-jQuery(window).load(function(){
-     jQuery("#swatch-container div").first().trigger("click");
-});
-</script>';
+if ($_numberOfColors == 0){
+	echo '<script type="text/javascript">
+		jQuery(window).load(function(){
+	     	colorSelectedDropdown("false",'.$_product->getId().');	     	
+		});
+	</script>';
+}elseif ($_numberOfColors == $_numberOfSwatches){
+	echo '<script type="text/javascript">
+	jQuery(window).load(function(){
+	     jQuery("#swatch-container div").first().trigger("click");
+	});
+	</script>';
+}else{
+	echo '<script type="text/javascript">
+	jQuery(window).load(function(){
+		jQuery(".super-attribute-select :nth-child(2)").prop("selected", true).trigger("change");
+	});
+	</script>';
 }
 ?>
 
@@ -282,4 +291,4 @@ var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
 // Extra JSON variable as the spConfig is unusable
 var jsonConf = <?php echo $this->getJsonConfig() ?>;
 </script>
-<?php endif;
+<?php endif;?>

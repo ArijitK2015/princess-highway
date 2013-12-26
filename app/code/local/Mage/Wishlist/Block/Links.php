@@ -1,5 +1,8 @@
 <?php
 /**
+	Change wording and add getCacheTags
+**/
+/**
  * Magento
  *
  * NOTICE OF LICENSE

@@ -1,5 +1,8 @@
 <?php
 /**
+	remove setTitle
+**/
+/**
  * Magento
  *
  * NOTICE OF LICENSE

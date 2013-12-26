@@ -1,44 +1,56 @@
 <?php
 
-// Detect iPhone and iPad
-function isiPad($user_agent = NULL) {
-    if(!isset($user_agent)) {
-        $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-    }
-    return stripos($user_agent, 'ipad') !== FALSE;
-}
-
-//if(isiPad()) {
-//	echo sprintf("<p style='color:#ddd;'>%s</a>", $_SERVER['HTTP_USER_AGENT']);
-//}
-
 /**
  * Magictoolbox product list template for Magento store.
  * Allow use MagicTools on product list page.
  * @mail support@magictoolbox.com
  */
-foreach ($_productCollection as $_product) {
+ 
+$placeHolder = $this->getSkinUrl('images/catalog/product/placeholder/image.jpg');
+
+// Detect iPhone and iPad
+function isAppleMobile($user_agent=NULL) {
+    if(!isset($user_agent)) {
+        $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    }
+    return (strpos($user_agent, 'iPhone') !== FALSE || strpos($user_agent, 'iPad') !== FALSE);
+}
+
+$output_helper = $this->helper('catalog/output');
+
+foreach($_productCollection as $__product) {
+
+    $pid = $__product->getId();
+    $id = $group.'_'.$pid;
+    $_product = Mage::getModel('catalog/product')->load($pid);
 	$link = $_product->getProductUrl();
-    $_product = Mage::getModel('catalog/product')->load($_product->getId());
-	
-    if ($_product->getImage() && $_product->getImage() != 'no_selection') {
+    $_image_file = $_product->getImage();
+
+    if($_image_file && $_image_file != 'no_selection') {
         $title = $this->htmlEscape($_product->getName());
-        $description = $this->htmlEscape($_product->getDescription());
-        $shortDescription = $this->htmlEscape($_product->getShortDescription());
-        //$thumb = $magicToolboxHelper->magicToolboxResizer($_product, 'small_image', 'category-thumb');
-        //$img = $magicToolboxHelper->magicToolboxResizer($_product, 'image');
-        $_image_file = $_product->getSmall_image();
-        //$img = $this->helper('catalog/image')->init($_product, 'image', $_image_file)->__toString();
-        list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-thumb', $this->helper('catalog/image')->getOriginalSizeArray());
-        $thumb = $this->helper('catalog/image')->init($_product, 'small_image', $_image_file)->resize($w, $h)->__toString();
-        $img = $thumb;
+        //$description = $this->htmlEscape($_product->getDescription());
+        $description = $this->htmlEscape($output_helper->productAttribute($_product, $_product->getDescription(), 'description'));
+        //$shortDescription = $this->htmlEscape($_product->getShortDescription());
+        $shortDescription = $this->htmlEscape($output_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description'));
+
+        $_small_image_file = $_product->getSmall_image();
+        $img = $this->helper('catalog/image')->init($_product, 'small_image', $_small_image_file)->__toString();
+        $originalSizeArray = $this->helper('catalog/image')->getOriginalSizeArray();
+        if($tool->params->checkValue('square-images', 'Yes')) {
+            $big_image_size = ($originalSizeArray[0] > $originalSizeArray[1]) ? $originalSizeArray[0] : $originalSizeArray[1];
+            $img = $this->helper('catalog/image')->watermark(null, null)->resize($big_image_size)->__toString();
+        }
+        list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+        $thumb = $this->helper('catalog/image')->watermark(null, null)->resize($w, $h)->__toString();
+		$img = $thumb;
 		//echo "thumb=$thumb";
 
 		// Add height and width
 		$width = $w;
 		$height = $h;
-		
+
         if($tool->params->checkValue('link-to-product-page', 'Yes')) {
+            //NOTE: get URL from $__product (not $_product) object
             // Get the URL from the description if it's an advert panel
 			if($_product->getTypeId() == "panel")
 			{
@@ -53,143 +65,111 @@ foreach ($_productCollection as $_product) {
 			}
 			else
 			{
-				//$link = $_product->getProductUrl();
+				// $link = $__product->getProductUrl();
 			}
-        }
-        else {
+        } else {
             $link = '';
         }
+            if($tool->params->checkValue('drag-mode', 'Yes')) { //onclick only if drag mode is disabled
+                $link = '';
+            }
 
-        if($tool->params->checkValue('drag-mode', 'Yes')) { //onclick only if drag mode is disabled
-            $link = '';
-        }
-        $id = $_product->getId();
-		
-        $html = $tool->template(compact("id", "title", "description", "shortDescription", "img", "thumb", "link", "width", "height"));
-        if ($tool->params->checkValue('show-selectors-on-category-page', 'Yes')) {
-			$gallery = Mage::getModel('catalog/product')->load($id)->getMediaGalleryImages();
+        $html = $tool->getMainTemplate(compact('id', 'group', 'title', 'description', 'shortDescription', 'img', 'thumb', 'link', 'width', 'height'));
+
+        if($tool->params->checkValue('show-selectors-on-category-page', 'Yes')) {
+            $gallery = $_product->getMediaGalleryImages();
+			// We get the image labels
+			$imagesLabels = $gallery->getColumnValues('label');
 			// Exception if it's an Apple devices we have to change the anchor tag link using an onclick even
-			if(isiPad()) {
-			//	$html = str_replace('<a','<a ontouchstart="javascript:window.location=\''.$link.'\';return false;"',$html);
-			}
-			else {
-				foreach($gallery  as $_image) {				
-					// If we find a body shot
-					if (substr($this->htmlEscape($_image->getLabel()),0,8)=="inside 2") {
-						$arr = array(220, 280);
-						try {
-							$arr = getimagesize($_image->getPath());
-						}
-						catch(Exception $ex) {
-						}
-						list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-thumb', $arr);
-						$bodyShot = $this->helper('catalog/image')->init($_product, 'small_image', $_image->getFile())->resize($w, $h)->__toString();
-						$html = str_replace('<a','<a onmouseover="changeToShot(this,\''.$bodyShot.'\')"',$html);
-					}
+			$html = str_replace('<a','<a onclick="javascript:window.location=\''.$link.'\';return false;"',$html);
+			if (isAppleMobile()) 
+			{
+				// $prodHtml = str_replace('<a','<a ontouchend="javascript:window.location=\''.$prodUrl.'\';return false;"',$prodHtml);
+			} 
+			else 
+			{
+				$bodyShotsLabels = preg_grep('/^inside 2/',$imagesLabels);
+				if (!empty($bodyShotsLabels))
+				{
+					// We get the corresponding image (first element of the array of body shots retrieved using reset)
+					$bodyShotImage = $gallery->getItemByColumnValue('label',reset($bodyShotsLabels));
+					list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $this->helper('catalog/image')->getOriginalSizeArray());
+					$bodyShot = $this->helper('catalog/image')->init($_product, 'small_image', $bodyShotImage->getFile())->resize($w, $h)->__toString();
+					$html = str_replace('<img','<img onmouseover="this.src=\''.$bodyShot.'\'" onmouseout="this.src=\''.$img.'\'"',$html);
 				}
 			}
-            $html .= '<div class="MagicToolboxSelectorsContainer">';
-            $htmlSwatch = ""; 
+			$html .= '<div class="MagicToolboxSelectorsContainer">';
+			$htmlSwatch = "";
             $swatchCnt = 0;
-			// Get the body shot
-			$bodyShot = "";
-            foreach($gallery  as $_image) {
-                //$medium = $magicToolboxHelper->magicToolboxResizer($_product, 'small_image', 'category-thumb', $_image->getFile());
-                //$thumb = $magicToolboxHelper->magicToolboxResizer($_product, 'thumbnail', 'category-selector', $_image->getFile());
-                //$img = $magicToolboxHelper->magicToolboxResizer($_product, 'image', null, $_image->getFile());
-				
-				// If we find a body shot
-				
-				if (substr($this->htmlEscape($_image->getLabel()),0,8)=="inside 2") {
-					$arr = array(220, 280);
-					try {
-						$arr = getimagesize($_image->getPath());
-					}
-					catch(Exception $ex) {
-					}					
-					list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-thumb', $arr);
-					$bodyShot = $this->helper('catalog/image')->init($_product, 'small_image', $_image->getFile())->resize($w, $h)->__toString();
-				}
-				if (substr($this->htmlEscape($_image->getLabel()),0,6) == "swatch") {
+			
+			foreach($gallery  as $_image) 
+			{
+				if (substr($this->htmlEscape($_image->getLabel()),0,6)=="swatch") 
+				{
 					$swatchCnt++;
 					$_image_file = $_image->getFile();
 					$_image_path  = $_image->getPath();
-					//list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-thumb', getimagesize($_image_path));
-					//$medium = $this->helper('catalog/image')->init($_product, 'small_image', $_image_file)->resize($w, $h)->__toString();
-					$arr = array(220, 280);
-					try {
-						$arr = getimagesize($_image_path);
+					if (!file_exists($_image_path)) 
+					{
+						$_image_path = $placeHolder;
 					}
-					catch(Exception $ex) {
-					}
-					list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-selector', $arr);
+					$originalSizeArray = getimagesize($_image_path);	
+					list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $originalSizeArray);
 					$width = $w;
 					$height = $h;
 					$thumb = $this->helper('catalog/image')->init($_product, 'thumbnail', $_image_file)->resize($w, $h)->__toString();
 					$pictureToFind = str_replace("swatch","front",$this->htmlEscape($_image->getLabel()));
-					foreach($gallery  as $_image2) {
-						if ($this->htmlEscape($_image2->getLabel())==$pictureToFind) {
-							//$img = $this->helper('catalog/image')->init($_product, 'thumbnail', $_image2->getFile())->__toString();
-							$img = $thumb;
-							$arr = array(220, 280);
-							try {
-								$arr = getimagesize($_image2->getPath());
+					$medium = $img;
+					// We loop through the images labels
+					foreach ($imagesLabels as $imageLabel)
+					{
+						// If we find the picture
+						if ($this->htmlEscape($imageLabel)==$pictureToFind) 
+						{
+							// We get the corresponding image
+							$pictureToFindImage = $gallery->getItemByColumnValue('label',$imageLabel);
+							//$img = $this->helper('catalog/image')->init($_product, 'thumbnail', $pictureToFindImage->getFile())->__toString();							
+							$_image_path = $pictureToFindImage->getPath();
+							if (!file_exists($_image_path)) 
+							{
+								$_image_path = $placeHolder;
 							}
-							catch(Exception $ex) {
-							}							
-							list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('category-thumb', $arr);
-							$medium = $this->helper('catalog/image')->init($_product, 'small_image', $_image2->getFile())->resize($w, $h)->__toString();
+							$originalSizeArray = getimagesize($_image_path);						
+							list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+							$medium = $this->helper('catalog/image')->init($_product, 'small_image', $pictureToFindImage->getFile())->resize($w, $h)->__toString();
+							$img = $medium;
 							break;
 						}
 						else continue;
 					}
 					//$title = $this->htmlEscape($_image->getLabel());
-					$a = $tool->subTemplate(compact("id", "img", "thumb", "medium", "title", "width", "height"));
+					$a = $tool->getSelectorTemplate(compact('id', 'img', 'thumb', 'medium', 'title', 'width', 'height'));
+					//echo sprintf("<pre>%s</pre>", $aHref);
 					$htmlSwatch .= $a;
 				}
 				else {
 					continue;
 				}
-            }
-            //$html .= 'count=' . $swatchCnt;	            
-            if ($swatchCnt > 1) {
+			}
+			if ($swatchCnt > 1) {
             	$html .= $htmlSwatch;
             }
-            $html .= '</div>';
+			$html .= '</div>';
         }
 
         $html = '<div class="MagicToolboxContainer">' . $html . '</div>';
-		
-		// Disable the zoom on the listing page
-		$html = str_replace('class="MagicZoomPopup"','class="MagicZoomPopup" rel="disable-zoom:true;"', $html);
-		
-        $pattern = '<a[^>]+href=\"' . preg_quote($link, '/') . '\"[^>]*>\s*<img[^>]+\/>\s*<\/a>';
-        $pattern = '/' . $pattern . '/is';
-        $contents_new = preg_replace($pattern, $html, $contents);
-		//Mage::log($_product->getUrlPath());
+        //NOTE: get URL from $__product (not $_product) object
+        $pattern = '<a[^>]+href=\"' . preg_quote($__product->getProductUrl(), '/') . '\"[^>]*>\s*<img[^>]+\/>\s*<\/a>';
+        $contents_new = preg_replace('/' . $pattern . '/is', $html, $contents);
         if($contents_new == $contents) {
-            $hash = preg_replace('/^.*?image\/([a-z0-9]+)\/.*$/is', '$1', $img);
-            //$name = preg_replace('/^.*?image\/([a-z0-9]+)\/.*?\/([^\/]+)$/is', '$2', $img);
-            $name = $this->helper('catalog/image')->init($_product, 'small_image');
-            $name = preg_replace('/^.*?image\/([a-z0-9]+)\/.*?\/([^\/]+)$/is', '$2', $name);
-            $pattern = '<img[^>]+src=\"[^\"]*\/' . preg_quote($hash, '/') . '\/[^\"]*\/' . preg_quote($name, '/') . '\"[^>]*\/>';
-            //$pattern = '/' . $pattern . '/is';
-            $contents_new = preg_replace('/<a[^>]+>\s*' . $pattern . '\s*<\/a>/is', $html, $contents);
-            if($contents_new == $contents) {
-                $contents_new = preg_replace('/' . $pattern . '/is', $html, $contents);
-            }
+            $pattern = '<a[^>]+>\s*<img[^>]+?src="[^"]*?'.preg_quote($_small_image_file, '/').'"[^>]*>\s*<\/a>';
+            $contents_new = preg_replace('/'.$pattern.'/is', $html, $contents);
         }
         $contents = $contents_new;
-		
-		// Change the behavior if we are in a New Arrival category
-		if(Mage::registry('current_category') && strpos(Mage::registry('current_category')->getUrl(),"new-arrivals")>0) {
-			$linkToReplace = $link;
-			$link = Mage::getBaseUrl() . $_product->getUrlPath();
-			$contents = str_replace($linkToReplace,$link,$contents);
-		}
-		// End new arrivals change
     }
+
 }
+
 ?>
 <script type="text/javascript">
 	jQuery(function() {
@@ -203,27 +183,4 @@ foreach ($_productCollection as $_product) {
 			jQuery(this).addClass('swatch-selected');
 		});
 	});
-	
-	// Function to load the body shot
-	function changeToShot(link, newImage)
-	{
-		var front = jQuery(link).children('img').first().attr('src');
-		if (front == newImage) return;
-		jQuery(link).children('img').first().attr('src',newImage);
-		jQuery(link).removeAttr('onmouseover');
-		jQuery(link).mouseout(function(){
-			changeToFront(this,front)
-		});
-	}
-	// Function to load back the front shot
-	function changeToFront(link, newImage)
-	{
-		var shot = jQuery(link).children('img').first().attr('src');
-		if (shot == newImage) return;
-		jQuery(link).children('img').first().attr('src',newImage);
-		jQuery(link).removeAttr('onmouseout');
-		jQuery(link).mouseover(function(){
-			changeToShot(this,shot)
-		});
-	}
 </script>
