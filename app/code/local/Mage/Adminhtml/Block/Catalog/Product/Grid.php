@@ -321,19 +321,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
-				/*
-/*
-        $this->addColumn('store',
-            array(
-                'header'=> Mage::helper('catalog')->__('Store'),
-                'width' => '100px',
-                'sortable'  => false,
-                'index'     => 'store_id',
-                'type'      => 'options',
-                'options'   => Mage::getModel('core/store')->getCollection()->toOptionHash(),
-        ));
-*/
-        //if (!Mage::app()->isSingleStoreMode()) {
+		
+        if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('websites',
                 array(
                     'header'=> Mage::helper('catalog')->__('Websites'),
@@ -343,7 +332,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                     'type'      => 'options',
                     'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
             ));
-        //}
+        }
 				
         $this->addColumn('action',
             array(

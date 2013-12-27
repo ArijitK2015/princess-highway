@@ -13,8 +13,10 @@
 		}
 		
 		$pronavPos = Mage::getStoreConfig('pronav/pronavstyle/pronav_position');
+		
+		$output = '';
                 
-                if ( $this->getNavConfig("make_responsive") ) {
+        if ( $this->getNavConfig("make_responsive") ) {
                     $output .= '<div id="pronav-selection-container"><a href="#pronav-select" id="pronav-select-toggle"></a></div>';                   
 		}
                 

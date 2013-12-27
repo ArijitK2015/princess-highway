@@ -9,8 +9,8 @@
 <?php
     $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
+	/*
     $_imgHtml   = '';
-    /*
     if ($_imgUrl = $_category->getImageUrl()) {
         $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
@@ -30,9 +30,9 @@
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
-<?php if($_imgUrl): ?>
+<?php /*if($_imgUrl): ?>
     <?php echo $_imgHtml ?>
-<?php endif; ?>
+<?php endif;*/ ?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">

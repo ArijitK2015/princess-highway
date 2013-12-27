@@ -78,7 +78,14 @@ SET @PH_STORE_GROUP = 1;
 -- SELECT * FROM df_dev.catalog_category_entity_datetime WHERE store_id = @DF_STORE OR store_id = 0;
 -- USE @PH_DATABASE;
 /* Start */
-SET FOREIGN_KEY_CHECKS=0;
+SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;
+SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;
+SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;
+SET NAMES utf8;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
 /* Drop Tables */
 DROP TABLE IF EXISTS catalog_category_anc_categs_index_idx;
 DROP TABLE IF EXISTS catalog_category_anc_categs_index_tmp;
@@ -96,6 +103,8 @@ DROP TABLE IF EXISTS catalog_category_product_index_enbl_idx;
 DROP TABLE IF EXISTS catalog_category_product_index_enbl_tmp;
 DROP TABLE IF EXISTS catalog_category_product_index_idx	;
 DROP TABLE IF EXISTS catalog_category_product_index_tmp	;
+DROP TABLE IF EXISTS catalog_compare_item;
+DROP TABLE IF EXISTS catalog_eav_attribute;
 DROP TABLE IF EXISTS catalog_product_bundle_option;
 DROP TABLE IF EXISTS catalog_product_bundle_option_value;
 DROP TABLE IF EXISTS catalog_product_bundle_price_index	;
@@ -212,6 +221,8 @@ CREATE TABLE catalog_category_product_index_enbl_idx LIKE magento_1_8_1_0.catalo
 CREATE TABLE catalog_category_product_index_enbl_tmp LIKE magento_1_8_1_0.catalog_category_product_index_enbl_tmp;
 CREATE TABLE catalog_category_product_index_idx LIKE magento_1_8_1_0.catalog_category_product_index_idx;
 CREATE TABLE catalog_category_product_index_tmp LIKE magento_1_8_1_0.catalog_category_product_index_tmp;
+CREATE TABLE catalog_compare_item LIKE magento_1_8_1_0.catalog_compare_item;
+CREATE TABLE catalog_eav_attribute LIKE magento_1_8_1_0.catalog_eav_attribute;
 CREATE TABLE catalog_product_bundle_option LIKE magento_1_8_1_0.catalog_product_bundle_option;
 CREATE TABLE catalog_product_bundle_option_value LIKE magento_1_8_1_0.catalog_product_bundle_option_value;
 CREATE TABLE catalog_product_bundle_price_index LIKE magento_1_8_1_0.catalog_product_bundle_price_index;
@@ -306,10 +317,15 @@ CREATE TABLE eav_form_type LIKE magento_1_8_1_0.eav_form_type;
 CREATE TABLE eav_form_type_entity LIKE magento_1_8_1_0.eav_form_type_entity;
 /* End Create Tables */
 
+/* Update Tables Structure (SeoSuite module) */
+ALTER TABLE catalog_eav_attribute ADD layered_navigation_canonical TINYINT(1) UNSIGNED NOT NULL DEFAULT '0';
+/* End Update Tables Structure (SeoSuite module) */
+
 /* Update Tables Structure (AttributeOptionPro module) */
 ALTER TABLE eav_attribute_option ADD image TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE eav_attribute_option ADD additional_image TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
-/* Update Tables Structure (AttributeOptionPro module) */
+ALTER TABLE catalog_eav_attribute ADD image TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+/* End Update Tables Structure (AttributeOptionPro module) */
 
 /* Insert Data */
 INSERT INTO catalog_category_anc_categs_index_idx SELECT * FROM df_dev.catalog_category_anc_categs_index_idx;
@@ -328,6 +344,8 @@ INSERT INTO catalog_category_product_index_enbl_idx SELECT * FROM df_dev.catalog
 INSERT INTO catalog_category_product_index_enbl_tmp SELECT * FROM df_dev.catalog_category_product_index_enbl_tmp;
 INSERT INTO catalog_category_product_index_idx SELECT * FROM df_dev.catalog_category_product_index_idx	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO catalog_category_product_index_tmp SELECT * FROM df_dev.catalog_category_product_index_tmp	WHERE store_id = @DF_STORE OR store_id = 0;
+INSERT INTO catalog_compare_item SELECT * FROM df_dev.catalog_compare_item WHERE store_id = @DF_STORE OR store_id = 0;
+INSERT INTO catalog_eav_attribute SELECT * FROM df_dev.catalog_eav_attribute;
 INSERT INTO catalog_product_bundle_option SELECT * FROM df_dev.catalog_product_bundle_option;
 INSERT INTO catalog_product_bundle_option_value SELECT * FROM df_dev.catalog_product_bundle_option_value	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO catalog_product_bundle_price_index SELECT * FROM df_dev.catalog_product_bundle_price_index	WHERE website_id = @DF_WEBSITE OR website_id = 0;
@@ -399,6 +417,7 @@ INSERT INTO cataloginventory_stock_item SELECT * FROM df_dev.cataloginventory_st
 INSERT INTO cataloginventory_stock_status SELECT * FROM df_dev.cataloginventory_stock_status	WHERE website_id = @DF_WEBSITE OR website_id = 0;
 INSERT INTO cataloginventory_stock_status_idx SELECT * FROM df_dev.cataloginventory_stock_status_idx	WHERE website_id = @DF_WEBSITE OR website_id = 0;
 INSERT INTO cataloginventory_stock_status_tmp SELECT * FROM df_dev.cataloginventory_stock_status_tmp	WHERE website_id = @DF_WEBSITE OR website_id = 0;
+/* INSERT INTO core_url_rewrite SELECT * FROM df_dev.core_url_rewrite	WHERE (store_id = @DF_STORE OR store_id = 0) AND is_system = 1; */
 INSERT INTO eav_attribute SELECT * FROM df_dev.eav_attribute;
 INSERT INTO eav_attribute_group SELECT * FROM df_dev.eav_attribute_group;
 INSERT INTO eav_attribute_label SELECT * FROM df_dev.eav_attribute_label	WHERE store_id = @DF_STORE OR store_id = 0;
@@ -410,7 +429,7 @@ INSERT INTO eav_entity_attribute SELECT * FROM df_dev.eav_entity_attribute;
 INSERT INTO eav_entity_datetime SELECT * FROM df_dev.eav_entity_datetime	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO eav_entity_decimal SELECT * FROM df_dev.eav_entity_decimal	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO eav_entity_int SELECT * FROM df_dev.eav_entity_int	WHERE store_id = @DF_STORE OR store_id = 0;
-INSERT INTO eav_entity_store SELECT * FROM df_dev.eav_entity_store	WHERE store_id = @DF_STORE OR store_id = 0;
+/* INSERT INTO eav_entity_store SELECT * FROM df_dev.eav_entity_store	WHERE store_id = @DF_STORE OR store_id = 0; */
 INSERT INTO eav_entity_text SELECT * FROM df_dev.eav_entity_text	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO eav_entity_type SELECT * FROM df_dev.eav_entity_type;
 INSERT INTO eav_entity_varchar SELECT * FROM df_dev.eav_entity_varchar	WHERE store_id = @DF_STORE OR store_id = 0;
@@ -420,9 +439,6 @@ INSERT INTO eav_form_fieldset_label SELECT * FROM df_dev.eav_form_fieldset_label
 INSERT INTO eav_form_type SELECT * FROM df_dev.eav_form_type	WHERE store_id = @DF_STORE OR store_id = 0;
 INSERT INTO eav_form_type_entity SELECT * FROM df_dev.eav_form_type_entity;
 /* End Insert Data */
-/*
-INSERT IGNORE INTO core_url_rewrite SELECT * FROM df_dev.core_url_rewrite	WHERE store_id = @DF_STORE OR store_id = 0;
-*/
 
 /* Update Stores */
 UPDATE catalog_category_entity_datetime SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
@@ -433,6 +449,7 @@ UPDATE catalog_category_entity_varchar SET store_id = @PH_STORE WHERE store_id =
 UPDATE catalog_category_product_index SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_category_product_index_idx SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_category_product_index_tmp SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
+UPDATE catalog_compare_item SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_product_bundle_option_value SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_product_enabled_index SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_product_entity_datetime SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
@@ -453,14 +470,14 @@ UPDATE catalog_product_option_title SET store_id = @PH_STORE WHERE store_id = @D
 UPDATE catalog_product_option_type_price SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_product_option_type_title SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE catalog_product_super_attribute_label SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
-UPDATE core_url_rewrite SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
+/* UPDATE core_url_rewrite SET store_id = @PH_STORE WHERE store_id = @DF_STORE; */
 UPDATE eav_attribute_label SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_attribute_option_value SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_entity SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_entity_datetime SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_entity_decimal SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_entity_int SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
-UPDATE eav_entity_store SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
+/* UPDATE eav_entity_store SET store_id = @PH_STORE WHERE store_id = @DF_STORE; */
 UPDATE eav_entity_text SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_entity_varchar SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
 UPDATE eav_form_fieldset_label SET store_id = @PH_STORE WHERE store_id = @DF_STORE;
@@ -507,5 +524,11 @@ UPDATE cataloginventory_stock_status_tmp SET website_id = @PH_WEBSITE WHERE webs
 UPDATE core_store_group SET root_category_id = (SELECT root_category_id FROM df_dev.core_store_group WHERE group_id = @DF_STORE_GROUP) WHERE group_id = @PH_STORE_GROUP;
 /* End Update Root Category ID */
 
-SET FOREIGN_KEY_CHECKS=1;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;
+SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;
+SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;
+SET SQL_NOTES=@OLD_SQL_NOTES;
 /* End */

@@ -252,7 +252,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 	            $productsJson = Mage::helper('core')->jsonEncode($products);
 	            $productsJson = str_replace("\"", "'", $productsJson);
 	        }
-	        Mage::log(sprintf("%s->productsJson=%s", __METHOD__, $productsJson) );
+	        // Mage::log(sprintf("%s->productsJson=%s", __METHOD__, $productsJson) );
 	        $this->setChild('position_button',
 	            $this->getLayout()->createBlock('adminhtml/widget_button')
 	                ->setData(array(
