@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Mage>
+            <version>0.1.0</version>
+        </FactoryX_Mage>
+    </modules>
+</config>

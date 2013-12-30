@@ -2,6 +2,11 @@
 <layout version="0.1.0">
    
     <extcatalog_product_view translate="label">    
+		<reference name="magiczoom_header">
+            <action method="setPageType">
+                <type>product</type>
+            </action>
+        </reference>
         <label>Catalog Product Ajax View (Any)</label>
         <!-- Mage_Catalog -->
         <reference name="root">

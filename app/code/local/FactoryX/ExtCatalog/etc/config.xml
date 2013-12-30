@@ -1,0 +1,40 @@
+<?xml version="1.0"?> 
+<config>
+    <modules> 
+        <FactoryX_ExtCatalog> 
+            <version>1.0.0</version> 
+        </FactoryX_ExtCatalog> 
+    </modules> 
+    <!-- global>
+        <blocks>
+            <catalog>
+                <class>Mage_ExtCatalog_Block</class>
+            </catalog>
+        </blocks>        
+    </global-->    
+    <frontend>
+        <routers>
+            <extcatalog>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_ExtCatalog</module>
+                    <frontName>extcatalog</frontName>
+                </args>
+            </extcatalog>
+        </routers>
+        <layout>
+           <updates>
+               <extcatalog>
+                   <file>extcatalog.xml</file>
+               </extcatalog>
+           </updates>
+        </layout>
+    </frontend>   
+    <!-- helpers>
+        <extcatalog>
+            <class>Mage_Extcatalog_Helper_Product_View</class>
+        </extcatalog>
+    </helpers -->    
+</config>
+
+   

@@ -34,7 +34,7 @@
 					================================================== -->				
 					<div class="span12">
 						<div class="storedetails">
-							<p><a href="/store-locator.html" class="navbarstores" title="Find your nearest princesshighway store">Stores</a> | <a href="/contact.html" class="navbarcontact" title="Contact princesshighway">Contact</a> | <span class="storephone"><a href="tel://(03) 8420 0336">(03) 8420 0336</a></span></p>
+							<p><a href="/store-locator.html" class="navbarstores" title="Find your nearest princesshighway store">Stores</a> | <a href="/contact.html" class="navbarcontact" title="Contact princesshighway">Contact</a> | <span class="storephone"><a href="tel://<?php echo Mage::getStoreConfig('general/store_information/phone'); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span></p>
 		
 						</div>
                                                 <div mobi-nav class="mobi-nav visible-phone  visible-tablet" >
@@ -87,9 +87,9 @@
 					<div class="searchsocial ">
 						<ul class="align-right">
 							<li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
-							<li class="facebookicon"><a href="https://www.facebook.com/princesshighwayclothing" title="Facebook">Facebook</a></li>
-							<li class="instagramicon"><a href="http://instagram.com/princesshighwayclothing" title="Instagram">Instagram</a></li>
-							<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
+								<li class="facebookicon"><a href="https://www.facebook.com/princesshighway" title="Facebook">Facebook</a></li>
+								<li class="instagramicon"><a href="http://instagram.com/iloveprincesshighway" title="Instagram">Instagram</a></li>
+								<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
 						</ul>
 						<?php echo $this->getChildHtml('phsearch') ?>
 					</div>			
