@@ -38,6 +38,7 @@ if($force ||
    $recentlyViewedProductsBlockEffectEnabled ||
    ($tool->params->profileExists($page) && !$tool->params->checkValue('enable-effect', 'No', $page))) {
     echo $tool->getHeadersTemplate(str_replace('/magiczoom.js', '', $this->getSkinUrl('js/magiczoom.js')), str_replace('/magiczoom.css', '', $this->getSkinUrl('css/magiczoom/magiczoom.css')));
+	
     if($tool->params->checkValue('magicscroll', 'yes', $page)) {
         $scroll = $magicToolboxHelper->loadScroll();
         echo $scroll->getHeadersTemplate(str_replace('/magicscroll.js', '', $this->getSkinUrl('js/magicscroll.js')), str_replace('/magicscroll.css', '', $this->getSkinUrl('css/magiczoom/magicscroll.css')));

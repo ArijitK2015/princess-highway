@@ -39,7 +39,7 @@ function setMenu(menu_id, menu_panel_id) {
         if(jQuery(window).width() > 962)
         {
         
-            console.log('> 480');
+            // console.log('> 480');
             $clicked = jQuery(this);
             $selected_panel = jQuery("#" + menu_panel_id);
 

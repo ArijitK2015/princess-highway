@@ -104,8 +104,6 @@ if($imgcount > 0)
 <?php
 foreach($_attributes as $_attribute)
 {
-	echo '<div class="' . strtolower($_attribute->getLabel()) . '">';
-	echo '<div class="group-' . strtolower($_attribute->getLabel()) . '">';	
 	// We load the attribute
 	$attributeLoaded = Mage::getModel('catalog/resource_eav_attribute')->load($_attribute->getAttributeId());
 	// Retrieve the product attributes
@@ -114,6 +112,9 @@ foreach($_attributes as $_attribute)
 	// [IF-COLOR]
 	if($_attribute->getLabel()== 'Colour')
 	{
+		echo '<div class="' . strtolower($_attribute->getLabel()) . '">';
+		echo '<div class="group-' . strtolower($_attribute->getLabel()) . '">';	
+		
 		foreach($attrs as $attr) 
 		{
 			// If the attribute is found in the product attribute
@@ -193,18 +194,32 @@ foreach($_attributes as $_attribute)
 			</dl>
 			<?php
 		} // [END IF-COLOR-DIFF-SWATCHES]
+		echo '</div>';	
+		echo '<div id="' . strtolower($_attribute->getLabel()) . '-available-alert" class="span3">';	
+		echo '</div>';
+		echo '</div>';
 	// END SWATCH FUNCTIONALITY
 	}
+}
+
+foreach($_attributes as $_attribute)
+{
+	// We load the attribute
+	$attributeLoaded = Mage::getModel('catalog/resource_eav_attribute')->load($_attribute->getAttributeId());
+	// Retrieve the product attributes
+	$attrs  = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);
 	// START SIZE FUNCTIONALITY
-	elseif($_attribute->getLabel()== 'Size')
+	if($_attribute->getLabel()== 'Size')
 	// [ELSE-IF-SIZE]
 	// Display the size
 	{
+		echo '<div class="' . strtolower($_attribute->getLabel()) . '">';
+		echo '<div class="group-' . strtolower($_attribute->getLabel()) . '">';	
 		?>
 		<dl>
 			<dt><label>2. <?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span>			
 					<span id="size-chart">
-						<a target="_blank" href="<?php echo $this->getUrl('sizechart')?>"><?php echo $this->__('size chart[+]'); ?></a>
+						<a target="_blank" href="<?php echo $this->getUrl('size-chart.html')?>"><?php echo $this->__('size chart[+]'); ?></a>
 					</span>
 				</label>		
 			</dt>
@@ -239,11 +254,17 @@ foreach($_attributes as $_attribute)
 			</dd>
 		</dl>
 		<?php
+		echo '</div>';	
+		echo '<div id="' . strtolower($_attribute->getLabel()) . '-available-alert" class="span3">';	
+		echo '</div>';
+		echo '</div>';
 	}
-	else
+	elseif($_attribute->getLabel() != 'Colour')
 	// [ELSE-NOT-COLOR-NOR-SIZE]
 	// Display other attributes
 	{
+		echo '<div class="' . strtolower($_attribute->getLabel()) . '">';
+		echo '<div class="group-' . strtolower($_attribute->getLabel()) . '">';	
 		?>
 		<dl>
 			<dt><label><?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
@@ -256,12 +277,11 @@ foreach($_attributes as $_attribute)
 			</dd>
 		</dl>			
 		<?php
+		echo '</div>';	
+		echo '<div id="' . strtolower($_attribute->getLabel()) . '-available-alert" class="span3">';	
+		echo '</div>';
+		echo '</div>';
 	} // [END NOT-COLOR-NOR-SIZE]
-
-	echo '</div>';	
-	echo '<div id="' . strtolower($_attribute->getLabel()) . '-available-alert" class="span3">';	
-	echo '</div>';
-	echo '</div>';
 	
 } // End foreach
 // END SIZE FUNCTIONALITY
