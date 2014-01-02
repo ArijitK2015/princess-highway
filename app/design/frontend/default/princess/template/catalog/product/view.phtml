@@ -29,11 +29,12 @@
 
 <script type="text/javascript">
 	function MagicZoomResponsive() {
+		var oldRel = jQuery(".MagicZoom").prop('rel');
 		if (jQuery(window).width() < 767) {
-			jQuery(".MagicZoom").prop('rel','disable-zoom:true');
+			jQuery(".MagicZoom").prop('rel',oldRel+';disable-zoom:true');
 			MagicZoom.refresh();
 		}else{
-			jQuery(".MagicZoom").prop('rel','disable-zoom:false');
+			jQuery(".MagicZoom").prop('rel',oldRel+';disable-zoom:false');
 			MagicZoom.refresh();
 		}	
 	}

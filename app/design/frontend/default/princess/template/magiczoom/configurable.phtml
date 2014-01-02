@@ -5,11 +5,12 @@
  * Allow use MagicTools with product attributes
  * @mail support@magictoolbox.com
  */
+$placeHolder = $this->getSkinUrl('images/catalog/product/placeholder/image.jpg');
 $_product    = $this->getProduct();
 $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
 
 $magicToolboxHelper = Mage::helper('magiczoom/settings');
-$tool = $magicToolboxHelper->loadTool('product');
+// $tool = $magicToolboxHelper->loadTool('product');
 ?>
 <?php
 // START SWATCH FUNCTIONALITY
@@ -79,13 +80,11 @@ if($imgcount > 0)
 				// We generate the big zoomed picture
 				$big = $this->helper('catalog/image')->init($_product, 'image',$_image->getFile())->__toString();
 				// We retrieve the size dimensions based on the magiczoom settings
-                $arr = array(200, 280);
-                try {
-                    $arr = getimagesize($_image->getPath());
-                }
-                catch(Exception $ex) {
-                }
-                list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $arr);
+                $_image_path = $_image->getPath();
+				if (!file_exists($_image->getPath())) {
+					$_image_path = $placeHolder;
+				}
+                list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', getimagesize($_image_path));
 				// And generate the product picture displayed
                 $medium = $this->helper('catalog/image')->init($_product, 'small_image', $_image->getFile())->resize($w, $h)->__toString();
 				// And store everything into our array

@@ -2320,6 +2320,7 @@ footer #fieldEmail { border:1px solid #070000; width:280px; height:28px; padding
 .carousel-two #collaboration-carousel .carousel-control { background:none; border:none; opacity:1; position: relative; width:0; }
 
 .catalog-category-view {}
+.catalog-category-view .category-description{width:85%}
 .catalog-category-view #collection-carousel { background-color: transparent; margin-bottom:40px; position: relative; vertical-align: top; }
 .catalog-category-view #collection-carousel .carousel-inners { background-color: transparent; display: inline-block; margin:0px; overflow: hidden; position: relative; }
 .catalog-category-view #collection-carousel .carousel-inners .item { width:100%; }

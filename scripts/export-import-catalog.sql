@@ -174,6 +174,9 @@ DROP TABLE IF EXISTS cataloginventory_stock_status;
 DROP TABLE IF EXISTS cataloginventory_stock_status_idx;
 DROP TABLE IF EXISTS cataloginventory_stock_status_tmp;
 DROP TABLE IF EXISTS core_url_rewrite;
+DROP TABLE IF EXISTS customer_eav_attribute;
+DROP TABLE IF EXISTS customer_eav_attribute_website;
+DROP TABLE IF EXISTS customer_form_attribute;
 DROP TABLE IF EXISTS eav_attribute;
 DROP TABLE IF EXISTS eav_attribute_group;
 DROP TABLE IF EXISTS eav_attribute_label;	
@@ -292,6 +295,9 @@ CREATE TABLE cataloginventory_stock_status LIKE magento_1_8_1_0.cataloginventory
 CREATE TABLE cataloginventory_stock_status_idx LIKE magento_1_8_1_0.cataloginventory_stock_status_idx;
 CREATE TABLE cataloginventory_stock_status_tmp LIKE magento_1_8_1_0.cataloginventory_stock_status_tmp;
 CREATE TABLE core_url_rewrite LIKE magento_1_8_1_0.core_url_rewrite;
+CREATE TABLE customer_eav_attribute LIKE magento_1_8_1_0.customer_eav_attribute;
+CREATE TABLE customer_eav_attribute_website LIKE magento_1_8_1_0.customer_eav_attribute_website;
+CREATE TABLE customer_form_attribute LIKE magento_1_8_1_0.customer_form_attribute;
 CREATE TABLE eav_attribute LIKE magento_1_8_1_0.eav_attribute;
 CREATE TABLE eav_attribute_group LIKE magento_1_8_1_0.eav_attribute_group;
 CREATE TABLE eav_attribute_label LIKE magento_1_8_1_0.eav_attribute_label;
@@ -478,6 +484,10 @@ INSERT INTO cataloginventory_stock_status_idx SELECT * FROM df_dev.cataloginvent
 INSERT INTO cataloginventory_stock_status_tmp SELECT * FROM df_dev.cataloginventory_stock_status_tmp WHERE website_id = @DF_WEBSITE;
 INSERT INTO cataloginventory_stock_status_tmp SELECT * FROM df_dev.cataloginventory_stock_status_tmp WHERE website_id = 0;
 /* INSERT INTO core_url_rewrite SELECT * FROM df_dev.core_url_rewrite	WHERE (store_id = @DF_STORE) AND is_system = 1; */
+INSERT INTO customer_eav_attribute SELECT * FROM df_dev.customer_eav_attribute;
+INSERT INTO customer_eav_attribute_website SELECT * FROM df_dev.customer_eav_attribute_website WHERE website_id = @DF_WEBSITE;
+INSERT INTO customer_eav_attribute_website SELECT * FROM df_dev.customer_eav_attribute_website WHERE website_id = 0;
+INSERT INTO customer_form_attribute SELECT * FROM df_dev.customer_form_attribute;
 INSERT INTO eav_attribute SELECT * FROM df_dev.eav_attribute;
 INSERT INTO eav_attribute_group SELECT * FROM df_dev.eav_attribute_group;
 INSERT INTO eav_attribute_label SELECT * FROM df_dev.eav_attribute_label WHERE store_id = @DF_STORE;
@@ -588,6 +598,7 @@ UPDATE catalog_product_website SET website_id = @PH_WEBSITE WHERE website_id = @
 UPDATE cataloginventory_stock_status SET website_id = @PH_WEBSITE WHERE website_id = @DF_WEBSITE;
 UPDATE cataloginventory_stock_status_idx SET website_id = @PH_WEBSITE WHERE website_id = @DF_WEBSITE;
 UPDATE cataloginventory_stock_status_tmp SET website_id = @PH_WEBSITE WHERE website_id = @DF_WEBSITE;
+UPDATE customer_eav_attribute_website SET website_id = @PH_WEBSITE WHERE website_id = @DF_WEBSITE;
 /* End Update Websites */
 
 /* Update Root Category ID */

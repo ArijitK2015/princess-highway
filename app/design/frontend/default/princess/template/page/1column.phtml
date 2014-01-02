@@ -120,7 +120,8 @@
 						<?php
 							/* Responsive Design : menu */
 							$_helper = $this->helper('catalog/output');
-							$subCategory = Mage::registry('current_category');		
+							$subCategory = Mage::registry('current_category');	
+							$parentCategory	= null;
 							if ($subCategory != null && $subCategory->getLevel() == 3) {
 								$parentCategory = Mage::getModel('catalog/category')->load($subCategory->getParentId()); 
 							} elseif ($subCategory != null)  {
