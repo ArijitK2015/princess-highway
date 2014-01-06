@@ -208,7 +208,6 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 
 						<?php endif; */ ?>
 
-
 						<?php echo $this->getChildHtml('other'); ?>
 						<?php if ($_product->isSaleable() && $this->hasOptions()): ?>
 							<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
@@ -220,14 +219,9 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 						<div class="fb-like" data-href="http://www.facebook.com/princesshighwayclothing" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div>
 
 						<?php echo $this->getChildHtml('alert_urls') ?>
-					</div>						
+					</div>
 				</div>
             </div>
-
-            <?php /*
-            <?php echo $this->getChildHtml('product_additional_data') ?>
-            <?php echo $this->getChildHtml('product_advancedreviews') ?>      
-            */ ?>
         </form>
 	</div>
 </div>	

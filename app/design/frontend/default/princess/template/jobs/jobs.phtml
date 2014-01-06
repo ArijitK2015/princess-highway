@@ -1,31 +1,82 @@
-<div id="main" class="main-div" style="border:0px solid #ffffff; height:512px; position:relative;">
-<div class="page-title" style="width:410px">
-	<h1>Careers</h1>
-</div>
-<?php
-$i = 0;
-$collection = Mage::getModel('Jobs/Jobs')->getCollection();
-$cnt = count($collection);
-$arraycheck="";
-foreach ($collection as $item) {
-	//$item = array_unique($item);
-    $i = $i+1;
-    $item->setTitle($i);
-	if($item->getStatus() != 0) {
-		//echo $arraycheck;
-		$cca = $item->getCountrys();
-		$pos = strpos($arraycheck, $cca);
-		//echo $pos;
-		if ($pos != true) {
-			$arraycheck = $arraycheck ."," . $item->getCountrys();
-			$pageurl = "jobsview.html";
-			$id=$item->getId();
-			echo "<a href='" . $pageurl . "?id=" . $id . "' style='font-weight:bold; text-decoration:none;'>";
-    		echo $item->getCountrys();
-			echo "&nbsp;|&nbsp;";
-			echo "</a>";
-		}
-	}
+<style>
+p {
+	margin-top:10px;
+	color:#000000;
 }
-?>
+</style>
+
+<div id="careers_page" class="main-div">
+
+	<div style="float:left; width:60%">
+
+		<div class="page-title" style="width:410px">
+			<h1>Careers</h1>
+		</div>
+			
+		<p>
+		Princess Highway is a distinctive Australian label, embraced for it's unique product and design. Our success is built on the talent of our staff.
+		</p>
+
+		<p>
+		If you're committed to customer relations, and enjoy styling, please send your details to:
+		<a href="mailto:<?php echo Mage::getStoreConfig('trans_email/ident_custom1/email'); ?>"><?php echo Mage::getStoreConfig('trans_email/ident_custom1/email'); ?></a>
+		</p>
+
+		<p>
+		To see what jobs we have available click on your state:
+		</p>
+		<p>
+
+		<?php
+		$org = "FF1658";
+		$grn = "d3d85e";
+		$colour = $org;
+
+		//$i = 0;
+		$jobs = Mage::getModel('Jobs/Jobs')->getCollection();
+		//echo "jobs:" . print_r($jobs, true);
+
+		//$cnt = count($jobs);
+		$arraycheck = "";
+		$cnt = 0;
+		foreach ($jobs as $job) {
+			//echo "job:" . print_r($job, true);
+			
+			//$job = array_unique($job);
+			//$i = $i+1;
+			//$job->setTitle($i);
+			if($job->getStatus() != 0) {
+				$cnt++;
+				//echo $arraycheck;
+				$cca = $job->getCountrys();
+				$pos = strpos($arraycheck, $cca);
+				//echo $pos;
+				if ($pos != true) {
+					$arraycheck = $arraycheck . "," . $job->getCountrys();
+					$pageurl = $this->getUrl('jobsview.html');
+					$id = $job->getId();
+					echo "<a style='font-weight:bold;color:#" . $colour . "' href='" . $pageurl . "?id=" . $id . "' style='font-weight:bold; text-decoration:none;'>";
+					echo $job->getCountrys();
+					echo "</a>";
+					echo "&nbsp;";
+					//$colour = ($colour == $org?$grn:$org);
+				}
+			}
+		}
+		if ($cnt == 0) {
+			echo "<b>Sorry, currently there are no jobs available.</b>";
+		}
+		else
+		{
+			echo "<a href='" . $pageurl . "' style='font-weight:bold;color:#FF1658'>all</a>";
+		}
+		?>
+		</p>
+
+	</div>
+
+	<div style="float:left; width:40%; text-align:center; position:relative; top:-20px;">
+		<?php echo $this->getChildHtml('careers-img') ?>
+	</div>
+
 </div>

@@ -1,183 +1,286 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @category    design
+ * @package     default_princess
+ * @author		Factory X Team <raphael@factoryx.com.au>
+ * @copyright   Copyright (c) 2014 Factory X
+ */
+-->
 <layout version="0.1.0">
-<!--
-Default layout, loads most of the pages
--->
-
-    <default>
-        <reference name="left">
-            <block type="catalog/navigation" name="catalog.leftnav.custom" template="catalog/navigation/left.custom.phtml"/>
-            <action method="unsetChild"><name>left.permanent.callout</name></action>
-        </reference>
-
-        <reference name="right">
-            <action method="unsetChild"><name>right.permanent.callout</name></action>
-            <remove name="paypal.partner.right.logo"/>
-        </reference>
-        
-        <reference name="root">
-            <remove name="global_messages" />
-        </reference>
-
-		<reference name="head">
-			<!--Removing item set in the page.xml we don't need anymore-->
-			<action method="removeItem"><type>skin_css</type><name>css/styles.css</name></action>
-			
-			<!--Add extra items -->
-			<action method="addJs"><script>jquery/jquery-1.10.2.min.js</script></action>
-			<action method="addJs"><script>jquery/noconflict.js</script></action>
-			<action method="addJs"><script>effects/common.js</script></action>
-			<action method="addJs"><script>extjs/comodo/trustlogo.js</script></action>
-		</reference>
-
-
-
-        <reference name="content">
-            <block type="core/template" name="alert_global_messages" template="core/messages.phtml" before="-" />
-        </reference>
-        <reference name="before_body_end">
-            <block type="core/template" name="jquery_noconflict" template="jquery/noconflict.phtml" before="-" />
-        </reference>
-    </default>
-
-
-    <!--Remove unwanted links from the account login dashboard -->
-    <customer_account>
-
-        <reference name="customer_account_navigation">
-            <action method="removeLinkByName"><name>recurring_profiles</name></action>
-            <action method="removeLinkByName"><name>billing_agreements</name></action>
-            <action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
-            <action method="removeLinkByName"><name>newsletter</name></action>
-        </reference>
-
-        <remove name="catalog.leftnav.custom" />
-
-    </customer_account>
-
-
-    <catalog_category_default translate="label">
-        <reference name="product_list">
-            <action method="setColumnCount"><columns>4</columns></action>
-        </reference>
-
-        <remove name="left" />
-        <remove name="right" />
-        <remove name="catalog.leftnav.custom" />
-        <remove name="catalog.leftnav" />    
-    </catalog_category_default>
-
-
-    
-    <catalog_category_view>
-        <reference name="product_list">
-            <action method="setColumnCount"><columns>4</columns></action>
-        </reference>
-    </catalog_category_view>
-
-    
-    
-    <catalog_category_layered translate="label">
-        <reference name="head">  
-            <action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
-            <action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>                          
-            <action method="addJs"><script>varien/product.js</script></action>
-            <action method="addJs"><script>varien/configurable.js</script></action>
-			<action method="addJs"><script>calendar/calendar.js</script></action>
-			<action method="addJs"><script>calendar/calendar-setup.js</script></action>
-            <action method="addJs"><script>calendar/calendar-setup.js</script></action>
-			<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
-        </reference>
-
-        <reference name="product_list">        
-            <!-- block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/ --> 
-            <block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml">
-                <action method="unsetChild"><child>category_filter</child></action>
-            </block>
-            <action method="setColumnCount"><columns>4</columns></action>
-        </reference>
- 
-        <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-            <!-- Mark root page block that template is applied -->
-            <action method="setIsHandle"><applied>1</applied></action>
-        </reference>
-
-        <remove name="left" />
-        <remove name="right" />
-        <remove name="catalog.leftnav.custom" />
-        <remove name="catalog.leftnav" />
-    </catalog_category_layered>
-
-
-    <!-- Product View Page -->
-    <catalog_product_view>
-        <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-
-		<!-- Increase the maximum amount of products listed on the Upsell section -->
-		<reference name="product.info.upsell">
-			<action method="setItemLimit"><type>upsell</type><limit>12</limit></action>
-			<!-- The next line is required to rendered all items on one line: (Set to same value as Item Limit) -->
-			<action method="setColumnCount"><columns>12</columns></action>
-		</reference>
-		          
-    </catalog_product_view>
-
-    
-    <!-- Review Product List Page -->
-    <review_product_list>
-        <reference name="head">  
-            <action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
-            <action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>              
-            <action method="addJs"><script>varien/product.js</script></action>
-            <action method="addJs"><script>varien/configurable.js</script></action>
-			<action method="addJs"><script>calendar/calendar.js</script></action>
-			<action method="addJs"><script>calendar/calendar-setup.js</script></action>
-            <action method="addJs"><script>calendar/calendar-setup.js</script></action>
-			<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
-        </reference>
-
-        <reference name="product_list">        
-            <block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/> 
-            <action method="setColumnCount"><columns>4</columns></action>
-        </reference>        
-        <reference name="root">
-                <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-    </review_product_list>
-
-    <!-- Review Product View Page -->
-    <review_product_view>
-        <reference name="root">
-                <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-    </review_product_view>
-
-    <tag_list_index translate="label">
-        <label>Tags List (All Available)</label>
-        <!-- Mage_Tag -->
-        <reference name="root">
-	            <action method="setTemplate"><template>page/1column.phtml</template></action>
-        </reference>
-        <reference name="left">
-            <remove name="tags_popular" />
-        </reference>
-    </tag_list_index>
 
 <!--
-	Bundle Product Page
+	Default layout, loads most of the pages
 -->
-<PRODUCT_TYPE_bundle>
-	<!-- Change default template -->
-	<reference name="product.info">
-		<action method="setTemplate">
-			<template>catalog/product/view_bundle.phtml</template>
+
+<default>	
+
+	<reference name="head">
+		<!--Removing item set in the page.xml we don't need anymore-->
+		<action method="removeItem"><type>skin_css</type><name>css/styles.css</name></action>
+		<action method="removeItem"><type>skin_css</type><name>css/styles-ie.css</name></action>
+		<action method="removeItem"><type>skin_css</type><name>css/widgets.css</name></action>
+		<action method="removeItem"><type>skin_css</type><name>css/prints.css</name></action>
+		<action method="removeItem"><type>js</type><name>lib/ds-sleight.js</name></action>
+		<action method="removeItem"><type>skin_js</type><name>js/ie6.js</name></action>
+		
+		<!--Add extra items -->
+		<action method="addCss"><stylesheet>css/bootstrap.css</stylesheet></action>
+		<action method="addCss"><stylesheet>css/bootstrap-responsive.css</stylesheet></action>
+		<!--<action method="addCss"><stylesheet>css/docs.css</stylesheet></action>-->
+		<action method="addCss"><stylesheet>js/google-code-prettify/prettify.css</stylesheet></action>
+		<!--<action method="addCss"><stylesheet>css/diff.css</stylesheet></action>-->
+		<action method="addCss"><stylesheet>css/style.css</stylesheet></action>
+		<action method="addCss"><stylesheet>css/responsive2.css</stylesheet></action>
+		<action method="addCss"><stylesheet>css/responsive.css</stylesheet></action>
+		<action method="addCss"><stylesheet>css/font-awesome-ie7.css</stylesheet></action>
+		<action method="addCss"><stylesheet>css/font-awesome.css</stylesheet></action>
+		<action method="addJs"><script>jquery/jquery-1.10.2.min.js</script></action>
+		<action method="addJs"><script>jquery/noconflict.js</script></action>
+		<action method="addJs"><script>effects/common.js</script></action>
+		<action method="addJs"><script>extjs/comodo/trustlogo.js</script></action>
+	</reference>
+	
+	<reference name="header">
+		<remove name="welcome" />
+	</reference>
+	
+	<reference name="root">
+		<!-- Change default template -->
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+		<remove name="global_messages" />
+		<!-- Add search and filter -->
+		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
+			<label>Princess Highway Search</label>
+		</block>
+		<block type="core/text_list" name="phfilters" as="phfilters" translate="label">
+			<label>Princess Highway Filters</label>
+		</block>
+	</reference>
+	
+	<!-- Removes 'My Cart' AND 'Checkout' links -->
+	<remove name="checkout_cart_link"/>
+	
+	<reference name="top.links">
+		<!-- Remove 'My Account' link to rename it after -->
+		<action method="removeLinkByUrl">
+			<url helper="customer/getAccountUrl" />
+		</action>
+		<!-- Re-add 'Account' link -->
+		<action method="addLink" translate="label title" module="customer"><label>Account</label><url helper="customer/getAccountUrl"/><title>Account</title><prepare/><urlParams/><position>5</position></action>
+		<!-- Re-add 'My Cart' link -->
+		<block type="checkout/links" name="checkout_cart_link_custom">
+			<action method="addCartLink"></action>
+		</block>
+	</reference>
+	
+	<reference name="phsearch">
+		<block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml"/>
+	</reference>
+	
+	<reference name="left">
+		<block type="catalog/navigation" name="catalog.leftnav.custom" template="catalog/navigation/left.custom.phtml"/>
+		<action method="unsetChild"><name>left.permanent.callout</name></action>
+	</reference>
+
+	<reference name="right">
+		<action method="unsetChild"><name>right.permanent.callout</name></action>
+		<remove name="paypal.partner.right.logo"/>
+		<!-- 	
+			Remove reference to product viewed and product compare
+			so they don't show up on the wishlist or account pages
+		-->
+		<remove name="right.reports.product.viewed" />
+		<remove name="right.reports.product.compared" />
+	</reference>
+
+	<reference name="content">
+		<block type="core/template" name="alert_global_messages" template="core/messages.phtml" before="-" />
+	</reference>
+	
+	<reference name="before_body_end">
+		<block type="core/template" name="jquery_noconflict" template="jquery/noconflict.phtml" before="-" />
+	</reference>
+</default>
+
+
+<!--Remove unwanted links from the account login dashboard -->
+<customer_account>
+
+	<reference name="customer_account_navigation">
+		<action method="removeLinkByName"><name>recurring_profiles</name></action>
+		<action method="removeLinkByName"><name>wishlist</name></action>
+		<action method="removeLinkByName"><name>billing_agreements</name></action>
+		<action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
+		<action method="removeLinkByName"><name>newsletter</name></action>
+		<action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>Wishlist</label><position>10</position></action>
+	</reference>
+
+	<remove name="catalog.leftnav.custom" />
+	<!-- Remove Cart Sidebar -->
+	<remove name="cart_sidebar" />
+	<!-- Remove ReOrder Block -->
+	<remobe name="sale.reorder.sidebar" />
+	<!-- Remove Compare Sidebar -->
+	<remove name="catalog.compare.sidebar" />
+
+</customer_account>
+
+<customer_logged_out>
+	<reference name="top.links">
+		<!-- Remove Log in URL -->
+		<action method="removeLinkByUrl">
+			<url helper="customer/getLoginUrl" />
 		</action>
 	</reference>
-</PRODUCT_TYPE_bundle>
+</customer_logged_out>
 
+
+<catalog_category_default translate="label">
+	<reference name="product_list">
+		<action method="setColumnCount"><columns>4</columns></action>
+	</reference>
+	
+	<reference name="catalog.leftnav">
+		<action method="setTemplate"><template>catalog/layer/view.phtml</template></action>
+		<action method="unsetChild"><child>category_filter</child></action>
+	</reference>
+	
+	<reference name="product_list_toolbar">
+		<action method="setDefaultDirection"><string>asc</string></action>
+		<action method="setDefaultOrder"><string>relevance</string></action>
+	</reference>
+
+	<remove name="left" />
+	<remove name="right" />
+	<remove name="catalog.leftnav.custom" />
+	<remove name="catalog.leftnav" />    
+</catalog_category_default>
+
+
+
+<catalog_category_view>
+	<reference name="product_list">
+		<action method="setColumnCount"><columns>4</columns></action>
+	</reference>
+</catalog_category_view>
+
+
+
+<catalog_category_layered translate="label">
+	<reference name="head">  
+		<action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
+		<action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>                          
+		<action method="addJs"><script>varien/product.js</script></action>
+		<action method="addJs"><script>varien/configurable.js</script></action>
+		<action method="addJs"><script>calendar/calendar.js</script></action>
+		<action method="addJs"><script>calendar/calendar-setup.js</script></action>
+		<action method="addJs"><script>calendar/calendar-setup.js</script></action>
+		<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
+	</reference>
+	
+	<reference name="catalog.leftnav">
+		<action method="unsetChild"><child>category_filter</child></action>
+	</reference>
+
+	<reference name="product_list">
+		<action method="setColumnCount"><columns>4</columns></action>
+	</reference>
+	
+	<reference name="product_list_toolbar">
+		<action method="setDefaultDirection"><string>asc</string></action>
+		<action method="setDefaultOrder"><string>relevance</string></action>
+	</reference>
+
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+		<!-- Mark root page block that template is applied -->
+		<action method="setIsHandle"><applied>1</applied></action>
+	</reference>
+
+	<remove name="left" />
+	<remove name="right" />
+	<remove name="catalog.leftnav.custom" />
+	<remove name="catalog.leftnav" />
+</catalog_category_layered>
+
+<catalog_category_layered_nochildren>
+	<reference name="right">
+		<remove name="left.reports.product.viewed" />
+	</reference>
+</catalog_category_layered_nochildren>
+
+
+<!-- Product View Page -->
+<catalog_product_view>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+	
+	<reference name="product.info">
+		<!-- Adding in Reviews in product pages -->
+		<block type="review/product_view_list" name="product.info.product_additional_data" as="product_review" template="review/product/view/list.phtml">
+			<block type="review/form" name="product.review.form" as="review_form"/>
+		</block>
+		<!-- End: Adding in Reviews in product pages -->
+	</reference>
+
+	<!-- Increase the maximum amount of products listed on the Upsell section -->
+	<reference name="product.info.upsell">
+		<action method="setItemLimit"><type>upsell</type><limit>12</limit></action>
+		<!-- The next line is required to rendered all items on one line: (Set to same value as Item Limit) -->
+		<action method="setColumnCount"><columns>12</columns></action>
+	</reference>
+	
+	<reference name="product.info.extrahint">
+		<action method="unsetChild"><alias>Moii_Pinterest</alias></action>
+	</reference>
+	
+	<reference name="product.social">
+		<action method="insert">
+			<block>Moii_Pinterest</block>
+		</action>
+	</reference>
+			  
+</catalog_product_view>
+
+<catalogsearch_result_index>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+	
+	<reference name="left">
+		<remove name="catalogsearch.leftnav" />
+	</reference>
+	
+	<reference name="breadcrumbs">
+		<block type="catalogsearch/layer" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
+	</reference>
+</catalogsearch_result_index>
+
+<catalogsearch_advanced_index>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</catalogsearch_advanced_index>
+
+<catalogsearch_advanced_result>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</catalogsearch_advanced_result>
+
+<checkout_onepage_success>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</checkout_onepage_success>
+
+<checkout_onepage_failure>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</checkout_onepage_failure>
 
 <!--
 	Contact Us Page
@@ -208,5 +311,100 @@ Default layout, loads most of the pages
 		</block>
 	</reference>
 </contacts_index_index>
+
+<easyreview_front_postreviews>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</easyreview_front_postreviews>
+
+
+<!-- Review Product List Page -->
+<review_product_list>
+	<reference name="head">  
+		<action method="addJs"><script>jquery/jquery-ui.min.js</script></action>  
+		<action method="addJs"><script>jquery/jquery.dimensions.min.js</script></action>              
+		<action method="addJs"><script>varien/product.js</script></action>
+		<action method="addJs"><script>varien/configurable.js</script></action>
+		<action method="addJs"><script>calendar/calendar.js</script></action>
+		<action method="addJs"><script>calendar/calendar-setup.js</script></action>
+		<action method="addJs"><script>calendar/calendar-setup.js</script></action>
+		<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
+	</reference>
+
+	<reference name="product_list">        
+		<block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/> 
+		<action method="setColumnCount"><columns>4</columns></action>
+	</reference>        
+	<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</review_product_list>
+
+<!-- Review Product View Page -->
+<review_product_view>
+	<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+</review_product_view>
+
+<tag_list_index translate="label">
+	<label>Tags List (All Available)</label>
+	<!-- Mage_Tag -->
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+	<reference name="left">
+		<remove name="tags_popular" />
+	</reference>
+</tag_list_index>
+
+<!--
+	Bundle Product Page
+-->
+<PRODUCT_TYPE_bundle>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+	<!-- Change default template -->
+	<reference name="product.info">
+		<action method="setTemplate">
+			<template>catalog/product/view_bundle.phtml</template>
+		</action>
+		<!-- Adding in Reviews in product pages -->
+		<block type="review/product_view_list" name="product.info.product_additional_data" as="product_review" template="review/product/view/list.phtml">
+			<block type="review/form" name="product.review.form" as="review_form"/>
+		</block>
+		<!-- End: Adding in Reviews in product pages -->
+	</reference>
+</PRODUCT_TYPE_bundle>
+
+<PRODUCT_TYPE_ugiftcert>
+	<reference name="product.info.media">
+		<action method="setTemplate">
+			<template>magiczoom/media.phtml</template>
+		</action>
+	</reference>
+</PRODUCT_TYPE_ugiftcert>
+
+<PRODUCT_TYPE_configurable>
+	<reference name="product.info.options.configurable">
+		<action method="setTemplate">
+			<template>magiczoom/configurable.phtml</template>
+		</action>
+	</reference>
+</PRODUCT_TYPE_configurable>
+
+<!--
+Wishlist pages
+-->
+
+<wishlist_index_index>
+	<reference name="customer.wishlist">
+		<action method="setTitle" translate="title">
+			<title>Wishlist</title>
+		</action>
+	</reference>
+</wishlist_index_index>
 
 </layout>
