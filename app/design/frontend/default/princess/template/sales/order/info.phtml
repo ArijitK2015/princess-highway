@@ -38,7 +38,7 @@
             </div>
             <div class="box-content">
                 <?php if ($_order->getShippingDescription()): ?>
-                    <?php echo $_order->getShippingDescription() ?>
+                    <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
                 <?php else: ?>
                     <p><?php echo $this->helper('sales')->__('No shipping information available'); ?></p>
                 <?php endif; ?>

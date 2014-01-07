@@ -164,34 +164,7 @@
                 
             </block>            
         </reference>
-    <PRODUCT_TYPE_configurable translate="label" module="catalog">
-        <label>Catalog Product View (Configurable)</label>
-        <reference name="product.info">
-            <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/default.phtml">
-                <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra" translate="label">
-                    <label>Product Extra Info</label>
-                </block>
-            </block>
-        </reference>
-        <reference name="product.info.options.wrapper">
-            <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="popupmagiczoom/configurable.phtml"/>
-        </reference>
-    </PRODUCT_TYPE_configurable>
             
-    </extcatalog_product_view>
-    
-      <PRODUCT_TYPE_grouped>
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/quickshop.phtml</template>
-            </action>
-        </reference>
-	<reference name="product.info">
-		<action method="setTemplate">
-			<template>catalog/product/quickshop_bundle.phtml</template>
-		</action>
-	</reference>
-    </PRODUCT_TYPE_grouped>  
-                
+    </extcatalog_product_view>                
     
 </layout> 

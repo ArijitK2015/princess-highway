@@ -31,8 +31,8 @@
 				<ul>
 				    <li><a href="/product-enquiries/">Product Enquiries</a>
 				    <li><a href="/store-locator/">Find Your Nearest Store</a></li>
-				    <li><span class="storephone"><a href="tel://(03) 8420 0336">(03) 8420 0336</a></span>
-				    <li><a href="mailto:princesshighwayonline@princesshighway.ws">E: princesshighwayonline@princesshighway.ws</a>
+				    <li><span class="storephone"><a href="tel://<?php echo Mage::getStoreConfig('general/store_information/phone'); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
+				    <li><a href="mailto:<?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?>">E: <?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?></a>
 				</ul>
 			
 			</div>
@@ -89,9 +89,7 @@
 	<h2>The Company</h2>
 	<ul>
 	    <li><a href="/about-us.html">About Us</a>
-	    <li><a href="/careers/">Careers</a></li>		
-	    <li><a href="/press-media.html">Press</a>
-		<li><a href="/sustainability.html">Sustainability</a>			
+	    <li><a href="/careers/">Careers</a></li>
 	</ul>
 
 	<h2>What's On</h2>
@@ -99,7 +97,6 @@
 	    <?php /* <li><a href="/top-rated-content.html/">Top rated content</a> */ ?>
 	    <li><a href="/contests">Competitions</a></li>
 	    <li><a href="/customersurvey">Surveys</a>
-	    <li><a href="/events.html">Events</a>
 	</ul>
 
 </div>
@@ -113,10 +110,8 @@
 <div class="span2">
 	<h2>Information</h2>
 	<ul>
-	    <li><a href="/frequently-asked-questions.html">FAQ's</a>
 	    <li><a href="/glossary.html/">Glossary</a>			
 	    <li><a href="/size-chart.html/">Size Guide</a></li>
-		<li><a href="/product-care.html/">Product Care</a></li>
 	    <li><a href="/terms-conditions.html">Terms &amp; Conditions</a>
 	</ul>
 

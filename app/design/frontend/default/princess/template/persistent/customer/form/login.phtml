@@ -11,20 +11,20 @@
         <h1><?php echo $this->__('Login or Create an Account') ?></h1>
     </div>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-		
+	<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form"  class="form-vertical">	
+		<?php echo $this->getBlockHtml('formkey'); ?>
         <div class="row">
             <div class="span5" id="newcustomers">
                     <h2><?php echo $this->__('New Customers') ?></h2>
                     <div class="new-customer-message"><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></div>
-						
-                    <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button btn createaccount" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+                    <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button btn createaccount" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';">
+						<span><span><?php echo $this->__('Create an Account') ?></span></span>
+					</button>
             </div>
             
             
             <div class="span6 offset1" id="registeredcustomers">
-                <h2><?php echo $this->__('Registered Customers') ?></h2>				
-				
-					<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form"  class="form-vertical">					
+                <h2><?php echo $this->__('Registered Customers') ?></h2>									
 						<?php /*
 						<p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
 						<p class="help-block"><?php echo $this->__('* Entry required' ?></p>
@@ -32,15 +32,15 @@
 
 						<div class="control-group">						
 							<div class="controls">
-								<input placeholder="*<?php echo $this->__('Email Address') ?>" type="email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+								<input placeholder="*<?php echo $this->__('Email Address') ?>" type="email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
 							</div>
 							<div class="controls">
 								<input placeholder="*<?php echo $this->__('Password') ?>" type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
 							</div>
 						</div>
+								<?php echo $this->getChildHtml('form.additional.info'); ?>
 								<?php echo $this->getChildHtml('persistent.remember.me'); ?>
 								<?php //echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
-								<?php echo $this->getChildHtml('form.additional.info'); ?>
 
 								<?php if (Mage::helper('checkout')->isContextCheckout()): ?>
 									<input name="context" type="hidden" value="checkout" />
@@ -49,11 +49,10 @@
 								<button type="submit" class="button btn registeredlogin" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
 
 								<a href="<?php echo $this->getForgotPasswordUrl() ?>" class="registeredforgot"><?php echo $this->__('Forgot Your Password?') ?></a>
-
-					</form>				
+				
             </div>
         </div>
-
+	</form>
 
     <script type="text/javascript">
     //<![CDATA[

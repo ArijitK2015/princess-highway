@@ -49,10 +49,15 @@
 		<!-- Change default template -->
 		<action method="setTemplate"><template>page/1column.phtml</template></action>
 		<remove name="global_messages" />
-		<!-- Add search and filter -->
+		<!-- Add search -->
 		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
 			<label>Princess Highway Search</label>
 		</block>
+		<!-- Add menu -->
+		<block type="core/text_list" name="phmenu" as="phmenu" translate="label">
+			<label>Navigation Bar</label>
+		</block>
+		<!-- Add filter -->
 		<block type="core/text_list" name="phfilters" as="phfilters" translate="label">
 			<label>Princess Highway Filters</label>
 		</block>
@@ -78,6 +83,10 @@
 		<block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml"/>
 	</reference>
 	
+	<reference name="phmenu">
+		<block type="core/template" name="pronav_position_default" as="pronav_position_default" template="pronav/pronav_position_default.phtml" ifconfig="pronav/pronavconfig/pronav_status" />
+	</reference>
+	
 	<reference name="left">
 		<block type="catalog/navigation" name="catalog.leftnav.custom" template="catalog/navigation/left.custom.phtml"/>
 		<action method="unsetChild"><name>left.permanent.callout</name></action>
@@ -101,19 +110,21 @@
 	<reference name="before_body_end">
 		<block type="core/template" name="jquery_noconflict" template="jquery/noconflict.phtml" before="-" />
 	</reference>
+	
+	<remove name="top.menu" />
 </default>
 
 
 <!--Remove unwanted links from the account login dashboard -->
 <customer_account>
-
+	
 	<reference name="customer_account_navigation">
 		<action method="removeLinkByName"><name>recurring_profiles</name></action>
-		<action method="removeLinkByName"><name>wishlist</name></action>
 		<action method="removeLinkByName"><name>billing_agreements</name></action>
-		<action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
 		<action method="removeLinkByName"><name>newsletter</name></action>
-		<action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>Wishlist</label><position>10</position></action>
+		<action method="removeLinkByName"><name>wishlist</name></action>
+		<action method="removeLinkByName"><name>OAuth Customer Tokens</name></action>
+		<action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>Wishlist</label></action>
 	</reference>
 
 	<remove name="catalog.leftnav.custom" />

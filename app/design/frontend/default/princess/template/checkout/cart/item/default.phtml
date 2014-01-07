@@ -49,7 +49,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <a class="edititem" href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item parameters') ?>"><?php echo $this->__('Edit Selection') ?></a><br>
         <a class="removeitem" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>"><?php echo $this->__('Remove')?></a>
         <?php endif ?>
-		<a class="cart-wishlist-link-click" href="<?php echo $this->helper('wishlist')->getAddUrl($_item->getProduct()) ; ?>" title="<?php echo $this->__('Move to Wishlist') ?>"><?php echo $this->__('Move to Wishlist') ?></a>
+		<a class="cart-wishlist-link-click" href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()) ; ?>" title="<?php echo $this->__('Move to Wishlist') ?>"><?php echo $this->__('Move to Wishlist') ?></a>
         <input type="hidden" value="" name="cart[<?php echo $_item->getId() ?>][wishlist]" title="<?php echo $this->__('Move to Wishlist') ?>" class="checkbox" />
 
     </td>

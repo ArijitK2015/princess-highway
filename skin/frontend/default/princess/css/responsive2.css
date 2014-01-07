@@ -39,8 +39,10 @@ and open the template in the editor.
 	/* ==================================================
 	   Catalog Product View
 	================================================== */		
-        .catalog-category-view .category-products .toolbar-div #FilterOptions { display: block; }
-        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile { display: none; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptions,
+        .catalogsearch-result-index .category-products .toolbar-div #FilterOptions { display: block; }
+        .catalog-category-view .category-products .toolbar-div #FilterOptionsMobile,
+        .catalogsearch-result-index .category-products .toolbar-div #FilterOptionsMobile { display: none; }
 }
 
 
