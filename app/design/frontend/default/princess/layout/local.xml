@@ -86,11 +86,6 @@
 	<reference name="phmenu">
 		<block type="core/template" name="pronav_position_default" as="pronav_position_default" template="pronav/pronav_position_default.phtml" ifconfig="pronav/pronavconfig/pronav_status" />
 	</reference>
-	
-	<reference name="left">
-		<block type="catalog/navigation" name="catalog.leftnav.custom" template="catalog/navigation/left.custom.phtml"/>
-		<action method="unsetChild"><name>left.permanent.callout</name></action>
-	</reference>
 
 	<reference name="right">
 		<action method="unsetChild"><name>right.permanent.callout</name></action>
@@ -127,7 +122,6 @@
 		<action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>Wishlist</label></action>
 	</reference>
 
-	<remove name="catalog.leftnav.custom" />
 	<!-- Remove Cart Sidebar -->
 	<remove name="cart_sidebar" />
 	<!-- Remove ReOrder Block -->
@@ -149,12 +143,11 @@
 
 <catalog_category_default translate="label">
 	<reference name="product_list">
-		<action method="setColumnCount"><columns>4</columns></action>
+		<block type="catalog/layer_view" name="filters" as="filters" template="catalog/layer/view.phtml"/>
 	</reference>
 	
-	<reference name="catalog.leftnav">
-		<action method="setTemplate"><template>catalog/layer/view.phtml</template></action>
-		<action method="unsetChild"><child>category_filter</child></action>
+	<reference name="product_list">
+		<action method="setColumnCount"><columns>4</columns></action>
 	</reference>
 	
 	<reference name="product_list_toolbar">
@@ -164,7 +157,6 @@
 
 	<remove name="left" />
 	<remove name="right" />
-	<remove name="catalog.leftnav.custom" />
 	<remove name="catalog.leftnav" />    
 </catalog_category_default>
 
@@ -190,10 +182,10 @@
 		<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
 	</reference>
 	
-	<reference name="catalog.leftnav">
-		<action method="unsetChild"><child>category_filter</child></action>
+	<reference name="product_list">
+		<block type="catalog/layer_view" name="filters" as="filters" template="catalog/layer/view.phtml"/>
 	</reference>
-
+	
 	<reference name="product_list">
 		<action method="setColumnCount"><columns>4</columns></action>
 	</reference>
@@ -211,7 +203,6 @@
 
 	<remove name="left" />
 	<remove name="right" />
-	<remove name="catalog.leftnav.custom" />
 	<remove name="catalog.leftnav" />
 </catalog_category_layered>
 
@@ -264,8 +255,8 @@
 		<remove name="catalogsearch.leftnav" />
 	</reference>
 	
-	<reference name="breadcrumbs">
-		<block type="catalogsearch/layer" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
+	<reference name="search_result_list">
+		<block type="catalogsearch/layer" name="filters" as="filters" template="catalog/layer/view.phtml"/>
 	</reference>
 </catalogsearch_result_index>
 
@@ -342,13 +333,16 @@
 		<action method="addJs"><script>calendar/calendar-setup.js</script></action>
 		<action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>
 	</reference>
+	
+	<reference name="product_list">    
+		<block type="catalog/layer_view" name="filters" as="filters" template="catalog/layer/view.phtml"/> 
+	</reference>
 
-	<reference name="product_list">        
-		<block type="catalog/layer_view" name="filter" template="catalog/layer/view.phtml"/> 
+	<reference name="product_list">    
 		<action method="setColumnCount"><columns>4</columns></action>
 	</reference>        
 	<reference name="root">
-			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
 	</reference>
 </review_product_list>
 
