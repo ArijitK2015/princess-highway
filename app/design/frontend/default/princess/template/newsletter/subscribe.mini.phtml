@@ -1,0 +1,15 @@
+<div class="span6" id="signupform">		
+	<h2><?php echo $this->__('Princess Highway News') ?></h2>
+	<form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail" class="form">
+		<input placeholder="E-MAIL" type="text" name="email" id="fieldEmail newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="span2 required-entry validate-email" onclick="this.value=''" />
+		&nbsp;&nbsp;
+		<input type="hidden" name="mini" id="mini" value="1" />
+		<button type="submit" title="<?php echo $this->__('Sign Up') ?>" class="btn btn-inverse princesshighwaysignup"><span><span><?php echo $this->__('Sign Up') ?></span></span></button>
+		<p><?php echo $this->__('Sign up to get the latest on sales, new releases and more fun!') ?></p>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+    </script>	
+</div>	

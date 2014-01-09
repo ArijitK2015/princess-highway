@@ -41,10 +41,6 @@
 		<action method="addJs"><script>extjs/comodo/trustlogo.js</script></action>
 	</reference>
 	
-	<reference name="header">
-		<remove name="welcome" />
-	</reference>
-	
 	<reference name="root">
 		<!-- Change default template -->
 		<action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -63,8 +59,10 @@
 		</block>
 	</reference>
 	
-	<!-- Removes 'My Cart' AND 'Checkout' links -->
-	<remove name="checkout_cart_link"/>
+	<reference name="footer">
+		<!-- Add the mini subscription form -->
+		<block type="newsletter/subscribe" name="newsletterMini" as="newsletterMini" template="newsletter/subscribe.mini.phtml" />
+	</reference>
 	
 	<reference name="top.links">
 		<!-- Remove 'My Account' link to rename it after -->
@@ -89,13 +87,6 @@
 
 	<reference name="right">
 		<action method="unsetChild"><name>right.permanent.callout</name></action>
-		<remove name="paypal.partner.right.logo"/>
-		<!-- 	
-			Remove reference to product viewed and product compare
-			so they don't show up on the wishlist or account pages
-		-->
-		<remove name="right.reports.product.viewed" />
-		<remove name="right.reports.product.compared" />
 	</reference>
 
 	<reference name="content">
@@ -106,7 +97,17 @@
 		<block type="core/template" name="jquery_noconflict" template="jquery/noconflict.phtml" before="-" />
 	</reference>
 	
+	<remove name="paypal.partner.right.logo"/>
+	<!-- 	
+		Remove reference to product viewed and product compare
+		so they don't show up on the wishlist or account pages
+	-->
+	<remove name="right.reports.product.viewed" />
+	<remove name="right.reports.product.compared" />
+	<remove name="welcome" />
 	<remove name="top.menu" />
+	<!-- Removes 'My Cart' AND 'Checkout' links -->
+	<remove name="checkout_cart_link"/>
 </default>
 
 

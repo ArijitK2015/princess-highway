@@ -5,18 +5,7 @@
 		<div class="row">
 			<!-- Stay in touch email signup
 			================================================== -->
-			<div class="span6" id="signupform">		
-		    	<h2>princesshighway News</h2>
-		    	<form action="http://www.princesshighway.com/t/r/s/jujktit/" method="post">
-				
-					<input id="fieldEmail" name="cm-jujktit-jujktit" type="email"  placeholder="E-MAIL" value="" required />
-					&nbsp;&nbsp;
-					<button type="submit" class="btn princesshighwaysignup">SIGN UP</button>
-					<p>Signup to get the latest on sales, new releases and more fun!</p>	
-				</form>
-				
-			</div>	
-					
+			<?php echo $this->getChildHtml('newsletterMini'); ?>
 			<!-- End: Stay in touch email signup
 			================================================== -->
 		
@@ -27,7 +16,7 @@
 			<!-- Contact princesshighway
 			================================================== -->
 			<div class="span3" >
-				<h2>Contact princesshighway</h2>
+				<h2>Contact Princess Highway</h2>
 				<ul>
 				    <li><a href="/product-enquiries/">Product Enquiries</a>
 				    <li><a href="/store-locator/">Find Your Nearest Store</a></li>
@@ -94,7 +83,6 @@
 
 	<h2>What's On</h2>
 	<ul>
-	    <?php /* <li><a href="/top-rated-content.html/">Top rated content</a> */ ?>
 	    <li><a href="/contests">Competitions</a></li>
 	    <li><a href="/customersurvey">Surveys</a>
 	</ul>
