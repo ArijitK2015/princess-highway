@@ -1894,7 +1894,8 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 #registeredcustomers input.validate-email {  }
 .firecheckout-window .buttons-set .button,
 .firecheckout-window .buttons-set .btn-forgot,
-#registeredcustomers .registeredlogin { background:#AC6FF2; border:none; color:#FFFFFF; font-size:14px; font-weight:normal; margin-bottom:0px; padding:7px 20px; width:160px;
+#registeredcustomers .registeredlogin,
+#newsletter-subscribe .subscribe { background:#AC6FF2; border:none; color:#FFFFFF; font-size:14px; font-weight:normal; margin-bottom:0px; padding:7px 20px; width:160px;
           -webkit-text-stroke:none;  
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
@@ -2404,3 +2405,37 @@ label {
     cursor: pointer;
     opacity: 0;
 }
+/* newsletter subscription */
+#main-loading{text-align:center}
+.newsletter-subscribe-div{position:relative; overflow:visible}
+#newsletter-subscribe table tbody td  {padding: 3px 0;}
+#hidden-newsletter,
+#retrieve-img{display:none}
+#retrieve-img{margin-top:4px}
+#newsletter-subscribe {width:50%; float:left}
+#newsletter-subscribe label {
+	font-weight:bold;
+	color:#AC6FF2;
+}
+#newsletter-subscribe .customer-dob label{display:inline}
+#newsletter-subscribe .customer-dob select {
+	width:65px;
+}
+#newsletter-subscribe .dob-full,
+#newsletter-subscribe .validation-advice{display:none}
+#newsletter-subscribe .delimiter{height:5px}
+#newsletter-subscribe .tbl1{margin-top:15px}
+#newsletter-subscribe .tbl1 td {
+	padding:3px 3px 3px 0;
+}
+#newsletter-subscribe .buttons-td{text-align:right}
+#newsletter-subscribe input.input-text,
+#newsletter-subscribe textarea{width:98%}
+#newsletter-subscribe select{font-size: 12px;
+    height: 23px;
+    margin: 0;
+    padding: 1px;
+    width: 100%;}
+#newsletter-subscribe-right{float:left; width:35%; text-align:right; position:relative; top:-47px; z-index:1}
+#subscription-button-td,
+#subscription-next-button{text-align:right}
