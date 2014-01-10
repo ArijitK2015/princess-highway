@@ -4,7 +4,15 @@ $contest = $this->getCurrentContest();
 
 // Session variables
 $customerSession = Mage::getSingleton('customer/session');
-$session = Mage::getSingleton('core/session');
+//$session = Mage::getSingleton('core/session');
+$session = $customerSession;
+//echo sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId());
+
+$name = "";
+$email = "";
+$mobile = "";
+$friends = "";
+$competition = "";
 
 $name = $session->getContestName();
 $email = $session->getContestEmail();
@@ -156,10 +164,9 @@ else
                                                     // reset the label
                                                     $label = "friend" . $cnt;
                                                     echo     "<tr>
-                                                                <td class=\"heading2\">" . $cnt . Mage::helper('contests')->numberSuffix($cnt) . " Friends Email
-                                                                </td>
                                                                 <td>
-                                                                    <input type=\"textbox\" name=\"". $label . "\" id=\"" . $label . "\" class=\"input-text2 validate-email\" value=\"" . $val . "\" />
+																<label for=\"". $label . "\">" . $cnt . Mage::helper('contests')->numberSuffix($cnt) . " Friends Email</label>
+                                                                <input type=\"textbox\" name=\"". $label . "\" id=\"" . $label . "\" class=\"input-text validate-email\" value=\"" . $val . "\" />
                                                                 </td>
                                                             </tr>";
                                                 }
@@ -167,8 +174,10 @@ else
                                             else
                                             {
                                                 echo     "<tr>
-                                                            <td class=\"heading2\">1st Friends Email</td>
-                                                            <td><input type=\"textbox\" name=\"friend1\" id=\"friend1\" class=\"input-text2 validate-email\" /></td>
+                                                            <td>
+																<label for=\"friend1\">1st Friends Email</label>
+																<input type=\"textbox\" name=\"friend1\" id=\"friend1\" class=\"input-text validate-email\" />
+															</td>
                                                         </tr>";
                                             }
                                             ?>

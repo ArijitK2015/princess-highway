@@ -73,9 +73,12 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 	{
 		// Sender name & email
 		$sender = Mage::helper('contests')->getSender();
-        // Mage::helper('contests')->log(sprintf("%s->var=%s", __METHOD__, $sender['email']) );
+        // Mage::helper('contests')->log(sprintf("%s->sender=%s", __METHOD__, print_r($sender, true)) );
 		
-		if (empty($sender['email'])) { Mage::helper('contests')->log("Contest Module: Sender email not recognised."); return; }
+		if (empty($sender['email'])) {
+		    Mage::helper('contests')->log("Contest Module: Sender email not recognised.");
+		    return;
+        }
 		if (empty($sender['name'])) { Mage::helper('contests')->log("Contest Module: Sender name not recognised."); return; }
 		
 		// Email template
@@ -84,7 +87,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 		$templateId = intval($templateId);
 		
 		// Get the session
-    	$session = Mage::getSingleton('core/session');
+    	//$session = Mage::getSingleton('core/session');
+    	$session = Mage::getSingleton("customer/session");
+    	Mage::helper('contests')->log(sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId()) );
     	
 		// Get the POST data
         $post = $this->getRequest()->getPost();
@@ -102,7 +107,6 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
         
         try 
 		{
-        
 			// Get data
         	$name = $postObject['name'];
         	$email = $postObject['email'];
