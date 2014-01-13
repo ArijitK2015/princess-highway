@@ -277,85 +277,94 @@ $optionCollection = $this->getProduct()->getTypeInstance()->getOptionsCollection
 $selectionCollection = $this->getProduct()->getTypeInstance()->getSelectionsCollection($this->getProduct()->getTypeInstance()->getOptionsIds());
 $options = $optionCollection->appendSelections($selectionCollection);
 //Mage::log(count($options));
-$sizeAttrs = array(
-	9 => "size_clothing",
-	10 => "size_pants",
-	11 => "size_shoes",
-	13 => "size_belts"
-);
 
 // Mage_Bundle_Model_Option
-foreach($options as $option) {
-	//Mage::log(sprintf("option->%s,%s", get_class($option), $option->getId()));
+foreach($options as $option) 
+{
 	$_selections = $option->getSelections();	
-	//Mage::log(sprintf("_selections=%d", count($_selections)));
-	if (count($_selections) == 0) {
-		continue;
-	}
+	if (!$_selections) continue;
+	if (!is_array($_selections)) continue;
 	$simpleId = $option->getId(); //product_simple->getProductId();
-	foreach($_selections as $selection) {
+	
+	foreach($_selections as $selection) 
+	{
 		$product_simple = Mage::getModel('catalog/product')->load($selection->getId());
-		//Mage::log(sprintf("product_simple=%s", $product_simple->getAttributeSetId()));
-		$colour = $product_simple->getAttributeText('colour');
-		$sizeAttr = 'size_clothing';
-		if (array_key_exists($product_simple->getAttributeSetId(), $sizeAttrs)) {
-			$sizeAttr = $sizeAttrs[$product_simple->getAttributeSetId()];
-		}
-		$size = $product_simple->getAttributeText($sizeAttr);
+		$colour = $product_simple->getAttributeText('colour_description');
+		$sizes = array(
+			"dress_size",
+			"size_smlxl",
+			"accessories_size",
+			"size_mens_28_to_36",
+			"size_shoes_girls_26_to_41"
+		);
+		$size = "one size";
+		foreach($product_simple->getAttributes() as $a){
+			if(in_array($a->getAttributeCode(),$sizes)){
+					$size = $product_simple->getAttributeText($a->getAttributeCode());
+					break;
+			}
+        }
+		
 		//Mage::log(sprintf("%s->var=%s", $sizeAttr, $size));
 		$products['bundle_product'][$simpleId][$colour][$size]['colour'] = $colour;
 		$products['bundle_product'][$simpleId][$colour][$size]['size'] = $size;
 		$products['bundle_product'][$simpleId][$colour][$size]['price'] = $product_simple->getFinalPrice();
 		$products['bundle_product'][$simpleId][$colour][$size]['default'] = 0;
 		$products['bundle_product'][$simpleId][$colour][$size]['selectionid'] = $selection->getSelectionId();
+		
 		$parentIds = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($product_simple->getId());
 		$products['bundle_img'][$simpleId][$colour]['img'] = "";
 		//Mage::log(sprintf("parents=%d", count($parentIds)));
-
-		$found = false;
-		$labelColour = strtolower(preg_replace("/[\s\W]+/", "-", $colour));
-		$match = sprintf("front_%s", $labelColour);
+		
 		foreach($parentIds as $parent) {
 			$parentProduct = Mage::getModel('catalog/product')->load($parent);
 			// Varien_Data_Collection
-			$images = array_values($parentProduct->getMediaGalleryImages()->getItems());
-			for ($i = 0; $i < count($images) && !$found; $i++) {
-				$img = $images[$i];
-				//Mage::log(sprintf("label:%s==%s", $img->getLabel(), $match));
-				if ($img->getLabel() == $match) {
-					//Mage::log(sprintf("match=%s", $img->getFile()));
-					$a = (string)Mage::helper('catalog/image')->init($parentProduct, 'image', $img->getFile())->resize(75,75);
-					//Mage::log($a);
-					// use absolute paths
-					$a = str_replace(Mage::getBaseUrl(), "/", $a);
-					//Mage::log($a);
-					$products['bundle_img'][$simpleId][$colour]['img'] = $a;
-					$found = true;
+			foreach($parentProduct->getMediaGalleryImages() as $img){
+				$isFront=strpos($img->getLabel(), "front_".strtolower(str_replace(" ","-",trim($colour))));
+						if($isFront!==false){
+					//Mage::log("match");
+					//Mage::log($img->getFile());
+
+					$a = Mage::helper('catalog/image')->init($parentProduct, 'thumbnail',$img->getFile())->resize(75,75);
+					$products['bundle_img'][$simpleId][$colour]['img']=str_replace(Mage::getBaseUrl(),"",$a."");
+					break;
 				}
 			}
 		}
 	}
 }
 ?>
-<script type="text/javascript">	
-var products = <?php echo (isset($products) && count($products))?json_encode($products['bundle_product']):"\"\""; ?>;
-var product_imgs = <?php echo (isset($products) && count($products))?json_encode($products['bundle_img']):"\"\""; ?>;
-var base_url='<?php echo Mage::getBaseUrl()?>';
-var productid=jQuery('input[name$="product"]').val();
-	
-jQuery(document).ready(function(){
+<?php if (isset($products) && array_key_exists('bundle_product',$products) && array_key_exists('bundle_img',$products)): ?>
+	<script type="text/javascript">	
+	var products = <?php echo json_encode($products['bundle_product']); ?>;
+	var product_imgs = <?php echo json_encode($products['bundle_img']); ?>;
+	var base_url='<?php echo Mage::getBaseUrl()?>';
+	var productid=jQuery('input[name$="product"]').val();
+		
+	jQuery(document).ready(function(){
 
-	for(var p in products) {
-		var selector = jQuery('#bundle-color-' + p);
-		jQuery('#bundle-size-' + p).append(new Option('Choose a size ...',''))
-		for(var c in products[p]){
-			selector.append(new Option(c,c));
+		for(var p in products) {
+			var selector = jQuery('#bundle-color-' + p);
+			jQuery('#bundle-size-' + p).append(new Option('Choose a size ...',''))
+			/*add the colors*/
+			for(var c in products[p]){
+				selector.append(new Option(c,c));					
+			}
+
+			for(var c in products[p]){
+				var img=product_imgs[p][c]['img'];
+				//check for absolute url
+						if(img.substring(0,4) != "http"){
+						img = base_url + img;
+						}
+						jQuery('#image-'+p).attr("src",img);		
+				break;
+			}
 		}
-		var img = product_imgs[p][c]['img'];
-		jQuery('#image-' + p).attr("src", img);
-	}
-});
-
+	});
+	</script>
+<?php endif; ?>
+<script type="text/javascript">
 function choosecolor(id){
 	var color = jQuery('#bundle-color-'+id).val();
 	var bsid = 'bundle-size-' + id;
@@ -437,7 +446,11 @@ jQuery("input.the-price").each(function (index){
 	myid=get_id(jQuery(this).attr('id'));
 	color=jQuery('#bundle-color-'+myid).val();
 	if(color!=''){
-		img=base_url+product_imgs[myid][color]['img'];
+		img=product_imgs[myid][color]['img'];
+		//check for absolute url
+				if(img.substring(0,4) != "http"){
+				img = base_url + img;
+				}
 		jQuery('#image-'+myid).attr("src",img);
 	}	
 });
