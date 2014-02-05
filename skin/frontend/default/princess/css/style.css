@@ -491,8 +491,10 @@ div.page-title.category-title.page-header { display:none; }
 .toolbar-div #FilterSort { border-left-width: 0px; border-right-width: 0px; width:224px }
 .toolbar-div #FilterView { width:560px; }
 
-.toolbar-div > .filter-options #btnShowFilterOptions { cursor: pointer; font-family: Helvetica, Arial, sans-serif; } 
-.toolbar-div > .filter-options #btnShowFilterOptions img.icon-filter { display:none; }
+.toolbar-div > .filter-options #btnShowFilterOptions, 
+.toolbar-div > .filter-options #btnMobileShowFilterOptions { cursor: pointer; font-family: Helvetica, Arial, sans-serif; } 
+.toolbar-div > .filter-options #btnShowFilterOptions img.icon-filter,
+.toolbar-div > .filter-options #btnMobileShowFilterOptions img.icon-filter { display:none; }
 
 .toolbar-div #FilterSort select { background-color: transparent; color: #000; }
 .toolbar-div #FilterSort a { margin-left: 3px; }
@@ -2237,7 +2239,7 @@ footer ul li { list-style-type:none; line-height:21px;  }
 footer ul li a { color:#808080; font-size:12px; font-weight:normal; list-style-type:none; }
 footer ul li a:hover { color:#AC6FF2; text-decoration:none; }
 footer #signupform { padding-bottom:10px; border-bottom:1px solid #D8D8D8; }
-footer #fieldEmail { border:1px solid #070000; width:280px; height:28px; padding-left:18px; }
+footer .fieldEmail { border:1px solid #070000; width:280px; height:28px; padding-left:18px; }
 
 /* ==================================================
    Footer Email Signup

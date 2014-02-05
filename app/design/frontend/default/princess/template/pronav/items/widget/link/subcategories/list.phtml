@@ -23,10 +23,10 @@ $numColumns = $this->getData('columns');
 //Main cat Level + Num of Levels
 $higestLevel = $levelSelect+$MainCategoryLevel;
 
-		$columns = 3;
-		$column_count = 1;
-		$items_per_column = 5;
-		$item_per_column_count = 1;
+$columns = 3;
+$column_count = 1;
+$items_per_column = 5;
+$item_per_column_count = 1;
 		
 ?>
 <li class="pronav-unsorted">
@@ -85,6 +85,9 @@ $higestLevel = $levelSelect+$MainCategoryLevel;
 		?>
 						
 	<?php endforeach;?>
+	<?php if ($item_per_column_count != 1): ?>
+		</ul>
+	<?php endif; ?>
 	<?php $categoryLevel = 0; ?>
 	<?php /* </ul> */ ?>
 </li>

@@ -129,7 +129,7 @@
                 
                 $output .= '<li class="primary-pronav-item extra first-extra"><a href="/store-locator.html" class="pronav-top-level-span" >STORES</a><li>';
                 $output .= '<li class="primary-pronav-item extra"><a href="/contact.html" class="pronav-top-level-span" >CONTACT</a><li>';
-                 $output .= '<li class="primary-pronav-item extra"><a href="tel:(03) 8420 0336" class="pronav-top-level-span" >(03) 8420 0336</a><li>';
+                 $output .= '<li class="primary-pronav-item extra"><a href="tel:'.str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')).'" class="pronav-top-level-span" >'.Mage::getStoreConfig('general/store_information/phone').'</a><li>';
                 
                 $output_sub .= "</div>";
 		$output .= '</ul>';

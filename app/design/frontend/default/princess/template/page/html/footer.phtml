@@ -20,7 +20,7 @@
 				<ul>
 				    <li><a href="/product-enquiries/">Product Enquiries</a>
 				    <li><a href="/store-locator/">Find Your Nearest Store</a></li>
-				    <li><span class="storephone"><a href="tel://<?php echo Mage::getStoreConfig('general/store_information/phone'); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
+				    <li><span class="storephone"><a href="tel:<?php echo str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
 				    <li><a href="mailto:<?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?>">E: <?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?></a>
 				</ul>
 			

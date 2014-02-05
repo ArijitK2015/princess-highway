@@ -2102,7 +2102,7 @@ footer ul li a { color:#808080; font-size:12px; font-weight:normal; list-style-t
 footer ul li a:hover { color:#FF4569; text-decoration:none; }
 
 footer #signupform { padding-bottom:10px; border-bottom:1px solid #D8D8D8; }
-footer #fieldEmail { border:1px solid #070000; width:280px; height:28px; padding-left:18px; }
+footer .fieldEmail { border:1px solid #070000; width:280px; height:28px; padding-left:18px; }
 footer .princesshighwaysignup { height:38px; vertical-align:top; width:135px; }
 
 /* ==================================================

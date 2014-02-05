@@ -9,115 +9,64 @@
 
 <?php if($this->getCollection()->getSize()): ?>
 
-				<?php /* echo $this->getChildHtml('testpager'); */ ?>
-				<?php /*  echo $this->getPagerHtml(); */ ?>
+	<div id="FilterOptions" class="toolbar-item-group-layout filter-options">				
+		<div id="btnShowFilterOptions" class="btn-filter-options">
+			<label>Filter Options</label>
+			<span class="icon-caret-down"></span>
+			<img class="icon-filter" src="<?php echo $this->getSkinUrl('images/core/filter-icon.png'); ?>" alt="filter options" />
+		</div>						
+	</div>
 
-				<!-- &#9650; --- &#9660; -->
-				<div id="FilterOptions" class="toolbar-item-group-layout filter-options">				
-					<div id="btnShowFilterOptions" name="btnShowFilterOptions" class="btn-filter-options">
-						<label>Filter Options</label>
-						<span class="icon-caret-down"></span>
-						<img class="icon-filter" src="<?php echo $this->getSkinUrl('images/core/filter-icon.png'); ?>" alt="filter options" />
-					</div>						
-				</div>
+	<div id="FilterSort" class="toolbar-item-group-layout">					
+		<label>Sort by</label>
+		<select class="select-sort" onchange="setLocation(this.value)">
+		 <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+			<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
+				<?php echo $this->__($_order) ?>
+			</option>
+		<?php endforeach; ?>
+		</select>
+		<span class="icon-caret-down"></span>
+		<?php if($this->getCurrentDirection() == 'desc'): ?>
+			<a class="sort-order" href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>">							
+				<img src="/skin/frontend/default/princess/images/core/icon-arrow-a-d.png" alt="ascending" title="ascending" width="20">
+			</a>
+		<?php else: ?>
+			<a class="sort-order" href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>">														
+				<img src="/skin/frontend/default/princess/images/core/icon-arrow-a-u.png" alt="descending" title="descending" width="20">
+			</a>
+		<?php endif; ?>
+		
+	</div>
 
-				<div id="FilterSort" class="toolbar-item-group-layout">
-				<?php /*
-					<div class="btn-group pull-right">
-						<?php if( $this->isEnabledViewSwitcher() ): ?>
-						<?php $_modes = $this->getModes(); ?>
-						<?php if($_modes && count($_modes)>1): ?>
-							<?php foreach ($this->getModes() as $_code=>$_label): ?>
-								<?php if($this->isModeActive($_code)): ?>
-									<a href="#" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?> btn btn-inverse active"><span class="icon-<?php echo strtolower($_code); ?> icon-white"></span></a>
-									<?php else: ?>
-									<a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?> btn"><span class="icon-<?php echo strtolower($_code); ?>"></span></a>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							<?php endif; ?>
-						<?php endif; ?>
-					</div><!-- /btn-group -->
-				*/ ?>
+	<div id="FilterView" class="toolbar-item-group-layout">					
+		<label>View</label>                                                              
+		<ul>
+		<?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+			<li <?php if($this->isLimitCurrent($_key)): ?> class="active" <?php else: ?> class="" <?php endif ?>>
+				<a href="<?php echo $this->getLimitUrl($_key) ?>" <?php if($this->isLimitCurrent($_key)): ?> <?php endif ?>><?php echo $_limit ?> 
+					<?php /* echo $this->__('per page') */ ?>
+				</a>                        
+			</li>                            
+		<?php endforeach; ?>
+		</ul>
+	</div>    
+	
+	<div id="FilterOptionsMobile" class="toolbar-item-group-layout filter-options">
+		<div id="btnMobileShowFilterOptions" class="btn-filter-options">
+			<label>Filter Options</label>
+			<span class="icon-caret-down"></span>
+			<img class="icon-filter" src="<?php echo $this->getSkinUrl('images/core/filter-icon.png'); ?>" alt="filter options" />
+		</div>						
+	</div>
 
-					
-					<label>Sort by</label>
-				    <select class="select-sort" onchange="setLocation(this.value)">
-					 <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-						<option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
-							<?php echo $this->__($_order) ?>
-						</option>
-					<?php endforeach; ?>
-					</select>
-					<span class="icon-caret-down"></span>
-					<?php if($this->getCurrentDirection() == 'desc'): ?>
-						<a class="sort-order" href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>">							
-							<img src="/skin/frontend/default/princess/images/core/icon-arrow-a-d.png" alt="ascending" title="ascending" width="20px">
-						</a>
-					<?php else: ?>
-						<a class="sort-order" href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>">														
-							<img src="/skin/frontend/default/princess/images/core/icon-arrow-a-u.png" alt="descending" title="descending" width="20px">
-						</a>
-					<?php endif; ?>
-					
-				</div>
-
-				<div id="FilterView" class="toolbar-item-group-layout">					
-					<label>View</label>                                                              
-					<ul>
-					<?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-						<li <?php if($this->isLimitCurrent($_key)): ?> class="active" <?php else: ?> class="" <?php endif ?>>
-							<a href="<?php echo $this->getLimitUrl($_key) ?>" <?php if($this->isLimitCurrent($_key)): ?> <?php endif ?>><?php echo $_limit ?> 
-								<?php /* echo $this->__('per page') */ ?>
-							</a>                        
-						</li>                            
-					<?php endforeach; ?>
-					</ul>
-				</div>    
-				
-				<div id="FilterOptionsMobile" class="toolbar-item-group-layout filter-options">
-					<div id="btnShowFilterOptions" name="btnShowFilterOptions" class="btn-filter-options">
-						<label>Filter Options</label>
-						<span class="icon-caret-down"></span>
-						<img class="icon-filter" src="<?php echo $this->getSkinUrl('images/core/filter-icon.png'); ?>" alt="filter options" />
-					</div>						
-				</div>
-				<?php /*
-				<div class="toolbar-item-group-layout">
-						<div id="gridoptions">
-							<i class="icon-th"></i>
-						</div>
-				</div>    */ ?>
-				<div id="gridoptions">
-							<i class="icon-th"></i>
-				</div>
-			
-
-<?php /* commented out
-        <div class="row">            
-                <div class="span12">
-
-                        <!-- Filter Options Dropdown
-                        ================================================== -->		                                        
-                        <div id="filteroptions" name="filteroptions" >
-                            
-                            <?php echo $this->getChildHtml('testpager'); ?>2 
-                            <?php echo $this->getChildHtml('filter2'); ?>3 
-                            <?php echo $this->getFilterHtml(); ?>4 
-                            <?php echo $this->getFiltersHtml(); ?>5 
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-
-                        <!-- End: Filter Options Dropdown
-                        ================================================== -->					
-                </div>
-
-        </div>   
-        
-*/ ?>
+	<div id="gridoptions">
+		<i class="icon-th"></i>
+	</div>
            
 <?php endif ?>	
 
-<script>
+<script type="text/javascript">
     jQuery(document).ready(function() {   
         // Filter option panel
         jQuery('.btn-filter-options').on('click', function() {

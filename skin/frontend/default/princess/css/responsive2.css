@@ -299,10 +299,14 @@ and open the template in the editor.
         .catalog-category-view .category-products .toolbar-div .filter-options fieldset { margin-bottom: 0px; margin-top: 0px;}
         .catalog-category-view .category-products .toolbar-div .filter-options fieldset label { display:none; }
         .catalog-category-view .category-products .toolbar-div .filter-options {  vertical-align: top }
-        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions { height: 42px; margin: 0px 5px;}
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions,
+		.catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnMobileShowFilterOptions		{ height: 42px; margin: 0px 5px;}
         .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions .icon-caret-down,
-        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions .icon-caret-up { display:none; }
-        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions img.icon-filter { display:block; height: auto; margin: 0px; width:30px   }
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions .icon-caret-up,
+		.catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnMobileShowFilterOptions .icon-caret-down,
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnMobileShowFilterOptions .icon-caret-up { display:none; }
+        .catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnShowFilterOptions img.icon-filter,
+		.catalog-category-view .category-products .toolbar-div .filter-options fieldset #btnMobileShowFilterOptions img.icon-filter { display:block; height: auto; margin: 0px; width:30px   }
         .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder {}
         .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions { }
         .catalog-category-view .category-products .toolbar-div .filteroptions-placeholder #filteroptions .filteroptions-box {}
@@ -535,7 +539,8 @@ and open the template in the editor.
         .carousel-two #collaboration-carousel .carousel-indicators li img { width: 100%; }     
         .catalog-category-view .category-products .toolbar-div .filter-options,
         .catalog-category-view .category-products .toolbar-div #FilterSort { border-width: 1px; clear: both; margin: 0px 8%; width:86% }
-        .catalog-category-view .category-products .toolbar-div .filter-options #btnShowFilterOptions { margin: 3px 0px 0px 0px;}
+        .catalog-category-view .category-products .toolbar-div .filter-options #btnShowFilterOptions,
+		.catalog-category-view .category-products .toolbar-div .filter-options #btnMobileShowFilterOptions		{ margin: 3px 0px 0px 0px;}
         .catalog-category-view .category-products .toolbar-div #FilterSort fieldset > label,
         .catalog-category-view .category-products .toolbar-div #FilterView fieldset > label { display: block;}
         .catalog-category-view .category-products .toolbar-div #FilterView fieldset > ul > li { margin: -5px 6px 0px 0px; }                  

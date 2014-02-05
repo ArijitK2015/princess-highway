@@ -6,7 +6,7 @@
 $apikey_source = '';
 $distancecounter = 2;
 if (Mage::helper('gmapstrlocator')->getGMapAPIKey() != ''):
-    $apikey_source = 'http://maps.google.com/maps/api/js?key=' . Mage::helper('gmapstrlocator')->getGMapAPIKey() . '&sensor=false';
+    $apikey_source = 'http://maps.google.com/maps/api/js?key=' . Mage::helper('gmapstrlocator')->getGMapAPIKey() . '&amp;sensor=false';
 else :
     $apikey_source = 'http://maps.google.com/maps/api/js?sensor=false';    
 endif;
@@ -93,7 +93,7 @@ endif;
 				<?php if (Mage::helper('gmapstrlocator')->isSearchByAddressEnable()): ?>
 				<div class="field2">
 					<p><?php echo Mage::helper('gmapstrlocator')->__('Search By Address, State'); ?></p>
-					<input type="text" class="input" name="" onkeypress="return MalikScript(event)" id="s_address" name="s_address"  />
+					<input type="text" class="input" onkeypress="return MalikScript(event)" id="s_address" name="s_address"  />
 					<input id="search_by_address_btn" type="button" class="button" value="<?php echo Mage::helper('gmapstrlocator')->__('Search'); ?>" name="" onclick="validatepost(this.value);" />
 				</div>
 				<?php endif; ?>
@@ -133,62 +133,6 @@ endif;
 
 				<div class="clear"></div>
 			</div>	
-
-
-
-		<div class="filter-select" style="display:none;">
-
-			<div class="">
-				<dl id="narrow-by-list">
-					<dd class="odd" style="display: none;">
-						<select id="region" class="selectBox" onchange="updatemap('region')">
-							<option value=""><?php echo $this->__('SELECT A DISTRICT'); ?></option>
-							<?php
-								foreach ($States as $statekey => $state):
-							?>
-							<option value="<?php echo $statekey; ?>"><?php echo $state; ?></option>
-							<?php 
-								endforeach;
-							?>
-						</select>
-					</dd>
-					<dd class="odd" style="display: none;">
-						<select id="store" class="selectBox" onchange="updatemap('store')">
-							<option value=""><?php echo $this->__('CHOOSE A STORE'); ?></option>
-							<?php
-								$Storelatlong = array();
-								$newStorelatlong = array();
-								$i = 0;
-								$j = -1;
-								foreach ($Stores as $Store):
-									$Storelatlong[] = '(' . $Store['latitude'] . ',' . $Store['longitude'] . ')';
-									if ($i++ % 25 == 0) {
-									$j++;
-								}
-								$newStorelatlong[$j][] = '(' . $Store['latitude'] . ',' . $Store['longitude'] . ')';
-							?>
-							<option value="<?php echo $Store['store_name']; ?>"><?php echo $Store['store_name']; ?></option>
-							<?php
-								endforeach;
-							?>
-						</select>
-					</dd>
-					<dd class="odd" style="display: none;">
-						<input  type="text" class="input-text" onkeypress="return MalikScript(event)" id="postcode" name="postcode" style="width:170px; float:left; padding-left:10px;" value="Enter the Postal Code" onfocus="if (this.value == 'Enter the Postal Code') { this.value = ''; }" onblur="if (this.value == '') { this.value = 'Enter the Postal Code'; }"  title="Enter the Postal Code" />
-						<img id="flag_image" src="<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton.png') ?>" onmouseover="this.src = '<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton_over.png') ?>'" onmouseout="this.src = '<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton.png') ?>'"  style="margin-left: -1px; cursor:pointer;" onclick="validatepost(this.value);"/>
-					</dd>
-					<dd class="odd" >
-						<input  type="text" class="input-text" onkeypress="return MalikScript(event)" id="s_address" name="s_address" style="width:170px; float:left; padding-left:10px;" value="Enter Address" onfocus="if (this.value == 'Enter Address') { this.value = ''; }" onblur="if (this.value == '') { this.value = 'Enter Address'; }"  title="Enter Address"/>
-						<img id="flag_image" src="<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton.png') ?>" onmouseover="this.src = '<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton_over.png') ?>'" onmouseout="this.src = '<?php echo $this->getSkinUrl('images/gmapstrlocator/mapserchbutton.png') ?>'"  style="margin-left: -1px; cursor:pointer;" onclick="validatepost(this.value);"/>
-					</dd>
-				</dl>
-
-			</div>
-
-			<div onclick="updatemap('all')" class="total_maps" id="total_maps">
-				STORES
-			</div>
-		</div>
 
 		<div class="resultado" id="result_map" style="display:none;">
 			<h1><?php echo $this->__('Result:'); ?></h1> 

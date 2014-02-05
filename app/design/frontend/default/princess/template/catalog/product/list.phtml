@@ -350,7 +350,7 @@ if ($parentCategory != null && $parentCategory->getData('entity_id') == 263): ?>
 		
 			<div class="row filteroptions-placeholder ">
 				
-				<div id="filteroptions" name="filteroptions" class="span12">   
+				<div id="filteroptions" class="span12">   
 					<div class="filteroptions-box">
 						<?php echo $this->getChildHtml('filters'); ?>
 
@@ -609,7 +609,7 @@ if ($parentCategory != null && $parentCategory->getData('entity_id') == 263): ?>
 							<!-- Add Quickshop Modal Here -->	
 							<div class="quick-view-link-nav">
 								<i class="icon-external-link"></i> <a href="#quickshop-modal" role="button" data-toggle="modal" class="quick-view-link" data-url="<?php echo Mage::getBaseUrl(), 'extcatalog/product/view/id/', $_product->getId() ?>"><?php echo $this->__('Quickshop') ?></a>
-							<div>
+							</div>
 						</li>
 
 					<?php $item_group_count++; ?>   
@@ -634,7 +634,7 @@ if ($parentCategory != null && $parentCategory->getData('entity_id') == 263): ?>
 		</div>
 		
 		<?php /* Quickshop Modal */ ?>
-		<div id="quickshop-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="quickshop-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
