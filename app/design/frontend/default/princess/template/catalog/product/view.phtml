@@ -131,10 +131,6 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 							</div>
 						<?php endif; ?>
 
-						<div style="display:none">
-							<?php echo $this->getPriceHtml($_product, false, '_clone'); ?>                    
-						</div>
-
 						<div class="product-view-delimiter"></div>		        	
 
 						<?php if ($_product->getTypeId() == "ugiftcert"): ?>
@@ -179,7 +175,7 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 
 <div id="suggestivetabs">
 	<div class="tabbable">
-		<ul id="myTab" class="nav nav-tabs">
+		<ul id="myTab2" class="nav nav-tabs">
 			<li class="active"><a href="#wearitwith" data-toggle="tab">Wear It With</a></li>
 			<li><a href="#reviews" data-toggle="tab">Product Reviews</a></li>
 			<?php /* <li><a href="#otherspurchased" data-toggle="tab">Other People Purchased</a></li> */ ?>

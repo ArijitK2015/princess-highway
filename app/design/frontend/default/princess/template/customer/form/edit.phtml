@@ -6,7 +6,7 @@
     <div class="row">
     <fieldset class="span4">
         <?php echo $this->getBlockHtml('formkey')?>
-        <legend><h2 class="legend"><?php echo $this->__('Account Information') ?></h2></legend>
+        <h2 class="legend"><?php echo $this->__('Account Information') ?></h2>
             <div class="controls">
                 <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getCustomer())->toHtml() ?>
             </div>
@@ -37,7 +37,7 @@
 		</div>
     </fieldset>
     <fieldset class="span4" style="display:none;">
-        <legend><h2 class="legend"><?php echo $this->__('Change Password') ?></h2></legend>		
+        <h2 class="legend"><?php echo $this->__('Change Password') ?></h2>
 		<div class="controls">
 			<label for="current_password" class="required"><?php echo $this->__('Current Password') ?><em>*</em></label>
 			<input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text" name="current_password" id="current_password" />

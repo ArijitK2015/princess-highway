@@ -6,7 +6,7 @@
 				<?php echo $this->getBlockHtml('formkey'); ?>
                 <fieldset>
                     <?php echo $this->getChildHtml('form_fields_before')?>
-                    <legend><h3><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->htmlEscape($this->getProductInfo()->getName()) ?></span></h3></legend>
+                    <h3><?php echo $this->__("You're reviewing:"); ?> <span><?php echo $this->htmlEscape($this->getProductInfo()->getName()) ?></span></h3>
                     <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
 						<div class="controls">
 							<h4><?php echo $this->__('How do you rate this product?') ?> <em class="required">*</em></h4>

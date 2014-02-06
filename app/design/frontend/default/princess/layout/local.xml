@@ -85,6 +85,10 @@
 	<reference name="phmenu">
 		<block type="core/template" name="pronav_position_default" as="pronav_position_default" template="pronav/pronav_position_default.phtml" ifconfig="pronav/pronavconfig/pronav_status" />
 	</reference>
+	
+	<reference name="left">
+		<action method="unsetChild"><name>left.permanent.callout</name></action>
+	</reference>
 
 	<reference name="right">
 		<action method="unsetChild"><name>right.permanent.callout</name></action>

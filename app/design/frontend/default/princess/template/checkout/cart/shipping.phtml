@@ -10,7 +10,7 @@
 		   <p class="description"><?php echo $this->__('Enter your destination to get a shipping estimate.') ?></p>
            <fieldset>            
                 <div class="control-group">
-                    <label class="control-label" for="country" class="required"><?php echo $this->__('Country') ?><em>*</em></label>
+                    <label class="control-label required" for="country"><?php echo $this->__('Country') ?><em>*</em></label>
                     <div class="controls">
                         <span class="icon-caret-down"></span>
 						<?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>						

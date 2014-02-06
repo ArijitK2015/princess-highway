@@ -27,7 +27,7 @@
 		<?php echo $this->getBlockHtml('formkey')?>
 		<input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
 		<input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
-        <legend><h2 class="legend"><?php echo $this->__('Contact Information') ?></h2></legend>
+        <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
 		<div class="controls">
 			<?php echo $this->getNameBlockHtml() ?>
 		</div>		
@@ -49,7 +49,7 @@
 		</div>
     </fieldset>
     <fieldset class="span4">
-        <legend><h2 class="legend"><?php echo $this->__('Address') ?></h2></legend>
+        <h2 class="legend"><?php echo $this->__('Address') ?></h2>
             <div class="control-group">
                 <label for="street_1" class="control-label"><?php echo $this->__('Street Address') ?><em>*</em></label>
                 <div class="controls">

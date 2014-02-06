@@ -30,7 +30,7 @@
     };
 //]]>
 </script>
-<form action="" id="firecheckout-form" method="post">
+<form id="firecheckout-form" method="post">
 	<?php $layout = Mage::getStoreConfig('firecheckout/general/layout'); ?>
 
 	<div class="<?php echo $layout ?> firecheckout-set">
@@ -66,6 +66,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
 					</tr>
 					<?php echo $this->getChildHtml('totals'); ?>        
 				</table>				
@@ -86,7 +87,7 @@
 <div id="checkout-centinel-iframe-load" style="display: none;"></div>
 <div id="checkout-paypaliframe-load" class="authentication" style="display: none;"></div>
 <div id="checkout-sagepay-iframe-load"></div>
-<form id="co-payment-form" method="post" action=""></form>
+<form id="co-payment-form" method="post"></form>
 
 <script type="text/javascript">
 //<![CDATA[
