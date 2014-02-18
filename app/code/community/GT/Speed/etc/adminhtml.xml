@@ -25,9 +25,19 @@
                 <children>
                     <system>
                         <children>
+							<gt>
+								<title>GT</title>
+								<sort_order>120</sort_order>
+								<children>
+									<gtspeed>
+										<title>GTspeed</title>
+										<sort_order>0</sort_order>
+									</gtspeed>
+								</children>
+							</gt>
                             <config>
                                 <children>
-                                    <gtspeed translate="title">
+                                    <gtspeed>
                                         <title>GTspeed</title>
                                         <sort_order>100</sort_order>
                                     </gtspeed>
