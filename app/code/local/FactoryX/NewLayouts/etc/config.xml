@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <FactoryX_Page>
-            <version>0.1.0</version>
-        </FactoryX_Page>
+        <FactoryX_NewLayouts>
+            <version>0.0.1</version>
+        </FactoryX_NewLayouts>
     </modules>
     <global>
         <page>
