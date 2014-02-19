@@ -1,10 +1,12 @@
 <?php
-class FactoryX_CustomReports_Block_Noupsells extends Mage_Adminhtml_Block_Template
+class FactoryX_CustomReports_Block_Noupsells extends FactoryX_CustomReports_Block_Customreport
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('factoryx/customreports/noupsells.phtml');
+        $this->setTemplate('factoryx/customreports/grid.phtml');
+		$this->setTitle('Custom Products With No Upsells Report');
+		$this->setSideNote('N.B.: the grid displays only configurable products. You can use the visibility and status filter to only get the products which are available on the store.');
     }
 
     public function _beforeToHtml()

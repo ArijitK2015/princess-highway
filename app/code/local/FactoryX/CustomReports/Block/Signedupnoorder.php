@@ -1,10 +1,11 @@
 <?php
-class FactoryX_CustomReports_Block_Signedupnoorder extends Mage_Adminhtml_Block_Template
+class FactoryX_CustomReports_Block_Signedupnoorder extends FactoryX_CustomReports_Block_Customreport
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('factoryx/customreports/signedupnoorder.phtml');
+        $this->setTemplate('factoryx/customreports/grid.phtml');
+		$this->setTitle('Custom Signed Up But Never Shopped Report');
     }
 
     public function _beforeToHtml()

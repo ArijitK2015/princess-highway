@@ -1,10 +1,11 @@
 <?php
-class FactoryX_CustomReports_Block_Worstsellers extends Mage_Adminhtml_Block_Template
+class FactoryX_CustomReports_Block_Worstsellers extends FactoryX_CustomReports_Block_Customreport
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('factoryx/customreports/worstsellers.phtml');
+        $this->setTemplate('factoryx/customreports/advancedgrid.phtml');
+		$this->setTitle('Custom Worstsellers Report');
 		// Set the right URL for the form which handles the dates
 		$this->setFormAction(Mage::getUrl('*/*/index'));
     }
