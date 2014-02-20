@@ -353,6 +353,10 @@ if ((array_key_exists("HTTP_REFERER", $_SERVER))
 					</tr>
 				</table>                       
 			</form>
+		</div>
+		<div id="newsletter-subscribe-right">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('subscription-right-img')->toHtml() ?>
+			<?php //echo $this->getChildHtml('subscription-right-img') ?>
 		</div>		
 		<script type="text/javascript">
 			//<![CDATA[
@@ -581,8 +585,3 @@ if ((array_key_exists("HTTP_REFERER", $_SERVER))
 	</script>
 	<?php endif;*/ ?>
 <?php } ?>
-
-<div id="newsletter-subscribe-right">
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('subscription-right-img')->toHtml() ?>
-	<?php //echo $this->getChildHtml('subscription-right-img') ?>
-</div>

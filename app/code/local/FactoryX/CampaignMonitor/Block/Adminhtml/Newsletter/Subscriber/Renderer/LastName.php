@@ -1,7 +1,7 @@
 <?php
 
 class FactoryX_CampaignMonitor_Block_Adminhtml_Newsletter_Subscriber_Renderer_LastName extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract 
-{
+{	
 	public function render(Varien_Object $row) 
 	{
 		$value = '';

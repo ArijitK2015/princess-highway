@@ -49,6 +49,18 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_Newsletter_Subscriber_Grid extend
                 Mage_Newsletter_Model_Subscriber::STATUS_UNCONFIRMED => Mage::helper('newsletter')->__('Unconfirmed'),
             )
         ));
+		
+		/*
+		$this->addColumn('mobilesubscription', array(
+            'header'    => Mage::helper('newsletter')->__('SMS Subscription'),
+            'index'     => 'subscriber_mobilesubscription',
+            'type'      => 'options',
+            'options'   => array(
+                'YES'	=>	'YES',
+				'NO'	=>	'NO'
+            )
+        ));
+		*/
 
         $this->addColumn('mobile', array(
             'header'    => Mage::helper('newsletter')->__('Mobile'),
@@ -60,18 +72,7 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_Newsletter_Subscriber_Grid extend
             'header'    => Mage::helper('newsletter')->__('State'),
             'index'     => 'subscriber_state',
             'type'		=> 'options',
-            'options'   => array(
-            	'Australia Capital Territory'	=> 'Australia Capital Territory',
-            	'New South Wales'				=> 'New South Wales',
-            	'Northern Territory'			=> 'Northern Territory',
-            	'Queensland'					=> 'Queensland',
-            	'South Australia'				=> 'South Australia',            	
-            	'Tasmania'						=> 'Tasmania',
-            	'Victoria'						=> 'Victoria',
-            	'Western Australia'				=> 'Western Australia',
-            	'New Zealand'					=> 'New Zealand',
-            	'Other'							=> 'Other'
-            )
+            'options'   => Mage::helper('campaignmonitor')->getCampaignMonitorStates()
         ));
 		
 		$this->addColumn('postcode', array(
@@ -80,29 +81,47 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_Newsletter_Subscriber_Grid extend
             //'default'   => '----'
         ));
 		
+		
+		
+		
+		/*
 		$this->addColumn('periodicity', array(
             'header'    => Mage::helper('newsletter')->__('Periodicity'),
             'index'     => 'subscriber_periodicity',
             'type'		=> 'options',
             'options'   => array(
-				'Weekly'	=>	'Weekly',
-            	'Fortnightly'	=> 'Fortnightly',
-            	'Monthly'	=> 'Monthly',
-            	'Only when we have special news and events'	=> 'Only when we have special news and events'
+				'Weekly'									=>	'Weekly',
+            	'Fortnightly'								=>	'Fortnightly',
+            	'Monthly'									=>	'Monthly',
+				'Only when we have special news and events'	=>	'Only when we have special news and events'
             )
         ));
 		
-		$this->addColumn('jobinterest', array(
-            'header'    => Mage::helper('newsletter')->__('Job Interest'),
-            'index'     => 'subscriber_jobinterest',
-            'type'		=> 'options',
-            'options'   => array(
-				'1'	=>	'Yes',
-            	'0'	=> 'No'
-            )
+        $this->addColumn('preferredstore', array(
+            'header'    => Mage::helper('newsletter')->__('Preferred Store'),
+            'index'     => 'subscriber_preferredstore',
+            'type'      => 'options',
+            'options'   => Mage::helper('campaignmonitor')->getStores()
         ));
 
-        $this->addColumn('dob', array(
+        $this->addColumn('jobinterest', array(
+            'header'    => Mage::helper('newsletter')->__('Job Interest'),
+            'index'     => 'subscriber_jobinterest',
+            'type'      => 'options',
+            'options'   => array(
+                'YES'   =>  'YES',
+                'NO'    =>  'NO'
+            )
+        ));
+		*/
+		
+        $this->addColumn('promocode', array(
+            'header'    => Mage::helper('newsletter')->__('Promo Code'),
+            'index'     => 'subscriber_promocode'
+            //'default'   => '----'
+        ));
+				
+		$this->addColumn('dob', array(
             'header'    => Mage::helper('newsletter')->__('Birthday'),
             'index'     => 'subscriber_dob',
             'type'		=> 'date',
@@ -120,6 +139,11 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_Newsletter_Subscriber_Grid extend
 		$this->addColumn('coupon', array(
             'header'    => Mage::helper('newsletter')->__('Coupon'),
             'index'     => 'subscriber_coupon'
+        ));
+		
+        $this->addColumn('securehash', array(
+            'header'    => Mage::helper('newsletter')->__('Secure Hash'),
+            'index'     => 'subscriber_securehash'
         ));
 
         $this->addExportType('*/*/exportCsv', Mage::helper('customer')->__('CSV'));

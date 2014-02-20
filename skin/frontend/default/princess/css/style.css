@@ -2440,6 +2440,6 @@ label {
     margin: 0;
     padding: 1px;
     width: 100%;}
-#newsletter-subscribe-right{float:left; width:35%; text-align:right; position:relative; top:-47px; z-index:1}
+#newsletter-subscribe-right{float:left; width:35%; text-align:right; position:relative; z-index:1}
 #subscription-button-td,
 #subscription-next-button{text-align:right}

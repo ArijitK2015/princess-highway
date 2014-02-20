@@ -26,22 +26,23 @@ class FactoryX_CampaignMonitor_ManageController extends Mage_Newsletter_ManageCo
 			
 			// Get the new data
 			$new_email = (string) $this->getRequest()->getParam('email');
-			$periodicity = (string) $this->getRequest()->getParam('periodicity');
-			$mobile = (string) $this->getRequest()->getParam('mobile');
 			$state = (string) $this->getRequest()->getParam('state');
 			$postcode = (string) $this->getRequest()->getParam('postcode');
-			$jobinterest = ($this->getRequest()->getParam('jobinterest')=="Yes")?1:0;
+			$mobilesubscription = ($this->getRequest()->getParam('is_subscribed_sms')==1)?"YES":"NO";
+			$mobile = (string) $this->getRequest()->getParam('mobile');
+			$preferred_store = (string) $this->getRequest()->getParam('preferred_store');
+			$periodicity = (string) $this->getRequest()->getParam('periodicity');
 			
 			// Handle Campaign Monitor fields update
 			
-			Mage::helper('campaignmonitor')->log(__METHOD__ . "Updating newsletter subscription custom fiels via frontend 'Manage Subscription' page for $email");
+			Mage::helper('campaignmonitor')->log("Updating newsletter subscription custom fiels via frontend 'Manage Subscription' page for $email");
 			
 			$customerHelper = Mage::helper('customer');
 			$customer = $customerHelper->getCustomer();
 			$name = $customer->getFirstname() . " " . $customer->getLastname();
 			$customFields = FactoryX_CampaignMonitor_Model_Customer_Observer::generateCustomFields($customer);
 			
-			if ($mobile && isset($mobile))
+			if ($mobilesubscription=="YES" && $mobile && isset($mobile))
 			{
 				$customFields[] = array("Key" => "Mobile", "Value" => $mobile);
 			}
@@ -59,11 +60,16 @@ class FactoryX_CampaignMonitor_ManageController extends Mage_Newsletter_ManageCo
 			}
 			if ($periodicity != "-1" && isset($periodicity))
 			{
-				$customFields[] = array("Key" => "Periodicity", "Value" => $periodicity);
+				$customFields[] = array("Key" => "Frequency", "Value" => $periodicity);
 			}
-			if ($this->getRequest()->getParam('jobinterest'))
+			if ($preferred_store != "-1" && isset($preferred_store))
 			{
-				$customFields[] = array("Key" => "JobInterest", "Value" => (string)$this->getRequest()->getParam('jobinterest'));
+				$customFields[] = array("Key" => "PreferredStore/number", "Value" => $preferred_store);
+			}
+			$jobinterest = ($this->getRequest()->getPost('jobinterest')==1)?"Yes":"No";
+			if ($jobinterest)
+			{
+				$customFields[] = array("Key" => "JobInterest", "Value" => $jobinterest);
 			}
 			
 			// Campaign Monitor API Credentials
@@ -78,7 +84,7 @@ class FactoryX_CampaignMonitor_ManageController extends Mage_Newsletter_ManageCo
 				{
                     $client = new CS_REST_Subscribers($listID,$apiKey);
                 } catch(Exception $e) {
-                    Mage::helper('campaignmonitor')->log(__METHOD__ . "Error connecting to CampaignMonitor server: ".$e->getMessage());
+                    Mage::helper('campaignmonitor')->log("Error connecting to CampaignMonitor server: ".$e->getMessage());
                     $session->addException($e, $this->__('There was a problem with the subscription'));
                     $this->_redirectReferer();
                 }
@@ -94,17 +100,21 @@ class FactoryX_CampaignMonitor_ManageController extends Mage_Newsletter_ManageCo
 									)
 							);
 				} catch(Exception $e) {
-					Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in CampaignMonitor REST call: ".$e->getMessage());
+					Mage::helper('campaignmonitor')->log("Error in CampaignMonitor REST call: ".$e->getMessage());
 					$session->addException($e, $this->__('There was a problem with the subscription'));
 					$this->_redirectReferer();
 				}
 			}
 			
 			// Save for Magento backend
+			$jobinterest = ($this->getRequest()->getPost('jobinterest')==1)?"YES":"NO";
+			
 			if (isset($mobile)) $subscriber->setSubscriberMobile($mobile);
 			if (isset($periodicity)) $subscriber->setSubscriberPeriodicity($periodicity);
+			if (isset($mobilesubscription)) $subscriber->setSubscriberMobilesubscription($mobilesubscription);
 			if (isset($state)) $subscriber->setSubscriberState($state);
 			if (isset($postcode)) $subscriber->setSubscriberPostcode($postcode);
+			if (isset($preferred_store)) $subscriber->setSubscriberPreferredStore($preferred_store);
 			
 			$subscriber
 				->setSubscriberJobinterest($jobinterest)

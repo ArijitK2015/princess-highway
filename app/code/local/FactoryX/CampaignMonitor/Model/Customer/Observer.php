@@ -12,8 +12,9 @@ class SubscriberCustomField
 class FactoryX_CampaignMonitor_Model_Customer_Observer
 {
     public function check_subscription_status($observer)
-    {   
-        $event = $observer->getEvent();
+    {           
+                
+        $event = $observer->getEvent();    
         $customer = $event->getCustomer();
 
         $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
@@ -21,18 +22,21 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
         
         $name = $customer->getFirstname() . " " . $customer->getLastname();
         $newEmail = $customer->getEmail();
-        $subscribed = $customer->getIsSubscribed();
-       
-
+        $subscribed = $customer->getIsSubscribed();        
+        
         $oldEmail = Mage::getModel('customer/customer')->load($customer->getId())->getEmail();
+
+        if (empty($oldEmail)) return;
         // if subscribed is NULL (i.e. because the form didn't set it one way
         // or the other), get the existing value from the database
         if($subscribed === NULL)
         {
-            $subscribed = Mage::getModel('newsletter/subscriber')->loadByCustomer($customer)->isSubscribed();
+            // Subscribe using our own model
+            //Mage::getModel('campaignmonitor/subscriber')->loadByCustomer($customer);
+            //$subscribed = Mage::getModel('newsletter/subscriber')->loadByCustomer($customer)->isSubscribed();
             //print "\$subscribed is NULL, using old value: $subscribed\n<br />";
         }
-
+        
         //print "Name: $name, New email: $newEmail, Subscribed: $subscribed, Old email: $oldEmail<br />\n";
 
         if($apiKey and $listID)
@@ -42,7 +46,7 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
             try {
                 $client = new CS_REST_Subscribers($listID,$apiKey);
             } catch(Exception $e) {
-                Mage::helper('campaignmonitor')->log(__METHOD__ . "Error connecting to CampaignMonitor server: ".$e->getMessage());
+                Mage::helper('campaignmonitor')->log("Error connecting to CampaignMonitor server: ".$e->getMessage());
                 return;
             }
 
@@ -56,11 +60,11 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
                    unsubscribe their old address. */
                 if ($oldEmail and $newEmail != $oldEmail)
                 {
-                    Mage::helper('campaignmonitor')->log(__METHOD__ . "Unsubscribing old email address: $oldEmail");
+                    Mage::helper('campaignmonitor')->log("Unsubscribing old email address: $oldEmail");
                     try {
                         $result = $client->unsubscribe($oldEmail);
                     } catch(Exception $e) {
-                        Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in SOAP call: ".$e->getMessage());
+                        Mage::helper('campaignmonitor')->log("Error in SOAP call: ".$e->getMessage());
                         return;
                     }
                 }
@@ -68,7 +72,7 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
                 // Using 'add and resubscribe' rather than just 'add', otherwise
                 // somebody who unsubscribes and resubscribes won't be put back
                 // on the active list
-                Mage::helper('campaignmonitor')->log(__METHOD__ . "Subscribing new email address: $newEmail");
+                Mage::helper('campaignmonitor')->log("Subscribing new email address: $newEmail");
                 try {
                     $result = $client->add(array(
                             "EmailAddress" => $newEmail,
@@ -76,22 +80,24 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
                             "CustomFields" => $customFields,
 							"Resubscribe" => true));
                 } catch(Exception $e) {
-                    Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in SOAP call: ".$e->getMessage());
+                    Mage::helper('campaignmonitor')->log("Error in SOAP call: ".$e->getMessage());
                     return;
                 }
             }
             else
             {
-                Mage::helper('campaignmonitor')->log(__METHOD__ . "Unsubscribing: $oldEmail");
+                Mage::helper('campaignmonitor')->log("Unsubscribing: $oldEmail");
                 
                 try {
                     $result = $client->unsubscribe($oldEmail);
                 } catch(Exception $e) {
-                    Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in SOAP call: ".$e->getMessage());
+                    Mage::helper('campaignmonitor')->log("Error in SOAP call: ".$e->getMessage());
                     return;
                 }
             }
         }
+
+        Mage::getModel('campaignmonitor/subscriber')->syncSubscriber($newEmail);
     }
 
     public function customer_deleted($observer)
@@ -106,12 +112,12 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
 
         if($apiKey and $listID)
         {
-            Mage::helper('campaignmonitor')->log(__METHOD__ . "Customer deleted, unsubscribing: $email");
+            Mage::helper('campaignmonitor')->log("Customer deleted, unsubscribing: $email");
             try {
                 $client = new CS_REST_Subscribers($listID,$apiKey);
                 $result = $client->unsubscribe($email);
             } catch(Exception $e) {
-                Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in SOAP call: ".$e->getMessage());
+                Mage::helper('campaignmonitor')->log("Error in SOAP call: ".$e->getMessage());
                 return;
             }
         }
@@ -209,7 +215,7 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
 
         $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
         $customFields[] = array("Key" => 'securehash', "Value" => md5($customer->getEmail().$apiKey));
-        $customFields[] = array("Key" => "DateOfBirth", "Value" => $customer->getDob());
+        $customFields[] = array("Key" => "DOB", "Value" => $customer->getDob());
         return $customFields;
     }
 }

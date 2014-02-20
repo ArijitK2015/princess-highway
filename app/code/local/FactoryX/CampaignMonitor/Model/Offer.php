@@ -16,6 +16,6 @@ class FactoryX_CampaignMonitor_Model_Offer {
             Mage_SalesRule_Model_Rule::BUY_X_GET_Y_ACTION => Mage::helper('salesrule')->__('Buy X get Y free (discount amount is Y)')
             */
         );
-    }
+    }	
 }
 ?>

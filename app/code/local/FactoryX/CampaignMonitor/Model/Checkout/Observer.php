@@ -3,19 +3,22 @@ include_once MAGENTO_ROOT . "/lib/createsend/csrest_subscribers.php";
 class FactoryX_CampaignMonitor_Model_Checkout_Observer
 {
     public function subscribeCustomer($observer)
-    {
+    {       	 
 		// Check if the checkbox has been ticked using the sessions
         if ((bool) Mage::getSingleton('checkout/session')->getCustomerIsSubscribed())
 		{
 			// Get the quote & customer
             $quote = $observer->getEvent()->getQuote();
-            $order = $observer->getEvent()->getOrder();     
+            $order = $observer->getEvent()->getOrder(); 
 
-            // Get the email using during checking out
-			$email = $order->getCustomerEmail();	     	
-          	            
+            // if (!$order->getCustomerIsGuest()) return;
+            // Mage::helper('campaignmonitor')->log('passed');
+
             $customer = $quote->getCustomer();
 			$session = Mage::getSingleton('core/session');
+
+			// Get the email using during checking out
+			$email = $order->getCustomerEmail();	
 			
 			// We get the API and List ID
 			$apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
@@ -27,7 +30,10 @@ class FactoryX_CampaignMonitor_Model_Checkout_Observer
 			$mobile = "";
 			$state = "";
 			$postcode = "";
+			$mobilesubscription = "";
 			$jobinterest = "";
+			$preferred_store = "";
+			$promocode = "";
 			$periodicity = "";
 			$dob = "";
 			$subscriptiondate = date("Y-m-d");
@@ -37,14 +43,13 @@ class FactoryX_CampaignMonitor_Model_Checkout_Observer
 				$client = new CS_REST_Subscribers($listID,$apiKey);
 				$result = $client->get($email);
 			} catch(Exception $e) {
-				Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in REST call: ".$e->getMessage());
+				Mage::helper('campaignmonitor')->log("Error in REST call: ".$e->getMessage());
 				$session->addException($e, Mage::helper('campaignmonitor')->__('There was a problem with the subscription'));
 			}
 			
 			// If we are not subscribed in Campaign Monitor
 			if ($result->was_successful() && $result->response->State != 'Active')
 			{
-				// Mage::helper('campaignmonitor')->log($quote->getBillingAddress());
 				// We generate the custom fields
 				if ($mobile = $quote->getBillingAddress()->getTelephone())
 				{
@@ -82,7 +87,7 @@ class FactoryX_CampaignMonitor_Model_Checkout_Observer
 				}
 				if ($dob = $quote->getCustomerDob())
 				{
-					$customFields[] = array("Key" => "DateOfBirth", "Value" => $dob);
+					$customFields[] = array("Key" => "DOB", "Value" => $dob);
 				}
 				// And generate the hash
 				$customFields[] = array("Key" => "securehash", "Value" => md5($email.$apiKey));
@@ -123,40 +128,17 @@ class FactoryX_CampaignMonitor_Model_Checkout_Observer
 						}
 						catch (Exception $e) 
 						{
-							Mage::helper('campaignmonitor')->log(__METHOD__ . "Error in CampaignMonitor REST call: ".$e->getMessage());
+							Mage::helper('campaignmonitor')->log("Error in CampaignMonitor REST call: ".$e->getMessage());
 							$session->addException($e, Mage::helper('campaignmonitor')->__('There was a problem with the subscription'));
 						}
 						break;
 				}
 			}
-			
-			// Check if already subscribed in Magento
-			$subscriber = Mage::getModel('campaignmonitor/subscriber')->loadByEmail($email);
-			
-			if (!$subscriber || !$subscriber->isSubscribed()) 
-			{
-				// Magento subscription
-				try
-				{
-					$status = Mage::getModel('campaignmonitor/subscriber')->subscribeWithDetails($email, $firstname, $lastname, $mobile, $state, $periodicity, $jobinterest, $dob, $subscriptiondate, $postcode);
-					if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) 
-					{
-						$session->addSuccess(Mage::helper('campaignmonitor')->__('Confirmation request has been sent.'));
-					}
-					else 
-					{
-						$session->addSuccess(Mage::helper('campaignmonitor')->__('Thank you for your subscription.'));
-					}
-				}
-				catch (Mage_Core_Exception $e) {
-					$session->addException($e, Mage::helper('campaignmonitor')->__('There was a problem with the newsletter subscription: %s', $e->getMessage()));
-				}
-				catch (Exception $e) {
-					$session->addException($e, Mage::helper('campaignmonitor')->__('There was a problem with the newsletter subscription'));
-				}
-			}
+						
 			// Remove the session variable
 			Mage::getSingleton('checkout/session')->setCustomerIsSubscribed(0);
+        	
+        	Mage::getModel('campaignmonitor/subscriber')->syncSubscriber($email,true);
         }
     }
 }

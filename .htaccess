@@ -207,6 +207,7 @@
 ## http://developer.yahoo.com/performance/rules.html#etags
 
     #FileETag none
+
 #GTspeed
 <IfModule mod_headers.c>
 <FilesMatch "\.(css|js|jpe?g|png|gif)$">

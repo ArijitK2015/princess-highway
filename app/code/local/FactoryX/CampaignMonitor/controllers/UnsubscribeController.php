@@ -24,7 +24,7 @@ class FactoryX_CampaignMonitor_UnsubscribeController extends Mage_Core_Controlle
 					$client = new CS_REST_Subscribers($listID,$apiKey);
 					$result = $client->get($email);
                 } catch (Exception $e) {
-                    Mage::helper('campaignmonitor')->log(sprintf("%s Error in SOAP call: %s", __METHOD__, $e->getMessage()));
+                    Mage::helper('campaignmonitor')->log(sprintf("Error in SOAP call: %s", $e->getMessage()));
                     $session->addException($e, $this->__('There was a problem with the unsubscription'));
                     $this->_redirectReferer();
                 }
@@ -38,7 +38,7 @@ class FactoryX_CampaignMonitor_UnsubscribeController extends Mage_Core_Controlle
 						$state = $result->response->State;
 					}
 				} catch(Exception $e) {
-					Mage::helper('campaignmonitor')->log(sprintf("%s Error in SOAP call: %s", __METHOD__, $e->getMessage()));
+					Mage::helper('campaignmonitor')->log(sprintf("Error in SOAP call: %s", $e->getMessage()));
                     $session->addException($e, $this->__('There was a problem with the unsubscription'));
                     $this->_redirectReferer();
 				}
@@ -61,7 +61,7 @@ class FactoryX_CampaignMonitor_UnsubscribeController extends Mage_Core_Controlle
 					}
 					catch (Exception $e)
                     {
-                        Mage::helper('campaignmonitor')->log(sprintf("%s %s", __METHOD__, $e->getMessage()));
+                        Mage::helper('campaignmonitor')->log(sprintf("%s", $e->getMessage()));
                         Mage::getSingleton('customer/session')->addError($this->__('There was an error while saving your subscription details'));
                     }
                 }
@@ -95,7 +95,7 @@ class FactoryX_CampaignMonitor_UnsubscribeController extends Mage_Core_Controlle
 							Mage::getSingleton('customer/session')->addSuccess($this->__('You have already unsubscribed to our newsletter, click <a href="/subscribe">here</a> to resubscribe'));
 						}
 					} catch (Exception $e) {
-                        Mage::helper('campaignmonitor')->log(sprintf("%s %s", __METHOD__, $e->getMessage()));
+                        Mage::helper('campaignmonitor')->log(sprintf("%s", $e->getMessage()));
                         Mage::getSingleton('customer/session')->addError($this->__('There was an error while saving your subscription details'));
                     }
                 }

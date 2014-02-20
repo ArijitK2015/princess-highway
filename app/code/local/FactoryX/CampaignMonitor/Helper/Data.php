@@ -2,7 +2,7 @@
 include_once MAGENTO_ROOT . "/lib/createsend/csrest_lists.php";
 
 class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
-{	
+{
 	protected $logFileName = 'factoryx_campaignmonitor.log';
 	
     public function isCheckoutNewsletterEnabled()
@@ -92,6 +92,19 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
 			$session->addException($e, $this->__('There was a problem with the subscription'));
 			$this->_redirectReferer();
 		}
+	}
+	
+	public function getStores()
+	{
+		$stores = array();
+		$stores['NULL'] = "None selected"; // used for grids
+		$storesColl = Mage::getModel('ustorelocator/location')->getCollection();    	
+		foreach($storesColl as $store) 
+		{
+			$stores[$store->getStoreCode()] = $store->getTitle();
+		}
+		asort($stores);
+		return $stores;
 	}
 	
 	/**

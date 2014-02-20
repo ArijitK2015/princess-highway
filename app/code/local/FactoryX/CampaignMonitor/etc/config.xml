@@ -3,7 +3,7 @@
 	
 	<modules>
         <FactoryX_CampaignMonitor>
-            <version>0.5.1</version>
+            <version>0.7.2</version>
         </FactoryX_CampaignMonitor>
     </modules>
     
@@ -185,7 +185,7 @@
 		<!-- Default Backend Values -->
     	<newsletter>
 			<coupon>
-                <enable>0</enable>
+				<enable>0</enable>
                 <prefix>newsletter</prefix>
                 <spend>100</spend>
                 <value>10</value>

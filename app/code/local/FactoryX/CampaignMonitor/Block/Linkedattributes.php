@@ -1,18 +1,29 @@
 <?php       
 class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
-    protected $magentoOptions;
+    protected $optionsArray;
 
     public function __construct()
     {
+        $this->optionsArray = array();
+
+        $this->addColumn('formfields', array(
+            'label' => Mage::helper('adminhtml')->__('Subscription Form Field Name'),
+            'size'  => 20,
+        ));        
         $this->addColumn('magento', array(
             'label' => Mage::helper('adminhtml')->__('Magento customer attribute'),
-            'size'  => 28,
+            'size'  => 20,
+        ));
+        $this->addColumn('subscriber', array(
+            'label' => Mage::helper('adminhtml')->__('Magento subscriber attribute'),
+            'size'  => 20,
         ));
         $this->addColumn('campaignmonitor', array(
-            'label' => Mage::helper('adminhtml')->__('Campaign Monitor custom field personalization tag'),
-            'size'  => 28
+            'label' => Mage::helper('adminhtml')->__('Campaign Monitor custom fields'),
+            'size'  => 20
         ));
+
         $this->_addAfter = false;
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add linked attribute');
         
@@ -21,7 +32,7 @@ class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Blo
         
         // customer options
         $magentoAttributes = Mage::getModel('customer/customer')->getAttributes();
-        $this->magentoOptions = array();
+        $this->optionsArray['magento'] = array();
         foreach(array_keys($magentoAttributes) as $att)
         {
             if($att != 'entity_type_id'
@@ -31,7 +42,7 @@ class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Blo
                     and $att != 'increment_id'
                     and $att != 'updated_at'
                     and $att != 'created_at'
-                    and $att != 'email'
+                    // and $att != 'email'
                     and $att != 'default_billing'
                     and $att != 'default_shipping')
             {
@@ -45,32 +56,40 @@ class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Blo
                     $name = 'Website';
                 else $name = $att;
                 
-                $this->magentoOptions[$att] = $name;
+                $this->optionsArray['magento'][$att] = $name;
             }
         }
-        asort($this->magentoOptions);
+        asort($this->optionsArray['magento']);
         // address options
-        $this->magentoOptions['FACTORYX-billing-firstname'] = 'Billing Address: First name';
-        $this->magentoOptions['FACTORYX-billing-lastname'] = 'Billing Address: Last name';
-        $this->magentoOptions['FACTORYX-billing-company'] = 'Billing Address: Company';
-        $this->magentoOptions['FACTORYX-billing-telephone'] = 'Billing Address: Phone';
-        $this->magentoOptions['FACTORYX-billing-fax'] = 'Billing Address: Fax';
-        $this->magentoOptions['FACTORYX-billing-street'] = 'Billing Address: Street';
-        $this->magentoOptions['FACTORYX-billing-city'] = 'Billing Address: City';
-        $this->magentoOptions['FACTORYX-billing-region'] = 'Billing Address: State/Province';
-        $this->magentoOptions['FACTORYX-billing-postcode'] = 'Billing Address: Zip/Postal Code';
-        $this->magentoOptions['FACTORYX-billing-country_id'] = 'Billing Address: Country';
+        $this->optionsArray['magento']['FACTORYX-billing-firstname'] = 'Billing Address: First name';
+        $this->optionsArray['magento']['FACTORYX-billing-lastname'] = 'Billing Address: Last name';
+        $this->optionsArray['magento']['FACTORYX-billing-company'] = 'Billing Address: Company';
+        $this->optionsArray['magento']['FACTORYX-billing-telephone'] = 'Billing Address: Phone';
+        $this->optionsArray['magento']['FACTORYX-billing-fax'] = 'Billing Address: Fax';
+        $this->optionsArray['magento']['FACTORYX-billing-street'] = 'Billing Address: Street';
+        $this->optionsArray['magento']['FACTORYX-billing-city'] = 'Billing Address: City';
+        $this->optionsArray['magento']['FACTORYX-billing-region'] = 'Billing Address: State/Province';
+        $this->optionsArray['magento']['FACTORYX-billing-postcode'] = 'Billing Address: Zip/Postal Code';
+        $this->optionsArray['magento']['FACTORYX-billing-country_id'] = 'Billing Address: Country';
         
-        $this->magentoOptions['FACTORYX-shipping-firstname'] = 'Shipping Address: First name';
-        $this->magentoOptions['FACTORYX-shipping-lastname'] = 'Shipping Address: Last name';
-        $this->magentoOptions['FACTORYX-shipping-company'] = 'Shipping Address: Company';
-        $this->magentoOptions['FACTORYX-shipping-telephone'] = 'Shipping Address: Phone';
-        $this->magentoOptions['FACTORYX-shipping-fax'] = 'Shipping Address: Fax';
-        $this->magentoOptions['FACTORYX-shipping-street'] = 'Shipping Address: Street';
-        $this->magentoOptions['FACTORYX-shipping-city'] = 'Shipping Address: City';
-        $this->magentoOptions['FACTORYX-shipping-region'] = 'Shipping Address: State/Province';
-        $this->magentoOptions['FACTORYX-shipping-postcode'] = 'Shipping Address: Zip/Postal Code';
-        $this->magentoOptions['FACTORYX-shipping-country_id'] = 'Shipping Address: Country';
+        $this->optionsArray['magento']['FACTORYX-shipping-firstname'] = 'Shipping Address: First name';
+        $this->optionsArray['magento']['FACTORYX-shipping-lastname'] = 'Shipping Address: Last name';
+        $this->optionsArray['magento']['FACTORYX-shipping-company'] = 'Shipping Address: Company';
+        $this->optionsArray['magento']['FACTORYX-shipping-telephone'] = 'Shipping Address: Phone';
+        $this->optionsArray['magento']['FACTORYX-shipping-fax'] = 'Shipping Address: Fax';
+        $this->optionsArray['magento']['FACTORYX-shipping-street'] = 'Shipping Address: Street';
+        $this->optionsArray['magento']['FACTORYX-shipping-city'] = 'Shipping Address: City';
+        $this->optionsArray['magento']['FACTORYX-shipping-region'] = 'Shipping Address: State/Province';
+        $this->optionsArray['magento']['FACTORYX-shipping-postcode'] = 'Shipping Address: Zip/Postal Code';
+        $this->optionsArray['magento']['FACTORYX-shipping-country_id'] = 'Shipping Address: Country';
+
+        // subscriber options
+        $subscriberAttributes = Mage::getModel('campaignmonitor/subscriber')->getAttributes();                
+        foreach($subscriberAttributes as $att)
+        {
+            $this->optionsArray['subscriber'][$att] = $att;
+        }
+        asort($this->optionsArray['subscriber']);
     }
 
     protected function _renderCellTemplate($columnName)
@@ -80,11 +99,10 @@ class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Blo
         }
         $column     = $this->_columns[$columnName];
         $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
-
-        if($columnName == 'magento')
-        {
+        if (isset($this->optionsArray[$columnName])){
             $rendered = '<select name="'.$inputName.'">';
-            foreach($this->magentoOptions as $att => $name)
+            $rendered .= '<option value=""></option>';
+            foreach($this->optionsArray[$columnName] as $att => $name)
             {
                 $rendered .= '<option value="'.$att.'">'.$name.'</option>';
             }
@@ -92,7 +110,7 @@ class FactoryX_CampaignMonitor_Block_Linkedattributes extends Mage_Adminhtml_Blo
         }
         else
         {
-            return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . '/>';
+            return '<input type="text" class="input-text" name="' . $inputName . '" value="#{' . $columnName . '}" ' . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . '/>';
         }
         
         return $rendered;
