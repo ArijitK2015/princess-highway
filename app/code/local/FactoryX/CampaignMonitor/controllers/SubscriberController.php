@@ -116,6 +116,21 @@ class FactoryX_CampaignMonitor_SubscriberController extends Mage_Newsletter_Subs
         }else{
             $popup = false;
         }
+		
+		// fullname handler
+		if(array_key_exists('name',$params) && !array_key_exists('firstname',$params) && !array_key_exists('lastname',$params))
+		{
+			if (strpos($params['name'],(" ")) > 0)
+			{
+				$params['firstname'] = substr($params['name'],0,strpos($params['name'],(" ")));
+				$params['lastname'] = substr($params['name'],strpos($params['name'],(" "))+1);
+			}
+			else
+			{
+				$params['firstname'] = $params['name'];
+				$params['lastname'] = "";
+			}
+		}
 
     	// is this new subscriber?
     	if ($isNew) {
@@ -133,7 +148,7 @@ class FactoryX_CampaignMonitor_SubscriberController extends Mage_Newsletter_Subs
     	}else{
             // ok this is updating information
             if ($subscriberModel->subscribeWithDetails($params,false) && $subscriberModel->subscribeWithDetailsCM($params)){
-                if ($params['unsubscribe'] == 1){                    
+                if (array_key_exists('unsubscribe',$params) && $params['unsubscribe'] == 1){                    
                         $session->addSuccess($this->__('Your has been unsubscribed.'));                    
                 }else{
                     if (!$popup){

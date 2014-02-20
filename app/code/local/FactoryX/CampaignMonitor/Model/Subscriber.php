@@ -324,9 +324,17 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
             if ($result->http_status_code == 200 && $result->response->State == 'Active') //200 means there is some details coming back
             { 
                 $response['email'] = $result->response->EmailAddress;
-                list($fname, $lname) = explode(' ',$result->response->Name);
-                $response['firstname'] = $fname;
-                $response['lastname']  = $lname;        
+                if (strpos($result->response->Name,(" ")) > 0)
+				{
+					list($fname, $lname) = explode(' ',$result->response->Name);
+					$response['firstname'] = $fname;
+					$response['lastname']  = $lname;        
+				}
+				else
+				{
+					$response['firstname'] = $result->response->Name;
+					$response['lastname']  = "";
+				}        
                 $response['Date'] = $result->response->Date;
                 $response['Date']= substr($response['Date'],0,10);
                 // We store the details in the response array
