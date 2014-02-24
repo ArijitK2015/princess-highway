@@ -1,115 +1,164 @@
-<!-- Left Side Footer
+<!-- Footer Section
 ================================================== -->
-<div class="span6">
-
+<footer class="hidden-phone">
+	<div class="container">	
 		<div class="row">
-			<!-- Stay in touch email signup
+			<!-- Left Side Footer
 			================================================== -->
-			<?php echo $this->getChildHtml('newsletterMini'); ?>
-			<!-- End: Stay in touch email signup
-			================================================== -->
-		
-		</div>
+			<div class="span6">
 
+					<div class="row">
+						<!-- Stay in touch email signup
+						================================================== -->
+						<?php echo $this->getChildHtml('newsletterMini'); ?>
+						<!-- End: Stay in touch email signup
+						================================================== -->
+					
+					</div>
+
+					<div class="row">
+
+						<!-- Contact princesshighway
+						================================================== -->
+						<div class="span3" >
+							<h2>Contact Princess Highway</h2>
+							<ul>
+								<li><a href="/product-enquiries/">Product Enquiries</a>
+								<li><a href="/store-locator/">Find Your Nearest Store</a></li>
+								<li><span class="storephone"><a href="tel:<?php echo str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
+								<li><a href="mailto:<?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?>">E: <?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?></a>
+							</ul>
+						
+						</div>
+					
+						<!-- End: Contact princesshighway
+						================================================== -->
+					
+						<!-- Feedback
+						================================================== -->
+						<div class="span3">
+							<h2>Feedback</h2>
+							<ul>
+								<li><a href="/contact.html">Contact Us</a>
+								<li><a href="/tell-us-what-you-think">Compliments & Suggestions</a></li>				    
+							</ul>
+						
+						</div>
+					
+						<!-- End: Feedback
+						================================================== -->
+
+					</div>
+				
+			</div>
+
+			<!-- End: Left Side Footer
+			================================================== -->
+
+
+			<!-- Column 01
+			================================================== -->
+			<div class="span2">
+				<h2>Shopping</h2>
+				<ul>
+					<li><a href="/spring-season-look.html">Shop The Look</a>
+					<li><a href="/new-arrivals.html">New Arrivals</a>
+					<li><a href="/clothing.html">Clothing</a>
+					<li><a href="/accessories.html">Accessories</a>
+					<li><a href="/bags.html">Bags</a>
+					<li><a href="/gift-cards.html">Gift Cards</a>
+					<li><a href="/best-sellers.html">Best Sellers</a>
+					<li><a href="/sale.html">Sale</a>
+				</ul>
+
+			</div>
+
+			<!-- End: Column 01
+			================================================== -->
+
+
+			<!-- Column 02
+			================================================== -->
+			<div class="span2">
+				<h2>The Company</h2>
+				<ul>
+					<li><a href="/about-us.html">About Us</a>
+					<li><a href="/careers/">Careers</a></li>
+				</ul>
+
+				<h2>What's On</h2>
+				<ul>
+					<li><a href="/contests">Competitions</a></li>
+					<li><a href="/customersurvey">Surveys</a>
+				</ul>
+
+			</div>
+
+			<!-- End: Column 02
+			================================================== -->
+
+
+			<!-- Column 03
+			================================================== -->
+			<div class="span2">
+				<h2>Information</h2>
+				<ul>
+					<li><a href="/glossary.html/">Glossary</a>			
+					<li><a href="/size-chart.html/">Size Guide</a></li>
+					<li><a href="/terms-conditions.html">Terms &amp; Conditions</a>
+				</ul>
+
+				<h2>Delivery</h2>
+				<ul>
+					<li><a href="/shipping-delivery.html">Shipping &amp; Delivery</a>
+					<li><a href="returns-exchanges.html">Returns Policy</a></li>
+				</ul>
+
+			</div>
+
+			<!-- End: Column 03
+			================================================== -->
+			<?php echo $this->getChildHtml('global_notices') ?>
+		</div>
+	</div>
+</footer>
+
+<!-- End: Footer Section
+================================================== -->
+
+<!-- Footer Credits
+================================================== -->
+<section id="footer-credits" class="hidden-phone">
+	<div class="container">
 		<div class="row">
 
-			<!-- Contact princesshighway
+			<!-- Copyright and Credits
 			================================================== -->
-			<div class="span3" >
-				<h2>Contact Princess Highway</h2>
-				<ul>
-				    <li><a href="/product-enquiries/">Product Enquiries</a>
-				    <li><a href="/store-locator/">Find Your Nearest Store</a></li>
-				    <li><span class="storephone"><a href="tel:<?php echo str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
-				    <li><a href="mailto:<?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?>">E: <?php echo Mage::getStoreConfig('trans_email/ident_general/email'); ?></a>
-				</ul>
-			
+			<div class="span6">
+				<p class="credits">&copy; Princess Highway 2014. All rights reserved.</p>
 			</div>
-		
-			<!-- End: Contact princesshighway
+
+			<!-- End: Copyright and Credits
 			================================================== -->
-		
-			<!-- Feedback
-			================================================== -->
-			<div class="span3">
-				<h2>Feedback</h2>
-				<ul>
-				    <li><a href="/contact.html">Contact Us</a>
-				    <li><a href="/tell-us-what-you-think">Compliments & Suggestions</a></li>				    
+
+			<!-- Payments Badges and Social
+			================================================== -->	            
+			<div class="span6">
+				<ul class="align-right">
+					<li class="accepted-creditcards"><img width="125" src="/skin/frontend/default/princess/images/payment_methods.png" alt="Payment Methods"></li>
+					<li class="comodo"><a href="http://www.instantssl.com" id="comodoTL"><?php echo $this->__('Instant SSL Certificate')?></a><script type="text/javascript">TrustLogo("<?php echo $this->getSkinUrl('images/comodo/tl_transp.gif'); ?>", "SC4", "none");</script></li>
+					<li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
+					<li class="facebookicon"><a href="https://www.facebook.com/princesshighwayclothing" title="Facebook">Facebook</a></li>
+					<li class="instagramicon"><a href="http://instagram.com/princesshighwayclothing" title="Instagram">Instagram</a></li>
+					<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
 				</ul>
-			
 			</div>
-		
-			<!-- End: Feedback
-			================================================== -->
+			<!-- End: Payments Badges and Social
+			================================================== -->	            
 
 		</div>
-	
-</div>
+	</div>
+</section>
 
-<!-- End: Left Side Footer
-================================================== -->
-
-
-<!-- Column 01
-================================================== -->
-<div class="span2">
-	<h2>Shopping</h2>
-	<ul>
-	    <li><a href="/spring-season-look.html">Shop The Look</a>
-	    <li><a href="/new-arrivals.html">New Arrivals</a>
-	    <li><a href="/clothing.html">Clothing</a>
-	    <li><a href="/accessories.html">Accessories</a>
-	    <li><a href="/bags.html">Bags</a>
-		<li><a href="/gift-cards.html">Gift Cards</a>
-	    <li><a href="/best-sellers.html">Best Sellers</a>
-	    <li><a href="/sale.html">Sale</a>
-	</ul>
-
-</div>
-
-<!-- End: Column 01
-================================================== -->
-
-
-<!-- Column 02
-================================================== -->
-<div class="span2">
-	<h2>The Company</h2>
-	<ul>
-	    <li><a href="/about-us.html">About Us</a>
-	    <li><a href="/careers/">Careers</a></li>
-	</ul>
-
-	<h2>What's On</h2>
-	<ul>
-	    <li><a href="/contests">Competitions</a></li>
-	    <li><a href="/customersurvey">Surveys</a>
-	</ul>
-
-</div>
-
-<!-- End: Column 02
-================================================== -->
-
-
-<!-- Column 03
-================================================== -->
-<div class="span2">
-	<h2>Information</h2>
-	<ul>
-	    <li><a href="/glossary.html/">Glossary</a>			
-	    <li><a href="/size-chart.html/">Size Guide</a></li>
-	    <li><a href="/terms-conditions.html">Terms &amp; Conditions</a>
-	</ul>
-
-	<h2>Delivery</h2>
-	<ul>
-	    <li><a href="/shipping-delivery.html">Shipping &amp; Delivery</a>
-	    <li><a href="returns-exchanges.html">Returns Policy</a></li>
-	</ul>
-
-</div>
-
-<!-- End: Column 03
+<!-- End: Footer Credits
 ================================================== -->

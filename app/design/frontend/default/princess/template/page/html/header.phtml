@@ -1,4 +1,27 @@
-<?php echo $this->getChildHtml('topLinks') ?>
+<!-- Navbar
+================================================== -->				
+<div class="storedetails">
+	<p>
+		<a href="/store-locator.html" class="navbarstores" title="Find your nearest Princess Highway store">Stores</a> 
+		| 
+		<a href="/contact.html" class="navbarcontact" title="Contact Princess Highway">Contact</a> 
+		| 
+		<span class="storephone"><a href="tel:<?php echo str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span>
+	</p>
+</div>
+<div class="mobi-nav visible-phone  visible-tablet" >
+	<a href="#" class="mobi-nav-toggle"><img class="icon-menu" src="<?php echo $this->getSkinUrl('images/core/menu-icon.png') ?>" alt="main menu"></a>
+</div>
+<!-- End: Navbar
+================================================== -->				
+
+<!-- Toplinks
+================================================== -->
+<div class="toplinks">
+	<?php echo $this->getChildHtml('topLinks') ?>
+</div>
+<!-- End: Toplinks
+================================================== -->
 
 <!--<div class="brand">-->
 <!--    <?php if ($this->getIsHomePage()): ?>

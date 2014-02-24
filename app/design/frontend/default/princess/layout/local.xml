@@ -46,9 +46,9 @@
 		<!-- Change default template -->
 		<action method="setTemplate"><template>page/1column.phtml</template></action>
 		<remove name="global_messages" />
-		<!-- Add search -->
-		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
-			<label>Princess Highway Search</label>
+		<!-- Add social -->
+		<block type="core/text_list" name="phsocial" as="phsocial" translate="label">
+			<label>Princess Highway Social</label>
 		</block>
 		<!-- Add menu -->
 		<block type="core/text_list" name="phmenu" as="phmenu" translate="label">
@@ -58,11 +58,15 @@
 		<block type="core/text_list" name="phfilters" as="phfilters" translate="label">
 			<label>Princess Highway Filters</label>
 		</block>
+		<!-- Unset Global Notice -->
+		<action method="unsetChild"><name>global_notices</name></action>
 	</reference>
 	
 	<reference name="footer">
 		<!-- Add the mini subscription form -->
 		<block type="newsletter/subscribe" name="newsletterMini" as="newsletterMini" template="newsletter/subscribe.mini.phtml" />
+		<!-- Insert Global Notice -->
+		<action method="insert"><blockName>global_notices</blockName></action>
 	</reference>
 	
 	<reference name="top.links">
@@ -75,6 +79,17 @@
 		<!-- Re-add 'My Cart' link -->
 		<block type="checkout/links" name="checkout_cart_link_custom">
 			<action method="addCartLink"></action>
+		</block>
+	</reference>
+	
+	<reference name="phsocial">
+		<block type="core/template" name="top.social" as="topSocial" template="page/html/social.phtml"/>
+	</reference>
+	
+	<reference name="top.social">
+		<!-- Add search -->
+		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
+			<label>Princess Highway Search</label>
 		</block>
 	</reference>
 	

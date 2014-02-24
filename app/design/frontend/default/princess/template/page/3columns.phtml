@@ -28,32 +28,10 @@
     <header>
 		<section id="navbar">
 			<div class="container">
-				<div class="row">
-	
-					<!-- Navbar
-					================================================== -->				
+				<div class="row">		
 					<div class="span12">
-						<div class="storedetails">
-							<p><a href="/store-locator.html" class="navbarstores" title="Find your nearest Princess Highway store">Stores</a> | <a href="/contact.html" class="navbarcontact" title="Contact Princess Highway">Contact</a> | <span class="storephone"><a href="tel:<?php echo str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')); ?>"><?php echo Mage::getStoreConfig('general/store_information/phone'); ?></a></span></p>
-		
-						</div>
-						<div class="mobi-nav visible-phone  visible-tablet" >
-							<a href="#" class="mobi-nav-toggle"><img class="icon-menu" src="<?php echo $this->getSkinUrl('images/core/menu-icon.png') ?>" alt="main menu"></a>
-						</div>
-					
-					<!-- End: Navbar
-					================================================== -->				
-		
-					<!-- Toplinks
-					================================================== -->
-						<div class="toplinks">
-							<?php echo $this->getChildHtml('header') ?>
-						</div>
+						<?php echo $this->getChildHtml('header') ?>
 					</div>
-					
-					<!-- End: Toplinks
-					================================================== -->				
-				
 				</div>
 			</div>
 		</section>
@@ -69,31 +47,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="span12">
-			
-					<!-- Logo Section
-					================================================== -->						
-					<div class="logo">
-						<a href="/" title="Princess Highway" id="transbrand"><img src="<?php echo $this->getSkinUrl('images/logos/princesshighway-logo-2.png') ?>" alt="Princess Highway logo"></a>
-					</div>
-
-					<!-- End: Logo Section
-					================================================== -->				
-
-					<!-- Search and Social
-					================================================== -->							
-					<div class="searchsocial ">
-						<ul class="align-right">
-							<li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
-								<li class="facebookicon"><a href="https://www.facebook.com/princesshighway" title="Facebook">Facebook</a></li>
-								<li class="instagramicon"><a href="http://instagram.com/iloveprincesshighway" title="Instagram">Instagram</a></li>
-								<li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
-						</ul>
-						<?php echo $this->getChildHtml('phsearch') ?>
-					</div>			
-
-					<!-- End: Search and Social
-					================================================== -->				
-					
+					<?php echo $this->getChildHtml('phsocial') ?>
 				</div>
 			</div>
 		</div>
@@ -211,63 +165,11 @@
 	<!-- End: Call To Actions
     ================================================== -->
 
-
-
-
-	<!-- Footer Section
-    ================================================== -->
-	<footer>
-		<div class="container" >
-	    	<div class="row" >
-		    	<?php echo $this->getChildHtml('footer') ?>
-		    	<?php echo $this->getChildHtml('global_notices') ?>
-
-	        </div>
-	    </div>
-	</footer>
-
-	<!-- End: Footer Section
-    ================================================== -->
-
-
-	<!-- Footer Credits
-    ================================================== -->
-	<section id="footer-credits">
-		<div class="container">
-	    	<div class="row">
-				
-				<!-- Copyright and Credits
-			    ================================================== -->
-	        	<div class="span6">
-	            	<p class="credits">&copy; Princess Highway 2014. All rights reserved.</p>
-	            </div>
-
-				<!-- End: Copyright and Credits
-			    ================================================== -->
-
-				<!-- Payments Badges and Social2
-			    ================================================== -->	   
-
-				
-	        	<div class="span6">
-	            	<ul class="align-right">
-	                    <li class="accepted-creditcards"><img width="125" src="/skin/frontend/default/princess/images/payment_methods.png" alt="Payment Methods"></li>
-						<li class="comodo"><a href="http://www.instantssl.com" id="comodoTL"><?php echo $this->__('Instant SSL Certificate')?></a><script type="text/javascript">TrustLogo("<?php echo $this->getSkinUrl('images/comodo/tl_transp.gif'); ?>", "SC4", "none");</script></li>
-	                    <li class="pinteresticon"><a href="http://pinterest.com/princesshighwayclothing/" title="Pinterest">Pinterest</a></li>
-	                    <li class="facebookicon"><a href="https://www.facebook.com/princesshighwayclothing" title="Facebook">Facebook</a></li>
-	                    <li class="instagramicon"><a href="http://instagram.com/princesshighwayclothing" title="Instagram">Instagram</a></li>
-	                    <li class="youtubeicon"><a href="http://www.youtube.com/princesshighwayclothing" title="Youtube">Youtube</a></li>
-                    </ul>
-	            </div>
-				<!-- End: Payments Badges and Social
-			    ================================================== -->	            
-
-	        </div>
-	    </div>
-	</section>
-	
-	<!-- End: Footer Credits
-    ================================================== -->
+	<!-- Footer
+	================================================== -->
+		<?php echo $this->getChildHtml('footer'); ?>
+	<!-- End: Footer
+	================================================== -->
     
           
     <!-- Javascript
