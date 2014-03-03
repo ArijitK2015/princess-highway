@@ -73,6 +73,7 @@ class Magedev_Productposition_Block_Catalog_Category_Tab_Enahancedproducts exten
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
 			->addAttributeToSelect('type_id')
+            ->addAttributeToFilter('visibility', 4)
             ->addStoreFilter($this->getRequest()->getParam('store'))
             ->joinField('position',
                 'catalog/category_product',

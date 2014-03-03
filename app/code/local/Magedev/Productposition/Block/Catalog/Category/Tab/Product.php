@@ -23,11 +23,11 @@ class Magedev_Productposition_Block_Catalog_Category_Tab_Product extends Mage_Ad
 		
 		$this->addColumn('position', array(
             'header'    => Mage::helper('catalog')->__('Position'),
-            'width'     => '1',
- 			'sortable'  => false,
-	 		'filter'  => false,
+            'width'     => '50px',
             'type'      => 'number',
-            'index'     => 'position',
+            'index'     => 'position',            
+ 			'sortable'  => true,
+	 		//'filter'  => false,
             'editable'  => !$this->getCategory()->getProductsReadonly()
             //'renderer'  => 'adminhtml/widget_grid_column_renderer_input'
 			
