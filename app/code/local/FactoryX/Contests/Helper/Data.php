@@ -94,7 +94,7 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 								'Value' => $fields['state']
 							),
 							array(
-								'Key' => 'PromoCode',
+								'Key' => 'Source',
 								'Value' => $fields['promoCode']
 							)				        
 						),

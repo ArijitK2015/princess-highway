@@ -96,6 +96,8 @@ class FactoryX_Contests_Block_Adminhtml_Referrers_Grid extends Mage_Adminhtml_Bl
             ),
         ));
 
+        $this->addExportType('*/*/exportCsv', Mage::helper('contests')->__('CSV'));
+		$this->addExportType('*/*/exportExcel', Mage::helper('contests')->__('Excel'));
         return parent::_prepareColumns();
     }
 }

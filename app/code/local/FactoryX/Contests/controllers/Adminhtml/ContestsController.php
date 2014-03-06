@@ -289,7 +289,7 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 				}
 				
 				// If it's a competition contest, a maximum word count must be provided
-				if ($data['is_competition'] && $data['maximum_word_count'] > 0)
+				if ($data['is_competition'] && $data['maximum_word_count'] <= 0)
 				{
 					// We use session to set the active tab to show where the error is
 					Mage::getSingleton('admin/session')->setActiveTab('competition_tab');
@@ -592,6 +592,54 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('contests')->__('Contest does not exist'));
             $this->_redirect('*/*/index');
         }
+    }
+	
+    /**
+     * Export referrers grid to CSV format
+     */
+    public function exportCsvAction()
+    {
+        $contestsTitle = "";
+        
+        // createBlock(CLASS_GROUP_NAME/PATH_TO_BLOCK_FILE)
+        $grid = $this->getLayout()->createBlock('contests/adminhtml_referrers_grid');
+
+        // check if there is a filter then get it for file name
+        $filter = $grid->getParam('filter');
+        $filter_data = Mage::helper('adminhtml')->prepareFilterString($filter); 
+        if (array_key_exists('contest_title', $filter_data)) {
+            $contestsTitle = strtolower(preg_replace("/[^A-Za-z0-9 ]/", '', $filter_data['contest_title']));
+        }
+        if (!empty($contestsTitle)) {
+            $contestsTitle = sprintf("-%s", $contestsTitle);
+        }
+        $fileName   = sprintf("%s%s-referrers.csv", date("Ymdhis"), $contestsTitle);        
+        // FactoryX_Contests_Block_Adminhtml_Referrers_Grid
+        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+    }
+	
+	/**
+     *  Export referrers grid to Excel XML format
+     */
+    public function exportExcelAction()
+    {
+        $contestsTitle = "";
+        
+        // createBlock(CLASS_GROUP_NAME/PATH_TO_BLOCK_FILE)
+        $grid = $this->getLayout()->createBlock('contests/adminhtml_referrers_grid');
+
+        // check if there is a filter then get it for file name
+        $filter = $grid->getParam('filter');
+        $filter_data = Mage::helper('adminhtml')->prepareFilterString($filter); 
+        if (array_key_exists('contest_title', $filter_data)) {
+            $contestsTitle = strtolower(preg_replace("/[^A-Za-z0-9 ]/", '', $filter_data['contest_title']));
+        }
+        if (!empty($contestsTitle)) {
+            $contestsTitle = sprintf("-%s", $contestsTitle);
+        }
+        $fileName   = sprintf("%s%s-referrers.csv", date("Ymdhis"), $contestsTitle);        
+        // FactoryX_Contests_Block_Adminhtml_Referrers_Grid
+        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
     }
 	
 }
