@@ -73,35 +73,37 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
         $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
         $listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));
 		$session = Mage::getSingleton('core/session');
+		$customFields = array();
+		$mapping = $this->generateMapping('formfields','campaignmonitor');
 		
         if ($apiKey && $listID) 
 		{
             try 
 			{
+				// set the data from form to model
+				foreach ($fields as $key => $param)
+				{
+					if (!isset($mapping[$key]))
+					{
+						// this is some information that we won't know how to store in cm, so we log
+						Mage::helper('contests')->log("FactoryX_Contests_Helper_Data: ".$key." is not defined in the campaign monitor mapping.");
+					}
+					elseif (!empty($param) && !empty($mapping[$key]))
+					{
+						$customFields[] = array("Key"=>$mapping[$key],"Value"=>$param);
+					}
+				}
+				
 				$wrap = new CS_REST_Subscribers($listID, $apiKey);
 				
 				$result = $wrap->add(
 					array(
-						'EmailAddress' => $fields['email_address'],
-						'Name' => sprintf("%s %s", $fields['first_name'], $fields['last_name']),
-						'CustomFields' => array(
-							array(
-								'Key' => 'Mobile',
-								'Value' => $fields['mobile_number']
-							),
-							array(
-								'Key' => 'State',
-								'Value' => $fields['state']
-							),
-							array(
-								'Key' => 'Source',
-								'Value' => $fields['promoCode']
-							)				        
-						),
+						'EmailAddress' => $fields['email'],
+						'Name' => sprintf("%s %s", $fields['firstname'], $fields['lastname']),
+						'CustomFields' => $customFields,
 						'Resubscribe' => true
 					)
 				);
-				
 				
 				if (!$result->was_successful()) 
 				{
@@ -151,6 +153,18 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		return $statesArray;
 	}
+	
+	public function generateMapping($source,$destination){
+        $result = array();
+        $mappings = $linkedAttributes = @unserialize(Mage::getStoreConfig('contests/options/m_to_cm_attributes',
+                Mage::app()->getStore()->getStoreId()));
+        foreach($mappings as $mapping){
+            if (!empty($mapping[$source]) && !empty($mapping[$destination])){
+                $result[$mapping[$source]] = $mapping[$destination];
+            }
+        }
+        return $result;
+    }
 	
 	/**
 	 * Log data

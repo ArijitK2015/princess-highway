@@ -308,12 +308,12 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			
             Mage::helper('contests')->subscribeToCampaignMonitor(
             	array(
-            		"first_name" 		=> $firstname,
-            		"last_name"			=> $lastname,
-            		"email_address"		=> $postObject['email'],
-            		"mobile_number"		=> $mobile,
+            		"firstname" 		=> $firstname,
+            		"lastname"			=> $lastname,
+            		"email"				=> $postObject['email'],
+            		"mobile"			=> $mobile,
             		"state"				=> $state,
-            		"promoCode"			=> $title
+            		"title"				=> $title
             	)
             );
 			
