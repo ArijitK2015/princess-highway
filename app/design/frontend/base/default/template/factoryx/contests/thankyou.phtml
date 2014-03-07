@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 function delayedRedirect(){
-    window.location = "<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url', true); ?>";
+    window.location = "<?php echo Mage::getSingleton('customer/session')->getData('thank_you_redirect_url', true); ?>";
 }
 window.onload = setTimeout('delayedRedirect()', 2500)
 </script>

@@ -335,7 +335,7 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 		{
 			$session->setData('thank_you_redirect_url', $redirectUrl);
 		}
-		else $session->setData('thank_you_redirect_url', "/");
+		else $session->setData('thank_you_redirect_url', Mage::helper('core/url')->getHomeUrl());
 		
 		$this->_redirect('*/*/thankyou/');
         return;
