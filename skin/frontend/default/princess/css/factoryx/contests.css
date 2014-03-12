@@ -66,13 +66,15 @@
 #enterButton{padding-top:4px}
 #tnc{text-align:center;padding:10px 0 20px 0}
 
-#rafPage button {
+#rafPage button,
+.giveaway-container button {
 	background-color: #BFBFBF; border:none; color:#FFFFFF; font-size:12px; font-weight:normal; height:30px;
  	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-#rafPage button:hover{background:#A09F9F; border:none; color:#FFFFFF; }
+#rafPage button:hover,
+.giveaway-container button:hover{background:#A09F9F; border:none; color:#FFFFFF; }
 #enterButton button.button span {
 	height:32px; 
 	padding-top:3px;
@@ -267,4 +269,13 @@ h1.thanks-title {
 	#timer-container tr{display:table-row}
 	#timer-container td{display:table-cell;width:auto}
 	#buttonsTable{display:table !important;text-align:center;width:100%}
+	#giveaway-left,#giveaway-right{float:none;width:100%}
+	#giveaway-left img{width:100%;height:auto}
+	.giveaway-container #details label{text-align:center}
+	.giveaway-container div#details {
+		width:100%;
+		text-align:center
+	}
+	#giveaway-right{margin-top:100px}
+	#giveaway-right img{width:100%;height:auto}
 }
