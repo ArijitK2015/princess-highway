@@ -104,7 +104,6 @@ else
                             <label for="email" class="required">
                                 <?php echo $this->__('Email')?><em>*</em>
                             </label>
-                            <br />
                             <input id="email" name="email" value="<?php echo $email ?>" class="input-text2 required-entry validate-email" />
                         </td>
                         <td width="160">
@@ -183,7 +182,7 @@ else
                                             ?>
                                         </table>
 
-                                        <table border="0">
+                                        <table border="0" id="buttonsTable">
                                             <tr>
                                                 <td width="158"></td>
 
@@ -269,7 +268,6 @@ else
                                 &nbsp;|&nbsp;
                                 <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
                                     <?php echo $this->__('Share on Facebook') ?>
-                                    <img border="1" src="<?php echo $this->getSkinUrl('images/icons/facebook.gif'); ?>" alt="<?php echo $this->__('Share on Facebook') ?>">
                                 </a>
                             <?php endif; ?>
                         </td>
@@ -407,7 +405,6 @@ else
                             <td class="buttons-td">
                                 <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
                                     <?php echo $this->__('Share on Facebook') ?>
-                                    <img border="1" src="<?php echo $this->getSkinUrl('images/icons/facebook.gif'); ?>" alt="<?php echo $this->__('Share on Facebook') ?>">
                                 </a>
                             </td>
                         </tr>

@@ -129,6 +129,19 @@ function popupTerms(storeCode, contestId)
 	win.showCenter(true);
 }
 
+function redirectTerms(storeCode, contestId)
+{
+	if (storeCode == "")
+    {
+        var urlToOpen = "/contests/index/terms/id/"+contestId;
+    }
+    else
+    {
+        var urlToOpen = "/"+storeCode+"/contests/index/terms/id/"+contestId;
+    }
+	window.location = urlToOpen;
+}
+
 function clearForm(oForm) {
     var frm_elements = oForm.elements;
     for (i = 0; i < frm_elements.length; i++) {

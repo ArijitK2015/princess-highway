@@ -53,11 +53,12 @@ else
 				// Bind the click event to hide the popup on contest page
 				jQuery('#link-div a').bind('touchstart',function(){
 					Mage.Cookies.set("hasOpened-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+					window.location = jQuery(this).attr('href');
 				});
 				
 				// Bind the touchend event to show the terms
 				jQuery('#terms-link a').bind('touchstart',function(){
-					popupTerms('<?php echo $storeCode ?>',<?php echo $this->getPopupContestId(); ?>);
+					redirectTerms('<?php echo $storeCode ?>',<?php echo $this->getPopupContestId(); ?>);
 					return false;
 				});
 			}
