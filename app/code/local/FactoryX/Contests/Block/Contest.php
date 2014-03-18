@@ -46,13 +46,13 @@ class FactoryX_Contests_Block_Contest extends Mage_Core_Block_Template
 		}
     }
 	
+	/*
 	protected function _construct()
     {
         $this->addData(array(
-            'cache_lifetime'    => 86400,
+            'cache_lifetime'    => 120,
             'cache_tags'        => array(FactoryX_Contests_Model_Contest::CACHE_TAG),
             'cache_key'         => $this->makeCacheKey()
-            //'cache_key'         => $this->getCurrentContest()->getContestId()
         ));
     }
         
@@ -66,10 +66,12 @@ class FactoryX_Contests_Block_Contest extends Mage_Core_Block_Template
 		
 	private function makeCacheKey() {
 		//$uriId = $this->getRequest()->getRequestUri();
-		$contestId = $this->getCurrentContest()->getContestId();		
-		$cacheKey = sprintf("CONTEST_%d_%s_%s", Mage::app()->getStore()->getId(), Mage::getSingleton('core/design_package')->getPackageName(), $contestId);
+		$contestId = $this->getCurrentContest()->getContestId();
+		$sessionId = session_id();
+		$cacheKey = sprintf("CONTEST_%d_%s_%s_%s", Mage::app()->getStore()->getId(), Mage::getSingleton('core/design_package')->getPackageName(), $contestId, $sessionId);
 		//Mage::helper('contests')->log(sprintf("%s->cacheKey=%s", __METHOD__, $cacheKey));
 		return $cacheKey;
 	}    
+	*/
 
 }

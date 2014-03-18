@@ -94,6 +94,22 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
             )
 		));
 		
+		// Field for the allow duplicate entries of the contest
+		$fieldset->addField('allow_duplicate_entries', 'select', array(
+            'label' => Mage::helper('contests')->__('Allow Duplicate Entries ?'),
+            'name' => 'allow_duplicate_entries',
+            'values' => array(
+                array(
+                    'value' => 0,
+                    'label' => Mage::helper('contests')->__('No'),
+                ),
+                array(
+                    'value' => 1,
+                    'label' => Mage::helper('contests')->__('Yes'),
+                )
+            )
+		));
+		
 		// Field for the allow duplicate referrals of the contest (Refer A Friend only)
 		$fieldset->addField('allow_duplicate_referrals', 'select', array(
             'label' => Mage::helper('contests')->__('Allow Duplicate Referrals ?'),

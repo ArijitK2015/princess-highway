@@ -13,7 +13,7 @@ class FactoryX_CustomReports_SignedupnoorderController extends Mage_Adminhtml_Co
     /**
      * Export signedupnoorder report grid to CSV format
      */
-    public function exportSignedupnorderCsvAction()
+    public function exportSignedupnoorderCsvAction()
     {
         $fileName   = 'signedupnoorder.csv';
         $content    = $this->getLayout()->createBlock('customreports/signedupnoorder_grid')
@@ -25,7 +25,7 @@ class FactoryX_CustomReports_SignedupnoorderController extends Mage_Adminhtml_Co
     /**
      * Export signedupnoorder report to Excel XML format
      */
-    public function exportSignedupnorderExcelAction()
+    public function exportSignedupnoorderExcelAction()
     {
         $fileName   = 'signedupnoorder.xml';
         $content    = $this->getLayout()->createBlock('customreports/signedupnoorder_grid')

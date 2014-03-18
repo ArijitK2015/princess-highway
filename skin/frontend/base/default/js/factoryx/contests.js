@@ -132,13 +132,13 @@ function popupTerms(storeCode, contestId)
 function redirectTerms(storeCode, contestId)
 {
 	if (storeCode == "")
-    {
-        var urlToOpen = "/contests/index/terms/id/"+contestId;
-    }
-    else
-    {
-        var urlToOpen = "/"+storeCode+"/contests/index/terms/id/"+contestId;
-    }
+	{
+		var urlToOpen = "/contests/index/terms/id/"+contestId;
+	}
+	else
+	{
+		var urlToOpen = "/"+storeCode+"/contests/index/terms/id/"+contestId;
+	}
 	window.location = urlToOpen;
 }
 

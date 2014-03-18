@@ -2,7 +2,6 @@
 
 class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Action
 {
-
 	public function indexAction()
     {		
 		 $this->_forward('list');
@@ -38,6 +37,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 				if (!$contest->isStoreViewable()) 
 					throw new Exception ('This contest is not available with this store');
 			}
+			
+			// Initiate the session messages
+			$this->_initLayoutMessages('core/session');
 			
 			// In order to get the title so we can set the head title
 			$contestTitle = $contest->getTitle();
@@ -87,9 +89,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 		$templateId = intval($templateId);
 		
 		// Get the session
-    	//$session = Mage::getSingleton('core/session');
-    	$session = Mage::getSingleton("customer/session");
-    	Mage::helper('contests')->log(sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId()) );
+    	$session = Mage::getSingleton('core/session');
+    	// $session = Mage::getSingleton("customer/session");
+    	// Mage::helper('contests')->log(sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId()) );
     	
 		// Get the POST data
         $post = $this->getRequest()->getPost();
@@ -115,14 +117,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			$terms = $postObject['terms'];
         	
 			// Set session data
-			$session->setContestName($name);            
-			$session->setContestEmail($email);
-			$session->setContestMobile($mobile);
-			$session->setContestState($state);
 			if ($contest->getIsCompetition())
 			{
 				$competition = $postObject['competition'];
-				$session->setContestCompetition($competition);
 			}
 			else $competition = null;
 			
@@ -130,16 +127,14 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			if ($contest->isReferAFriendContest())
 			{
 				$friends = array();
-				for ( $i = 1; $i <= 10; $i++ ) 
-				{
-					$label = 'friend' . $i;
-					if (isset($postObject[$label]) && strlen(trim($postObject[$label])) > 0)
-					{
+				for ($i = 1; $i <= 10; $i++ ) {
+					$label = sprintf("friend%d", $i);
+					//Mage::helper('contests')->log(sprintf("%s->label=%s", __METHOD__, $label));
+					if (isset($postObject[$label]) && strlen(trim($postObject[$label])) > 0) {
 						$val = mysql_real_escape_string($postObject[$label]);
 						$friends[$label] = $val;
 					}
 				}
-				$session->setContestFriends($friends);
 			}
 			
 			// Captcha check
@@ -174,14 +169,24 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			// Validate competition
 			if ($contest->getIsCompetition() && !empty($competition)) 
 			{
-				$this->_validateWordCount($competition, 'competition', 1, $contest->getMaximumWordCount());
+				$validateComp = $this->_validateWordCount($competition, 'competition', 1, $contest->getMaximumWordCount());
+				if ($validateComp !== true)
+				{
+					Mage::throwException($validateComp);
+				}
 			}
 			
 			// Referrer check
 			$referrer = Mage::getModel('contests/referrer')->loadByEmailAndContest($email,$contestId);
+			
 			if ($referrer->getEmail()) 
 			{
-				Mage::throwException($this->__("This email address has already entered this contest: %s",$email));
+			    if (!$contest->isAllowedDuplicateEntries()) {
+				    Mage::throwException($this->__("This email address has already entered this contest: %s",$email));
+				}
+				else {
+				    Mage::helper('contests')->log("duplicate entrant: %s",$email);
+				}
 			}
 						
 			// Friends information check
@@ -269,6 +274,8 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 						$emailTemplateVariables['contest_title'] = $contest->getTitle();
 						
 						// Send email
+						//Mage::helper('contests')->log(sprintf("%s->friend=%s", __METHOD__, $friend) );
+						
 						Mage::getModel('core/email_template')
 								->sendTransactional(
 										$templateId,
@@ -308,8 +315,11 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			
             Mage::helper('contests')->subscribeToCampaignMonitor(
             	array(
+            	    /*
             		"firstname" 		=> $firstname,
             		"lastname"			=> $lastname,
+            		*/
+            		"name"              => $name,
             		"email"				=> $postObject['email'],
             		"mobile"			=> $mobile,
             		"state"				=> $state,
@@ -322,6 +332,7 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 		}	
         catch (Exception $e) 
 		{
+			$session->setFormData($post);
 			$errorMessage = "";
 			$errorMessage = $e->getMessage();
         	Mage::helper('contests')->log("Error: " . $errorMessage);
@@ -345,13 +356,15 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 	{
 		if(str_word_count($field) < $minlen ) 
 		{
-			Mage::throwException($this->__("%s contains too few words (required:%s - %s) (current word count: %s)", $fieldname, $minlen, $maxlen, str_word_count($field)) );
+			return ($this->__("%s contains too few words (required:%s - %s) (current word count: %s)", $fieldname, $minlen, $maxlen, str_word_count($field)) );
 		}		
 		// Check maximum string length
 		if(str_word_count($field) > $maxlen ) 
 		{
-			Mage::throwException($this->__("%s contains too many words (max:%s) (current word count: %s)", $fieldname, $maxlen, str_word_count($field) ) );
+			return ($this->__("%s contains too many words (max:%s) (current word count: %s)", $fieldname, $maxlen, str_word_count($field) ) );
 		}
+		
+		return true;
 	}
 	
 	protected function _getCaptchaString($request, $formId)

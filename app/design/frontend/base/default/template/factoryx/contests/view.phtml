@@ -4,29 +4,27 @@ $contest = $this->getCurrentContest();
 
 // Session variables
 $customerSession = Mage::getSingleton('customer/session');
-//$session = Mage::getSingleton('core/session');
-$session = $customerSession;
-//echo sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId());
+$session = Mage::getSingleton('core/session');
+$data =  $session->getFormData(true);
+// Mage::helper('contests')->log(sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId()));
 
-$name = "";
-$email = "";
-$mobile = "";
-$friends = "";
-$competition = "";
-
-$name = $session->getContestName();
-$email = $session->getContestEmail();
-$mobile = $session->getContestMobile();
-$friends = $session->getContestFriends();
-if ($contest->getIsCompetition())
+// Friends Handler
+$friends = array();
+if ($data)
 {
-    $competition = $session->getContestCompetition();
+	foreach($data as $key => $value)
+	{
+		if (!strpos($key,'friend') === false)
+		{
+			$friends[$key] = $value;
+		}
+	}
 }
 
-if ($customerSession->isLoggedIn() && !$name)
+if ($customerSession->isLoggedIn())
 {
-    $name = $customerSession->getCustomer()->getName();
-    $email = $customerSession->getCustomer()->getEmail();
+	if (!array_key_exists('name',$data)) $data['name'] = $customerSession->getCustomer()->getName();
+    if (!array_key_exists('email',$data)) $data['email'] = $customerSession->getCustomer()->getEmail();
 }
 
 if (!Mage::app()->isSingleStoreMode())
@@ -43,10 +41,14 @@ else
 <?php if (!$contest->getId()): ?>
     <h1><?php echo $this->__('Sorry, this contest does not exist, you will be redirect in a few seconds'); ?></h1>
     <script type="text/javascript">
-        function delayedRedirect(){
-            window.location = "<?php echo Mage::helper('contests')->getThankYouRedirectUrl(); ?>";
-        }
-        window.onload = setTimeout('delayedRedirect()', 2500)
+        function delayedRedirect() {
+			var redirectUrl = "<?php echo Mage::helper('contests')->getThankYouRedirectUrl(); ?>";
+			if (redirectUrl) {
+				window.location = redirectUrl;
+			}
+		}
+		window.onload = setTimeout('delayedRedirect()', 2500)
+
     </script>
 <?php // Contest disabled ?>
 <?php elseif (!$contest->getDisplayed()): ?>
@@ -66,20 +68,21 @@ else
                 <tr>
                     <td>
                         <?php
-						$imageUrl = Mage::getBaseUrl('media'). 'contest' . $contest->getImageUrl();
-					    list($width, $height, $type, $attr) = getimagesize($imageUrl);
-					    ?>
-						<img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+                        $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                        $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $contest->getImageUrl());
+            			$imageUrl = sprintf("%s/contest%s", $relMediaPath, $contest->getImageUrl());
+            			if (is_file($imagePath)) {
+            			    list($width, $height, $type, $attr) = getimagesize($imagePath);
+            			?>
+            			    <img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+            			<?php
+            		    } // endif
+					    ?>			
                     </td>
                 </tr>
             </table>
         </div>
         <div>
-
-            <?php $this->getLayout()->getMessagesBlock()->setMessages($session->getMessages(true)); ?>
-			<div id='messages_product_view'>
-				<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
-			</div>
 
             <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
                 <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $contest->getId() ?>" />
@@ -92,20 +95,20 @@ else
                             <label for="name" class="required">
                                 <?php echo $this->__('Name')?><em>*</em>
                             </label>
-                            <input id="name" name="name" value="<?php echo $name ?>" class="input-text required-entry" />
+                            <input id="name" name="name" value="<?php echo $this->htmlEscape($data['name']) ?>" class="input-text required-entry" />
                         </td>
                         <td width="180">
                             <label for="mobile">
                                 <?php echo $this->__('Mobile')?>
                             </label>
-                            <input id="mobile" name="mobile" value="<?php echo $mobile ?>" class="input-text validate-number" />
+                            <input id="mobile" name="mobile" value="<?php echo $this->htmlEscape($data['mobile']) ?>" class="input-text validate-number" />
                         </td>
                         <td width="300">
                             <label for="email" class="required">
                                 <?php echo $this->__('Email')?><em>*</em>
                             </label>
                             <br />
-                            <input id="email" name="email" value="<?php echo $email ?>" class="input-text2 required-entry validate-email" />
+                            <input id="email" name="email" value="<?php echo $this->htmlEscape($data['email']) ?>" class="input-text2 required-entry validate-email" />
                         </td>
                         <td width="160">
                             <label for="state" class="required">
@@ -132,7 +135,7 @@ else
                                 </label>
                                 <br />
                                 <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
-                                    <?php echo $competition ?>
+                                    <?php echo $this->htmlEscape($data['competition']) ?>
                                 </textarea>
                             </td>
                         </tr>
@@ -176,7 +179,7 @@ else
                                                 echo     "<tr>
                                                             <td>
 																<label for=\"friend1\">1st Friends Email</label>
-																<input type=\"textbox\" name=\"friend1\" id=\"friend1\" class=\"input-text validate-email\" />
+																<input type=\"textbox\" name=\"friend1\" id=\"friend1\" class=\"input-text validate-email\" value=\"" . $this->htmlEscape($data['friend1']) . "\" />
 															</td>
                                                         </tr>";
                                             }
@@ -314,7 +317,7 @@ else
                         </td>
                         <td>
                             <div class="input-box">
-                                <input type="text" id="name" name="name" value="<?php echo $name; ?>" title="<?php echo $this->__('Name') ?>" class="input-text required-entry" />
+                                <input type="text" id="name" name="name" value="<?php echo $this->htmlEscape($data['name']); ?>" title="<?php echo $this->__('Name') ?>" class="input-text required-entry" />
                             </div>
                         </td>
                     </tr>
@@ -327,7 +330,7 @@ else
                         </td>
                         <td>
                             <div class="input-box">
-                                <input type="text" name="email" id="email" value="<?php echo $email; ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
+                                <input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($data['email']); ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
                             </div>
                         </td>
                     </tr>
@@ -338,7 +341,7 @@ else
                         </td>
                         <td>
                             <div class="input-box">
-                                <input type="text" name="mobile" id="mobile" value="<?php echo $mobile; ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text validate-number" />
+                                <input type="text" name="mobile" id="mobile" value="<?php echo $this->htmlEscape($data['mobile']); ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text validate-number" />
                             </div>
                         </td>
                     </tr>
@@ -371,7 +374,7 @@ else
 							</td>
 							<td>
                                 <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
-                                    <?php echo $competition ?>
+                                    <?php echo $this->htmlEscape($data['competition']) ?>
                                 </textarea>
                             </td>
                         </tr>
@@ -448,11 +451,17 @@ else
         </div>
 
         <div id="giveaway-right">
-            <?php
-			$imageUrl = Mage::getBaseUrl('media'). 'contest' . $contest->getImageUrl();
-			list($width, $height, $type, $attr) = getimagesize($imageUrl);
+             <?php
+            $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+            $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $contest->getImageUrl());
+			$imageUrl = sprintf("%s/contest%s", $relMediaPath, $contest->getImageUrl());
+			if (is_file($imagePath)) {
+			    list($width, $height, $type, $attr) = getimagesize($imagePath);
 			?>
-			<img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+			    <img <?php echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+			<?php
+		    } // endif
+			?>
         </div>
 
     </div>
@@ -460,7 +469,7 @@ else
 <script type="text/javascript">
     //< ![CDATA[
     var contestForm = new VarienForm('contestForm');
-    var state = '<?php echo $session->getContestState(); ?>';
+    var state = '<?php echo $this->htmlEscape($data['state']); ?>';
 
     oState = document.getElementById("state");
     if (oState)

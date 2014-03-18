@@ -72,6 +72,14 @@ class FactoryX_Contests_Model_Contest extends Mage_Core_Model_Abstract
 	/**
 	 *
 	 */
+	public function isAllowedDuplicateEntries()
+	{
+		return $this->getAllowDuplicateEntries();
+	}
+	
+	/**
+	 *
+	 */
 	public function isAllowedDuplicateReferrals()
 	{
 		return $this->getAllowDuplicateReferrals();

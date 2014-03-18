@@ -63,6 +63,8 @@
 
 #rafPage #messages_product_view{margin:15px 0px 5px 0px; width:100%}
 #tblFriends{margin:0 0 5px 0}
+#tblFriends label{float:left;width:160px}
+#tblFriends input{width:270px !important}
 #friendButtons{padding:0 0 0 0}
 #enterButton{padding-top:4px}
 #tnc{text-align:center;padding:10px 0 20px 0}

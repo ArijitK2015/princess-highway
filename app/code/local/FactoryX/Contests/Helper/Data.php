@@ -5,6 +5,18 @@ require_once(Mage::getBaseDir("lib") . "/createsend/csrest_subscribers.php");
 class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
+    private static $subscribeToCampaignMonitor = true;
+
+    private static $defaultMappings = array(
+        'name'      => 'Name',
+        'email'     => 'Email address'
+        /*,
+        'mobile'    => 'Mobile',
+        'state'     => 'State',
+        'title'     => 'Source'
+        */
+    );
+
 	protected $logFileName = 'factoryx_contests.log';
 	
 	/*
@@ -83,10 +95,17 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 				// set the data from form to model
 				foreach ($fields as $key => $param)
 				{
-					if (!isset($mapping[$key]))
-					{
-						// this is some information that we won't know how to store in cm, so we log
-						Mage::helper('contests')->log("FactoryX_Contests_Helper_Data: ".$key." is not defined in the campaign monitor mapping.");
+					if (!isset($mapping[$key])) {
+					    // try default mapping
+					    if (array_key_exists($key, self::$defaultMappings)) {
+					        $customFields[] = array("Key"=>self::$defaultMappings[$key],"Value"=>$param);
+					    }
+					    else {
+    						// this is some information that we won't know how to store in cm, so we log
+    						$this->log(
+    						    sprintf("FactoryX_Contests_Helper_Data: '%s' is not defined in the campaign monitor mapping.", $key)
+                            );
+                        }
 					}
 					elseif (!empty($param) && !empty($mapping[$key]))
 					{
@@ -94,23 +113,27 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 					}
 				}
 				
-				$wrap = new CS_REST_Subscribers($listID, $apiKey);
-				
-				$result = $wrap->add(
-					array(
-						'EmailAddress' => $fields['email'],
-						'Name' => sprintf("%s %s", $fields['firstname'], $fields['lastname']),
-						'CustomFields' => $customFields,
-						'Resubscribe' => true
-					)
-				);
-				
-				if (!$result->was_successful()) 
-				{
-				    $this->log(sprintf("Failed with code %s", $result->http_status_code));
-				    $this->log(var_dump($result->response, true));					
-				    
-				}
+				if (self::$subscribeToCampaignMonitor) {
+    				$wrap = new CS_REST_Subscribers($listID, $apiKey);
+    				$result = $wrap->add(
+    					array(
+    						//'Name' => sprintf("%s %s", $fields['firstname'], $fields['lastname']),
+    						'EmailAddress'  => $fields['email'],    						
+    						'Name'          => $fields['name'],
+    						'CustomFields'  => $customFields,
+    						'Resubscribe'   => true
+    					)
+    				);
+    				
+    				if (!$result->was_successful()) 
+    				{
+    				    $this->log(sprintf("Failed with code %s", $result->http_status_code));
+    				    $this->log(var_dump($result->response, true));					
+    				    
+    				}
+    			}
+    			else {
+    			}
             }
             catch (Exception $e) 
 			{
@@ -154,13 +177,23 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 		return $statesArray;
 	}
 	
-	public function generateMapping($source,$destination){
+	/**
+	@param  string $source 
+	@param  string $destination
+	*/
+	public function generateMapping($source, $destination) {
+	    
+	    
         $result = array();
         $mappings = $linkedAttributes = @unserialize(Mage::getStoreConfig('contests/options/m_to_cm_attributes',
                 Mage::app()->getStore()->getStoreId()));
-        foreach($mappings as $mapping){
-            if (!empty($mapping[$source]) && !empty($mapping[$destination])){
-                $result[$mapping[$source]] = $mapping[$destination];
+        
+        // check if mappings exist
+        if ($mappings) {
+            foreach($mappings as $mapping) {
+                if (!empty($mapping[$source]) && !empty($mapping[$destination])){
+                    $result[$mapping[$source]] = $mapping[$destination];
+                }
             }
         }
         return $result;

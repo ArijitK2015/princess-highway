@@ -187,7 +187,17 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
             // mapping between FORM and CM
             $mapping = $this->generateMapping('formfields','campaignmonitor');
         }
-        $customFields = array();        
+        $customFields = array();       
+
+		// Handle mobile mini subscription name
+		if (array_key_exists('mini',$params) && $params['mini'] && !array_key_exists('firstname',$params) && !array_key_exists('lastname',$params))
+		{
+			$name = "(Guest)";
+		}
+		else
+		{
+			$name = $params[$prefix.'firstname'].' '.$params[$prefix.'lastname'];
+		}
 
         // Add popup source
         if (array_key_exists('popup',$params) && $params['popup']){
@@ -213,7 +223,7 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
             $client = new CS_REST_Subscribers($listID,$apiKey);
             $result = $client->add(array(
                                         "EmailAddress" => $params[$prefix.'email'],
-                                        "Name" => $params[$prefix.'firstname'].' '.$params[$prefix.'lastname'],
+                                        "Name" => $name,
                                         "CustomFields" => $customFields,
                                         "Resubscribe" => true  // if the subscriber is already unsubscried - subscribe again!
                                         ));

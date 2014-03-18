@@ -7,8 +7,11 @@
 </div>
 
 <script type="text/javascript">
-function delayedRedirect(){
-    window.location = "<?php echo Mage::getSingleton('customer/session')->getData('thank_you_redirect_url', true); ?>";
+function delayedRedirect() {
+    var redirectUrl = "<?php echo Mage::getSingleton('customer/session')->getData('thank_you_redirect_url', true); ?>";
+    if (redirectUrl) {
+        window.location = redirectUrl;
+    }
 }
 window.onload = setTimeout('delayedRedirect()', 2500)
 </script>
