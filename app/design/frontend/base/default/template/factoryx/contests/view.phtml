@@ -134,9 +134,7 @@ else
                                     <?php echo $this->__('In %s words or less, %s', $contest->getMaximumWordCount(), $contest->getCompetitionText()) ?><em>*</em>
                                 </label>
                                 <br />
-                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
-                                    <?php echo $this->htmlEscape($data['competition']) ?>
-                                </textarea>
+                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry"><?php echo $this->htmlEscape($data['competition']) ?></textarea>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -373,9 +371,7 @@ else
                                 </label>
 							</td>
 							<td>
-                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry">
-                                    <?php echo $this->htmlEscape($data['competition']) ?>
-                                </textarea>
+                                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry"><?php echo $this->htmlEscape($data['competition']) ?></textarea>
                             </td>
                         </tr>
                     <?php endif; ?>
