@@ -41,15 +41,14 @@ else
 <?php if (!$contest->getId()): ?>
     <h1><?php echo $this->__('Sorry, this contest does not exist, you will be redirect in a few seconds'); ?></h1>
     <script type="text/javascript">
-        function delayedRedirect() {
-			var redirectUrl = "<?php echo Mage::helper('contests')->getThankYouRedirectUrl(); ?>";
+		function delayedRedirect() {
+			var redirectUrl = "<?php echo Mage::helper('contests')->getNotFoundRedirectUrl(); ?>";
 			if (redirectUrl) {
 				window.location = redirectUrl;
 			}
 		}
 		window.onload = setTimeout('delayedRedirect()', 2500)
-
-    </script>
+	</script>
 <?php // Contest disabled ?>
 <?php elseif (!$contest->getDisplayed()): ?>
     <div class="main-div" style="height:500px; position:relative;">
@@ -60,6 +59,15 @@ else
 
         <p><?php echo $this->__('If you would like to be kept up to date with future contests and promotions, then <a href="/subscribe">subscribe</a> to our mailing list.') ?></p>
     </div>
+	<script type="text/javascript">
+		function delayedRedirect() {
+			var redirectUrl = "<?php echo Mage::helper('contests')->getNotFoundRedirectUrl(); ?>";
+			if (redirectUrl) {
+				window.location = redirectUrl;
+			}
+		}
+		window.onload = setTimeout('delayedRedirect()', 2500)
+	</script>
 <?php // Refer A Friend Mode ?>
 <?php elseif ($contest->getType() == 1): ?>
     <div id="rafPage">

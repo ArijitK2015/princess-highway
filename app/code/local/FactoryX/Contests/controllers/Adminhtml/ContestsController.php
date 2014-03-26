@@ -522,13 +522,62 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
         } else {
             try {
 
-                foreach ($contestIds as $contestId) {
-                    $contest = Mage::getModel('contests/contest')
-                            ->load($contestId)
-                            ->setStatus($this->getRequest()->getParam('status'))
-                            ->setStores('')
-                            ->setIsMassupdate(true)
-                            ->save();
+                foreach ($contestIds as $contestId) 
+				{
+					// Load contest
+					$contest = Mage::getModel('contests/contest')
+                            ->load($contestId);
+					// If it is disabled we don't display it
+					if ($this->getRequest()->getParam('status') == 0)
+					{
+						$contest->setStatus($this->getRequest()->getParam('status'))
+								->setDisplayed(0)
+								->setStores('')
+								->setIsMassupdate(true)
+								->save();
+					}
+					// If it is enabled we do display it
+					elseif($this->getRequest()->getParam('status') == 1)
+					{
+						$contest->setStatus($this->getRequest()->getParam('status'))
+								->setDisplayed(1)
+								->setStores('')
+								->setIsMassupdate(true)
+								->save();
+					}
+					// If it is automatic, it depends on the dates
+					elseif($this->getRequest()->getParam('status') == 2)
+					{
+						// Current date		
+						$today = Mage::app()->getLocale()->date();
+						// Start date
+						$startDate = Mage::app()->getLocale()->date($contest->getStartDate(), Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
+						$startDate->set('00:00:00',Zend_Date::TIMES);
+						// End date
+						$endDate = Mage::app()->getLocale()->date($contest->getEndDate(), Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
+						$endDate->set('00:00:00',Zend_Date::TIMES);
+						// If the start date is earlier than today and end date later than today
+						if ($startDate->isEarlier($today) && $endDate->isLater($today))
+						{
+							// We display the contest
+							$contest->setStatus($this->getRequest()->getParam('status'))
+									->setDisplayed(1)
+									->setStores('')
+									->setIsMassupdate(true)
+									->save();
+						}
+						// If the start date is earlier than today and end date earlier than today 
+						// or if the start date is later than today
+						elseif(($startDate->isEarlier($today) && $endDate->isEarlier($today)) || ($startDate->isLater($today)))
+						{
+							// We don't display the contest
+							$contest->setStatus($this->getRequest()->getParam('status'))
+									->setDisplayed(0)
+									->setStores('')
+									->setIsMassupdate(true)
+									->save();
+						}
+					}
                 }
                 $this->_getSession()->addSuccess(
                         $this->__('Total of %d record(s) were successfully updated', count($contestIds))

@@ -59,6 +59,21 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 	/*
 	 *
 	 */
+	public function getNotFoundRedirectUrl()
+	{
+		$redirectUrl = Mage::getStoreConfig('contests/options/notfoundredirecturl');
+		
+		if (!$redirectUrl)
+		{
+			$redirectUrl = Mage::helper('core/url')->getHomeUrl();
+		}
+		
+		return $redirectUrl;
+	}
+	
+	/*
+	 *
+	 */
 	public function getTemplate()
 	{
 		return Mage::getStoreConfig('contests/options/template');
