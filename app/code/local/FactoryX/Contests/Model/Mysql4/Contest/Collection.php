@@ -22,7 +22,7 @@ class FactoryX_Contests_Model_Mysql4_Contest_Collection extends Mage_Core_Model_
 		else
 		{
 			$this->getSelect()
-					->where('main_table.contest_id NOT IN ?', $ids);
+					->where('main_table.contest_id NOT IN ('.implode(',',$ids).')');
 		}
         return $this;
     }
