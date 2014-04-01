@@ -23,6 +23,7 @@
 		<action method="removeItem"><type>skin_css</type><name>css/prints.css</name></action>
 		<action method="removeItem"><type>js</type><name>lib/ds-sleight.js</name></action>
 		<action method="removeItem"><type>skin_js</type><name>js/ie6.js</name></action>
+		<action method="removeItem"><type>skin_js</type><name>js/slides.min.jquery.js</name></action>
 		<action method="removeItem" ifconfig="easy_tabs/general/enabled"><type>skin_css</type><name>css/easytabs.css</name></action>
 		
 		<!--Add extra items -->
