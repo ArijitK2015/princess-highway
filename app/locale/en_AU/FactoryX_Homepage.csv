@@ -1,0 +1,38 @@
+This homepage is not available with this store.,This homepage is not available with this store.
+There was a problem loading the homepage.,There was a problem loading the homepage.
+Home Pages Manager,Home Pages Manager
+Add Home Page,Add Home Page
+Home Page,Home Page
+Continue,Continue
+Choose Layout,Choose Layout
+Editing Home Page,Editing Home Page
+Save Home Page,Save Home Page
+Delete Home Page,Delete Home Page
+Home Page #,Home Page #
+Chosen Layout,Chosen Layout
+Number of pictures,Number of pictures
+Title,Title
+Slider,Slider
+Status,Status
+Choose your layout,Choose your layout
+Layouts,Layouts
+How many picture(s) do you want to display (Up to 5) ?,How many picture(s) do you want to display (Up to 5) ?
+Do you want a picture slider ?,Do you want a picture slider ?
+The number of pictures provided above includes the picture displayed in the slider,The number of pictures provided above includes the picture displayed in the slider
+Home Page Information,Home Page Information
+Number of pictures,Number of pictures
+Change Layout,Change Layout
+Homepage Picture,Homepage Picture
+'<ul><li>- The width of the slider images must be 980px.</li><li>- The TOTAL width of the vertical images must be 980px.</li><li>- The TOTAL height of the vertical images must all be equals.</ul>','<ul><li>- The width of the slider images must be 980px.</li><li>- The TOTAL width of the vertical images must be 980px.</li><li>- The TOTAL height of the vertical images must all be equals.</ul>'
+'Homepage Image %s','Homepage Image %s'
+'Homepage Image Link %s','Homepage Image Link %s'
+'Homepage Image Title %s','Homepage Image Title %s'
+'Is Homepage Image Link %s a popup ?','Is Homepage Image Link %s a popup ?'
+Popup means whether the link should be open in a new window or not.,Popup means whether the link should be open in a new window or not.
+Preview,Preview
+Home Page does not exist,Home Page does not exist
+You must provide home page images.,You must provide home page images.
+Home Page was successfully saved,Home Page was successfully saved
+Unable to find homepage to save,Unable to find homepage to save
+Please select homepage(s),Please select homepage(s)
+The module does not support more than 5 pictures, please contact the developers for more information.,The module does not support more than 5 pictures, please contact the developers for more information.

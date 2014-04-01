@@ -1,0 +1,6 @@
+<?php
+	// Set images
+	$this->getChild('slider')->setData('slides', $this->getSlides());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<?php echo $this->getChildHtml('slider', false) // SLIDER ?>

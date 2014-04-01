@@ -373,7 +373,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
     /*===============================================
         PRODUCT
     ===============================================*/
-    #myCarousel img { max-width: 100% }   
+    #myCarousel img { max-width: 100%; height:auto }   
       
     
     /*===============================================

@@ -1,0 +1,27 @@
+<?php
+// Retrieve the image to display
+$image = $this->getData('image');
+// Get its URL
+$imageUrl = $image->getUrl();
+// Generate its real URL
+$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+$imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $imageUrl);
+$imageUrl = sprintf("%s/homepage%s", $relMediaPath, $imageUrl);
+// Test if image exists
+if (is_file($imagePath)) 
+{
+	// Retrieve attributes of the image
+	list($width, $height, $type, $attr) = getimagesize($imagePath); 
+	
+	// If a link is set, we display it ?>
+	<?php if ($link = $image->getLink()): ?>
+		<a <?php if ($image->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+	<?php endif; ?>
+	
+	<?php // Display picture ?>
+	<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $image->getAlt(); ?>" /> 
+	
+	<?php if ($link): ?>
+		</a>
+	<?php endif; ?>
+<?php } // endif ?>

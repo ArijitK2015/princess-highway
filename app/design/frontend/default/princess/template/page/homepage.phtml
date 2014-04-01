@@ -90,13 +90,10 @@
 	            <?php echo $this->getChildHtml('breadcrumbs') ?>	
 	
 				<!-- Middle Column
-			    ================================================== -->
-			    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('princesshighwayhero')->toHtml();?>
-				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cta-middle')->toHtml();?>
-				
+			    ================================================== -->			
 			    <?php echo $this->getChildHtml('global_messages') ?>
 			    <?php echo $this->getChildHtml('content') ?>
-
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cta-middle')->toHtml();?>
 			    </div>
 			    			    
 				<!-- End: Middle Column

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_Homepage>
+			<active>true</active>
+			<codePool>local</codePool>
+		</FactoryX_Homepage>
+	</modules>
+</config>

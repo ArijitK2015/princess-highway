@@ -1,0 +1,4 @@
+.radioimages{float:left}
+.radioimages input{visibility:hidden}
+.radioimages img{border: 3px solid transparent;padding:1px}
+.radioimages input[type="radio"]:checked + label img{border: 3px solid blue}
