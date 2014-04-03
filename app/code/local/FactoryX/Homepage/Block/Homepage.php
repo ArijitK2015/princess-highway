@@ -393,6 +393,34 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setMiddle($homepage->getImage(4));
 					$this->setBottom($homepage->getImage(5));
 					break;
+				case '5-layout/1-top-2-middle-1-bottomleft-1-bottomright':
+					$this->setTop($homepage->getImage(1));
+					$this->setMiddle1($homepage->getImage(2));
+					$this->setMiddle2($homepage->getImage(3));
+					$this->setBottomleft($homepage->getImage(4));
+					$this->setBottomright($homepage->getImage(5));
+					break;
+				case '5-layout/1-topleft-1-topright-2-middle-1-bottom':
+					$this->setTopleft($homepage->getImage(1));
+					$this->setTopright($homepage->getImage(2));
+					$this->setMiddle1($homepage->getImage(3));
+					$this->setMiddle2($homepage->getImage(4));
+					$this->setBottom($homepage->getImage(5));
+					break;
+				case '5-layout/1-top-1-middleleft-1-middleright-1-middlebottom-1-bottom':
+					$this->setTop($homepage->getImage(1));
+					$this->setMiddleleft($homepage->getImage(2));
+					$this->setMiddleright($homepage->getImage(3));
+					$this->setMiddlebottom($homepage->getImage(4));
+					$this->setBottom($homepage->getImage(5));
+					break;
+				case '5-layout/1-top-1-middletop-1-middleleft-1-middleright-1-bottom':
+					$this->setTop($homepage->getImage(1));
+					$this->setMiddletop($homepage->getImage(2));
+					$this->setMiddleleft($homepage->getImage(3));
+					$this->setMiddleright($homepage->getImage(4));
+					$this->setBottom($homepage->getImage(5));
+					break;
 				default;
 					break;
 			}
@@ -852,6 +880,46 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setChild('topleft', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.topleft'));
 					$this->setChild('topmiddle', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.topmiddle'));
 					$this->setChild('topright', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.topright'));
+					// Set bottom child
+					$this->setChild('bottom', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottom'));
+					break;
+				case '5-layout/1-top-2-middle-1-bottomleft-1-bottomright':
+					// Set top child
+					$this->setChild('top', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.top'));
+					// Set middle children
+					$this->setChild('middle1', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middle1'));
+					$this->setChild('middle2', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middle2'));
+					// Set bottom children
+					$this->setChild('bottomleft', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottomleft'));
+					$this->setChild('bottomright', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottomright'));
+					break;
+				case '5-layout/1-topleft-1-topright-2-middle-1-bottom':
+					// Set top children
+					$this->setChild('topleft', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.topleft'));
+					$this->setChild('topright', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.topright'));
+					// Set middle children
+					$this->setChild('middle1', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middle1'));
+					$this->setChild('middle2', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middle2'));
+					// Set bottom child
+					$this->setChild('bottom', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottom'));
+					break;
+				case '5-layout/1-top-1-middleleft-1-middleright-1-middlebottom-1-bottom':
+					// Set top child
+					$this->setChild('top', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.top'));
+					// Set middle children
+					$this->setChild('middleleft', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middleleft'));
+					$this->setChild('middleright', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middleright'));
+					$this->setChild('middlebottom', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middlebottom'));
+					// Set bottom child
+					$this->setChild('bottom', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottom'));
+					break;
+				case '5-layout/1-top-1-middletop-1-middleleft-1-middleright-1-bottom':
+					// Set top child
+					$this->setChild('top', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.top'));
+					// Set middle children
+					$this->setChild('middletop', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middletop'));
+					$this->setChild('middleleft', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middleleft'));
+					$this->setChild('middleright', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.middleright'));
 					// Set bottom child
 					$this->setChild('bottom', $this->getLayout()->createBlock('homepage/homepage_blocks_cell', 'homepage.bottom'));
 					break;
