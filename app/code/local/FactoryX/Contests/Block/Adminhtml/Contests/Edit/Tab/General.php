@@ -37,6 +37,10 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
             'label' => Mage::helper('contests')->__('Status'),
             'name' => 'status',
             'values' => array(
+				array(
+                    'value' => 2,
+                    'label' => Mage::helper('contests')->__('Automatic'),
+                ),
                 array(
                     'value' => 0,
                     'label' => Mage::helper('contests')->__('Disabled'),
@@ -44,10 +48,6 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
 				array(
                     'value' => 1,
                     'label' => Mage::helper('contests')->__('Enabled'),
-                ),
-				array(
-                    'value' => 2,
-                    'label' => Mage::helper('contests')->__('Automatic'),
                 )
             ),
 			'note'      => Mage::helper('contests')->__('The automatic status will use start and end dates to automatically enable and disable the contest.')
@@ -159,6 +159,8 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
 		elseif (Mage::registry('contests_data')) 
 		{
 			$data = Mage::registry('contests_data')->getData();
+			// Make automatic status default
+			if (!array_key_exists('status',$data)) $data['status'] = 2;
             $form->setValues($data);
         }
         return parent::_prepareForm();

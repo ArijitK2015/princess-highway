@@ -311,32 +311,33 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
 					throw new Exception ("Start and end dates must be provided for an automatic contest.");
 				}
-				
-				// End date must be later than start date
-				if (isset($data['start_date']) && isset($data['end_date']) && $data['start_date'] > $data['end_date'])
-				{
-					// We use session to set the active tab to show where the error is
-					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
-					throw new Exception ("Start date must not be later than end date.");
-				}
 
-                if (isset($data['start_date']) && $data['start_date']) 
+                if ($data['status'] == 2 && isset($data['start_date']) && $data['start_date']) 
 				{
 					// Convert the date properly
 					$startdate = Mage::app()->getLocale()->date($data['start_date'], Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
 					// Set the times to zero
 					$startdate->set('00:00:00',Zend_Date::TIMES);
-					$model->setStartDate($startdate);
                 } 
 				
-				if (isset($data['end_date']) && $data['end_date']) 
+				if ($data['status'] == 2 && isset($data['end_date']) && $data['end_date']) 
 				{
 					// Convert the date properly
 					$enddate = Mage::app()->getLocale()->date($data['end_date'], Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
 					// Set the times to zero
 					$enddate->set('00:00:00',Zend_Date::TIMES);
-					$model->setEndDate($enddate);
                 }
+				
+				// End date must be later than start date
+				if ($data['status'] == 2 && isset($enddate) && isset($startdate) && $startdate->isLater($enddate))
+				{
+					// We use session to set the active tab to show where the error is
+					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
+					throw new Exception ("Start date must not be later than end date.");
+				}
+				
+				$model->setStartDate($startdate);
+				$model->setEndDate($enddate);
 				
 				// If it is disabled we don't display it
 				if ($data['status'] == 0)
