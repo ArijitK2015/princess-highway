@@ -1,0 +1,129 @@
+.col1-layout .category-title {
+    display:none;
+}
+
+#lookbook{text-align:left; background-color:#ccc; z-index:-999}
+
+#lookbook ul#menu li img {
+    float: left;
+    vertical-align: top;
+}
+
+div#lookbook {
+    background-color:#fff !important;
+    margin: 0px auto 0px auto;
+    text-align: center;
+}
+
+div#lookbook ul#menu {
+    margin: 0px 0px;
+    list-style: none;
+    display: inline-block;
+}
+
+div#lookbook ul#menu li a div.lookDesc img {
+    position: relative;
+    overflow: visible;
+}
+#main {
+    margin-top:0px;
+    padding-top:0px;
+    position: relative;
+}
+.getTheLook {
+    position:absolute;
+    left:0px;
+    top:0px;
+    height:22px;
+    width:10px;
+    z-index:1;
+    background-color:transparent;
+    color:transparent;
+    margin:0;
+    padding:0px 0 0px 0px;
+    font-size:13px;
+    font-family:verdana;
+    font-weight:bold;
+    text-align:left;
+    visibility:hidden;
+}
+
+.scrollNav, .scrollNav a:link, .scrollNav a:visited  {
+  font-size: 12px;
+  font-family: verdana;
+  color:#00009C;
+  font-weight: bold;
+}
+.col-main {
+    padding:0px;
+}
+
+#lookbook div.lookDesc {
+	padding-top:10px;
+	display: inline-block;
+	z-index: 999;
+	font-size: 11px;
+}
+
+.whiteBar {
+    position: absolute;
+    top: 10px;
+    z-index: 9999;
+    background-color:#fff;
+}
+
+div#lookbook ul#menu li {
+    float: left;
+    position: relative;
+}
+
+div#lookbook ul#menu li img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    /*
+    TODO: calc if required
+    margin: 0 4px 0 0;
+    */
+    border: 0px solid #000;
+    overflow: hidden;
+}
+
+#container {
+    margin-top:0px;
+    padding-top:10px;
+    position: relative;
+    overflow: hidden;
+    border: 0px solid #000;
+}
+
+#scaleContainer {
+    position:absolute;    
+    height:5px;
+    z-index: 0;
+}
+
+#scale {
+	left:0px;
+    position:relative;
+    height:5px;
+    background-color:#4E4E4E;
+    margin:0;
+    padding:0;
+    font-size:1px;    
+    /**
+    left & width are rendered dynamically
+    */
+}
+
+.mainContainer {
+    float:left;
+    text-align: center;
+    background-color: #fff;
+}
+
+#lookbook-arrowleft{position: absolute; left: -5px; height: 26px; width: 26px; z-index:9999999}
+#lookbook-arrowright{position: absolute; left: 940px; height: 26px; width: 26px; z-index:9999999}
+
+#lookbook-credits{text-align:center; font-size:11px; padding:5px}

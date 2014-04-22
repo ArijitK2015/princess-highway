@@ -1,0 +1,221 @@
+<?php
+// Retrieve the lookbook
+$lookbook = $this->getCurrentLookbook();
+
+// Retrieve configurable settings
+$lookbookWidth = $this->getLookbookWidth();
+$looksPerPage = $this->getLooksPerPage();
+$lookBorder = $this->getLookbookBorder();
+$lookWidth = $this->getLookWidth();
+$lookHeight = $this->getLookHeight();
+$lookColor = $this->getLookColor();
+$lookbookType = $lookbook->getLookbookType();
+
+/*
+Mage::helper('lookbook')->log("lookbookWidth=".$lookbookWidth);
+Mage::helper('lookbook')->log("looksPerPage=".$looksPerPage);
+Mage::helper('lookbook')->log("lookWidth=".$lookWidth);
+Mage::helper('lookbook')->log("lookHeight=".$lookHeight);
+*/
+
+// Retrieve non configurable settings
+$lookDescTopPadding = $this->getLookDescTopPadding();
+$lookDescMaxLines = $this->getLookDescMaxLines();
+$lookDescHeight = $this->getLookDescHeight(); 
+$lookScaleHeight = $this->getLookScaleHeight();
+$lookDescBorderWidth = $this->getLookDescBorderWidth();
+$lookDescSidePadding = $this->getLookDescSidePadding();
+$barWidth = $this->getBarWidth();
+$scaleLeftPad = $this->getScaleLeftPad();
+
+// Generate color differences
+switch ($lookColor) 
+{
+    case "black":
+		$mainBorder = "10px solid #000";
+		$mainPadding = "0";
+        $arrowLeft = $this->getSkinUrl('images/slider/arrow-prev.png');
+        $arrowRight = $this->getSkinUrl('images/slider/arrow-next.png');    
+        break;
+    case "white":
+        $mainBorder = "1px solid #FFF";
+        $mainPadding = "9px";
+        $arrowLeft = $this->getSkinUrl('images/slider/arrow-prev.png');
+        $arrowRight = $this->getSkinUrl('images/slider/arrow-next.png');          
+        break;
+}
+
+// Add borders to lookbook width
+$lookbookWidth += ($lookBorder * 2 * $looksPerPage);
+
+if ($lookbookType == "category")
+{
+	// Get lookbook products
+	$_productCollection = $lookbook->getLookbookProducts();
+
+	// Count lookbook products
+	$numOfLooks = count($_productCollection);
+}
+else
+{
+	// Get lookbook images
+	$_imageCollection = $lookbook->getGallery();
+	
+	// Count lookbook images
+	$numOfLooks = count($_imageCollection);
+}
+
+if ($numOfLooks == 0) 
+{
+    $numOfLooks = $looksPerPage;
+}
+
+// Calculate scale width
+$scaleWidth = (($lookbookWidth - ($scaleLeftPad * 2)) / ceil($numOfLooks / $looksPerPage));
+?>
+
+<div class="mainContainer" style="width: <?php echo ($looksPerPage * $lookWidth); ?>px;padding: <?php echo $mainPadding; ?>;background-color: #fff;height: <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2) + $lookScaleHeight) + 10; ?>px; border: <?php echo $mainBorder; ?>">
+	<center>
+		<div id="main">
+		 
+			<!-- Left Arrow -->
+			<div id="lookbook-arrowleft" style="top: <?php echo ($lookHeight  + $lookDescHeight + 25); ?>px">
+				<img src="<?php echo $arrowLeft; ?>" 
+					onMouseOver="this.style.cursor='pointer'; "
+					onmouseout="stopMe()"
+					onclick="jumpLeft('container', <? echo $lookbookWidth; ?>);">
+			</div> 
+			
+			<!-- Right Arrow -->
+			<div id="lookbook-arrowright" style="top: <?php echo ($lookHeight  + $lookDescHeight + 25); ?>px">
+				<img src="<?php echo $arrowRight; ?>"
+					onMouseOver="this.style.cursor='pointer';"
+					onmouseout="stopMe()"
+					onclick="jumpRight('container', <? echo $lookbookWidth; ?>, <? echo $lookWidth + ($lookBorder * 2); ?>);">
+			</div> 
+
+			<!-- Scale -->
+			<div id="scaleContainer" style="top:<?php echo ($lookHeight + $lookDescHeight + $lookScaleHeight); ?>px;left:<?php echo $scaleLeftPad; ?>px;width:<?php echo $scaleWidth; ?>px">
+				<!-- DO NOT MOVE THE "left:0px" TO CSS IT BREAKS THE SCALE -->
+				<div id="scale" style="left:0px; width:<?php echo $scaleWidth; ?>px">&nbsp;</div>
+			</div>
+
+			<!-- White bars -->
+			<?php
+			$bars = round($lookbookWidth / $lookWidth);
+			
+			for($b = 1; $b < $bars ; $b++) {
+				$left = ($lookWidth * $b) - ($barWidth / 2);
+				echo sprintf("<div class=\"whiteBar\" style=\"left:%dpx;width: %dpx;height: %dpx;\">&nbsp;</div>", $left, $barWidth, $lookHeight);
+			}
+			?>
+			
+			<!-- Lookbook -->
+			<div id="container" style="width: <?php echo $lookbookWidth; ?>px;height: <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2) + $lookScaleHeight); ?>px">
+				<div id="scroller" style="width:<?php echo ($numOfLooks * ($lookWidth + ($lookBorder * 2) )); ?>px">
+					<div id="lookbook" style="text-align:left; background-color:#ccc; height:<?php echo $lookHeight ?>px; z-index:-999;">
+						<ul id="menu">
+						<?php
+						if ($lookbookType == "category")
+						{
+							// Loop through looks
+							foreach ($_productCollection as $_product) 
+							{
+								$_product_id = $_product->getId();
+								$_product = Mage::getModel('catalog/product')->load($_product_id);
+								// Resize the look image based on the look width and height
+								$img = (string)Mage::helper('catalog/image')->init($_product, 'image')->resize($lookWidth, $lookHeight);
+							?>
+								<li style="width: <?php echo $lookWidth + ($lookBorder * 2); ?>px;height:  <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2)); ?>px">
+									<a href="<?php echo $_product->getProductUrl();?>">
+										<img class="lookImg" src="<?php echo $img; ?>" style="width: <?php echo $lookWidth; ?>px" />
+										<?php if ($lookbook->getShowShopPix()): ?>
+											<?php
+												$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+												$imageUrl = sprintf("%s/lookbook%s", $relMediaPath, $lookbook->getShopPix());
+											?>
+											<div class="lookDesc" style="border: <?php echo $lookDescBorderWidth; ?>px solid  #000;margin-top: <?php echo $lookHeight + 6; ?>px;">
+												<img src="<?php echo $imageUrl; ?>" style="width: <?php echo $lookWidth; ?>px; height:auto" />
+											</div>
+										<?php endif; ?>
+									</a>
+									<!-- Display configurable products links if enabled -->
+									<?php if ($lookbook->getShowChildProductsLink()): ?>
+										<div class="childProductsLink" <?php if (!$lookbook->getShowShopPix()): ?>style="margin-top:<?php echo $lookHeight + 6; ?>px;"<?php endif; ?>>
+											<?php $childProductsLinks = Mage::helper('lookbook')->getChildProductsLink($_product); ?>
+											<?php $cnt = 1; ?>
+											<?php foreach ($childProductsLinks as $childProductLink): ?>
+												<a href="<?php echo $childProductLink['link'] ?>"><?php echo $childProductLink['name'].' '.$childProductLink['price'] ?></a><br/>
+												<?php if ($cnt++ >= $lookDescMaxLines) break; ?>
+											<?php endforeach; ?>
+										</div>
+									<?php endif; ?>
+								</li>
+							<?php 
+							} //endforeach
+						}
+						else
+						{
+							// Loop through looks
+							foreach ($_imageCollection as $_image) 
+							{
+								// Resize the look image based on the look width and height
+								$img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file'])->resize($lookWidth, $lookHeight);
+							?>
+								<li style="width: <?php echo $lookWidth + ($lookBorder * 2); ?>px;height:  <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2)); ?>px">
+									<?php if ($lookbook->getDefaultUrl()): ?>
+										<a href="<?php echo $lookbook->getDefaultUrl();?>">
+									<?php endif; ?>
+										<img class="lookImg" src="<?php echo $img; ?>" style="width: <?php echo $lookWidth; ?>px" />
+									<?php if ($lookbook->getDefaultUrl()): ?>
+										</a>
+									<?php endif; ?>
+								</li>
+							<?php 
+							} //endforeach
+						}
+						?>
+						</ul>
+					</div> <!-- lookbook -->
+				</div> <!-- scroller -->
+			</div> <!-- container -->
+		</div> <!-- main -->
+	</center>
+</div>
+
+<!-- Display Credits if enabled -->
+<?php if ($lookbook->getShowCredits()): ?>
+	<div id="lookbook-credits">
+		<!-- Model -->
+		<?php if ($model = $lookbook->getModel()): ?>
+			<?php echo $this->__('Model: <b>%s</b>', $model); ?>
+		<?php endif; ?>
+		|
+		<!-- Photography -->
+		<?php if ($photography = $lookbook->getPhotography()): ?>
+			<?php echo $this->__('Photography: <b>%s</b>', $photography); ?>
+		<?php endif; ?>
+		|
+		<!-- Make Up -->
+		<?php if ($makeup = $lookbook->getMakeUp()): ?>
+			<?php echo $this->__('Make up: <b>%s</b>', $makeup); ?>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+	objScale = document.getElementById("scale");
+	var curr_width = parseInt(objScale.style.width); 
+	var curr_left = parseInt(objScale.style.left);
+	//alert("curr_width=" + curr_width + ",curr_left=" + curr_left);
+
+	// reset
+	document.getElementById('container').scrollLeft = 0;
+	
+	<!-- Enable Zoom -->
+	<?php if ($lookbook->getZoomOnHover()): ?>
+		jQuery(function() {
+			jQuery("div#lookbook ul#menu li img.lookImg").bubbleup({tooltip: false, scale:<?php echo $lookWidth; ?>+10});
+		});
+	<?php endif; ?>
+</script>

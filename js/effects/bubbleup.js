@@ -22,7 +22,7 @@
 		return this.each(function() {
 			var w=$(this).width();
 			$(this).mouseover(function(){
-				if ((opt.tooltip) && ($(this).attr('alt'))) {
+				if(opt.tooltip) {
 					tip = $('<div>' + $(this).attr('alt') + '</div>').css({
 						fontFamily: opt.fontFamily,
 						color: opt.color, 

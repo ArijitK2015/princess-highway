@@ -40,44 +40,12 @@ function jumpLeft(id, pixels) {
 }
 
 function moveScale(dir, position) {
-	//alert("moveScale:dir=" + dir + ",position=" + position);
-	objScale = document.getElementById("scale");
-	var curr_width = parseInt(objScale.style.width); 
-	var curr_left = parseInt(objScale.style.left);
-	//alert("curr_width=" + curr_width + ",curr_left=" + curr_left);
-	var leftNew;
-	//alert(curr_left);
-	if (dir == 1) {
-		// 960 - 240
-		leftNew = (curr_left + curr_width) + "px";		
-		if (curr_left < 720) {
-			//console.log("moveScale:" + leftNew);			
-			objScale.style.left = leftNew;
-		}
-	}
-	else {
-		leftNew = (curr_left - curr_width) + "px";		
-		if (curr_left > 0) {
-			//console.log("moveScale:" + leftNew);
-			objScale.style.left = leftNew;
-		}
-	}
-}
-
-/*
-function jumpRight2(id, pixels) {
-	//alert("jumpRight: " + pixels);
-	document.getElementById(id).scrollLeft+=pixels;
-	moveScale2(1, document.getElementById(id).scrollLeft);
-}
-
-function moveScale2(dir, position) {
 	objScale = document.getElementById("scale");
 	var curr_width = parseInt(objScale.style.width); 
 	var curr_left = parseInt(objScale.style.left);
 	//alert(curr_left);
 	if (dir == 1) {
-		if (curr_left < 640) {
+		if ( (curr_left + curr_width) <= (960 - curr_width + 1) ) {
 			objScale.style.left = (curr_left + curr_width) + "px";
 		}
 	}
@@ -87,7 +55,6 @@ function moveScale2(dir, position) {
 		}
 	}
 }
-*/
 
 function stopMe(){
   clearTimeout(timerRight) 
