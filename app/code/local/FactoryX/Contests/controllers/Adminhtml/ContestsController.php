@@ -33,6 +33,22 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 	{
         $this->_forward('edit'); 
     }
+	
+	public function deleteAction() {
+        $contestId = (int) $this->getRequest()->getParam('id');
+        if ($contestId) {
+            try {
+                $model = Mage::getModel('contests/contest')->load($contestId);
+				$model->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('contests')->__('Contest was successfully deleted'));
+                $this->_redirect('*/*/');
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
 
     public function viewAction() 
 	{

@@ -17,6 +17,22 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
                 ->renderLayout();
     }
 	
+	public function deleteAction() {
+        $homepageId = (int) $this->getRequest()->getParam('id');
+        if ($homepageId) {
+            try {
+                $model = Mage::getModel('homepage/homepage')->load($homepageId);
+				$model->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('homepage')->__('Homepage was successfully deleted'));
+                $this->_redirect('*/*/');
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+	
 	public function newAction() 
 	{
 		if ($data = $this->getRequest()->getPost()) 
@@ -244,6 +260,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 			
 			try 
 			{
+				
 				// Loop based on the amount of pictures chosen
 				for($i=1;$i<=$data['amount'];$i++)
 				{
@@ -429,7 +446,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 					{						
 						// Enabled homepages for the store (except the current)
 						$enabledHomepages = Mage::getResourceModel('homepage/homepage_collection')
-							->addStatusFilter(1)
+							->addStatusFilter(FactoryX_Homepage_Model_Status::STATUS_ENABLED)
 							->addNotIdsFilter($model->getId())
 							->addStoreFilter($storeId);
 							
@@ -438,7 +455,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 							// Disable all previously enabled homepages
 							foreach ($enabledHomepages as $enabledHomepage)
 							{
-								$enabledHomepage->setStatus(0);
+								$enabledHomepage->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED);
 								$enabledHomepage->save();
 							}
 						}
@@ -448,7 +465,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 				{
 					// Enabled homepages (except the current)
 					$enabledHomepages = Mage::getResourceModel('homepage/homepage_collection')
-							->addStatusFilter(1)
+							->addStatusFilter(FactoryX_Homepage_Model_Status::STATUS_ENABLED)
 							->addNotIdsFilter($model->getId());
 							
 					if (count($enabledHomepages))
@@ -456,7 +473,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 						// Disable all previously enabled homepages
 						foreach ($enabledHomepages as $enabledHomepage)
 						{
-							$enabledHomepage->setStatus(0);
+							$enabledHomepage->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED);
 							$enabledHomepage->save();
 						}
 					}
@@ -540,6 +557,25 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
             }
         }
         $this->_redirect('*/*/index');
+    }
+	
+	/**
+     * Create homepage duplicate
+     */
+    public function duplicateAction()
+    {
+        $homepageId  = (int) $this->getRequest()->getParam('id');
+		$homepage = Mage::getModel('homepage/homepage')->load($homepageId);
+		
+        try {
+            $newHomepage = $homepage->duplicate();
+            $this->_getSession()->addSuccess($this->__('The homepage has been duplicated.'));
+            $this->_redirect('*/*/edit', array('_current'=>true, 'id'=>$newHomepage->getId()));
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_getSession()->addError($e->getMessage());
+            $this->_redirect('*/*/edit', array('_current'=>true));
+        }
     }
 
 }

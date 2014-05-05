@@ -66,4 +66,40 @@ class FactoryX_Homepage_Model_Homepage extends Mage_Core_Model_Abstract
 							
 		return $homepageImages;
 	}
+	
+	/**
+     * Create duplicate
+     *
+     * @return FactoryX_Homepage_Model_Homepage
+     */
+    public function duplicate()
+    {
+		$data = $this->getData();
+		
+        /* @var $newHomepage FactoryX_Homepage_Model_Homepage */
+        $newHomepage = Mage::getModel('homepage/homepage')->setData($data)
+            ->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED)
+            ->setCreatedAt(null)
+            ->setEdited(Mage::getModel('core/date')->gmtDate())
+            ->setId(null)
+            ->setStoreId(Mage::app()->getStore()->getId());
+
+        $newHomepage->save();
+		
+		// Save the images to the database
+		foreach ($this->getAllImages() as $image)
+		{
+			// We duplicate the images
+			$pictureModel = Mage::getModel('homepage/image');
+			$pictureModel->setUrl($image->getUrl());
+			$pictureModel->setLink($image->getLink());
+			$pictureModel->setAlt($image->getAlt());
+			$pictureModel->setPopup($image->getPopup());
+			$pictureModel->setIndex($image->getIndex());
+			$pictureModel->setHomepageId($newHomepage->getId());
+			$pictureModel->save();
+		}
+
+        return $newHomepage;
+    }
 }

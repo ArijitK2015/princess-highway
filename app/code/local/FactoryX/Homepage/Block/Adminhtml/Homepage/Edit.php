@@ -11,15 +11,15 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit extends Mage_Adminhtml_Blo
 		$this->_objectId = 'id';
 		$this->_blockGroup = 'homepage';
 		$this->_controller = 'adminhtml_homepage';
-		$this->_updateButton('save', 'label', Mage::helper('homepage')->__('Save Home Page'));
-		$this->_updateButton('delete', 'label', Mage::helper('homepage')->__('Delete Home Page'));
+		$this->_updateButton('save', 'label', Mage::helper('homepage')->__('Save'));
+		$this->_updateButton('delete', 'label', Mage::helper('homepage')->__('Delete'));
 		
 		// If we're editing (not creating), we add the preview button
 		if ($this->getRequest()->getParam('id')) 
 		{
 			// Add the Preview button
 			$this->_addButton('preview', array(
-				'label' => Mage::helper('homepage')->__('Preview Home Page'),
+				'label' => Mage::helper('homepage')->__('Preview'),
 				'onclick' => 'preview()',
 				'class' => 'save',
 					), -100);
@@ -28,6 +28,13 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit extends Mage_Adminhtml_Blo
 				function preview(){
 					window.open('" . $this->getPreviewUrl() . "', '_blank');
 				}";
+				
+			// Add the Duplicate button
+			$this->_addButton('preview', array(
+				'label' => Mage::helper('homepage')->__('Duplicate'),
+				'onclick' => 'setLocation(\'' . $this->getDuplicateUrl() . '\')',
+				'class' => 'add',
+					), -100);
 		}
 		
 		// Add the Save and Continue button
@@ -64,5 +71,13 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit extends Mage_Adminhtml_Blo
 	public function getPreviewUrl()
     {
         return Mage::getUrl('homepage/index/preview', array($this->_objectId => $this->getRequest()->getParam($this->_objectId)));
+    }
+	
+	/**
+	 *	Getter for the duplicate URL
+	 */
+	public function getDuplicateUrl()
+    {
+        return $this->getUrl('*/*/duplicate', array('_current'=>true));
     }
 }

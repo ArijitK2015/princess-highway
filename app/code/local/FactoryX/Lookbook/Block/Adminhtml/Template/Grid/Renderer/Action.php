@@ -21,10 +21,32 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
             '#'	=> Mage::helper('lookbook')->__('Edit')
         );
 
+		if (Mage::app()->isSingleStoreMode())
+		{
+			$viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+		}
+		else
+		{
+			// Database resources
+			$resource = Mage::getSingleton('core/resource');
+			$readConnection = $resource->getConnection('core_read');
+			
+			// Get the contest related stores
+			$query = "SELECT store_id 
+						FROM {$resource->getTableName('lookbook/store')}
+						WHERE lookbook_id = {$row->getId()}";
+			
+			// We use the first store URL even if there's several stores for the same lookbook
+			$lookbookStoreId = $readConnection->fetchOne($query);
+								
+			if ($lookbookStoreId)	$viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+			else $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+		}
+		
 		// link to the frontend view
         $actions[] = array(
             '@' => array(
-                'href'  => $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default')),
+                'href'  => $viewUrl,
                 'target'=>	'_blank'
             ),
             '#'	=> Mage::helper('lookbook')->__('View')

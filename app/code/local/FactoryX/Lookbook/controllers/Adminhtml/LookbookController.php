@@ -245,7 +245,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 						
 				// Handle errors
 				// A shop the look image must be provided if show shop the look is enabled
-				if ($data['show_shop_pix'] == 1 && !isset($data['shop_pix']))
+				if (array_key_exists('show_shop_pix',$data) && $data['show_shop_pix'] == 1 && !isset($data['shop_pix']))
 				{
 					// We use session to set the active tab to show where the error is
 					Mage::getSingleton('admin/session')->setActiveTab('general_tab');

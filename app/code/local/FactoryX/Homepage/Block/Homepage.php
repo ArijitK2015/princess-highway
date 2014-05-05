@@ -143,9 +143,9 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					break;
 				case '4-layout/1-top-1-bottom-2-bottomright':
 					$this->setTop($homepage->getImage(1));
-					$this->setBottom($homepage->getImage(4));
-					$this->setBottomRight1($homepage->getImage(2));
-					$this->setBottomRight2($homepage->getImage(3));
+					$this->setBottom($homepage->getImage(2));
+					$this->setBottomRight1($homepage->getImage(3));
+					$this->setBottomRight2($homepage->getImage(4));
 					break;
 				case '4-layout/1-top-2-bottomleft-1-bottom':
 					$this->setTop($homepage->getImage(1));
@@ -154,10 +154,10 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setBottomLeft2($homepage->getImage(3));
 					break;
 				case '4-layout/1-top-2-topright-1-bottom':
-					$this->setTop($homepage->getImage(4));
+					$this->setTop($homepage->getImage(2));
 					$this->setBottom($homepage->getImage(1));
-					$this->setTopRight1($homepage->getImage(2));
-					$this->setTopRight2($homepage->getImage(3));
+					$this->setTopRight1($homepage->getImage(3));
+					$this->setTopRight2($homepage->getImage(4));
 					break;
 				case '4-layout/1-top-3-bottom':
 					$this->setTop($homepage->getImage(1));
@@ -208,10 +208,10 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setTop2($homepage->getImage(4));
 					break;
 				case '4-layout/1-left-1-middletop-1-middlebottom-1-right':
-					$this->setMiddletop($homepage->getImage(1));
-					$this->setLeft($homepage->getImage(2));
-					$this->setRight($homepage->getImage(3));
-					$this->setMiddlebottom($homepage->getImage(4));
+					$this->setLeft($homepage->getImage(1));
+					$this->setMiddletop($homepage->getImage(2));
+					$this->setMiddlebottom($homepage->getImage(3));
+					$this->setRight($homepage->getImage(4));
 					break;
 				case '4-layout/1-left-2-middle-1-right':
 					$this->setLeft($homepage->getImage(1));
@@ -263,8 +263,8 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '5-layout/2-top-1-middle-2-bottom':
 					$this->setMiddle($homepage->getImage(1));
 					$this->setTop1($homepage->getImage(2));
-					$this->setTop2($homepage->getImage(4));
-					$this->setBottom1($homepage->getImage(3));
+					$this->setTop2($homepage->getImage(3));
+					$this->setBottom1($homepage->getImage(4));
 					$this->setBottom2($homepage->getImage(5));
 					break;
 				case '5-layout/2-top-2-middle-1-bottom':
@@ -275,11 +275,11 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setMiddle2($homepage->getImage(5));
 					break;
 				case '5-layout/1-top-2-middle-2-bottom':
-					$this->setTop1($homepage->getImage(2));
-					$this->setTop2($homepage->getImage(4));
-					$this->setMiddle1($homepage->getImage(3));
-					$this->setMiddle2($homepage->getImage(5));
-					$this->setBottom($homepage->getImage(1));
+					$this->setTop($homepage->getImage(1));
+					$this->setMiddle1($homepage->getImage(2));
+					$this->setMiddle2($homepage->getImage(3));
+					$this->setBottom1($homepage->getImage(4));
+					$this->setBottom2($homepage->getImage(5));
 					break;
 				case '5-layout/4-left-1-right':
 					$this->setRight($homepage->getImage(1));
@@ -375,9 +375,9 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '5-layout/1-top-1-middleleft-1-middle-1-middleright-1-bottom':
 					$this->setTop($homepage->getImage(1));
 					$this->setMiddleleft($homepage->getImage(2));
-					$this->setMiddleright($homepage->getImage(3));
-					$this->setBottom($homepage->getImage(4));
-					$this->setMiddle($homepage->getImage(5));
+					$this->setMiddle($homepage->getImage(3));
+					$this->setMiddleright($homepage->getImage(4));
+					$this->setBottom($homepage->getImage(5));
 					break;
 				case '5-layout/1-top-1-middletop-1-middle-1-middlebottom-1-bottom':
 					$this->setTop($homepage->getImage(1));
