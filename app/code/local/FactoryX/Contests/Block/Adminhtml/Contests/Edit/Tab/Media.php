@@ -6,6 +6,7 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_Media extends Mage_Adm
 	protected $_exampleRafPictureUrl = "http://shop.alannahhill.com.au/skin/frontend/default/theme010k/images/raf/bag-banner1.jpg";
 	protected $_exampleEmailPictureUrl = "http://shop.alannahhill.com.au/skin/frontend/default/theme010k/images/raf/bagpromoemail.jpg";
 	protected $_exampleListPictureUrl = "http://shop.jacklondon.com.au/giveaways/vespa/thumbnail.jpg";
+	protected $_exampleThankYouPictureUrl = "http://shop.alannahhill.com.au/media/wysiwyg/2014/05/20140507-win-a-dream-bouquet-thank-you.jpg";
 
 	/**
 	 * Prepare the form of the media tab for the edit contest page
@@ -40,6 +41,13 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_Media extends Mage_Adm
 			'label'     => Mage::helper('contests')->__('List Contest Picture'),
 			'name'      => 'list_image_url',
 			'note'      => Mage::helper('contests')->__('Only displayed if you choose Yes in the List tab, recommended image size 250px wide by 200px high. (<a target="_blank" href="%s">example</a> N.B.: the example is not at the right dimensions)',$this->_exampleListPictureUrl),
+		));
+		
+		// Field to upload an thank you image related to the contest
+        $fieldset->addField('thank_you_image_url', 'contestimage', array(
+			'label'     => Mage::helper('contests')->__('Thank You Picture'),
+			'name'      => 'thank_you_image_url',
+			'note'      => Mage::helper('contests')->__('Recommended image size 980px wide by any height. (<a target="_blank" href="%s">example</a>)',$this->_exampleThankYouPictureUrl),
 		));
 	  
 		// We fill the form based on the session or the registered data

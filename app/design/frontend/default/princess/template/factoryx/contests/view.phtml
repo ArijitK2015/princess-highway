@@ -275,9 +275,10 @@ else
                             <?php echo $this->__('I have read and agree with the <a href="javascript:void(0);" onclick="popupTerms(\'%s\', %s);">terms and conditions</a>', $storeCode, $contest->getId())?>
                             <?php if ($contest->getShareOnFacebook()): ?>
                                 &nbsp;|&nbsp;
-                                <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
-                                    <?php echo $this->__('Share on Facebook') ?>
-                                </a>
+                                <?php
+									$urlToShare = urlencode(Mage::helper('core/url')->getCurrentUrl());
+								?>
+								<div class="fb-share-button" data-href="<?php echo $urlToShare ?>" data-type="button"></div>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -405,9 +406,10 @@ else
                         <tr>
                             <td></td>
                             <td class="buttons-td">
-                                <a href="http://www.facebook.com/sharer.php?u=<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" target="_blank" title="<?php echo $this->__('Share on Facebook') ?>">
-                                    <?php echo $this->__('Share on Facebook') ?>
-                                </a>
+                                <?php
+									$urlToShare = urlencode(Mage::helper('core/url')->getCurrentUrl());
+								?>
+								<div class="fb-share-button" data-href="<?php echo $urlToShare ?>" data-type="button"></div>
                             </td>
                         </tr>
                     <?php endif; ?>

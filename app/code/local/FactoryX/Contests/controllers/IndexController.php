@@ -348,6 +348,11 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 		}
 		else $session->setData('thank_you_redirect_url', Mage::helper('core/url')->getHomeUrl());
 		
+		if ($thankYouImageUrl = $contest->getThankYouImageUrl())
+		{
+			$session->setData('thank_you_image_url', $thankYouImageUrl);
+		}
+		
 		$this->_redirect('*/*/thankyou/');
         return;
 	}

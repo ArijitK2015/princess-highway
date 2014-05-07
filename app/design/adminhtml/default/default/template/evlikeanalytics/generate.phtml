@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * Retail Evolved - Facebook Like Analytics
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA that is bundled with this
+ * package in the file EVOLVED_EULA.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://retailevolved.com/eula-1-0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to service@retailevolved.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * You may edit this file, but only at your own risk, as long as it is within
+ * the constraints of the license agreement. Before upgrading the module (not Magento), 
+ * be sure to back up your original installation as the upgrade may override your
+ * changes.
+ *
+ * @category   Evolved
+ * @package    Evolved_LikeAnalytics
+ * @copyright  Copyright (c) 2010 Kaelex Inc. DBA Retail Evolved (http://retailevolved.com)
+ * @license    http://retailevolved.com/eula-1-0 (Retail Evolved EULA 1.0)
+ */
+
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('evlikeanalytics')->__('Refresh Stats') ?></h3></td>
+         </tr>
+    </table>
+</div>
+
+<form action="<?php echo $this->getUrl('*/*/refresh', array('_current'=>true)); ?>" method="post" id="generate_stats_form" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <script type="text/javascript">
+    function generateStatsAction()
+    {
+        generateForm.submit();
+    }
+    </script>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Stats') ?></h4>
+        </div>
+        <fieldset id="stats">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="value">
+                           
+                        	<?php $clickAction = 'generateStatsAction()'; ?>
+							<?php $actionText = Mage::helper('evlikeanalytics')->__('Refresh Stats'); ?>
+							<?php $isRunning = Mage::helper('evlikeanalytics')->getFlag()->getState() == Evolved_LikeAnalytics_Model_Stat_Flag::STATE_RUNNING; ?>
+                            <?php if ($isRunning): ?>
+                                <?php $clickAction = "if (confirm('The current stats generation will be cancelled. Are you sure you want to continue?')) {{$clickAction}}"; ?>
+								<?php $actionText = Mage::helper('evlikeanalytics')->__('Refresh Stats *'); ?>
+                            <?php endif; ?>
+                            <button onclick="<?php echo $clickAction; ?>" id="refresh_stats" type="button" class="scalable" style=""><span><?php echo $actionText; ?></span></button>
+                                <?php if ($isRunning): ?> <br /> <small><?php echo Mage::helper('evlikeanalytics')->__('* Stats generation is currently running - clicking "Refresh Stats" will kill the current process'); ?></small> 
+								<?php else: ?>
+									<br /> <small><?php echo Mage::helper('evlikeanalytics')->__('Stats generation will happen nightly at 1 AM if you have enabled cron jobs. This is the recommended configuration. See documentation for details.'); ?>
+								<?php endif; ?>
+                        </td>
+                        <td><small>&nbsp;</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</form>
+<script type="text/javascript">
+    var generateForm = new varienForm('generate_stats_form');
+</script>
+

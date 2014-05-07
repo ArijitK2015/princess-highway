@@ -246,6 +246,51 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 					$model->setListImageUrl($data['list_image_url']);
 				}
 				
+				// Save the thank you contest picture
+				if(isset($_FILES['thank_you_image_url']['name']) and (file_exists($_FILES['thank_you_image_url']['tmp_name']))) 
+				{
+					$uploader = new Mage_Core_Model_File_Uploader('thank_you_image_url');
+					$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+					$uploader->setAllowRenameFiles(true);
+					$uploader->setFilesDispersion(true);
+					$result = $uploader->save(
+						Mage::getSingleton('contests/contest_media_config')->getBaseMediaPath()
+					);
+
+					/**
+					 * Workaround for prototype 1.7 methods "isJSON", "evalJSON" on Windows OS
+					 */
+					$result['tmp_name'] = str_replace(DS, "/", $result['tmp_name']);
+					$result['path'] = str_replace(DS, "/", $result['path']);
+
+					$result['url'] = Mage::getSingleton('contests/contest_media_config')->getMediaUrl($result['file']);
+					$result['cookie'] = array(
+						'name'     => session_name(),
+						'value'    => $this->_getSession()->getSessionId(),
+						'lifetime' => $this->_getSession()->getCookieLifetime(),
+						'path'     => $this->_getSession()->getCookiePath(),
+						'domain'   => $this->_getSession()->getCookieDomain()
+					);
+					
+					$data['thank_you_image_url'] = $result['file'];
+				}
+				else 
+				{       
+					if(isset($data['thank_you_image_url']['delete']) && $data['thank_you_image_url']['delete'] == 1)
+					{
+						$data['thank_you_image_url'] = NULL;
+					}
+				}
+				
+				if (isset($data['thank_you_image_url']))
+				{
+					if (is_array($data['thank_you_image_url']))
+					{
+						$data['thank_you_image_url'] = $data['thank_you_image_url']['value'];
+					}
+					$model->setThankYouImageUrl($data['thank_you_image_url']);
+				}
+				
 				// Check is single store mode
 				if (!Mage::app()->isSingleStoreMode() && isset($data['stores'])) 
 				{
@@ -334,7 +379,11 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 					$startdate = Mage::app()->getLocale()->date($data['start_date'], Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
 					// Set the times to zero
 					$startdate->set('00:00:00',Zend_Date::TIMES);
-                } 
+                }
+				else
+				{
+					$startdate = NULL;
+				}
 				
 				if ($data['status'] == 2 && isset($data['end_date']) && $data['end_date']) 
 				{
@@ -343,6 +392,10 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 					// Set the times to zero
 					$enddate->set('00:00:00',Zend_Date::TIMES);
                 }
+				else
+				{
+					$enddate = NULL;
+				}
 				
 				// End date must be later than start date
 				if ($data['status'] == 2 && isset($enddate) && isset($startdate) && $startdate->isLater($enddate))
