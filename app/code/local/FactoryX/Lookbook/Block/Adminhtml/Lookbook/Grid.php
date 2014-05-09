@@ -27,7 +27,7 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Grid extends Mage_Adminhtml_Blo
 	{
 		// Get the collection of lookbooks
         $collection = Mage::getModel('lookbook/lookbook')->getCollection()
-							->addFieldToSelect(array('lookbook_id','title','identifier','lookbook_type','category_id','looks_per_page','status','include_in_nav','added','edited'));
+							->addFieldToSelect(array('lookbook_id','title','identifier','lookbook_type','category_id','looks_per_page','status','include_in_nav','sort_order','added','edited'));
 		
 		$store = $this->_getStore();
         if ($store->getId()) 
@@ -72,7 +72,8 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Grid extends Mage_Adminhtml_Blo
 			'width' => '100px',
             'options' => array(
                 'category' => Mage::helper('lookbook')->__('Category Lookbook'),
-				'images' => Mage::helper('lookbook')->__('Images Lookbook')
+				'images' => Mage::helper('lookbook')->__('Images Lookbook'),
+				'slideshow' => Mage::helper('lookbook')->__('Slideshow Lookbook')
             ),
         ));
 		
@@ -116,6 +117,13 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Grid extends Mage_Adminhtml_Blo
                 0 => Mage::helper('lookbook')->__('No'),
 				1 => Mage::helper('lookbook')->__('Yes')
             ),
+        ));
+		
+		$this->addColumn('sort_order', array(
+            'header' => Mage::helper('lookbook')->__('Sort Order'),
+            'align' => 'left',
+            'index' => 'sort_order',
+			'width' => '100px'
         ));
 		
 		$this->addColumn('added', array(

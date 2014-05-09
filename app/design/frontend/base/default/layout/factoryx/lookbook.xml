@@ -14,6 +14,11 @@
 				<name>css/factoryx/lookbook.css</name>
 				<params/>
 			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/factoryx/lookbook.js</name>
+				<params/>
+			</action>
 			<action method="addJs">
 				<script>effects/bubbleup.js</script>
 			</action>
@@ -30,4 +35,37 @@
 			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/view.phtml" />
 		</reference>
 	</lookbook_index_view>
+	
+	<lookbook_index_slideshow>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>css/factoryx/lookbook.css</name>
+				<params/>
+			</action>
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>css/jsCarousel-2.0.0.css</name>
+				<params/>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/fadeslideshow.js</name>
+				<params/>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/jsCarousel-2.0.0.js</name>
+				<params/>
+			</action>
+		</reference>
+		
+		<reference name="root">
+			<action method="setTemplate"><template>page/empty.phtml</template></action>
+		</reference>
+		
+		<reference name="content">
+			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/slideshow.phtml" />
+		</reference>
+	</lookbook_index_slideshow>
 </layout>

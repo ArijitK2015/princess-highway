@@ -27,10 +27,10 @@ function toRight(id){
   document.getElementById(id).scrollLeft=document.getElementById(id).scrollWidth
 }
 
-function jumpRight(id, pixels) {
+function jumpRight(id, pixels, scalePad) {
 	//alert("jumpRight: " + pixels);
 	document.getElementById(id).scrollLeft+=pixels;
-	moveScale(1, document.getElementById(id).scrollLeft);
+	moveScale(1, id, scalePad);
 }
 
 function jumpLeft(id, pixels) {
@@ -39,14 +39,21 @@ function jumpLeft(id, pixels) {
 	moveScale(-1);
 }
 
-function moveScale(dir, position) {
+function moveScale(dir, id, scalePad) {
 	objScale = document.getElementById("scale");
 	var curr_width = parseInt(objScale.style.width); 
 	var curr_left = parseInt(objScale.style.left);
 	//alert(curr_left);
 	if (dir == 1) {
-		if ( (curr_left + curr_width) <= (960 - curr_width + 1) ) {
+		if ( (curr_left + curr_width) <= (960 - curr_width - scalePad + 1) ) {
 			objScale.style.left = (curr_left + curr_width) + "px";
+		}
+		else
+		{
+			// reset container
+			document.getElementById(id).scrollLeft = 0;
+			// reset scale
+			objScale.style.left = 0;
 		}
 	}
 	else {

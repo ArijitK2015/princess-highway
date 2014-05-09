@@ -91,7 +91,7 @@ $scaleWidth = (($lookbookWidth - ($scaleLeftPad * 2)) / ceil($numOfLooks / $look
 				<img src="<?php echo $arrowRight; ?>"
 					onMouseOver="this.style.cursor='pointer';"
 					onmouseout="stopMe()"
-					onclick="jumpRight('container', <? echo $lookbookWidth; ?>, <? echo $lookWidth + ($lookBorder * 2); ?>);">
+					onclick="jumpRight('container', <? echo $lookbookWidth; ?>, <? echo $scaleLeftPad * 2; ?>);">
 			</div> 
 
 			<!-- Scale -->
@@ -127,7 +127,7 @@ $scaleWidth = (($lookbookWidth - ($scaleLeftPad * 2)) / ceil($numOfLooks / $look
 								$img = (string)Mage::helper('catalog/image')->init($_product, 'image')->resize($lookWidth, $lookHeight);
 							?>
 								<li style="width: <?php echo $lookWidth + ($lookBorder * 2); ?>px;height:  <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2)); ?>px">
-									<a href="<?php echo $_product->getProductUrl();?>">
+									<a href="<?php echo $_product->getProductUrl();?>" onclick="saveLastPositions();">
 										<img class="lookImg" src="<?php echo $img; ?>" style="width: <?php echo $lookWidth; ?>px" />
 										<?php if ($lookbook->getShowShopPix()): ?>
 											<?php
@@ -204,12 +204,7 @@ $scaleWidth = (($lookbookWidth - ($scaleLeftPad * 2)) / ceil($numOfLooks / $look
 <?php endif; ?>
 
 <script type="text/javascript">
-	objScale = document.getElementById("scale");
-	var curr_width = parseInt(objScale.style.width); 
-	var curr_left = parseInt(objScale.style.left);
-	//alert("curr_width=" + curr_width + ",curr_left=" + curr_left);
-
-	// reset
+	// Reset lookbook to the start
 	document.getElementById('container').scrollLeft = 0;
 	
 	<!-- Enable Zoom -->

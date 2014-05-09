@@ -96,5 +96,12 @@ class FactoryX_Lookbook_Model_Mysql4_Lookbook_Collection extends Mage_Core_Model
         }
         return $this;
     }
+	
+	public function addAttributeToSort($attribute, $order = 'asc')
+	{
+		$this->getSelect()
+                ->order('main_table.'.$attribute.' '.$order);
+        return $this;
+	}
 
 }

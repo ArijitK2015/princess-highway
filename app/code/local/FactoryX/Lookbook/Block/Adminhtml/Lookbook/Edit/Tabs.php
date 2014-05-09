@@ -52,7 +52,7 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tabs extends Mage_Adminhtm
 			));
         }
 		
-		if ($data['lookbook_type'] == "images")
+		if ($data['lookbook_type'] != "category")
 		{
 			// Add the media tab
 			$this->addTab('media_tab', array(
@@ -63,21 +63,24 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tabs extends Mage_Adminhtm
 			));
 		}
 		
-		// Add the credits tab
-		$this->addTab('credits_tab', array(
-            'label'     => Mage::helper('lookbook')->__('Credits'),
-            'title'     => Mage::helper('lookbook')->__('Credits'),
-            'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_credits')->toHtml(),
-			'active'	=> $active == 'credits_tab' ? true : false
-        ));
-		
-		// Add the developer tab
-		$this->addTab('dev_tab', array(
-            'label'     => Mage::helper('lookbook')->__('Developer'),
-            'title'     => Mage::helper('lookbook')->__('Developer'),
-            'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_developer')->toHtml(),
-			'active'	=> $active == 'dev_tab' ? true : false
-        ));
+		if ($data['lookbook_type'] != "slideshow")
+		{
+			// Add the credits tab
+			$this->addTab('credits_tab', array(
+				'label'     => Mage::helper('lookbook')->__('Credits'),
+				'title'     => Mage::helper('lookbook')->__('Credits'),
+				'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_credits')->toHtml(),
+				'active'	=> $active == 'credits_tab' ? true : false
+			));
+			
+			// Add the developer tab
+			$this->addTab('dev_tab', array(
+				'label'     => Mage::helper('lookbook')->__('Developer'),
+				'title'     => Mage::helper('lookbook')->__('Developer'),
+				'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_developer')->toHtml(),
+				'active'	=> $active == 'dev_tab' ? true : false
+			));
+		}
 		
         return parent::_beforeToHtml();
     }

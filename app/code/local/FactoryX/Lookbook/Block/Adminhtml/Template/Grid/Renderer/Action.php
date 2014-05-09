@@ -23,7 +23,11 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 
 		if (Mage::app()->isSingleStoreMode())
 		{
-			$viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			if ($row->getLookbookType() == "slideshow")
+			{
+				$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
+			}
+			else $viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
 		}
 		else
 		{
@@ -39,8 +43,22 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 			// We use the first store URL even if there's several stores for the same lookbook
 			$lookbookStoreId = $readConnection->fetchOne($query);
 								
-			if ($lookbookStoreId)	$viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
-			else $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			if ($lookbookStoreId)
+			{
+				if ($row->getLookbookType() == "slideshow")
+				{
+					$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+				}
+				else $viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+			}
+			else 
+			{
+				if ($row->getLookbookType() == "slideshow")
+				{
+					$viewUrl = Mage::getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
+				}
+				else $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			}
 		}
 		
 		// link to the frontend view

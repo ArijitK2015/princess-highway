@@ -13,7 +13,7 @@ if (count($activeLookbooks)==1): ?>
 <?php elseif (count($activeLookbooks)>1): ?>
 	<li class="level0 nav-0 first level-top parent">
 		<a class="level-top" href="<?php echo Mage::getUrl($activeLookbooks->getFirstItem()->getIdentifier()) ?>">
-			<span><?php echo $this->__('Collection') ?></span>
+			<span><?php echo $this->__('Collections') ?></span>
 		</a>
 		<ul class="level0" style="width: auto">
 			<?php $count = 0; ?>

@@ -66,26 +66,48 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit extends Mage_Adminhtml_Blo
 			}
 			
 			Event.observe(window, 'load', function(){
-				if ($('show_credits').selectedIndex == 0)
+				if ($('include_in_nav').selectedIndex == 0)
 				{
-					$('model').parentNode.parentNode.hide();
-					$('photography').parentNode.parentNode.hide();
-					$('make_up').parentNode.parentNode.hide();
+					$('sort_order').parentNode.parentNode.hide();
+				}
+				
+				if ($('show_credits'))
+				{
+					if ($('show_credits').selectedIndex == 0)
+					{
+						$('model').parentNode.parentNode.hide();
+						$('photography').parentNode.parentNode.hide();
+						$('make_up').parentNode.parentNode.hide();
+					}
 				}
 			});
 			
-			Event.observe($('show_credits'),'change', function(){
-				if ($('show_credits').selectedIndex == 0)
+			if ($('show_credits'))
+			{
+				Event.observe($('show_credits'),'change', function(){
+					if ($('show_credits').selectedIndex == 0)
+					{
+						$('model').parentNode.parentNode.hide();
+						$('photography').parentNode.parentNode.hide();
+						$('make_up').parentNode.parentNode.hide();
+					}
+					else
+					{
+						$('model').parentNode.parentNode.show();
+						$('photography').parentNode.parentNode.show();
+						$('make_up').parentNode.parentNode.show();
+					}
+				});
+			}
+			
+			Event.observe($('include_in_nav'),'change', function(){
+				if ($('include_in_nav').selectedIndex == 0)
 				{
-					$('model').parentNode.parentNode.hide();
-					$('photography').parentNode.parentNode.hide();
-					$('make_up').parentNode.parentNode.hide();
+					$('sort_order').parentNode.parentNode.hide();
 				}
 				else
 				{
-					$('model').parentNode.parentNode.show();
-					$('photography').parentNode.parentNode.show();
-					$('make_up').parentNode.parentNode.show();
+					$('sort_order').parentNode.parentNode.show();
 				}
 			});
         ";

@@ -10,7 +10,7 @@ class FactoryX_Lookbook_Block_Lookbook_Navigation extends Mage_Core_Block_Templa
 	 */
 	public function getActiveLookbooks()
 	{
-		$activeLookbooks = Mage::getModel('lookbook/lookbook')->getCollection()->addStatusFilter(1)->addIncludeInNavFilter(1)->addStoreFilter();
+		$activeLookbooks = Mage::getModel('lookbook/lookbook')->getCollection()->addStatusFilter(1)->addIncludeInNavFilter(1)->addStoreFilter()->addAttributeToSort('sort_order', 'asc');
 		
 		return $activeLookbooks;
 	}

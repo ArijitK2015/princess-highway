@@ -127,3 +127,74 @@ div#lookbook ul#menu li img {
 #lookbook-arrowright{position: absolute; left: 940px; height: 26px; width: 26px; z-index:9999999}
 
 #lookbook-credits{text-align:center; font-size:11px; padding:5px}
+
+/* Slideshow */
+body.lookbook-index-slideshow {
+    margin: 0;
+    text-align:center;
+	overflow:hidden;
+    padding:0px !important;
+}
+#leftNav {
+    float:left;
+    margin-right:8px;
+}
+.jscarousal-contents-vertical{width:auto!important;}
+body.lookbook-index-slideshow #wrapper {
+    margin-top:2px;
+    display: block;
+    /*
+    border: 1px solid black;
+    */
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+    float: center;
+}
+.slide {
+    position:relative;
+}
+.slideNum, #slidePagination div, #currentpos  {
+    color:#6e6e6e;
+    font-size:11px;
+    font-family:century gothic,verdana,arial,helvetica,sans-serif;    
+    width:17px;
+    height:17px;
+    border:1px solid #6e6e6e;
+    border-radius:9px;
+    line-height:15px;right:10px;
+} 
+
+.slideNum{
+    position:absolute;
+    top:10px;
+}
+
+#slidePagination div {
+    display:inline-block;
+    margin:5px 5px;
+    cursor: pointer;
+}
+
+#slidePagination div.selected{
+    color:white;background:#ff8371;border-color:#ff8371;
+}
+
+#currentpos{
+    position: absolute;
+    z-index: 9999;
+    right:10px;
+    top:10px;
+}
+#fadeshow1toggler .prev img,
+#fadeshow1toggler .next img{border-width:0}
+#fadeshow1toggler {
+	display:none
+}
+#fadeshow1 {
+	width: 700px;
+    border:1px solid #e0e0e0;
+}
+#close{position:absolute;top:0px;right:0px;cursor:pointer;}
+#close img{width:60px;}
+.jscarousal-vertical{margin-top:5px !important;margin-right:10px;}

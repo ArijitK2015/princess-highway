@@ -17,6 +17,22 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
                 ->renderLayout();
     }
 	
+	public function deleteAction() {
+        $lookbookId = (int) $this->getRequest()->getParam('id');
+        if ($lookbookId) {
+            try {
+                $model = Mage::getModel('lookbook/lookbook')->load($lookbookId);
+				$model->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('lookbook')->__('Lookbook was successfully deleted'));
+                $this->_redirect('*/*/');
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+	
 	public function newAction() 
 	{
 		if ($data = $this->getRequest()->getPost()) 
@@ -273,7 +289,15 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
                 }
 				
 				// Handle URL Rewrites
-				$targetPath = "lookbook/index/view/id/".$model->getId();
+				if ($data['lookbook_type'] == "slideshow")
+				{
+					$targetPath = "lookbook/index/slideshow/id/".$model->getId();
+				}
+				else
+				{
+					$targetPath = "lookbook/index/view/id/".$model->getId();
+				}
+				
 				$requestedPath = $data['identifier'];
 				Mage::helper('core/url_rewrite')->validateRequestPath($requestedPath);
 				

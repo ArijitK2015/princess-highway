@@ -61,6 +61,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 				array(
                     'value' => 'images',
                     'label' => Mage::helper('lookbook')->__('Images Lookbook'),
+				),
+				array(
+                    'value' => 'slideshow',
+                    'label' => Mage::helper('lookbook')->__('Slideshow Lookbook'),
 				)
 			)
 		));
@@ -127,25 +131,35 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 			)
 		));
 		
-		// Field for the looks per page
-		$fieldset->addField('looks_per_page', 'select', array(
-            'label' => Mage::helper('lookbook')->__('Looks Per Page'),
-            'name' => 'looks_per_page',
-			'values' => array(
-				array(
-                    'value' => 3,
-                    'label' => Mage::helper('lookbook')->__('3'),
-                ),
-				array(
-                    'value' => 4,
-                    'label' => Mage::helper('lookbook')->__('4'),
-                ),
-				array(
-                    'value' => 5,
-                    'label' => Mage::helper('lookbook')->__('5'),
-                )
-			)
-        ));
+		// Field for the sort order
+		$fieldset->addField('sort_order', 'text', array(
+            'label' => Mage::helper('lookbook')->__('Sort Order'),
+            'name' => 'sort_order',
+			'note'      => Mage::helper('lookbook')->__('Used to sort the navigation menu.')
+		));
+		
+		if ($data['lookbook_type'] != "slideshow")
+		{
+			// Field for the looks per page
+			$fieldset->addField('looks_per_page', 'select', array(
+				'label' => Mage::helper('lookbook')->__('Looks Per Page'),
+				'name' => 'looks_per_page',
+				'values' => array(
+					array(
+						'value' => 3,
+						'label' => Mage::helper('lookbook')->__('3'),
+					),
+					array(
+						'value' => 4,
+						'label' => Mage::helper('lookbook')->__('4'),
+					),
+					array(
+						'value' => 5,
+						'label' => Mage::helper('lookbook')->__('5'),
+					)
+				)
+			));
+		}
 		
 		if ($data['category_id']) 
 		{
@@ -167,38 +181,42 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 			));
 		}
 		
-		// Field for the zoom on hover
-		$fieldset->addField('zoom_on_hover', 'select', array(
-            'label' => Mage::helper('lookbook')->__('Zoom On Hover'),
-            'name' => 'zoom_on_hover',
-            'values' => array(
-                array(
-                    'value' => 0,
-                    'label' => Mage::helper('lookbook')->__('No'),
-                ),
-				array(
-                    'value' => 1,
-                    'label' => Mage::helper('lookbook')->__('Yes'),
-				)
-            ),
-			'note'      => Mage::helper('lookbook')->__('This will add a bubble up zoom on the look pictures.')
-		));
-		
-		// Field for the look color
-		$fieldset->addField('look_color', 'select', array(
-            'label' => Mage::helper('lookbook')->__('Look Color'),
-            'name' => 'look_color',
-            'values' => array(
-				array(
-                    'value' => 'white',
-                    'label' => Mage::helper('lookbook')->__('White')
+		if ($data['lookbook_type'] != "slideshow")
+		{
+			// Field for the zoom on hover
+			$fieldset->addField('zoom_on_hover', 'select', array(
+				'label' => Mage::helper('lookbook')->__('Zoom On Hover'),
+				'name' => 'zoom_on_hover',
+				'values' => array(
+					array(
+						'value' => 0,
+						'label' => Mage::helper('lookbook')->__('No'),
+					),
+					array(
+						'value' => 1,
+						'label' => Mage::helper('lookbook')->__('Yes'),
+					)
 				),
-				array(
-                    'value' => 'black',
-                    'label' => Mage::helper('lookbook')->__('Black'),
-                )
-            )
-		));
+				'note'      => Mage::helper('lookbook')->__('This will add a bubble up zoom on the look pictures.')
+			));
+		
+			// Field for the look color
+			$fieldset->addField('look_color', 'select', array(
+				'label' => Mage::helper('lookbook')->__('Look Color'),
+				'name' => 'look_color',
+				'values' => array(
+					array(
+						'value' => 'white',
+						'label' => Mage::helper('lookbook')->__('White')
+					),
+					array(
+						'value' => 'black',
+						'label' => Mage::helper('lookbook')->__('Black'),
+					)
+				)
+			));
+		
+		}
 		
 		if ($data['category_id']) 
 		{
