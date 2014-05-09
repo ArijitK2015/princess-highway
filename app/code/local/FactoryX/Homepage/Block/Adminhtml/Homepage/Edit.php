@@ -48,6 +48,31 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit extends Mage_Adminhtml_Blo
             function saveAndContinueEdit(){
                 editForm.submit($('edit_form').action+'back/edit/');
             }";
+			
+		// Add some JS to hide/show dates
+		$this->_formScripts[] = "
+			Event.observe(window, 'load', function(){
+				if ($('status').selectedIndex != 0)
+				{
+					$('start_date').parentNode.parentNode.hide();
+					$('end_date').parentNode.parentNode.hide();
+				}
+			});
+			Event.observe($('status'),'change', function(){
+				if ($('status').selectedIndex != 0)
+				{
+					$('start_date').value = '';
+					$('end_date').value = '';
+					$('start_date').parentNode.parentNode.hide();
+					$('end_date').parentNode.parentNode.hide();
+				}
+				else
+				{
+					$('start_date').parentNode.parentNode.show();
+					$('end_date').parentNode.parentNode.show();
+				}
+			});
+        ";
 	}
 		
 	/**

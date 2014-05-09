@@ -36,6 +36,15 @@ class FactoryX_Homepage_Model_Mysql4_Homepage_Collection extends Mage_Core_Model
                 ->where('main_table.homepage_id = ?', $id);
         return $this;
     }
+	
+	/**
+	 *	Displayed filter
+	 */
+    public function addDisplayedFilter($displayed) {
+        $this->getSelect()
+                ->where('main_table.displayed = ?', $displayed);
+        return $this;
+    }
 
 	/**
 	 *	Status filter
@@ -78,5 +87,12 @@ class FactoryX_Homepage_Model_Mysql4_Homepage_Collection extends Mage_Core_Model
         }
         return $this;
     }
+	
+	public function addAttributeToSort($attribute, $order = 'asc')
+	{
+		$this->getSelect()
+                ->order('main_table.'.$attribute.' '.$order);
+        return $this;
+	}
 
 }

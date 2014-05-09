@@ -28,6 +28,15 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage extends Mage_Adminhtml_Block_Wi
                         ))
         );
 		
+		// Preview homepage buton
+        $this->setChild('preview_button', $this->getLayout()->createBlock('adminhtml/widget_button')
+                        ->setData(array(
+                            'label' => Mage::helper('homepage')->__('Preview Store Home Page'),
+                            'onclick' => "previewStoreHomepage()",
+                            'class' => 'save'
+                        ))
+        );
+		
         // Display store switcher if system has more one store
         if (!Mage::app()->isSingleStoreMode()) 
 		{
@@ -47,6 +56,14 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage extends Mage_Adminhtml_Block_Wi
     public function getAddNewButtonHtml() 
 	{
         return $this->getChildHtml('add_new_button');
+    }
+	
+	/**
+	 * Getter for the preview homepage button
+	 */
+    public function getPreviewButtonHtml() 
+	{
+        return $this->getChildHtml('preview_button');
     }
 
 	/**

@@ -48,6 +48,18 @@
 							</homepage>
 						</children>
 					</factoryx_menu>
+					<system>
+						<children>
+							<config>
+								<children>
+									<homepage>
+										<title>Homepage</title>
+										<sort_order>100</sort_order>
+									</homepage>
+								</children>
+							</config>
+						</children>
+					</system>
                  </children>
             </admin>
         </resources>

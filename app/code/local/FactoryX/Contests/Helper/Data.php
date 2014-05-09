@@ -128,6 +128,9 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 					}
 				}
 				
+				// Add secure hash
+				$customFields[] = array("Key"=>"securehash","Value"=>md5($fields['email'].$apiKey));
+				
 				if (self::$subscribeToCampaignMonitor) {
     				$wrap = new CS_REST_Subscribers($listID, $apiKey);
     				$result = $wrap->add(

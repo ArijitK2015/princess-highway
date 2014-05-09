@@ -103,5 +103,13 @@ class FactoryX_Homepage_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		else return $data;
 	}
+	
+	/*
+	 *
+	 */
+	public function isHomepageModuleUsed($store = null)
+	{
+		return Mage::getStoreConfig('homepage/options/enable', $store);
+	}
 
 }

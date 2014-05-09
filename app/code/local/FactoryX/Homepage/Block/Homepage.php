@@ -2,74 +2,28 @@
 
 class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template 
 {
-	
-	/**
-	 *	Retrieve the current homepage for the frontend
-	 */
-	public function getCurrentHomepage($store = null)     
-    {
-		if ($store == "")	$store = null;
-		
-		try
-		{
-			// If we are on the preview page
-			if (Mage::app()->getRequest()->getActionName() == "preview")
-			{
-				// We retrieve the home page based on the id
-				$currentHomepage = Mage::getModel('homepage/homepage')->load(Mage::app()->getRequest()->getParam('id'));
-			}
-			else
-			{
-				// Else we retrieve it using the first enabled homepage (there should be only one anyway)
-				$currentHomepage = Mage::getModel('homepage/homepage')
-									->getCollection()
-									->addStatusFilter(1)
-									->addStoreFilter($store)
-									->getFirstItem();
-			}
-			
-			// Ensure the homepage is viewable in the store
-			if (!Mage::app()->isSingleStoreMode()) 
-			{
-				if ($currentHomepage->isStoreViewable()) 
-					return $currentHomepage;
-				else 
-					throw new Exception ('This homepage is not available with this store.');
-			}
-			else
-			{
-				return $currentHomepage;
-			}
-		}
-		catch (Exception $e)
-		{
-			Mage::helper('homepage')->log($this->__('Exception caught in %s under % with message: %s', __FILE__, __FUNCTION__, $e->getMessage()));
-			return false;
-		}
-    }
+	public $_homepage;
 	
 	/**
 	 * Build the frontend home page
 	 */
-	public function __construct()
+	public function __construct($data)
     {
         parent::__construct();
-
-		// Retrieve the current home page and use the store id if multistore
-		if (!Mage::app()->isSingleStoreMode())
+		
+		if ($id = Mage::app()->getRequest()->getParam('id'))
 		{
-			$storeId = Mage::app()->getStore()->getId();
+			$homepage = Mage::getModel('homepage/homepage')->load($id);
 		}
 		else
 		{
-			$storeId = "";
+			$homepage = $data['homepage'];
 		}
 		
-		$homepage = $this->getCurrentHomepage($storeId);
+		$this->_homepage = $homepage;
 		
 		if ($homepage)
 		{
-		
 			// Set the template based on the layout chosen
 			$this->setTemplate('factoryx/homepage/templates/'.$homepage->getLayout().'.phtml');
 			
@@ -453,7 +407,7 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 	private function makeCacheKey() 
 	{
 		// Cache key generated based on the homepage id, the store id and the package name.
-		$homepageId = $this->getCurrentHomepage()->getHomepageId();
+		$homepageId = $this->getHomepage()->getHomepageId();
 		$cacheKey = sprintf("HOMEPAGE_%d_%s_%s", Mage::app()->getStore()->getId(), Mage::getSingleton('core/design_package')->getPackageName(), $homepageId);
 		// Mage::helper('homepage')->log(sprintf("%s->cacheKey=%s", __METHOD__, $cacheKey));
 		return $cacheKey;
@@ -464,17 +418,8 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 	 */
 	public function _beforeToHtml()
     {
-		// Retrieve the current home page and use the store id if multistore
-		if (!Mage::app()->isSingleStoreMode())
-		{
-			$storeId = Mage::app()->getStore()->getId();
-		}
-		else
-		{
-			$storeId = "";
-		}
-		
-		$homepage = $this->getCurrentHomepage($storeId);
+	
+		$homepage = $this->getHomepage();
 		
 		if ($homepage)
 		{
@@ -930,5 +875,10 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
         
         return $this;
     }
+	
+	public function getHomepage()
+	{
+		return $this->_homepage;
+	}
 }
 ?>

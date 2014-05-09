@@ -27,7 +27,7 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Grid extends Mage_Adminhtml_Blo
 	{
 		// Get the collection of home pages
         $collection = Mage::getModel('homepage/homepage')->getCollection()
-							->addFieldToSelect(array('homepage_id','title','amount','slider','layout','status','added','edited'));
+							->addFieldToSelect(array('homepage_id','title','amount','slider','sort_order','layout','status','added','edited'));
 		
 		$store = $this->_getStore();
         if ($store->getId()) 
@@ -84,6 +84,12 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Grid extends Mage_Adminhtml_Blo
                 0 => Mage::helper('homepage')->__('No'),
                 1 => Mage::helper('homepage')->__('Yes')
             ),
+        ));
+		
+		$this->addColumn('sort_order', array(
+            'header' => Mage::helper('homepage')->__('Sort Order'),
+            'align' => 'left',
+            'index' => 'sort_order',
         ));
 		
 		$statuses = Mage::getSingleton('homepage/status')->getOptionArray();

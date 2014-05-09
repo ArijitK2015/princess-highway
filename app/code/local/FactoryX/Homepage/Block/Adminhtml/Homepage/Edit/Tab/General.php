@@ -29,6 +29,10 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 		// Dummy values for disabled field
 		$data['amount_text'] = $data['amount'];
 		$data['slider_text'] = $data['slider'];
+		
+		// Dummy values for empty dates
+		if ($data['start_date'] == "0000-00-00 00:00:00") $data['start_date'] = "";
+		if ($data['end_date'] == "0000-00-00 00:00:00") $data['end_date'] = "";
 
 		// Field for the title of the homepage
         $fieldset->addField('title', 'text', array(
@@ -43,6 +47,10 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
             'label' => Mage::helper('homepage')->__('Status'),
             'name' => 'status',
             'values' => array(
+				array(
+                    'value' => 2,
+                    'label' => Mage::helper('homepage')->__('Automatic'),
+                ),
                 array(
                     'value' => 0,
                     'label' => Mage::helper('homepage')->__('Disabled'),
@@ -50,14 +58,9 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 				array(
                     'value' => 1,
                     'label' => Mage::helper('homepage')->__('Enabled'),
-                )/*,
-				array(
-                    'value' => 2,
-                    'label' => Mage::helper('homepage')->__('Automatic'),
-                )*/
-            )/*,
+                )
+            ),
 			'note'      => Mage::helper('homepage')->__('The automatic status will use start and end dates to automatically enable and disable the homepage.')
-			*/
 		));
 		
 		$fieldset->addField('amount_text', 'text', array(
@@ -90,7 +93,11 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 			  'name'	=> 'slider'
 		));
 		
-		/*
+		$fieldset->addField('sort_order', 'text', array(
+            'label' => Mage::helper('homepage')->__('Sort Order'),
+            'name' => 'sort_order'
+        ));
+		
 		// Output format for the start and end dates
 		$outputFormat = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
 
@@ -115,7 +122,6 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 			'class' => 'validate-date-au',
 			'note'      => Mage::helper('homepage')->__('Only with automatic status: homepage will automatically end at 1am on the end date.')
         ));
-		*/
 
 		// We fill the form based on the retrieved data
         $form->setValues($data);

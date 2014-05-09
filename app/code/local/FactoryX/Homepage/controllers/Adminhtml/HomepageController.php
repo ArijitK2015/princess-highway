@@ -5,16 +5,19 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 	
 	protected function _initAction() 
 	{
-        $this->loadLayout()
-                ->_setActiveMenu('factoryx_menu/homepage');
+        $this->loadLayout()->_setActiveMenu('factoryx_menu/homepage');
 
         return $this;
     }
 
     public function indexAction() 
 	{
-        $this->_initAction()
-                ->renderLayout();
+	    try {
+            $this->_initAction()->renderLayout();
+        }
+        catch(Exception $ex) {
+            Mage::helper('homepage')->(sprintf("%s->error=%s", __METHOD__, print_r($ex, true)), Zend_Log::DEBUG );
+        }
     }
 	
 	public function deleteAction() {
@@ -35,18 +38,25 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 	
 	public function newAction() 
 	{
-		if ($data = $this->getRequest()->getPost()) 
-		{
-			// If previous page has been filled we add the layout to the session
-			Mage::getSingleton('adminhtml/session')->setLayout($data['layout']);
-			// If an ID is provided, that means it is an existing homepage and there is a layout change
-			if ($id = $this->getRequest()->getParam('id')) 
-				// We set a flag
-				Mage::getSingleton('adminhtml/session')->setChangingLayout(1);
-			$this->_forward('edit'); 
+	    $data = $this->getRequest()->getPost();
+		if ($data) {
+		    Mage::log(sprintf("%s->data=%s", __METHOD__, print_r($data, true)), Zend_Log::DEBUG );
+		    
+		    if (!array_key_exists('layout', $data)) {
+	    		Mage::getSingleton('adminhtml/session')->addError(Mage::helper('homepage')->__('No layout was choosen'));
+                $this->_redirect('*/*/');        
+		    }
+		    else {
+    			// If previous page has been filled we add the layout to the session
+    			Mage::getSingleton('adminhtml/session')->setLayout($data['layout']);
+    			// If an ID is provided, that means it is an existing homepage and there is a layout change
+    			if ($id = $this->getRequest()->getParam('id')) 
+    				// We set a flag
+    				Mage::getSingleton('adminhtml/session')->setChangingLayout(1);
+    			$this->_forward('edit'); 
+    		}
 		}
-		else
-		{
+		else {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('homepage')->__('Home Page does not exist'));
             $this->_redirect('*/*/');
 		}
@@ -192,7 +202,19 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 					// We test the org and the new amount
 					if ($amount != $model->getAmount())
 					{
-						// Change it if needed
+						// Unset the extra images if we switching to a lower amount
+						if ($model->getAmount() > $amount)
+						{
+							$count = $amount;
+							$count++;
+							for($count; $count <= $model->getAmount();$count++)
+							{
+								$imageToDelete = $model->getImage($count);
+								$imageToDelete->delete();
+							}
+						}
+						
+						// Change the amount if needed
 						$model->setAmount($amount);
 						$saveFlag = true;
 					}
@@ -340,7 +362,6 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 					}
 				}
 				
-				/*
 				// If it's an automatic homepage, the start and end dates must be provided
 				if($data['status'] == 2 && (!isset($data['start_date']) || !isset($data['end_date'])))
 				{
@@ -348,32 +369,30 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
 					throw new Exception ("Start and end dates must be provided for an automatic homepage.");
 				}
-				
-				// End date must be later than start date
-				if (isset($data['start_date']) && isset($data['end_date']) && $data['start_date'] > $data['end_date'])
-				{
-					// We use session to set the active tab to show where the error is
-					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
-					throw new Exception ("Start date must not be later than end date.");
-				}
 
-                if (isset($data['start_date']) && $data['start_date']) 
+                if ($data['status'] == 2 && isset($data['start_date']) && $data['start_date']) 
 				{
 					// Convert the date properly
 					$startdate = Mage::app()->getLocale()->date($data['start_date'], Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
 					// Set the times to zero
 					$startdate->set('00:00:00',Zend_Date::TIMES);
-					$model->setStartDate($startdate);
                 } 
 				
-				if (isset($data['end_date']) && $data['end_date']) 
+				if ($data['status'] == 2 && isset($data['end_date']) && $data['end_date']) 
 				{
 					// Convert the date properly
 					$enddate = Mage::app()->getLocale()->date($data['end_date'], Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
 					// Set the times to zero
 					$enddate->set('00:00:00',Zend_Date::TIMES);
-					$model->setEndDate($enddate);
                 }
+				
+				// End date must be later than start date
+				if ($data['status'] == 2 && isset($enddate) && isset($startdate) && $startdate->isLater($enddate))
+				{
+					// We use session to set the active tab to show where the error is
+					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
+					throw new Exception ("Start date must not be later than end date.");
+				}
 				
 				// If it is disabled we don't display it
 				if ($data['status'] == 0)
@@ -404,7 +423,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 						// We don't display the homepage
 						$model->setDisplayed(0);
 					}
-				}*/
+				}
 
 				// Save the homepage
                 $model->save();		
@@ -435,47 +454,6 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 						$existingImage->setAlt($data['alt_'.$i]);
 						$existingImage->setPopup($data['popup_'.$i]);
 						$existingImage->save();
-					}
-				}
-				
-				// Disable previous home pages
-				if (!Mage::app()->isSingleStoreMode() && isset($data['stores']) && $data['status'])
-				{
-					// Multistore loop through stores
-					foreach ($data['stores'] as $key => $storeId)
-					{						
-						// Enabled homepages for the store (except the current)
-						$enabledHomepages = Mage::getResourceModel('homepage/homepage_collection')
-							->addStatusFilter(FactoryX_Homepage_Model_Status::STATUS_ENABLED)
-							->addNotIdsFilter($model->getId())
-							->addStoreFilter($storeId);
-							
-						if (count($enabledHomepages))
-						{
-							// Disable all previously enabled homepages
-							foreach ($enabledHomepages as $enabledHomepage)
-							{
-								$enabledHomepage->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED);
-								$enabledHomepage->save();
-							}
-						}
-					}
-				}
-				elseif($data['status'])
-				{
-					// Enabled homepages (except the current)
-					$enabledHomepages = Mage::getResourceModel('homepage/homepage_collection')
-							->addStatusFilter(FactoryX_Homepage_Model_Status::STATUS_ENABLED)
-							->addNotIdsFilter($model->getId());
-							
-					if (count($enabledHomepages))
-					{
-						// Disable all previously enabled homepages
-						foreach ($enabledHomepages as $enabledHomepage)
-						{
-							$enabledHomepage->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED);
-							$enabledHomepage->save();
-						}
 					}
 				}
 				
@@ -540,13 +518,62 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
         } else {
             try {
 
-                foreach ($homepageIds as $homepageId) {
-                    $homepage = Mage::getModel('homepage/homepage')
-                            ->load($homepageId)
-                            ->setStatus($this->getRequest()->getParam('status'))
-                            ->setStores('')
-                            ->setIsMassupdate(true)
-                            ->save();
+				foreach ($homepageIds as $homepageId) 
+				{
+					// Load homepage
+					$homepage = Mage::getModel('homepage/homepage')
+                            ->load($homepageId);
+					// If it is disabled we don't display it
+					if ($this->getRequest()->getParam('status') == 0)
+					{
+						$homepage->setStatus($this->getRequest()->getParam('status'))
+								->setDisplayed(0)
+								->setStores('')
+								->setIsMassupdate(true)
+								->save();
+					}
+					// If it is enabled we do display it
+					elseif($this->getRequest()->getParam('status') == 1)
+					{
+						$homepage->setStatus($this->getRequest()->getParam('status'))
+								->setDisplayed(1)
+								->setStores('')
+								->setIsMassupdate(true)
+								->save();
+					}
+					// If it is automatic, it depends on the dates
+					elseif($this->getRequest()->getParam('status') == 2)
+					{
+						// Current date		
+						$today = Mage::app()->getLocale()->date();
+						// Start date
+						$startDate = Mage::app()->getLocale()->date($homepage->getStartDate(), Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
+						$startDate->set('00:00:00',Zend_Date::TIMES);
+						// End date
+						$endDate = Mage::app()->getLocale()->date($homepage->getEndDate(), Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),null, true);
+						$endDate->set('00:00:00',Zend_Date::TIMES);
+						// If the start date is earlier than today and end date later than today
+						if ($startDate->isEarlier($today) && $endDate->isLater($today))
+						{
+							// We display the homepage
+							$homepage->setStatus($this->getRequest()->getParam('status'))
+									->setDisplayed(1)
+									->setStores('')
+									->setIsMassupdate(true)
+									->save();
+						}
+						// If the start date is earlier than today and end date earlier than today 
+						// or if the start date is later than today
+						elseif(($startDate->isEarlier($today) && $endDate->isEarlier($today)) || ($startDate->isLater($today)))
+						{
+							// We don't display the homepage
+							$homepage->setStatus($this->getRequest()->getParam('status'))
+									->setDisplayed(0)
+									->setStores('')
+									->setIsMassupdate(true)
+									->save();
+						}
+					}
                 }
                 $this->_getSession()->addSuccess(
                         $this->__('Total of %d record(s) were successfully updated', count($homepageIds))

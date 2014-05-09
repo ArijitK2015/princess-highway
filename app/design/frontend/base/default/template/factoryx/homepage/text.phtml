@@ -1,0 +1,33 @@
+<!-- THIS LAYOUT IS GOING TO HAVE A SLIDER THEN SOME THUMBNAIL AT THE BOTTOM -->
+<?php if(!Mage::helper('homepage')->isHomepageModuleUsed()): ?>
+
+	<?php
+		
+		$image = $this->getImage();
+		$size = getimagesize(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$images[0]);    
+		$link = $this->getLink();
+		$header = $this->getHeader();
+		$text = $this->getText();
+		$action = $this->getCalltoaction();
+		$popup = $this->getPopup();
+		$top=$this->getTop();
+		$bottom=$this->getBottom();
+		$middle=$this->getMiddle();
+		if ($top) { $top .= 'px'; } else {$top = '0px';}
+		if ($bottom) { $bottom .= 'px'; } else {$bottom = '0px';}
+		if ($middle) { $middle .= 'px'; } else {$middle = '0px';}
+	?>
+
+
+	<div id="thumbnails" style="float:left;">
+	<div style="vertical-align:top;display:inline-block;max-width:245px;"><a href="<?=$link?>" <?php ($popup) ? 'target="_blank"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$image?>" /></a><div class="text"><h1><?=$header?></h1>
+	<hr>
+	<p><?=$text?>
+	</p><hr>
+	<a href="<?=$link?>">
+	<?=$action?>
+	</a></div></div></div>
+
+	<style>   
+	</style>
+<?php endif; ?>

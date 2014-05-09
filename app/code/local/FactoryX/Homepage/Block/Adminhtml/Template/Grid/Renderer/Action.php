@@ -26,7 +26,12 @@ class FactoryX_Homepage_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 
 		if (Mage::app()->isSingleStoreMode())
 		{
-			$previewUrl = Mage::getUrl("homepage/index/preview", array('id' => $row->getId(),'_store' => 'default'));
+			$previewUrl = Mage::getUrl("homepage/index/preview",
+			    array(
+			        'id'        => $row->getId(),
+			        '_store'    => 0 // 'default' causes Mage_Core_Model_Store_Exception
+			    )
+            );
 		}
 		else
 		{
@@ -41,17 +46,38 @@ class FactoryX_Homepage_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 			
 			// We use the first store URL even if there's several stores for the same homepage
 			$homepageStoreId = $readConnection->fetchOne($query);
-								
-			if ($homepageStoreId)	$previewUrl = Mage::getUrl("homepage/index/preview",array('id' => $row->getId(),'_store'=>$homepageStoreId));
-			else $previewUrl = Mage::getUrl("homepage/index/preview", array('id' => $row->getId(),'_store' => 'default'));
-
+            
+            /**
+            Mage::getUrl(routePath, routeParams)
+            routeParams = array(
+                _store int or string, Either the numeric store ID or textual store code. It will use the correct domain as the base
+            )
+            */
+			if ($homepageStoreId) {
+                $previewUrl = Mage::getUrl(
+                    "homepage/index/preview",
+                    array(
+                        'id'        => $row->getId(),
+                        '_store'    => $homepageStoreId
+                    )
+                );
+            }
+			else {
+                $previewUrl = Mage::getUrl(
+                    "homepage/index/preview",
+                    array(
+                        'id'        => $row->getId(),
+                        '_store'    => 0 // 'default' causes Mage_Core_Model_Store_Exception
+                    )
+                );
+            }
 		}
 		
 		// Preview action
 		$actions[] = array(
 			'@' => array(
 				'href'  => $previewUrl,
-				'target'=>	'_blank'
+				'target'=> '_blank'
 			),
 			'#'	=> Mage::helper('homepage')->__('Preview')
 		);
