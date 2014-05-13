@@ -16,7 +16,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
             $this->_initAction()->renderLayout();
         }
         catch(Exception $ex) {
-            Mage::helper('homepage')->(sprintf("%s->error=%s", __METHOD__, print_r($ex, true)), Zend_Log::DEBUG );
+            Mage::helper('homepage')->log(sprintf("%s->error=%s", __METHOD__, print_r($ex, true)), Zend_Log::DEBUG );
         }
     }
 	

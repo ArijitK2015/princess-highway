@@ -162,7 +162,9 @@ body.lookbook-index-slideshow #wrapper {
     height:17px;
     border:1px solid #6e6e6e;
     border-radius:9px;
-    line-height:15px;right:10px;
+    line-height:15px;
+	right:10px;
+	background-color:#EFE67E
 } 
 
 .slideNum{
@@ -197,4 +199,5 @@ body.lookbook-index-slideshow #wrapper {
 }
 #close{position:absolute;top:0px;right:0px;cursor:pointer;}
 #close img{width:60px;}
-.jscarousal-vertical{margin-top:5px !important;margin-right:10px;}
+.jscarousal-vertical{margin-top:5px !important;margin-right:10px !important;}
+.noshow{visibility:hidden}

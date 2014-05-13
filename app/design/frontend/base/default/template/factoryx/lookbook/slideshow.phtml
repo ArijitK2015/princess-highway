@@ -11,20 +11,24 @@ $numOfSlides = count($_imageCollection);
 ?>
 
 <script type="text/javascript">
+	// image dimensions
+	var imageW = 385;
+	var imageH = 591;
+	
 	// document.body.style.overflow = "hidden";
 	jQuery.noConflict();
 	
 	var trueHeight = jQuery(window).height()-30;
-	var trueWidth = Math.ceil(700/1000*trueHeight);
+	var trueWidth = Math.ceil(imageW/imageH*trueHeight);
 	var thumbHeight = Math.ceil((trueHeight-72)/3);
-	var thumbWidth = Math.ceil(700/1000*thumbHeight);
+	var thumbWidth = Math.ceil(imageW/imageH*thumbHeight);
 	var maxWidth = jQuery(window).width() - thumbWidth -40;
 	if (trueWidth>maxWidth) {
 		trueWidth = maxWidth;
 		trueHeight = Math.ceil(trueWidth*10/7);
 	}
 	var slideHeight = trueHeight-60;
-	var slideWidth = Math.ceil(700/1000*slideHeight);
+	var slideWidth = Math.ceil(imageW/imageH*slideHeight);
 	jQuery(window).load(function() {
 		var mygallery = new fadeSlideShow({
 			wrapperid: "fadeshow1", //ID of blank DIV on page to house Slideshow
@@ -64,7 +68,7 @@ $numOfSlides = count($_imageCollection);
 		jQuery('.jscarousal-contents-vertical').css({height:(jQuery('.visible > .slide').first().outerHeight()*3)+(7*4)+'px'});
 
 		var total = jQuery('.slide').length;
-		for (var i=1;i<total;i++){
+		for (var i=1;i<=total;i++){
 			if (jQuery('.slide > #'+i).attr('src') != "about:blank"){            
 				jQuery('#slidePagination').append("<div id='"+i+"'>"+i+"</div>");
 			}
@@ -102,6 +106,23 @@ $numOfSlides = count($_imageCollection);
 						<div class="slideNum"> <?php echo $count++ ?></div>
 					</div>
 				<?php endforeach; ?>
+				<?php if (!(count($_imageCollection) % 3 == 0)): ?>
+					<?php $plusOne = count($_imageCollection)+1; ?>
+					<?php $plusTwo = count($_imageCollection)+2; ?>
+					<?php if ($plusOne % 3 == 0): ?>
+						<div class="slide">
+							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+						</div>
+					<?php elseif($plusTwo % 3 == 0): ?>
+						<div class="slide">
+							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+						</div>
+						<?php $count++; ?>
+						<div class="slide">
+							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 
