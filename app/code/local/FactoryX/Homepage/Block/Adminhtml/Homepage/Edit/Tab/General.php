@@ -31,8 +31,8 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 		$data['slider_text'] = $data['slider'];
 		
 		// Dummy values for empty dates
-		if ($data['start_date'] == "0000-00-00 00:00:00") $data['start_date'] = "";
-		if ($data['end_date'] == "0000-00-00 00:00:00") $data['end_date'] = "";
+		if (array_key_exists('start_date',$data) && $data['start_date'] == "0000-00-00 00:00:00") $data['start_date'] = "";
+		if (array_key_exists('end_date',$data) && $data['end_date'] == "0000-00-00 00:00:00") $data['end_date'] = "";
 
 		// Field for the title of the homepage
         $fieldset->addField('title', 'text', array(
