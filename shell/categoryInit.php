@@ -131,5 +131,5 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
 }
 
 $shell = new FactoryX_CategoryInit();
-//$shell->run();
+$shell->run();
 $shell->testEmailTemplate();
