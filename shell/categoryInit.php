@@ -112,23 +112,24 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
     	
     }
 
-    public function initEmailTemplate(){
+    public function testEmailTemplate(){
+
+        // Run the email import
+        shell_exec('mysql -uprincess_highway -pszDFhSTKo3jlLq27ZCYO --host=rds.stage.int.aws.factoryx.com.au princess_highway < /var/www/magento/scripts/core_email_template.sql');
+        shell_exec('mysql -uprincess_highway -pszDFhSTKo3jlLq27ZCYO --host=rds.stage.int.aws.factoryx.com.au princess_highway < /var/www/magento/scripts/cms_block_email.sql');
+       /*
         $emailTemplates = Mage::getModel('core/email_template')->getCollection();
         foreach ($emailTemplates as $emailTemplate) {
-            //echo $emailTemplate->getTemplateId()." ";
-            //echo $emailTemplate->getTemplateCode()."\n";
+            $templateId = $emailTemplate->getId();$storeId = 0;
+            $emailTemplate = Mage::getModel('core/email_template')->load($templateId);
+            $emailTemplate->setSenderEmail(Mage::getStoreConfig('trans_email/ident_general/email', $storeId));
+            $emailTemplate->setSenderName(Mage::getStoreConfig('trans_email/ident_general/name', $storeId));
+            $emailTemplate->send('alvin@factoryx.com.au','Alvin Nguyen');
         }
-        $templateId = 20;$storeId = 0;
-        $emailTemplate = Mage::getModel('core/email_template')->load($templateId);
-        //$vars = array('user_name' => $userName, 'product_name' => $productName);
-        $emailTemplate->setSenderEmail(Mage::getStoreConfig('trans_email/ident_general/email', $storeId));
-        $emailTemplate->setSenderName(Mage::getStoreConfig('trans_email/ident_general/name', $storeId));
-        $emailTemplate->send('alvin@factoryx.com.au','Alvin Nguyen');
+       */
     }
-
- 
 }
 
 $shell = new FactoryX_CategoryInit();
-$shell->run();
-//$shell->initEmailTemplate();
+//$shell->run();
+$shell->testEmailTemplate();
