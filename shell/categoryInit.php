@@ -56,54 +56,52 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
 
                 // Create Block for the nav
                 $block = Mage::getModel('cms/block');
-                if (!$block->load('pronav_'.$fullcategory->getId())){
-                    $block->setTitle('Pronav - '.$fullcategory->getName());
-                    $block->setIdentifier('pronav_'.$fullcategory->getId());
-                    $block->setStores(array(array(0)));
-                    $block->setIsActive(1);
-                    $block->setContent('<div class="row">
-                            <div class="span12">
-                            <table class="pronav-sub-menu">
-                            <tr>
-                            <td>
-                            <div class="sub-category-menu">    
-                               <ul>
-                                    {{widget type="pronav/category_widget_subcategories_list" levels="1" columns="1" thumbnail_images="No" category_images="No" selected_cat="Yes" template="pronav/items/widget/link/subcategories/list.phtml" id_path="category/'.$fullcategory->getId().'"}}
-                               </ul>
-                            </div>
-                            </td>
-                            <td>
-                                 <div class="menu-promo">
-                                       <!-- SETUP YOUR PIC HERE -->
-                                       <a href="#small-promo"></a>
-                                       <!-- END PIC SETUP -->
-                                 </div>
-                            </td>  
-                            </tr>
-                            </table>
-                            </div>
-                            </div>');
-                    $block->save();
+                $block->setTitle('Pronav - '.$fullcategory->getName());
+                $block->setIdentifier('pronav_'.$fullcategory->getId());
+                $block->setStores(array(array(0)));
+                $block->setIsActive(1);
+                $block->setContent('<div class="row">
+                        <div class="span12">
+                        <table class="pronav-sub-menu">
+                        <tr>
+                        <td>
+                        <div class="sub-category-menu">
+                           <ul>
+                                {{widget type="pronav/category_widget_subcategories_list" levels="1" columns="1" thumbnail_images="No" category_images="No" selected_cat="Yes" template="pronav/items/widget/link/subcategories/list.phtml" id_path="category/'.$fullcategory->getId().'"}}
+                           </ul>
+                        </div>
+                        </td>
+                        <td>
+                             <div class="menu-promo">
+                                   <!-- SETUP YOUR PIC HERE -->
+                                   <a href="#small-promo"></a>
+                                   <!-- END PIC SETUP -->
+                             </div>
+                        </td>
+                        </tr>
+                        </table>
+                        </div>
+                        </div>');
+                $block->save();
 
-                    echo $block->getId()."\n";
-                    $pronav = Mage::getModel('pronav/pronav');
-                    $pronav_data = array(
-                            'name' => $fullcategory->getName(),
-                            'url_key' => $fullcategory->getUrlPath(),
-                            'i_index' => $fullcategory->getPosition(),
-                            'store_id' => 0,
-                            'static_block' => $block->getId(),
-                            'link' => 1,
-                            'sub_position' => 1,
-                            'sub_start' => 1,
-                            'no_follow' => 1,
-                            'responsive' => 1,
-                            'status' => 1
-                        );
-                    $pronav->setData($pronav_data);
-                    $pronav->save();
-                }
-                
+                echo $block->getId()."\n";
+                $pronav = Mage::getModel('pronav/pronav');
+                $pronav_data = array(
+                        'name' => $fullcategory->getName(),
+                        'url_key' => $fullcategory->getUrlPath(),
+                        'i_index' => $fullcategory->getPosition(),
+                        'store_id' => 0,
+                        'static_block' => $block->getId(),
+                        'link' => 1,
+                        'sub_position' => 1,
+                        'sub_start' => 1,
+                        'no_follow' => 1,
+                        'responsive' => 1,
+                        'status' => 1
+                    );
+                $pronav->setData($pronav_data);
+                $pronav->save();
+
             }
 	    }
         catch(Exception $e) {
