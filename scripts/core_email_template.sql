@@ -41,7 +41,7 @@ CREATE TABLE `core_email_template` (
   KEY `IDX_CORE_EMAIL_TEMPLATE_MODIFIED_AT` (`modified_at`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='Email Templates';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+ALTER TABLE core_email_template AUTO_INCREMENT = 1;
 --
 -- Dumping data for table `core_email_template`
 --
