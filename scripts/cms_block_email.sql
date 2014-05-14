@@ -16,25 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cms_block`
---
-
-DROP TABLE IF EXISTS `cms_block`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cms_block` (
-  `block_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'Block ID',
-  `title` varchar(255) NOT NULL COMMENT 'Block Title',
-  `identifier` varchar(255) NOT NULL COMMENT 'Block String Identifier',
-  `content` mediumtext COMMENT 'Block Content',
-  `creation_time` timestamp NULL DEFAULT NULL COMMENT 'Block Creation Time',
-  `update_time` timestamp NULL DEFAULT NULL COMMENT 'Block Modification Time',
-  `is_active` smallint(6) NOT NULL DEFAULT '1' COMMENT 'Is Block Active',
-  PRIMARY KEY (`block_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COMMENT='CMS Block Table';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `cms_block`
 --
 -- WHERE:  identifier like '%email%' OR identifier like '%message%'
