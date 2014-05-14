@@ -42,18 +42,7 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
     public function run()
     {
     	try {
-    	 // $parentId = 1;
-	     //    $category = Mage::getModel('catalog/category');
-	     //    $category->setName('check');
-	     //    $category->setUrlKey('new-category');
-	     //    $category->setIsActive(1);
-	     //    $category->setDisplayMode('PRODUCTS');
-	     //    $category->setIsAnchor(1); //for active achor
-	     //    $category->setStoreId(Mage::app()->getStore()->getId());
-	     //    $parentCategory = Mage::getModel('catalog/category')->load($parentId);
-	     //    $category->setPath($parentCategory->getPath());
-	     //    $category->save();
-
+    	
             // GET TOP CATEGORIES
             $categories = Mage::getModel('catalog/category')->getCollection()
                             ->addAttributeToFilter('level', array('eq'=>2))
@@ -67,53 +56,54 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
 
                 // Create Block for the nav
                 $block = Mage::getModel('cms/block');
-                $block->setTitle('Pronav - '.$fullcategory->getName());
-                $block->setIdentifier('pronav_'.$fullcategory->getId());
-                $block->setStores(array(array(0)));
-                $block->setIsActive(1);
-                $block->setContent('<div class="row">
-                        <div class="span12">
-                        <table class="pronav-sub-menu">
-                        <tr>
-                        <td>
-                        <div class="sub-category-menu">    
-                           <ul>
-                                {{widget type="pronav/category_widget_subcategories_list" levels="1" columns="1" thumbnail_images="No" category_images="No" selected_cat="Yes" template="pronav/items/widget/link/subcategories/list.phtml" id_path="category/'.$fullcategory->getId().'"}}
-                           </ul>
-                        </div>
-                        </td>
-                        <td>
-                             <div class="menu-promo">
-                                   <!-- SETUP YOUR PIC HERE -->
-                                   <a href="#small-promo"></a>
-                                   <!-- END PIC SETUP -->
-                             </div>
-                        </td>  
-                        </tr>
-                        </table>
-                        </div>
-                        </div>');
-                $block->save();
-                echo $block->getId()."\n";
-                $pronav = Mage::getModel('pronav/pronav');
-                $pronav_data = array(
-                        'name' => $fullcategory->getName(),
-                        'url_key' => $fullcategory->getUrlPath(),
-                        'i_index' => $fullcategory->getPosition(),
-                        'store_id' => 0,
-                        'static_block' => $block->getId(),
-                        'link' => 1,
-                        'sub_position' => 1,
-                        'sub_start' => 1,
-                        'no_follow' => 1,
-                        'responsive' => 1,
-                        'status' => 1
-                    );
-                $pronav->setData($pronav_data);
-                $pronav->save();
+                if (!$block->load('pronav_'.$fullcategory->getId())){
+                    $block->setTitle('Pronav - '.$fullcategory->getName());
+                    $block->setIdentifier('pronav_'.$fullcategory->getId());
+                    $block->setStores(array(array(0)));
+                    $block->setIsActive(1);
+                    $block->setContent('<div class="row">
+                            <div class="span12">
+                            <table class="pronav-sub-menu">
+                            <tr>
+                            <td>
+                            <div class="sub-category-menu">    
+                               <ul>
+                                    {{widget type="pronav/category_widget_subcategories_list" levels="1" columns="1" thumbnail_images="No" category_images="No" selected_cat="Yes" template="pronav/items/widget/link/subcategories/list.phtml" id_path="category/'.$fullcategory->getId().'"}}
+                               </ul>
+                            </div>
+                            </td>
+                            <td>
+                                 <div class="menu-promo">
+                                       <!-- SETUP YOUR PIC HERE -->
+                                       <a href="#small-promo"></a>
+                                       <!-- END PIC SETUP -->
+                                 </div>
+                            </td>  
+                            </tr>
+                            </table>
+                            </div>
+                            </div>');
+                    $block->save();
 
-
-                $sql .= "INSER INTO pronav('name','url_key')";
+                    echo $block->getId()."\n";
+                    $pronav = Mage::getModel('pronav/pronav');
+                    $pronav_data = array(
+                            'name' => $fullcategory->getName(),
+                            'url_key' => $fullcategory->getUrlPath(),
+                            'i_index' => $fullcategory->getPosition(),
+                            'store_id' => 0,
+                            'static_block' => $block->getId(),
+                            'link' => 1,
+                            'sub_position' => 1,
+                            'sub_start' => 1,
+                            'no_follow' => 1,
+                            'responsive' => 1,
+                            'status' => 1
+                        );
+                    $pronav->setData($pronav_data);
+                    $pronav->save();
+                }
+                
             }
 	    }
         catch(Exception $e) {
@@ -122,8 +112,23 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
     	
     }
 
+    public function initEmailTemplate(){
+        $emailTemplates = Mage::getModel('core/email_template')->getCollection();
+        foreach ($emailTemplates as $emailTemplate) {
+            //echo $emailTemplate->getTemplateId()." ";
+            //echo $emailTemplate->getTemplateCode()."\n";
+        }
+        $templateId = 20;$storeId = 0;
+        $emailTemplate = Mage::getModel('core/email_template')->load($templateId);
+        //$vars = array('user_name' => $userName, 'product_name' => $productName);
+        $emailTemplate->setSenderEmail(Mage::getStoreConfig('trans_email/ident_general/email', $storeId));
+        $emailTemplate->setSenderName(Mage::getStoreConfig('trans_email/ident_general/name', $storeId));
+        $emailTemplate->send('alvin@factoryx.com.au','Alvin Nguyen');
+    }
+
  
 }
 
 $shell = new FactoryX_CategoryInit();
 $shell->run();
+//$shell->initEmailTemplate();
