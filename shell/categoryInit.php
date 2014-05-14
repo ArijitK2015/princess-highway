@@ -130,7 +130,10 @@ class FactoryX_CategoryInit extends Mage_Shell_Abstract
     }
 }
 
+// DANGER!!! THIS WILL CLEAR THE CMS TABLE
+// DANGER!!! THIS WILL CLEAR THE EMAIL TABLE
+
 $shell = new FactoryX_CategoryInit();
-//$shell->testEmailTemplate();
+$shell->testEmailTemplate();
 $shell->run();
 
