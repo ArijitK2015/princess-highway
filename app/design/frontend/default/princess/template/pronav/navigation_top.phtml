@@ -5,43 +5,43 @@
 	$bodyClass = $this->getLayout()->getBlock('root')->getBodyClass();
 	$bodyClass = explode(" ", $bodyClass);
 	$bodyClass = end($bodyClass);
-	
+
 	if ($this->getNavConfig('pronav_status')){
-		
+
 		if ($this->getNavConfig('make_responsive')){
 			$pronavResponsive = "make-responsive";
 		}
-		
+
 		$pronavPos = Mage::getStoreConfig('pronav/pronavstyle/pronav_position');
-		
+
 		$output = '';
-                
+
         if ( $this->getNavConfig("make_responsive") ) {
-                    $output .= '<div id="pronav-selection-container"><a href="#pronav-select" id="pronav-select-toggle"></a></div>';                   
+                    $output .= '<div id="pronav-selection-container"><a href="#pronav-select" id="pronav-select-toggle"></a></div>';
 		}
-                
-                
+
+
 		$output .= '<ul id="pronav" class="pn-'.$pronavPos. ' '.$pronavResponsive.'">';
 		$navData = $this->getNavData();
-                
+
                 // Pronav by default rnders sub menu div layer in between menu items
                 // the following modification will allow sub-menu to be cleanly rendered outside between menu items
                 // the advantage is then you could style submenu as relative position.
-                
-               
-                
-                $output_sub = ' <div id="pronav-panels-container">'; 
-                $output_script = ''; 
-                        
+
+
+
+                $output_sub = ' <div id="pronav-panels-container">';
+                $output_script = '';
+
 		foreach ($navData as $data) {
 			$urlKey = strlen($data['url_key']) > 0 && $data['url_key'] ? $data['url_key'] : '';
-			
+
 			if ($data['link'] == 2) {
 				$islink = "no-link ";
 			} else {
 				$islink = "";
 			}
-			
+
 			if ($data['sub_start'] == 2) {
 				$substart = "sub-align-start ";
 				$substatic = "position-static ";
@@ -52,21 +52,21 @@
 				$substart = "";
 				$substatic ="";
 			}
-			
+
 			if ($data['no_follow'] == 2) {
 				$nofollow = "nofollow";
 			} else {
 				$nofollow = "";
-			}		
-				
+			}
+
 			if ($data['responsive'] == 2) {
 				$responsive = "non-responsive ";
 			} else {
 				$responsive = "";
 			}
-			
+
 			if ($data['static_block'] == 0 || ! $data['static_block']) {
-				
+
 				//if li_css_id is empty
 				if ($data['li_css_id'] == "") {
 					$data['li_css_id'] = "li-primary-pronav-".strtolower(preg_replace('/[^a-z0-9]/i', '-', Mage::helper('pronav')->__($data['name'])));
@@ -75,8 +75,8 @@
 				if ($data['css_id'] == ""){
 					$data['css_id'] = "a-primary-".strtolower(preg_replace('/[^a-z0-9]/i', '-', Mage::helper('pronav')->__($data['name'])));
 				}
-				
-				//if item does not have a static block associated...		
+
+				//if item does not have a static block associated...
 				$output .= '<li id="' . $data['li_css_id'] . '" class="'. $islink . $substatic . 'primary-pronav-item no-sub' . $data['li_css_class'] . '">';
 				//$output .= '<a rel="' . $nofollow . '" href="' . $this->getBaseUrl()  . $urlKey . '" id="' . $data['css_id'] . '" class="primary-pronav-link ' . $data['css_class'] . '">';
 				$output .= '<a href="' . $data['name'] . '" class="pronav-top-level-span">' . Mage::helper('pronav')->__($data['name']) . '</a>';
@@ -84,7 +84,7 @@
 				$output .= '</li>';
 			} else {
 				//if item has static block output the following...
-				
+
 				//if li_css_id is empty
 				if ($data['li_css_id'] == "") {
 					$data['li_css_id'] = "li-primary-pronav-".strtolower(preg_replace('/[^a-z0-9]/i', '-', Mage::helper('pronav')->__($data['name'])));
@@ -98,12 +98,12 @@
 				//$output .= '<a href="/' . $this->getBaseUrl()  . $urlKey . '" id="' . $data['css_id'] . '" class="pronav-top-level-span">';
 				//$output .= Mage::helper('pronav')->__($data['name']);
 				//$output .= '</a>';
-				//$output .= '<a href="/' . strtolower(str_replace(" ", "-", $data['name'])) . '" class="pronav-top-level-span">';				
+				//$output .= '<a href="/' . strtolower(str_replace(" ", "-", $data['name'])) . '" class="pronav-top-level-span">';
 				$output .= '<a href="' . $this->getBaseUrl()  . $urlKey . '" id="' . $data['css_id'] . '" class="pronav-top-level-span">' . Mage::helper('pronav')->__($data['name']) . '</a>';
-				
-				$output_submenu_panel_id = 'sub-' . $data['li_css_id']; 
+
+				$output_submenu_panel_id = 'sub-' . $data['li_css_id'];
                 $output_script .=  ' setMenu("' . $data['li_css_id'] . '", "' . $output_submenu_panel_id . '");  ';
-                                        
+
 
 				if ($substart) {
 					//if sub is set to start from first nav item...
@@ -123,24 +123,24 @@
 					$output_sub .= $this->getLayout()->createBlock('cms/block')->setBlockId($blockIdentifier)->toHtml();
 					$output_sub .= '</div>';
 				}
-				$output .= '</li>';				
+				$output .= '</li>';
 			}
 		}
-                
+
                 $output .= '<li class="primary-pronav-item extra first-extra"><a href="/store-locator.html" class="pronav-top-level-span" >STORES</a><li>';
                 $output .= '<li class="primary-pronav-item extra"><a href="/contact.html" class="pronav-top-level-span" >CONTACT</a><li>';
                  $output .= '<li class="primary-pronav-item extra"><a href="tel:'.str_replace(' ', '%20',Mage::getStoreConfig('general/store_information/phone')).'" class="pronav-top-level-span" >'.Mage::getStoreConfig('general/store_information/phone').'</a><li>';
-                
+
                 $output_sub .= "</div>";
 		$output .= '</ul>';
-                
+
                  if ( $this->getNavConfig("make_responsive") ) {
-                    $output .= '<div class="pronav-sub-select" style="display:none"><a href="#" id="pronav-sub-select-toggle">Y</a></div>';                   
+                    $output .= '<div class="pronav-sub-select" style="display:none"><a href="#" id="pronav-sub-select-toggle">Y</a></div>';
 		}
-                
+
                 $output .= $output_sub;
-                
-                            
+
+
 		$output .= '<script type="text/javascript">';
 		$output .= 'myProNav = {};';
 		$output .= 'myProNav.bodyClass = "' . $bodyClass . '";';
@@ -174,13 +174,4 @@
 jQuery(document).ready(function() {
     <?php echo $output_script ?>
 });
-</script>
-
-<script type='text/javascript'>
-(function (d, t) {
-  var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
-  bh.type = 'text/javascript';
-  bh.src = '//www.bugherd.com/sidebarv2.js?apikey=xsefby7cxxkveaap3ocfsg';
-  s.parentNode.insertBefore(bh, s);
-  })(document, 'script');
 </script>
