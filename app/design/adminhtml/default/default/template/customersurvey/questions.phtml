@@ -133,7 +133,7 @@ function addClick() {
 
 function removeQuestion(id) {
 	var child = document.getElementById('question_' + id);
-	var parent = document.getElementById('product_options_container_top');
+	var parent = child.parentNode;
 	
 	parent.removeChild(child);
 	
