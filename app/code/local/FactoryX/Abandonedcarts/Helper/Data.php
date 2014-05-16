@@ -12,5 +12,25 @@ class FactoryX_Abandonedcarts_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		Mage::log($data, null, $this->logFileName);
 	}
+	
+	public function isEnabled()
+	{
+		return Mage::getStoreConfig('abandonedcartsconfig/options/enable');
+	}
+	
+	public function isSaleEnabled()
+	{
+		return Mage::getStoreConfig('abandonedcartsconfig/options/enable_sale');
+	}
+	
+	public function getDryRun()
+	{
+		return Mage::getStoreConfig('abandonedcartsconfig/options/dryrun');
+	}
+	
+	public function getTestEmail()
+	{
+		return Mage::getStoreConfig('abandonedcartsconfig/options/testemail');
+	}
     
 }

@@ -4,9 +4,23 @@
 
     <modules>
         <FactoryX_Abandonedcarts>
-            <version>0.0.4</version>
+            <version>0.1.3</version>
         </FactoryX_Abandonedcarts>
     </modules>
+	
+	<admin>
+        <routers>
+		
+            <abandonedcarts_admin>
+				<use>admin</use>
+				<args>
+					<module>FactoryX_Abandonedcarts</module>
+					<frontName>abandonedcarts_admin</frontName>
+				</args>
+            </abandonedcarts_admin>	
+			
+        </routers>
+	</admin>
 	
 	<frontend>
 		<!-- Translation file -->
@@ -35,6 +49,12 @@
     </adminhtml>
 	
 	<global>
+		<blocks>
+            <abandonedcarts>
+                <class>FactoryX_Abandonedcarts_Block</class>
+            </abandonedcarts>
+        </blocks>
+		
 		<helpers>
             <abandonedcarts>
                 <class>FactoryX_Abandonedcarts_Helper</class>
