@@ -1,7 +1,8 @@
 <?php 
 /** 
-	add colour_description to list 
-**/
+add custom attributes:
+- colour
+*/
 
 /**
  * Magento
@@ -38,6 +39,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    
+    private static $ATTR_COLOUR = "colour";
+    
     /**
      * Config attribute codes
      *
@@ -141,7 +145,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
 
 		// add colour
-		$collection->joinAttribute('colour_description', 'catalog_product/colour_description', 'entity_id', null, 'inner');
+		$collection->joinAttribute(self::$ATTR_COLOUR, 'catalog_product/' . self::$ATTR_COLOUR, 'entity_id', null, 'inner');
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
@@ -248,14 +252,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'index'     => 'is_saleable'
         ));
 
- 		$this->addColumn('colour_description',
+ 		$this->addColumn(self::$ATTR_COLOUR,
             array(
-                'header'=> Mage::helper('catalog')->__('Colour'),
-                'width' => '120px',
-                'index' => 'colour_description',
-                'filter_index' => 'colour_description',
-                'type'  => 'options',
-                'options' => $this->_getColourOptions()
+                'header'=>      Mage::helper('catalog')->__(self::$ATTR_COLOUR),
+                'width' =>      '120px',
+                'index' =>      self::$ATTR_COLOUR,
+                'filter_index'  => self::$ATTR_COLOUR,
+                'type'          => 'options',
+                'options'       => $this->_getColourOptions()
         ));
 
         foreach ($attributes as $attribute) {
@@ -322,7 +326,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
 	protected function _getColourOptions() {
 	    $colour = Mage::getResourceModel('eav/entity_attribute_collection')
-	        ->setCodeFilter('colour_description')
+	        ->setCodeFilter(self::$ATTR_COLOUR)
 	        ->getFirstItem();
 	    $colourOptions = $colour->getSource()->getAllOptions(false);
 	    $optionsArr = array();
