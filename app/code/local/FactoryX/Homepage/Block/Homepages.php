@@ -73,8 +73,6 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 		
 		$isModuleEnabled = Mage::helper('homepage')->isHomepageModuleUsed();
 		
-		Mage::log($isModuleEnabled);
-		
 		if ($homepages && $isModuleEnabled)
 		{
 			// Set the template
@@ -99,8 +97,6 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 		$homepages = $this->getCurrentHomepages($storeId);
 		
 		$isModuleEnabled = Mage::helper('homepage')->isHomepageModuleUsed();
-		
-		Mage::log($isModuleEnabled);
 		
 		if ($homepages && $isModuleEnabled)
 		{

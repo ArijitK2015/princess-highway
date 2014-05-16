@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Balanced_CustomerSurvey>
-		  <version>1.0.0</version>
+		  <version>1.0.1</version>
 		</Balanced_CustomerSurvey>
 	</modules>
 	
@@ -57,6 +57,26 @@
 				</entities>
 			</survey_mysql4>
 		</models>
+		<resources>
+			<customersurvey_setup>
+				<setup>
+					<module>Balanced_CustomerSurvey</module>
+				</setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>				
+			</customersurvey_setup>
+            <customersurvey_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customersurvey_write>
+            <customersurvey_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customersurvey_read>
+        </resources>
 	</global>
 		
 	<admin>

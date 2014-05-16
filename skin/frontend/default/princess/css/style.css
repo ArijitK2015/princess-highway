@@ -87,7 +87,7 @@ legend + .control-group,
    Basic Styles
 ================================================== */
 html, hmtl a { width:100%; font-size:100%; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-body { background:#FFFFFF; color:#808080; font-weight:300; font-size:13px; font-family:Helvetica, Arial, sans-serif; line-height:18px; }
+body { background:#FFFFFF; color:#808080; font-weight:300; font-size:13px; font-family:Century, Helvetica, Arial, sans-serif; line-height:18px; }
 a { color:#AC6FF2; text-decoration:none; cursor:pointer; }
 a:hover,
 a:active,
@@ -151,13 +151,13 @@ div.page-title { margin-bottom: 30px; }
 /* ==================================================
    Typography
 ================================================== */
-h1 { color:#000000; font-family: Helvetica, Arial, sans-serif; font-weight: normal !important; line-height:1.5em; margin:0 0 10px 0; }
+h1 { color:#000000; font-family: Century, Arial, sans-serif; font-weight: normal !important; line-height:1.5em; margin:0 0 10px 0; }
 
 h2,
 h3,
 h4,
 h5,
-h6 { color:#000000; font-family:Helvetica, Arial, sans-serif; font-weight: normal; line-height:1.5em; margin:0 0 10px 0; }
+h6 { color:#000000; font-family:Century, Arial, sans-serif; font-weight: normal; line-height:1.5em; margin:0 0 10px 0; }
 
 h1 { font-size:24px;  }
 h2 { font-size:18px; text-transform:uppercase; }
@@ -173,11 +173,11 @@ td {  }
 /* ==================================================
    Navbar
 ================================================== */
-#navbar { background:#F5F5F4; height:30px; }
-#navbar p { color:#000000; font-size:10px; font-weight:normal; margin-top:7px; text-transform:uppercase; }
-#navbar a { color:#000000; font-size:10px; font-weight:normal; text-shadow:1px 1px 1px #FFFFFF; }
-#navbar .storephone a { color:#000000; font-size:10px; font-weight:normal; }
-#navbar a:hover { color:#AC6FF2; text-decoration:none; }
+#navbar { background:#28506C; height:30px; }
+#navbar p { color:#ffffff; font-size:10px; font-weight:normal; margin-top:7px; text-transform:uppercase; }
+#navbar a { color:#ffffff; font-size:10px; font-weight:normal; }
+#navbar .storephone a { color:#ffffff; font-size:10px; font-weight:normal; }
+#navbar a:hover { text-decoration:none; }
 
 #navbar .storedetails { float:left;}
 #navbar .storedetails p { line-height:1.7; }
@@ -188,7 +188,7 @@ td {  }
 .toplinks { float:right; }
 .toplinks ul { margin:0 0 0px 0px; }
 .toplinks ul li { list-style-type:none; margin-bottom:0; float:right; }
-.toplinks ul li a { color:#000000; float:left; font-size:10px; margin-right:10px; text-shadow:1px 1px 1px #FFFFFF; text-transform:uppercase; }
+.toplinks ul li a { color:#ffffff; float:left; font-size:10px; margin-right:10px; text-transform:uppercase; }
 .toplinks ul li a:hover { background:none; }
 .toplinks a[title*="item"] { font-weight:bold !important; }
 
@@ -210,14 +210,14 @@ section#brand { padding-top:50px; position:relative; }
 .searchsocial ul { clear: both;  }
 .searchsocial ul li { list-style-type:none; margin-bottom:0; float:left; font-size:18px; margin-left:8px; margin-bottom: 5px; }
 .searchsocial ul li.comodo a { display:block; margin-right:5px; }
-.searchsocial ul li.pinteresticon a { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.pinteresticon a:hover { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 32px; }
-.searchsocial ul li.facebookicon a { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.facebookicon a:hover { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 32px; }
-.searchsocial ul li.instagramicon a { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.instagramicon a:hover { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 32px; }
-.searchsocial ul li.youtubeicon a { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 0px; display:block; height:32px; text-indent:-99999px; width:32px; }
-.searchsocial ul li.youtubeicon a:hover { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 32px; }
+.searchsocial ul li.pinteresticon a { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 0px; display:block; height:24px; text-indent:-99999px; width:24px; }
+.searchsocial ul li.pinteresticon a:hover { background: url('/skin/frontend/default/princess/images/core/pinterest.png') 0px 24px; }
+.searchsocial ul li.facebookicon a { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 0px; display:block; height:24px; text-indent:-99999px; width:24px; }
+.searchsocial ul li.facebookicon a:hover { background: url('/skin/frontend/default/princess/images/core/facebook.png') 0px 24px; }
+.searchsocial ul li.instagramicon a { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 0px; display:block; height:24px; text-indent:-99999px; width:24px; }
+.searchsocial ul li.instagramicon a:hover { background: url('/skin/frontend/default/princess/images/core/instagram.png') 0px 24px; }
+.searchsocial ul li.youtubeicon a { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 0px; display:block; height:24px; text-indent:-99999px; width:24px; }
+.searchsocial ul li.youtubeicon a:hover { background: url('/skin/frontend/default/princess/images/core/youtube.png') 0px 24px; }
 
 
 .searchsocial ul li.pinterest a { background:#BFBFBF; color:#FFFFFF; margin-right:5px; padding:5px 8px;
@@ -285,7 +285,7 @@ ul#pronav.pn-left,
 ul#pronav.pn-right { margin:0 0 10px 0; width:100% !important; }
 
 /* Primary Link Styles */
-ul#pronav li.primary-pronav-item { color:#000000; cursor:pointer;  display:block; float:left; font-family:Helvetica, Arial, sans-serif; font-size:12px;  padding:10px 21px 10px 0px; text-transform:uppercase; position:relative; /* IMPORTANT needs to be positioned relative */ }
+ul#pronav li.primary-pronav-item { color:#000000; cursor:pointer;  display:block; float:left; font-family:Century, Helvetica, Arial, sans-serif; font-size:12px;  padding:10px 21px 10px 0px; text-transform:uppercase; position:relative; /* IMPORTANT needs to be positioned relative */ }
 ul#pronav.pn-left li.primary-pronav-item,
 ul#pronav.pn-right li.primary-pronav-item { float:none; }
 ul#pronav li.primary-pronav-item.position-static { position:static; }
@@ -2443,3 +2443,5 @@ label {
 #newsletter-subscribe-right{float:left; width:35%; text-align:right; position:relative; z-index:1}
 #subscription-button-td,
 #subscription-next-button{text-align:right}
+
+#pronav-panels-container .sub {position: absolute; background: rgba(255, 255, 255, 0.9); width: 940px;}

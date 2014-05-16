@@ -76,13 +76,32 @@ class FactoryX_Homepage_Model_Homepage extends Mage_Core_Model_Abstract
     {
 		$data = $this->getData();
 		
+		// Database resources
+		$resource = Mage::getSingleton('core/resource');
+		$readConnection = $resource->getConnection('core_read');
+		
+		// Check is single store mode
+		if (!Mage::app()->isSingleStoreMode()) 
+		{
+			// Get the homepage related stores
+			$query = "SELECT store_id 
+						FROM {$resource->getTableName('homepage/store')}
+						WHERE homepage_id = {$this->getHomepageId()}";
+			
+			$homepageStoreIds = $readConnection->fetchAll($query);
+			
+			foreach ($homepageStoreIds as $homepageStoreId)
+			{
+				$data['stores'][] = $homepageStoreId['store_id'];
+			}
+		}
+		
         /* @var $newHomepage FactoryX_Homepage_Model_Homepage */
         $newHomepage = Mage::getModel('homepage/homepage')->setData($data)
             ->setStatus(FactoryX_Homepage_Model_Status::STATUS_DISABLED)
             ->setCreatedAt(null)
             ->setEdited(Mage::getModel('core/date')->gmtDate())
-            ->setId(null)
-            ->setStoreId(Mage::app()->getStore()->getId());
+            ->setId(null);
 
         $newHomepage->save();
 		
