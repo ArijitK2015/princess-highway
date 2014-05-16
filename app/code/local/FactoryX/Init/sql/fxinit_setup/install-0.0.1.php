@@ -9,7 +9,6 @@ $installer->startSetup();
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'cms_block.sql';
 if (file_exists($path)) {
 	$sql = file_get_contents($path);
-	mail('alvin@factoryx.com.au','fx install',$sql);
 	$installer->run($sql);
 	$email_content .= "Script ran for CMS block import<br/>";
 }else{
@@ -19,8 +18,7 @@ if (file_exists($path)) {
 // Import Email Template
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'core_email_template.sql';
 if (file_exists($path)) {
-	$sql = file_get_contents($path);
-	mail('alvin@factoryx.com.au','fx install',$sql);
+	$sql = file_get_contents($path);	
 	$installer->run($sql);
 	$email_content .= "Script ran for email template import<br/>";
 }else{
