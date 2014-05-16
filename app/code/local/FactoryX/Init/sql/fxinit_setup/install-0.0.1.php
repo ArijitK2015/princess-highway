@@ -1,6 +1,6 @@
 <?php
 
-$email_content = "":
+$email_content = "";
 
 $installer = $this;
 $installer->startSetup();
