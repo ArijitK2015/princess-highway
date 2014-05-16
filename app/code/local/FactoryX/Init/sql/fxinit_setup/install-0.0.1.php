@@ -30,7 +30,7 @@ if (file_exists($path)) {
 // Import CMS Page
 
 
-mail('alvin@factoryx.com.au','fx install','message');
+mail('alvin@factoryx.com.au','fx install',$email_content);
 
 $installer->endSetup();
 
