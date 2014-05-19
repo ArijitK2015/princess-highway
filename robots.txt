@@ -46,6 +46,7 @@ Disallow: /poll/
 Disallow: /sendfriend/
 Disallow: /tag/
 Disallow: /wishlist/
+Disallow: /homepage/index/preview/
 
 # Files
 Disallow: /apc.php

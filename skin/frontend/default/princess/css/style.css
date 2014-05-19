@@ -648,14 +648,14 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 #product-media .MagicToolboxMessage { border-right:2px solid #000000; color:#000000; display: inline-block; float: none; font-size:12px; font-weight:normal; line-height:normal; margin-bottom: 10px; margin-right:10px; margin-top:16px; padding-right:10px; text-align:left; }
 #product-media .MagicToolboxMessage2 { color:#F26F6F;  display: inline-block; float: none; font-size:12px; font-weight:normal; line-height:normal; margin-bottom: 10px; margin-top:16px; text-align:left; }
 #product-media .MagicZoom { border-color:transparent; border-style: solid; border-width: 1px; }
-#product-media .MagicToolboxContainerThumbs { background-color: transparent; margin-top: 5px; }
+#product-media .MagicToolboxSelectorsContainer { background-color: transparent; margin-top: 5px; }
 /* Product Page :MagicZoom Carousel */
 #product-media .carousel-button { display:none; float:left; margin-top:10px !important; width:22px; height:40px; }
 
-.more-views { }
-.more-views ul { list-style-type:none; margin-left:0; }
-.more-views ul li { display: inline-block; margin-bottom:0px; margin-right:0px; }
-.more-views img { width:72px; }
+.MagicScrollContainer { }
+.MagicScrollContainer ul { list-style-type:none; margin-left:0; }
+.MagicScrollContainer ul li { display: inline-block; margin-bottom:0px; margin-right:0px; }
+.MagicScrollContainer img { width:72px; }
 
 
 /* Product Page :Title, SKU & Price*/
@@ -885,13 +885,13 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 #quickshop-modal #product-media .MagicToolboxMessage { border-right:none; color:#000000; display: inline-block; font-size:12px; font-weight:normal; line-height:normal; margin-bottom: 10px; margin-right:10px; margin-top:16px; padding-right:10px; text-align:left; width: 100% }
 #quickshop-modal #product-media .MagicToolboxMessage2 { display: none }
 #quickshop-modal #product-media .MagicZoom { border-color:#fff; border-style: solid; border-width: 1px; }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs { background-color: transparent; min-height: 90px; margin-top: 5px; }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer { background-color: transparent; min-height: 90px; margin-top: 5px; }
 #quickshop-modal #product-media .MagicToolboxSelectorsContainer { width: auto; }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs .more-views { }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs .more-views ul { background-color: transparent; list-style-type:none; margin-left:0; }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs .more-views ul li { float:none; margin-bottom:0px; margin-left:0; margin-right:7px; }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs .more-views ul li:last-child { margin-right:0px; }
-#quickshop-modal #product-media .MagicToolboxContainerThumbs .more-views img { height:74px; width:auto }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer .MagicScrollContainer { }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer .MagicScrollContainer div:first-of-type { background-color: transparent; list-style-type:none; margin-left:0; }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer .MagicScrollContainer .MagicScrollItem { float:none; margin-bottom:0px; margin-left:0; margin-right:7px; }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer .MagicScrollContainer .MagicScrollItem:last-child { margin-right:0px; }
+#quickshop-modal #product-media .MagicToolboxSelectorsContainer .MagicScrollContainer img { height:74px; width:auto }
 #quickshop-modal #product-media .carousel-button { display:none; float:left; margin-top:10px !important; width:22px; height:40px; }
 
 #quickshop-modal #product-shop { float: right; margin-left: 0px !important;  width: 408px !important; }

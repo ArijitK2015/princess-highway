@@ -30,7 +30,7 @@ CREATE TABLE `core_config_data` (
   `value` text COMMENT 'Config Value',
   PRIMARY KEY (`config_id`),
   UNIQUE KEY `UNQ_CORE_CONFIG_DATA_SCOPE_SCOPE_ID_PATH` (`scope`,`scope_id`,`path`)
-) ENGINE=InnoDB AUTO_INCREMENT=1113 DEFAULT CHARSET=utf8 COMMENT='Config Data';
+) ENGINE=InnoDB AUTO_INCREMENT=1168 DEFAULT CHARSET=utf8 COMMENT='Config Data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,8 +39,7 @@ CREATE TABLE `core_config_data` (
 
 LOCK TABLES `core_config_data` WRITE;
 /*!40000 ALTER TABLE `core_config_data` DISABLE KEYS */;
-INSERT INTO `core_config_data` VALUES 
-(1,'default',0,'general/region/display_all','1'),
+INSERT INTO `core_config_data` VALUES (1,'default',0,'general/region/display_all','1'),
 (2,'default',0,'general/region/state_required','AU,AT,CA,EE,FI,FR,DE,LV,LT,RO,ES,CH,US'),
 (3,'default',0,'catalog/category/root_id','2'),
 (4,'default',0,'web/seo/use_rewrites','1'),
@@ -91,7 +90,7 @@ INSERT INTO `core_config_data` VALUES
 (51,'default',0,'design/header/logo_src','images/logo.gif'),
 (52,'default',0,'design/header/logo_alt','Princess Highway Online'),
 (53,'default',0,'design/header/welcome','Welcome to Princess Highway.'),
-(54,'default',0,'design/footer/copyright','&copy; 2013 Princess Highway. All Rights Reserved.'),
+(54,'default',0,'design/footer/copyright','&copy; 2014 Princess Highway. All Rights Reserved.'),
 (55,'default',0,'design/footer/absolute_footer',NULL),
 (56,'default',0,'design/watermark/image_size',NULL),
 (57,'default',0,'design/watermark/image_imageOpacity',NULL),
@@ -168,7 +167,7 @@ INSERT INTO `core_config_data` VALUES
 (128,'default',0,'contacts/email/recipient_email','contactus@princesshighway.com.au'),
 (129,'default',0,'contacts/email/sender_email_identity','general'),
 (130,'default',0,'contacts/email/email_template','5'),
-(131,'default',0,'cms/wysiwyg/enabled','disabled'),
+(131,'default',0,'cms/wysiwyg/enabled','hidden'),
 (132,'default',0,'cms/wysiwyg/use_static_urls_in_catalog','0'),
 (133,'default',0,'abandonedcartsconfig/options/name','Princess Highway Online'),
 (134,'default',0,'abandonedcartsconfig/options/email','princesshighwayonline@princesshighway.com.au'),
@@ -250,7 +249,7 @@ INSERT INTO `core_config_data` VALUES
 (210,'default',0,'mageworx_seo/xsitemap/sort_order','position'),
 (211,'default',0,'mageworx_seo/xsitemap/category_anchor','0'),
 (212,'default',0,'mageworx_seo/xsitemap/show_pages','1'),
-(213,'default',0,'mageworx_seo/xsitemap/filter_pages','no-route,enable-cookies'),
+(213,'default',0,'mageworx_seo/xsitemap/filter_pages','enable-cookies'),
 (214,'default',0,'mageworx_seo/xsitemap/show_links','1'),
 (215,'default',0,'mageworx_seo/xsitemap/add_links',NULL),
 (216,'default',0,'mageworx_seo/google_sitemap/enabled','1'),
@@ -1149,7 +1148,54 @@ INSERT INTO `core_config_data` VALUES
 (1109,'default',0,'gmapstrlocator/general/address_nearest','0'),
 (1110,'default',0,'gmapstrlocator/info_popup/marker_image','default/pin.png'),
 (1111,'default',0,'gmapstrlocator/manage_search/zipcode','1'),
-(1112,'default',0,'contests/options/m_to_cm_attributes','a:6:{s:18:\"_1394111719755_755\";a:2:{s:10:\"formfields\";s:6:\"mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:16:\"_1394111735004_4\";a:2:{s:10:\"formfields\";s:5:\"state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1394111744676_676\";a:2:{s:10:\"formfields\";s:9:\"promoCode\";s:15:\"campaignmonitor\";s:6:\"Source\";}s:18:\"_1394112242991_991\";a:2:{s:10:\"formfields\";s:5:\"email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1394112248739_739\";a:2:{s:10:\"formfields\";s:9:\"firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1394112253370_370\";a:2:{s:10:\"formfields\";s:8:\"lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}}');
+(1112,'default',0,'contests/options/m_to_cm_attributes','a:6:{s:18:\"_1394111719755_755\";a:2:{s:10:\"formfields\";s:6:\"mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:16:\"_1394111735004_4\";a:2:{s:10:\"formfields\";s:5:\"state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1394111744676_676\";a:2:{s:10:\"formfields\";s:9:\"promoCode\";s:15:\"campaignmonitor\";s:6:\"Source\";}s:18:\"_1394112242991_991\";a:2:{s:10:\"formfields\";s:5:\"email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1394112248739_739\";a:2:{s:10:\"formfields\";s:9:\"firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1394112253370_370\";a:2:{s:10:\"formfields\";s:8:\"lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}}'),
+(1113,'default',0,'homepage/options/enable','1'),
+(1116,'default',0,'evlike/evlike_visibility/ev_like_visibility_product_default','1'),
+(1117,'default',0,'evlike/evlike_visibility/ev_like_visibility_category_default','1'),
+(1118,'default',0,'evlike/evlike_visibility/ev_like_visibility_cms_default','1'),
+(1119,'default',0,'evlike/evlike/ev_enable_open_graph','0'),
+(1120,'default',0,'evlike/evlike/ev_site_name',NULL),
+(1121,'default',0,'evlike/evlike/ev_use_rewrite','1'),
+(1122,'default',0,'evlike/evlike/ev_facebook_type','1'),
+(1123,'default',0,'evlike/evlike/ev_facebook_app_id',NULL),
+(1124,'default',0,'evlike/evlike/ev_facebook_send','1'),
+(1125,'default',0,'evlike/evlike/ev_facebook_layout','standard'),
+(1126,'default',0,'evlike/evlike/ev_show_faces','0'),
+(1127,'default',0,'evlike/evlike/ev_like_width','450'),
+(1128,'default',0,'evlike/evlike/ev_like_ref',NULL),
+(1129,'default',0,'evlike/evlike/ev_like_height','30'),
+(1130,'default',0,'evlike/evlike/ev_facebook_verb','like'),
+(1131,'default',0,'evlike/evlike/ev_facebook_font','arial'),
+(1132,'default',0,'evlike/evlike/ev_facebook_color','light'),
+(1133,'default',0,'evlike/evlike/ev_use_long','0'),
+(1134,'default',0,'evlike/evlike_category/ev_like_category_send','1'),
+(1135,'default',0,'evlike/evlike_category/ev_like_category_layout','standard'),
+(1136,'default',0,'evlike/evlike_category/ev_like_category_show_faces','0'),
+(1137,'default',0,'evlike/evlike_category/ev_like_category_width','450'),
+(1138,'default',0,'evlike/evlike_category/ev_like_category_height','30'),
+(1139,'default',0,'evlike/evlike_category/ev_like_category_ref',NULL),
+(1140,'default',0,'evlike/evlike_cms/ev_like_cms_send','1'),
+(1141,'default',0,'evlike/evlike_cms/ev_like_cms_layout','standard'),
+(1142,'default',0,'evlike/evlike_cms/ev_like_cms_show_faces','0'),
+(1143,'default',0,'evlike/evlike_cms/ev_like_cms_width','450'),
+(1144,'default',0,'evlike/evlike_cms/ev_like_cms_height','30'),
+(1145,'default',0,'evlike/evlike_cms/ev_like_cms_ref',NULL),
+(1146,'default',0,'evlike/evlike_grid/ev_like_grid_send','1'),
+(1147,'default',0,'evlike/evlike_grid/ev_like_grid_layout','button_count'),
+(1148,'default',0,'evlike/evlike_grid/ev_like_grid_show_faces','0'),
+(1149,'default',0,'evlike/evlike_grid/ev_like_grid_width','215'),
+(1150,'default',0,'evlike/evlike_grid/ev_like_grid_height','30'),
+(1151,'default',0,'evlike/evlike_grid/ev_like_grid_ref',NULL),
+(1152,'default',0,'evlike/evlike_list/ev_like_list_send','1'),
+(1153,'default',0,'evlike/evlike_list/ev_like_list_layout','standard'),
+(1154,'default',0,'evlike/evlike_list/ev_like_list_show_faces','0'),
+(1155,'default',0,'evlike/evlike_list/ev_like_list_width','450'),
+(1156,'default',0,'evlike/evlike_list/ev_like_list_height','30'),
+(1157,'default',0,'evlike/evlike_list/ev_like_list_ref',NULL),
+(1164,'default',0,'abandonedcartsconfig/options/enable','1'),
+(1165,'default',0,'abandonedcartsconfig/options/enable_sale','1'),
+(1166,'default',0,'abandonedcartsconfig/options/dryrun','0'),
+(1167,'default',0,'abandonedcartsconfig/options/testemail',NULL);
 /*!40000 ALTER TABLE `core_config_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1162,4 +1208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-19 19:18:14
+-- Dump completed on 2014-05-19 22:57:17
