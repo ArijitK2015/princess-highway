@@ -1,0 +1,29 @@
+/*.col-main {padding:0 !important;}*/
+#slides {
+    overflow: visible !important;position:relative;
+    background: url(../../images/loading.gif) no-repeat center center;
+}
+
+#slides .slidesjs-previous,#slides .slidesjs-next {
+    position:absolute;
+    left: -27px;
+    width:24px;
+    height:43px;
+    z-index:999;
+}
+
+#slides .slidesjs-next {
+    left:983px;
+}
+
+.text h1,.text a{ text-transform: uppercase;font-weight: normal;font-family: 'Helvetica Neue','Arial',san-serif;text-align: center;font-style:normal;font-size:16px;padding:10px 0px;text-decoration: none;display:block;}
+.text p{padding:10px;text-align: center;}
+.text {text-align: center;}
+.text hr{width:90%;margin:0 auto;}
+
+@media (min-width:1px) and (max-width:979px) {
+	#homepage table{display:inline;width:100%}
+	#homepage  tr{display:inline}
+	#homepage  td{display:block;width:100%}
+	#homepage table img{width:100%;height:auto}
+}

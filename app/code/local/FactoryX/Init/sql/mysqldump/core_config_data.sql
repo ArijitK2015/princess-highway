@@ -15,1187 +15,1173 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `core_config_data`
---
-
-DROP TABLE IF EXISTS `core_config_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `core_config_data` (
-  `config_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Config Id',
-  `scope` varchar(8) NOT NULL DEFAULT 'default' COMMENT 'Config Scope',
-  `scope_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Config Scope Id',
-  `path` varchar(255) NOT NULL DEFAULT 'general' COMMENT 'Config Path',
-  `value` text COMMENT 'Config Value',
-  PRIMARY KEY (`config_id`),
-  UNIQUE KEY `UNQ_CORE_CONFIG_DATA_SCOPE_SCOPE_ID_PATH` (`scope`,`scope_id`,`path`)
-) ENGINE=InnoDB AUTO_INCREMENT=1168 DEFAULT CHARSET=utf8 COMMENT='Config Data';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `core_config_data`
---
 
 LOCK TABLES `core_config_data` WRITE;
 /*!40000 ALTER TABLE `core_config_data` DISABLE KEYS */;
-INSERT INTO `core_config_data` VALUES (1,'default',0,'general/region/display_all','1'),
-(2,'default',0,'general/region/state_required','AU,AT,CA,EE,FI,FR,DE,LV,LT,RO,ES,CH,US'),
-(3,'default',0,'catalog/category/root_id','2'),
-(4,'default',0,'web/seo/use_rewrites','1'),
-(5,'default',0,'admin/dashboard/enable_charts','1'),
-(8,'default',0,'general/locale/code','en_AU'),
-(9,'default',0,'general/locale/timezone','Australia/Sydney'),
-(10,'default',0,'currency/options/base','AUD'),
-(11,'default',0,'currency/options/default','AUD'),
-(12,'default',0,'currency/options/allow','AUD'),
-(13,'default',0,'gmapstrlocator/general/page_title','Stores Locator'),
-(14,'default',0,'gmapstrlocator/general/identifier','store-locator'),
-(15,'default',0,'gmapstrlocator/general/meta_keywords','Princess Highway Stores Locator'),
-(16,'default',0,'gmapstrlocator/general/meta_description','Princess Highway Stores Locator'),
-(17,'default',0,'gmapstrlocator/general/page_heading','FIND A STORE NEAR YOU'),
-(18,'default',0,'gmapstrlocator/general/page_subheading','Select a store if you want to shop or find it through Address'),
-(19,'default',0,'gmapstrlocator/general/standard_long','90.98877'),
-(20,'default',0,'gmapstrlocator/general/standard_lat','26.12585'),
-(21,'default',0,'gmapstrlocator/info_popup/button_text','Get Directions'),
-(22,'default',0,'gmapstrlocator/info_popup/map_zoom','2'),
-(23,'default',0,'gmapstrlocator/manage_search/product','0'),
-(24,'default',0,'gmapstrlocator/manage_search/address','1'),
-(25,'default',0,'gmapstrlocator/manage_search/store_select','0'),
-(26,'default',0,'gmapstrlocator/manage_links/header_enable','1'),
-(27,'default',0,'gmapstrlocator/manage_links/header_text','Store locator'),
-(28,'default',0,'gmapstrlocator/manage_links/footer_enable','1'),
-(29,'default',0,'gmapstrlocator/manage_links/footer_text','Store locator'),
-(30,'default',0,'gmapstrlocator/layout_update/page_column','one_column'),
-(31,'default',0,'gmapstrlocator/seo/url_suffix','.html'),
-(32,'default',0,'design/package/name','default'),
-(33,'default',0,'design/package/ua_regexp','a:0:{}'),
-(34,'default',0,'design/theme/locale','princess'),
-(35,'default',0,'design/theme/template','princess'),
-(36,'default',0,'design/theme/template_ua_regexp','a:0:{}'),
-(37,'default',0,'design/theme/skin','princess'),
-(38,'default',0,'design/theme/skin_ua_regexp','a:0:{}'),
-(39,'default',0,'design/theme/layout','princess'),
-(40,'default',0,'design/theme/layout_ua_regexp','a:0:{}'),
-(41,'default',0,'design/theme/default','princess'),
-(42,'default',0,'design/theme/default_ua_regexp','a:0:{}'),
-(43,'default',0,'design/head/default_title','Princess Highway'),
-(44,'default',0,'design/head/title_prefix',NULL),
-(45,'default',0,'design/head/title_suffix',NULL),
-(46,'default',0,'design/head/default_description','Princess Highway'),
-(47,'default',0,'design/head/default_keywords','Princess Highway'),
-(48,'default',0,'design/head/default_robots','INDEX,FOLLOW'),
-(49,'default',0,'design/head/includes',NULL),
-(50,'default',0,'design/head/demonotice','0'),
-(51,'default',0,'design/header/logo_src','images/logo.gif'),
-(52,'default',0,'design/header/logo_alt','Princess Highway Online'),
-(53,'default',0,'design/header/welcome','Welcome to Princess Highway.'),
-(54,'default',0,'design/footer/copyright','&copy; 2014 Princess Highway. All Rights Reserved.'),
-(55,'default',0,'design/footer/absolute_footer',NULL),
-(56,'default',0,'design/watermark/image_size',NULL),
-(57,'default',0,'design/watermark/image_imageOpacity',NULL),
-(58,'default',0,'design/watermark/image_position','stretch'),
-(59,'default',0,'design/watermark/small_image_size',NULL),
-(60,'default',0,'design/watermark/small_image_imageOpacity',NULL),
-(61,'default',0,'design/watermark/small_image_position','stretch'),
-(62,'default',0,'design/watermark/thumbnail_size',NULL),
-(63,'default',0,'design/watermark/thumbnail_imageOpacity',NULL),
-(64,'default',0,'design/watermark/thumbnail_position','stretch'),
-(65,'default',0,'design/pagination/pagination_frame','5'),
-(66,'default',0,'design/pagination/pagination_frame_skip',NULL),
-(67,'default',0,'design/pagination/anchor_text_for_previous',NULL),
-(68,'default',0,'design/pagination/anchor_text_for_next',NULL),
-(69,'default',0,'design/email/logo_alt',NULL),
-(70,'default',0,'ambase/feed/installed','1387538672'),
-(71,'default',0,'catalog/seo/category_canonical_tag','0'),
-(72,'default',0,'catalog/seo/product_canonical_tag','0'),
-(73,'default',0,'awall/install/run','1387539233'),
-(74,'default',0,'general/country/default','AU'),
-(75,'default',0,'general/country/allow','AF,AX,AL,DZ,AS,AD,AO,AI,AQ,AG,AR,AM,AW,AU,AT,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BV,BR,IO,VG,BN,BG,BF,BI,KH,CM,CA,CV,KY,CF,TD,CL,CN,CX,CC,CO,KM,CG,CD,CK,CR,CI,HR,CU,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FO,FJ,FI,FR,GF,PF,TF,GA,GM,GE,DE,GH,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HM,HN,HK,HU,IS,IN,IR,IQ,IE,IM,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KW,KG,LA,LV,LB,LS,LR,LY,LI,LT,LU,MO,MK,MG,MW,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,MM,NA,NR,NP,NL,AN,NC,NZ,NI,NE,NU,NF,MP,KP,NO,OM,PW,PS,PA,PG,PY,PE,PH,PN,PL,PT,PR,QA,RE,RO,RU,RW,BL,SH,KN,LC,MF,PM,VC,WS,SM,ST,SA,SN,RS,SC,SL,SK,SI,SB,SO,GS,KR,ES,LK,SD,SR,SJ,SZ,SE,CH,SY,TW,TJ,TZ,TH,TL,TG,TK,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,GB,US,UY,UM,VI,UZ,VU,VA,VE,VN,WF,EH,YE,ZM,ZW'),
-(76,'default',0,'general/country/optional_zip_countries','HK,IE,MO,PA'),
-(77,'default',0,'general/country/eu_countries','AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB'),
-(78,'default',0,'general/locale/firstday','0'),
-(79,'default',0,'general/locale/weekend','0,6'),
-(80,'default',0,'general/store_information/name','Princess Highway Online'),
-(81,'default',0,'general/store_information/phone','(03) 8420 0336'),
-(82,'default',0,'general/store_information/merchant_country','AU'),
-(83,'default',0,'general/store_information/merchant_vat_number',NULL),
-(84,'default',0,'general/store_information/address','65 Victoria Crescent\r\nAbbotsford 3067\r\nVictoria, Austalia'),
-(85,'default',0,'web/url/use_store','0'),
-(86,'default',0,'web/url/redirect_to_base','1'),
-(87,'default',0,'web/unsecure/base_link_url','{{unsecure_base_url}}'),
-(88,'default',0,'web/unsecure/base_skin_url','{{unsecure_base_url}}skin/'),
-(89,'default',0,'web/unsecure/base_media_url','{{unsecure_base_url}}media/'),
-(90,'default',0,'web/unsecure/base_js_url','{{unsecure_base_url}}js/'),
-(91,'default',0,'web/secure/base_link_url','{{secure_base_url}}'),
-(92,'default',0,'web/secure/base_skin_url','{{secure_base_url}}skin/'),
-(93,'default',0,'web/secure/base_media_url','{{secure_base_url}}media/'),
-(94,'default',0,'web/secure/base_js_url','{{secure_base_url}}js/'),
-(95,'default',0,'web/secure/use_in_frontend','0'),
-(96,'default',0,'web/secure/use_in_adminhtml','0'),
-(97,'default',0,'web/secure/offloader_header','SSL_OFFLOADED'),
-(98,'default',0,'web/default/front','cms'),
-(99,'default',0,'web/default/cms_home_page','home'),
-(100,'default',0,'web/default/no_route','cms/index/noRoute'),
-(101,'default',0,'web/default/cms_no_route','no-route'),
-(102,'default',0,'web/default/cms_no_cookies','enable-cookies'),
-(103,'default',0,'web/default/show_cms_breadcrumbs','1'),
-(104,'default',0,'web/polls/poll_check_by_ip','0'),
-(105,'default',0,'web/cookie/cookie_lifetime','3600'),
-(106,'default',0,'web/cookie/cookie_path',NULL),
-(107,'default',0,'web/cookie/cookie_domain','princesshighway.com.au'),
-(108,'default',0,'web/cookie/cookie_httponly','1'),
-(109,'default',0,'web/cookie/cookie_restriction','0'),
-(110,'default',0,'web/session/use_remote_addr','0'),
-(111,'default',0,'web/session/use_http_via','0'),
-(112,'default',0,'web/session/use_http_x_forwarded_for','0'),
-(113,'default',0,'web/session/use_http_user_agent','0'),
-(114,'default',0,'web/session/use_frontend_sid','1'),
-(115,'default',0,'web/browser_capabilities/cookies','1'),
-(116,'default',0,'web/browser_capabilities/javascript','1'),
-(117,'default',0,'trans_email/ident_general/name','Princess Highway Online'),
-(118,'default',0,'trans_email/ident_general/email','contactus@princesshighway.com.au'),
-(119,'default',0,'trans_email/ident_sales/name','Princess Highway Online'),
-(120,'default',0,'trans_email/ident_sales/email','princesshighwayonline@princesshighway.com.au'),
-(121,'default',0,'trans_email/ident_support/name','Princess Highway Online'),
-(122,'default',0,'trans_email/ident_support/email','contactus@princesshighway.com.au'),
-(123,'default',0,'trans_email/ident_custom1/name','Princess Highway Online'),
-(124,'default',0,'trans_email/ident_custom1/email','admin@princesshighway.com.au'),
-(125,'default',0,'trans_email/ident_custom2/name','Princess Highway Online'),
-(126,'default',0,'trans_email/ident_custom2/email','contactus@princesshighway.com.au'),
-(127,'default',0,'contacts/contacts/enabled','1'),
-(128,'default',0,'contacts/email/recipient_email','contactus@princesshighway.com.au'),
-(129,'default',0,'contacts/email/sender_email_identity','general'),
-(130,'default',0,'contacts/email/email_template','5'),
-(131,'default',0,'cms/wysiwyg/enabled','hidden'),
-(132,'default',0,'cms/wysiwyg/use_static_urls_in_catalog','0'),
-(133,'default',0,'abandonedcartsconfig/options/name','Princess Highway Online'),
-(134,'default',0,'abandonedcartsconfig/options/email','princesshighwayonline@princesshighway.com.au'),
-(135,'default',0,'abandonedcartsconfig/options/email_template','40'),
-(136,'default',0,'abandonedcartsconfig/options/notify_delay','15'),
-(137,'default',0,'abandonedcartsconfig/options/email_template_sale','41'),
-(138,'default',0,'bdayconfig/options/name','Princess Highway Online'),
-(139,'default',0,'bdayconfig/options/email','contactus@princesshighway.com.au'),
-(140,'default',0,'bdayconfig/options/template','12'),
-(141,'default',0,'bdayconfig/options/prefix','bday'),
-(142,'default',0,'bdayconfig/options/value','10'),
-(143,'default',0,'bdayconfig/options/valid','14'),
-(144,'default',0,'bdayconfig/options/campaignmonitor','0'),
-(145,'default',0,'bdayconfig/options/segmentID',NULL),
-(146,'default',0,'htmlinject/phonesupport/enabled','1'),
-(147,'default',0,'htmlinject/phonesupport/starttime','17'),
-(148,'default',0,'htmlinject/phonesupport/endtime','22'),
-(149,'default',0,'contests/options/name','Princess Highway Online'),
-(150,'default',0,'contests/options/email','contactus@princesshighway.com.au'),
-(151,'default',0,'contests/options/template','44'),
-(152,'default',0,'gtspeed/cssjs/min_css','1'),
-(153,'default',0,'gtspeed/cssjs/merge_css','1'),
-(154,'default',0,'gtspeed/cssjs/min_js','1'),
-(155,'default',0,'gtspeed/cssjs/merge_js','1'),
-(156,'default',0,'gtspeed/cssdebug/errorlogger','0'),
-(157,'default',0,'gtspeed/cssdebug/debugflag','0'),
-(158,'default',0,'gtspeed/imgopt/gifutil','gifsicle'),
-(159,'default',0,'gtspeed/imgopt/gifutilopt','-b -O3'),
-(160,'default',0,'gtspeed/imgopt/jpgutil','jpegoptim'),
-(161,'default',0,'gtspeed/imgopt/jpgutilopt','--strip-all'),
-(162,'default',0,'gtspeed/imgopt/pngutil','optipng'),
-(163,'default',0,'gtspeed/imgopt/pngutilopt','-o5'),
-(164,'default',0,'gtspeed/imgpath/paths','media,skin,js'),
-(165,'default',0,'gtspeed/imgdebug/imgoutput','0'),
-(166,'default',0,'gtspeed/cron/enabled','0'),
-(167,'default',0,'gtspeed/cron/frequency','D'),
-(168,'default',0,'crontab/jobs/gtspeed_optimize_images/schedule/cron_expr','0 0 * * *'),
-(169,'default',0,'crontab/jobs/gtspeed_optimize_images/run/model','gtspeed/observer::process'),
-(170,'default',0,'gtspeed/cron/time','00,00,00'),
-(171,'default',0,'gtspeed/cron/error_email',NULL),
-(172,'default',0,'gtspeed/cron/error_email_identity','general'),
-(173,'default',0,'gtspeed/cron/error_email_template','gtspeed_cron_error_email_template'),
-(174,'default',0,'gtspeed/expires/enabled','1'),
-(175,'default',0,'gtspeed/expires/filetypes','css,js,jpg,png,gif'),
-(176,'default',0,'gtspeed/expires/time','5259487'),
-(177,'default',0,'gtspeed/unsecure/base_skin_url','{{unsecure_base_url}}'),
-(178,'default',0,'gtspeed/unsecure/base_js_url','{{unsecure_base_url}}'),
-(179,'default',0,'gtspeed/secure/base_skin_url','{{secure_base_url}}'),
-(180,'default',0,'gtspeed/secure/base_js_url','{{secure_base_url}}'),
-(181,'default',0,'mageworx_seo/seosuite/enabled','1'),
-(182,'default',0,'mageworx_seo/seosuite/trailing_slash','1'),
-(183,'default',0,'mageworx_seo/seosuite/disable_layered_rewrites','0'),
-(184,'default',0,'mageworx_seo/seosuite/enable_rich_snippets','1'),
-(185,'default',0,'mageworx_seo/seosuite/cross_domain',NULL),
-(186,'default',0,'mageworx_seo/seosuite/ignore_pages','catalogsearch_result_index\r\ncatalogsearch_advanced_index\r\ncatalogsearch_advanced_result\r\ncheckout_cart_index\r\ncheckout_onepage_index'),
-(187,'default',0,'mageworx_seo/seosuite/noindex_pages','^checkout_.+,^contacts_.+,^customer_.+,^catalog_product_compare_.+,^rss_.+,^catalogsearch_.+,.*?_product_send$,^tag_.+,^wishlist_.+'),
-(188,'default',0,'mageworx_seo/seosuite/noindex_pages_user','?dir=*\r\n?order=*\r\n?mode=*\r\n?limit=*'),
-(189,'default',0,'mageworx_seo/seosuite/product_og_enabled','0'),
-(190,'default',0,'mageworx_seo/seosuite/product_canonical_url','1'),
-(191,'default',0,'mageworx_seo/seosuite/reviews_friendly_urls','1'),
-(192,'default',0,'mageworx_seo/seosuite/pager_url_format','/p/[page_number]'),
-(193,'default',0,'mageworx_seo/seosuite/enable_link_rel','1'),
-(194,'default',0,'mageworx_seo/seosuite/layered_friendly_urls','1'),
-(195,'default',0,'mageworx_seo/seosuite/layered_hide_attributes','1'),
-(196,'default',0,'mageworx_seo/seosuite/layered_separatort',':'),
-(197,'default',0,'mageworx_seo/seosuite/enable_dynamic_meta_title','0'),
-(198,'default',0,'mageworx_seo/seosuite/enable_dynamic_meta_keywords','0'),
-(199,'default',0,'mageworx_seo/seosuite/enable_dynamic_meta_desc','0'),
-(200,'default',0,'mageworx_seo/seosuite/https_robots',NULL),
-(201,'default',0,'mageworx_seo/seosuite/enable_canonical_tag_for_layered_navigation','1'),
-(202,'default',0,'mageworx_seo/seosuite/add_canonical_url_port','0'),
-(203,'default',0,'mageworx_seo/seosuite/template_limit','50'),
-(204,'default',0,'mageworx_seo/xsitemap/show_stores','1'),
-(205,'default',0,'mageworx_seo/xsitemap/show_categories','1'),
-(206,'default',0,'mageworx_seo/xsitemap/show_products','1'),
-(207,'default',0,'mageworx_seo/xsitemap/sitemap_meta_title',NULL),
-(208,'default',0,'mageworx_seo/xsitemap/sitemap_meta_desc',NULL),
-(209,'default',0,'mageworx_seo/xsitemap/sitemap_meta_keywords',NULL),
-(210,'default',0,'mageworx_seo/xsitemap/sort_order','position'),
-(211,'default',0,'mageworx_seo/xsitemap/category_anchor','0'),
-(212,'default',0,'mageworx_seo/xsitemap/show_pages','1'),
-(213,'default',0,'mageworx_seo/xsitemap/filter_pages','enable-cookies'),
-(214,'default',0,'mageworx_seo/xsitemap/show_links','1'),
-(215,'default',0,'mageworx_seo/xsitemap/add_links',NULL),
-(216,'default',0,'mageworx_seo/google_sitemap/enabled','1'),
-(217,'default',0,'mageworx_seo/google_sitemap/error_email','ben.incani@factoryx.com.au'),
-(218,'default',0,'mageworx_seo/google_sitemap/error_email_identity','general'),
-(219,'default',0,'mageworx_seo/google_sitemap/error_email_template','mageworx_seo_google_sitemap_error_email_template'),
-(220,'default',0,'mageworx_seo/google_sitemap/page_changefreq','daily'),
-(221,'default',0,'mageworx_seo/google_sitemap/page_priority','0.25'),
-(222,'default',0,'mageworx_seo/google_sitemap/category_changefreq','daily'),
-(223,'default',0,'mageworx_seo/google_sitemap/category_priority','0.5'),
-(224,'default',0,'mageworx_seo/google_sitemap/product_changefreq','daily'),
-(225,'default',0,'mageworx_seo/google_sitemap/product_priority','1'),
-(226,'default',0,'mageworx_seo/google_sitemap/product_images','0'),
-(227,'default',0,'mageworx_seo/google_sitemap/product_images_size',NULL),
-(228,'default',0,'mageworx_seo/google_sitemap/product_tags','1'),
-(229,'default',0,'mageworx_seo/google_sitemap/product_tags_changefreq','daily'),
-(230,'default',0,'mageworx_seo/google_sitemap/product_tags_priority','0.5'),
-(231,'default',0,'mageworx_seo/google_sitemap/link_changefreq','daily'),
-(232,'default',0,'mageworx_seo/google_sitemap/link_priority','0.1'),
-(233,'default',0,'mageworx_seo/google_sitemap/blog_changefreq','daily'),
-(234,'default',0,'mageworx_seo/google_sitemap/blog_priority','0.1'),
-(235,'default',0,'mageworx_seo/google_sitemap/use_index','0'),
-(236,'default',0,'mageworx_seo/google_sitemap/split_size','10240'),
-(237,'default',0,'mageworx_seo/google_sitemap/max_links','50000'),
-(238,'default',0,'mageworx_seo/google_sitemap/xml_limit','500'),
-(239,'default',0,'catalog/frontend/list_mode','grid'),
-(240,'default',0,'catalog/frontend/grid_per_page_values','32,64,128'),
-(241,'default',0,'catalog/frontend/grid_per_page','32'),
-(242,'default',0,'catalog/frontend/list_per_page_values','5,10,15,20,25'),
-(243,'default',0,'catalog/frontend/list_per_page','10'),
-(244,'default',0,'catalog/frontend/list_allow_all','1'),
-(245,'default',0,'catalog/frontend/default_sort_by','position'),
-(246,'default',0,'catalog/frontend/flat_catalog_category','1'),
-(247,'default',0,'catalog/frontend/flat_catalog_product','1'),
-(248,'default',0,'catalog/frontend/parse_url_directives','1'),
-(249,'default',0,'catalog/sitemap/tree_mode','0'),
-(250,'default',0,'catalog/sitemap/lines_perpage','30'),
-(251,'default',0,'catalog/review/allow_guest','1'),
-(252,'default',0,'catalog/productalert/allow_price','0'),
-(253,'default',0,'catalog/productalert/email_price_template','catalog_productalert_email_price_template'),
-(254,'default',0,'catalog/productalert/allow_stock','0'),
-(255,'default',0,'catalog/productalert/email_stock_template','catalog_productalert_email_stock_template'),
-(256,'default',0,'catalog/productalert/email_identity','general'),
-(257,'default',0,'catalog/productalert_cron/frequency','D'),
-(258,'default',0,'crontab/jobs/catalog_product_alert/schedule/cron_expr','0 0 * * *'),
-(259,'default',0,'crontab/jobs/catalog_product_alert/run/model','productalert/observer::process'),
-(260,'default',0,'catalog/productalert_cron/time','00,00,00'),
-(261,'default',0,'catalog/productalert_cron/error_email',NULL),
-(262,'default',0,'catalog/productalert_cron/error_email_identity','general'),
-(263,'default',0,'catalog/productalert_cron/error_email_template','catalog_productalert_cron_error_email_template'),
-(264,'default',0,'catalog/recently_products/scope','website'),
-(265,'default',0,'catalog/recently_products/viewed_count','5'),
-(266,'default',0,'catalog/recently_products/compared_count','5'),
-(267,'default',0,'catalog/price/scope','0'),
-(268,'default',0,'catalog/layered_navigation/display_product_count','1'),
-(269,'default',0,'catalog/layered_navigation/price_range_calculation','auto'),
-(270,'default',0,'catalog/navigation/max_depth','0'),
-(271,'default',0,'catalog/seo/site_map','1'),
-(272,'default',0,'catalog/seo/search_terms','1'),
-(273,'default',0,'catalog/seo/product_url_suffix','.html'),
-(274,'default',0,'catalog/seo/category_url_suffix','.html'),
-(275,'default',0,'catalog/seo/product_use_categories','1'),
-(276,'default',0,'catalog/seo/save_rewrites_history','1'),
-(277,'default',0,'catalog/seo/title_separator','-'),
-(278,'default',0,'catalog/search/min_query_length','1'),
-(279,'default',0,'catalog/search/max_query_length','128'),
-(280,'default',0,'catalog/search/max_query_words','10'),
-(281,'default',0,'catalog/search/search_type','1'),
-(282,'default',0,'catalog/search/use_layered_navigation_count','2000'),
-(283,'default',0,'catalog/downloadable/order_item_status','9'),
-(284,'default',0,'catalog/downloadable/downloads_number','0'),
-(285,'default',0,'catalog/downloadable/shareable','0'),
-(286,'default',0,'catalog/downloadable/samples_title','Samples'),
-(287,'default',0,'catalog/downloadable/links_title','Links'),
-(288,'default',0,'catalog/downloadable/links_target_new_window','1'),
-(289,'default',0,'catalog/downloadable/content_disposition','inline'),
-(290,'default',0,'catalog/downloadable/disable_guest_checkout','1'),
-(291,'default',0,'catalog/custom_options/use_calendar','0'),
-(292,'default',0,'catalog/custom_options/date_fields_order','m,d,y'),
-(293,'default',0,'catalog/custom_options/time_format','12h'),
-(294,'default',0,'catalog/custom_options/year_range',','),
-(295,'default',0,'cataloginventory/options/can_back_in_stock','1'),
-(296,'default',0,'cataloginventory/options/can_subtract','1'),
-(297,'default',0,'cataloginventory/options/show_out_of_stock','0'),
-(298,'default',0,'cataloginventory/options/stock_threshold_qty','3'),
-(299,'default',0,'cataloginventory/options/display_product_stock_status','1'),
-(300,'default',0,'cataloginventory/item_options/manage_stock','1'),
-(301,'default',0,'cataloginventory/item_options/backorders','0'),
-(302,'default',0,'cataloginventory/item_options/max_sale_qty','10000'),
-(303,'default',0,'cataloginventory/item_options/min_qty','0'),
-(304,'default',0,'cataloginventory/item_options/min_sale_qty','1'),
-(305,'default',0,'cataloginventory/item_options/notify_stock_qty','1'),
-(306,'default',0,'cataloginventory/item_options/enable_qty_increments','0'),
-(307,'default',0,'cataloginventory/item_options/auto_return','0'),
-(308,'default',0,'rss/config/active','1'),
-(309,'default',0,'rss/wishlist/active','0'),
-(310,'default',0,'rss/catalog/new','1'),
-(311,'default',0,'rss/catalog/special','1'),
-(312,'default',0,'rss/catalog/salesrule','0'),
-(313,'default',0,'rss/catalog/tag','0'),
-(314,'default',0,'rss/catalog/category','0'),
-(315,'default',0,'rss/order/status_notified','0'),
-(316,'default',0,'sendfriend/email/enabled','1'),
-(317,'default',0,'sendfriend/email/template','31'),
-(318,'default',0,'sendfriend/email/allow_guest','0'),
-(319,'default',0,'sendfriend/email/max_recipients','5'),
-(320,'default',0,'sendfriend/email/max_per_hour','5'),
-(321,'default',0,'sendfriend/email/check_by','0'),
-(322,'default',0,'newsletter/coupon/enable','1'),
-(323,'default',0,'newsletter/coupon/prefix','newsletter'),
-(324,'default',0,'newsletter/coupon/spend','100'),
-(325,'default',0,'newsletter/coupon/value','10'),
-(326,'default',0,'newsletter/coupon/offer','by_percent'),
-(327,'default',0,'newsletter/coupon/valid','30'),
-(328,'default',0,'newsletter/subscription/success_email_template','26'),
-(329,'default',0,'newsletter/subscription/un_email_identity','support'),
-(330,'default',0,'newsletter/subscription/un_email_template','27'),
-(331,'default',0,'newsletter/subscription/success_email_identity','general'),
-(332,'default',0,'newsletter/subscription/confirm_email_template','newsletter_subscription_confirm_email_template'),
-(333,'default',0,'newsletter/subscription/confirm','0'),
-(334,'default',0,'newsletter/subscription/confirm_email_identity','support'),
-(335,'default',0,'newsletter/subscription/allow_guest_subscribe','1'),
-(336,'default',0,'newsletter/campaignmonitor/api_key','05a9080738e05b84c21490161664fd9e'),
-(337,'default',0,'newsletter/campaignmonitor/list_id','12c46dc0fb65648c33bf9f2a941cf150'),
-(338,'default',0,'newsletter/campaignmonitor/job_list_id',NULL),
-(339,'default',0,'newsletter/campaignmonitor/redirect_url',NULL),
-(340,'default',0,'newsletter/campaignmonitor/m_to_cm_attributes','a:10:{s:18:\"_1392898175120_120\";a:4:{s:10:\"formfields\";s:5:\"email\";s:7:\"magento\";s:5:\"email\";s:10:\"subscriber\";s:16:\"subscriber_email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1392898206822_822\";a:4:{s:10:\"formfields\";s:9:\"firstname\";s:7:\"magento\";s:9:\"firstname\";s:10:\"subscriber\";s:20:\"subscriber_firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1392898218963_963\";a:4:{s:10:\"formfields\";s:8:\"lastname\";s:7:\"magento\";s:8:\"lastname\";s:10:\"subscriber\";s:19:\"subscriber_lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}s:18:\"_1392898243791_791\";a:4:{s:10:\"formfields\";s:6:\"mobile\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:17:\"subscriber_mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:18:\"_1392898331492_492\";a:4:{s:10:\"formfields\";s:5:\"state\";s:7:\"magento\";s:23:\"FACTORYX-billing-region\";s:10:\"subscriber\";s:16:\"subscriber_state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1392898379475_475\";a:4:{s:10:\"formfields\";s:8:\"postcode\";s:7:\"magento\";s:25:\"FACTORYX-billing-postcode\";s:10:\"subscriber\";s:19:\"subscriber_postcode\";s:15:\"campaignmonitor\";s:8:\"Postcode\";}s:18:\"_1392898448267_267\";a:4:{s:10:\"formfields\";s:3:\"dob\";s:7:\"magento\";s:3:\"dob\";s:10:\"subscriber\";s:14:\"subscriber_dob\";s:15:\"campaignmonitor\";s:3:\"DOB\";}s:17:\"_1392898490062_62\";a:4:{s:10:\"formfields\";s:9:\"promocode\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:20:\"subscriber_promocode\";s:15:\"campaignmonitor\";s:9:\"PromoCode\";}s:18:\"_1392899940693_693\";a:4:{s:10:\"formfields\";s:0:\"\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:27:\"subscriber_subscriptiondate\";s:15:\"campaignmonitor\";s:4:\"Date\";}s:18:\"_1392899965533_533\";a:4:{s:10:\"formfields\";s:0:\"\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:21:\"subscriber_securehash\";s:15:\"campaignmonitor\";s:10:\"securehash\";}}'),
-(341,'default',0,'newsletter/campaignmonitor/proxy',NULL),
-(342,'default',0,'newsletter/popup/enable','1'),
-(343,'default',0,'newsletter/popup/texttodisplay','Sign up for a 10% voucher off your next purchase'),
-(344,'default',0,'newsletter/popup/homepageonly','1'),
-(345,'default',0,'newsletter/popup/referers',NULL),
-(346,'default',0,'newsletter/popup/terms','minimum $100 purchase + excludes all other offers'),
-(347,'default',0,'newsletter/checkoutnewsletter/enable','1'),
-(348,'default',0,'newsletter/checkoutnewsletter/checked','1'),
-(349,'default',0,'newsletter/checkoutnewsletter/visible_guest','1'),
-(350,'default',0,'newsletter/checkoutnewsletter/visible_register','1'),
-(351,'default',0,'customer/account_share/scope','1'),
-(352,'default',0,'customer/online_customers/online_minutes_interval',NULL),
-(353,'default',0,'customer/create_account/auto_group_assign','0'),
-(354,'default',0,'customer/create_account/default_group','1'),
-(355,'default',0,'customer/create_account/viv_disable_auto_group_assign_default','0'),
-(356,'default',0,'customer/create_account/vat_frontend_visibility','0'),
-(357,'default',0,'customer/create_account/email_domain','example.com'),
-(358,'default',0,'customer/create_account/email_template','24'),
-(359,'default',0,'customer/create_account/email_identity','general'),
-(360,'default',0,'customer/create_account/confirm','0'),
-(361,'default',0,'customer/create_account/email_confirmation_template','customer_create_account_email_confirmation_template'),
-(362,'default',0,'customer/create_account/email_confirmed_template','customer_create_account_email_confirmed_template'),
-(363,'default',0,'customer/create_account/generate_human_friendly_id','0'),
-(364,'default',0,'customer/password/forgot_email_template','39'),
-(365,'default',0,'customer/password/remind_email_template','38'),
-(366,'default',0,'customer/password/forgot_email_identity','support'),
-(367,'default',0,'customer/password/reset_link_expiration_period','3'),
-(368,'default',0,'customer/address/street_lines','2'),
-(369,'default',0,'customer/address/prefix_show',NULL),
-(370,'default',0,'customer/address/prefix_options',NULL),
-(371,'default',0,'customer/address/middlename_show','0'),
-(372,'default',0,'customer/address/suffix_show',NULL),
-(373,'default',0,'customer/address/suffix_options',NULL),
-(374,'default',0,'customer/address/dob_show','opt'),
-(375,'default',0,'customer/address/taxvat_show',NULL),
-(376,'default',0,'customer/address/gender_show',NULL),
-(377,'default',0,'customer/startup/redirect_dashboard','1'),
-(378,'default',0,'customer/address_templates/text','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}\r\n{{depend company}}{{var company}}{{/depend}}\r\n{{if street1}}{{var street1}}\r\n{{/if}}\r\n{{depend street2}}{{var street2}}{{/depend}}\r\n{{depend street3}}{{var street3}}{{/depend}}\r\n{{depend street4}}{{var street4}}{{/depend}}\r\n{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}\r\n{{var country}}\r\nT: {{var telephone}}\r\n{{depend fax}}F: {{var fax}}{{/depend}}\r\n{{depend vat_id}}VAT: {{var vat_id}}{{/depend}}'),
-(379,'default',0,'customer/address_templates/oneline','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, {{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}'),
-(380,'default',0,'customer/address_templates/html','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>\r\n{{depend company}}{{var company}}<br />{{/depend}}\r\n{{if street1}}{{var street1}}<br />{{/if}}\r\n{{depend street2}}{{var street2}}<br />{{/depend}}\r\n{{depend street3}}{{var street3}}<br />{{/depend}}\r\n{{depend street4}}{{var street4}}<br />{{/depend}}\r\n{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}<br/>\r\n{{var country}}<br/>\r\n{{depend telephone}}T: {{var telephone}}{{/depend}}\r\n{{depend fax}}<br/>F: {{var fax}}{{/depend}}\r\n{{depend vat_id}}<br/>VAT: {{var vat_id}}{{/depend}}'),
-(381,'default',0,'customer/address_templates/pdf','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}|\r\n{{depend company}}{{var company}}|{{/depend}}\r\n{{if street1}}{{var street1}}\r\n{{/if}}\r\n{{depend street2}}{{var street2}}|{{/depend}}\r\n{{depend street3}}{{var street3}}|{{/depend}}\r\n{{depend street4}}{{var street4}}|{{/depend}}\r\n{{if city}}{{var city}},|{{/if}}\r\n{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|\r\n{{var country}}|\r\n{{depend telephone}}T: {{var telephone}}{{/depend}}|\r\n{{depend fax}}<br/>F: {{var fax}}{{/depend}}|\r\n{{depend vat_id}}<br/>VAT: {{var vat_id}}{{/depend}}|'),
-(382,'default',0,'customer/address_templates/js_template','#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}<br/>VAT: #{vat_id}'),
-(383,'default',0,'customer/captcha/enable','0'),
-(384,'default',0,'ugiftcert/default/auto_cert_number','1'),
-(385,'default',0,'ugiftcert/default/cert_number','[A*5]-[AN*5]'),
-(386,'default',0,'ugiftcert/default/use_pin','0'),
-(387,'default',0,'ugiftcert/default/auto_pin','0'),
-(388,'default',0,'ugiftcert/default/pin','[N*4]'),
-(389,'default',0,'ugiftcert/default/status','P'),
-(390,'default',0,'ugiftcert/default/active_on_payment','1'),
-(391,'default',0,'ugiftcert/default/amount_config','25;50;100;150;200;250;300;350;400;450;500'),
-(392,'default',0,'ugiftcert/default/expire_timespan',NULL),
-(393,'default',0,'ugiftcert/default/use_conditions','0'),
-(394,'default',0,'ugiftcert/default/giftcert_order_info','0'),
-(395,'default',0,'ugiftcert/default/valid_domains','shop.princesshighway.com.au'),
-(396,'default',0,'ugiftcert/default/single_mode','0'),
-(397,'default',0,'ugiftcert/default/single_mode_error_msg','You can use only one certificate per order.'),
-(398,'default',0,'ugiftcert/default/disallow_coupons','0'),
-(399,'default',0,'ugiftcert/default/disallow_coupons_error_msg','                    You can not use both certificate and coupon in same order.'),
-(400,'default',0,'ugiftcert/default/check_store','0'),
-(401,'default',0,'ugiftcert/custom/allow_multiple_recipients','0'),
-(402,'default',0,'ugiftcert/custom/allow_message','1'),
-(403,'default',0,'ugiftcert/custom/message_max_length','320'),
-(404,'default',0,'ugiftcert/custom/message_preview','1'),
-(405,'default',0,'ugiftcert/custom/cart_full_info','1'),
-(406,'default',0,'ugiftcert/custom/apply_customer_group_limitation','0'),
-(407,'default',0,'ugiftcert/custom/balance_check_url',NULL),
-(408,'default',0,'ugiftcert/email/enabled','1'),
-(409,'default',0,'ugiftcert/email/allow_recipient_email','1'),
-(410,'default',0,'ugiftcert/email/auto_send','2'),
-(411,'default',0,'ugiftcert/email/allow_scheduled_sending','1'),
-(412,'default',0,'ugiftcert/email/identity','general'),
-(413,'default',0,'ugiftcert/email/template','36'),
-(414,'default',0,'ugiftcert/email/pdf_enabled','0'),
-(415,'default',0,'ugiftcert/email/pdf_template','1'),
-(416,'default',0,'ugiftcert/email/pin_format','<br />PIN: %s<br />'),
-(417,'default',0,'ugiftcert/address/enabled','0'),
-(418,'default',0,'ugiftcert/address/always_virtual','0'),
-(419,'default',0,'ugiftcert/admin/notifications','1'),
-(420,'default',0,'sales/general/hide_customer_ip','0'),
-(421,'default',0,'sales/totals_sort/subtotal','10'),
-(422,'default',0,'sales/totals_sort/discount','20'),
-(423,'default',0,'sales/totals_sort/shipping','30'),
-(424,'default',0,'sales/totals_sort/weee','50'),
-(425,'default',0,'sales/totals_sort/tax','40'),
-(426,'default',0,'sales/totals_sort/grand_total','100'),
-(427,'default',0,'sales/totals_sort/ugiftcert','90'),
-(428,'default',0,'sales/reorder/allow','1'),
-(429,'default',0,'sales/identity/address',NULL),
-(430,'default',0,'sales/minimum_order/active','0'),
-(431,'default',0,'sales/minimum_order/amount',NULL),
-(432,'default',0,'sales/minimum_order/description',NULL),
-(433,'default',0,'sales/minimum_order/error_message',NULL),
-(434,'default',0,'sales/minimum_order/multi_address','0'),
-(435,'default',0,'sales/minimum_order/multi_address_description',NULL),
-(436,'default',0,'sales/minimum_order/multi_address_error_message',NULL),
-(437,'default',0,'sales/dashboard/use_aggregated_data','0'),
-(438,'default',0,'sales/gift_options/allow_order','0'),
-(439,'default',0,'sales/gift_options/allow_items','0'),
-(440,'default',0,'sales/msrp/enabled','0'),
-(441,'default',0,'sales/msrp/apply_for_all','0'),
-(442,'default',0,'sales/msrp/display_price_type','1'),
-(443,'default',0,'sales/msrp/explanation_message','Our price is lower than the manufacturer\'s \"minimum advertised price.\"  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.'),
-(444,'default',0,'sales/msrp/explanation_message_whats_this','Our price is lower than the manufacturer\'s \"minimum advertised price.\"  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.'),
-(445,'default',0,'sales_email/order/enabled','1'),
-(446,'default',0,'sales_email/order/identity','sales'),
-(447,'default',0,'sales_email/order/template','20'),
-(448,'default',0,'sales_email/order/guest_template','21'),
-(449,'default',0,'sales_email/order/copy_to','admin@princesshighway.com.au'),
-(450,'default',0,'sales_email/order/copy_method','copy'),
-(451,'default',0,'sales_email/order_comment/enabled','1'),
-(452,'default',0,'sales_email/order_comment/identity','sales'),
-(453,'default',0,'sales_email/order_comment/template','28'),
-(454,'default',0,'sales_email/order_comment/guest_template','29'),
-(455,'default',0,'sales_email/order_comment/copy_to','admin@princesshighway.com.au'),
-(456,'default',0,'sales_email/order_comment/copy_method','copy'),
-(457,'default',0,'sales_email/invoice/enabled','1'),
-(458,'default',0,'sales_email/invoice/identity','sales'),
-(459,'default',0,'sales_email/invoice/template','18'),
-(460,'default',0,'sales_email/invoice/guest_template','19'),
-(461,'default',0,'sales_email/invoice/copy_to','admin@princesshighway.com.au'),
-(462,'default',0,'sales_email/invoice/copy_method','copy'),
-(463,'default',0,'sales_email/invoice_comment/enabled','1'),
-(464,'default',0,'sales_email/invoice_comment/identity','sales'),
-(465,'default',0,'sales_email/invoice_comment/template','13'),
-(466,'default',0,'sales_email/invoice_comment/guest_template','14'),
-(467,'default',0,'sales_email/invoice_comment/copy_to','admin@princesshighway.com.au'),
-(468,'default',0,'sales_email/invoice_comment/copy_method','copy'),
-(469,'default',0,'sales_email/shipment/enabled','1'),
-(470,'default',0,'sales_email/shipment/identity','sales'),
-(471,'default',0,'sales_email/shipment/template','22'),
-(472,'default',0,'sales_email/shipment/guest_template','23'),
-(473,'default',0,'sales_email/shipment/copy_to','admin@princesshighway.com.au'),
-(474,'default',0,'sales_email/shipment/copy_method','copy'),
-(475,'default',0,'sales_email/shipment_comment/enabled','1'),
-(476,'default',0,'sales_email/shipment_comment/identity','sales'),
-(477,'default',0,'sales_email/shipment_comment/template','33'),
-(478,'default',0,'sales_email/shipment_comment/guest_template','34'),
-(479,'default',0,'sales_email/shipment_comment/copy_to','admin@princesshighway.com.au'),
-(480,'default',0,'sales_email/shipment_comment/copy_method','copy'),
-(481,'default',0,'sales_email/creditmemo/enabled','1'),
-(482,'default',0,'sales_email/creditmemo/identity','sales'),
-(483,'default',0,'sales_email/creditmemo/template','16'),
-(484,'default',0,'sales_email/creditmemo/guest_template','17'),
-(485,'default',0,'sales_email/creditmemo/copy_to','admin@princesshighway.com.au'),
-(486,'default',0,'sales_email/creditmemo/copy_method','copy'),
-(487,'default',0,'sales_email/creditmemo_comment/enabled','1'),
-(488,'default',0,'sales_email/creditmemo_comment/identity','sales'),
-(489,'default',0,'sales_email/creditmemo_comment/template','8'),
-(490,'default',0,'sales_email/creditmemo_comment/guest_template','9'),
-(491,'default',0,'sales_email/creditmemo_comment/copy_to','admin@princesshighway.com.au'),
-(492,'default',0,'sales_email/creditmemo_comment/copy_method','copy'),
-(493,'default',0,'sales_email/stage2/enabled','1'),
-(494,'default',0,'sales_email/stage2/identity','sales'),
-(495,'default',0,'sales_email/stage2/template','42'),
-(496,'default',0,'sales_email/stage2/guest_template','42'),
-(497,'default',0,'sales_email/stage2/copy_to','admin@princesshighway.com.au'),
-(498,'default',0,'sales_email/stage2/copy_method','copy'),
-(499,'default',0,'tax/classes/shipping_tax_class','0'),
-(500,'default',0,'tax/calculation/algorithm','TOTAL_BASE_CALCULATION'),
-(501,'default',0,'tax/calculation/based_on','shipping'),
-(502,'default',0,'tax/calculation/price_includes_tax','0'),
-(503,'default',0,'tax/calculation/shipping_includes_tax','0'),
-(504,'default',0,'tax/calculation/apply_after_discount','0'),
-(505,'default',0,'tax/ignore_notification/discount','1'),
-(506,'default',0,'tax/ignore_notification/price_display','0'),
-(507,'default',0,'tax/calculation/discount_tax','0'),
-(508,'default',0,'tax/calculation/apply_tax_on','0'),
-(509,'default',0,'tax/defaults/country','US'),
-(510,'default',0,'tax/defaults/region','0'),
-(511,'default',0,'tax/defaults/postcode','*'),
-(512,'default',0,'tax/display/type','1'),
-(513,'default',0,'tax/display/shipping','1'),
-(514,'default',0,'tax/cart_display/price','1'),
-(515,'default',0,'tax/cart_display/subtotal','1'),
-(516,'default',0,'tax/cart_display/shipping','1'),
-(517,'default',0,'tax/cart_display/grandtotal','0'),
-(518,'default',0,'tax/cart_display/full_summary','0'),
-(519,'default',0,'tax/cart_display/zero_tax','0'),
-(520,'default',0,'tax/sales_display/price','1'),
-(521,'default',0,'tax/sales_display/subtotal','1'),
-(522,'default',0,'tax/sales_display/shipping','1'),
-(523,'default',0,'tax/sales_display/grandtotal','0'),
-(524,'default',0,'tax/sales_display/full_summary','0'),
-(525,'default',0,'tax/sales_display/zero_tax','0'),
-(526,'default',0,'tax/weee/enable','0'),
-(527,'default',0,'tax/weee/display_list','0'),
-(528,'default',0,'tax/weee/display','0'),
-(529,'default',0,'tax/weee/display_sales','0'),
-(530,'default',0,'tax/weee/display_email','0'),
-(531,'default',0,'tax/weee/discount','0'),
-(532,'default',0,'tax/weee/apply_vat','0'),
-(533,'default',0,'tax/weee/include_in_subtotal','0'),
-(534,'default',0,'checkout/options/onepage_checkout_enabled','1'),
-(535,'default',0,'checkout/options/guest_checkout','1'),
-(536,'default',0,'checkout/options/enable_agreements','0'),
-(537,'default',0,'checkout/cart/delete_quote_after','30'),
-(538,'default',0,'checkout/cart/redirect_to_cart','1'),
-(539,'default',0,'checkout/cart/grouped_product_image','itself'),
-(540,'default',0,'checkout/cart/configurable_product_image','parent'),
-(541,'default',0,'checkout/cart_link/use_qty','1'),
-(542,'default',0,'checkout/sidebar/display','1'),
-(543,'default',0,'checkout/sidebar/count','3'),
-(544,'default',0,'checkout/payment_failed/reciever','general'),
-(545,'default',0,'checkout/payment_failed/identity','general'),
-(546,'default',0,'checkout/payment_failed/template','checkout_payment_failed_template'),
-(547,'default',0,'checkout/payment_failed/copy_to','admin@princesshighway.com.au'),
-(548,'default',0,'checkout/payment_failed/copy_method','bcc'),
-(549,'default',0,'shipping/origin/country_id','AU'),
-(550,'default',0,'shipping/origin/region_id','491'),
-(551,'default',0,'shipping/origin/postcode','3067'),
-(552,'default',0,'shipping/origin/city','Abbotsford'),
-(553,'default',0,'shipping/origin/street_line1','61 Church St'),
-(554,'default',0,'shipping/origin/street_line2',NULL),
-(555,'default',0,'shipping/option/checkout_multiple','0'),
-(556,'default',0,'shipping/option/checkout_multiple_maximum_qty','1'),
-(557,'default',0,'carriers/australiapost/active','0'),
-(558,'default',0,'carriers/australiapost/title','Australia Post'),
-(559,'default',0,'carriers/australiapost/name',NULL),
-(560,'default',0,'carriers/australiapost/handling_type','F'),
-(561,'default',0,'carriers/australiapost/handling_fee',NULL),
-(562,'default',0,'carriers/australiapost/weight_units','1000'),
-(563,'default',0,'carriers/australiapost/registered_post','0'),
-(564,'default',0,'carriers/australiapost/registered_post_charge','2.75'),
-(565,'default',0,'carriers/australiapost/delivery_confirmation','0'),
-(566,'default',0,'carriers/australiapost/person_to_person','0'),
-(567,'default',0,'carriers/australiapost/sallowspecific','0'),
-(568,'default',0,'carriers/australiapost/showmethod','0'),
-(569,'default',0,'carriers/australiapost/specificerrmsg',NULL),
-(570,'default',0,'carriers/australiapost/sort_order',NULL),
-(571,'default',0,'carriers/australiapost/cache','0'),
-(572,'default',0,'carriers/australiapost/debug','0'),
-(573,'default',0,'carriers/flatrate/active','1'),
-(574,'default',0,'carriers/flatrate/title','Australia Post'),
-(575,'default',0,'carriers/flatrate/name','Express (3-5 days)'),
-(576,'default',0,'carriers/flatrate/type','O'),
-(577,'default',0,'carriers/flatrate/price','7.50'),
-(578,'default',0,'carriers/flatrate/handling_type','F'),
-(579,'default',0,'carriers/flatrate/handling_fee',NULL),
-(580,'default',0,'carriers/flatrate/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(581,'default',0,'carriers/flatrate/sallowspecific','1'),
-(582,'default',0,'carriers/flatrate/specificcountry','AU'),
-(583,'default',0,'carriers/flatrate/showmethod','0'),
-(584,'default',0,'carriers/flatrate/sort_order','2'),
-(585,'default',0,'carriers/eparcel/active','0'),
-(586,'default',0,'carriers/eparcel/title','Australia Post eParcel'),
-(587,'default',0,'carriers/eparcel/name','eParcel'),
-(588,'default',0,'carriers/eparcel/condition_name','package_weight'),
-(589,'default',0,'carriers/eparcel/handling_type','F'),
-(590,'default',0,'carriers/eparcel/handling_fee',NULL),
-(591,'default',0,'carriers/eparcel/merchant_location_id','AWV'),
-(592,'default',0,'carriers/eparcel/post_charge_account','1234567'),
-(593,'default',0,'carriers/eparcel/signature_required','0'),
-(594,'default',0,'carriers/eparcel/signature_cost','6.44'),
-(595,'default',0,'carriers/eparcel/insurance_step','100.0'),
-(596,'default',0,'carriers/eparcel/insurance_cost_per_step','1.05'),
-(597,'default',0,'carriers/eparcel/return_name',NULL),
-(598,'default',0,'carriers/eparcel/return_addressline_1',NULL),
-(599,'default',0,'carriers/eparcel/return_addressline_2',NULL),
-(600,'default',0,'carriers/eparcel/return_addressline_3',NULL),
-(601,'default',0,'carriers/eparcel/return_addressline_4',NULL),
-(602,'default',0,'carriers/eparcel/return_suburb',NULL),
-(603,'default',0,'carriers/eparcel/return_state',NULL),
-(604,'default',0,'carriers/eparcel/return_postcode',NULL),
-(605,'default',0,'carriers/eparcel/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(606,'default',0,'carriers/eparcel/sallowspecific','1'),
-(607,'default',0,'carriers/eparcel/specificcountry','AU'),
-(608,'default',0,'carriers/eparcel/showmethod','0'),
-(609,'default',0,'carriers/eparcel/sort_order',NULL),
-(610,'default',0,'carriers/tablerate/active','1'),
-(611,'default',0,'carriers/tablerate/title','DHL'),
-(612,'default',0,'carriers/tablerate/name','International (7 - 14)'),
-(613,'default',0,'carriers/tablerate/condition_name','package_qty'),
-(614,'default',0,'carriers/tablerate/include_virtual_price','0'),
-(615,'default',0,'carriers/tablerate/handling_type','F'),
-(616,'default',0,'carriers/tablerate/handling_fee','0'),
-(617,'default',0,'carriers/tablerate/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(618,'default',0,'carriers/tablerate/sallowspecific','1'),
-(619,'default',0,'carriers/tablerate/specificcountry','AF,AX,AL,DZ,AS,AD,AO,AI,AQ,AG,AR,AM,AW,AT,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BV,BR,IO,VG,BN,BG,BF,BI,KH,CM,CA,CV,KY,CF,TD,CL,CN,CX,CC,CO,KM,CG,CD,CK,CR,CI,HR,CU,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FO,FJ,FI,FR,GF,PF,TF,GA,GM,GE,DE,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HM,HN,HK,HU,IS,IN,IR,IQ,IE,IM,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KW,KG,LA,LV,LB,LS,LR,LY,LI,LT,LU,MO,MK,MG,MW,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,MM,NA,NR,NP,NL,AN,NC,NZ,NI,NE,NU,NF,MP,KP,NO,OM,PW,PS,PA,PG,PY,PE,PH,PN,PL,PT,PR,QA,RE,RO,RU,RW,BL,SH,KN,LC,MF,PM,VC,WS,SM,ST,SA,SN,RS,SC,SL,SK,SI,SB,SO,GS,KR,ES,LK,SD,SR,SJ,SZ,SE,CH,SY,TW,TJ,TZ,TH,TL,TG,TK,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,GB,US,UY,UM,VI,UZ,VU,VA,VE,VN,WF,EH,YE,ZM,ZW'),
-(620,'default',0,'carriers/tablerate/showmethod','0'),
-(621,'default',0,'carriers/tablerate/sort_order','1'),
-(622,'default',0,'carriers/freeshipping/active','1'),
-(623,'default',0,'carriers/freeshipping/title','Australia Post'),
-(624,'default',0,'carriers/freeshipping/name','Parcel (5-10 days)'),
-(625,'default',0,'carriers/freeshipping/free_shipping_subtotal','1'),
-(626,'default',0,'carriers/freeshipping/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(627,'default',0,'carriers/freeshipping/sallowspecific','1'),
-(628,'default',0,'carriers/freeshipping/specificcountry','AU'),
-(629,'default',0,'carriers/freeshipping/showmethod','0'),
-(630,'default',0,'carriers/freeshipping/sort_order','1'),
-(631,'default',0,'carriers/ups/active','0'),
-(632,'default',0,'carriers/ups/type','UPS'),
-(633,'default',0,'carriers/ups/gateway_xml_url','https://onlinetools.ups.com/ups.app/xml/Rate'),
-(634,'default',0,'carriers/ups/tracking_xml_url','https://onlinetools.ups.com/ups.app/xml/Track'),
-(635,'default',0,'carriers/ups/shipconfirm_xml_url','https://onlinetools.ups.com/ups.app/xml/ShipConfirm'),
-(636,'default',0,'carriers/ups/shipaccept_xml_url','https://onlinetools.ups.com/ups.app/xml/ShipAccept'),
-(637,'default',0,'carriers/ups/mode_xml','1'),
-(638,'default',0,'carriers/ups/password',NULL),
-(639,'default',0,'carriers/ups/username',NULL),
-(640,'default',0,'carriers/ups/access_license_number',NULL),
-(641,'default',0,'carriers/ups/origin_shipment','Shipments Originating in United States'),
-(642,'default',0,'carriers/ups/title','United Parcel Service'),
-(643,'default',0,'carriers/ups/gateway_url','http://www.ups.com/using/services/rave/qcostcgi.cgi'),
-(644,'default',0,'carriers/ups/negotiated_active','0'),
-(645,'default',0,'carriers/ups/shipment_requesttype','0'),
-(646,'default',0,'carriers/ups/container','CP'),
-(647,'default',0,'carriers/ups/shipper_number',NULL),
-(648,'default',0,'carriers/ups/dest_type','RES'),
-(649,'default',0,'carriers/ups/unit_of_measure','LBS'),
-(650,'default',0,'carriers/ups/pickup','CC'),
-(651,'default',0,'carriers/ups/max_package_weight','150'),
-(652,'default',0,'carriers/ups/min_package_weight','0.1'),
-(653,'default',0,'carriers/ups/handling_type','F'),
-(654,'default',0,'carriers/ups/handling_action','O'),
-(655,'default',0,'carriers/ups/handling_fee',NULL),
-(656,'default',0,'carriers/ups/allowed_methods','1DM,1DML,1DA,1DAL,1DAPI,1DP,1DPL,2DM,2DML,2DA,2DAL,3DS,GND,GNDCOM,GNDRES,STD,XPR,WXS,XPRL,XDM,XDML,XPD'),
-(657,'default',0,'carriers/ups/free_method','GND'),
-(658,'default',0,'carriers/ups/free_shipping_enable','0'),
-(659,'default',0,'carriers/ups/free_shipping_subtotal',NULL),
-(660,'default',0,'carriers/ups/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(661,'default',0,'carriers/ups/sallowspecific','0'),
-(662,'default',0,'carriers/ups/specificcountry',NULL),
-(663,'default',0,'carriers/ups/debug','0'),
-(664,'default',0,'carriers/ups/showmethod','0'),
-(665,'default',0,'carriers/ups/sort_order',NULL),
-(666,'default',0,'carriers/usps/active','0'),
-(667,'default',0,'carriers/usps/gateway_url','http://production.shippingapis.com/ShippingAPI.dll'),
-(668,'default',0,'carriers/usps/gateway_secure_url','https://secure.shippingapis.com/ShippingAPI.dll'),
-(669,'default',0,'carriers/usps/title','United States Postal Service'),
-(670,'default',0,'carriers/usps/userid',NULL),
-(671,'default',0,'carriers/usps/password',NULL),
-(672,'default',0,'carriers/usps/mode','0'),
-(673,'default',0,'carriers/usps/shipment_requesttype','0'),
-(674,'default',0,'carriers/usps/container','VARIABLE'),
-(675,'default',0,'carriers/usps/size','REGULAR'),
-(676,'default',0,'carriers/usps/machinable','true'),
-(677,'default',0,'carriers/usps/max_package_weight','70'),
-(678,'default',0,'carriers/usps/handling_type','F'),
-(679,'default',0,'carriers/usps/handling_action','O'),
-(680,'default',0,'carriers/usps/handling_fee',NULL),
-(681,'default',0,'carriers/usps/allowed_methods','0_FCLE,0_FCL,0_FCP,1,2,3,4,6,7,13,16,17,22,23,25,27,28,33,34,35,36,37,42,43,53,55,56,57,61,INT_1,INT_2,INT_4,INT_6,INT_7,INT_8,INT_9,INT_10,INT_11,INT_12,INT_13,INT_14,INT_15,INT_16,INT_20,INT_26'),
-(682,'default',0,'carriers/usps/free_method',NULL),
-(683,'default',0,'carriers/usps/free_shipping_subtotal',NULL),
-(684,'default',0,'carriers/usps/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(685,'default',0,'carriers/usps/sallowspecific','0'),
-(686,'default',0,'carriers/usps/specificcountry',NULL),
-(687,'default',0,'carriers/usps/debug','0'),
-(688,'default',0,'carriers/usps/showmethod','0'),
-(689,'default',0,'carriers/usps/sort_order',NULL),
-(690,'default',0,'carriers/usps/free_shipping_enable','0'),
-(691,'default',0,'carriers/fedex/active','0'),
-(692,'default',0,'carriers/fedex/title','Federal Express'),
-(693,'default',0,'carriers/fedex/account',NULL),
-(694,'default',0,'carriers/fedex/meter_number',NULL),
-(695,'default',0,'carriers/fedex/key',NULL),
-(696,'default',0,'carriers/fedex/password',NULL),
-(697,'default',0,'carriers/fedex/sandbox_mode','0'),
-(698,'default',0,'carriers/fedex/shipment_requesttype','0'),
-(699,'default',0,'carriers/fedex/packaging','YOUR_PACKAGING'),
-(700,'default',0,'carriers/fedex/dropoff','REGULAR_PICKUP'),
-(701,'default',0,'carriers/fedex/unit_of_measure','LB'),
-(702,'default',0,'carriers/fedex/max_package_weight','150'),
-(703,'default',0,'carriers/fedex/handling_type','F'),
-(704,'default',0,'carriers/fedex/handling_action','O'),
-(705,'default',0,'carriers/fedex/handling_fee',NULL),
-(706,'default',0,'carriers/fedex/residence_delivery','0'),
-(707,'default',0,'carriers/fedex/allowed_methods','EUROPE_FIRST_INTERNATIONAL_PRIORITY,FEDEX_1_DAY_FREIGHT,FEDEX_2_DAY_FREIGHT,FEDEX_2_DAY,FEDEX_2_DAY_AM,FEDEX_3_DAY_FREIGHT,FEDEX_EXPRESS_SAVER,FEDEX_GROUND,FIRST_OVERNIGHT,GROUND_HOME_DELIVERY,INTERNATIONAL_ECONOMY,INTERNATIONAL_ECONOMY_FREIGHT,INTERNATIONAL_FIRST,INTERNATIONAL_GROUND,INTERNATIONAL_PRIORITY,INTERNATIONAL_PRIORITY_FREIGHT,PRIORITY_OVERNIGHT,SMART_POST,STANDARD_OVERNIGHT,FEDEX_FREIGHT,FEDEX_NATIONAL_FREIGHT'),
-(708,'default',0,'carriers/fedex/smartpost_hubid',NULL),
-(709,'default',0,'carriers/fedex/free_method','FEDEX_GROUND'),
-(710,'default',0,'carriers/fedex/free_shipping_enable','0'),
-(711,'default',0,'carriers/fedex/free_shipping_subtotal',NULL),
-(712,'default',0,'carriers/fedex/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(713,'default',0,'carriers/fedex/sallowspecific','0'),
-(714,'default',0,'carriers/fedex/specificcountry',NULL),
-(715,'default',0,'carriers/fedex/debug','0'),
-(716,'default',0,'carriers/fedex/showmethod','0'),
-(717,'default',0,'carriers/fedex/sort_order',NULL),
-(718,'default',0,'carriers/dhl/active','0'),
-(719,'default',0,'carriers/dhl/gateway_url','https://eCommerce.airborne.com/ApiLandingTest.asp'),
-(720,'default',0,'carriers/dhl/title','DHL (Deprecated)'),
-(721,'default',0,'carriers/dhl/id',NULL),
-(722,'default',0,'carriers/dhl/password',NULL),
-(723,'default',0,'carriers/dhl/account',NULL),
-(724,'default',0,'carriers/dhl/shipping_key',NULL),
-(725,'default',0,'carriers/dhl/shipping_intlkey',NULL),
-(726,'default',0,'carriers/dhl/shipment_requesttype','0'),
-(727,'default',0,'carriers/dhl/shipment_type','P'),
-(728,'default',0,'carriers/dhl/handling_type','F'),
-(729,'default',0,'carriers/dhl/handling_action','O'),
-(730,'default',0,'carriers/dhl/contentdesc','Big Box'),
-(731,'default',0,'carriers/dhl/handling_fee',NULL),
-(732,'default',0,'carriers/dhl/max_package_weight','150'),
-(733,'default',0,'carriers/dhl/dutiable','0'),
-(734,'default',0,'carriers/dhl/dutypaymenttype','R'),
-(735,'default',0,'carriers/dhl/allowed_methods','IE,E SAT,E 10:30AM,E,N,S,G'),
-(736,'default',0,'carriers/dhl/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(737,'default',0,'carriers/dhl/free_method','G'),
-(738,'default',0,'carriers/dhl/free_shipping_enable','0'),
-(739,'default',0,'carriers/dhl/free_shipping_subtotal',NULL),
-(740,'default',0,'carriers/dhl/additional_protection_enabled','0'),
-(741,'default',0,'carriers/dhl/additional_protection_min_value',NULL),
-(742,'default',0,'carriers/dhl/additional_protection_use_subtotal','0'),
-(743,'default',0,'carriers/dhl/additional_protection_value',NULL),
-(744,'default',0,'carriers/dhl/additional_protection_rounding','0'),
-(745,'default',0,'carriers/dhl/hazardous_materials','0'),
-(746,'default',0,'carriers/dhl/default_length',NULL),
-(747,'default',0,'carriers/dhl/default_width',NULL),
-(748,'default',0,'carriers/dhl/default_height',NULL),
-(749,'default',0,'carriers/dhl/shipment_days','Mon,Tue,Wed,Thu,Fri,Sat'),
-(750,'default',0,'carriers/dhl/intl_shipment_days','Mon,Tue,Wed,Thu,Fri'),
-(751,'default',0,'carriers/dhl/sallowspecific','0'),
-(752,'default',0,'carriers/dhl/specificcountry',NULL),
-(753,'default',0,'carriers/dhl/showmethod','0'),
-(754,'default',0,'carriers/dhl/debug','0'),
-(755,'default',0,'carriers/dhl/sort_order',NULL),
-(756,'default',0,'carriers/dhlint/active','0'),
-(757,'default',0,'carriers/dhlint/title','DHL'),
-(758,'default',0,'carriers/dhlint/gateway_url','https://xmlpi-ea.dhl.com/XMLShippingServlet'),
-(759,'default',0,'carriers/dhlint/id',NULL),
-(760,'default',0,'carriers/dhlint/password',NULL),
-(761,'default',0,'carriers/dhlint/account',NULL),
-(762,'default',0,'carriers/dhlint/content_type','D'),
-(763,'default',0,'carriers/dhlint/handling_type','F'),
-(764,'default',0,'carriers/dhlint/handling_action','O'),
-(765,'default',0,'carriers/dhlint/handling_fee',NULL),
-(766,'default',0,'carriers/dhlint/divide_order_weight','1'),
-(767,'default',0,'carriers/dhlint/unit_of_measure','K'),
-(768,'default',0,'carriers/dhlint/size','0'),
-(769,'default',0,'carriers/dhlint/doc_methods','2,5,6,7,9,B,C,D,U,K,L,G,W,I,N,O,R,S,T,X'),
-(770,'default',0,'carriers/dhlint/ready_time',NULL),
-(771,'default',0,'carriers/dhlint/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'),
-(772,'default',0,'carriers/dhlint/free_method_doc',NULL),
-(773,'default',0,'carriers/dhlint/free_shipping_enable','0'),
-(774,'default',0,'carriers/dhlint/free_shipping_subtotal',NULL),
-(775,'default',0,'carriers/dhlint/sallowspecific','0'),
-(776,'default',0,'carriers/dhlint/specificcountry',NULL),
-(777,'default',0,'carriers/dhlint/showmethod','0'),
-(778,'default',0,'carriers/dhlint/debug','0'),
-(779,'default',0,'carriers/dhlint/sort_order',NULL),
-(780,'websites',1,'carriers/eparcel/import','1387799312'),
-(781,'websites',1,'carriers/tablerate/import','tablerates.csv'),
-(782,'default',0,'google/analytics/active','0'),
-(783,'default',0,'google/analytics/account',NULL),
-(784,'default',0,'google/analytics/anonymization','0'),
-(785,'default',0,'easyreview/general/enable','1'),
-(786,'default',0,'easyreview/general/email_identity','general'),
-(787,'default',0,'easyreview/general/email_template','11'),
-(788,'default',0,'easyreview/general/notify_delay','28'),
-(789,'default',0,'easyreview/general/consider_orders_after',NULL),
-(790,'default',0,'easyreview/product/allow_parent','1'),
-(791,'default',0,'easyreview/product/allow_child','0'),
-(792,'default',0,'easyreview/product/visibility','2,3,4'),
-(793,'default',0,'admin/emails/forgot_email_template','admin_emails_forgot_email_template'),
-(794,'default',0,'admin/emails/forgot_email_identity','general'),
-(795,'default',0,'admin/emails/password_reset_link_expiration_period','3'),
-(796,'default',0,'admin/startup/page','dashboard'),
-(797,'default',0,'admin/url/use_custom','0'),
-(798,'default',0,'admin/url/use_custom_path','0'),
-(799,'default',0,'admin/security/use_form_key','1'),
-(800,'default',0,'admin/security/use_case_sensitive_login','1'),
-(801,'default',0,'admin/security/session_cookie_lifetime','900'),
-(802,'default',0,'admin/captcha/enable','0'),
-(803,'default',0,'system/cron/schedule_generate_every','15'),
-(804,'default',0,'system/cron/schedule_ahead_for','20'),
-(805,'default',0,'system/cron/schedule_lifetime','15'),
-(806,'default',0,'system/cron/history_cleanup_every','10'),
-(807,'default',0,'system/cron/history_success_lifetime','2880'),
-(808,'default',0,'system/cron/history_failure_lifetime','2880'),
-(809,'default',0,'system/smtp/disable','0'),
-(810,'default',0,'system/smtp/host','localhost'),
-(811,'default',0,'system/smtp/port','25'),
-(812,'default',0,'system/smtp/set_return_path','0'),
-(813,'default',0,'system/currency/installed','AFN,ALL,DZD,AOA,ARS,AMD,AWG,AUD,AZN,AZM,BSD,BHD,BDT,BBD,BYR,BZD,BMD,BTN,BOB,BAM,BWP,BRL,GBP,BND,BGN,BUK,BIF,XOF,XPF,KHR,CAD,CVE,KYD,CLP,CNY,COP,KMF,CDF,CRC,HRK,CUP,CZK,DKK,DJF,DOP,XCD,EGP,GQE,ERN,EEK,ETB,EUR,FKP,FJD,GMD,GEK,GEL,GHS,GIP,GTQ,GNF,GYD,HTG,HNL,HKD,HUF,ISK,INR,IDR,IRR,IQD,ILS,JMD,JPY,JOD,KZT,KES,KWD,KGS,LAK,LVL,LBP,LSL,LRD,LYD,LTL,MOP,MKD,MGA,MWK,MYR,MVR,MRO,MUR,MXN,MDL,MNT,MAD,MZN,MMK,NAD,NPR,ANG,TWD,NZD,NIC,NGN,KPW,NOK,ROL,TRL,OMR,PKR,PAB,PGK,PYG,PEN,PHP,PLN,QAR,RHD,RON,RUB,RWF,SHP,SVC,WST,SAR,RSD,SCR,SLL,SGD,SKK,SBD,SOS,ZAR,KRW,LKR,SDG,SRD,SZL,SEK,CHF,SYP,STD,TJS,TZS,THB,TOP,TTD,TND,TRY,TMM,USD,UGX,UAH,AED,UYU,UZS,VUV,VEB,VEF,VND,CHE,CHW,YER,ZMK,ZWD'),
-(814,'default',0,'system/log/clean_after_day','7'),
-(815,'default',0,'system/log/enabled','1'),
-(816,'default',0,'system/log/time','00,00,00'),
-(817,'default',0,'system/log/frequency','D'),
-(818,'default',0,'crontab/jobs/log_clean/schedule/cron_expr','0 0 * * *'),
-(819,'default',0,'crontab/jobs/log_clean/run/model','log/cron::logClean'),
-(820,'default',0,'system/log/error_email','admin@princesshighway.com.au'),
-(821,'default',0,'system/log/error_email_identity','general'),
-(822,'default',0,'system/log/error_email_template','system_log_error_email_template'),
-(823,'default',0,'system/adminnotification/use_https','0'),
-(824,'default',0,'system/adminnotification/frequency','1'),
-(825,'default',0,'system/external_page_cache/enabled','0'),
-(826,'default',0,'system/backup/enabled','0'),
-(827,'default',0,'system/media_storage_configuration/media_storage','0'),
-(828,'default',0,'system/media_storage_configuration/media_database','default_setup'),
-(829,'default',0,'system/media_storage_configuration/configuration_update_time','3600'),
-(830,'default',0,'advanced/modules_disable_output/AW_ARUnitNewvsreturning','0'),
-(831,'default',0,'advanced/modules_disable_output/AW_ARUnitSalesbyzipcode','0'),
-(832,'default',0,'advanced/modules_disable_output/AW_Advancedreports','0'),
-(833,'default',0,'advanced/modules_disable_output/AW_All','0'),
-(834,'default',0,'advanced/modules_disable_output/Alanstormdotcom_Unremove','0'),
-(835,'default',0,'advanced/modules_disable_output/Amasty_Base','0'),
-(836,'default',0,'advanced/modules_disable_output/Amasty_Cheapest','0'),
-(837,'default',0,'advanced/modules_disable_output/Amasty_Promo','0'),
-(838,'default',0,'advanced/modules_disable_output/Balanced_CustomerSurvey','0'),
-(839,'default',0,'advanced/modules_disable_output/Brandammo_Pronav','0'),
-(840,'default',0,'advanced/modules_disable_output/Bubble_AttributeOptionPro','0'),
-(841,'default',0,'advanced/modules_disable_output/Cm_RedisSession','0'),
-(842,'default',0,'advanced/modules_disable_output/Dnd_Patchindexurl','0'),
-(843,'default',0,'advanced/modules_disable_output/FME_Gmapstrlocator','0'),
-(844,'default',0,'advanced/modules_disable_output/FactoryX_Abandonedcarts','0'),
-(845,'default',0,'advanced/modules_disable_output/FactoryX_AdvertPanels','0'),
-(846,'default',0,'advanced/modules_disable_output/FactoryX_AskStylist','0'),
-(847,'default',0,'advanced/modules_disable_output/FactoryX_BirthdayGift','0'),
-(848,'default',0,'advanced/modules_disable_output/FactoryX_CampaignMonitor','0'),
-(849,'default',0,'advanced/modules_disable_output/FactoryX_Checkout','0'),
-(850,'default',0,'advanced/modules_disable_output/FactoryX_ConditionalAgreement','0'),
-(851,'default',0,'advanced/modules_disable_output/FactoryX_Configviewer','0'),
-(852,'default',0,'advanced/modules_disable_output/FactoryX_Contests','0'),
-(853,'default',0,'advanced/modules_disable_output/FactoryX_CustomReports','0'),
-(854,'default',0,'advanced/modules_disable_output/FactoryX_CustomerLinks','0'),
-(855,'default',0,'advanced/modules_disable_output/FactoryX_ExportReview','0'),
-(856,'default',0,'advanced/modules_disable_output/FactoryX_HtmlInject','0'),
-(857,'default',0,'advanced/modules_disable_output/FactoryX_Layoutviewer','0'),
-(858,'default',0,'advanced/modules_disable_output/FactoryX_OrderBy','0'),
-(859,'default',0,'advanced/modules_disable_output/FactoryX_Page','0'),
-(860,'default',0,'advanced/modules_disable_output/FactoryX_PickList','0'),
-(861,'default',0,'advanced/modules_disable_output/FactoryX_ProductExport','0'),
-(862,'default',0,'advanced/modules_disable_output/FactoryX_ProductRefresh','0'),
-(863,'default',0,'advanced/modules_disable_output/FactoryX_Promo','0'),
-(864,'default',0,'advanced/modules_disable_output/FactoryX_Sales','0'),
-(865,'default',0,'advanced/modules_disable_output/FactoryX_ShippedFrom','0'),
-(866,'default',0,'advanced/modules_disable_output/FactoryX_Westfield','0'),
-(867,'default',0,'advanced/modules_disable_output/Fontis_Australia','0'),
-(868,'default',0,'advanced/modules_disable_output/GT_Speed','0'),
-(869,'default',0,'advanced/modules_disable_output/MDN_EasyReview','0'),
-(870,'default',0,'advanced/modules_disable_output/MageWorx_Adminhtml','0'),
-(871,'default',0,'advanced/modules_disable_output/MageWorx_SeoSuite','0'),
-(872,'default',0,'advanced/modules_disable_output/MageWorx_XSitemap','0'),
-(873,'default',0,'advanced/modules_disable_output/Mage_Admin','0'),
-(874,'default',0,'advanced/modules_disable_output/Mage_AdminNotification','0'),
-(875,'default',0,'advanced/modules_disable_output/Mage_Api','0'),
-(876,'default',0,'advanced/modules_disable_output/Mage_Api2','0'),
-(877,'default',0,'advanced/modules_disable_output/Mage_Authorizenet','0'),
-(878,'default',0,'advanced/modules_disable_output/Mage_Backup','0'),
-(879,'default',0,'advanced/modules_disable_output/Mage_Bundle','0'),
-(880,'default',0,'advanced/modules_disable_output/Mage_Captcha','0'),
-(881,'default',0,'advanced/modules_disable_output/Mage_Catalog','0'),
-(882,'default',0,'advanced/modules_disable_output/Mage_CatalogIndex','0'),
-(883,'default',0,'advanced/modules_disable_output/Mage_CatalogInventory','0'),
-(884,'default',0,'advanced/modules_disable_output/Mage_CatalogRule','0'),
-(885,'default',0,'advanced/modules_disable_output/Mage_CatalogSearch','0'),
-(886,'default',0,'advanced/modules_disable_output/Mage_Centinel','0'),
-(887,'default',0,'advanced/modules_disable_output/Mage_Checkout','0'),
-(888,'default',0,'advanced/modules_disable_output/Mage_Cms','0'),
-(889,'default',0,'advanced/modules_disable_output/Mage_Compiler','0'),
-(890,'default',0,'advanced/modules_disable_output/Mage_Connect','0'),
-(891,'default',0,'advanced/modules_disable_output/Mage_Contacts','0'),
-(892,'default',0,'advanced/modules_disable_output/Mage_Core','0'),
-(893,'default',0,'advanced/modules_disable_output/Mage_Cron','0'),
-(894,'default',0,'advanced/modules_disable_output/Mage_CurrencySymbol','0'),
-(895,'default',0,'advanced/modules_disable_output/Mage_Customer','0'),
-(896,'default',0,'advanced/modules_disable_output/Mage_Dataflow','0'),
-(897,'default',0,'advanced/modules_disable_output/Mage_Directory','0'),
-(898,'default',0,'advanced/modules_disable_output/Mage_Downloadable','1'),
-(899,'default',0,'advanced/modules_disable_output/Mage_Eav','0'),
-(900,'default',0,'advanced/modules_disable_output/Mage_GiftMessage','0'),
-(901,'default',0,'advanced/modules_disable_output/Mage_GoogleAnalytics','0'),
-(902,'default',0,'advanced/modules_disable_output/Mage_GoogleCheckout','0'),
-(903,'default',0,'advanced/modules_disable_output/Mage_Imaclean','0'),
-(904,'default',0,'advanced/modules_disable_output/Mage_ImportExport','0'),
-(905,'default',0,'advanced/modules_disable_output/Mage_Index','0'),
-(906,'default',0,'advanced/modules_disable_output/Mage_Install','0'),
-(907,'default',0,'advanced/modules_disable_output/Mage_Log','0'),
-(908,'default',0,'advanced/modules_disable_output/Mage_Media','0'),
-(909,'default',0,'advanced/modules_disable_output/Mage_Newsletter','0'),
-(910,'default',0,'advanced/modules_disable_output/Mage_Oauth','0'),
-(911,'default',0,'advanced/modules_disable_output/Mage_Page','0'),
-(912,'default',0,'advanced/modules_disable_output/Mage_PageCache','0'),
-(913,'default',0,'advanced/modules_disable_output/Mage_Paygate','0'),
-(914,'default',0,'advanced/modules_disable_output/Mage_Payment','0'),
-(915,'default',0,'advanced/modules_disable_output/Mage_Paypal','0'),
-(916,'default',0,'advanced/modules_disable_output/Mage_PaypalUk','0'),
-(917,'default',0,'advanced/modules_disable_output/Mage_Persistent','0'),
-(918,'default',0,'advanced/modules_disable_output/Mage_Poll','0'),
-(919,'default',0,'advanced/modules_disable_output/Mage_ProductAlert','0'),
-(920,'default',0,'advanced/modules_disable_output/Mage_Rating','0'),
-(921,'default',0,'advanced/modules_disable_output/Mage_Reports','0'),
-(922,'default',0,'advanced/modules_disable_output/Mage_Review','0'),
-(923,'default',0,'advanced/modules_disable_output/Mage_Rss','0'),
-(924,'default',0,'advanced/modules_disable_output/Mage_Rule','0'),
-(925,'default',0,'advanced/modules_disable_output/Mage_Sales','0'),
-(926,'default',0,'advanced/modules_disable_output/Mage_SalesRule','0'),
-(927,'default',0,'advanced/modules_disable_output/Mage_Sendfriend','0'),
-(928,'default',0,'advanced/modules_disable_output/Mage_Shipping','0'),
-(929,'default',0,'advanced/modules_disable_output/Mage_Sitemap','0'),
-(930,'default',0,'advanced/modules_disable_output/Mage_Tag','1'),
-(931,'default',0,'advanced/modules_disable_output/Mage_Tax','0'),
-(932,'default',0,'advanced/modules_disable_output/Mage_Usa','0'),
-(933,'default',0,'advanced/modules_disable_output/Mage_Weee','0'),
-(934,'default',0,'advanced/modules_disable_output/Mage_Widget','0'),
-(935,'default',0,'advanced/modules_disable_output/Mage_Wishlist','0'),
-(936,'default',0,'advanced/modules_disable_output/Mage_XmlConnect','0'),
-(937,'default',0,'advanced/modules_disable_output/Magedev_Productposition','0'),
-(938,'default',0,'advanced/modules_disable_output/MagicToolbox_MagicZoom','0'),
-(939,'default',0,'advanced/modules_disable_output/Moii_Pinterest','0'),
-(940,'default',0,'advanced/modules_disable_output/Noovias_Cron','0'),
-(941,'default',0,'advanced/modules_disable_output/Noovias_Extensions','0'),
-(942,'default',0,'advanced/modules_disable_output/Phoenix_Moneybookers','0'),
-(943,'default',0,'advanced/modules_disable_output/TM_CheckoutFields','0'),
-(944,'default',0,'advanced/modules_disable_output/TM_Core','0'),
-(945,'default',0,'advanced/modules_disable_output/TM_FireCheckout','0'),
-(946,'default',0,'advanced/modules_disable_output/Unirgy_Giftcert','0'),
-(947,'default',0,'advanced/modules_disable_output/Unirgy_SimpleLicense','0'),
-(948,'default',0,'advanced/modules_disable_output/Unirgy_SimpleUp','0'),
-(949,'default',0,'advanced/modules_disable_output/Unirgy_StoreLocator','0'),
-(950,'default',0,'advanced/modules_disable_output/Xigmapro_Jobs','0'),
-(951,'default',0,'advanced/modules_disable_output/Yoast_CanonicalUrl','0'),
-(952,'default',0,'advanced/modules_disable_output/Yoast_MetaRobots','0'),
-(953,'default',0,'dev/index/enable','1'),
-(954,'default',0,'dev/index/disable','1'),
-(955,'default',0,'dev/index/notvisible','1'),
-(956,'default',0,'dev/restrict/allow_ips',NULL),
-(957,'default',0,'dev/debug/profiler','0'),
-(958,'default',0,'dev/template/allow_symlink','0'),
-(959,'default',0,'dev/translate_inline/active','0'),
-(960,'default',0,'dev/translate_inline/active_admin','0'),
-(961,'default',0,'dev/log/active','1'),
-(962,'default',0,'dev/log/file','system.log'),
-(963,'default',0,'dev/log/exception_file','exception.log'),
-(964,'default',0,'dev/js/merge_files','0'),
-(965,'default',0,'dev/css/merge_css_files','0'),
-(966,'default',0,'pronav/pronavconfig/pronav_status','1'),
-(967,'default',0,'pronav/pronavconfig/include_jquery','1'),
-(968,'default',0,'pronav/pronavconfig/include_easing','1'),
-(969,'default',0,'pronav/pronavconfig/include_noconflict','1'),
-(970,'default',0,'pronav/pronavconfig/pronav_width',NULL),
-(971,'default',0,'pronav/pronavconfig/sensitivity','2'),
-(972,'default',0,'pronav/pronavconfig/interval','50'),
-(973,'default',0,'pronav/pronavconfig/easingmethodshow','easeOutQuint'),
-(974,'default',0,'pronav/pronavconfig/easingmethodhide','easeOutQuint'),
-(975,'default',0,'pronav/pronavconfig/timeout','600'),
-(976,'default',0,'pronav/pronavconfig/fadein','500'),
-(977,'default',0,'pronav/pronavconfig/fadeout','800'),
-(978,'default',0,'pronav/pronavconfig/remove_store_from_urls','1'),
-(979,'default',0,'pronav/pronavconfig/make_responsive','1'),
-(980,'default',0,'pronav/pronavstyle/pronav_position','default'),
-(981,'default',0,'pronav/pronavstyle/pronav_themes','custom'),
-(982,'default',0,'pronav/pronavstyle/pronav_customcss','megemenu.css'),
-(983,'default',0,'general/store_information/head_phone','(03) 8420 0336'),
-(984,'default',0,'trans_email/ident_marketing/name','Princess Highway Online'),
-(985,'default',0,'trans_email/ident_marketing/email','contactus@princesshighway.com.au'),
-(986,'websites',1,'dev/debug/template_hints','0'),
-(987,'websites',1,'dev/debug/template_hints_blocks','0'),
-(988,'default',0,'firecheckout/general/enabled','1'),
-(989,'default',0,'firecheckout/general/title','Fire Checkout'),
-(990,'default',0,'firecheckout/general/layout','col3-set'),
-(991,'default',0,'firecheckout/general/registration_mode','optional'),
-(992,'default',0,'firecheckout/general/redirect_to_checkout','0'),
-(993,'default',0,'firecheckout/general/shipping_method','freeshipping_freeshipping'),
-(994,'default',0,'firecheckout/general/country','AU'),
-(995,'default',0,'firecheckout/general/hide_shipping_if_free','0'),
-(996,'default',0,'firecheckout/general/shipping_address','1'),
-(997,'default',0,'firecheckout/general/shipping_address_checkbox_state','1'),
-(998,'default',0,'firecheckout/general/payment_method','paypaluk_direct'),
-(999,'default',0,'firecheckout/general/paypalexpress_register','1'),
-(1000,'default',0,'firecheckout/general/newsletter_checkbox','1'),
-(1001,'default',0,'firecheckout/general/newsletter_checkbox_state','1'),
-(1002,'default',0,'firecheckout/general/comment','1'),
-(1003,'default',0,'firecheckout/general/discount','0'),
-(1004,'default',0,'firecheckout/general/giftcard','0'),
-(1005,'default',0,'firecheckout/general/order_review','0'),
-(1006,'default',0,'firecheckout/geo_ip/country','0'),
-(1007,'default',0,'firecheckout/geo_ip/country_file','GeoIP.dat'),
-(1008,'default',0,'firecheckout/geo_ip/region','0'),
-(1009,'default',0,'firecheckout/geo_ip/region_file','GeoIPRegion.dat'),
-(1010,'default',0,'firecheckout/geo_ip/city','0'),
-(1011,'default',0,'firecheckout/geo_ip/city_file','GeoLiteCity.dat'),
-(1012,'default',0,'firecheckout/address_form_status/company','optional'),
-(1013,'default',0,'firecheckout/address_form_status/street1','required'),
-(1014,'default',0,'firecheckout/address_form_status/postcode','required'),
-(1015,'default',0,'firecheckout/address_form_status/city','required'),
-(1016,'default',0,'firecheckout/address_form_status/country_id','required'),
-(1017,'default',0,'firecheckout/address_form_status/region','required'),
-(1018,'default',0,'firecheckout/address_form_status/telephone','required'),
-(1019,'default',0,'firecheckout/address_form_status/fax','optional'),
-(1020,'default',0,'firecheckout/address_form_order/name','10'),
-(1021,'default',0,'firecheckout/address_form_order/email','20'),
-(1022,'default',0,'firecheckout/address_form_order/company','30'),
-(1023,'default',0,'firecheckout/address_form_order/street1','40'),
-(1024,'default',0,'firecheckout/address_form_order/postcode','50'),
-(1025,'default',0,'firecheckout/address_form_order/city','45'),
-(1026,'default',0,'firecheckout/address_form_order/country_id','60'),
-(1027,'default',0,'firecheckout/address_form_order/region','61'),
-(1028,'default',0,'firecheckout/address_form_order/telephone','70'),
-(1029,'default',0,'firecheckout/address_form_order/fax','71'),
-(1030,'default',0,'firecheckout/address_verification/enabled','0'),
-(1031,'default',0,'firecheckout/ajax_update/payment_method_on_country','0'),
-(1032,'default',0,'firecheckout/ajax_update/payment_method_on_total','0'),
-(1033,'default',0,'firecheckout/ajax_update/payment_method_on_cart','0'),
-(1034,'default',0,'firecheckout/ajax_update/shipping_method_on_country','1'),
-(1035,'default',0,'firecheckout/ajax_update/shipping_method_on_zip','1'),
-(1036,'default',0,'firecheckout/ajax_update/shipping_method_on_region','1'),
-(1037,'default',0,'firecheckout/ajax_update/shipping_method_on_total','0'),
-(1038,'default',0,'firecheckout/ajax_update/shipping_method_on_cart','1'),
-(1039,'default',0,'firecheckout/ajax_update/shipping_method_on_coupon','0'),
-(1040,'default',0,'firecheckout/ajax_update/total_on_payment_method','0'),
-(1041,'default',0,'firecheckout/ajax_update/total_on_shipping_method','1'),
-(1042,'default',0,'firecheckout/ajax_update/total_on_shipping_country','0'),
-(1043,'default',0,'firecheckout/ajax_update/total_on_shipping_zip','0'),
-(1044,'default',0,'firecheckout/ajax_update/total_on_shipping_region','0'),
-(1045,'default',0,'firecheckout/ajax_update/total_on_taxvat','0'),
-(1046,'default',0,'firecheckout/agreements/output','minimal'),
-(1047,'default',0,'firecheckout/mobile/enabled','1'),
-(1048,'default',0,'firecheckout/taxvat/validate','0'),
-(1049,'default',0,'firecheckout/taxvat/vies','0'),
-(1050,'default',0,'firecheckout/delivery_date/enabled','0'),
-(1051,'default',0,'firecheckout/delivery_date/filter_per_shipping_method','0'),
-(1052,'default',0,'firecheckout/delivery_date/use_calendar','1'),
-(1053,'default',0,'firecheckout/delivery_date/date_offset','0'),
-(1054,'default',0,'firecheckout/delivery_date/exclude_weekend','0'),
-(1055,'default',0,'firecheckout/delivery_date/excluded_dates','a:0:{}'),
-(1056,'default',0,'firecheckout/delivery_date/use_time_range','0'),
-(1057,'default',0,'firecheckout/delivery_date/time_range','a:0:{}'),
-(1058,'default',0,'firecheckout/shopping_cart/editable','0'),
-(1059,'default',0,'firecheckout/shopping_cart/image','1'),
-(1060,'default',0,'firecheckout/shopping_cart/image_width','100'),
-(1061,'default',0,'firecheckout/shopping_cart/image_height','100'),
-(1062,'default',0,'firecheckout/shopping_cart/name_as_link','0'),
-(1063,'default',0,'firecheckout/shopping_cart/short_description','0'),
-(1064,'default',0,'wishlist/general/active','1'),
-(1065,'default',0,'wishlist/email/email_template','32'),
-(1066,'default',0,'wishlist/email/email_identity','general'),
-(1067,'default',0,'wishlist/wishlist_link/use_qty','0'),
-(1068,'default',0,'google/u_analytics/active','1'),
-(1069,'default',0,'google/u_analytics/account','UA-46909344-1'),
-(1070,'default',0,'easy_tabs/general/enabled','1'),
-(1071,'default',0,'easy_tabs/general/descriptiontabbed','1'),
-(1072,'default',0,'easy_tabs/general/additionaltabbed','0'),
-(1073,'default',0,'easy_tabs/general/upsellproductstabbed','0'),
-(1074,'default',0,'easy_tabs/general/relatedtabbed','0'),
-(1075,'default',0,'easy_tabs/general/tagstabbed','0'),
-(1076,'default',0,'easy_tabs/general/reviewtabbed','0'),
-(1077,'default',0,'easy_tabs/custom/customtab','1'),
-(1078,'default',0,'easy_tabs/custom/customtabid','short_description'),
-(1079,'default',0,'easy_tabs/custom/customtabname','Fabric & Care'),
-(1080,'default',0,'easy_tabs/custom/customtab1','1'),
-(1081,'default',0,'easy_tabs/custom/customtabid1','size_and_fit'),
-(1082,'default',0,'easy_tabs/custom/customtabname1','Size & Fit'),
-(1083,'default',0,'easy_tabs/custom/customtab2','0'),
-(1084,'default',0,'easy_tabs/custom/customtabid2',NULL),
-(1085,'default',0,'easy_tabs/custom/customtabname2',NULL),
-(1086,'default',0,'easy_tabs/custom/customtab3','0'),
-(1087,'default',0,'easy_tabs/custom/customtabid3',NULL),
-(1088,'default',0,'easy_tabs/custom/customtabname3',NULL),
-(1089,'default',0,'easy_tabs/custom/customtab4','0'),
-(1090,'default',0,'easy_tabs/custom/customtabid4',NULL),
-(1091,'default',0,'easy_tabs/custom/customtabname4',NULL),
-(1092,'default',0,'easy_tabs/customcms/tabcms','0'),
-(1093,'default',0,'easy_tabs/customcms/tabidcms',NULL),
-(1094,'default',0,'easy_tabs/customcms/tabnamecms',NULL),
-(1095,'default',0,'easy_tabs/customcms/tabcms1','0'),
-(1096,'default',0,'easy_tabs/customcms/tabidcms1',NULL),
-(1097,'default',0,'easy_tabs/customcms/tabnamecms1',NULL),
-(1098,'default',0,'easy_tabs/customcms/tabcms2','0'),
-(1099,'default',0,'easy_tabs/customcms/tabidcms2',NULL),
-(1100,'default',0,'easy_tabs/customcms/tabnamecms2',NULL),
-(1101,'default',0,'easy_tabs/customcms/tabcms3','0'),
-(1102,'default',0,'easy_tabs/customcms/tabidcms3',NULL),
-(1103,'default',0,'easy_tabs/customcms/tabnamecms3',NULL),
-(1104,'default',0,'easy_tabs/customcms/tabcms4','0'),
-(1105,'default',0,'easy_tabs/customcms/tabidcms4',NULL),
-(1106,'default',0,'easy_tabs/customcms/tabnamecms4',NULL),
-(1107,'default',0,'gmapstrlocator/general/api_key','AIzaSyBi5ryKoyRWjHAc8KQM44pYtUczKJ4EQ5g'),
-(1108,'default',0,'gmapstrlocator/general/zip_nearest','0'),
-(1109,'default',0,'gmapstrlocator/general/address_nearest','0'),
-(1110,'default',0,'gmapstrlocator/info_popup/marker_image','default/pin.png'),
-(1111,'default',0,'gmapstrlocator/manage_search/zipcode','1'),
-(1112,'default',0,'contests/options/m_to_cm_attributes','a:6:{s:18:\"_1394111719755_755\";a:2:{s:10:\"formfields\";s:6:\"mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:16:\"_1394111735004_4\";a:2:{s:10:\"formfields\";s:5:\"state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1394111744676_676\";a:2:{s:10:\"formfields\";s:9:\"promoCode\";s:15:\"campaignmonitor\";s:6:\"Source\";}s:18:\"_1394112242991_991\";a:2:{s:10:\"formfields\";s:5:\"email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1394112248739_739\";a:2:{s:10:\"formfields\";s:9:\"firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1394112253370_370\";a:2:{s:10:\"formfields\";s:8:\"lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}}'),
-(1113,'default',0,'homepage/options/enable','1'),
-(1116,'default',0,'evlike/evlike_visibility/ev_like_visibility_product_default','1'),
-(1117,'default',0,'evlike/evlike_visibility/ev_like_visibility_category_default','1'),
-(1118,'default',0,'evlike/evlike_visibility/ev_like_visibility_cms_default','1'),
-(1119,'default',0,'evlike/evlike/ev_enable_open_graph','0'),
-(1120,'default',0,'evlike/evlike/ev_site_name',NULL),
-(1121,'default',0,'evlike/evlike/ev_use_rewrite','1'),
-(1122,'default',0,'evlike/evlike/ev_facebook_type','1'),
-(1123,'default',0,'evlike/evlike/ev_facebook_app_id',NULL),
-(1124,'default',0,'evlike/evlike/ev_facebook_send','1'),
-(1125,'default',0,'evlike/evlike/ev_facebook_layout','standard'),
-(1126,'default',0,'evlike/evlike/ev_show_faces','0'),
-(1127,'default',0,'evlike/evlike/ev_like_width','450'),
-(1128,'default',0,'evlike/evlike/ev_like_ref',NULL),
-(1129,'default',0,'evlike/evlike/ev_like_height','30'),
-(1130,'default',0,'evlike/evlike/ev_facebook_verb','like'),
-(1131,'default',0,'evlike/evlike/ev_facebook_font','arial'),
-(1132,'default',0,'evlike/evlike/ev_facebook_color','light'),
-(1133,'default',0,'evlike/evlike/ev_use_long','0'),
-(1134,'default',0,'evlike/evlike_category/ev_like_category_send','1'),
-(1135,'default',0,'evlike/evlike_category/ev_like_category_layout','standard'),
-(1136,'default',0,'evlike/evlike_category/ev_like_category_show_faces','0'),
-(1137,'default',0,'evlike/evlike_category/ev_like_category_width','450'),
-(1138,'default',0,'evlike/evlike_category/ev_like_category_height','30'),
-(1139,'default',0,'evlike/evlike_category/ev_like_category_ref',NULL),
-(1140,'default',0,'evlike/evlike_cms/ev_like_cms_send','1'),
-(1141,'default',0,'evlike/evlike_cms/ev_like_cms_layout','standard'),
-(1142,'default',0,'evlike/evlike_cms/ev_like_cms_show_faces','0'),
-(1143,'default',0,'evlike/evlike_cms/ev_like_cms_width','450'),
-(1144,'default',0,'evlike/evlike_cms/ev_like_cms_height','30'),
-(1145,'default',0,'evlike/evlike_cms/ev_like_cms_ref',NULL),
-(1146,'default',0,'evlike/evlike_grid/ev_like_grid_send','1'),
-(1147,'default',0,'evlike/evlike_grid/ev_like_grid_layout','button_count'),
-(1148,'default',0,'evlike/evlike_grid/ev_like_grid_show_faces','0'),
-(1149,'default',0,'evlike/evlike_grid/ev_like_grid_width','215'),
-(1150,'default',0,'evlike/evlike_grid/ev_like_grid_height','30'),
-(1151,'default',0,'evlike/evlike_grid/ev_like_grid_ref',NULL),
-(1152,'default',0,'evlike/evlike_list/ev_like_list_send','1'),
-(1153,'default',0,'evlike/evlike_list/ev_like_list_layout','standard'),
-(1154,'default',0,'evlike/evlike_list/ev_like_list_show_faces','0'),
-(1155,'default',0,'evlike/evlike_list/ev_like_list_width','450'),
-(1156,'default',0,'evlike/evlike_list/ev_like_list_height','30'),
-(1157,'default',0,'evlike/evlike_list/ev_like_list_ref',NULL),
-(1164,'default',0,'abandonedcartsconfig/options/enable','1'),
-(1165,'default',0,'abandonedcartsconfig/options/enable_sale','1'),
-(1166,'default',0,'abandonedcartsconfig/options/dryrun','0'),
-(1167,'default',0,'abandonedcartsconfig/options/testemail',NULL);
+
+
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/region/display_all','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/region/state_required','AU,AT,CA,EE,FI,FR,DE,LV,LT,RO,ES,CH,US');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/category/root_id','2');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/seo/use_rewrites','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/dashboard/enable_charts','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/locale/code','en_AU');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/locale/timezone','Australia/Sydney');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'currency/options/base','AUD');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'currency/options/default','AUD');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'currency/options/allow','AUD');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/page_title','Stores Locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/identifier','store-locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/meta_keywords','Princess Highway Stores Locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/meta_description','Princess Highway Stores Locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/page_heading','FIND A STORE NEAR YOU');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/page_subheading','Select a store if you want to shop or find it through Address');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/standard_long','90.98877');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/standard_lat','26.12585');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/info_popup/button_text','Get Directions');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/info_popup/map_zoom','2');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_search/product','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_search/address','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_search/store_select','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_links/header_enable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_links/header_text','Store locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_links/footer_enable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_links/footer_text','Store locator');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/layout_update/page_column','one_column');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/seo/url_suffix','.html');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/package/name','default');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/package/ua_regexp','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/locale','princess');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/template','princess');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/template_ua_regexp','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/skin','princess');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/skin_ua_regexp','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/layout','princess');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/layout_ua_regexp','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/default','princess');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/theme/default_ua_regexp','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_title','Princess Highway');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/title_prefix',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/title_suffix',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_description','Princess Highway');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_keywords','Princess Highway');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_robots','INDEX,FOLLOW');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/includes',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/demonotice','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/logo_src','images/logo.png');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/logo_alt','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/welcome','Welcome to Princess Highway.');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/footer/copyright','&copy; 2014 Princess Highway. All Rights Reserved.');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/footer/absolute_footer',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/image_size',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/image_imageOpacity',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/image_position','stretch');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/small_image_size',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/small_image_imageOpacity',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/small_image_position','stretch');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/thumbnail_size',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/thumbnail_imageOpacity',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/watermark/thumbnail_position','stretch');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/pagination/pagination_frame','5');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/pagination/pagination_frame_skip',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/pagination/anchor_text_for_previous',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/pagination/anchor_text_for_next',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/email/logo_alt',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ambase/feed/installed','1387538672');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/category_canonical_tag','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/product_canonical_tag','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'awall/install/run','1387539233');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/country/default','AU');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/country/allow','AF,AX,AL,DZ,AS,AD,AO,AI,AQ,AG,AR,AM,AW,AU,AT,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BV,BR,IO,VG,BN,BG,BF,BI,KH,CM,CA,CV,KY,CF,TD,CL,CN,CX,CC,CO,KM,CG,CD,CK,CR,CI,HR,CU,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FO,FJ,FI,FR,GF,PF,TF,GA,GM,GE,DE,GH,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HM,HN,HK,HU,IS,IN,IR,IQ,IE,IM,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KW,KG,LA,LV,LB,LS,LR,LY,LI,LT,LU,MO,MK,MG,MW,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,MM,NA,NR,NP,NL,AN,NC,NZ,NI,NE,NU,NF,MP,KP,NO,OM,PW,PS,PA,PG,PY,PE,PH,PN,PL,PT,PR,QA,RE,RO,RU,RW,BL,SH,KN,LC,MF,PM,VC,WS,SM,ST,SA,SN,RS,SC,SL,SK,SI,SB,SO,GS,KR,ES,LK,SD,SR,SJ,SZ,SE,CH,SY,TW,TJ,TZ,TH,TL,TG,TK,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,GB,US,UY,UM,VI,UZ,VU,VA,VE,VN,WF,EH,YE,ZM,ZW');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/country/optional_zip_countries','HK,IE,MO,PA');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/country/eu_countries','AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/locale/firstday','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/locale/weekend','0,6');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/phone','(03) 8420 0336');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/merchant_country','AU');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/merchant_vat_number',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/address','65 Victoria Crescent\r\nAbbotsford 3067\r\nVictoria, Austalia');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/url/use_store','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/url/redirect_to_base','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/unsecure/base_link_url','{{unsecure_base_url}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/unsecure/base_skin_url','{{unsecure_base_url}}skin/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/unsecure/base_media_url','{{unsecure_base_url}}media/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/unsecure/base_js_url','{{unsecure_base_url}}js/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/base_link_url','{{secure_base_url}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/base_skin_url','{{secure_base_url}}skin/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/base_media_url','{{secure_base_url}}media/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/base_js_url','{{secure_base_url}}js/');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/use_in_frontend','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/use_in_adminhtml','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/secure/offloader_header','SSL_OFFLOADED');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/front','cms');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/cms_home_page','home');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/no_route','cms/index/noRoute');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/cms_no_route','no-route');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/cms_no_cookies','enable-cookies');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/default/show_cms_breadcrumbs','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/polls/poll_check_by_ip','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_lifetime','3600');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_path',NULL);
+
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_domain','princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_domain','stage.aws.factoryx.com.au');
+
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_httponly','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_restriction','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_remote_addr','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_http_via','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_http_x_forwarded_for','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_http_user_agent','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_frontend_sid','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/browser_capabilities/cookies','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/browser_capabilities/javascript','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_general/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_general/email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_sales/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_sales/email','princesshighwayonline@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_support/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_support/email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_custom1/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_custom1/email','admin@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_custom2/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_custom2/email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contacts/contacts/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contacts/email/recipient_email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contacts/email/sender_email_identity','general');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contacts/email/email_template','5');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cms/wysiwyg/enabled','hidden');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cms/wysiwyg/use_static_urls_in_catalog','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/email','princesshighwayonline@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/email_template','40');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/notify_delay','15');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/email_template_sale','41');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/template','12');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/prefix','bday');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/value','10');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/valid','14');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/campaignmonitor','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'bdayconfig/options/segmentID',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'htmlinject/phonesupport/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'htmlinject/phonesupport/starttime','17');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'htmlinject/phonesupport/endtime','22');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contests/options/name','Princess Highway Online');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contests/options/email','contactus@princesshighway.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contests/options/template','44');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssjs/min_css','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssjs/merge_css','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssjs/min_js','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssjs/merge_js','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssdebug/errorlogger','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cssdebug/debugflag','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/gifutil','gifsicle');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/gifutilopt','-b -O3');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/jpgutil','jpegoptim');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/jpgutilopt','--strip-all');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/pngutil','optipng');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgopt/pngutilopt','-o5');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgpath/paths','media,skin,js');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/imgdebug/imgoutput','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/enabled','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/frequency','D');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/gtspeed_optimize_images/schedule/cron_expr','0 0 * * *');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/gtspeed_optimize_images/run/model','gtspeed/observer::process');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/time','00,00,00');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/error_email',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/error_email_identity','general');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/cron/error_email_template','gtspeed_cron_error_email_template');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/expires/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/expires/filetypes','css,js,jpg,png,gif');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/expires/time','5259487');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/unsecure/base_skin_url','{{unsecure_base_url}}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/unsecure/base_js_url','{{unsecure_base_url}}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/secure/base_skin_url','{{secure_base_url}}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gtspeed/secure/base_js_url','{{secure_base_url}}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/trailing_slash','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/disable_layered_rewrites','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_rich_snippets','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/cross_domain',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/ignore_pages','catalogsearch_result_index\r\ncatalogsearch_advanced_index\r\ncatalogsearch_advanced_result\r\ncheckout_cart_index\r\ncheckout_onepage_index');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/noindex_pages','^checkout_.+,^contacts_.+,^customer_.+,^catalog_product_compare_.+,^rss_.+,^catalogsearch_.+,.*?_product_send$,^tag_.+,^wishlist_.+');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/noindex_pages_user','?dir=*\r\n?order=*\r\n?mode=*\r\n?limit=*');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/product_og_enabled','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/product_canonical_url','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/reviews_friendly_urls','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/pager_url_format','/p/[page_number]');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_link_rel','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/layered_friendly_urls','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/layered_hide_attributes','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/layered_separatort',':');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_dynamic_meta_title','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_dynamic_meta_keywords','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_dynamic_meta_desc','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/https_robots',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/enable_canonical_tag_for_layered_navigation','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/add_canonical_url_port','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/seosuite/template_limit','50');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/show_stores','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/show_categories','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/show_products','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/sitemap_meta_title',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/sitemap_meta_desc',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/sitemap_meta_keywords',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/sort_order','position');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/category_anchor','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/show_pages','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/filter_pages','enable-cookies');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/show_links','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/xsitemap/add_links',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/error_email','ben.incani@factoryx.com.au');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/error_email_identity','general');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/error_email_template','mageworx_seo_google_sitemap_error_email_template');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/page_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/page_priority','0.25');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/category_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/category_priority','0.5');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_priority','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_images','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_images_size',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_tags','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_tags_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/product_tags_priority','0.5');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/link_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/link_priority','0.1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/blog_changefreq','daily');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/blog_priority','0.1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/use_index','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/split_size','10240');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/max_links','50000');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/xml_limit','500');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_mode','grid');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page_values','32,64,128');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page','32');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_per_page_values','5,10,15,20,25');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_per_page','10');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_allow_all','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/default_sort_by','position');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_category','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_product','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/parse_url_directives','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/sitemap/tree_mode','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/sitemap/lines_perpage','30');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/review/allow_guest','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert/allow_price','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert/email_price_template','catalog_productalert_email_price_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert/allow_stock','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert/email_stock_template','catalog_productalert_email_stock_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert/email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert_cron/frequency','D');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/catalog_product_alert/schedule/cron_expr','0 0 * * *');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/catalog_product_alert/run/model','productalert/observer::process');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert_cron/time','00,00,00');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert_cron/error_email',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert_cron/error_email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/productalert_cron/error_email_template','catalog_productalert_cron_error_email_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/recently_products/scope','website');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/recently_products/viewed_count','5');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/recently_products/compared_count','5');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/price/scope','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/layered_navigation/display_product_count','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/layered_navigation/price_range_calculation','auto');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/navigation/max_depth','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/site_map','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/search_terms','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/product_url_suffix','.html');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/category_url_suffix','.html');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/product_use_categories','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/save_rewrites_history','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/seo/title_separator','-');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/search/min_query_length','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/search/max_query_length','128');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/search/max_query_words','10');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/search/search_type','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/search/use_layered_navigation_count','2000');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/order_item_status','9');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/downloads_number','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/shareable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/samples_title','Samples');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/links_title','Links');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/links_target_new_window','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/content_disposition','inline');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/downloadable/disable_guest_checkout','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/custom_options/use_calendar','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/custom_options/date_fields_order','m,d,y');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/custom_options/time_format','12h');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/custom_options/year_range',',');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/options/can_back_in_stock','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/options/can_subtract','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/options/show_out_of_stock','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/options/stock_threshold_qty','3');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/options/display_product_stock_status','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/manage_stock','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/backorders','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/max_sale_qty','10000');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/min_qty','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/min_sale_qty','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/notify_stock_qty','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/enable_qty_increments','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'cataloginventory/item_options/auto_return','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/config/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/wishlist/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/catalog/new','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/catalog/special','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/catalog/salesrule','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/catalog/tag','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/catalog/category','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'rss/order/status_notified','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/template','31');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/allow_guest','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/max_recipients','5');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/max_per_hour','5');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sendfriend/email/check_by','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/enable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/prefix','newsletter');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/spend','100');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/value','10');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/offer','by_percent');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/coupon/valid','30');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/success_email_template','26');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/un_email_identity','support');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/un_email_template','27');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/success_email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/confirm_email_template','newsletter_subscription_confirm_email_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/confirm','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/confirm_email_identity','support');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/subscription/allow_guest_subscribe','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/api_key','05a9080738e05b84c21490161664fd9e');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/list_id','12c46dc0fb65648c33bf9f2a941cf150');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/job_list_id',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/redirect_url',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/m_to_cm_attributes','a:10:{s:18:\"_1392898175120_120\";a:4:{s:10:\"formfields\";s:5:\"email\";s:7:\"magento\";s:5:\"email\";s:10:\"subscriber\";s:16:\"subscriber_email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1392898206822_822\";a:4:{s:10:\"formfields\";s:9:\"firstname\";s:7:\"magento\";s:9:\"firstname\";s:10:\"subscriber\";s:20:\"subscriber_firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1392898218963_963\";a:4:{s:10:\"formfields\";s:8:\"lastname\";s:7:\"magento\";s:8:\"lastname\";s:10:\"subscriber\";s:19:\"subscriber_lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}s:18:\"_1392898243791_791\";a:4:{s:10:\"formfields\";s:6:\"mobile\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:17:\"subscriber_mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:18:\"_1392898331492_492\";a:4:{s:10:\"formfields\";s:5:\"state\";s:7:\"magento\";s:23:\"FACTORYX-billing-region\";s:10:\"subscriber\";s:16:\"subscriber_state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1392898379475_475\";a:4:{s:10:\"formfields\";s:8:\"postcode\";s:7:\"magento\";s:25:\"FACTORYX-billing-postcode\";s:10:\"subscriber\";s:19:\"subscriber_postcode\";s:15:\"campaignmonitor\";s:8:\"Postcode\";}s:18:\"_1392898448267_267\";a:4:{s:10:\"formfields\";s:3:\"dob\";s:7:\"magento\";s:3:\"dob\";s:10:\"subscriber\";s:14:\"subscriber_dob\";s:15:\"campaignmonitor\";s:3:\"DOB\";}s:17:\"_1392898490062_62\";a:4:{s:10:\"formfields\";s:9:\"promocode\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:20:\"subscriber_promocode\";s:15:\"campaignmonitor\";s:9:\"PromoCode\";}s:18:\"_1392899940693_693\";a:4:{s:10:\"formfields\";s:0:\"\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:27:\"subscriber_subscriptiondate\";s:15:\"campaignmonitor\";s:4:\"Date\";}s:18:\"_1392899965533_533\";a:4:{s:10:\"formfields\";s:0:\"\";s:7:\"magento\";s:0:\"\";s:10:\"subscriber\";s:21:\"subscriber_securehash\";s:15:\"campaignmonitor\";s:10:\"securehash\";}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/campaignmonitor/proxy',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/popup/enable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/popup/texttodisplay','Sign up for a 10% voucher off your next purchase');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/popup/homepageonly','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/popup/referers',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/popup/terms','minimum $100 purchase + excludes all other offers');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/checkoutnewsletter/enable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/checkoutnewsletter/checked','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/checkoutnewsletter/visible_guest','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'newsletter/checkoutnewsletter/visible_register','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/account_share/scope','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/online_customers/online_minutes_interval',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/auto_group_assign','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/default_group','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/viv_disable_auto_group_assign_default','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/vat_frontend_visibility','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/email_domain','example.com');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/email_template','24');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/confirm','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/email_confirmation_template','customer_create_account_email_confirmation_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/email_confirmed_template','customer_create_account_email_confirmed_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/create_account/generate_human_friendly_id','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/password/forgot_email_template','39');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/password/remind_email_template','38');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/password/forgot_email_identity','support');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/password/reset_link_expiration_period','3');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/street_lines','2');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/prefix_show',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/prefix_options',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/middlename_show','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/suffix_show',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/suffix_options',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/dob_show','opt');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/taxvat_show',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address/gender_show',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/startup/redirect_dashboard','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address_templates/text','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}\r\n{{depend company}}{{var company}}{{/depend}}\r\n{{if street1}}{{var street1}}\r\n{{/if}}\r\n{{depend street2}}{{var street2}}{{/depend}}\r\n{{depend street3}}{{var street3}}{{/depend}}\r\n{{depend street4}}{{var street4}}{{/depend}}\r\n{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}\r\n{{var country}}\r\nT: {{var telephone}}\r\n{{depend fax}}F: {{var fax}}{{/depend}}\r\n{{depend vat_id}}VAT: {{var vat_id}}{{/depend}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address_templates/oneline','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, {{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address_templates/html','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>\r\n{{depend company}}{{var company}}<br />{{/depend}}\r\n{{if street1}}{{var street1}}<br />{{/if}}\r\n{{depend street2}}{{var street2}}<br />{{/depend}}\r\n{{depend street3}}{{var street3}}<br />{{/depend}}\r\n{{depend street4}}{{var street4}}<br />{{/depend}}\r\n{{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}<br/>\r\n{{var country}}<br/>\r\n{{depend telephone}}T: {{var telephone}}{{/depend}}\r\n{{depend fax}}<br/>F: {{var fax}}{{/depend}}\r\n{{depend vat_id}}<br/>VAT: {{var vat_id}}{{/depend}}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address_templates/pdf','{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}|\r\n{{depend company}}{{var company}}|{{/depend}}\r\n{{if street1}}{{var street1}}\r\n{{/if}}\r\n{{depend street2}}{{var street2}}|{{/depend}}\r\n{{depend street3}}{{var street3}}|{{/depend}}\r\n{{depend street4}}{{var street4}}|{{/depend}}\r\n{{if city}}{{var city}},|{{/if}}\r\n{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|\r\n{{var country}}|\r\n{{depend telephone}}T: {{var telephone}}{{/depend}}|\r\n{{depend fax}}<br/>F: {{var fax}}{{/depend}}|\r\n{{depend vat_id}}<br/>VAT: {{var vat_id}}{{/depend}}|');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/address_templates/js_template','#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}<br/>VAT: #{vat_id}');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'customer/captcha/enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/auto_cert_number','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/cert_number','[A*5]-[AN*5]');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/use_pin','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/auto_pin','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/pin','[N*4]');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/status','P');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/active_on_payment','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/amount_config','25;50;100;150;200;250;300;350;400;450;500');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/expire_timespan',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/use_conditions','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/giftcert_order_info','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/valid_domains','shop.princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/single_mode','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/single_mode_error_msg','You can use only one certificate per order.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/disallow_coupons','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/disallow_coupons_error_msg','                    You can not use both certificate and coupon in same order.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/default/check_store','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/allow_multiple_recipients','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/allow_message','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/message_max_length','320');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/message_preview','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/cart_full_info','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/apply_customer_group_limitation','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/custom/balance_check_url',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/allow_recipient_email','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/auto_send','2');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/allow_scheduled_sending','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/template','36');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/pdf_enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/pdf_template','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/email/pin_format','<br />PIN: %s<br />');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/address/enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/address/always_virtual','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'ugiftcert/admin/notifications','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/general/hide_customer_ip','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/subtotal','10');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/discount','20');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/shipping','30');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/weee','50');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/tax','40');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/grand_total','100');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/totals_sort/ugiftcert','90');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/reorder/allow','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/identity/address',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/amount',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/description',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/error_message',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/multi_address','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/multi_address_description',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/minimum_order/multi_address_error_message',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/dashboard/use_aggregated_data','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/gift_options/allow_order','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/gift_options/allow_items','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/msrp/enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/msrp/apply_for_all','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/msrp/display_price_type','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/msrp/explanation_message','Our price is lower than the manufacturer\'s \"minimum advertised price.\"  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales/msrp/explanation_message_whats_this','Our price is lower than the manufacturer\'s \"minimum advertised price.\"  As a result, we cannot show you the price in catalog or the product page. <br /><br /> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/template','20');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/guest_template','21');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/template','28');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/guest_template','29');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/order_comment/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/template','18');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/guest_template','19');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/template','13');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/guest_template','14');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/invoice_comment/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/template','22');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/guest_template','23');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/template','33');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/guest_template','34');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/shipment_comment/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/template','16');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/guest_template','17');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/template','8');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/guest_template','9');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/creditmemo_comment/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/identity','sales');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/template','42');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/guest_template','42');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'sales_email/stage2/copy_method','copy');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/classes/shipping_tax_class','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/algorithm','TOTAL_BASE_CALCULATION');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/based_on','shipping');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/price_includes_tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/shipping_includes_tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/apply_after_discount','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/ignore_notification/discount','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/ignore_notification/price_display','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/discount_tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/calculation/apply_tax_on','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/defaults/country','US');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/defaults/region','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/defaults/postcode','*');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/display/type','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/display/shipping','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/price','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/subtotal','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/shipping','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/grandtotal','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/full_summary','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/cart_display/zero_tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/price','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/subtotal','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/shipping','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/grandtotal','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/full_summary','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/sales_display/zero_tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/display_list','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/display','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/display_sales','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/display_email','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/discount','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/apply_vat','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'tax/weee/include_in_subtotal','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/options/onepage_checkout_enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/options/guest_checkout','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/options/enable_agreements','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/cart/delete_quote_after','30');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/cart/redirect_to_cart','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/cart/grouped_product_image','itself');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/cart/configurable_product_image','parent');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/cart_link/use_qty','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/sidebar/display','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/sidebar/count','3');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/payment_failed/reciever','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/payment_failed/identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/payment_failed/template','checkout_payment_failed_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/payment_failed/copy_to','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'checkout/payment_failed/copy_method','bcc');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/country_id','AU');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/region_id','491');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/postcode','3067');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/city','Abbotsford');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/street_line1','61 Church St');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/origin/street_line2',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/option/checkout_multiple','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'shipping/option/checkout_multiple_maximum_qty','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/title','Australia Post');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/name',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/weight_units','1000');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/registered_post','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/registered_post_charge','2.75');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/delivery_confirmation','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/person_to_person','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/specificerrmsg',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/cache','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/australiapost/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/title','Australia Post');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/name','Express (3-5 days)');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/type','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/price','7.50');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/sallowspecific','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/specificcountry','AU');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/flatrate/sort_order','2');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/title','Australia Post eParcel');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/name','eParcel');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/condition_name','package_weight');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/merchant_location_id','AWV');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/post_charge_account','1234567');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/signature_required','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/signature_cost','6.44');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/insurance_step','100.0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/insurance_cost_per_step','1.05');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_name',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_addressline_1',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_addressline_2',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_addressline_3',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_addressline_4',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_suburb',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_state',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/return_postcode',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/sallowspecific','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/specificcountry','AU');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/eparcel/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/title','DHL');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/name','International (7 - 14)');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/condition_name','package_qty');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/include_virtual_price','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/handling_fee','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/sallowspecific','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/specificcountry','AF,AX,AL,DZ,AS,AD,AO,AI,AQ,AG,AR,AM,AW,AT,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BV,BR,IO,VG,BN,BG,BF,BI,KH,CM,CA,CV,KY,CF,TD,CL,CN,CX,CC,CO,KM,CG,CD,CK,CR,CI,HR,CU,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FO,FJ,FI,FR,GF,PF,TF,GA,GM,GE,DE,GI,GR,GL,GD,GP,GU,GT,GG,GN,GW,GY,HT,HM,HN,HK,HU,IS,IN,IR,IQ,IE,IM,IL,IT,JM,JP,JE,JO,KZ,KE,KI,KW,KG,LA,LV,LB,LS,LR,LY,LI,LT,LU,MO,MK,MG,MW,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,ME,MS,MA,MZ,MM,NA,NR,NP,NL,AN,NC,NZ,NI,NE,NU,NF,MP,KP,NO,OM,PW,PS,PA,PG,PY,PE,PH,PN,PL,PT,PR,QA,RE,RO,RU,RW,BL,SH,KN,LC,MF,PM,VC,WS,SM,ST,SA,SN,RS,SC,SL,SK,SI,SB,SO,GS,KR,ES,LK,SD,SR,SJ,SZ,SE,CH,SY,TW,TJ,TZ,TH,TL,TG,TK,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,GB,US,UY,UM,VI,UZ,VU,VA,VE,VN,WF,EH,YE,ZM,ZW');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/tablerate/sort_order','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/title','Australia Post');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/name','Parcel (5-10 days)');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/free_shipping_subtotal','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/sallowspecific','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/specificcountry','AU');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/freeshipping/sort_order','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/type','UPS');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/gateway_xml_url','https://onlinetools.ups.com/ups.app/xml/Rate');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/tracking_xml_url','https://onlinetools.ups.com/ups.app/xml/Track');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/shipconfirm_xml_url','https://onlinetools.ups.com/ups.app/xml/ShipConfirm');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/shipaccept_xml_url','https://onlinetools.ups.com/ups.app/xml/ShipAccept');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/mode_xml','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/password',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/username',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/access_license_number',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/origin_shipment','Shipments Originating in United States');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/title','United Parcel Service');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/gateway_url','http://www.ups.com/using/services/rave/qcostcgi.cgi');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/negotiated_active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/shipment_requesttype','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/container','CP');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/shipper_number',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/dest_type','RES');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/unit_of_measure','LBS');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/pickup','CC');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/max_package_weight','150');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/min_package_weight','0.1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/handling_action','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/allowed_methods','1DM,1DML,1DA,1DAL,1DAPI,1DP,1DPL,2DM,2DML,2DA,2DAL,3DS,GND,GNDCOM,GNDRES,STD,XPR,WXS,XPRL,XDM,XDML,XPD');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/free_method','GND');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/free_shipping_enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/free_shipping_subtotal',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/specificcountry',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/ups/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/gateway_url','http://production.shippingapis.com/ShippingAPI.dll');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/gateway_secure_url','https://secure.shippingapis.com/ShippingAPI.dll');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/title','United States Postal Service');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/userid',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/password',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/mode','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/shipment_requesttype','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/container','VARIABLE');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/size','REGULAR');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/machinable','true');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/max_package_weight','70');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/handling_action','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/allowed_methods','0_FCLE,0_FCL,0_FCP,1,2,3,4,6,7,13,16,17,22,23,25,27,28,33,34,35,36,37,42,43,53,55,56,57,61,INT_1,INT_2,INT_4,INT_6,INT_7,INT_8,INT_9,INT_10,INT_11,INT_12,INT_13,INT_14,INT_15,INT_16,INT_20,INT_26');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/free_method',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/free_shipping_subtotal',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/specificcountry',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/usps/free_shipping_enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/title','Federal Express');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/account',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/meter_number',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/key',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/password',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/sandbox_mode','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/shipment_requesttype','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/packaging','YOUR_PACKAGING');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/dropoff','REGULAR_PICKUP');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/unit_of_measure','LB');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/max_package_weight','150');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/handling_action','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/residence_delivery','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/allowed_methods','EUROPE_FIRST_INTERNATIONAL_PRIORITY,FEDEX_1_DAY_FREIGHT,FEDEX_2_DAY_FREIGHT,FEDEX_2_DAY,FEDEX_2_DAY_AM,FEDEX_3_DAY_FREIGHT,FEDEX_EXPRESS_SAVER,FEDEX_GROUND,FIRST_OVERNIGHT,GROUND_HOME_DELIVERY,INTERNATIONAL_ECONOMY,INTERNATIONAL_ECONOMY_FREIGHT,INTERNATIONAL_FIRST,INTERNATIONAL_GROUND,INTERNATIONAL_PRIORITY,INTERNATIONAL_PRIORITY_FREIGHT,PRIORITY_OVERNIGHT,SMART_POST,STANDARD_OVERNIGHT,FEDEX_FREIGHT,FEDEX_NATIONAL_FREIGHT');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/smartpost_hubid',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/free_method','FEDEX_GROUND');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/free_shipping_enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/free_shipping_subtotal',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/specificcountry',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/fedex/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/gateway_url','https://eCommerce.airborne.com/ApiLandingTest.asp');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/title','DHL (Deprecated)');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/id',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/password',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/account',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/shipping_key',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/shipping_intlkey',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/shipment_requesttype','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/shipment_type','P');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/handling_action','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/contentdesc','Big Box');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/max_package_weight','150');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/dutiable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/dutypaymenttype','R');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/allowed_methods','IE,E SAT,E 10:30AM,E,N,S,G');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/free_method','G');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/free_shipping_enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/free_shipping_subtotal',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/additional_protection_enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/additional_protection_min_value',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/additional_protection_use_subtotal','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/additional_protection_value',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/additional_protection_rounding','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/hazardous_materials','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/default_length',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/default_width',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/default_height',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/shipment_days','Mon,Tue,Wed,Thu,Fri,Sat');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/intl_shipment_days','Mon,Tue,Wed,Thu,Fri');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/specificcountry',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhl/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/title','DHL');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/gateway_url','https://xmlpi-ea.dhl.com/XMLShippingServlet');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/id',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/password',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/account',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/content_type','D');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/handling_type','F');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/handling_action','O');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/handling_fee',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/divide_order_weight','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/unit_of_measure','K');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/size','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/doc_methods','2,5,6,7,9,B,C,D,U,K,L,G,W,I,N,O,R,S,T,X');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/ready_time',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/specificerrmsg','This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/free_method_doc',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/free_shipping_enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/free_shipping_subtotal',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/sallowspecific','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/specificcountry',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/showmethod','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/debug','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'carriers/dhlint/sort_order',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('websites',1,'carriers/eparcel/import','1387799312');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('websites',1,'carriers/tablerate/import','tablerates.csv');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'google/analytics/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'google/analytics/account',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'google/analytics/anonymization','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/general/enable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/general/email_identity','general');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/general/email_template','11');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/general/notify_delay','28');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/general/consider_orders_after',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/product/allow_parent','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/product/allow_child','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easyreview/product/visibility','2,3,4');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/emails/forgot_email_template','admin_emails_forgot_email_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/emails/forgot_email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/emails/password_reset_link_expiration_period','3');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/startup/page','dashboard');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/url/use_custom','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/url/use_custom_path','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/security/use_form_key','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/security/use_case_sensitive_login','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/security/session_cookie_lifetime','900');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'admin/captcha/enable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/schedule_generate_every','15');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/schedule_ahead_for','20');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/schedule_lifetime','15');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/history_cleanup_every','10');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/history_success_lifetime','2880');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/cron/history_failure_lifetime','2880');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/smtp/disable','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/smtp/host','localhost');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/smtp/port','25');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/smtp/set_return_path','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/currency/installed','AFN,ALL,DZD,AOA,ARS,AMD,AWG,AUD,AZN,AZM,BSD,BHD,BDT,BBD,BYR,BZD,BMD,BTN,BOB,BAM,BWP,BRL,GBP,BND,BGN,BUK,BIF,XOF,XPF,KHR,CAD,CVE,KYD,CLP,CNY,COP,KMF,CDF,CRC,HRK,CUP,CZK,DKK,DJF,DOP,XCD,EGP,GQE,ERN,EEK,ETB,EUR,FKP,FJD,GMD,GEK,GEL,GHS,GIP,GTQ,GNF,GYD,HTG,HNL,HKD,HUF,ISK,INR,IDR,IRR,IQD,ILS,JMD,JPY,JOD,KZT,KES,KWD,KGS,LAK,LVL,LBP,LSL,LRD,LYD,LTL,MOP,MKD,MGA,MWK,MYR,MVR,MRO,MUR,MXN,MDL,MNT,MAD,MZN,MMK,NAD,NPR,ANG,TWD,NZD,NIC,NGN,KPW,NOK,ROL,TRL,OMR,PKR,PAB,PGK,PYG,PEN,PHP,PLN,QAR,RHD,RON,RUB,RWF,SHP,SVC,WST,SAR,RSD,SCR,SLL,SGD,SKK,SBD,SOS,ZAR,KRW,LKR,SDG,SRD,SZL,SEK,CHF,SYP,STD,TJS,TZS,THB,TOP,TTD,TND,TRY,TMM,USD,UGX,UAH,AED,UYU,UZS,VUV,VEB,VEF,VND,CHE,CHW,YER,ZMK,ZWD');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/clean_after_day','7');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/enabled','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/time','00,00,00');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/frequency','D');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/log_clean/schedule/cron_expr','0 0 * * *');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'crontab/jobs/log_clean/run/model','log/cron::logClean');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/error_email','admin@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/error_email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/log/error_email_template','system_log_error_email_template');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/adminnotification/use_https','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/adminnotification/frequency','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/external_page_cache/enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/backup/enabled','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/media_storage_configuration/media_storage','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/media_storage_configuration/media_database','default_setup');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'system/media_storage_configuration/configuration_update_time','3600');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/AW_ARUnitNewvsreturning','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/AW_ARUnitSalesbyzipcode','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/AW_Advancedreports','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/AW_All','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Alanstormdotcom_Unremove','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Amasty_Base','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Amasty_Cheapest','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Amasty_Promo','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Balanced_CustomerSurvey','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Brandammo_Pronav','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Bubble_AttributeOptionPro','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Cm_RedisSession','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Dnd_Patchindexurl','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FME_Gmapstrlocator','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Abandonedcarts','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_AdvertPanels','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_AskStylist','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_BirthdayGift','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_CampaignMonitor','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Checkout','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_ConditionalAgreement','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Configviewer','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Contests','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_CustomReports','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_CustomerLinks','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_ExportReview','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_HtmlInject','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Layoutviewer','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_OrderBy','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Page','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_PickList','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_ProductExport','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_ProductRefresh','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Promo','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Sales','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_ShippedFrom','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/FactoryX_Westfield','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Fontis_Australia','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/GT_Speed','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/MDN_EasyReview','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/MageWorx_Adminhtml','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/MageWorx_SeoSuite','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/MageWorx_XSitemap','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Admin','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_AdminNotification','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Api','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Api2','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Authorizenet','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Backup','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Bundle','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Captcha','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Catalog','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_CatalogIndex','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_CatalogInventory','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_CatalogRule','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_CatalogSearch','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Centinel','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Checkout','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Cms','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Compiler','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Connect','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Contacts','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Core','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Cron','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_CurrencySymbol','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Customer','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Dataflow','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Directory','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Downloadable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Eav','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_GiftMessage','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_GoogleAnalytics','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_GoogleCheckout','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Imaclean','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_ImportExport','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Index','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Install','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Log','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Media','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Newsletter','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Oauth','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Page','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_PageCache','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Paygate','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Payment','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Paypal','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_PaypalUk','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Persistent','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Poll','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_ProductAlert','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Rating','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Reports','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Review','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Rss','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Rule','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Sales','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_SalesRule','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Sendfriend','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Shipping','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Sitemap','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Tag','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Tax','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Usa','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Weee','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Widget','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Wishlist','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_XmlConnect','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Magedev_Productposition','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/MagicToolbox_MagicZoom','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Moii_Pinterest','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Noovias_Cron','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Noovias_Extensions','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Phoenix_Moneybookers','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/TM_CheckoutFields','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/TM_Core','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/TM_FireCheckout','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Unirgy_Giftcert','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Unirgy_SimpleLicense','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Unirgy_SimpleUp','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Unirgy_StoreLocator','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Xigmapro_Jobs','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Yoast_CanonicalUrl','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Yoast_MetaRobots','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/index/enable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/index/disable','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/index/notvisible','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/restrict/allow_ips',NULL);
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/debug/profiler','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/template/allow_symlink','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/translate_inline/active','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/translate_inline/active_admin','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/log/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/log/file','system.log');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/log/exception_file','exception.log');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/js/merge_files','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'dev/css/merge_css_files','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/pronav_status','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/include_jquery','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/include_easing','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/include_noconflict','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/pronav_width',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/sensitivity','2');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/interval','50');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/easingmethodshow','easeOutQuint');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/easingmethodhide','easeOutQuint');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/timeout','600');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/fadein','500');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/fadeout','800');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/remove_store_from_urls','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavconfig/make_responsive','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavstyle/pronav_position','default');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavstyle/pronav_themes','custom');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'pronav/pronavstyle/pronav_customcss','megemenu.css');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'general/store_information/head_phone','(03) 8420 0336');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_marketing/name','Princess Highway Online');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'trans_email/ident_marketing/email','contactus@princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('websites',1,'dev/debug/template_hints','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('websites',1,'dev/debug/template_hints_blocks','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/title','Fire Checkout');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/layout','col3-set');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/registration_mode','optional');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/redirect_to_checkout','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/shipping_method','freeshipping_freeshipping');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/country','AU');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/hide_shipping_if_free','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/shipping_address','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/shipping_address_checkbox_state','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/payment_method','paypaluk_direct');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/paypalexpress_register','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/newsletter_checkbox','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/newsletter_checkbox_state','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/comment','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/discount','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/giftcard','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/general/order_review','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/country','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/country_file','GeoIP.dat');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/region','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/region_file','GeoIPRegion.dat');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/city','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/geo_ip/city_file','GeoLiteCity.dat');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/company','optional');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/street1','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/postcode','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/city','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/country_id','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/region','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/telephone','required');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_status/fax','optional');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/name','10');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/email','20');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/company','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/street1','40');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/postcode','50');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/city','45');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/country_id','60');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/region','61');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/telephone','70');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_form_order/fax','71');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/address_verification/enabled','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/payment_method_on_country','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/payment_method_on_total','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/payment_method_on_cart','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_country','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_zip','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_region','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_total','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_cart','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/shipping_method_on_coupon','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_payment_method','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_shipping_method','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_shipping_country','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_shipping_zip','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_shipping_region','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/ajax_update/total_on_taxvat','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/agreements/output','minimal');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/mobile/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/taxvat/validate','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/taxvat/vies','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/enabled','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/filter_per_shipping_method','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/use_calendar','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/date_offset','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/exclude_weekend','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/excluded_dates','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/use_time_range','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/delivery_date/time_range','a:0:{}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/editable','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/image','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/image_width','100');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/image_height','100');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/name_as_link','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'firecheckout/shopping_cart/short_description','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'wishlist/general/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'wishlist/email/email_template','32');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'wishlist/email/email_identity','general');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'wishlist/wishlist_link/use_qty','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'google/u_analytics/active','1');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'google/u_analytics/account','UA-46909344-1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/enabled','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/descriptiontabbed','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/additionaltabbed','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/upsellproductstabbed','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/relatedtabbed','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/tagstabbed','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/general/reviewtabbed','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtab','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabid','short_description');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabname','Fabric & Care');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtab1','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabid1','size_and_fit');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabname1','Size & Fit');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtab2','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabid2',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabname2',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtab3','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabid3',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabname3',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtab4','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabid4',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/custom/customtabname4',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabcms','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabidcms',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabnamecms',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabcms1','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabidcms1',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabnamecms1',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabcms2','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabidcms2',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabnamecms2',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabcms3','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabidcms3',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabnamecms3',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabcms4','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabidcms4',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'easy_tabs/customcms/tabnamecms4',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/api_key','AIzaSyBi5ryKoyRWjHAc8KQM44pYtUczKJ4EQ5g');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/zip_nearest','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/general/address_nearest','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/info_popup/marker_image','default/pin.png');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_search/zipcode','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contests/options/m_to_cm_attributes','a:6:{s:18:\"_1394111719755_755\";a:2:{s:10:\"formfields\";s:6:\"mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:16:\"_1394111735004_4\";a:2:{s:10:\"formfields\";s:5:\"state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1394111744676_676\";a:2:{s:10:\"formfields\";s:9:\"promoCode\";s:15:\"campaignmonitor\";s:6:\"Source\";}s:18:\"_1394112242991_991\";a:2:{s:10:\"formfields\";s:5:\"email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1394112248739_739\";a:2:{s:10:\"formfields\";s:9:\"firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1394112253370_370\";a:2:{s:10:\"formfields\";s:8:\"lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}}');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'homepage/options/enable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_product_default','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_category_default','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_cms_default','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_enable_open_graph','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_site_name',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_use_rewrite','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_type','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_app_id',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_send','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_layout','standard');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_show_faces','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_like_width','450');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_like_ref',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_like_height','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_verb','like');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_font','arial');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_color','light');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_use_long','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_send','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_layout','standard');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_show_faces','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_width','450');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_height','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_category/ev_like_category_ref',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_send','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_layout','standard');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_show_faces','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_width','450');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_height','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_cms/ev_like_cms_ref',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_send','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_layout','button_count');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_show_faces','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_width','215');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_height','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_grid/ev_like_grid_ref',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_send','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_layout','standard');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_show_faces','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_width','450');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_height','30');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_list/ev_like_list_ref',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/enable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/enable_sale','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/dryrun','0');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'abandonedcartsconfig/options/testemail',NULL);
+
+
 /*!40000 ALTER TABLE `core_config_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
