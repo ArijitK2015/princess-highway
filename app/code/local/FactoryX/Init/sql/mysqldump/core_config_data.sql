@@ -124,7 +124,10 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/polls/poll_check_by_ip','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_lifetime','3600');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_path',NULL);
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_domain','princesshighway.com.au');
+
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_domain','princesshighway.com.au');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_domain','stage.aws.factoryx.com.au');
+
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_httponly','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/cookie/cookie_restriction','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'web/session/use_remote_addr','0');
