@@ -10,6 +10,7 @@ upgrade-0.0.2-0.0.3.php     loads in cms block & email templates
 add other scripts here and or rearrange scripts
 ...
 upgrade-0.0.3-0.1.0.php     loads in config data
+upgrade-0.1.0-0.2.0.php 	loads in the store locations
 
 
 ## how to install what

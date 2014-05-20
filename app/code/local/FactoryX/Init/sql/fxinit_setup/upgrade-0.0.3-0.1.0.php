@@ -29,7 +29,7 @@ if (file_exists($path)) {
 	$email_content .= "Cannot find magiczoom dump<br/>";
 }
 
-mail('raphael@factoryx.com.au','fx install',$email_content);
+// mail('raphael@factoryx.com.au','fx install',$email_content);
 
 $installer->endSetup();
 
