@@ -680,11 +680,10 @@ and open the template in the editor.
         .catalog-product-view #product-media .MagicToolboxContainer { background-color: transparent; width: 100% !important; }        
         .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom { background-color: transparent; height: auto; width:100% !important; }
         .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom img { height: auto; width:100%; }
-	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs { margin-top: 15px; }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer { width:100% }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul {}
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul li { width:20% }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr img { height: auto; width:100% }        
+	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer { margin-top: 15px; }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer { width:100% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer .MagicScrollItem { width:20% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer img { height: auto; width:100% }        
         .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }        
         .catalog-product-view #product-shop #productsocial { display: none }
         .catalog-product-view #product-shop #producttabs {}
@@ -846,11 +845,10 @@ and open the template in the editor.
         .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxMessage2 { display: none }
         .catalog-product-view #product-media .MagicToolboxContainer { background-color: transparent;  width: 100% !important; }        
         .catalog-product-view #product-media .MagicToolboxContainer .MagicZoom img { height: auto; width:100% }
-	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs { }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer { width:100% }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul {}
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr ul li { width:19% }
-        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxContainerThumbs .MagicToolboxSelectorsContainer nobr img { height: auto; width:100% }        
+	.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer { }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer{ width:100% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer .MagicScrollItem { width:19% }
+        .catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer img { height: auto; width:100% }        
         .catalog-product-view #product-shop div.product-name { background-color: transparent; margin-top: 20px; }
         .catalog-product-view #product-shop #productsocial { display: none }
         .catalog-product-view #product-shop #producttabs {}
