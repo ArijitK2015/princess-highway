@@ -5,6 +5,7 @@ $email_content = "";
 $installer = $this;
 $installer->startSetup();
 
+/*
 //Import Core Config Data
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'core_config_data.sql';
 if (file_exists($path)) {
@@ -14,6 +15,7 @@ if (file_exists($path)) {
 }else{
 	$email_content .= "Cannot find Core Config Data dump<br/>";
 }
+*/
 
 // Import MagicZoom Settings
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'magiczoom.sql';
