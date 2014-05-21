@@ -1,6 +1,6 @@
 /* ==================================================
 Navy: #28506C
-Over Purple: #FF4F4F
+Over Purple: #28506C
 Font Grey: #808080
 Button Grey: #BFBFBF
 Over button Grey: #A09F9F
@@ -98,7 +98,7 @@ body { background:#FFFFFF; color:#808080; font-weight:300; font-size:13px; font-
 a { color:#28506C; text-decoration:none; cursor:pointer; }
 a:hover,
 a:active,
-a:focus { outline:0; color:#FF4F4F; text-decoration:none; }
+a:focus { outline:0; color:#28506C; text-decoration:none; }
 
 a img { border:none; }
 a > img { vertical-align:bottom; }
@@ -821,7 +821,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 	        border-radius:0px; 
 }
 #productpurchase .btn-add-cart:hover,
-#productpurchase .btn-update-cart:hover { background:#FF4F4F; text-decoration:none; }
+#productpurchase .btn-update-cart:hover { background:#28506C; text-decoration:none; }
 
 .add-to-cart input { display:block; text-align:center; width:25px; }
 
@@ -1014,7 +1014,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 	        border-radius:0px; 
 }
 #quickshop-modal #productpurchase .btn-add-cart:hover,
-#quickshop-modal #productpurchase .btn-update-cart:hover { background:#FF4F4F; text-decoration:none; }
+#quickshop-modal #productpurchase .btn-update-cart:hover { background:#28506C; text-decoration:none; }
 
 #quickshop-modal .add-to-cart input { display:block; text-align:center; width:25px; }
 
@@ -1070,7 +1070,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 }
 .cart .smallcol,
 .firecheckout-set .smallcol {width:1px}
-.cart .btn-proceed-checkout:hover { background:#FF4F4F; border:none; text-decoration:none; }
+.cart .btn-proceed-checkout:hover { background:#28506C; border:none; text-decoration:none; }
 .cart .btn-proceed-checkout:last-child { margin-top: 20px; }
 .cart h2 { color:#28506C; font-family: Century, Helvetica, Arial, sans-serif; font-size:13pt; font-weight:500; margin-bottom:0; margin-top:5px; padding:0px;  text-transform: lowercase;}
 .cart h3.product-name { margin-bottom:0; }
@@ -1081,7 +1081,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 .cart a.removeitem { color:#28506C;  font-weight:normal; text-decoration:none; }
 .cart .cart-wishlist-link-click:hover,
 .cart a.edititem:hover,
-.cart a.removeitem:hover { color:#FF4F4F; }
+.cart a.removeitem:hover { color:#28506C; }
 .cart .cart-price { color:#000000; display:block; font-size:16px; margin-top:8px;  }
 .cart .icon-remove { color:#BFBFBF; display:block; font-size:18px; margin-top:7px; }
 .cart .icon-remove:hover { color:#28506C; text-decoration:none; }
@@ -1897,7 +1897,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-#newcustomers .createaccount:hover { background:#FF4F4F; border:none; text-decoration:none; }
+#newcustomers .createaccount:hover { background:#28506C; border:none; text-decoration:none; }
 #registeredcustomers { float: right }
 #registeredcustomers p.help-block { color:#28506C; float:right; font-size:11px; font-weight:normal; font-style:italic; margin-top:0px; }
 #registeredcustomers legend { border-bottom:none; color:#808080; font-size:12px; font-weight:normal;  margin-bottom:0; }
@@ -1917,7 +1917,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 }
 .firecheckout-window .buttons-set .button:hover,
 .firecheckout-window .buttons-set .btn-forgot:hover,
-#registeredcustomers .registeredlogin:hover { background:#FF4F4F; border:none; text-decoration:none; }
+#registeredcustomers .registeredlogin:hover { background:#28506C; border:none; text-decoration:none; }
 #registeredcustomers .registeredforgot { color:#28506C; font-size:11px; font-weight:normal; margin-left: 30px; text-decoration:underline; }
 #registeredcustomers .registeredforgot:hover { color:#000000; }
 
@@ -2015,7 +2015,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 }
 .form-forgotten-password .btn-forgotten-password:hover,
 .my-account .wishlistsharing:hover,
-.my-account .wishlistaddall:hover { background-color:#FF4F4F; border:none; text-decoration:none; }
+.my-account .wishlistaddall:hover { background-color:#28506C; border:none; text-decoration:none; }
 
 .my-account .input-box {
     padding-right: 10px;
@@ -2040,7 +2040,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-.customer-account-resetpassword .buttons-set button:hover { background:#FF4F4F; border:none; text-decoration:none; } 
+.customer-account-resetpassword .buttons-set button:hover { background:#28506C; border:none; text-decoration:none; } 
 
 .backbutton { background:#BFBFBF; border:none; color:#FFFFFF; float:left; font-size:14px; font-weight:normal; margin-bottom:10px; padding:7px 20px; text-shadow:none; -webkit-text-stroke:none;  
 	-webkit-border-radius:0px;
@@ -2054,7 +2054,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-.savebutton:hover { background:#FF4F4F; border:none; color:#FFFFFF; text-decoration:none; }
+.savebutton:hover { background:#28506C; border:none; color:#FFFFFF; text-decoration:none; }
 
 /* Account Management > My Orders */
 #my-orders-table thead { background:#bfbfbf; color:#000000; font-size:16px; font-weight:normal}
@@ -2073,7 +2073,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-.enter-gift-card-number .form-button:hover { background:#FF4F4F; border:0px solid #C20026; color:#FFFFFF; text-decoration:none; }
+.enter-gift-card-number .form-button:hover { background:#28506C; border:0px solid #C20026; color:#FFFFFF; text-decoration:none; }
 
 /* ==================================================
    Wishlist
@@ -2113,7 +2113,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-#wishlist-view-form .wishaddtocart:hover { background:#FF4F4F; border:none; text-decoration:none;  }
+#wishlist-view-form .wishaddtocart:hover { background:#28506C; border:none; text-decoration:none;  }
 #wishlist-view-form .wisheditbutton { background:#BFBFBF; border:none; color:#FFFFFF; font-size:11px; font-weight:normal; margin-top:5px; padding:3px 6px; text-shadow:none; -webkit-text-stroke:none; width:60px;  
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
@@ -2184,7 +2184,7 @@ survey_form #survey_form > div { padding:0px; }
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
 	        border-radius:0px; }
-.survey_block #survey_form button.button:hover { background:#FF4F4F; border:0px solid #808080; color:#FFFFFF; text-decoration:none; }
+.survey_block #survey_form button.button:hover { background:#28506C; border:0px solid #808080; color:#FFFFFF; text-decoration:none; }
 
 /* ==================================================
    Static Content Pages > Contact Us
@@ -2217,7 +2217,7 @@ survey_form #survey_form > div { padding:0px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
-#contact_page .contact-form button:hover { background:#FF4F4F; border:none; text-decoration:none; } 
+#contact_page .contact-form button:hover { background:#28506C; border:none; text-decoration:none; } 
 
 
 /* ==================================================
