@@ -4,6 +4,9 @@
  */
  
 class FactoryX_ProductRefresh_IndexController extends Mage_Core_Controller_Front_Action {
+
+    //TODO move to system config
+    private static $_COLOUR_ATTRIBUTE = "colour";
 	
 	public function indexAction() {
 		$params = $this->getRequest()->getParams();
@@ -38,39 +41,32 @@ class FactoryX_ProductRefresh_IndexController extends Mage_Core_Controller_Front
 		// Get the attributes of the product
 		$attributes = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
 		
-		foreach ($attributes as $attr)
-		{
+		foreach ($attributes as $attr) {
 			// If we have found the size
-			if($attr['label']=="Size") 
-			{
+			if (preg_match("/size/i", $attr['label'])) {
 				$sizeAttributeId = $attr['attribute_id'];
 				$sizeAttributeCode = $attr['attribute_code'];
 			}
 			// If we have found the colour
-			else if($attr['label']=="Colour") 
-			{
-				foreach ($attr['values'] as $value)
-				{
+			else if(preg_match("/colour/i", $attr['label'])) {
+				foreach ($attr['values'] as $value) {
 					// Load the extra prices depending on the colour
 					$response['prices'][$value['value_index']] = $value['pricing_value'];
 				}
 			}
 		}
 		
-		if (isset($sizeAttributeId))
-		{
+		if (isset($sizeAttributeId)) {
 			// Then we load the size attribute
 			$attributeLoaded = Mage::getModel('catalog/resource_eav_attribute')->load($sizeAttributeId);
 
 			if ($isConfigurable)
 			{
 				// Fetch the associated products
-				foreach($associatedProducts as $child)
-				{
+				foreach($associatedProducts as $child) {
 					// If the child product has got the chosen color and is saleable (not out of stock, not disabled) we retrieve the corresponding size into the response
-					$response["tmp"][] = $child->getColourDescription();
-					if($child->getColourDescription() == $params['color'] && $child->isSaleable())
-					{
+					$response["tmp"][] = $child->getData(self::$_COLOUR_ATTRIBUTE);
+					if ($child->getData(self::$_COLOUR_ATTRIBUTE) == $params['color'] && $child->isSaleable()) {
 						$value = $child->getResource()->getAttribute($sizeAttributeCode)->getFrontend()->getValue($child);
 						if (!in_array($value,$response['sizes'])) array_push($response['sizes'],str_replace(array(" ","/"),"-",$value));
 					}
@@ -155,7 +151,7 @@ class FactoryX_ProductRefresh_IndexController extends Mage_Core_Controller_Front
 				foreach($associatedProducts as $child)
 				{
 					// If the child product has got the chosen color and is saleable (not out of stock, not disabled) we retrieve the corresponding size into the response
-					if(isset($colorAttributeId) && $child->getColourDescription() == $chosenColor)
+					if(isset($colorAttributeId) && $child->getData(self::$_COLOUR_ATTRIBUTE) == $chosenColor)
 					{
 						$value = $child->getResource()->getAttribute($sizeAttributeCode)->getFrontend()->getValue($child);
 						// If chosen size found

@@ -772,7 +772,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 	        border-radius:0px; }
 #product-options-wrapper .size-square:hover { border:1px solid #000; color:#000; }
 #product-options-wrapper .size-square span { line-height:18px; }
-#product-options-wrapper .size-disabled { background-color:#FFF; border:1px solid #F5F5F5; color:#BFBFBF; cursor:default; text-decoration:line-through; 
+#product-options-wrapper .size-disabled { background-color:#FFF; border:1px solid #F5F5F5; color:#BFBFBF; cursor:default;
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
 	        border-radius:0px; }
