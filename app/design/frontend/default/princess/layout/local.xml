@@ -51,6 +51,10 @@
 		<block type="core/text_list" name="phsocial" as="phsocial" translate="label">
 			<label>Princess Highway Social</label>
 		</block>
+		<!-- Facebook Script -->
+        <block type="core/template" name="facebookScript" as="facebookScript" template="factoryx/facebook/script.phtml">
+            <label>Facebook Script</label>
+        </block>
 		<!-- Add menu -->
 		<block type="core/text_list" name="phmenu" as="phmenu" translate="label">
 			<label>Navigation Bar</label>
