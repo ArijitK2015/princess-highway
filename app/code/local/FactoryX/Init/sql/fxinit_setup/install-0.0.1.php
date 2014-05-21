@@ -5,7 +5,7 @@
 
 install-0.0.1.php           loads in categories
 upgrade-0.0.1-0.0.2.php     loads in attributes & attribute sets
-upgrade-0.0.2-0.0.3.php     loads in cms block & email templates
+upgrade-0.0.2-0.0.3.php     loads in cms block & email templates & cms page
 ...
 add other scripts here and or rearrange scripts
 ...
