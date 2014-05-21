@@ -2013,6 +2013,7 @@ iframe#sage-pay-server-iframe { border:none; height:365px; width:687px; }
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
+.my-account .add-on{border:none}
 .form-forgotten-password .btn-forgotten-password:hover,
 .my-account .wishlistsharing:hover,
 .my-account .wishlistaddall:hover { background-color:#28506C; border:none; text-decoration:none; }
