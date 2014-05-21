@@ -3,17 +3,25 @@
 	
 	<modules>
         <FactoryX_Init>
-            <version>0.1.0</version>
+            <version>0.3.0</version>
         </FactoryX_Init>
     </modules>
         
-	<global>	
+	<global>
+
+        <helpers>
+            <fxinit>
+                <class>FactoryX_Init_Helper</class>
+            </fxinit>
+        </helpers>        
+	    
 		
 		<!-- Database access resources -->
 		<resources>       
 			<fxinit_setup>
 				<setup>
 					<module>FactoryX_Init</module>
+					<class>Mage_Catalog_Model_Resource_Setup</class>
 				</setup>
 				<connection>
 					<use>core_setup</use>

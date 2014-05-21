@@ -4,11 +4,17 @@ $imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $this->getImage
 $imageUrl = sprintf("%s/homepage%s", $relMediaPath, $this->getImage()->getUrl());
 if (is_file($imagePath)) {
 	list($width, $height, $type, $attr) = getimagesize($imagePath); ?>
-	<?php if ($link = $this->getImage()->getLink()): ?>
-		<a href="<?php echo $link ?>">
-	<?php endif; ?>
-		<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $this->getImage()->getAlt(); ?>" /> 
-	<?php if ($link): ?>
-		</a>
-	<?php endif; ?>
+	<table>
+		<tr>
+			<td>
+				<?php if ($link = $this->getImage()->getLink()): ?>
+					<a href="<?php echo $link ?>">
+				<?php endif; ?>
+					<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $this->getImage()->getAlt(); ?>" /> 
+				<?php if ($link): ?>
+					</a>
+				<?php endif; ?>
+			</td>
+		</tr>
+	</table>
 <?php } // endif ?>

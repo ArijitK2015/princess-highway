@@ -1,0 +1,19 @@
+- Default Category
+ - New Arrivals
+  - All
+  - Just In
+  - Clothing
+  - Accessories
+ - Clothing
+  - All
+  - Dresses
+  - Cardigans
+  - Jumpers
+  - Tops
+  - Skirts
+  - Pants
+  - Shorts
+  - Jackets and Coats
+ - Dresses
+ - Accessories
+ - Sale
