@@ -1089,7 +1089,7 @@ $i = 0;
 $maxOpts = 0;
 foreach($attributesToAdd as $code => $conf) {
     // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $conf['options'], $replaceAttribute = 0);
+    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $conf['options'], $replaceAttribute = 1);
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
