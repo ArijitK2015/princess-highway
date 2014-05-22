@@ -26,11 +26,14 @@ size_*
 season
 */
 
-$defaultValues = array(
-    "is_global"         => 1, // store view = 0, global = 1, website = 2
+$superAttributeSettings = array(
+    "is_global"         => 1, // store view = 0, is_global = 1, website = 2
     "frontend_input"    => "select",
+    "source_model"      => "eav/entity_attribute_source_table",
+    "backend_type"      => "int",
     "is_required"       => 1,
-    "is_configurable"   => 1
+    "is_configurable"   => 1,
+    'apply_to'          => NULL
 );
 
 $attributesToAdd = array(
@@ -45,10 +48,13 @@ $attributesToAdd = array(
             "ss14"
         ),
         "values" => array(
-            "is_global"         => 0,
-            "frontend_input"    => "select",
-            "is_required"       => 1,
-            "is_configurable"   => 0
+            "is_global"             => 0,
+            "frontend_input"        => "select",
+            "source_model"          => "eav/entity_attribute_source_table",
+            "backend_type"          => "int",
+            "is_required"           => 1,
+            "is_configurable"       => 0,
+            "is_visible_on_front"   => 1
         )
     ),
     "size_06_11" => array(
@@ -61,7 +67,7 @@ $attributesToAdd = array(
             "10" => 10,
             "11" => 11
         ),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_06_16" => array(
         "label" => "Size",
@@ -73,25 +79,37 @@ $attributesToAdd = array(
             "14" => 14,
             "16" => 16
         ),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_36_42" => array(
         "label" => "Size",
         "options" => array(36,37,38,39,40,41,42),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_sm_ml" => array(
         "label" => "Size",
         "options" => array("SM","ML"),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_os" => array(
         "label" => "Size",
         "options" => array("OS"),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "colour_base" => array(
-        "label" => "Colour Base",
+        "label" => "Colour",
+        "values" => array(
+            'backend_model'             => 'eav/entity_attribute_backend_array',
+            'backend_type'              => 'varchar',
+            'frontend_input'            => "multiselect",
+            "is_required"               => 1,
+            "is_global"                 => 0,
+            'apply_to'                  => 'simple,configurable',
+            'is_configurable'           => 0,
+            'is_filterable'             => 1,
+            'is_filterable'             => 1,
+            'is_visible_on_front'       => 1,
+        ),
         "options" => array(
             "black",
             "blue",
@@ -107,16 +125,11 @@ $attributesToAdd = array(
             "red",
             "white",
             "yellow"
-        ),
-        "values" => array(
-            "is_global"         => 0,
-            "frontend_input"    => "select",
-            "is_required"       => 1,
-            "is_configurable"   => 0
         )
-    ),    
+    ),
     "colour" => array(
         "label" => "Colour",
+        "values" => $superAttributeSettings,
         "options" => array(
             "000" => "No Color",
             "001" => "Black",
@@ -1068,7 +1081,7 @@ $attributesToAdd = array(
             "998" => "Choc/Orange",
             "999" => "Animal"
         ),
-        "values" => $defaultValues
+        "sanitize" => true
     )
 );
 
@@ -1076,7 +1089,7 @@ $i = 0;
 $maxOpts = 0;
 foreach($attributesToAdd as $code => $conf) {
     // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttribute($conf['label'], $code, $conf['values'], null, null, $conf['options']);
+    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $conf['options'], $replaceAttribute = 1);
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
@@ -1089,19 +1102,82 @@ create attribute sets
 $groupName = "Clothing Attributes";
 $attributeSetsToAdd = array(
     'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
-    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season')
+    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season'),
+    'Clothing Colour & Size SM-ML' => array('colour', 'size_sm_ml', 'colour_base', 'season'),
+    'Clothing Colour & One Size' => array('colour', 'size_os', 'colour_base', 'season'),
+    'Shoes Colour & Size 36-42' => array('colour', 'size_36_42', 'colour_base', 'season'),
+    'Accessories Colour' => array('colour', 'colour_base', 'season')
 );
 
 $helper = Mage::helper('fxinit');
 $i = 0;
 $maxOpts = 0;
 foreach($attributeSetsToAdd as $label => $attributes) {
-    //Mage::log(sprintf("%s->createAttributeSet: %s=%s", __METHOD__, $label, print_r($conf, true)) );
-    // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttributeSet($label, $groupName, null, $attributes);
+    //Mage::log(sprintf("%s->createAttributeSet: %s\n", __METHOD__, $label) );
+    // check if product exist, because deleting is then a bad idea
+    if ($helper->productsUseAttributeSet($label)) {
+        $err = sprintf("%s->attribute set '%s' is in use! skip creation", __METHOD__, $label);
+        Mage::log($err);
+    }
+    else {
+        //Mage::log(sprintf("%s->createAttributeSet: %s=%s", __METHOD__, $label, print_r($conf, true)) );
+        // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
+        $helper->createAttributeSet($label, $groupName, null, $attributes);
+    }
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
-    }            
+    } 
 }
 
+// add base_colour images
+/*
+$baseColourImages => array(
+    "black"     => "media/wysiwyg/colours/01_black.jpg",
+    "blue"      => "media/wysiwyg/colours/02_blue.jpg",
+    "brown"     => "media/wysiwyg/colours/03_brown.jpg",
+    "green"     => "media/wysiwyg/colours/04_green.jpg",
+    "grey"      => "media/wysiwyg/colours/05_grey.jpg",
+    "metallic"  => "media/wysiwyg/colours/06_metalic.jpg",
+    "multi"     => "media/wysiwyg/colours/07_multi.jpg",
+    "neutral"   => "media/wysiwyg/colours/08_neutral.jpg",
+    "orange"    => "media/wysiwyg/colours/09_orange.jpg",
+    "pink"      => "media/wysiwyg/colours/10_pink.jpg",
+    "purple"    => "media/wysiwyg/colours/11_purple.jpg",
+    "red"       => "media/wysiwyg/colours/12_red.jpg",
+    "white"     => "media/wysiwyg/colours/13_white.jpg",
+    "yellow"    => "media/wysiwyg/colours/14_yellow.jpg"
+);
+*/
+$orderby = "ASC";
+$attribute = Mage::getSingleton("eav/config")->getAttribute("catalog_product", "colour_base");
+$options = Mage::getResourceModel('eav/entity_attribute_option_collection')
+    ->setAttributeFilter( $attribute->getId() )
+    ->setStoreFilter()
+    ->setPositionOrder($orderby);
+$options->getSelect()->order(sprintf("main_table.sort_order %s", $orderby));
+// $options = $attribute->getSource()->getAllOptions(false);
+/*
+    [option_id] => 3124
+    [attribute_id] => 210
+    [sort_order] => 13
+    [image] =>
+    [additional_image] =>
+    [default_value] => yellow
+    [store_default_value] => yellow
+    [value] => yellow
+*/
+$resource = Mage::getSingleton('core/resource');
+$wConn = $resource->getConnection('core_write');
+foreach($options as $option) {
+    //Mage::log(sprintf("option=%s\n", print_r($option, true)) );
+    $imagePath = sprintf("media/wysiwyg/colours/%02d_%s.jpg", $option['sort_order'] + 1, $option['value']);
+    $sql = sprintf("UPDATE eav_attribute_option SET sort_order = %d, image = '%s', additional_image = '%s' WHERE option_id = %d", 
+        $option['sort_order'], $imagePath, $addImage = "", $option['option_id']);
+    Mage::log(sprintf("%s->sql=%s", __METHOD__, $sql) );
+    $wConn->query($sql);
+}
+
+$installer->endSetup();
+
+?>
