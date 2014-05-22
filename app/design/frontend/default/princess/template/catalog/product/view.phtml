@@ -93,7 +93,7 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 						<?php echo $this->getTierPriceHtml() ?>
 						<?php echo $this->getChildHtml('product_type_data') ?>
 						<?php /* Use Factory X SKU Code instead <span class="product-sku">Item #: <?php echo nl2br($_product->getSku()) ?></span> */ ?>
-						<span class="product-sku"><?php echo $this->__("Item #: %s", $this->getProduct()->getSku()) ?></span>
+						<span class="product-sku"><?php echo $this->__("Item SKU: %s", $this->getProduct()->getSku()) ?></span>
 
 						<?php echo $this->getChildHtml('extrahint') ?>
 

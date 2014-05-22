@@ -7,7 +7,7 @@ Over button Grey: #A09F9F
 ================================================== */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-* { /*font-family: Century, Helvetica, Arial, sans-serif !important;*/ text-transform: lowercase !important;}
+* { /*font-family: Century, Helvetica, Arial, sans-serif !important;*/ }
 
 /* ==================================================
    Override bootstrap
@@ -245,7 +245,8 @@ section#brand { padding-top:50px; position:relative; }
 	        border-radius:3px; }
 .searchsocial ul li a:hover { background:#808080; color:#FFFFFF; text-decoration:none; } 
 
-input#search { background-color:#FFFFFF; border:1px solid #E9E9E9; color:#808080; float:left; font-family:Helvetica, Arial, sans-serif; font-size:10px; font-weight:normal; padding:5px 10px; 
+.form-search {margin-right: 10px;}
+input#search { background-color:rgba(255,255,255,0.8); border:none; color:#808080; height:21px; float:left; font-family:Helvetica, Arial, sans-serif; font-size:10px; font-weight:normal; padding:0px 4px; 
 	-webkit-box-shadow:none;
 	   -moz-box-shadow:none;
 	        box-shadow:none;
@@ -257,12 +258,9 @@ input#search { background-color:#FFFFFF; border:1px solid #E9E9E9; color:#808080
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
 	        border-radius:0px; }
-.searchsocial .icon-search { background:#FFFFFF; color:#808080; height: 32px; width:32px;
-	   border-top:1px solid #E9E9E9;
-	 border-right:1px solid #E9E9E9;
-	border-bottom:1px solid #E9E9E9;
-	  border-left:none; }
-.searchsocial .icon-search:hover { background:#BFBFBF; color:#808080; zoom:1; }
+.icon-search { background:rgba(255,255,255,0.8); color:#808080; height:21px !important;
+	   border:none; }
+.icon-search:hover { zoom:1; }
 
 .throbber { background:#fff url(../images/ajax-loader.gif) no-repeat 50% 25px; height:100px; font-weight:bold; margin-left: auto; margin-right: auto; padding:0px; text-align:center; width:100px; }
 .throbber-popup { position:absolute; z-index:10000;

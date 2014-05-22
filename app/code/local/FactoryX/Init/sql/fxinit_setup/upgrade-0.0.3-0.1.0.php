@@ -1,7 +1,6 @@
 <?php
 /*
 loads in attributes & attribute sets
-
 */
 
 $email_content = "";
@@ -32,5 +31,4 @@ if (file_exists($path)) {
 // mail('raphael@factoryx.com.au','fx install',$email_content);
 
 $installer->endSetup();
-
 ?>

@@ -49,7 +49,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
 
         	$offset = strlen(substr($line, 0, strpos($line, '-')));
         	Mage::log(sprintf("%s->offset=%d", __METHOD__, $offset) );
-        	
+
         	$catName = trim(substr($line, $offset + 1));
         	Mage::log(sprintf("catName=%s", $catName));
 
@@ -106,6 +106,19 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     /**
+    return product count associated with attribute set
+    */
+    public function productsUseAttributeSet($label) {
+        $entityTypeId = Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId();
+        $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($label, 'attribute_set_name');
+        $collection = Mage::getModel('catalog/product')->getCollection();
+        $collection->addAttributeToFilter('status', array('eq' => 1))
+           ->addAttributeToFilter('attribute_set_id', $attributeSet->getAttributeSetId())
+           ->addAttributeToSelect('*');
+        return $collection->count();
+    }
+
+    /**
     */
     public function createPronav() {
 
@@ -114,7 +127,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         $sql = "DELETE FROM pronav;";
         Mage::log(sprintf("%s->var=%s", __METHOD__, $sql) );
         $categories = $dbRead->query($sql);
-                
+
         try {
             // GET TOP CATEGORIES
             $categories = Mage::getModel('catalog/category')->getCollection()
@@ -127,7 +140,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
                 $fullcategory = Mage::getModel('catalog/category')->load($category->getId());
                 $msg = sprintf("%s %s %s %s", $fullcategory->getId(), $fullcategory->getParentId(), $fullcategory->getName(), $fullcategory->getUrlPath());
                 //Mage::log(sprintf("%s->msg=%s", __METHOD__, $msg) );
-        
+
                 // Create Block for the nav
                 $block = Mage::getModel('cms/block');
                 $block->setTitle('Pronav - '.$fullcategory->getName());
@@ -159,7 +172,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
                         </div>');
                 //Mage::log(var_export($block, true));
                 $block->save();
-        
+
                 Mage::log(sprintf("%s->block->getId=%s", __METHOD__, $block->getId()) );
 
                 $pronav = Mage::getModel('pronav/pronav');
@@ -177,7 +190,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
                         'status' => 1
                     );
                 $pronav->setData($pronav_data);
-                $pronav->save();   
+                $pronav->save();
             }
             Mage::log("created navigation");
         }
@@ -196,9 +209,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
      *
      * @return array|false
      */
-    public function createAttributeSet($setName, $groupName, $copyGroupsFromId = null, $attributes) {
-
-        $replaceAttributeSets = 1;
+    public function createAttributeSet($setName, $groupName, $copyGroupsFromId = null, $attributes, $replaceAttributeSet = 1) {
 
         // check if exists & delete
         $entityTypeId = Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId();
@@ -212,7 +223,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
                 $copyGroupsFromId = $_attributeSet->getId();
             }
             if (preg_match(sprintf("/%s/i", $setName), $attributeSet->getAttributeSetName())) {
-                if ($replaceAttributeSets) {
+                if ($replaceAttributeSet) {
                     Mage::log(sprintf("%s->delete=%s", __METHOD__, $attributeSet->getAttributeSetName()) );
                     $attributeSet->delete();
                 }
@@ -300,7 +311,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::log(sprintf("could not get ID from new group [%s]", $groupName));
             return false;
         }
-                
+
         foreach($attributes as $attribute) {
             Mage::log(sprintf("%s->add attribute: %s", __METHOD__, $attribute) );
             $this->assignAttribute($attribute, $groupId, $setId);
@@ -309,14 +320,14 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log(sprintf("created attribute-set id:%d, default-group id:%d, attributes: %s", $setId, $groupId, print_r($attributes, true)) );
         return array('setID' => $setId, 'groupID' => $groupId);
     }
-    
+
     /*
     to assign attribute to Attribute Set and Attribute Group
     */
     function assignAttribute($attributeCode, $attributeGroupId, $attributeSetId) {
         /*
         $attribute = Mage::getModel('catalog/resource_eav_attribute')->loadByCode('catalog_product', $attributeCode);
-        if (null !== $attribute->getId()) {        
+        if (null !== $attribute->getId()) {
             $attributeId = $attribute->getId();
         }
         */
@@ -334,9 +345,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
      *
      * @return int|false
      */
-    public function createAttribute($labelText, $attributeCode, $values = null, $productTypes = null, $setInfo = null, $options = null) {
-
-        $replaceAttribute = 0;
+    public function createAttribute($labelText, $attributeCode, $values = null, $setInfo = null, $options = null, $replaceAttribute = 0) {
 
         // check if exists
         $attribute = Mage::getModel('catalog/resource_eav_attribute')->loadByCode('catalog_product', $attributeCode);
@@ -363,10 +372,6 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             $values = array();
         }
 
-        if (empty($productTypes)) {
-            $productTypes = array('simple','configurable');
-        }
-
 /*
         if (!empty($setInfo) && (isset($setInfo['SetID']) == false || isset($setInfo['GroupID']) == false)) {
             Mage::log("Please provide both the set-ID and the group-ID of the attribute-set if you'd like to subscribe to one.");
@@ -378,33 +383,50 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         //>>>> Build the data structure that will define the attribute. See
         //     Mage_Adminhtml_Catalog_Product_AttributeController::saveAction().
         $data = array(
-            'is_global'                     => '0',
-            'frontend_input'                => 'text',
-            'default_value_text'            => '',
-            'default_value_yesno'           => '0',
-            'default_value_date'            => '',
-            'default_value_textarea'        => '',
-            'is_unique'                     => '0',
-            'is_required'                   => '0',
-            'frontend_class'                => '',
-            'is_searchable'                 => '0',
-            'is_visible_in_advanced_search' => '0',
-            'is_comparable'                 => '0',
-            'is_used_for_promo_rules'       => '0',
-            'is_html_allowed_on_front'      => '1',
-            'is_visible_on_front'           => '0',
-            'used_in_product_listing'       => '0',
-            'used_for_sort_by'              => '0',
-            'is_configurable'               => '0',
-            'is_filterable'                 => '1',
-            'is_filterable_in_search'       => '0',
-            'backend_type'                  => 'varchar',
-            'default_value'                 => ''
-        );
+            //'label'                             => $labelText,
+
+            //  eav_attribute
+            'attribute_model'                   => NULL,    // x
+            'backend_model'                     => NULL,    // x
+            'backend_type'                      => 'varchar',   // datetime, decimal, int, static, text, varchar
+            'backend_table'                     => NULL,    // x
+            'is_user_defined'                   => '1',     // x
+            'frontend_model'                    => NULL,    // x
+            'source_model'                      => NULL,    // eav/entity_attribute_source_boolean, eav/entity_attribute_source_table
+            //'is_required'
+            'is_user_defined'                   => '1',     // x
+            //'default_value'
+            //'note'
+
+            // Attribute Properties (catalog_eav_attribute)
+            'is_configurable'                   => '0',     // x
+            'is_global'                         => '0',     // x
+            'frontend_input'                    => 'text',  // select, multiselect etc
+            'is_unique'                         => '0',     // x
+            'is_required'                       => '0',     // x
+            'frontend_class'                    => NULL,    // x
+            'apply_to'                          => NULL,    // simple, grouped, configurable, virtual, bundle, downloadable, giftcard
+
+            // Frontend Properties
+            'is_searchable'                     => '0',     // x
+            'is_visible_in_advanced_search'     => '0',     // x
+            'is_comparable'                     => '0',     // x
+            'is_filterable'                     => '0',     // x
+            'layered_navigation_canonical'      => '0',     // x
+            'is_used_for_promo_rules'           => '0',     // x
+            'position'                          => '0',     // x
+            'is_html_allowed_on_front'          => '1',     // x
+            'is_visible_on_front'               => '0',     // x
+            'used_in_product_listing'           => '0',     // x
+            'used_for_sort_by'                  => '0',     // x
+
+            // ???
+            //'wysiwyg_enabled'               => '0',
+       );
 
         // Now, overlay the incoming values on to the defaults.
         foreach($values as $key => $newValue) {
-            if (isset($data[$key]) == false) {
+            if (!array_key_exists($key, $data)) {
                 Mage::log("attribute feature [$key] is not valid!");
                 return false;
             }
@@ -413,17 +435,14 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             }
         }
 
-        Mage::log(sprintf("%s->attribute=%s", __METHOD__, print_r($data, true)) );        
-        
-        // Valid product types: simple, grouped, configurable, virtual, bundle, downloadable, giftcard
-        $data['apply_to']       = $productTypes;
+        //Mage::log(sprintf("%s->attribute=%s", __METHOD__, print_r($data, true)) );
         $data['attribute_code'] = $attributeCode;
         $data['frontend_label'] = array(
             0 => $labelText,
             1 => '',
             3 => '',
             2 => '',
-            4 => '',
+            4 => ''
         );
 
         //<<<<
@@ -451,38 +470,33 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         }
 
         $id = $model->getId();
-        Mage::log("Attribute [$labelText] has been saved as ID ($id).");
+        Mage::log(sprintf("attribute [$labelText] has been saved as ID %d", $labelText, $id));
 
-       /* add options
-        'option' =>
-            array(
-                'values' =>
-                    array(
-                        0 => '14',
-                        1 => '12',
-                        2 => '10',
-                        3 => '8',
-                        4 => '6',
-                        5 => '16',
-                    ),
-                ),
-        */        
         if ($options && is_array($options) && count($options)) {
             $i = 0;
             $maxOpts = 0;
             foreach($options as $key => $val) {
-                Mage::log(sprintf("add option: %d. %s: %s", $i, $key, $val));
+                //Mage::log(sprintf("add option: %d. %s: %s", $i, $key, $val));
                 $adminVal = (self::_is_assoc($options) ? $key : $val);
                 $this->addAttributeValue($attributeCode, array($adminVal, $val), $i++);
                 if ($maxOpts != 0 && $i >= $maxOpts) {
                     break;
                 }
             }
-        }        
-        
+        }
         return $id;
     }
-    
+
+    /**
+    */
+    private function addAttributeMulti($attributeCode, $attributeValues) {
+        Mage::log(sprintf("attribute %s options: %s", $attributeCode, $attributeCode, print_r($attributeValues, true)) );
+        // Get Attribute by attribute code
+        $attribute = Mage::getModel('catalog/resource_eav_attribute')
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+        $attribute->setData('option', $attributeValues);
+        $attribute->save();
+    }
 
     private function addAttributeValue($attributeCode, $attributeValues, $i = 0) {
         // Get Attribute by attribute code
@@ -490,7 +504,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
         // Check if a value exists in Attribute
         if (!$this->attributeValueExists($attributeCode, $attributeValues[0])) {
-            // Add Valut to option array
+            // add value to option array
             $value['option'] = array(
                 0 => $attributeValues[0],
                 1 => $attributeValues[1],
@@ -498,16 +512,17 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             // Set order for the option
             $order['option'] = $i;
             // Assign values to result array
-            $result          = array(
+            $result = array(
                 'value' => $value,
                 'order' => $order
             );
-            // Set attribute data
+            // set attribute data
+            Mage::log(sprintf("add option: %s", print_r($result, true)));
             $attribute->setData('option', $result);
-            // Save attribute
+            // save attribute
             $attribute->save();
         }
-    }    
+    }
 
     private function attributeValueExists($arg_attribute, $arg_value) {
         $attribute_options_model = Mage::getModel('eav/entity_attribute_source_table');
@@ -521,29 +536,29 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             }
         }
         return false;
-    }    
-    
+    }
+
     /**
     convert New Arrivals to new-arrivals
     */
-    private static function _seoUrl($string) {
+    public static function _seoUrl($string) {
         //Lower case everything
         $string = strtolower($string);
         //Make alphanumeric (removes all other characters)
-        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        $string = preg_replace("/[^a-z0-9\/_\s-]/", "", $string);
         //Clean up multiple dashes or whitespaces
         $string = preg_replace("/[\s-]+/", " ", $string);
-        //Convert whitespaces and underscore to dash
-        $string = preg_replace("/[\s_]/", "-", $string);
+        //Convert forward slashes, underscore & whitespaces to dash
+        $string = preg_replace("/[\/_\s]/", "-", $string);
         return $string;
     }
-    
+
     /**
     */
     private static function _is_assoc($array) {
         return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
-        
+
 }
 
 ?>

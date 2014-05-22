@@ -266,8 +266,8 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_per_page','10');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_allow_all','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/default_sort_by','position');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_category','1');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_product','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_category','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/flat_catalog_product','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/parse_url_directives','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/sitemap/tree_mode','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/sitemap/lines_perpage','30');

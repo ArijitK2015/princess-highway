@@ -33,6 +33,18 @@ $installer->startSetup();
 
 $helper = Mage::helper('fxinit');
 
+// run reset_categories.sql
+$path = sprintf("%s/app/code/local/FactoryX/Init/sql/mysqldump/reset_categories.sql", Mage::getBaseDir());
+if (file_exists($path)) {
+    Mage::log(sprintf("reset cats") );
+	$sql = file_get_contents($path);
+	$installer->run($sql);
+}
+else {
+    Mage::log(sprintf("invalid path '%s', could not reset cats", $path) );
+}
+
+
 //Import categories
 $path = sprintf("%s/app/code/local/FactoryX/Init/sql/resources/importCategory.txt", Mage::getBaseDir());
 if (file_exists($path)) {
