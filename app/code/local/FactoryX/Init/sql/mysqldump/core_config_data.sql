@@ -1134,14 +1134,14 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'gmapstrlocator/manage_search/zipcode','1');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'contests/options/m_to_cm_attributes','a:6:{s:18:\"_1394111719755_755\";a:2:{s:10:\"formfields\";s:6:\"mobile\";s:15:\"campaignmonitor\";s:6:\"Mobile\";}s:16:\"_1394111735004_4\";a:2:{s:10:\"formfields\";s:5:\"state\";s:15:\"campaignmonitor\";s:5:\"State\";}s:18:\"_1394111744676_676\";a:2:{s:10:\"formfields\";s:9:\"promoCode\";s:15:\"campaignmonitor\";s:6:\"Source\";}s:18:\"_1394112242991_991\";a:2:{s:10:\"formfields\";s:5:\"email\";s:15:\"campaignmonitor\";s:5:\"email\";}s:18:\"_1394112248739_739\";a:2:{s:10:\"formfields\";s:9:\"firstname\";s:15:\"campaignmonitor\";s:9:\"firstname\";}s:18:\"_1394112253370_370\";a:2:{s:10:\"formfields\";s:8:\"lastname\";s:15:\"campaignmonitor\";s:8:\"lastname\";}}');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'homepage/options/enable','1');
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_product_default','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_product_default','0');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_category_default','1');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike_visibility/ev_like_visibility_cms_default','1');
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_enable_open_graph','0');
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_site_name',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_enable_open_graph','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_site_name','Princess Highway');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_use_rewrite','1');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_type','1');
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_app_id',NULL);
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_app_id','193784687330661');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_send','1');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_facebook_layout','standard');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'evlike/evlike/ev_show_faces','0');

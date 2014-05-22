@@ -290,6 +290,9 @@
 		<action method="unsetChild"><alias>Moii_Pinterest</alias></action>
 	</reference>
 	
+	<!-- Remove extra like button -->
+	<remove name="likebutton" />
+	
 	<reference name="product.social">
 		<action method="insert">
 			<block>Moii_Pinterest</block>
