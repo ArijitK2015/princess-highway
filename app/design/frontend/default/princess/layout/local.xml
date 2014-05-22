@@ -91,7 +91,7 @@
 		<block type="core/template" name="top.social" as="topSocial" template="page/html/social.phtml"/>
 	</reference>
 	
-	<reference name="top.social">
+	<reference name="header">
 		<!-- Add search -->
 		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
 			<label>Princess Highway Search</label>

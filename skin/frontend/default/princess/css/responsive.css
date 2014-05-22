@@ -597,8 +597,11 @@ base theme = Custom Twitter Bootstrap v2.3.2
 		.cart .icon-caret-down:before {content: none !important}
 		
 		/* Product List */
-		.catalog-category-view .category-products .pagination { clear: both; display: block; margin: 0px 8% 5px 8%; position: relative; width:84% }      
+		.catalog-category-view .category-products .pagination { clear: both; display: block; margin: 0px 8% 5px 8%; position: relative; width:84%;left:6% }      
         .catalog-category-view .category-products .toolbar-div .pagination { display:none !important }
+		
+		/* Product tabs */
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a{padding:5px 4px}
 }
 
 
@@ -2045,6 +2048,14 @@ base theme = Custom Twitter Bootstrap v2.3.2
 		#registeredcustomers .registeredlogin{width:100%}
 		#registeredcustomers .registeredforgot{margin-left:25%}
         
+		/* Product tabs */
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a{padding:5px 4px}
+		
+		/* Magic Zoom */
+		.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer{width:100% !important}
+		.catalog-product-view .MagicScrollContainer{width:87% !important}
+		.catalog-product-view .MagicScrollArrowRight{left:95%}
+		
 }
 
 
@@ -2203,7 +2214,6 @@ base theme = Custom Twitter Bootstrap v2.3.2
 		#registeredcustomers .control-group .controls:last-child{margin-left:0}
 		#registeredcustomers .registeredlogin{width:100%}
 		#registeredcustomers .registeredforgot{margin-left:25%}
-        
 }
 
 
