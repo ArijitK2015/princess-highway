@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_DeleteTests>
+            <version>0.1.0</version>
+        </FactoryX_DeleteTests>
+    </modules>
+	
+	<global>
+		
+		<resources>       
+			<deletetests_setup>
+				<setup>
+					<module>FactoryX_DeleteTests</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</deletetests_setup>
+			<deletetests_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</deletetests_write>
+			<deletetests_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</deletetests_read>
+		</resources>
+        
+    </global>
+
+</config>
