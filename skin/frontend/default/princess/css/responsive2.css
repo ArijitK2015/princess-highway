@@ -73,6 +73,8 @@ and open the template in the editor.
     .cta-three-column .cta-three img { line-height: 0px; width:100% }
     
     .catalog-category-view .category-products > .pagination { font-size: 12px; height: 22px; left: auto; margin:2px 140px 0px 0px; position: absolute; right:-138px; text-align: right; top: auto; width: 140px; }
+	
+	#search_mini_form{display:none}
 }
 
 
