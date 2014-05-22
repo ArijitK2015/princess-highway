@@ -67,7 +67,7 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_keywords','Princess Highway');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/default_robots','INDEX,FOLLOW');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/includes',NULL);
-REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/demonotice','0');
+-- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/head/demonotice','0');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/logo_src','images/logo.png');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/logo_alt','Princess Highway Online');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'design/header/welcome','Welcome to Princess Highway.');
@@ -259,9 +259,9 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/split_size','10240');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/max_links','50000');
 REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'mageworx_seo/google_sitemap/xml_limit','500');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_mode','grid');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page_values','32,64,128');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page','32');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_mode','grid');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page_values','24,48,96');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/grid_per_page','24');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_per_page_values','5,10,15,20,25');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_per_page','10');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'catalog/frontend/list_allow_all','1');

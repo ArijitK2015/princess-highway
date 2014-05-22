@@ -19,6 +19,34 @@ $installer->startSetup();
 $helper = Mage::helper('fxinit');
 
 /**
+attribute sets
+*/
+$groupName = "Clothing Attributes";
+$attributeSetsToAdd = array(
+    'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
+    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season'),
+    'Clothing Colour & Size SM-ML' => array('colour', 'size_sm_ml', 'colour_base', 'season'),
+    'Clothing Colour & One Size' => array('colour', 'size_os', 'colour_base', 'season'),
+    'Shoes Colour & Size 36-42' => array('colour', 'size_36_42', 'colour_base', 'season'),
+    'Accessories Colour' => array('colour', 'colour_base', 'season')
+);
+
+/**
+check attribute sets for product
+*/
+$helper = Mage::helper('fxinit');
+$i = 0;
+$maxOpts = 0;
+foreach($attributeSetsToAdd as $label => $attributes) {
+    // check if product exist, because deleting is then a bad idea
+    if ($helper->productsUseAttributeSet($label)) {
+        $err = sprintf("Error: Attribute set '%s' is used by products! Remove products before proceeding with this step (see delete_all_products.sql).", $label);
+        Mage::log($err);
+        return;
+    }
+}
+
+/**
 create attributes
 colour
 colour_base
@@ -1099,22 +1127,12 @@ foreach($attributesToAdd as $code => $conf) {
 /**
 create attribute sets
 */
-$groupName = "Clothing Attributes";
-$attributeSetsToAdd = array(
-    'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
-    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season'),
-    'Clothing Colour & Size SM-ML' => array('colour', 'size_sm_ml', 'colour_base', 'season'),
-    'Clothing Colour & One Size' => array('colour', 'size_os', 'colour_base', 'season'),
-    'Shoes Colour & Size 36-42' => array('colour', 'size_36_42', 'colour_base', 'season'),
-    'Accessories Colour' => array('colour', 'colour_base', 'season')
-);
-
 $helper = Mage::helper('fxinit');
 $i = 0;
 $maxOpts = 0;
 foreach($attributeSetsToAdd as $label => $attributes) {
-    //Mage::log(sprintf("%s->createAttributeSet: %s\n", __METHOD__, $label) );
-    // check if product exist, because deleting is then a bad idea
+    Mage::log(sprintf("create attribute set: %s", $label) );
+    // check AGAIN if product exist, because deleting is then a bad idea
     if ($helper->productsUseAttributeSet($label)) {
         $err = sprintf("%s->attribute set '%s' is in use! skip creation", __METHOD__, $label);
         Mage::log($err);
@@ -1170,7 +1188,7 @@ $options->getSelect()->order(sprintf("main_table.sort_order %s", $orderby));
 $resource = Mage::getSingleton('core/resource');
 $wConn = $resource->getConnection('core_write');
 foreach($options as $option) {
-    //Mage::log(sprintf("option=%s\n", print_r($option, true)) );
+    //Mage::log(sprintf("option=%s", print_r($option, true)) );
     $imagePath = sprintf("media/wysiwyg/colours/%02d_%s.jpg", $option['sort_order'] + 1, $option['value']);
     $sql = sprintf("UPDATE eav_attribute_option SET sort_order = %d, image = '%s', additional_image = '%s' WHERE option_id = %d", 
         $option['sort_order'], $imagePath, $addImage = "", $option['option_id']);
