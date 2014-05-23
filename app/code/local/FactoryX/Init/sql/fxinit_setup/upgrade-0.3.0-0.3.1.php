@@ -61,7 +61,7 @@ $envConfig = array(
         "imagecdn/coralcdn/url_base"
         "imagecdn/coralcdn/url_base_secure"
         */
-    )
+    ),
     "prod" => array(
     ),
     "staging" => array(
@@ -80,7 +80,7 @@ $envConfig = array(
 if (Mage::getConfig()->getModuleConfig('OnePica_ImageCdn')->is('active', 'true')) {
     foreach($envConfig[$env] as $path => $val) {
         Mage::log(sprintf("%s->%s: %s", __METHOD__, $path, $val) );
-        $config->saveConfig($path, $val, 'default', 0);
+        $coreConfig->saveConfig($path, $val, 'default', 0);
     }
 }
 
