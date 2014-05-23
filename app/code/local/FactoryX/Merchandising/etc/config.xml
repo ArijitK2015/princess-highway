@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_Merchandising>
+            <version>0.0.1</version>
+        </FactoryX_Merchandising>
+    </modules>
+	
+	<admin>
+        <routers>		
+            <merchandising>
+				<use>admin</use>
+				<args>
+					<module>FactoryX_Merchandising</module>
+					<frontName>merchandising</frontName>
+				</args>
+            </merchandising>	
+			
+        </routers>
+	</admin>
+	
+	<adminhtml>
+		<layout>
+            <updates>
+                <merchandising module="FactoryX_Merchandising">
+                    <file>factoryx/merchandising.xml</file>
+                </merchandising>
+            </updates>
+        </layout>
+	</adminhtml>
+	
+	<global>
+		
+		<helpers>
+			<merchandising>
+                <class>FactoryX_Merchandising_Helper</class>
+            </merchandising>
+        </helpers>
+		
+
+	</global>
+
+</config>

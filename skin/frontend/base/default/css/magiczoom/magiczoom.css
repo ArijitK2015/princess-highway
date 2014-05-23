@@ -224,3 +224,4 @@ div.MagicToolboxSelectorsContainer {
 .product-img-box {
     text-align: center;
 }
+.clickable >a > img {padding:17px 0px;}
