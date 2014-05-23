@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+        <reference name="head">
+            <action method="addJs">
+                <name>jquery/jquery-1.10.2.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>jquery/noconflict.js</name>
+            </action>
+            <action method="addJs">
+                <name>jquery/jquery-ui.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>jquery/isotope.pkgd.min.js</name>
+            </action>        
+            <action method="setTitle" translate="title">
+                <title>Manage Merchandising</title>
+            </action>        
+        </reference>
+    </default>
+    <merchandising_adminhtml_index_index>
+        <reference name="content">
+            <block type="adminhtml/template" name="merchandising" template="factoryx/merchandising/index.phtml" />
+        </reference>
+    </merchandising_adminhtml_index_index>
+    <merchandising_adminhtml_index_view>
+        <reference name="content">
+            <block type="adminhtml/template" name="merchandising" template="factoryx/merchandising/view.phtml" />
+        </reference>
+    </merchandising_adminhtml_index_view>  
+</layout>
