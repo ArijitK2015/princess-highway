@@ -72,6 +72,10 @@
 		<block type="newsletter/subscribe" name="newsletterMini" as="newsletterMini" template="newsletter/subscribe.mini.phtml" />
 		<!-- Insert Global Notice -->
 		<action method="insert"><blockName>global_notices</blockName></action>
+		<!-- Add the feedback static block to the footer -->
+		<block type="cms/block" name="feedback">
+			<action method="setBlockId"><block_id>feedback</block_id></action>
+		</block>
 	</reference>
 	
 	<reference name="top.links">

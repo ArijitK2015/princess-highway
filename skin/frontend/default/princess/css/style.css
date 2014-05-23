@@ -2456,3 +2456,33 @@ label {
 #subscription-next-button{text-align:right}
 
 #pronav-panels-container .sub {position: absolute; background: rgba(255, 255, 255, 1); width: 940px;}
+
+/* feedback */
+#feedback{
+	z-index:9;
+	padding:10px;
+	text-transform:uppercase;
+	font-size:20px;
+	position:fixed;
+	background:none repeat scroll 0 0 #28506C;
+	bottom:0;
+	right:-3%;
+	display:none;
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+
+	/* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+	-webkit-transform-origin: 30% 0 0;
+	-moz-transform-origin: 30% 0 0;
+	-ms-transform-origin: 30% 0 0;
+	-o-transform-origin: 30% 0 0;
+	transform-origin: 30% 0 0;
+
+	/* Should be unset in IE9+ I think. */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+#feedback a{color:#FFF}
+#survey_form > div{padding:5px 0}
