@@ -1,0 +1,40 @@
+<?php
+    $params = $this->getParams();
+    $helper = Mage::helper('merchandising');
+    
+?>
+
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?=$this->__('Manage Merchandising')?></h3></td>
+            <td class="a-right">
+               
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?=$this->__('Please select a category to merchandise')?></h4>
+    <fieldset id="my-fieldset">
+    <form id="view_form" action="<?=Mage::helper("adminhtml")->getUrl('*/*/view')?>" method="POST">        
+
+<?php
+    echo $helper->renderChildren(Mage::getModel('catalog/category')->load(2),1,3,"");
+?>        
+    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+    <input name="cat_id" type="hidden" id="cat_id" />
+    </form>
+
+
+    
+    </fieldset>
+<script>
+jQuery('#view_form .category').click(function(){
+    jQuery('#view_form #cat_id').attr('value',jQuery(this).attr('cat_id'));    
+    jQuery('#view_form').submit();    
+});
+</script>
+<style>
+#view_form .category {cursor: pointer;line-height:20px;text-transform:uppercase;}
+</style>    

@@ -5,7 +5,7 @@
 
 install-0.0.1.php           loads in categories
 upgrade-0.0.1-0.0.2.php     loads in attributes & attribute sets
-upgrade-0.0.2-0.0.3.php     loads in cms block & email templates
+upgrade-0.0.2-0.0.3.php     loads in cms block & email templates & cms page
 ...
 add other scripts here and or rearrange scripts
 ...
@@ -32,6 +32,18 @@ $installer = $this;
 $installer->startSetup();
 
 $helper = Mage::helper('fxinit');
+
+// run reset_categories.sql
+$path = sprintf("%s/app/code/local/FactoryX/Init/sql/mysqldump/reset_categories.sql", Mage::getBaseDir());
+if (file_exists($path)) {
+    Mage::log(sprintf("reset cats") );
+	$sql = file_get_contents($path);
+	$installer->run($sql);
+}
+else {
+    Mage::log(sprintf("invalid path '%s', could not reset cats", $path) );
+}
+
 
 //Import categories
 $path = sprintf("%s/app/code/local/FactoryX/Init/sql/resources/importCategory.txt", Mage::getBaseDir());

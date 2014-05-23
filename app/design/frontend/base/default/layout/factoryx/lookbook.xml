@@ -68,4 +68,25 @@
 			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/slideshow.phtml" />
 		</reference>
 	</lookbook_index_slideshow>
+	
+	<lookbook_index_flipbook>
+		<reference name="head">
+			<action method="addJs">
+				<script>jquery/turn.min.js</script>
+			</action>
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>css/factoryx/lookbook.css</name>
+				<params/>
+			</action>
+		</reference>
+		
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		
+		<reference name="content">
+			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/flipbook.phtml" />
+		</reference>
+	</lookbook_index_flipbook>
 </layout>

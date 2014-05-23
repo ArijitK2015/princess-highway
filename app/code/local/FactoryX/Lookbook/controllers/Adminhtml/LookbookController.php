@@ -293,6 +293,10 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 				{
 					$targetPath = "lookbook/index/slideshow/id/".$model->getId();
 				}
+				elseif ($data['lookbook_type'] == "flipbook")
+				{
+					$targetPath = "lookbook/index/flipbook/id/".$model->getId();
+				}
 				else
 				{
 					$targetPath = "lookbook/index/view/id/".$model->getId();

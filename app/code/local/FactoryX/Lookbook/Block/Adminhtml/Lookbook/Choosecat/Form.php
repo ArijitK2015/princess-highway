@@ -46,6 +46,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Choosecat_Form extends Mage_Adm
 				array(
                     'value' => 'slideshow',
                     'label' => Mage::helper('lookbook')->__('Slideshow Lookbook'),
+				),
+				array(
+					'value' => 'flipbook',
+                    'label' => Mage::helper('lookbook')->__('Flipbook'),
 				)
 			)
 		));

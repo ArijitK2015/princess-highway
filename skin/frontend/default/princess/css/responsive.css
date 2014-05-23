@@ -141,6 +141,11 @@ base theme = Custom Twitter Bootstrap v2.3.2
     .rsp-nav-group .rsp-nav-menu-toggle > ul.rsp-nav-menu > li.pronav-sorted > ul > li { }
      
     .icon-menu { height: 24px; width: 28px; }
+	
+	ul#pronav {text-align: left;}
+	
+	ul#pronav li.primary-pronav-item{display:block;padding:10px 21px 10px 0}
+	ul#pronav a.pronav-top-level-span{font-size:12px;padding:0}
     
     #navigation
     {        
@@ -587,6 +592,16 @@ base theme = Custom Twitter Bootstrap v2.3.2
         .account-login #registeredcustomers > form > .control-group > .controls { clear: both; display: block; margin-left: 0px; width: 100%; }        
         .account-login #newcustomers > button,
         .account-login #registeredcustomers > form > button { margin-top: 0px; }        
+		
+		/* Cart */
+		.cart .icon-caret-down:before {content: none !important}
+		
+		/* Product List */
+		.catalog-category-view .category-products .pagination { clear: both; display: block; margin: 0px 8% 5px 8%; position: relative; width:84%;left:6% }      
+        .catalog-category-view .category-products .toolbar-div .pagination { display:none !important }
+		
+		/* Product tabs */
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a{padding:5px 4px}
 }
 
 
@@ -973,6 +988,32 @@ base theme = Custom Twitter Bootstrap v2.3.2
         #wishlist-table textarea{
             width: 150px;
         }            
+		
+		/* Product View Mod */
+		
+		#product-media{text-align:center}
+		#product-media div.MagicToolboxContainer{margin:0 auto}
+		
+		#product-options-wrapper .colour{margin:0 20px 0 0}
+		
+		#productpurchase .product-options-bottom .addtocart-controls,
+		#productpurchase .addto-controls{width:48%}
+		
+		/* Customer Account Mod */
+		#registeredcustomers .control-group .controls{width:100%}
+		#registeredcustomers .control-group .controls:last-child{margin-left:0}
+		#registeredcustomers .registeredlogin{width:100%}
+		#registeredcustomers .registeredforgot{margin-left:25%}
+		
+		/* Cart */
+		.cart .icon-caret-down:before {content: none !important}
+		.cart #shopping-cart-table tr td{padding:6px}
+		
+		/* Checkout */
+		#firecheckout-form .col3-set .col-1, 
+		#firecheckout-form .col3-set .col-2{width:50% !important}
+		#firecheckout-form .col3-set #shipping-method,
+		#firecheckout-form .col3-set #payment-method{width:100%}
        
 }
 
@@ -1131,7 +1172,7 @@ base theme = Custom Twitter Bootstrap v2.3.2
         #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li .product-item-group .product-name a { color:#000000; font-size: 11px; text-align: center }
         #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li .product-item-group .product-name a:hover { color:#FF4569; text-decoration:none; }    
         #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li:nth-child(2),
-        #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li:first-child { margin-right: 5px }
+        #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li:first-child { margin-right: 0px }
         #featured-product #featured-product-carouselm480 .carousel-inner .thumbnails > li:last-child { margin-right: 0px }
         #featured-product #featured-product-carouselm480 .carousel-control.left { left:0px; }
         #featured-product #featured-product-carouselm480 .carousel-control.right { right:0px; }
@@ -2001,8 +2042,20 @@ base theme = Custom Twitter Bootstrap v2.3.2
             margin-bottom: 5px;
         }
         
+        /* Customer Account Mod */
+		#registeredcustomers .control-group .controls{width:100%}
+		#registeredcustomers .control-group .controls:last-child{margin-left:0}
+		#registeredcustomers .registeredlogin{width:100%}
+		#registeredcustomers .registeredforgot{margin-left:25%}
         
-        
+		/* Product tabs */
+        .catalog-product-view #product-shop #producttabs .tabbable .nav-tabs li a{padding:5px 4px}
+		
+		/* Magic Zoom */
+		.catalog-product-view #product-media .MagicToolboxContainer .MagicToolboxSelectorsContainer{width:100% !important}
+		.catalog-product-view .MagicScrollContainer{width:87% !important}
+		.catalog-product-view .MagicScrollArrowRight{left:95%}
+		
 }
 
 
@@ -2155,7 +2208,12 @@ base theme = Custom Twitter Bootstrap v2.3.2
         .cart #shippingbox #shipping-zip-form .icon-caret-down { background-color: #fff; font-size: 17pt; position: absolute; left: auto; top: auto; 
             margin-left: 254px; margin-top: 4px;  height: 22px; width: 24px; text-align: center; line-height: 22px;
         }
-        
+		
+		/* Customer Account Mod */
+		#registeredcustomers .control-group .controls{width:100%}
+		#registeredcustomers .control-group .controls:last-child{margin-left:0}
+		#registeredcustomers .registeredlogin{width:100%}
+		#registeredcustomers .registeredforgot{margin-left:25%}
 }
 
 

@@ -1,0 +1,34 @@
+<?php
+// Retrieve the lookbook
+$lookbook = $this->getCurrentLookbook();
+
+// Get lookbook images
+$_imageCollection = $lookbook->getGallery();
+
+// Count lookbook images
+$numOfSlides = count($_imageCollection);
+
+// Lookbook dimensions
+$dimensions = Mage::helper('lookbook')->calculateLookDimensions($lookbook);
+?>
+<div id="flipbook">
+	<?php $count = 0; ?>
+	<?php foreach ($_imageCollection as $_image): ?>
+		<?php $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']); ?>
+		<div <?php if ($count == 0 || $count == 1 || $count == count($_image) || $count == (count($_image)-1)): ?>class="hard"<?php endif;?>>
+			<img src="<?php echo $img ?>" alt="<?php echo $lookbook->getTitle() ?>" />
+		</div>
+		<?php $count++; ?>
+	<?php endforeach; ?>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery("#flipbook").turn({
+			width: <?php echo $dimensions['width']*2 ?>,
+			height: <?php echo $dimensions['height'] ?>,
+			display: 'double',
+			autoCenter: true
+		});
+	});
+</script>

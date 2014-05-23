@@ -73,7 +73,8 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Grid extends Mage_Adminhtml_Blo
             'options' => array(
                 'category' => Mage::helper('lookbook')->__('Category Lookbook'),
 				'images' => Mage::helper('lookbook')->__('Images Lookbook'),
-				'slideshow' => Mage::helper('lookbook')->__('Slideshow Lookbook')
+				'slideshow' => Mage::helper('lookbook')->__('Slideshow Lookbook'),
+				'flipbook' => Mage::helper('lookbook')->__('Flipbook')
             ),
         ));
 		

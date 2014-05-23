@@ -138,7 +138,7 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 			'note'      => Mage::helper('lookbook')->__('Used to sort the navigation menu.')
 		));
 		
-		if ($data['lookbook_type'] != "slideshow")
+		if ($data['lookbook_type'] != "slideshow" && $data['lookbook_type'] != "flipbook")
 		{
 			// Field for the looks per page
 			$fieldset->addField('looks_per_page', 'select', array(
@@ -181,7 +181,7 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 			));
 		}
 		
-		if ($data['lookbook_type'] != "slideshow")
+		if ($data['lookbook_type'] != "slideshow"  && $data['lookbook_type'] != "flipbook")
 		{
 			// Field for the zoom on hover
 			$fieldset->addField('zoom_on_hover', 'select', array(

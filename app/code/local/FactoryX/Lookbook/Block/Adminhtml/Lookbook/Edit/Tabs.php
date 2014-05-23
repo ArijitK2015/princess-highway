@@ -63,7 +63,7 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tabs extends Mage_Adminhtm
 			));
 		}
 		
-		if ($data['lookbook_type'] != "slideshow")
+		if ($data['lookbook_type'] != "slideshow" && $data['lookbook_type'] != "flipbook")
 		{
 			// Add the credits tab
 			$this->addTab('credits_tab', array(

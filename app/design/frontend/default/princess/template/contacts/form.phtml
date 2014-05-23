@@ -47,11 +47,11 @@ if ($soon)
 						<label for="comment" class="required"><?php echo Mage::helper('contacts')->__('Your Enquiry') ?><em>*</em></label>
 						<select name="enquiry" class="select1">
 							<option value="-1"><?php echo $this->__('select...') ?></option>
-							<option value="What to wear" <?=($this->getData('purpose') == 'advisor') ? 'selected' : '' ?>><?php echo $this->__('What to wear') ?></option>
+							<option value="What to wear" <?php echo ($this->getData('purpose') == 'advisor') ? 'selected' : '' ?>><?php echo $this->__('What to wear') ?></option>
 							<option value="Product availability"><?php echo $this->__('Product availability') ?></option>
 							<option value="Faulty"><?php echo $this->__('Faulty') ?></option>						
 							<option value="Seen something in the press"><?php echo $this->__('Seen something in the press') ?></option>
-							<option value="Feedback" <?=($this->getData('purpose') == 'feedback') ? 'selected' : '' ?>><?php echo $this->__('Feedback') ?></option>
+							<option value="Feedback" <?php echo ($this->getData('purpose') == 'feedback') ? 'selected' : '' ?>><?php echo $this->__('Feedback') ?></option>
 							<option value="Other" <?php echo $selected; ?>><?php echo $this->__('Other') ?></option>
 						</select>					
 					</div>					

@@ -1,8 +1,8 @@
 <?php
 
-include_once("MaxMind/GeoIP/geoip.php");
-include_once("MaxMind/GeoIP/geoipcity.php");
-include_once("MaxMind/GeoIP/geoipregionvars.php");
+// include_once("MaxMind/GeoIP/geoip.php");
+// include_once("MaxMind/GeoIP/geoipcity.php");
+// include_once("MaxMind/GeoIP/geoipregionvars.php");
 
 class TM_FireCheckout_Model_Type_Standard
 {

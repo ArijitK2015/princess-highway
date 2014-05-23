@@ -19,6 +19,34 @@ $installer->startSetup();
 $helper = Mage::helper('fxinit');
 
 /**
+attribute sets
+*/
+$groupName = "Clothing Attributes";
+$attributeSetsToAdd = array(
+    'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
+    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season'),
+    'Clothing Colour & Size SM-ML' => array('colour', 'size_sm_ml', 'colour_base', 'season'),
+    'Clothing Colour & One Size' => array('colour', 'size_os', 'colour_base', 'season'),
+    'Shoes Colour & Size 36-42' => array('colour', 'size_36_42', 'colour_base', 'season'),
+    'Accessories Colour' => array('colour', 'colour_base', 'season')
+);
+
+/**
+check attribute sets for product
+*/
+$helper = Mage::helper('fxinit');
+$i = 0;
+$maxOpts = 0;
+foreach($attributeSetsToAdd as $label => $attributes) {
+    // check if product exist, because deleting is then a bad idea
+    if ($helper->productsUseAttributeSet($label)) {
+        $err = sprintf("Error: Attribute set '%s' is used by products! Remove products before proceeding with this step (see delete_all_products.sql).", $label);
+        Mage::log($err);
+        return;
+    }
+}
+
+/**
 create attributes
 colour
 colour_base
@@ -26,11 +54,14 @@ size_*
 season
 */
 
-$defaultValues = array(
-    "is_global"         => 1, // store view = 0, global = 1, website = 2
+$superAttributeSettings = array(
+    "is_global"         => 1, // store view = 0, is_global = 1, website = 2
     "frontend_input"    => "select",
+    "source_model"      => "eav/entity_attribute_source_table",
+    "backend_type"      => "int",
     "is_required"       => 1,
-    "is_configurable"   => 1
+    "is_configurable"   => 1,
+    'apply_to'          => NULL
 );
 
 $attributesToAdd = array(
@@ -45,10 +76,13 @@ $attributesToAdd = array(
             "ss14"
         ),
         "values" => array(
-            "is_global"         => 0,
-            "frontend_input"    => "select",
-            "is_required"       => 1,
-            "is_configurable"   => 0
+            "is_global"             => 0,
+            "frontend_input"        => "select",
+            "source_model"          => "eav/entity_attribute_source_table",
+            "backend_type"          => "int",
+            "is_required"           => 1,
+            "is_configurable"       => 0,
+            "is_visible_on_front"   => 1
         )
     ),
     "size_06_11" => array(
@@ -61,7 +95,7 @@ $attributesToAdd = array(
             "10" => 10,
             "11" => 11
         ),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_06_16" => array(
         "label" => "Size",
@@ -73,25 +107,37 @@ $attributesToAdd = array(
             "14" => 14,
             "16" => 16
         ),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_36_42" => array(
         "label" => "Size",
         "options" => array(36,37,38,39,40,41,42),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_sm_ml" => array(
         "label" => "Size",
         "options" => array("SM","ML"),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "size_os" => array(
         "label" => "Size",
         "options" => array("OS"),
-        "values" => $defaultValues
+        "values" => $superAttributeSettings
     ),
     "colour_base" => array(
-        "label" => "Colour Base",
+        "label" => "Colour",
+        "values" => array(
+            'backend_model'             => 'eav/entity_attribute_backend_array',
+            'backend_type'              => 'varchar',
+            'frontend_input'            => "multiselect",
+            "is_required"               => 1,
+            "is_global"                 => 0,
+            'apply_to'                  => 'simple,configurable',
+            'is_configurable'           => 0,
+            'is_filterable'             => 1,
+            'is_filterable'             => 1,
+            'is_visible_on_front'       => 1,
+        ),
         "options" => array(
             "black",
             "blue",
@@ -107,16 +153,11 @@ $attributesToAdd = array(
             "red",
             "white",
             "yellow"
-        ),
-        "values" => array(
-            "is_global"         => 0,
-            "frontend_input"    => "select",
-            "is_required"       => 1,
-            "is_configurable"   => 0
         )
-    ),    
+    ),
     "colour" => array(
         "label" => "Colour",
+        "values" => $superAttributeSettings,
         "options" => array(
             "000" => "No Color",
             "001" => "Black",
@@ -1068,7 +1109,7 @@ $attributesToAdd = array(
             "998" => "Choc/Orange",
             "999" => "Animal"
         ),
-        "values" => $defaultValues
+        "sanitize" => true
     )
 );
 
@@ -1076,7 +1117,7 @@ $i = 0;
 $maxOpts = 0;
 foreach($attributesToAdd as $code => $conf) {
     // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttribute($conf['label'], $code, $conf['values'], null, null, $conf['options']);
+    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $conf['options'], $replaceAttribute = 1);
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
@@ -1086,22 +1127,27 @@ foreach($attributesToAdd as $code => $conf) {
 /**
 create attribute sets
 */
-$groupName = "Clothing Attributes";
-$attributeSetsToAdd = array(
-    'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
-    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season')
-);
-
 $helper = Mage::helper('fxinit');
 $i = 0;
 $maxOpts = 0;
 foreach($attributeSetsToAdd as $label => $attributes) {
-    //Mage::log(sprintf("%s->createAttributeSet: %s=%s", __METHOD__, $label, print_r($conf, true)) );
-    // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttributeSet($label, $groupName, null, $attributes);
+    Mage::log(sprintf("create attribute set: %s", $label) );
+    // check AGAIN if product exist, because deleting is then a bad idea
+    if ($helper->productsUseAttributeSet($label)) {
+        $err = sprintf("%s->attribute set '%s' is in use! skip creation", __METHOD__, $label);
+        Mage::log($err);
+    }
+    else {
+        //Mage::log(sprintf("%s->createAttributeSet: %s=%s", __METHOD__, $label, print_r($conf, true)) );
+        // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
+        $helper->createAttributeSet($label, $groupName, null, $attributes);
+    }
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
-    }            
+    } 
 }
 
+$installer->endSetup();
+
+?>

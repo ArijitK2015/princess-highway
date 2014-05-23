@@ -51,6 +51,10 @@
 		<block type="core/text_list" name="phsocial" as="phsocial" translate="label">
 			<label>Princess Highway Social</label>
 		</block>
+		<!-- Facebook Script -->
+        <block type="core/template" name="facebookScript" as="facebookScript" template="factoryx/facebook/script.phtml">
+            <label>Facebook Script</label>
+        </block>
 		<!-- Add menu -->
 		<block type="core/text_list" name="phmenu" as="phmenu" translate="label">
 			<label>Navigation Bar</label>
@@ -68,6 +72,10 @@
 		<block type="newsletter/subscribe" name="newsletterMini" as="newsletterMini" template="newsletter/subscribe.mini.phtml" />
 		<!-- Insert Global Notice -->
 		<action method="insert"><blockName>global_notices</blockName></action>
+		<!-- Add the feedback static block to the footer -->
+		<block type="cms/block" name="feedback">
+			<action method="setBlockId"><block_id>feedback</block_id></action>
+		</block>
 	</reference>
 	
 	<reference name="top.links">
@@ -87,7 +95,7 @@
 		<block type="core/template" name="top.social" as="topSocial" template="page/html/social.phtml"/>
 	</reference>
 	
-	<reference name="top.social">
+	<reference name="header">
 		<!-- Add search -->
 		<block type="core/text_list" name="phsearch" as="phsearch" translate="label">
 			<label>Princess Highway Search</label>
@@ -285,6 +293,9 @@
 	<reference name="product.info.extrahint">
 		<action method="unsetChild"><alias>Moii_Pinterest</alias></action>
 	</reference>
+	
+	<!-- Remove extra like button -->
+	<remove name="likebutton" />
 	
 	<reference name="product.social">
 		<action method="insert">

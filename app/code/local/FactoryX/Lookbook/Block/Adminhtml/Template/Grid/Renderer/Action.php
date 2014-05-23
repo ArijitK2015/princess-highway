@@ -27,6 +27,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 			{
 				$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
 			}
+			elseif ($row->getLookbookType() == "flipbook")
+			{
+				$viewUrl = $this->getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store' => 'default'));
+			}
 			else $viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
 		}
 		else
@@ -49,6 +53,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 				{
 					$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store'=>$lookbookStoreId));
 				}
+				elseif ($row->getLookbookType() == "flipbook")
+				{
+					$viewUrl = $this->getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+				}
 				else $viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
 			}
 			else 
@@ -56,6 +64,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 				if ($row->getLookbookType() == "slideshow")
 				{
 					$viewUrl = Mage::getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
+				}
+				elseif ($row->getLookbookType() == "flipbook")
+				{
+					$viewUrl = Mage::getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store' => 'default'));
 				}
 				else $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
 			}
