@@ -1,6 +1,8 @@
 <?php
 	/**
 		Uploading the configuration for Temando
+		NOTE: temando_shipment, temando_box, temando_manifest contain online data so they are not imported.
+			  temando_warehouse contain warehouse location - this should be editted as well
 	**/
 
 	// Is the module active?
@@ -79,6 +81,28 @@
         Mage::log(sprintf("%s->%s: %s", __METHOD__, $path, $val) );
         $coreConfig->saveConfig($path, $val, 'default', 0);
     }
+
+    // Import tables    
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_carrier.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_hscode.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_package.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_rule.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_taxes.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_warehouse.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
+
+	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_zone.sql';
+	if (file_exists($path)) $installer->run(file_get_contents($path));
 
 	$installer->endSetup();
 
