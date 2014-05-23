@@ -1,108 +1,38 @@
 <?php
 	/**
-		Uploading the configuration for Temando
-		NOTE: temando_shipment, temando_box, temando_manifest contain online data so they are not imported.
-			  temando_warehouse contain warehouse location - this should be editted as well
+		Update the configuration for FactoryX_Campaignmonitor
 	**/
 
 	// Is the module active?
-	if (!Mage::getConfig()->getModuleConfig('Temando_Temando')->is('active', 'true')) {
+	if (!Mage::getConfig()->getModuleConfig('FactoryX_CampaignMonitor')->is('active', 'true')) {
 		return;
 	}
 
 	$installer = $this;
-	$installer->startSetup();
-
-	// setup env via checking base url
-	$baseUrl = $configValue = Mage::getStoreConfig('web/unsecure/base_url');
-	$env = "default";
-	if (preg_match("/staging/", $baseUrl)) {
-	    $env = "staging";
-	}
-	elseif (preg_match("/(www\.|shop\.)/", $baseUrl)) {
-	    $env = "prod";
-	}
-	else {
-	    //$env = "dev";
-	}
+	$installer->startSetup();	
 
 	$envConfig = array(
 	    "default" => array(
-	        'temando/general/sandbox'								=>'0',
-			'temando/general/client'								=>'57326',
-			'temando/general/username'								=>'admin@jacklondon.com.au',
-			'temando/general/password'								=>'fxjack',
-			'temando/general/payment_type'							=>'Account',
-			'temando/options/show_product_estimate'					=>'0',
-			'temando/options/label_type'							=>'Thermal',
-			'temando/options/error_process'							=>'flat',
-			'temando/options/error_process_message'					=>'NULL',
-			'temando/options/shipping_fee'							=>'NULL',
-			'temando/checkout/delivery_options'						=>'0',
-			'temando/checkout/ship_instructions'					=>'0',
-			'temando/checkout/ship_comment'							=>'0',
-			'temando/checkout/deliverby'							=>'0',
-			'temando/checkout/allow_pobox'							=>'0',
-			'temando/checkout/allow_pobox_message'					=>'NULL',
-			'temando/insurance/status'								=>'optional',
-			'temando/insurance/confirm_optional'					=>'N',
-			'temando/insurance/confirm_mandatory'					=>'N',
-			'temando/insurance/confirm_disabled'					=>'N',
-			'temando/carbon/status'									=>'optional',
-			'temando/footprints/status'								=>'optional',
-			'temando/shipments_display/shipment_order_statuses'		=>'NULL',
-			'temando/units/measure'									=>'Centimetres',
-			'temando/units/weight'									=>'Kilograms',
-			'temando/defaults/consolidation'						=>'2',
-			'temando/defaults/packaging'							=>'9',
-			'temando/defaults/fragile'								=>'0',
-			'temando/defaults/length'								=>'10',
-			'temando/defaults/width'								=>'10',
-			'temando/defaults/height'								=>'10',
-			'carriers/temando/active'								=>'1',
-			'carriers/temando/title'								=>'Australia Post - eParcel',
-			'carriers/temando/sallowspecific'						=>'1',
-			'carriers/temando/specificcountry'						=>'AU',
-			'carriers/temando/showmethod'							=>'0',
-			'carriers/temando/free_shipping_enable'					=>'0',
-			'carriers/temando/free_shipping_subtotal'				=>'NULL',
-			'carriers/temando/specificerrmsg'						=>'This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.',
-			'carriers/temando/allowed_methods'						=>'60031'	        
+	        "newsletter/campaignmonitor/api_key" => '05a9080738e05b84c21490161664fd9e',
+	        "newsletter/campaignmonitor/list_id" => '12c46dc0fb65648c33bf9f2a941cf150',
+	        "newsletter/campaignmonitor/m_to_cm_attributes" => 'a:9:{s:18:"_1400826933455_455";a:4:{s:10:"formfields";s:5:"email";s:7:"magento";s:5:"email";s:10:"subscriber";s:16:"subscriber_email";s:15:"campaignmonitor";s:5:"email";}s:18:"_1400826959989_989";a:4:{s:10:"formfields";s:9:"firstname";s:7:"magento";s:9:"firstname";s:10:"subscriber";s:20:"subscriber_firstname";s:15:"campaignmonitor";s:9:"firstname";}s:18:"_1400826960608_608";a:4:{s:10:"formfields";s:8:"lastname";s:7:"magento";s:8:"lastname";s:10:"subscriber";s:19:"subscriber_lastname";s:15:"campaignmonitor";s:8:"lastname";}s:18:"_1400826961263_263";a:4:{s:10:"formfields";s:6:"mobile";s:7:"magento";s:0:"";s:10:"subscriber";s:17:"subscriber_mobile";s:15:"campaignmonitor";s:6:"Mobile";}s:18:"_1400826961750_750";a:4:{s:10:"formfields";s:5:"state";s:7:"magento";s:0:"";s:10:"subscriber";s:16:"subscriber_state";s:15:"campaignmonitor";s:5:"State";}s:18:"_1400826962344_344";a:4:{s:10:"formfields";s:8:"postcode";s:7:"magento";s:0:"";s:10:"subscriber";s:19:"subscriber_postcode";s:15:"campaignmonitor";s:8:"Postcode";}s:18:"_1400826962833_833";a:4:{s:10:"formfields";s:3:"dob";s:7:"magento";s:0:"";s:10:"subscriber";s:14:"subscriber_dob";s:15:"campaignmonitor";s:3:"DOB";}s:18:"_1400826963405_405";a:4:{s:10:"formfields";s:0:"";s:7:"magento";s:0:"";s:10:"subscriber";s:21:"subscriber_securehash";s:15:"campaignmonitor";s:10:"securehash";}s:18:"_1400827029175_175";a:4:{s:10:"formfields";s:0:"";s:7:"magento";s:0:"";s:10:"subscriber";s:27:"subscriber_subscriptiondate";s:15:"campaignmonitor";s:4:"Date";}}'
 	    ),
 	    "prod" => array(
 	    ),
 	    "staging" => array(	       
 	    ),
 	    "dev" => array(
+	        "newsletter/campaignmonitor/api_key" => '05a9080738e05b84c21490161664fd9e',
+	        "newsletter/campaignmonitor/list_id" => '12c46dc0fb65648c33bf9f2a941cf150',
+	        "newsletter/campaignmonitor/m_to_cm_attributes" => 'a:9:{s:18:"_1400826933455_455";a:4:{s:10:"formfields";s:5:"email";s:7:"magento";s:5:"email";s:10:"subscriber";s:16:"subscriber_email";s:15:"campaignmonitor";s:5:"email";}s:18:"_1400826959989_989";a:4:{s:10:"formfields";s:9:"firstname";s:7:"magento";s:9:"firstname";s:10:"subscriber";s:20:"subscriber_firstname";s:15:"campaignmonitor";s:9:"firstname";}s:18:"_1400826960608_608";a:4:{s:10:"formfields";s:8:"lastname";s:7:"magento";s:8:"lastname";s:10:"subscriber";s:19:"subscriber_lastname";s:15:"campaignmonitor";s:8:"lastname";}s:18:"_1400826961263_263";a:4:{s:10:"formfields";s:6:"mobile";s:7:"magento";s:0:"";s:10:"subscriber";s:17:"subscriber_mobile";s:15:"campaignmonitor";s:6:"Mobile";}s:18:"_1400826961750_750";a:4:{s:10:"formfields";s:5:"state";s:7:"magento";s:0:"";s:10:"subscriber";s:16:"subscriber_state";s:15:"campaignmonitor";s:5:"State";}s:18:"_1400826962344_344";a:4:{s:10:"formfields";s:8:"postcode";s:7:"magento";s:0:"";s:10:"subscriber";s:19:"subscriber_postcode";s:15:"campaignmonitor";s:8:"Postcode";}s:18:"_1400826962833_833";a:4:{s:10:"formfields";s:3:"dob";s:7:"magento";s:0:"";s:10:"subscriber";s:14:"subscriber_dob";s:15:"campaignmonitor";s:3:"DOB";}s:18:"_1400826963405_405";a:4:{s:10:"formfields";s:0:"";s:7:"magento";s:0:"";s:10:"subscriber";s:21:"subscriber_securehash";s:15:"campaignmonitor";s:10:"securehash";}s:18:"_1400827029175_175";a:4:{s:10:"formfields";s:0:"";s:7:"magento";s:0:"";s:10:"subscriber";s:27:"subscriber_subscriptiondate";s:15:"campaignmonitor";s:4:"Date";}}',
+	    	"newsletter/campaignmonitor/proxy" => '192.168.100.3:3128'
 	    )
 	);
 
-    foreach($envConfig[$env] as $path => $val) {
+	foreach($envConfig[$env] as $path => $val) {
         Mage::log(sprintf("%s->%s: %s", __METHOD__, $path, $val) );
         $coreConfig->saveConfig($path, $val, 'default', 0);
     }
-
-    // Import tables    
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_carrier.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_hscode.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_package.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_rule.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_taxes.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_warehouse.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
-
-	$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'temando_zone.sql';
-	if (file_exists($path)) $installer->run(file_get_contents($path));
 
 	$installer->endSetup();
 
