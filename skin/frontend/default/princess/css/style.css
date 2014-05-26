@@ -793,7 +793,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 
 /* Product Page :Add to Bag Buttons */
 #productpurchase { }
-#productpurchase .product-options-bottom { margin-top: 30px; } 
+#productpurchase .product-options-bottom { margin-top: 45px; } 
 #productpurchase .product-options-bottom table { clear: both;  } 
 #productpurchase .product-options-bottom .addtocart-qty { display: none;  } 
 #productpurchase .product-options-bottom .addtocart-controls { display: inline-block; float: right; width:250px }
@@ -822,14 +822,16 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 #productpurchase p.help-block { clear:both; color:#28506C; font-size:11px; font-style:italic; margin-bottom:0px; margin-top:16px; }
 #productpurchase p.help-preorder-block { clear:both; color:#28506C; font-size:11px; margin-bottom:0px; margin-top:16px; }
 #productpurchase .btn-add-cart,
-#productpurchase .btn-update-cart { background:#28506C; border:none; color:#FFFFFF; float:none; font-size:14px; font-weight:normal; margin-bottom:0px; padding:10px 5px; text-align: center;  width: 100%;
+#productpurchase .btn-update-cart,
+.block-reorder  .btn-add-cart{ background:#28506C; border:none; color:#FFFFFF; float:none; font-size:14px; font-weight:normal; margin-bottom:0px; padding:10px 5px; text-align: center;  width: 100%;
           -webkit-text-stroke:none;  
 	-webkit-border-radius:0px;
 	   -moz-border-radius:0px;
 	        border-radius:0px; 
 }
 #productpurchase .btn-add-cart:hover,
-#productpurchase .btn-update-cart:hover { background:#28506C; text-decoration:none; }
+#productpurchase .btn-update-cart:hover,
+.block-reorder  .btn-add-cart:hover { background:#28506C; text-decoration:none; }
 
 .add-to-cart input { display:block; text-align:center; width:25px; }
 
@@ -1033,7 +1035,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 
 /* Product Looks : Multiple Options */
 #quickshop-modal #product-shop .price-from { border-right:3px solid #000000; float:left; margin-right:30px; width:100px; }
-#quickshop-modal #productpurchase #product-options-wrapper select { border:1px solid #E9E9E9; color:#000000; display:block; font-size:12px; font-weight:normal;  margin-bottom:0; margin-left:0px; padding:5px 10px; width:350px; }
+#quickshop-modal #productpurchase #product-options-wrapper select { float:left;border:1px solid #E9E9E9; color:#000000; display:block; font-size:12px; font-weight:normal;  margin-bottom:0; margin-left:0px; padding:5px 10px; width:100%; }
 #quickshop-modal .qty-holder input { text-align:center; width:25px; }
 
 #quickshop-modal #modal-media { }
@@ -2463,7 +2465,7 @@ label {
 #subscription-button-td,
 #subscription-next-button{text-align:right}
 
-#pronav-panels-container .sub {position: absolute; background: rgba(255, 255, 255, 1); width: 940px;}
+#pronav-panels-container .sub {position: absolute; background: rgba(255, 255, 255, 1); width: 940px;z-index:999}
 
 /* feedback */
 #feedback{
@@ -2494,3 +2496,6 @@ label {
 }
 #feedback a{color:#FFF}
 #survey_form > div{padding:5px 0}
+
+/* CMS */
+.returns-address{border: 1px solid #28506C;margin: 5px 0 5px 10px;padding: 5px 0 5px 5px;width: 50%}

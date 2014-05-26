@@ -65,6 +65,10 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
 				array(
                     'value' => 'slideshow',
                     'label' => Mage::helper('lookbook')->__('Slideshow Lookbook'),
+				),
+				array(
+                    'value' => 'flipbook',
+                    'label' => Mage::helper('lookbook')->__('Flipbook'),
 				)
 			)
 		));
@@ -137,6 +141,25 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tab_General extends Mage_A
             'name' => 'sort_order',
 			'note'      => Mage::helper('lookbook')->__('Used to sort the navigation menu.')
 		));
+		
+		if ($data['lookbook_type'] == "slideshow")
+		{
+			// Field for the looks per page
+			$fieldset->addField('direction', 'select', array(
+				'label' => Mage::helper('lookbook')->__('Direction'),
+				'name' => 'direction',
+				'values' => array(
+					array(
+						'value' => 'vertical',
+						'label' => Mage::helper('lookbook')->__('Vertical'),
+					),
+					array(
+						'value' => 'horizontal',
+						'label' => Mage::helper('lookbook')->__('Horizontal'),
+					)
+				)
+			));
+		}
 		
 		if ($data['lookbook_type'] != "slideshow" && $data['lookbook_type'] != "flipbook")
 		{

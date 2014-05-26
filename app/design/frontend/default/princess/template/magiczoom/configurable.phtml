@@ -132,13 +132,13 @@ foreach($_attributes as $_attribute)
 		// We display the dropdown instead of the swatches selector
 		?>
 			<dl>
-			<dt><label><?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
+			<dt><label id="color-selector-label">1. <?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
 			<dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
-				<div class="input-box">
+				<div id="swatch-container">
 					<select onchange="colorSelectedDropdown(this,'<?php echo $this->getProduct()->getId() ?>')" name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
 						<option><?php echo $this->__('Choose an Option...') ?></option>
-					  </select>
-				  </div>
+					</select>
+				</div>
 			</dd>
 			</dl>
 		<?php 
@@ -154,7 +154,7 @@ foreach($_attributes as $_attribute)
 			?>
 			<dl>
 			<dt><label id="color-selector-label">1. <?php echo 'Select '; ?><?php echo $_attribute->getLabel() ?><span class="required">&nbsp;*</span></label></dt>
-			<dd><?php // We set a hidden field here to store the value of the color being selected ?>
+			<dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>><?php // We set a hidden field here to store the value of the color being selected ?>
 			<input name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" type="hidden" value="" />
 			<?php // This div will contain the swatches ?>
 			<div id="swatch-container">
