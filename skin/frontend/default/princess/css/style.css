@@ -94,7 +94,15 @@ border: none;
    Basic Styles
 ================================================== */
 html, hmtl a { width:100%; font-size:100%; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-body { background:#FFFFFF; color:#808080; font-weight:300; font-size:13px; font-family:Century, Helvetica, Arial, sans-serif ! important; line-height:18px; }
+body {
+    /*
+    background-image:url('../images/backgrounds/yellow-polka-dots.png');
+    background-repeat:repeat;
+    */
+    color:#808080;
+    font-weight:300;
+    font-size:13px;
+    font-family:Century, Helvetica, Arial, sans-serif ! important; line-height:18px; }
 a { color:#28506C; text-decoration:none; cursor:pointer; }
 a:hover,
 a:active,
@@ -842,7 +850,7 @@ a.thumbnail:hover { border:none; display:block;  padding:0px;
 #product-shop { margin-left: 30px; width:530px; }
 #product-shop .product-availability { background-color: transparent; clear:both; color:#28506C; ; }
 #product-shop .price-from { border-right:3px solid #000000; float:left; margin-right:30px; width:100px; }
-#productpurchase #product-options-wrapper select { border:1px solid #E9E9E9; color:#000000; display:block; font-size:12px; font-weight:normal;  margin-bottom:0; margin-left:0px; padding:5px 10px; width:350px; }
+#productpurchase #product-options-wrapper select { border:1px solid #E9E9E9; color:#000000; display:block; font-size:12px; font-weight:normal;  margin-bottom:0; margin-left:0px; padding:5px 10px; }
 .qty-holder input { text-align:center; width:25px; }
 #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select { }
 #product-shop #productpurchase #product-options-wrapper .option-wrapper.bundle-option-wrapper-select label a,
