@@ -16,10 +16,14 @@ endif;
 <script type="text/javascript" src="<?php echo $this->getJsUrl('gmapstrlocator/googlemarkerInfobox.js'); ?>"></script>
 
 <?php
-$Stores = $this->getAllStores();
-if ($Stores) {
-    foreach ($Stores as $key => $value) {
-        $Stores[$key]['store_description'] = Mage::helper('gmapstrlocator')->getWysiwygFilter($Stores[$key]['store_description']);
+$storeStates = array();
+$storeLocations = $this->getAllStores();
+if ($storeLocations) {
+    foreach ($storeLocations as $key => $value) {
+        $storeLocations[$key]['store_description'] = Mage::helper('gmapstrlocator')->getWysiwygFilter($storeLocations[$key]['store_description']);
+        if (preg_match("/region/i", $key)) {
+            $storeStates[$storeLocations[$key]] = $storeLocations[$key];
+        }
     }
 }
 
@@ -108,7 +112,7 @@ endif;
                             $newStorelatlong = array();
                             $i = 0;
                             $j = -1;
-                            foreach ($Stores as $Store):
+                            foreach ($storeLocations as $Store):
                                 $Storelatlong[] = '(' . $Store['latitude'] . ',' . $Store['longitude'] . ')';
                                 if ($i++ % 25 == 0) {
                                     $j++;
@@ -144,7 +148,7 @@ endif;
                         <select id="region" class="selectBox" onchange="updatemap('region')">
                             <option value=""><?php echo $this->__('SELECT A DISTRICT'); ?></option>
                             <?php
-                                foreach ($States as $statekey => $state):
+                                foreach ($storeStates as $statekey => $state):
                             ?>
                             <option value="<?php echo $statekey; ?>"><?php echo $state; ?></option>
                             <?php
@@ -160,7 +164,7 @@ endif;
                                 $newStorelatlong = array();
                                 $i = 0;
                                 $j = -1;
-                                foreach ($Stores as $Store):
+                                foreach ($storeLocations as $Store):
                                     $Storelatlong[] = '(' . $Store['latitude'] . ',' . $Store['longitude'] . ')';
                                     if ($i++ % 25 == 0) {
                                     $j++;
@@ -217,7 +221,7 @@ endif;
 
                             <?php
                                 $i = 0;
-                                foreach ($Stores as $s_value):
+                                foreach ($storeLocations as $s_value):
                             ?>
 
                             <div class="store" id="<?php echo 'gmap-store-' . $s_value['gmapstrlocator_id'] ?>" onclick="showFromList('<?php echo $s_value['gmapstrlocator_id'] ?>');">
@@ -273,8 +277,8 @@ endif;
     var clientlon = '';
     var marker, i;
     var map;
-    var locations = <?php echo json_encode($Stores); ?>;
-    var states = <?php echo json_encode($States); ?>;
+    var locations = <?php echo json_encode($storeLocations); ?>;
+    var states = <?php echo json_encode($storeStates); ?>;
     var Storelatlong = <?php echo json_encode($Storelatlong); ?>;
     var destinationIcon = '<?php echo $gmap_marker_image; ?>';
     var geocoder;
