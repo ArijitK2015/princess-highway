@@ -559,6 +559,25 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
 
+    /**
+    setup env via checking base url
+    */
+    public static function _getEnv() {
+        $baseUrl = $configValue = Mage::getStoreConfig('web/unsecure/base_url');
+        
+        $env = "default";
+        if (preg_match("/staging/", $baseUrl)) {
+            $env = "staging";
+        }
+        else if (preg_match("/(www\.|shop\.)/", $baseUrl)) {
+            $env = "prod";
+        }
+        else {
+            $env = "dev";
+        }
+        return $env;
+    }
+
 }
 
 ?>

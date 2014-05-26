@@ -1,6 +1,6 @@
 <?php
 /**
-    Insert swatch for base_colour
+Insert swatch for base_colour
 **/
 
 $installer = $this;
