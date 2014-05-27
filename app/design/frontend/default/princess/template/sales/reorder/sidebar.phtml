@@ -30,9 +30,16 @@
                         //]]>
                         </script>
                     <?php endif; ?>
-<!--                    <p class="help-block">View products</p>-->
+					<!--<p class="help-block">View products</p>-->
                 </div>
             <?php endforeach; ?>
+			<div id="cart-sidebar-reorder-advice-container"></div>
+            <div class="actions">
+                <?php if ($_showAddButtonFlag): ?>
+                    <button type="submit" title="<?php echo $this->__('Add to Bag') ?>" class="btn btn-add-cart"><span><?php echo $this->__('Add to Bag') ?></span></button>
+                <?php endif; ?>
+                <?php /* <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a> */ ?>
+            </div>
         </div>
     </form>
 </div>

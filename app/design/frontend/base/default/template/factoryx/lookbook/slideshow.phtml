@@ -12,21 +12,44 @@ $numOfSlides = count($_imageCollection);
 
 <script type="text/javascript">
 	// image dimensions
-	var imageW = 385;
-	var imageH = 591;
+	<?php if ($lookbook->getDirection() == "vertical"): ?>
+		var imageW = 385;
+		var imageH = 591;
+	<?php else: ?>
+		var imageW = 974;
+		var imageH = 646;
+	<?php endif; ?>
 	
 	// document.body.style.overflow = "hidden";
 	jQuery.noConflict();
 	
-	var trueHeight = jQuery(window).height()-30;
-	var trueWidth = Math.ceil(imageW/imageH*trueHeight);
-	var thumbHeight = Math.ceil((trueHeight-72)/3);
-	var thumbWidth = Math.ceil(imageW/imageH*thumbHeight);
-	var maxWidth = jQuery(window).width() - thumbWidth -40;
-	if (trueWidth>maxWidth) {
-		trueWidth = maxWidth;
-		trueHeight = Math.ceil(trueWidth*10/7);
-	}
+	<?php if ($lookbook->getDirection() == "vertical"): ?>
+		var trueHeight = jQuery(window).height()-30;
+		var trueWidth = Math.ceil(imageW/imageH*trueHeight);
+		
+		var thumbHeight = Math.ceil((trueHeight-72)/3);
+		var thumbWidth = Math.ceil(imageW/imageH*thumbHeight);
+		
+		var maxWidth = jQuery(window).width() - thumbWidth -40;
+		if (trueWidth>maxWidth) {
+			trueWidth = maxWidth;
+			trueHeight = Math.ceil(trueWidth*10/7);
+		}
+	<?php else: ?>
+		var trueWidth = jQuery(window).width();
+		var trueHeight = Math.ceil(imageH/imageW*trueWidth);
+
+		var thumbWidth = Math.ceil((trueWidth/2-72)/3);
+		var thumbHeight = Math.ceil(imageH/imageW*thumbWidth);
+
+		var maxHeight = jQuery(window).height() - thumbHeight -40;
+
+		if (trueHeight>maxHeight) {
+			trueHeight = maxHeight;
+			trueWidth = Math.ceil(trueHeight*7/10);
+		}
+	<?php endif; ?>
+	
 	var slideHeight = trueHeight-60;
 	var slideWidth = Math.ceil(imageW/imageH*slideHeight);
 	jQuery(window).load(function() {
@@ -50,22 +73,27 @@ $numOfSlides = count($_imageCollection);
 		// nav
 		jQuery('#carouselh').jsCarousel({
 			onthumbnailclick: function(src) {
-				var slideId = jQuery("img[src$='" + src + "']").attr('id');
-				//alert(slideId);
+				<?php if ($lookbook->getDirection() == "vertical"): ?>
+					var slideId = jQuery("img[src$='" + src + "']").attr('id');
+				<?php else: ?>
+					var slideId = jQuery("img[src$='" + src + "']").last().attr('id');
+				<?php endif; ?>
+				// console.log(slideId);
 				mygallery.navigate(slideId - 1);
 			},
 			autoscroll      : false,
 			circular        : true,
 			masked          : false,
 			itemstodisplay  : 3,
-			orientation     : 'v',
+			orientation     : <?php if ($lookbook->getDirection() == "vertical"): ?>'v'<?php else: ?>'h'<?php endif; ?>,
+			<?php if ($lookbook->getDirection() == "vertical"): ?>
 			trueTotalHeight : (trueHeight-72+36),
+			<?php else: ?>
+			trueTotalHeight : thumbWidth*3+16*3,
+			<?php endif; ?>
 			pageNumberId    : 'currentpos',
 			pageThumbId     : 'slidePagination'
 		});
-		jQuery('#leftNav').css({width:thumbWidth+20+'px'});
-		jQuery('.jscarousal-contents-vertical img').css({height:thumbHeight+'px',border:'1px solid #E0E0E0'});
-		jQuery('.jscarousal-contents-vertical').css({height:(jQuery('.visible > .slide').first().outerHeight()*3)+(7*4)+'px'});
 
 		var total = jQuery('.slide').length;
 		for (var i=1;i<=total;i++){
@@ -82,56 +110,101 @@ $numOfSlides = count($_imageCollection);
 
 		});
 		var x = setTimeout(function(){
+			<?php if ($lookbook->getDirection() == "vertical"): ?>
+				jQuery('#leftNav').css({width:thumbWidth+20+'px'});
+				jQuery('.jscarousal-contents-vertical img').css({height:thumbHeight+'px',border:'1px solid #E0E0E0'});
+				jQuery('.jscarousal-contents-vertical').css({height:(jQuery('.visible > .slide').first().outerHeight()*3)+(7*4)+'px'});
+			<?php else: ?>
+				jQuery('.jscarousal-contents-horizontal img').css({width:thumbWidth+'px',border:'1px solid #E0E0E0'});
+				jQuery('.jscarousal-contents-horizontal').css({width:(jQuery('.visible > .slide').first().outerWidth()*3)+(16*3)+'px',height:jQuery('.visible > .slide').first().outerHeight()+'px'});
+				jQuery('#leftNav').css({width:(jQuery('.visible > .slide').first().outerWidth()*3)+(16*3)+46+'px'});
+			<?php endif; ?>
 			jQuery('#fadeshow1').prepend('<div id="currentpos">1</div>');
-			jQuery('#fadeshow1').css({'margin-top':Math.ceil((jQuery(window).height()-trueHeight)/2)+'px','display':'inline-block'});
+			jQuery('#fadeshow1').css({'margin-top':Math.ceil((jQuery(window).height()-trueHeight<?php if ($lookbook->getDirection() == "horizontal"): ?>-thumbHeight<?php endif; ?>)/2)+'px','display':'inline-block'});
 			var slidePositionY = jQuery('#fadeshow1').position().left;
 			var leftNavSize = jQuery('#leftNav').outerWidth();
-			jQuery('#fadeshow1').css({'margin-left':(0-(slidePositionY-leftNavSize))+'px'});
-			jQuery('#slidePagination').css({'position':'relative','left':((0-(slidePositionY-leftNavSize))/2)+'px'});
-			jQuery('#leftNav').css({'margin-left':slidePositionY-leftNavSize+'px'});
-		});
+			<?php if ($lookbook->getDirection() == "vertical"): ?>
+				jQuery('#fadeshow1').css({'margin-left':(0-(slidePositionY-leftNavSize))+'px'});
+				jQuery('#slidePagination').css({'position':'relative','left':((0-(slidePositionY-leftNavSize))/2)+'px'});
+				jQuery('#leftNav').css({'margin-left':slidePositionY-leftNavSize+'px'});
+			<?php endif; ?>
+		},500);
 	});
 </script>
 
 <center>
 	<div id="wrapper">
 
-		<div id="leftNav">
-			<div id="carouselh">
-				<?php $count = 1; ?>
-				<?php foreach ($_imageCollection as $_image): ?>
-					<?php $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']); ?>
-					<div class="slide">
-						<img id="<?php echo $count ?>"  src="<?php echo $img ?>" alt="<?php echo $lookbook->getTitle() ?>" />
-						<div class="slideNum"> <?php echo $count++ ?></div>
-					</div>
-				<?php endforeach; ?>
-				<?php if (!(count($_imageCollection) % 3 == 0)): ?>
-					<?php $plusOne = count($_imageCollection)+1; ?>
-					<?php $plusTwo = count($_imageCollection)+2; ?>
-					<?php if ($plusOne % 3 == 0): ?>
+		<?php if ($lookbook->getDirection() == "vertical"): ?>
+			<div id="leftNav" class="vertical-left-nav">
+				<div id="carouselh">
+					<?php $count = 1; ?>
+					<?php foreach ($_imageCollection as $_image): ?>
+						<?php $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']); ?>
 						<div class="slide">
-							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							<img id="<?php echo $count ?>"  src="<?php echo $img ?>" alt="<?php echo $lookbook->getTitle() ?>" />
+							<div class="slideNum"> <?php echo $count++ ?></div>
 						</div>
-					<?php elseif($plusTwo % 3 == 0): ?>
-						<div class="slide">
-							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
-						</div>
-						<?php $count++; ?>
-						<div class="slide">
-							<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
-						</div>
+					<?php endforeach; ?>
+					<?php if (!(count($_imageCollection) % 3 == 0)): ?>
+						<?php $plusOne = count($_imageCollection)+1; ?>
+						<?php $plusTwo = count($_imageCollection)+2; ?>
+						<?php if ($plusOne % 3 == 0): ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+						<?php elseif($plusTwo % 3 == 0): ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+							<?php $count++; ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+						<?php endif; ?>
 					<?php endif; ?>
-				<?php endif; ?>
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 
 		<div id="fadeshowwrapper">
-			<div id="fadeshow1">
+			<div id="fadeshow1" style="<?php if ($lookbook->getDirection() == "vertical"): ?>width:700px<?php else: ?>width:974px<?php endif; ?>">
 			</div>
 			<div id="slidePagination">
 			</div>
 		</div>
+		
+		<?php if ($lookbook->getDirection() == "horizontal"): ?>
+			<div id="leftNav"  class="horizontal-left-nav">
+				<div id="carouselh">
+					<?php $count = 1; ?>
+					<?php foreach ($_imageCollection as $_image): ?>
+						<?php $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']); ?>
+						<div class="slide">
+							<img id="<?php echo $count ?>"  src="<?php echo $img ?>" alt="<?php echo $lookbook->getTitle() ?>" />
+							<div class="slideNum"> <?php echo $count++ ?></div>
+						</div>
+					<?php endforeach; ?>
+					<?php if (!(count($_imageCollection) % 3 == 0)): ?>
+						<?php $plusOne = count($_imageCollection)+1; ?>
+						<?php $plusTwo = count($_imageCollection)+2; ?>
+						<?php if ($plusOne % 3 == 0): ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+						<?php elseif($plusTwo % 3 == 0): ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+							<?php $count++; ?>
+							<div class="slide">
+								<img id="<?php echo $count ?>" class="noshow" src="about:blank" />
+							</div>
+						<?php endif; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		<?php endif; ?>
 
 		<div id="fadeshow1toggler">
 			<a href="#" class="prev"><img src=""/></a>

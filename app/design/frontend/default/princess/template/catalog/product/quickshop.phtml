@@ -129,6 +129,102 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 				
 	}.bind(productAddToCartForm);
 	// CONFIGURABLE SELECTOR FUNCTIONS (used in magiczoom/configurable.phtml)
+	function colorSelectedDropdown(element, product_id)
+	{	
+		// Disable all the size
+		jQuery("#size-container").children().not("#size-chart").each(
+			function()
+			{
+				jQuery(this).addClass('size-disabled');
+			}
+		);
+		// Get the color selected
+		if (element != "false"){
+			var value = element.value;
+		}else{
+			var value = false;
+		}
+		// Add the name of the color to the label
+		if (jQuery('#selected-color')) 
+		{
+			jQuery('#selected-color').remove();
+		}
+		if (element.selectedIndex != 0)
+		{
+			var newColorLabelDiv = "<span id='selected-color'> "+element.options[element.selectedIndex].text+"</span>";
+			jQuery('#color-selector-label').append(newColorLabelDiv);
+		}
+		// Remove the previous available div
+		if (jQuery("#available"))
+		{
+			jQuery("#available").remove();
+		}
+
+		jQuery.ajax( {
+			url : "/productrefresh/index",
+			dataType : 'json',
+			type : 'get',
+			data : "product_id="+product_id+"&color="+value,
+			success : function(data) {
+				// If everything has worked
+				if (data.status == "SUCCESS")
+				{
+					jQuery("#unavailable").remove();
+					// We go through every size box
+					jQuery("#size-container").children().not("#size-chart").each(
+							function()
+							{
+								// Removing all the existing disabled class
+								if (jQuery(this).hasClass('size-disabled'))
+									jQuery(this).removeClass('size-disabled');
+								// Adding the disabled class if this one is not available
+								if (jQuery.inArray(jQuery(this).attr("id"), data.sizes) == -1)
+								{
+									jQuery("#attribute131").val("");
+									jQuery(this).addClass('size-disabled');
+									if (jQuery(this).hasClass('size-selected'))
+									{
+										jQuery(this).removeClass('size-selected');
+									}
+								}
+							}
+					);
+						
+					if (data.sizes.length == 0)
+					{
+						jQuery("#colour-available-alert").append("<div id='unavailable' style='margin-bottom:10px'>Sorry, this color is currently out of stock.</div>");
+						// Unselect the previous size (CSS)
+						if (jQuery('.size-selected'))
+						{
+							jQuery('.size-selected').removeClass('size-selected');
+						}
+					}
+
+					// We calculate the new price
+					var totalPrice = 0.00;
+					totalPrice += parseFloat(jsonConf.basePrice);
+					// Based on the returned values
+					if (data.prices[value] > 0) {
+						totalPrice += parseFloat(data.prices[value]);
+					}
+
+					// We are changing the price if the new price is different
+					// Or the special price if there is one							
+					if (jQuery(".special-price #product-price-" + product_id + "_clone").html() != "$" + totalPrice.toFixed(2) && jQuery(".special-price #product-price-" + product_id + "_clone").html() != null)
+					{
+						jQuery(".special-price #product-price-" + product_id + "_clone").replaceWith("<span id='product-price-" + product_id + "_clone' class='price'>$" + totalPrice.toFixed(2) + "</span>");
+						jQuery(".special-price #product-price-" + product_id + "_clone").effect("pulsate", {times: 3}, 700);
+					}
+					else if (jQuery("#product-price-" + product_id + "_clone .price").html() != "$" + totalPrice.toFixed(2))
+					{
+						jQuery("#product-price-" + product_id + "_clone .price").replaceWith("<span class='price'>$" + totalPrice.toFixed(2) + "</span>");
+						jQuery("#product-price-" + product_id + "_clone .price").effect("pulsate", {times: 3}, 700);
+					}
+				}
+			}
+		});
+	}
+	
 	function colorSelected(id, value, product_image_src, product_big_image_src, color_div_id, product_id)
 	{
 		// Disable all the size
@@ -196,7 +292,7 @@ if ($_product->getResource()->getAttribute('available_date') != null) {
 
 					if (data.sizes.length == 0)
 					{
-						jQuery("#size-container").append("<div id='unavailable' style='margin-bottom:10px'>Sorry, this color is currently out of stock.</div>");
+						jQuery("#colour-available-alert").append("<div id='unavailable' style='margin-bottom:10px'>Sorry, this color is currently out of stock.</div>");
 						// Unselect the previous size (CSS)
 						if (jQuery('.size-selected'))
 						{

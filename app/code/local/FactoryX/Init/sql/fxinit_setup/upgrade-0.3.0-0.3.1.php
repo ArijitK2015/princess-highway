@@ -1,22 +1,14 @@
 <?php
 /**
-load s3 config
+load OnePica_ImageCdn with aws s3 config
 */
 
 $installer = $this;
 $installer->startSetup();
 
-// setup env via checking base url
-$baseUrl = $configValue = Mage::getStoreConfig('web/unsecure/base_url');
-$env = "default";
-if (preg_match("/staging/", $baseUrl)) {
-    $env = "staging";
-}
-else if (preg_match("/(www\.|shop\.)/", $baseUrl)) {
-    $env = "prod";
-}
-else {
-    //$env = "dev";
+if (!Mage::getConfig()->getModuleConfig('OnePica_ImageCdn')->is('active', 'true')) {
+    Mage::log("the OnePica_ImageCdn is not active, aborting configuration");
+    return;
 }
 
 $coreConfig = new Mage_Core_Model_Config();
@@ -76,12 +68,10 @@ $envConfig = array(
     )
 );
 
-
-if (Mage::getConfig()->getModuleConfig('OnePica_ImageCdn')->is('active', 'true')) {
-    foreach($envConfig[$env] as $path => $val) {
-        Mage::log(sprintf("%s->%s: %s", __METHOD__, $path, $val) );
-        $coreConfig->saveConfig($path, $val, 'default', 0);
-    }
+// load env
+foreach($envConfig[FactoryX_Init_Helper_Data::_getEnv()] as $path => $val) {
+    Mage::log(sprintf("%s->%s: %s", __METHOD__, $path, $val) );
+    $coreConfig->saveConfig($path, $val, 'default', 0);
 }
 
 // update

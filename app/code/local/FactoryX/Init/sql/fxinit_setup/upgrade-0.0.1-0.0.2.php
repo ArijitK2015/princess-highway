@@ -21,14 +21,36 @@ $helper = Mage::helper('fxinit');
 /**
 attribute sets
 */
-$groupName = "Clothing Attributes";
+$groups = array(
+    1 => "Descriptions",
+    2 => "Clothing Attributes"
+);
+
 $attributeSetsToAdd = array(
-    'Clothing Colour & Size 06-11' => array('colour', 'size_06_11', 'colour_base', 'season'),
-    'Clothing Colour & Size 06-16' => array('colour', 'size_06_16', 'colour_base', 'season'),
-    'Clothing Colour & Size SM-ML' => array('colour', 'size_sm_ml', 'colour_base', 'season'),
-    'Clothing Colour & One Size' => array('colour', 'size_os', 'colour_base', 'season'),
-    'Shoes Colour & Size 36-42' => array('colour', 'size_36_42', 'colour_base', 'season'),
-    'Accessories Colour' => array('colour', 'colour_base', 'season')
+    'Clothing Colour & Size 06-11' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'size_06_11', 'colour_base', 'season')
+    ),
+    'Clothing Colour & Size 06-16' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'size_06_16', 'colour_base', 'season')
+    ),
+    'Clothing Colour & Size SM-ML' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'size_sm_ml', 'colour_base', 'season')
+    ),
+    'Clothing Colour & One Size' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'size_os', 'colour_base', 'season')
+    ),
+    'Shoes Colour & Size 36-42' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'size_36_42', 'colour_base', 'season')
+    ),
+    'Accessories Colour' => array(
+        1 => array('size_and_fit'),
+        2 => array('colour', 'colour_base', 'season')
+    )
 );
 
 /**
@@ -65,7 +87,22 @@ $superAttributeSettings = array(
 );
 
 $attributesToAdd = array(
+    "size_and_fit" => array(
+        "group" => 1,
+        "label" => "Size & Fit",
+        "values" => array(
+            "is_global"             => 0,
+            "frontend_input"        => "textarea",
+            "source_model"          => NULL,
+            "backend_type"          => "text",
+            //"is_visible"            => 1,
+            "is_required"           => 0,
+            "is_configurable"       => 0,
+            "is_visible_on_front"   => 1
+        )
+    ),
     "season" => array(
+        "group" => 2,
         "label" => "Season",
         "options" => array(
             "aw12",
@@ -86,6 +123,7 @@ $attributesToAdd = array(
         )
     ),
     "size_06_11" => array(
+        "group" => 2,
         "label" => "Size",
         "options" => array(
             "06" => 6,
@@ -98,6 +136,7 @@ $attributesToAdd = array(
         "values" => $superAttributeSettings
     ),
     "size_06_16" => array(
+        "group" => 2,
         "label" => "Size",
         "options" => array(
             "06" => 6,
@@ -110,21 +149,25 @@ $attributesToAdd = array(
         "values" => $superAttributeSettings
     ),
     "size_36_42" => array(
+        "group" => 2,
         "label" => "Size",
         "options" => array(36,37,38,39,40,41,42),
         "values" => $superAttributeSettings
     ),
     "size_sm_ml" => array(
+        "group" => 2,
         "label" => "Size",
         "options" => array("SM","ML"),
         "values" => $superAttributeSettings
     ),
     "size_os" => array(
+        "group" => 2,
         "label" => "Size",
         "options" => array("OS"),
         "values" => $superAttributeSettings
     ),
     "colour_base" => array(
+        "group" => 2,
         "label" => "Colour",
         "values" => array(
             'backend_model'             => 'eav/entity_attribute_backend_array',
@@ -156,6 +199,7 @@ $attributesToAdd = array(
         )
     ),
     "colour" => array(
+        "group" => 2,
         "label" => "Colour",
         "values" => $superAttributeSettings,
         "options" => array(
@@ -1117,7 +1161,11 @@ $i = 0;
 $maxOpts = 0;
 foreach($attributesToAdd as $code => $conf) {
     // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $conf['options'], $replaceAttribute = 1);
+    $options = null;
+    if (array_key_exists('options', $conf)) {
+        $options = $conf['options'];
+    }
+    $helper->createAttribute($conf['label'], $code, $conf['values'], null, $options, $replaceAttribute = 1);
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
         break;
@@ -1140,7 +1188,7 @@ foreach($attributeSetsToAdd as $label => $attributes) {
     else {
         //Mage::log(sprintf("%s->createAttributeSet: %s=%s", __METHOD__, $label, print_r($conf, true)) );
         // createAttribute($labelText, $attributeCode, $values, $productTypes, $setInfo, $options) {
-        $helper->createAttributeSet($label, $groupName, null, $attributes);
+        $helper->createAttributeSet($label, $groups, null, $attributes);
     }
     $i++;
     if ($maxOpts != 0 && $i >= $maxOpts) {
