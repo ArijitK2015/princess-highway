@@ -2499,3 +2499,17 @@ label {
 
 /* CMS */
 .returns-address{border: 1px solid #28506C;margin: 5px 0 5px 10px;padding: 5px 0 5px 5px;width: 50%}
+
+/* STORE LOCATIONS */
+.store-location-states {text-align: center;margin-bottom: 20px;}
+.store-location-states li {display:inline-block;}
+.store-location-states li a {text-decoration: none;text-transform: uppercase;padding:10px 45px;font-weight: 300;}
+.store-location-states li:hover a, .store-location-states li.active a {background: #F7F7F7;}
+.store-location-states li:nth-child(4) a{padding-left:49px;padding-right:50px;}
+
+.store-location-stores {margin: 0px 10px 0px 0px;}
+.store-location-stores li h4 {text-transform: uppercase;font-size:13px;margin-bottom:2px;cursor: pointer;}
+.store-location-stores li {display: inline-block;width:30%;margin:10px 0px;vertical-align: top;margin-right:4%;line-height: 18px;font-size: 13px;}
+.store-location-stores li:nth-child(3),.store-location-stores li:nth-child(6),.store-location-stores li:nth-child(9){margin-right:0;}
+.store-location-stores li .opentime{display: block}
+.store-location-stores li .openday{float: left;margin-right:5px;}

@@ -3,6 +3,13 @@
 loads in store locations
 */
 
+
+/*
+	DISABLE THIS ONE, CHECK 0.3.6-0.3.7
+*/
+
+return;
+
 $email_content = "";
 
 $installer = $this;
