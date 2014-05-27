@@ -209,7 +209,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
      *
      * @return array|false
      */
-    public function createAttributeSet($setName, $groupName, $copyGroupsFromId = null, $attributes, $replaceAttributeSet = 1) {
+    public function createAttributeSet($setName, $groups, $copyGroupsFromId = null, $attributeGroups, $replaceAttributeSet = 1) {
 
         // check if exists & delete
         $entityTypeId = Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId();
@@ -288,16 +288,23 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             $model->save();
         }
 
-        // add a group
-        Mage::log(sprintf("add group '%s'", $groupName));
-        $modelGroup = Mage::getModel('eav/entity_attribute_group');
-        $modelGroup->setAttributeGroupName($groupName);
-        $modelGroup->setAttributeSetId($setId);
-
-        // This is optional, and just a sorting index in the case of multiple groups
-        $modelGroup->setSortOrder(1);
-        $model->setGroups(array($modelGroup));
-
+        // add a group(s)
+        $sortOrder = 1;
+        $modelGroups = array();
+        foreach($groups as $groupName) {
+            Mage::log(sprintf("add group '%s'", $groupName));
+            $modelGroup = Mage::getModel('eav/entity_attribute_group');
+            $modelGroup->setAttributeGroupName($groupName);
+            $modelGroup->setAttributeSetId($setId);
+            // This is optional, and just a sorting index in the case of multiple groups
+            $modelGroup->setSortOrder($sortOrder);
+            $modelGroups[$sortOrder] = $modelGroup;
+            $sortOrder++;
+        }
+        
+        //$model->setGroups(array($modelGroup));
+        $model->setGroups($modelGroups);
+        
         // Save the final version of our set.
         try {
             $model->save();
@@ -307,19 +314,37 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
             return false;
         }
 
+        /*
         if (($groupId = $modelGroup->getId()) == false) {
             Mage::log(sprintf("could not get ID from new group [%s]", $groupName));
             return false;
         }
-
-        foreach($attributes as $attribute) {
-            Mage::log(sprintf("%s->add attribute: %s", __METHOD__, $attribute) );
-            $this->assignAttribute($attribute, $groupId, $setId);
+        */
+        
+        foreach($attributeGroups as $sortOrder => $attributes) {
+            Mage::log(sprintf("%s->add %d attributes to group %s", __METHOD__, count($attributes), $sortOrder) );
+            if (($groupId = $modelGroups[$sortOrder]->getId()) == false) {
+                Mage::log(sprintf("could not get ID from new group [%s]", get_class($modelGroups[$sortOrder])) );
+                return false;
+            }
+            foreach($attributes as $attribute) {
+                Mage::log(sprintf("%s->add attribute: %s", __METHOD__, $attribute) );
+                $this->assignAttribute($attribute, $groupId, $setId);
+            }
         }
 
         Mage::log(sprintf("created attribute-set id:%d, default-group id:%d, attributes: %s", $setId, $groupId, print_r($attributes, true)) );
         return array('setID' => $setId, 'groupID' => $groupId);
     }
+
+/*
+    $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')->load();
+    foreach ($attributeSetCollection as $id=>$attributeGroup) {
+        echo $attributeGroup->getAttributeGroupName();
+        echo $attributeGroup->getAttributeGroupId();
+        echo $attributeGroup->getAttributeSetId();
+    }
+*/
 
     /*
     to assign attribute to Attribute Set and Attribute Group
@@ -517,7 +542,7 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
                 'order' => $order
             );
             // set attribute data
-            Mage::log(sprintf("add option: %s", print_r($result, true)));
+            //Mage::log(sprintf("add option: %s", print_r($result, true)));
             $attribute->setData('option', $result);
             // save attribute
             $attribute->save();
