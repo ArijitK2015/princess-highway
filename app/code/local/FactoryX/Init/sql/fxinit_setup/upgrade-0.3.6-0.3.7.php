@@ -43,13 +43,16 @@ foreach($envConfig[FactoryX_Init_Helper_Data::_getEnv()] as $path => $val) {
 }
 
 // Create URL rewrite
-Mage::getModel('core/url_rewrite')
-	->setIsSystem(0)
-	->setStoreId(1)
-	->setIdPath('ustorelocator/location/map-custom')
-	->setTargetPath('ustorelocator/location/map')
-	->setRequestPath('store-locator.html')
-	->save();
+$urlRewrite = Mage::getModel('core/url_rewrite')->loadByRequestPath('store-locator.html');
+if (!$urlRewrite){
+	Mage::getModel('core/url_rewrite')
+		->setIsSystem(0)
+		->setStoreId(1)
+		->setIdPath('ustorelocator/location/map-custom')
+		->setTargetPath('ustorelocator/location/map')
+		->setRequestPath('store-locator.html')
+		->save();
+}
 
 // Import stores
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'ustorelocator_location.sql';
