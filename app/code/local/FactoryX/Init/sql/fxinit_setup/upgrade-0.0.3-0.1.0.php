@@ -11,7 +11,8 @@ caused by mutiple inserts (see core_config_data_fix.sql)
 $installer = $this;
 $installer->startSetup();
 
-// fix core_config_data
+/*
+// fix core_config_data (duplicates...)
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/core_config_data_fix.sql';
 if (file_exists($path)) {
     $sql = file_get_contents($path);
@@ -25,6 +26,7 @@ if (file_exists($path)) {
 else {
     Mage::log(sprintf("cannot find file '%s'", $path) );
 }
+*/
 
 // import all module configuration from core_config_data
 $path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/core_config_data.sql';
