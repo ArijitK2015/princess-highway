@@ -8,13 +8,6 @@ core = Magento 1.7.2
 base theme = Custom Twitter Bootstrap v2.3.2
 ================================================== */
 
-
-
-
-
-
-
-
 /* ==================================================
    Large Desktop
 ================================================== */
@@ -55,7 +48,9 @@ base theme = Custom Twitter Bootstrap v2.3.2
 	/* ==================================================
 	   Product View
 	================================================== */		
-	#product-media .product-image img { width:570px; }
+	#product-media .product-image img {
+	    width:380px;
+    }
 	        
 }
 

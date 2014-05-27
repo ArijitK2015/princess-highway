@@ -135,10 +135,6 @@ body.lookbook-index-slideshow {
 	overflow:hidden;
     padding:0px !important;
 }
-#leftNav {
-    float:left;
-    margin-right:8px;
-}
 .jscarousal-contents-vertical{width:auto!important;}
 body.lookbook-index-slideshow #wrapper {
     margin-top:2px;
@@ -171,7 +167,7 @@ body.lookbook-index-slideshow #wrapper {
     position:absolute;
     top:10px;
 }
-
+#slidePagination{margin-bottom:5px}
 #slidePagination div {
     display:inline-block;
     margin:5px 5px;
@@ -194,13 +190,14 @@ body.lookbook-index-slideshow #wrapper {
 	display:none
 }
 #fadeshow1 {
-	width: 700px;
     border:1px solid #e0e0e0;
 }
 #close{position:absolute;top:0px;right:0px;cursor:pointer;}
 #close img{width:60px;}
 .jscarousal-vertical{margin-top:5px !important;margin-right:10px !important;}
 .noshow{visibility:hidden}
+.horizontal-left-nav{clear:both;margin:0 auto}
+.vertical-left-nav{margin-right:8px;float:left}
 
 /* Flipbook */
 #flipbook{

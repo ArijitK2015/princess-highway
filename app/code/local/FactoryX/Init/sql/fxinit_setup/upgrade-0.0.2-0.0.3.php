@@ -3,62 +3,46 @@
 loads in cms block & email templates
 */
 
-$email_content = "";
-
 $installer = $this;
 $installer->startSetup();
 
 $helper = Mage::helper('fxinit');
 
-//Import CMS Block
-$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'cms_block.sql';
-if (file_exists($path)) {
-	$sql = file_get_contents($path);
-	$installer->run($sql);
-	$email_content .= "Script ran for CMS block import<br/>";
-}else{
-	$email_content .= "Cannot find CMS block dump<br/>";
+// check if core has deployed its cms
+$conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+$sql = "select data_version from core_resource where code = 'cms_setup';";
+//$results = $conn->fetchAll($sql);
+
+$dataVersion = $conn->fetchOne($sql);
+if (!preg_match("/1\.6\.0\.0\.2/i", $dataVersion)) {
+    Mage::log(sprintf("wrong cms_setup data_version '%s'!", $dataVersion) );
+    return;
 }
 
-//Import CMS Block Store
-$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'cms_block_store.sql';
-if (file_exists($path)) {
-	$sql = file_get_contents($path);
-	$installer->run($sql);
-	$email_content .= "Script ran for CMS block store import<br/>";
-}else{
-	$email_content .= "Cannot find CMS block store dump<br/>";
-}
+$sqlFiles = array(
+    // CMS Block
+    'cms_block.sql',
+    // CMS Block Store
+    'cms_block_store.sql',
+    // CMS Page
+    'cms_page.sql',
+    // CMS Page Store
+    'cms_page_store.sql',
+    // Email Template
+    'core_email_template.sql'
+);
 
-//Import CMS Page
-$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'cms_page.sql';
-if (file_exists($path)) {
-	$sql = file_get_contents($path);
-	$installer->run($sql);
-	$email_content .= "Script ran for CMS page import<br/>";
-}else{
-	$email_content .= "Cannot find CMS page dump<br/>";
-}
-
-//Import CMS Page Store
-$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'cms_page_store.sql';
-if (file_exists($path)) {
-	$sql = file_get_contents($path);
-	$installer->run($sql);
-	$email_content .= "Script ran for CMS page store import<br/>";
-}else{
-	$email_content .= "Cannot find CMS page store dump<br/>";
-}
-
-// Import Email Template
-$path = Mage::getBaseDir().'/app/code/local/FactoryX/Init/sql/mysqldump/'.'core_email_template.sql';
-if (file_exists($path)) {
-	$sql = file_get_contents($path);	
-	$installer->run($sql);
-	$email_content .= "Script ran for email template import<br/>";
-}
-else{
-	$email_content .= "Cannot find email template dump<br/>";
+foreach($sqlFiles as $sqlFile) {
+    $filePath = sprintf("%s/app/code/local/FactoryX/Init/sql/mysqldump/%s", Mage::getBaseDir(), $sqlFile);
+    if (file_exists($filePath)) {
+        Mage::log(sprintf("load sql '%s'...", $filePath) );
+    	$sql = file_get_contents($filePath);
+    	$installer->run($sql);
+    	Mage::log(sprintf("import complete") );
+    }
+    else {
+        Mage::log(sprintf("cannot find file '%s'", $filePath) );
+    }
 }
 
 try {
@@ -67,8 +51,6 @@ try {
 catch(Exception $ex) {
     // ignore
 }
-
-//mail('alvin@factoryx.com.au','fx install',$email_content);
 
 $installer->endSetup();
 
