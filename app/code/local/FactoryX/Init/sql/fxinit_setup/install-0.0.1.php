@@ -1,4 +1,4 @@
-<?php
+<?p hp
 /**
 
 ## current scripts
@@ -26,7 +26,7 @@ add other scripts here and or rearrange scripts
 select * from core_resource where code = 'fxinit_setup';
 
 # update version
-update core_resource set version = '0.0.1', data_version = '0.0.1' where code = 'fxinit_setup';
+update core_resource set version = '0.0.2', data_version = '0.0.2' where code = 'fxinit_setup';
 update core_resource set version = '0.3.5', data_version = '0.3.5' where code = 'fxinit_setup';
 
 # reinstall everything
