@@ -591,10 +591,10 @@ class FactoryX_Init_Helper_Data extends Mage_Core_Helper_Abstract {
         $baseUrl = $configValue = Mage::getStoreConfig('web/unsecure/base_url');
         
         $env = "default";
-        if (preg_match("/staging/", $baseUrl)) {
+        if (preg_match("/(stage\.|staging\.)/i", $baseUrl)) {
             $env = "staging";
         }
-        else if (preg_match("/(www\.|shop\.)/", $baseUrl)) {
+        else if (preg_match("/(www\.|shop\.)/i", $baseUrl)) {
             $env = "prod";
         }
         else {
