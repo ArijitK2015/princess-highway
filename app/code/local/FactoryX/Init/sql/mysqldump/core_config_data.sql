@@ -889,7 +889,7 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Customer','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Dataflow','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Directory','0');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Downloadable','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Downloadable','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Eav','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_GiftMessage','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_GoogleAnalytics','0');
@@ -921,7 +921,7 @@ REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default'
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Sendfriend','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Shipping','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Sitemap','0');
--- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Tag','1');
+REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Tag','1');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Tax','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Usa','0');
 -- REPLACE INTO `core_config_data` (scope, scope_id, path, value) VALUES ('default',0,'advanced/modules_disable_output/Mage_Weee','0');

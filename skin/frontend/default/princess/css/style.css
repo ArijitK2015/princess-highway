@@ -85,10 +85,7 @@ border: none;
 }
 .close {   
 }
-.alert-success,
-.alert-success h4{
-    color: #808080;
-}
+
 
 /* ==================================================
    Basic Styles
@@ -2513,3 +2510,6 @@ label {
 .store-location-stores li:nth-child(3),.store-location-stores li:nth-child(6),.store-location-stores li:nth-child(9){margin-right:0;}
 .store-location-stores li .opentime{display: block}
 .store-location-stores li .openday{float: left;margin-right:5px;}
+
+/* ADDRESS BOOK */
+.customer-address-form .my-account ul{list-style:none outside none}

@@ -3909,35 +3909,35 @@ input[type="submit"].btn.btn-mini {
 }
 
 .alert-success {
-  color: #468847;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+  color: #468847 !important;
+  background-color: #dff0d8 !important;
+  border-color: #d6e9c6 !important;
 }
 
 .alert-success h4 {
-  color: #468847;
+  color: #468847 !important;
 }
 
 .alert-danger,
 .alert-error {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
+  color: #b94a48 !important;
+  background-color: #f2dede !important;
+  border-color: #eed3d7 !important;
 }
 
 .alert-danger h4,
 .alert-error h4 {
-  color: #b94a48;
+  color: #b94a48 !important;
 }
 
 .alert-info {
-  color: #3a87ad;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  color: #3a87ad !important;
+  background-color: #d9edf7 !important;
+  border-color: #bce8f1 !important;
 }
 
 .alert-info h4 {
-  color: #3a87ad;
+  color: #3a87ad !important;
 }
 
 .alert-block {
