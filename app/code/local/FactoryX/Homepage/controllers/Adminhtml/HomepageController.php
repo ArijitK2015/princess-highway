@@ -363,7 +363,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 				}
 				
 				// If it's an automatic homepage, the start and end dates must be provided
-				if($data['status'] == 2 && (!isset($data['start_date']) || !isset($data['end_date'])))
+				if($data['status'] == 2 && (!array_key_exists('start_date',$data) || !array_key_exists('end_date',$data) || !$data['start_date'] || !$data['end_date']))
 				{
 					// We use session to set the active tab to show where the error is
 					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
@@ -423,6 +423,9 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
 						// We don't display the homepage
 						$model->setDisplayed(0);
 					}
+					
+					$model->setStartDate($startdate);
+					$model->setEndDate($enddate);
 				}
 
 				// Save the homepage
