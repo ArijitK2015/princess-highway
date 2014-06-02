@@ -72,8 +72,13 @@ class FactoryX_CampaignMonitor_SubscriberController extends Mage_Newsletter_Subs
 
 			// if () there is secured hash then we need to get information
 			if (isset($securehash) && $securehash == md5($email.$apiKey)){     
+                // If there is unsub, we update first
+                Mage::log($params);
+                if (array_key_exists('unsub',$params)){
+                    $subscriberModel->unsubInterest($email,$params['unsub']);                    
+                }                
                 $response = $subscriberModel->getCMData($email);           
-				$response['status'] = "EXISTING";                
+				$response['status'] = "EXISTING";                            
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));                    
 			}else{
 				// if the subscriber appears in any of those source, we shouldn't appear to re-subscribe
