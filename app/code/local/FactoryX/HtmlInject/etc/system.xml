@@ -32,24 +32,60 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
-                        <starttime translate="label">
-                            <label>Start Time</label>
+                        <weekstarttime translate="label">
+                            <label>Week Days Start Time</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<span class="notice">e.g. 17 means the pop up start displaying at 17:00</span>]]></comment>                            
-                        </starttime>
-                        <endtime translate="label">
-                            <label>End Time</label>
+                        </weekstarttime>
+                        <weekendtime translate="label">
+                            <label>Week Days End Time</label>
                             <frontend_type>text</frontend_type>                        
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<span class="notice">e.g. 22 means the pop up stop displaying at 22:00]]></comment>
-                        </endtime>
+                        </weekendtime>
+						<satstarttime translate="label">
+                            <label>Saturday Start Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">e.g. 17 means the pop up start displaying at 17:00</span>]]></comment>                            
+                        </satstarttime>
+                        <satendtime translate="label">
+                            <label>Saturday End Time</label>
+                            <frontend_type>text</frontend_type>                        
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">e.g. 22 means the pop up stop displaying at 22:00]]></comment>
+                        </satendtime>
+						<sunstarttime translate="label">
+                            <label>Sunday Start Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">e.g. 17 means the pop up start displaying at 17:00</span>]]></comment>                            
+                        </sunstarttime>
+                        <sunendtime translate="label">
+                            <label>Sunday End Time</label>
+                            <frontend_type>text</frontend_type>                        
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">e.g. 22 means the pop up stop displaying at 22:00]]></comment>
+                        </sunendtime>
                     </fields>
                 </phonesupport>
             </groups>

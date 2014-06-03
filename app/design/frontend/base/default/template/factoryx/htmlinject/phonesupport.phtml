@@ -1,7 +1,22 @@
 <?php
     if (!Mage::getStoreConfig('htmlinject/phonesupport/enabled')) { return; }    
-    $start = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/starttime')));
-    $end   = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/endtime')));    
+	$today = date('D');
+	if ($today == "Sat")
+	{
+		$start = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/satstarttime')));
+		$end   = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/satendtime'))); 
+	}
+	elseif($today == "Sun")
+	{
+		$start = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/sunstarttime')));
+		$end   = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/sunendtime'))); 
+	}
+	else
+	{
+	    $start = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/weekstarttime')));
+		$end   = intval(trim(Mage::getStoreConfig('htmlinject/phonesupport/weekendtime')));    
+	}
+	
     if ($start == 0 || $end == 0 || $start > $end) { return; }    
 ?>
 
@@ -39,7 +54,7 @@
 <div id="phone-support">
     <img src="<?php echo $this->getSkinUrl('images/dangerfield-support.jpg'); ?>" alt="Alannah Hill Support" style="float:left;margin-right:10px;width:71px" />
     <img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif'); ?>"  alt="Windows Close" style="float:right;cursor:pointer;" onclick="closeSupport()"/>
-    <div>We are open to chat until 10pm tonight!<p/>Please call<p/><b><?=Mage::getStoreConfig('general/store_information/phone')?></b> or <a href="mailto:<?=Mage::getStoreConfig('trans_email/ident_support/email')?>">email</a></div>
+    <div>We are open to chat until <b><?php echo $end ?></b> tonight!<p/>Please call<p/><b><?=Mage::getStoreConfig('general/store_information/phone')?></b> or <a href="mailto:<?=Mage::getStoreConfig('trans_email/ident_support/email')?>">email</a></div>
 </div>
 
 <style>
