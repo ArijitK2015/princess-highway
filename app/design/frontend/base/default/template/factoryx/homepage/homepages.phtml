@@ -1,10 +1,8 @@
-<div id="homepage">
-	<?php
-		$homepages = $this->getHomepages();
-		$count = 0;
-		foreach ($homepages as $homepage)
-		{
-			echo $this->getChildHtml('homepage_'.++$count, false);
-		}
-	?>
-</div>
+<?php
+	$homepages = $this->getHomepages();
+	$count = 0;
+	foreach ($homepages as $homepage)
+	{
+		echo $this->getChildHtml('homepage_'.++$count, false);
+	}
+?>

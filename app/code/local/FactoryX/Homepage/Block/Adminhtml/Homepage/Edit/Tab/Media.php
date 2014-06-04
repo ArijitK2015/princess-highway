@@ -55,7 +55,7 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_Media extends Mage_Adm
 		{
 			// We add a note to help 
 			$fieldset->addField('note', 'note', array(
-				'text'     => Mage::helper('homepage')->__('<ul><li>- The width of the slider images must be 940px.</li><li>- The TOTAL width of the vertical images must be 940px.</li><li>- The TOTAL height of the vertical images must all be equals.</ul>'),
+				'text'     => Mage::helper('homepage')->__('<ul><li>- The width of the slider images must be 980px.</li><li>- The TOTAL width of the vertical images must be 980px.</li><li>- The TOTAL height of the vertical images must all be equals.</ul>'),
 			));
 			
 			// Add our custom homepageimage type

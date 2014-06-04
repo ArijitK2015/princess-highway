@@ -12,10 +12,6 @@
     z-index:999;
 }
 
-#slides .slidesjs-next {
-    left:983px;
-}
-
 .text h1,.text a{ text-transform: uppercase;font-weight: normal;font-family: 'Helvetica Neue','Arial',san-serif;text-align: center;font-style:normal;font-size:16px;padding:10px 0px;text-decoration: none;display:block;}
 .text p{padding:10px;text-align: center;}
 .text {text-align: center;}

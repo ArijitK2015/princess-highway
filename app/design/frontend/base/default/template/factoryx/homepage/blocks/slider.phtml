@@ -1,46 +1,56 @@
-<div id="slides">
-    <?php 
-	$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
-	$slideHeight = "";
-	// Loop through images
-	foreach($this->getSlides() as $slide)
-	{
-		// Generate URL
-		$imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $slide->getUrl());
-		$imageUrl = sprintf("%s/homepage%s", $relMediaPath, $slide->getUrl());
-		// Test if image exists
-		if (is_file($imagePath)) {
-			// List its attribute
-			list($width, $height, $type, $attr) = getimagesize($imagePath); 
-			// If the slide height is not set we set it
-			if ($slideHeight == "") $slideHeight = $height; ?>
-            <div>
-				<?php if ($link = $slide->getLink()): ?>
-					<a <?php if ($slide->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
-				<?php endif; ?>
-					<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $slide->getAlt(); ?>" /> 
-				<?php if ($link): ?>
-					</a>
-				<?php endif; ?> 
-            </div>
-			<?php } // endif?>
-    <?php } // endforeach ?>
-	
-	<a href="#" class="slidesjs-previous slidesjs-navigation">
-		<img src="<?php echo $this->getSkinUrl('images/slider/arrow-prev.png'); ?>" width="24" height="43" alt="Arrow Prev">
-	</a>
-	<a href="#" class="slidesjs-next slidesjs-navigation">
-		<img src="<?php echo $this->getSkinUrl('images/slider/arrow-next.png'); ?>" width="24" height="43" alt="Arrow Next">
-	</a>
+<div id="slidercontainer" style="height:825px;width:550px">
+
+	<div id="slides">
+		<?php 
+		$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+		$slideHeight = "";
+		$slideWidth = "";
+		// Loop through images
+		foreach($this->getSlides() as $slide)
+		{
+			// Generate URL
+			$imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $slide->getUrl());
+			$imageUrl = sprintf("%s/homepage%s", $relMediaPath, $slide->getUrl());
+			// Test if image exists
+			if (is_file($imagePath)) {
+				// List its attribute
+				list($width, $height, $type, $attr) = getimagesize($imagePath); 
+				// If the slide height is not set we set it
+				if ($slideHeight == "") $slideHeight = $height;
+				// If the slide width is not set we set it
+				if ($slideWidth == "") $slideWidth = $width;
+				 ?>
+				<div>
+					<?php if ($link = $slide->getLink()): ?>
+						<a <?php if ($slide->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+					<?php endif; ?>
+						<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $slide->getAlt(); ?>" /> 
+					<?php if ($link): ?>
+						</a>
+					<?php endif; ?> 
+				</div>
+				<?php } // endif?>
+		<?php } // endforeach ?>
+		
+		<a href="#" class="slidesjs-previous slidesjs-navigation">
+			<img src="<?php echo $this->getSkinUrl('images/slider/arrow-prev.png'); ?>" width="24" height="43" alt="Arrow Prev">
+		</a>
+		<a href="#" class="slidesjs-next slidesjs-navigation">
+			<img src="<?php echo $this->getSkinUrl('images/slider/arrow-next.png'); ?>" width="24" height="43" alt="Arrow Next">
+		</a>
+	</div>
 </div>
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
+		jQuery("#slidercontainer").css('width', '<?php echo $slideWidth ?>px');
+		jQuery("#slidercontainer").css('height', '<?php echo $slideHeight ?>px');
 		jQuery("#slides .slidesjs-previous").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
 		jQuery("#slides .slidesjs-next").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
+		jQuery("#slides .slidesjs-next").css('left','<?php echo $slideWidth+3 ?>px');
 		jQuery("#slides").slidesjs({
-			width:980,
-			height:<?php echo $slideHeight ?>,
+			width: <?php echo $slideWidth ?>,
+			height: <?php echo $slideHeight ?>,
 			navigation:{active:false},
 			pagination: {active:false},
 			play:{
