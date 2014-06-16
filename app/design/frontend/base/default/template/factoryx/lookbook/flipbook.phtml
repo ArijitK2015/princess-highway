@@ -12,10 +12,10 @@ $numOfSlides = count($_imageCollection);
 $dimensions = Mage::helper('lookbook')->calculateLookDimensions($lookbook);
 ?>
 <div id="flipbook">
-	<?php $count = 0; ?>
+	<?php $count = 1; ?>
 	<?php foreach ($_imageCollection as $_image): ?>
 		<?php $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']); ?>
-		<div <?php if ($count == 0 || $count == 1 || $count == count($_image) || $count == (count($_image)-1)): ?>class="hard"<?php endif;?>>
+		<div <?php if ($count == 1 || $count == 2 || $count == count($_imageCollection) || $count == (count($_imageCollection)-1)): ?>class="hard"<?php endif;?>>
 			<img src="<?php echo $img ?>" alt="<?php echo $lookbook->getTitle() ?>" />
 		</div>
 		<?php $count++; ?>

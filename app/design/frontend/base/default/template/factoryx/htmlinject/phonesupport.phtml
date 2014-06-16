@@ -30,6 +30,13 @@
         Mage.Cookies.set('phone-support','false',expDate);        
         jQuery('#phone-support').animate({bottom:'-279px'});
     }
+	
+	function whatTimeIsIt()
+	{
+		var d = new Date();
+		return d.getHours();
+	}
+	
     function calcTime(offset) {
         // create Date object for current location
         var d = new Date();
@@ -44,17 +51,22 @@
         return nd.getHours();
     }
     jQuery(document).ready(function(){
-        if ((!Mage.Cookies.get('phone-support') || Mage.Cookies.get('phone-support')!="false") && (calcTime(11) >= <?=($start)?>) && (calcTime(11) < <?=($end)?>)){
+        if ((!Mage.Cookies.get('phone-support') || Mage.Cookies.get('phone-support')!="false") && (whatTimeIsIt() >= <?=($start)?>) && (whatTimeIsIt() < <?=($end)?>)){
             jQuery('#phone-support').animate({bottom:'0px'});
         }
     });
 </script>
 <!-- End script to add support pop up -->
 
+<?php
+	// Convert 24 hours format to 12 hours format
+	$twelvehoursEnd = date('g:i a', strtotime($end.":00"));
+?>
+
 <div id="phone-support">
     <img src="<?php echo $this->getSkinUrl('images/dangerfield-support.jpg'); ?>" alt="Alannah Hill Support" style="float:left;margin-right:10px;width:71px" />
     <img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif'); ?>"  alt="Windows Close" style="float:right;cursor:pointer;" onclick="closeSupport()"/>
-    <div>We are open to chat until <b><?php echo $end ?></b> tonight!<p/>Please call<p/><b><?=Mage::getStoreConfig('general/store_information/phone')?></b> or <a href="mailto:<?=Mage::getStoreConfig('trans_email/ident_support/email')?>">email</a></div>
+    <div>We are open to chat until <b><?php echo $twelvehoursEnd ?></b> tonight!<p/>Please call<p/><b><?=Mage::getStoreConfig('general/store_information/phone')?></b> or <a href="mailto:<?=Mage::getStoreConfig('trans_email/ident_support/email')?>">email</a></div>
 </div>
 
 <style>

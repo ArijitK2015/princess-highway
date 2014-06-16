@@ -65,6 +65,21 @@ class Atwix_UniversalAnalytics_Block_Ua extends Mage_Core_Block_Template
             );
 
             /* Add pusrchased items info */
+			
+			// Get the product
+			$product = Mage::getModel('catalog/product')->load($item->getProductId());
+
+			// Generate list of product categories
+			$categoryCollection = $product->getCategoryIds();
+			$categoryList = "";
+			
+			foreach ($categoryCollection as $categoryId)
+			{
+				$category = Mage::getModel('catalog/category')->load($categoryId);
+				$categoryList .= $category->getName() . "|";
+			}
+			
+			$categoryList = rtrim($categoryList,"|");
 
             foreach ($order->getAllVisibleItems() as $item) {
                 $result[] = sprintf(
@@ -79,7 +94,7 @@ class Atwix_UniversalAnalytics_Block_Ua extends Mage_Core_Block_Template
                     $order->getIncrementId(),
                     $this->jsQuoteEscape($item->getName()),
                     $this->jsQuoteEscape($item->getSku()),
-                    null,
+                    $categoryList,
                     $item->getBasePrice(),
                     $item->getQtyOrdered()
                 );
