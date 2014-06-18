@@ -5,7 +5,7 @@ function saveLastPositions()
 {
 	// Create a 60 days expiry date
 	var expiryDate = new Date();
-	expiryDate.setDate(expDate.getDate() + 60);
+	expiryDate.setDate(expiryDate.getDate() + 60);
 	// Get the last positions
 	// Container
 	var lastContainerPos = document.getElementById('container').scrollLeft;

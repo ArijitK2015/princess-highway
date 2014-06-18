@@ -3,7 +3,7 @@
 
 	<modules>
 		<FactoryX_Contests>
-			<version>0.8.0</version>
+			<version>0.8.1</version>
 		</FactoryX_Contests>
 	</modules>
 	
@@ -22,6 +22,9 @@
 	</admin>
 	
 	<frontend>
+		<secure_url>
+			<contests>/contests/</contests>
+		</secure_url>
 		<routers>
 			<contests>
 				<use>standard</use>
