@@ -41,6 +41,8 @@
 	</div>
 </div>
 
+<?php //Mage::log($this); ?>
+
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		jQuery("#slidercontainer").css('width', '<?php echo $slideWidth ?>px');
@@ -55,7 +57,7 @@
 			pagination: {active:false},
 			play:{
 				active:false, 
-				interval:2500, 
+				interval:<?php echo $this->getSpeed() ?>, 
 				restartDelay: 3500, 
 				pauseOnHover:true, 
 				auto:true

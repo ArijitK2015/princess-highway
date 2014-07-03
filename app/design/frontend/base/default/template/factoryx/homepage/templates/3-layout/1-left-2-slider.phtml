@@ -2,6 +2,8 @@
 	// Set images
 	$this->getChild('left')->setData('image', $this->getLeft());
 	$this->getChild('slider')->setData('slides', $this->getSlides());
+	// Set slider speed
+	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
 	// Using the false parameter with getChildHtml is to tell not to cache block
 ?>
 <table>

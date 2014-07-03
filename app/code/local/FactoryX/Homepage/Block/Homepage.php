@@ -48,6 +48,7 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '4-layout/4-slider':
 				case '5-layout/5-slider':
 					$this->setSlides($homepage->getAllImages());
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				// 3 images layouts
 				case '3-layout/1-left-2-right':
@@ -73,10 +74,12 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '3-layout/1-top-2-slider':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setTop($homepage->getImage(3));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;	
 				case '3-layout/2-slider-1-bottom':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setBottom($homepage->getImage(3));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '3-layout/1-left-1-middle-1-right':
 					$this->setLeft($homepage->getImage(1));
@@ -91,10 +94,12 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '3-layout/2-slider-1-right':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setRight($homepage->getImage(3));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '3-layout/1-left-2-slider':
 					$this->setLeft($homepage->getImage(1));
 					$this->setSlides($homepage->getImages(array('2','3')));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				// 4 images layouts
 				case '4-layout/1-left-3-right':
@@ -154,20 +159,24 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '4-layout/1-top-3-slider':
 					$this->setSlides($homepage->getImages(array('1','2','3')));
 					$this->setTop($homepage->getImage(4));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '4-layout/3-slider-1-bottom':
 					$this->setSlides($homepage->getImages(array('1','2','3')));
 					$this->setBottom($homepage->getImage(4));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '4-layout/2-slider-2-bottom':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setBottom1($homepage->getImage(3));
 					$this->setBottom2($homepage->getImage(4));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '4-layout/2-top-2-slider':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setTop1($homepage->getImage(3));
 					$this->setTop2($homepage->getImage(4));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '4-layout/1-left-1-middletop-1-middlebottom-1-right':
 					$this->setLeft($homepage->getImage(1));
@@ -196,10 +205,12 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '4-layout/1-left-3-slider':
 					$this->setLeft($homepage->getImage(1));
 					$this->setSlides($homepage->getImages(array('2','3','4')));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '4-layout/3-slider-1-right':
 					$this->setRight($homepage->getImage(4));
 					$this->setSlides($homepage->getImages(array('1','2','3')));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				// 5 images layouts
 				case '5-layout/1-left-4-right':
@@ -270,42 +281,50 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 					$this->setTop($homepage->getImage(5));
 					$this->setBottom1($homepage->getImage(3));
 					$this->setBottom2($homepage->getImage(4));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/1-top-4-slider':
 					$this->setSlides($homepage->getImages(array('1','2','3','4')));
 					$this->setTop($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/2-slider-3-bottom':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setBottom1($homepage->getImage(3));
 					$this->setBottom2($homepage->getImage(4));
 					$this->setBottom3($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/2-top-2-slider-1-bottom':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setTop1($homepage->getImage(3));
 					$this->setTop2($homepage->getImage(4));
 					$this->setBottom($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/2-top-3-slider':
 					$this->setSlides($homepage->getImages(array('1','2','3')));
 					$this->setTop1($homepage->getImage(4));
 					$this->setTop2($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/3-slider-2-bottom':
 					$this->setSlides($homepage->getImages(array('1','2','3')));
 					$this->setBottom1($homepage->getImage(4));
 					$this->setBottom2($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/3-top-2-slider':
 					$this->setSlides($homepage->getImages(array('1','2')));
 					$this->setTop1($homepage->getImage(3));
 					$this->setTop2($homepage->getImage(4));
 					$this->setTop3($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/4-slider-1-bottom':
 					$this->setSlides($homepage->getImages(array('1','2','3','4')));
 					$this->setBottom($homepage->getImage(5));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/1-left-1-middle-1-righttop-1-rightmiddle-1-rightbottom':
 					$this->setLeft($homepage->getImage(1));
@@ -394,10 +413,12 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 				case '5-layout/1-left-4-slider':
 					$this->setLeft($homepage->getImage(1));
 					$this->setSlides($homepage->getImages(array('2','3','4','5')));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				case '5-layout/4-slider-1-right':
 					$this->setRight($homepage->getImage(5));
 					$this->setSlides($homepage->getImages(array('1','2','3','4')));
+					$this->setSliderSpeed($homepage->getSliderSpeed());
 					break;
 				default;
 					break;
