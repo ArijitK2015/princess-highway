@@ -23,7 +23,7 @@ class FactoryX_Contests_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 
         $actions[] = array(
             '@' => array(
-                'href'  => $this->getUrl("*/*/view", array('id' => $row->getId())),
+                'href'  => $this->getUrl("contests/index/view", array('id' => $row->getId(),'_store' => 'default')),
                 'target'=>	'_blank'
             ),
             '#'	=> Mage::helper('customer')->__('View')

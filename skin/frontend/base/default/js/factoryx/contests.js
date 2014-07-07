@@ -60,6 +60,17 @@ function addRow(tableID) {
     cell2.appendChild(element2);
 }
 
+function addEmailField(divId) {
+    var count = jQuery('#'+divId+' > .email').length;    
+    jQuery('#'+divId).append('<div class="row email"><input type="textbox" name="friend'+(count+1)+'" id="friend'+(count+1)+'" class="input-text validate-email" value="" placeholder="Your Friend\'s Email">&nbsp;&nbsp;<a class="email-link" onclick="removeEmailField(\'friend'+(count+1)+'\')">Remove</a></div>');
+}
+
+function removeEmailField(divId) {
+    if (jQuery('#'+divId).length > 0){
+        jQuery('#'+divId).parent().remove();
+    }
+}
+
 function delRow(tableID) {
     try {
         var table = document.getElementById(tableID);
@@ -93,8 +104,9 @@ function daySuffix(d) {
     return result;
 }
 
-function popupTerms(storeCode, contestId)
+function popupTerms(storeCode, contestId, facebook)
 {
+    facebook = (typeof facebook === "undefined") ? "index" : facebook;
     var w = 700, h = 700;
     if (document.all || document.layers)
     {
@@ -105,16 +117,15 @@ function popupTerms(storeCode, contestId)
     var leftPos = (w-popW)/2, topPos = (h-popH)/2;
     if (storeCode == "")
     {
-        var urlToOpen = "/contests/index/terms/id/"+contestId;
+        var urlToOpen = "/contests/"+facebook+"/terms/id/"+contestId;
     }
     else
     {
-        var urlToOpen = "/"+storeCode+"/contests/index/terms/id/"+contestId;
+        var urlToOpen = "/"+storeCode+"/contests/"+facebook+"/terms/id/"+contestId;
     }
 	win = new Window({ 
 		id: "winTerms", 
-		className: "default", 
-		title: "Terms and Conditions", 
+		className: "default", 		
 		url:urlToOpen, 
 		zIndex:3000, 
 		destroyOnClose: true, 

@@ -439,6 +439,13 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 					}
 				}
 
+				// Saving colour options
+				if ($data['background_colour']) $model->setBackgroundColour($data['background_colour']);
+				if ($data['text_colour']) $model->setTextColour($data['text_colour']);
+				if ($data['button_background_colour']) $model->setButtonBackgroundColour($data['button_background_colour']);
+				if ($data['button_text_colour']) $model->setButtonTextColour($data['button_text_colour']);
+				if ($data['custom_css']) $model->setCustomCss($data['custom_css']);
+				
                 $model->save();				
 				
 				// Handle URL Rewrites

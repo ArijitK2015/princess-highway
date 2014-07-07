@@ -1,6 +1,6 @@
 <?php
 
-class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Action
+class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Action
 {
 	public function indexAction()
     {		
@@ -72,7 +72,7 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 	}
 	
 	public function postAction() 
-	{
+	{ 
 		// Sender name & email
 		$sender = Mage::helper('contests')->getSender();
         // Mage::helper('contests')->log(sprintf("%s->sender=%s", __METHOD__, print_r($sender, true)) );
@@ -304,21 +304,13 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			$name = trim($name);
 			$firstname = $name;
 			$lastname = "";
-			$source = $contest->getIdentifier();
+			$title = $contest->getTitle();
 			
 			if (preg_match("/\\s/", $name)) 
 			{
 				$fname = explode(' ', $name, 2);
 				$firstname = $fname[0];
 				$lastname = $fname[1];
-			}
-			
-			if (Mage::helper('contests')->getCMStatus($postObject['email']) && Mage::helper('contests')->getCMStatus($postObject['email']) != 2)
-			{
-				$newSubscriberCounter = $contest->getNewSubscriberCounter();
-				$newSubscriberCounter++;
-				$contest->setNewSubscriberCounter($newSubscriberCounter);
-				$contest->save();
 			}
 			
             Mage::helper('contests')->subscribeToCampaignMonitor(
@@ -331,7 +323,7 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
             		"email"				=> $postObject['email'],
             		"mobile"			=> $mobile,
             		"state"				=> $state,
-            		"title"				=> $source
+            		"title"				=> $title
             	)
             );
 			

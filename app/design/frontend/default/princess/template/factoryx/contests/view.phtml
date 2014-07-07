@@ -238,30 +238,32 @@ else
                                     <td>
                                         <div id="details">
                                             <div id="details-container">
-                                                <label for="close"><?php echo $this->__('Closes in') ?></label>
-                                                <div id="javascript-countdown">
-                                                    <script type="text/javascript">
-                                                        TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
-                                                        BackColor = "#ffffff";
-                                                        ForeColor = "#AC6FF2";
-                                                        CountActive = true;
-                                                        CountStepper = -1;
-                                                        LeadingZero = true;
-                                                        DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
-                                                        FinishMessage = "<b>CLOSED!</b>";
-                                                    </script>
-                                                    <script type="text/javascript" src="/js/countdown/countdown.js"></script>
-                                                </div>
-                                                <div id="timer-container">
-                                                    <table cellpadding="0" cellspacing="0" border="0">
-                                                        <tr>
-                                                            <td width="28%" class="timer"><?php echo $this->__('days') ?></td>
-                                                            <td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
-                                                            <td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
-                                                            <td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
+												<?php if ($contest->getStatus() == 2): ?>
+													<label for="close"><?php echo $this->__('Closes in') ?></label>
+													<div id="javascript-countdown">
+														<script type="text/javascript">
+															TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+															BackColor = "#ffffff";
+															ForeColor = "#AC6FF2";
+															CountActive = true;
+															CountStepper = -1;
+															LeadingZero = true;
+															DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
+															FinishMessage = "<b>CLOSED!</b>";
+														</script>
+														<script type="text/javascript" src="/js/countdown/countdown.js"></script>
+													</div>
+													<div id="timer-container">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr>
+																<td width="28%" class="timer"><?php echo $this->__('days') ?></td>
+																<td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
+																<td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
+																<td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
+															</tr>
+														</table>
+													</div>
+												<?php endif; ?>
                                             </div>
                                         </div>
                                     </td>
@@ -419,30 +421,32 @@ else
 
             <div id="details">
                 <div id="details-container">
-                    <label for="close"><?php echo $this->__('Closes in') ?></label>
-                    <div id="javascript-countdown">
-                        <script type="text/javascript">
-                            TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
-                            BackColor = "#ffffff";
-                            ForeColor = "#AC6FF2";
-                            CountActive = true;
-                            CountStepper = -1;
-                            LeadingZero = true;
-                            DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
-                            FinishMessage = "<b>CLOSED!</b>";
-                        </script>
-                        <script type="text/javascript" src="/js/countdown/countdown.js"></script>
-                    </div>
-                    <div id="timer-container">
-                        <table cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                                <td width="28%" class="timer"><?php echo $this->__('days') ?></td>
-                                <td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
-                                <td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
-                                <td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
-                            </tr>
-                        </table>
-                    </div>
+					<?php if ($contest->getStatus() == 2): ?>
+						<label for="close"><?php echo $this->__('Closes in') ?></label>
+						<div id="javascript-countdown">
+							<script type="text/javascript">
+								TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+								BackColor = "#ffffff";
+								ForeColor = "#AC6FF2";
+								CountActive = true;
+								CountStepper = -1;
+								LeadingZero = true;
+								DisplayFormat = "%%D%%&nbsp;&nbsp;%%H%%&nbsp;&nbsp;%%M%%&nbsp;&nbsp;%%S%%";
+								FinishMessage = "<b>CLOSED!</b>";
+							</script>
+							<script type="text/javascript" src="/js/countdown/countdown.js"></script>
+						</div>
+						<div id="timer-container">
+							<table cellpadding="0" cellspacing="0" border="0">
+								<tr>
+									<td width="28%" class="timer"><?php echo $this->__('days') ?></td>
+									<td width="20%" class="timer"><?php echo $this->__('hrs') ?></td>
+									<td width="25%" class="timer"><?php echo $this->__('mins') ?></td>
+									<td width="27%" class="timer"><?php echo $this->__('secs') ?></td>
+								</tr>
+							</table>
+						</div>
+					<?php endif; ?>
                 </div>
             </div>
 

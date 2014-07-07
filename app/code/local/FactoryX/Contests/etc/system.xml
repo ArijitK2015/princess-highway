@@ -71,6 +71,32 @@
 						</m_to_cm_attributes>
 					</fields>
 				</options>
+                <facebook translate="label" module="contests">
+                    <label>Facebook Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1002</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <appId translate="label">
+                            <label>Application ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </appId>
+                        <appSecret translate="label">
+                            <label>Application Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </appSecret>                       
+                    </fields>
+                </facebook>
 			</groups>
 		</contests>
 	</sections>

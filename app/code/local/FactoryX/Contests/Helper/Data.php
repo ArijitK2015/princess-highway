@@ -131,6 +131,14 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 				// Add secure hash
 				$customFields[] = array("Key"=>"securehash","Value"=>md5($fields['email'].$apiKey));
 				
+				// Add interests for Gorman
+				if (strpos(Mage::getBaseUrl(),"gormanshop.com.au") !== false)
+				{
+					$customFields[] = array("Key"=>"interests","Value"=>"clothing");
+					$customFields[] = array("Key"=>"interests","Value"=>"homewares");
+					$customFields[] = array("Key"=>"interests","Value"=>"sale");
+				}
+				
 				if (self::$subscribeToCampaignMonitor) {
     				$wrap = new CS_REST_Subscribers($listID, $apiKey);
     				$result = $wrap->add(
@@ -216,6 +224,14 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $result;
     }
+
+    public function getAppId(){
+    	return Mage::getStoreConfig('contests/facebook/appId');
+    }
+
+    public function getAppSecret(){
+    	return Mage::getStoreConfig('contests/facebook/appSecret');
+    }
 	
 	/**
 	 * Log data
@@ -225,5 +241,40 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 	{
 		Mage::log($data, null, $this->logFileName);
 	}
+	
+	/** Get subscriber status in CM
+     *  parameter - subscriber email
+     *  return null if there is a problem
+     * 	      0 for not found
+     *        1 for unsubscribed
+     *        2 for subscribed
+     */
+    public function getCMStatus($email)
+	{
+    	$apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
+    	$listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));
+    	try 
+        {
+            $client = new CS_REST_Subscribers($listID,$apiKey);
+            $result = $client->get($email);            
+            if ($result->http_status_code == 200) //200 means there is some details coming back
+            {
+            	if ($result->response->State == 'Active'){
+            		return 2;	
+            	}else{
+            		return 1;
+            	}            	
+            }elseif ($result->http_status_code == 400){ //400 means not found
+            	return 0;
+            }
+            return null;
+
+        } 
+		catch(Exception $e) 
+		{
+            Mage::helper('contests')->log($e->getMessage());            
+            return null;
+        }
+    }
 
 }

@@ -21,7 +21,7 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Grid extends Mage_Adminhtml_Blo
     protected function _prepareCollection() 
 	{
         $collection = Mage::getModel('contests/contest')->getCollection()
-							->addFieldToSelect(array('contest_id','title','identifier','status','start_date','end_date','type','added','list_image_url','is_in_list','is_popup'));
+							->addFieldToSelect(array('contest_id','title','identifier','status','start_date','end_date','type','added','list_image_url','is_in_list','is_popup','new_subscriber_counter'));
         $store = $this->_getStore();
         if ($store->getId()) 
 		{
@@ -128,6 +128,12 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Grid extends Mage_Adminhtml_Blo
                 0 => Mage::helper('contests')->__('No'),
                 1 => Mage::helper('contests')->__('Yes')
             ),
+        ));
+		
+		$this->addColumn('new_subscriber_counter', array(
+            'header' => Mage::helper('contests')->__('New Subscriber Counter'),
+            'align' => 'left',
+            'index' => 'new_subscriber_counter',
         ));
 		
 		$this->addColumn('added', array(

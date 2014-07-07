@@ -49,6 +49,14 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tabs extends Mage_Adminhtm
             'content'   => $this->getLayout()->createBlock('contests/adminhtml_contests_edit_tab_media')->toHtml(),
 			'active'	=> $active == 'media_tab' ? true : false
         ));
+
+        // Add the colour setting tab
+		$this->addTab('colour_tab', array(
+            'label'     => Mage::helper('contests')->__('Colour'),
+            'title'     => Mage::helper('contests')->__('Colour'),
+            'content'   => $this->getLayout()->createBlock('contests/adminhtml_contests_edit_tab_colour')->toHtml(),
+			'active'	=> $active == 'colour_tab' ? true : false
+        ));
 		
 		// Add the list tab
 		$this->addTab('list_tab', array(
