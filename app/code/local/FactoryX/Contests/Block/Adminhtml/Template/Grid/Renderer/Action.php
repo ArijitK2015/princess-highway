@@ -20,10 +20,38 @@ class FactoryX_Contests_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
             ),
             '#'	=> Mage::helper('customer')->__('Edit')
         );
+		
+		if (Mage::app()->isSingleStoreMode())
+		{
+			$viewUrl = $this->getUrl("contests/index/view", array('id' => $row->getId(),'_store' => 'default'));
+		}
+		else
+		{
+			// Database resources
+			$resource = Mage::getSingleton('core/resource');
+			$readConnection = $resource->getConnection('core_read');
+			
+			// Get the contest related stores
+			$query = "SELECT store_id 
+						FROM {$resource->getTableName('contests/store')}
+						WHERE contest_id = {$row->getId()}";
+			
+			// We use the first store URL even if there's several stores for the same lookbook
+			$contestStoreId = $readConnection->fetchOne($query);
+								
+			if ($contestStoreId)
+			{
+				$viewUrl = Mage::getUrl("contests/index/view",array('id' => $row->getId(),'_store'=>$contestStoreId));
+			}
+			else 
+			{
+				$viewUrl = Mage::getUrl("contests/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			}
+		}
 
         $actions[] = array(
             '@' => array(
-                'href'  => $this->getUrl("contests/index/view", array('id' => $row->getId(),'_store' => 'default')),
+                'href'  => $viewUrl,
                 'target'=>	'_blank'
             ),
             '#'	=> Mage::helper('customer')->__('View')
