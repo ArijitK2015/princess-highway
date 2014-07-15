@@ -65,40 +65,9 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 		// Array that will contain the data
 		$arrayBestSellers = array();
 		foreach ($bestSellers as $productSold)
-		{
-			// Get Sku and Name
-			$sku = $productSold->getData('sku');
-			$name = $productSold->getData('name');
-			
-			// If the sku is not set
-			if (!$sku)
-			{
-				// We get the sku by loading the product
-				$sku = Mage::getModel('catalog/product')->load($productSold->getEntityId())->getSku();
-				// If there's still no sku
-				if (!$sku)
-				{
-					// That means the product has been deleted
-					$sku = "UNKNOWN";
-				}
-			}
-			// If the name is not set
-			if (!$name)
-			{
-				// We get the name by loading the product
-				$name = Mage::getModel('catalog/product')->load($productSold->getEntityId())->getName();
-				// If there's still no name
-				if (!$name)
-				{
-					// That means the product has been deleted
-					$name = "PRODUCT NO LONGER EXISTS";
-				}
-			}
-			
+		{			
 			// We fill the array with the data
 			$arrayBestSellers[$productSold->getEntityId()] = array(
-				'sku'			=>	$sku,
-				'name'			=>	$name,
 				'ordered_qty'	=>	$productSold->getOrderedQty(),
 				'views'			=>	0,
 				'product_id'	=>	$productSold->getEntityId()
@@ -126,25 +95,8 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 			// Else it is a product that has never been sold
 			else
 			{
-				// Get Sku and Name
-				$sku = $productViewed->getSku();
-				$name = $productViewed->getName();
-				// If the sku is not set
-				if (!$sku)
-				{
-					// We get the sku by loading the product
-					$sku = Mage::getModel('catalog/product')->load($productViewed->getEntityId())->getSku();
-				}
-				// If the name is not set
-				if (!$name)
-				{
-					// We get the name by loading the product
-					$name = Mage::getModel('catalog/product')->load($productViewed->getEntityId())->getName();
-				}
 				// We fill the array with the data
 				$arrayBestSellers[$productViewed->getEntityId()] = array(
-					'sku'			=>	$sku,
-					'name'			=>	$name,
 					'ordered_qty'	=>	0,
 					'views'			=>	$productViewed->getViews(),
 					'product_id'	=>	$productViewed->getEntityId()
@@ -169,17 +121,26 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 			// If a product is an associated product
 			if (!empty($parentProduct) && isset($parentProduct[0]))
 			{
-				// Load the parent configurable product
-				$product = Mage::getModel('catalog/product')->load($parentProduct[0]);
+				// Get the parent configurable product id
+				$productId = $parentProduct[0];
 			}
 			else
 			{	
-				// Load the simple product
-				$product = Mage::getModel('catalog/product')->load($id);
+				// Get the simple product id
+				$productId = $id;
 			}
 			
 			// Get all categories of this product
-			$categories = $product->getCategoryCollection();
+			$categories = Mage::getResourceModel('catalog/category_collection')
+							->joinField('product_id',
+								'catalog/category_product',
+								'product_id',
+								'category_id = entity_id',
+								null)
+							->addAttributeToSelect('name')
+							->addAttributeToSelect('parent_id')
+							->addFieldToFilter('product_id', $productId);
+
 			// Export this collection to array so we could iterate on it's elements
 			$categories = $categories->exportToArray();
 			// Get categories names
@@ -187,10 +148,8 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 			{
 				// Get Category ID
 				$categoryID = $category['entity_id'];
-				// Load the category
-				$categoryLoaded = Mage::getModel('catalog/category')->load($categoryID);
 				// Get Category Name
-				$categoryName = $categoryLoaded->getName();
+				$categoryName = $category['name'];
 				
 				// If category already in the array, we add data
 				if (array_key_exists($categoryID, $arrayWorstSellers))
@@ -207,7 +166,7 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 					if (strtolower($categoryName)=='all')
 					{
 						// Get the parent category Name
-						$parentCategoryName = Mage::getModel('catalog/category')->load($categoryLoaded->getParentId())->getName();
+						$parentCategoryName = Mage::getModel('catalog/category')->load($category['parent_id'])->getName();
 						// Add the parent category name 
 						$categoryName = $parentCategoryName . " > " . $categoryName;
 					}

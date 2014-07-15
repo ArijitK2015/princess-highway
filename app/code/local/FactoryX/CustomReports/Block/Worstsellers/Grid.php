@@ -60,6 +60,8 @@ class FactoryX_CustomReports_Block_Worstsellers_Grid extends Mage_Adminhtml_Bloc
 			->addOrderedQty($from, $to)
 			->setOrder('ordered_qty');
 			
+		$bestSellers->getSelect()->join( array ('catalog_product' => Mage::getSingleton('core/resource')->getTableName('catalog/product')), 'catalog_product.entity_id = order_items.product_id', array('catalog_product.sku'));
+			
 		//echo $bestSellers->printlogquery(true);
 		
 		// Array that will contain the data
@@ -67,8 +69,8 @@ class FactoryX_CustomReports_Block_Worstsellers_Grid extends Mage_Adminhtml_Bloc
 		foreach ($bestSellers as $productSold)
 		{
 			// Get Sku and Name
-			$sku = $productSold->getData('sku');
-			$name = $productSold->getData('name');
+			$sku = $productSold->getData('sku') ? $productSold->getData('sku') : $productSold->getData('catalog_product.sku');
+			$name = $productSold->getData('name') ? $productSold->getData('name') : $productSold->getData('order_items_name');
 			
 			// If the sku is not set
 			if (!$sku)

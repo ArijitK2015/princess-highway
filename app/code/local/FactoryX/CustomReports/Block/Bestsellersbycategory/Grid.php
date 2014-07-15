@@ -78,28 +78,36 @@ class FactoryX_CustomReports_Block_Bestsellersbycategory_Grid extends AW_Advance
 			// If a product is an associated product
 			if (!empty($parentProduct) && isset($parentProduct[0]))
 			{
-				// Load the parent configurable product
-				$product = Mage::getModel('catalog/product')->load($parentProduct[0]);
+				// Get the parent configurable product id
+				$productId = $parentProduct[0];
 			}
 			else
 			{	
-				// Load the simple product
-				$product = Mage::getModel('catalog/product')->load($id);
+				// Get the simple product id
+				$productId = $id;
 			}
 			
 			// Get all categories of this product
-			$categories = $product->getCategoryCollection();
+			$categories = Mage::getResourceModel('catalog/category_collection')
+							->joinField('product_id',
+								'catalog/category_product',
+								'product_id',
+								'category_id = entity_id',
+								null)
+							->addAttributeToSelect('name')
+							->addAttributeToSelect('parent_id')
+							->addFieldToFilter('product_id', $productId);
+			
 			// Export this collection to array so we could iterate on it's elements
 			$categories = $categories->exportToArray();
+
 			// Get categories names
 			foreach($categories as $category)
 			{
 				// Get Category ID
 				$categoryID = $category['entity_id'];
-				// Load the category
-				$categoryLoaded = Mage::getModel('catalog/category')->load($categoryID);
 				// Get Category Name
-				$categoryName = $categoryLoaded->getName();
+				$categoryName = $category['name'];
 				
 				// If category already in the array, we add data
 				if (array_key_exists($categoryID, $arrayBestSellers))
@@ -116,7 +124,7 @@ class FactoryX_CustomReports_Block_Bestsellersbycategory_Grid extends AW_Advance
 					if (strtolower($categoryName)=='all')
 					{
 						// Get the parent category Name
-						$parentCategoryName = Mage::getModel('catalog/category')->load($categoryLoaded->getParentId())->getName();
+						$parentCategoryName = Mage::getModel('catalog/category')->load($category['parent_id'])->getName();
 						// Add the parent category name 
 						$categoryName = $parentCategoryName . " > " . $categoryName;
 					}
