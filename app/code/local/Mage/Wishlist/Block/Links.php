@@ -1,6 +1,6 @@
 <?php
 /**
-	Change wording and add getCacheTags
+	Change wording
 **/
 /**
  * Magento

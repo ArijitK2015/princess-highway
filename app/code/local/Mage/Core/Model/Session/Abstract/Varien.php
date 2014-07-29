@@ -55,10 +55,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
              * backward compatibility with db argument (option is @deprecated after 1.12.0.2)
              */
             case 'db':
-                ini_set('session.save_handler', 'user');
+                $moduleName = 'user';
+                /* @var $sessionResource Mage_Core_Model_Resource_Session */
                 $sessionResource = Mage::getResourceSingleton('core/session');
                 $sessionResource->setSaveHandler();
                 break;
+			case 'user':
+                // getSessionSavePath represents static function for custom session handler setup
+                call_user_func($this->getSessionSavePath());
             case 'memcache':
                 ini_set('session.save_handler', 'memcache');
                 session_save_path($this->getSessionSavePath());

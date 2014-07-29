@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_ExtendedCatalog>
+			<version>0.0.1</version>
+		</FactoryX_ExtendedCatalog>
+	</modules>
+ 
+	<global>
+		<models>
+			<catalogsearch_resource>
+				<rewrite>
+					<!-- Mage_CatalogSearch_Model_Resource_Fulltext -->
+					<fulltext>FactoryX_ExtendedCatalog_Model_CatalogSearch_Resource_Fulltext</fulltext>
+				</rewrite>
+			</catalogsearch_resource>
+			
+			<catalog>
+				<rewrite>
+					<!-- Mage_Catalog_Model_Config -->
+					<config>FactoryX_ExtendedCatalog_Model_Catalog_Config</config>
+					<!-- Mage_Catalog_Model_Product -->
+					<product>FactoryX_ExtendedCatalog_Model_Catalog_Product</product>
+				</rewrite>
+			</catalog>
+			
+			<catalog_resource>
+				<rewrite>
+					<!-- Mage_Catalog_Model_Resource_Category -->
+					<category>FactoryX_ExtendedCatalog_Model_Catalog_Resource_Category</category>
+					<!-- Mage_Catalog_Model_Resource_Product -->
+					<product>FactoryX_ExtendedCatalog_Model_Catalog_Resource_Product</product>
+				</rewrite>
+			</catalog_resource>
+		</models>
+		
+		<blocks>
+			<extendedcatalog>
+                <class>FactoryX_ExtendedCatalog_Block</class>
+            </extendedcatalog>
+			
+			<catalog>
+				<rewrite>
+					<!-- Mage_Catalog_Block_Product_Abstract -->
+					<product_abstract>FactoryX_ExtendedCatalog_Block_Catalog_Product_Abstract</product_abstract>
+					<!-- Mage_Catalog_Block_Product_List -->
+					<product_list>FactoryX_ExtendedCatalog_Block_Catalog_Product_List</product_list>
+					<!-- Mage_Catalog_Block_Product_View_Type_Configurable -->
+					<product_view_type_configurable>FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Type_Configurable</product_view_type_configurable>
+				</rewrite>
+			</catalog>
+		</blocks>
+	</global>
+	
+	<frontend>
+		<layout>
+			<updates>
+				<extendedcatalog module="FactoryX_ExtendedCatalog">
+					<file>factoryx/extendedcatalog.xml</file>
+				</extendedcatalog>
+			</updates>
+		</layout>
+	</frontend>
+</config>

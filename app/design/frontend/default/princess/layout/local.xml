@@ -254,7 +254,7 @@
 		<action method="unsetChild"><alias>info_tabs</alias></action>
 	</reference>
 	
-	<reference name="product.info">
+	<reference name="product.extendedinfo">
 		<!-- Add tabs -->
 		<block type="catalog/product_view_tabs" name="product.info.easytabs" as="info_easytabs">
 			<action method="setTemplate" ifconfig="easy_tabs/general/enabled"><template>easytabs/tabs.phtml</template></action>
@@ -431,7 +431,7 @@
 		<action method="setTemplate"><template>page/1column.phtml</template></action>
 	</reference>
 	<!-- Change default template -->
-	<reference name="product.info">
+	<reference name="product.extendedinfo">
 		<action method="setTemplate">
 			<template>catalog/product/view_bundle.phtml</template>
 		</action>

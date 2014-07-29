@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_BugFixes>
+			<version>0.0.1</version>
+		</FactoryX_BugFixes>
+	</modules>
+ 
+	<global>
+		<models>
+			<catalog>
+				<rewrite>
+					<!-- Mage_Catalog_Model_Category_Attribute_Backend_Image -->
+					<category_attribute_backend_image>FactoryX_BugFixes_Model_Catalog_Category_Attribute_Backend_Image</category_attribute_backend_image>
+				</rewrite>
+			</catalog>
+			<importexport>
+				<rewrite>
+					<!-- Mage_ImportExport_Model_Export_Entity_Abstract -->
+					<export_entity_abstract>FactoryX_BugFixes_Model_ImportExport_Export_Entity_Abstract</export_entity_abstract>
+					<!-- Mage_ImportExport_Model_Export_Entity_Product -->
+					<export_entity_product>FactoryX_BugFixes_Model_ImportExport_Export_Entity_Product</export_entity_product>
+				</rewrite>
+			</importexport>
+		</models>
+		
+		<blocks>
+			<adminhtml>
+				<rewrite>
+					<!-- Mage_Adminhtml_Block_Widget_Grid -->
+					<widget_grid>FactoryX_BugFixes_Block_Adminhtml_Widget_Grid</widget_grid>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+
+	</global>
+</config>
