@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_ReviewCaptcha>
+			<version>0.0.1</version>
+		</FactoryX_ReviewCaptcha>
+	</modules>
+	
+	<global>
+        <blocks>
+            <review>
+                <rewrite>
+                    <form>FactoryX_ReviewCaptcha_Block_Form</form>
+                </rewrite>
+            </review>
+        </blocks>
+    </global>
+	
+	<frontend>
+		<routers>
+			<review_captcha>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_ReviewCaptcha</module>
+					<frontName>reviewcaptcha</frontName>
+				</args>
+			</review_captcha>
+		</routers>
+
+        <layout>
+            <updates>
+                <review_captcha>
+                    <file>factoryx/reviewcaptcha.xml</file>
+                </review_captcha>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+		<!-- Required for the in built Magento Captcha -->
+		<captcha>
+			<frontend>
+				<areas>
+					<review_captcha>
+						<label>Product Review Form</label>
+					</review_captcha>
+				</areas>
+			</frontend>
+		</captcha>
+		<customer>
+			<captcha>
+				<always_for>
+					<review_captcha>1</review_captcha>
+				</always_for>
+			</captcha>
+		</customer>
+	</default>
+</config>

@@ -313,7 +313,8 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 				$lastname = $fname[1];
 			}
 			
-			if (Mage::helper('contests')->getCMStatus($postObject['email']) && Mage::helper('contests')->getCMStatus($postObject['email']) != 2)
+			// Increase the new subscriber counter
+			if (!is_null(Mage::helper('contests')->getCMStatus($postObject['email'])) && Mage::helper('contests')->getCMStatus($postObject['email']) != 2)
 			{
 				$newSubscriberCounter = $contest->getNewSubscriberCounter();
 				$newSubscriberCounter++;

@@ -59,6 +59,10 @@
                   <?php
         // <div class="form-actions">
         ?>
+		
+					<?php // Call the Magento Captcha system ?>
+					<?php echo $this->getChildHtml('form.additional.info') ?>
+			
         			<div>
                         <button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button btn writeareview"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
                     </div>

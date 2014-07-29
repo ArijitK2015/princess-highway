@@ -313,6 +313,15 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
 				$lastname = $fname[1];
 			}
 			
+			// Increase the new subscriber counter
+			if (!is_null(Mage::helper('contests')->getCMStatus($postObject['email'])) && Mage::helper('contests')->getCMStatus($postObject['email']) != 2)
+			{
+				$newSubscriberCounter = $contest->getNewSubscriberCounter();
+				$newSubscriberCounter++;
+				$contest->setNewSubscriberCounter($newSubscriberCounter);
+				$contest->save();
+			}
+			
             Mage::helper('contests')->subscribeToCampaignMonitor(
             	array(
             	    /*
