@@ -10,7 +10,7 @@ class FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Product extends Factor
 		$this->addData(
 			array(
 				'cache_lifetime' => 86400,
-				'cache_key' => $this->makeCacheKey()
+				'cache_tags' => $this->getCacheTags()
 			)
 		);
 	}
@@ -20,23 +20,25 @@ class FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Product extends Factor
 		return array(Mage_Catalog_Model_Product::CACHE_TAG);
 	}
 		
-	public function getCacheKey() 
+	public function getCacheKeyInfo() 
 	{
-		if (!$this->hasData('cache_key')) 
-		{
-			$cacheKey = $this->makeCacheKey();
-			$this->setCacheKey($cacheKey);
-		}
-		return $this->getData('cache_key');
-	}	
+		$cacheKey = array();
 		
-	private function makeCacheKey() 
-	{
+		// ID of data in the cache
+		$cacheKey[] = "EXTENDEDCATALOG_PRODUCT";
+		// Store ID
+		$cacheKey[] = Mage::app()->getStore()->getId();
+		// SSL
+		$cacheKey[] = (int)Mage::app()->getStore()->isCurrentlySecure();
+		// Package
+		$cacheKey[] = Mage::getDesign()->getPackageName();
+		// Theme
+		$cacheKey[] = Mage::getDesign()->getTheme('template');
+		// Logged In ?
+		$cacheKey[] = Mage::getSingleton('customer/session')->isLoggedIn();
 		// Product ID
-		$prodId = $this->getRequest()->getRequestUri();
-		// Generate cache key based on store ID, theme and product ID
-		$cacheKey = sprintf("PRODUCT_%d_%s_%s", Mage::app()->getStore()->getId(), Mage::getSingleton('core/design_package')->getPackageName(), $prodId);
-
+		$cacheKey[] = $this->getRequest()->getRequestUri();
+		
 		return $cacheKey;
 	}
 		
