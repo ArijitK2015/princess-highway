@@ -339,7 +339,11 @@ foreach($options as $option)
 	var productid=jQuery('input[name$="product"]').val();
 		
 	jQuery(document).ready(function(){
-
+		// Replace the original default price with -
+		var price = jQuery('.price-as-configured .price').html();
+		price = price.replace(price.substring(1),'-');
+		jQuery('.price-as-configured .price').html(price);
+			
 		for(var p in products) {
 			var selector = jQuery('#bundle-color-' + p);
 			jQuery('#bundle-size-' + p).append(new Option('Choose a size ...',''))
