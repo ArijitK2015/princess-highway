@@ -4,6 +4,11 @@
         <FactoryX_CampaignMonitor>
             <active>true</active>
             <codePool>local</codePool>
+			<depends>
+				<Mage_Checkout />
+				<!-- To double override -->
+				<Temando_Temando />
+			</depends>
         </FactoryX_CampaignMonitor>
     </modules>
 </config> 

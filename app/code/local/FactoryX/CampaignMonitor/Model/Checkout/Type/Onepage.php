@@ -1,6 +1,6 @@
 <?php
 
-class FactoryX_CampaignMonitor_Model_Checkout_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
+class FactoryX_CampaignMonitor_Model_Checkout_Type_Onepage extends FactoryX_CampaignMonitor_Model_Checkout_Type_Onepage_Abstract
 {
     public function saveBilling($data, $customerAddressId)
     {

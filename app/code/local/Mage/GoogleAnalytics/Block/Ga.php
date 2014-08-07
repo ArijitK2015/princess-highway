@@ -137,12 +137,50 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
                 $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
             );
             foreach ($order->getAllVisibleItems() as $item) {
+				
+				// Get all categories of this product
+				$categories = Mage::getResourceModel('catalog/category_collection')
+								->joinField('product_id',
+									'catalog/category_product',
+									'product_id',
+									'category_id = entity_id',
+									null)
+								->addAttributeToSelect('name')
+								->addAttributeToSelect('parent_id')
+								->addFieldToFilter('product_id', $_item->getProductId());
+				
+				// Export this collection to array so we could iterate on it's elements
+				$categories = $categories->exportToArray();
+				
+				$categoryList = array();
+				
+				// Get categories names
+				foreach($categories as $category)
+				{
+					// Get Category Name
+					$categoryName = $category['name'];
+					
+					// For the categories called 'ALL' we need to add the parent category name 
+					if (strtolower($categoryName)=='all')
+					{
+						// Get the parent category Name
+						$parentCategoryName = Mage::getModel('catalog/category')->load($category['parent_id'])->getName();
+						// Add the parent category name 
+						$categoryName = $parentCategoryName . " > " . $categoryName;
+					}
+					
+					$categoryList[] = $categoryName;
+				}
+				
+				$categoryList = implode("|",$categoryList);
+				
                 $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
                     $order->getIncrementId(),
                     $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
-                    null, // there is no "category" defined for the order item
+                    $categoryList,
                     $item->getBasePrice(), $item->getQtyOrdered()
                 );
+				
             }
             $result[] = "_gaq.push(['_trackTrans']);";
         }

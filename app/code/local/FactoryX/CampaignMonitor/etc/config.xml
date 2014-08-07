@@ -3,7 +3,7 @@
 	
 	<modules>
         <FactoryX_CampaignMonitor>
-            <version>0.7.2</version>
+            <version>0.7.3</version>
         </FactoryX_CampaignMonitor>
     </modules>
     
@@ -97,6 +97,7 @@
 			<!-- Override original checkout onepage model -->
 			<checkout>
         		<rewrite>
+					<!-- Mage_Checkout_Model_Type_Onepage -->
         			<type_onepage>FactoryX_CampaignMonitor_Model_Checkout_Type_Onepage</type_onepage>
         		</rewrite>
         	</checkout>

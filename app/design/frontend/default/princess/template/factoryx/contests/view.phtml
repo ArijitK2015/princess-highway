@@ -93,7 +93,7 @@ else
         <div>
 
             <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
-                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $contest->getId() ?>" />
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $this->getRequest()->getParam('id') ?>" />
                 <table class="table1" border="0" width="100%">
                     <tr>
                         <td class="heading1">
@@ -300,7 +300,7 @@ else
 
             <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
 
-                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $contest->getId() ?>" />
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $this->getRequest()->getParam('id') ?>" />
                 <table border="0" width="100%" class="tbl1">
 
                     <tr>
