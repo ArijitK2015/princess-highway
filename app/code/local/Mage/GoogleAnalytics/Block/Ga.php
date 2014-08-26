@@ -147,7 +147,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 									null)
 								->addAttributeToSelect('name')
 								->addAttributeToSelect('parent_id')
-								->addFieldToFilter('product_id', $_item->getProductId());
+								->addFieldToFilter('product_id', $item->getProductId());
 				
 				// Export this collection to array so we could iterate on it's elements
 				$categories = $categories->exportToArray();
