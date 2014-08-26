@@ -12,11 +12,11 @@ class FactoryX_ProductExport_Catalog_ProductController extends Mage_Adminhtml_Ca
         }
         else {
             //write headers to the csv file
-            $content = "id,name,url,sku\n";
+            $content = "id,name,url,sku,price,special_price\n";
             try {
                 foreach ($productIds as $productId) {
                     $product = Mage::getSingleton('catalog/product')->load($productId);
-                    $content .= "\"{$product->getId()}\",\"{$product->getName()}\",\"{$product->getProductUrl()}\",\"{$product->getSku()}\"\n";
+                    $content .= "\"{$product->getId()}\",\"{$product->getName()}\",\"{$product->getProductUrl()}\",\"{$product->getSku()}\",\"{$product->getPrice()}\",\"{$product->getSpecialPrice()}\"\n";
                 }
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
