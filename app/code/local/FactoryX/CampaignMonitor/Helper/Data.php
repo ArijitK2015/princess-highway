@@ -60,6 +60,9 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
 		$apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
         $listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));
 		
+		// get session
+        $session = Mage::getSingleton('core/session');
+		
 		try 
 		{
 			$client = new CS_REST_Lists($listID,$apiKey);

@@ -13,10 +13,13 @@ class Balanced_CustomerSurvey_IndexController extends Mage_Core_Controller_Front
 		// Message when redirected from the Campaign Monitor unsubscription link
 		if (strpos ($this->getRequest()->getServer('HTTP_REFERER'), "http://factoryx.cmail1.com") !== FALSE || strpos ($this->getRequest()->getServer('HTTP_REFERER'), "http://factoryx.cmail2.com") !== FALSE)
 		{
-			Mage::getSingleton('customer/session')->addSuccess($this->__('You were successfully unsubscribed'));
+			Mage::getSingleton('core/session')->addSuccess($this->__('You were successfully unsubscribed'));
 		}
 		
 		$this->loadLayout(); 
+		
+		// Initiate the session messages
+		$this->_initLayoutMessages('core/session');
 		
 		$this->renderLayout();
 
@@ -33,9 +36,16 @@ class Balanced_CustomerSurvey_IndexController extends Mage_Core_Controller_Front
 		//first get the survey id that we are looking at.
 		$surveyID = $this->getRequest()->getParam('survey_number');
 
-		if (array_key_exists('rand',$_SESSION) && intval($this->getRequest()->getParam('rand')) != intval($_SESSION['rand'])){
-			echo "<script>window.history.back();</script>";
-			Mage::getSingleton('core/session')->addError('Answer for the calculation is wrong. Please try again.');
+		try
+		{
+			if (array_key_exists('rand',$_SESSION) && intval($this->getRequest()->getParam('rand')) != intval($_SESSION['rand'])){
+						throw new Exception ('Answer for the calculation is wrong. Please try again.');
+			}
+		}
+		catch (Exception $e)
+		{
+			Mage::getSingleton('customer/session')->addException($e, $e->getMessage());
+			$this->_redirectReferer();
 			return;
 		}
 
