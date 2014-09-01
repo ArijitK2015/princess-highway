@@ -5,7 +5,7 @@ $imageUrl = sprintf("%s/homepage%s", $relMediaPath, $this->getImage()->getUrl())
 if (is_file($imagePath)) {
 	list($width, $height, $type, $attr) = getimagesize($imagePath); ?>
 	<?php if ($link = $this->getImage()->getLink()): ?>
-		<a href="<?php echo $link ?>">
+		<a <?php if ($this->getImage()->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
 	<?php endif; ?>
 		<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $this->getImage()->getAlt(); ?>" /> 
 	<?php if ($link): ?>
