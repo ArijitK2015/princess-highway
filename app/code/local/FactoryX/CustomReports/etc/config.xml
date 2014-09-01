@@ -2,7 +2,7 @@
 <config>
 	<modules> 
 		<FactoryX_CustomReports> 
-			<version>0.0.11</version> 
+			<version>0.0.12</version> 
 		</FactoryX_CustomReports> 
 	</modules>
 	
@@ -33,6 +33,15 @@
     </adminhtml>
 	
 	<global>
+		<models>
+			<reports_resource>
+				<rewrite>
+					<!-- Mage_Reports_Model_Resource_Product_Collection -->
+					<product_collection>FactoryX_CustomReports_Model_Reports_Resource_Product_Collection</product_collection>
+				</rewrite>
+			</reports_resource>
+		</models>
+		
 		<blocks>
 			<customreports>
 				<class>FactoryX_CustomReports_Block</class>

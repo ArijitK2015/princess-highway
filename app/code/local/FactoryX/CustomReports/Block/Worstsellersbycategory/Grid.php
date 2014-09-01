@@ -1,5 +1,5 @@
 <?php
-class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advancedreports_Block_Advanced_Bestsellers_Grid
+class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
     public function __construct()
@@ -22,18 +22,25 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 		if ($session->getFrom())
 		{
 			$sDate = $session->getFrom();
+			$sDate = str_replace('/', '-', $sDate);
+			$sDate = strtotime($sDate);
+			$sDate = date('Y-m-d H:i:s', $sDate); 
 		}
-        else
+		else
 		{
 			$sDate = date('Y-m-d 00:00:00',
 				Mage::getModel('core/date')->timestamp(strtotime('-30 days'))
 			);
 		}
+		
 		if ($session->getTo())
 		{
 			$eDate = $session->getTo();
+			$eDate = str_replace('/', '-', $eDate);
+			$eDate = strtotime($eDate);
+			$eDate = date('Y-m-d H:i:s', $eDate); 
 		}
-        else
+		else
 		{
 			$eDate = date('Y-m-d 23:59:59', 
 				Mage::getModel('core/date')->timestamp(time())
@@ -54,10 +61,10 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends AW_Advanc
 		$to = $end->toString("Y-MM-dd HH:mm:ss");
 		
 		
-		// Get the products with their ordered quantity
+		// Get the bestsellers product using Magento collection
 		$bestSellers = Mage::getResourceModel('reports/product_collection')
+			->addOrderedQtyAndTotal($sDate, $eDate)
 			->addAttributeToSelect('*')
-			->addOrderedQty($from, $to)
 			->setOrder('ordered_qty');
 			
 		//echo $bestSellers->printlogquery(true);

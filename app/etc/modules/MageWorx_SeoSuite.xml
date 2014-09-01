@@ -42,11 +42,5 @@
             <codePool>local</codePool>
             <extension_name>SEO Suite Ultimate</extension_name>
         </MageWorx_SeoSuite>
-        <Yoast_CanonicalUrl>
-            <active>false</active>
-        </Yoast_CanonicalUrl>
-        <Yoast_MetaRobots>
-            <active>false</active>
-        </Yoast_MetaRobots>	
     </modules>
 </config>
