@@ -11,105 +11,105 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
     //     $confirmEmail : are we sending email to the subscriber for successful subscription?
     //
     public function subscribeWithDetails($params,$confirmEmail = true, $sync = false, $update = false, $first = false){   
-        // load email (incase this is existing subscriber that unsubscribed)
-        $email = $params['email'];
-        if (!$email) return;
-        $this->loadByEmail($params['email']);
-        //if (!$this->getId()) return;
+		try {
+			// load email (incase this is existing subscriber that unsubscribed)
+			$email = $params['email'];
+			if (!$email) return;
+			$this->loadByEmail($params['email']);
+			//if (!$this->getId()) return;
 
 
-        // Is this an unsubscription :(
-        if (isset($params['unsubscribe']) && $params['unsubscribe'] == 1){
-            $this->setStatus(self::STATUS_UNSUBSCRIBED);
-            $this->save();            
-            return true;
-        }
+			// Is this an unsubscription :(
+			if (isset($params['unsubscribe']) && $params['unsubscribe'] == 1){
+				$this->setStatus(self::STATUS_UNSUBSCRIBED);
+				$this->save();            
+				return true;
+			}
 
-        //$customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($email);
-        //if ($customer) {$customer->setIsSubscribed(true);$customer->setData('website_id',$this->getStoreId());$customer->save();}
-        // Just an update? Easy peasy 
-        
-        if ($update){
-            foreach ($params as $key => $value){
-                $this->setData($key,$value);
-            }            
-            $this->save();                     
-            return true;
-        }
-        
-        // Get API key for secure hash comparison in order to decide if we need to return information
-        $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
-        $listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));     
-        $isUpdate = false;
-        
-        if ($sync){
-            // mapping between CM and MAGENTO subscriber model          
-            $mapping = $this->generateMapping('campaignmonitor','subscriber');            
-            $params = $this->getCMData($email);
-        }else{
-            // mapping between FORM and MAGENTO subscriber model
-            $mapping = $this->generateMapping('formfields','subscriber');
-            // for some reason the DOB is not playing nice from the form, so we clean them
-            if (array_key_exists('dob',$params) && $params['dob']){
-                $date = new Zend_Date($params['dob'], 'd/M/Y');
-                //$date = DateTime::createFromFormat('d/m/Y', $params['dob']);
-                $params['dob'] = $date->toString('M/d/Y');      
-            } 
-        }
+			//$customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($email);
+			//if ($customer) {$customer->setIsSubscribed(true);$customer->setData('website_id',$this->getStoreId());$customer->save();}
+			// Just an update? Easy peasy 
+			
+			if ($update){
+				foreach ($params as $key => $value){
+					$this->setData($key,$value);
+				}            
+				$this->save();                     
+				return true;
+			}
+			
+			// Get API key for secure hash comparison in order to decide if we need to return information
+			$apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
+			$listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));     
+			$isUpdate = false;
+			
+			if ($sync){
+				// mapping between CM and MAGENTO subscriber model          
+				$mapping = $this->generateMapping('campaignmonitor','subscriber');            
+				$params = $this->getCMData($email);
+			}else{
+				// mapping between FORM and MAGENTO subscriber model
+				$mapping = $this->generateMapping('formfields','subscriber');
+				// for some reason the DOB is not playing nice from the form, so we clean them
+				if (array_key_exists('dob',$params) && $params['dob']){
+					$date = new Zend_Date($params['dob'], 'd/M/Y');
+					//$date = DateTime::createFromFormat('d/m/Y', $params['dob']);
+					$params['dob'] = $date->toString('M/d/Y');      
+				} 
+			}
 
-        // map mobile to yes if value = 1
-        if ((isset($params['is_subscribed_sms']) && $params['is_subscribed_sms'] == 1) || !empty($params['mobile']) || !empty($params['Mobile'])){$params['is_subscribed_sms'] = 'YES';}
+			// map mobile to yes if value = 1
+			if ((isset($params['is_subscribed_sms']) && $params['is_subscribed_sms'] == 1) || !empty($params['mobile']) || !empty($params['Mobile'])){$params['is_subscribed_sms'] = 'YES';}
 
-        // set the data from form to model
-        foreach ($params as $key => $param){
-            if (!isset($mapping[$key])){
-                // this is some information that we won't know how to store in magento, so we log
-                Mage::helper('campaignmonitor')->log("FactoryX_CampaignMonitor_Model_Subscriber: ".$key." is not defined in magento subscriber mapping.");
-            }elseif (!empty($param) && !empty($mapping[$key])){
-                $this->setData($mapping[$key],$param);
-            }
-        }      
+			// set the data from form to model
+			foreach ($params as $key => $param){
+				if (!isset($mapping[$key])){
+					// this is some information that we won't know how to store in magento, so we log
+					Mage::helper('campaignmonitor')->log("FactoryX_CampaignMonitor_Model_Subscriber: ".$key." is not defined in magento subscriber mapping.");
+				}elseif (!empty($param) && !empty($mapping[$key])){
+					$this->setData($mapping[$key],$param);
+				}
+			}      
 
-        // Set securehash
-        $this->setData('subscriber_securehash',md5($email.$apiKey));          
-        // Set subscription date
-        $this->setData('subscriber_subscriptiondate',date("Y-m-d H:i:s"));
+			// Set securehash
+			$this->setData('subscriber_securehash',md5($email.$apiKey));          
+			// Set subscription date
+			$this->setData('subscriber_subscriptiondate',date("Y-m-d H:i:s"));
 
-        // Coupon stuff
-        $helper = Mage::helper('campaignmonitor');
-        if ((!$sync || $first) && $helper->isCouponEnabled() && $confirmEmail) {
-            //Mage::helper('campaignmonitor')->log(sprintf("%s->isCouponEnabled=%s", __METHOD__, $helper->isCouponEnabled()) );
-            $couponcode = $this->generatePromocode(
-                $email,
-                $helper->getCouponMinSpend(),
-                $helper->getCouponValue(),
-                $helper->getCouponOffer(),
-                $helper->getCouponPrefix(),
-                $helper->getCouponValidity()
-            );
-            //Mage::helper('campaignmonitor')->log(sprintf("%s->couponcode=%s", __METHOD__, $couponcode) );                
-            if ($couponcode) {
-                $this->setSubscriberCoupon($couponcode);
-            }
-        }
+			// Coupon stuff
+			$helper = Mage::helper('campaignmonitor');
+			if ((!$sync || $first) && $helper->isCouponEnabled() && $confirmEmail) {
+				//Mage::helper('campaignmonitor')->log(sprintf("%s->isCouponEnabled=%s", __METHOD__, $helper->isCouponEnabled()) );
+				$couponcode = $this->generatePromocode(
+					$email,
+					$helper->getCouponMinSpend(),
+					$helper->getCouponValue(),
+					$helper->getCouponOffer(),
+					$helper->getCouponPrefix(),
+					$helper->getCouponValidity()
+				);
+				//Mage::helper('campaignmonitor')->log(sprintf("%s->couponcode=%s", __METHOD__, $couponcode) );                
+				if ($couponcode) {
+					$this->setSubscriberCoupon($couponcode);
+				}
+			}
 
-        // set subscriber status to subscribed
-        $this->setStatus(self::STATUS_SUBSCRIBED);
-        $this->setIsStatusChanged(true);
+			// set subscriber status to subscribed
+			$this->setStatus(self::STATUS_SUBSCRIBED);
+			$this->setIsStatusChanged(true);
 
-        // check if the customer is logged in and the email is matched
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customer = Mage::getSingleton('customer/session');
-            $customerData = Mage::getModel('customer/customer')->load($customer->getId())->getData();
-            if ($email == $customerData['email']){
-                $this->setCustomerId($customerData['entity_id']);
-            }
-        }
-        
-        // set store
-        $this->setStoreId(Mage::app()->getStore()->getId());
+			// check if the customer is logged in and the email is matched
+			if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+				$customer = Mage::getSingleton('customer/session');
+				$customerData = Mage::getModel('customer/customer')->load($customer->getId())->getData();
+				if ($email == $customerData['email']){
+					$this->setCustomerId($customerData['entity_id']);
+				}
+			}
+			
+			// set store
+			$this->setStoreId(Mage::app()->getStore()->getId());
 
-        try {
             $this->save();
             if ($confirmEmail || $first) {              
                 $this->sendConfirmationSuccessEmail();

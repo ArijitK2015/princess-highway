@@ -40,6 +40,13 @@ class FactoryX_Contests_Block_Adminhtml_Referrers_Grid extends Mage_Adminhtml_Bl
             'index' => 'contest_title',
 			'filter_index'	=>	'contest.title',
         ));
+		
+		$this->addColumn('contest_id', array(
+            'header' => Mage::helper('contests')->__('Contest #'),
+            'width' => '50px',
+            'index' => 'contest_id',
+			'filter_index'	=>	'contest.contest_id',
+        ));
 
         $this->addColumn('email', array(
             'header' => Mage::helper('contests')->__('Email'),
