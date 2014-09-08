@@ -1,10 +1,10 @@
 /*.col-main {padding:0 !important;}*/
-#slides {
+.slides {
     overflow: visible !important;position:relative;
     background: url(../../images/loading.gif) no-repeat center center;
 }
 
-#slides .slidesjs-previous,#slides .slidesjs-next {
+.slides .slidesjs-previous,.slides .slidesjs-next {
     position:absolute;
     left: -27px;
     width:24px;

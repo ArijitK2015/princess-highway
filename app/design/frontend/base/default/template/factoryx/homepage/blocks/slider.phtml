@@ -1,6 +1,8 @@
-<div id="slidercontainer" style="height:825px;width:550px">
-
-	<div id="slides">
+<?php
+	$randomString = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1) . substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+?>
+<div id="slidercontainer-<?php echo $randomString ?>" style="height:825px;width:550px">
+	<div class="slides" id="slides-<?php echo $randomString ?>">
 		<?php 
 		$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
 		$slideHeight = "";
@@ -45,12 +47,12 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		jQuery("#slidercontainer").css('width', '<?php echo $slideWidth ?>px');
-		jQuery("#slidercontainer").css('height', '<?php echo $slideHeight ?>px');
-		jQuery("#slides .slidesjs-previous").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
-		jQuery("#slides .slidesjs-next").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
-		jQuery("#slides .slidesjs-next").css('left','<?php echo $slideWidth+3 ?>px');
-		jQuery("#slides").slidesjs({
+		jQuery("#slidercontainer-<?php echo $randomString ?>").css('width', '<?php echo $slideWidth ?>px');
+		jQuery("#slidercontainer-<?php echo $randomString ?>").css('height', '<?php echo $slideHeight ?>px');
+		jQuery("#slides-<?php echo $randomString ?> .slidesjs-previous").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
+		jQuery("#slides-<?php echo $randomString ?> .slidesjs-next").css('top','<?php echo ceil($slideHeight/2)-10 ?>px');
+		jQuery("#slides-<?php echo $randomString ?> .slidesjs-next").css('left','<?php echo $slideWidth+3 ?>px');
+		jQuery("#slides-<?php echo $randomString ?>").slidesjs({
 			width: <?php echo $slideWidth ?>,
 			height: <?php echo $slideHeight ?>,
 			navigation:{active:false},
