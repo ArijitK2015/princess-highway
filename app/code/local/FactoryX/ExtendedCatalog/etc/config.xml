@@ -2,12 +2,16 @@
 <config>
 	<modules>
 		<FactoryX_ExtendedCatalog>
-			<version>0.0.1</version>
+			<version>0.0.4</version>
 		</FactoryX_ExtendedCatalog>
 	</modules>
  
 	<global>
 		<models>
+			<extendedcatalog>
+                <class>FactoryX_ExtendedCatalog_Model</class>
+            </extendedcatalog>
+			
 			<catalogsearch_resource>
 				<rewrite>
 					<!-- Mage_CatalogSearch_Model_Resource_Fulltext -->
@@ -50,6 +54,17 @@
 				</rewrite>
 			</catalog>
 		</blocks>
+		
+		<events>
+            <controller_action_predispatch>
+                <observers>
+                    <controller_action_before>
+                        <class>extendedcatalog/observer</class>
+                        <method>disableCsrf</method>
+                    </controller_action_before>
+                </observers>
+            </controller_action_predispatch>
+        </events>
 	</global>
 	
 	<frontend>
