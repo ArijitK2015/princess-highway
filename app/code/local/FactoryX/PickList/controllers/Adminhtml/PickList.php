@@ -1246,7 +1246,12 @@ class PickList {
 	
 
 	function getProductWeight($product_id) {
-    	$_product = Mage::getModel('catalog/product')->load($product_id);
+    	$collection = Mage::getResourceModel('catalog/product_collection')
+			->addFieldToFilter('entity_id', array($product_id))
+			->addAttributeToSelect(array($this->defaultWeightField))
+			->setPageSize(1);
+		
+		$_product = $collection->getFirstItem();
     	//Mage::helper('picklist')->log(sprintf("product_id: %s, %s", $product_id, $this->defaultWeightField) );
         $weight = $_product->getData($this->defaultWeightField);
         //$weight = $_product->getWeight();

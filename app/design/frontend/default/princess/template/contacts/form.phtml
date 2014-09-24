@@ -8,7 +8,12 @@ $productId = Mage::app()->getRequest()->getParam('id');
 $soon = Mage::app()->getRequest()->getParam('soon'); 
 //echo "productId=" . $productId;
 
-$product = Mage::getModel('catalog/product')->load($productId);
+$collection = Mage::getResourceModel('catalog/product_collection')
+	->addFieldToFilter('entity_id', array($productId))
+	->addAttributeToSelect(array('name'))
+	->setPageSize(1);
+	
+$product = $collection->getFirstItem();
 //print_r($product);
 
 $name = "";

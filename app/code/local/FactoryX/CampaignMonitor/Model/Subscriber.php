@@ -101,9 +101,14 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
 			// check if the customer is logged in and the email is matched
 			if (Mage::getSingleton('customer/session')->isLoggedIn()) {
 				$customer = Mage::getSingleton('customer/session');
-				$customerData = Mage::getModel('customer/customer')->load($customer->getId())->getData();
-				if ($email == $customerData['email']){
-					$this->setCustomerId($customerData['entity_id']);
+				$collection = Mage::getResourceModel('customer/customer_collection')
+					->addFieldToFilter('entity_id', array($customer->getId()))
+					->addAttributeToSelect(array('email'))
+					->setPageSize(1);				
+					
+				$customerEmail = $collection->getFirstItem()->getEmail();
+				if ($email == $customerEmail){
+					$this->setCustomerId($customer->getId());
 				}
 			}
 			

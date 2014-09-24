@@ -4,8 +4,10 @@ class FactoryX_CustomReports_Block_Wishlist extends FactoryX_CustomReports_Block
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('factoryx/customreports/grid.phtml');
+        $this->setTemplate('factoryx/customreports/advancedgrid.phtml');
 		$this->setTitle('Wishlist Report');
+		// Set the right URL for the form which handles the dates
+		$this->setFormAction(Mage::getUrl('*/*/index'));
     }
 
     public function _beforeToHtml()

@@ -14,8 +14,12 @@ class FactoryX_ProductExport_Catalog_ProductController extends Mage_Adminhtml_Ca
             //write headers to the csv file
             $content = "id,name,url,sku,price,special_price\n";
             try {
-                foreach ($productIds as $productId) {
-                    $product = Mage::getSingleton('catalog/product')->load($productId);
+			
+				$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($productIds))
+					->addAttributeToSelect(array('entity_id','name','product_url','sku','price','special_price'));
+				
+                foreach ($collection as $product) {
                     $content .= "\"{$product->getId()}\",\"{$product->getName()}\",\"{$product->getProductUrl()}\",\"{$product->getSku()}\",\"{$product->getPrice()}\",\"{$product->getSpecialPrice()}\"\n";
                 }
             } catch (Exception $e) {

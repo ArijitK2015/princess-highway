@@ -3,10 +3,7 @@
 	<modules>
 		<FactoryX_CustomReports>
 			<active>true</active>
-			<codePool>local</codePool>
-			<depends>
-				<AW_Advancedreports />
-			</depends> 
+			<codePool>local</codePool> 
 		</FactoryX_CustomReports>
 	</modules>
 </config>

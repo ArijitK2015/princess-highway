@@ -35,7 +35,12 @@ if (Mage::helper('westfield')->isEnabled() && $session->getData("from_westfield"
         switch ($productType) {
             case 'simple':
                 // ignore parents, as we are only interested in simples
-                $product = Mage::getModel('catalog/product')->load($item->getProductId());                
+				$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($item->getProductId()))
+					->addAttributeToSelect(array('visibility'))
+					->setPageSize(1);				
+					
+				$product = $collection->getFirstItem();                
                 // get a category for each product in the order
                 // check if its part of a configurable or bundle
                 if ($product->getVisibility() == Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) {
@@ -43,15 +48,18 @@ if (Mage::helper('westfield')->isEnabled() && $session->getData("from_westfield"
                     if ($parentItem) {
                 		$itemPrice = number_format($parentItem->getPriceInclTax() - $parentItem->getDiscountAmount(), 2, '.','');
                 		$qty = $parentItem->getQtyOrdered();
-                		$product = Mage::getModel('catalog/product')->load($parentItem->getProductId());
-                		$categories = $product->getCategoryIds();
+                		$categories = Mage::getResourceModel('catalog/category_collection')
+							->joinField('product_id',
+								'catalog/category_product',
+								'product_id',
+								'category_id = entity_id',
+								null)
+							->addAttributeToSelect('name')
+							->addFieldToFilter('product_id', $parentItem->getProductId());
+                		$categories = $categories->exportToArray();
                 		// get the first category assigned to the item.  This is retailer specific
                 		if (count($categories)) {
-                			foreach ($categories as $categoryId) {
-                				$_cat = Mage::getModel('catalog/category')->load($categoryId);
-                				$itemCategory = $_cat->getName();
-                				break;
-                			}
+							$itemCategory = $categories[0]['name'];
                 		}
                 	}
                 }
@@ -59,16 +67,19 @@ if (Mage::helper('westfield')->isEnabled() && $session->getData("from_westfield"
             		$itemPrice = number_format($item->getPriceInclTax() - $item->getDiscountAmount(), 2, '.','');
             		$qty = $item->getQtyOrdered();
                     // get category
-    			    $categories = $product->getCategoryIds();
-    			    // get the first category assigned to the item.  This is retailer specific
-    			    if (count($categories)) {
-    			        $itemCategory = "";
-        			    foreach ($categories as $categoryId) {
-        				    $_cat = Mage::getModel('catalog/category')->load($categoryId);
-        				    $itemCategory = $_cat->getName();
-        				    break;
-        			    }
-        		    }
+    			    $categories = Mage::getResourceModel('catalog/category_collection')
+						->joinField('product_id',
+							'catalog/category_product',
+							'product_id',
+							'category_id = entity_id',
+							null)
+						->addAttributeToSelect('name')
+						->addFieldToFilter('product_id', $item->getProductId());
+					$categories = $categories->exportToArray();
+					// get the first category assigned to the item.  This is retailer specific
+					if (count($categories)) {
+						$itemCategory = $categories[0]['name'];
+					}
         		}
         		if (empty($itemCategory)) {
         		    $itemCategory = "unknown";

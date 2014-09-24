@@ -2,14 +2,50 @@
 class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
+	protected $arrayBestSellers = array();
+	
     public function __construct()
     {
-        Mage_Adminhtml_Block_Widget_Grid::__construct();
+        parent::__construct();
+		$this->setPagerVisibility(false);
+		$this->setFilterVisibility(false);
         $this->setId('worstsellersbycategoryReportGrid');
     }
 	
+	public function fillBestsellersArray($args)
+	{
+		// We fill the array with the data
+		$this->arrayBestSellers[$args['row']['entity_id']] = array(
+			'ordered_qty'	=>	$args['row']['ordered_qty'],
+			'views'			=>	0,
+			'product_id'	=>	$args['row']['entity_id']
+		);
+	}
+	
+	public function addMostViewedData($args)
+	{
+		// If the product has been pushed to the first array
+		// That means it has been sold
+		if (array_key_exists($args['row']['entity_id'],$this->arrayBestSellers) && is_array($this->arrayBestSellers[$args['row']['entity_id']]))
+		{
+			// We get the number of views
+			$this->arrayBestSellers[$args['row']['entity_id']]['views'] = $args['row']['views'];
+		}
+		// Else it is a product that has never been sold
+		else
+		{
+			// We fill the array with the data
+			$this->arrayBestSellers[$args['row']['entity_id']] = array(
+				'ordered_qty'	=>	0,
+				'views'			=>	$args['row']['views'],
+				'product_id'	=>	$args['row']['entity_id']
+			);
+		}
+	}
+	
     protected function _prepareCollection()
     {
+
 		// Get the session
 		$session = Mage::getSingleton('core/session');
 		
@@ -67,53 +103,26 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Admi
 			->addAttributeToSelect('*')
 			->setOrder('ordered_qty');
 			
+		// Call iterator walk method with collection query string and callback method as parameters
+		// Has to be used to handle massive collection instead of foreach
+		Mage::getSingleton('core/resource_iterator')->walk($bestSellers->getSelect(), array(array($this, 'fillBestsellersArray')));
+			
 		//echo $bestSellers->printlogquery(true);
-		
-		// Array that will contain the data
-		$arrayBestSellers = array();
-		foreach ($bestSellers as $productSold)
-		{			
-			// We fill the array with the data
-			$arrayBestSellers[$productSold->getEntityId()] = array(
-				'ordered_qty'	=>	$productSold->getOrderedQty(),
-				'views'			=>	0,
-				'product_id'	=>	$productSold->getEntityId()
-			);
-		}
 			
 		// Get the most viewed products
 		$mostViewed = Mage::getResourceModel('reports/product_collection')
 			->addAttributeToSelect('*')
 			->addViewsCount($from, $to);
 			
-		//echo $mostViewed->printlogquery(true);
+		// Call iterator walk method with collection query string and callback method as parameters
+		// Has to be used to handle massive collection instead of foreach
+		Mage::getSingleton('core/resource_iterator')->walk($mostViewed->getSelect(), array(array($this, 'addMostViewedData')));
 			
-		// Array that will contain the data
-		$arrayMostViewed = array();
-		foreach ($mostViewed as $productViewed)
-		{
-			// If the product has been pushed to the first array
-			// That means it has been sold
-			if (array_key_exists($productViewed->getEntityId(),$arrayBestSellers) && is_array($arrayBestSellers[$productViewed->getEntityId()]))
-			{
-				// We get the number of views
-				$arrayBestSellers[$productViewed->getEntityId()]['views'] = $productViewed->getViews();
-			}
-			// Else it is a product that has never been sold
-			else
-			{
-				// We fill the array with the data
-				$arrayBestSellers[$productViewed->getEntityId()] = array(
-					'ordered_qty'	=>	0,
-					'views'			=>	$productViewed->getViews(),
-					'product_id'	=>	$productViewed->getEntityId()
-				);
-			}
-		}
+		//echo $mostViewed->printlogquery(true);
         
 		// Array that will contain the data
 		$arrayWorstSellers = array();
-		foreach ($arrayBestSellers as $worstSellerProductId => $worstSellerProduct)
+		foreach ($this->arrayBestSellers as $worstSellerProductId => $worstSellerProduct)
 		{
 			// Get Product ID
 			$id = $worstSellerProduct['product_id'];
@@ -173,7 +182,12 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Admi
 					if (strtolower($categoryName)=='all')
 					{
 						// Get the parent category Name
-						$parentCategoryName = Mage::getModel('catalog/category')->load($category['parent_id'])->getName();
+						$catCollection = Mage::getResourceModel('catalog/category_collection')
+							->addFieldToFilter('entity_id', array($category['parent_id']))
+							->addAttributeToSelect(array('name'))
+							->setPageSize(1);				
+							
+						$parentCategoryName = $catCollection->getFirstItem()->getName();
 						// Add the parent category name 
 						$categoryName = $parentCategoryName . " > " . $categoryName;
 					}
@@ -210,7 +224,7 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Admi
 		
         $this->setCollection($collection);
 		
-        Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
+        parent::_prepareCollection();
 
         return $this;
     }
@@ -238,7 +252,7 @@ class FactoryX_CustomReports_Block_Worstsellersbycategory_Grid extends Mage_Admi
         $this->addExportType('*/*/exportWorstsellersbycategoryCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportWorstsellersbycategoryExcel', Mage::helper('reports')->__('Excel'));
 
-        return Mage_Adminhtml_Block_Widget_Grid::_prepareColumns();
+        return parent::_prepareColumns();
     }
 
 }

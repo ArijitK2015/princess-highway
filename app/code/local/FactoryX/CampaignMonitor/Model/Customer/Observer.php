@@ -23,8 +23,13 @@ class FactoryX_CampaignMonitor_Model_Customer_Observer
         $name = $customer->getFirstname() . " " . $customer->getLastname();
         $newEmail = $customer->getEmail();
         $subscribed = $customer->getIsSubscribed();        
-        
-        $oldEmail = Mage::getModel('customer/customer')->load($customer->getId())->getEmail();
+		
+		$collection = Mage::getResourceModel('customer/customer_collection')
+			->addFieldToFilter('entity_id', array($customer->getId()))
+			->addAttributeToSelect(array('email'))
+			->setPageSize(1);				
+			
+		$oldEmail = $collection->getFirstItem()->getEmail();
 
         if (empty($oldEmail)) return;
         // if subscribed is NULL (i.e. because the form didn't set it one way

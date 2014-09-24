@@ -23,7 +23,13 @@ class FactoryX_Lookbook_Helper_Data extends Mage_Core_Helper_Abstract
 			$_firstProduct = $lookbook->getLookbookProducts()->getFirstItem();
 			
 			// Load product
-			$_loadedProduct = Mage::getModel('catalog/product')->load($_firstProduct->getEntityId());
+			$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($_firstProduct->getEntityId()))
+					->addAttributeToSelect(array('image'))
+					->setPageSize(1);
+			
+			
+			$_loadedProduct = $collection->getFirstItem();
 			
 			// Get image without using the cache (as we need the original size)
 			$_image = Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrl().$_loadedProduct->getImage();
@@ -100,8 +106,13 @@ class FactoryX_Lookbook_Helper_Data extends Mage_Core_Helper_Abstract
 			// Retrieve its parent configurable product
 			$parentId = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($simpleProductId); 
 			
-			// Load the parent
-			$childProduct = Mage::getModel('catalog/product')->load(reset($parentId));
+			// Load the parent			
+			$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array(reset($parentId)))
+					->addAttributeToSelect(array('status','visibility','product_url','name','price'))
+					->setPageSize(1);
+					
+			$childProduct = $collection->getFirstItem();
 			
 			// Product enabled + product visible + product configurable = product link
 			if ($childProduct->getStatus() == 1 && $childProduct->getVisibility() == Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)

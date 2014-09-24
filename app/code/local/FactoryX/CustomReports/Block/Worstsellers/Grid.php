@@ -2,14 +2,120 @@
 class FactoryX_CustomReports_Block_Worstsellers_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
+	protected $arrayBestSellers = array();
+
     public function __construct()
     {
         parent::__construct();
+		$this->setPagerVisibility(false);
+		$this->setFilterVisibility(false);
         $this->setId('worstsellersReportGrid');
     }
 	
+	public function fillBestsellersArray($args)
+	{
+		// Get Sku and Name
+		$sku = array_key_exists('sku',$args['row']) ? $args['row']['sku'] : $args['row']['catalog_product.sku'];
+		$name = array_key_exists('name',$args['row']) ? $args['row']['name'] : $args['row']['order_items_name'];
+		
+		// If the sku is not set
+		if (!$sku)
+		{
+			// We get the sku
+			$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($args['row']['entity_id']))
+					->addAttributeToSelect(array('sku'))
+					->setPageSize(1);
+		
+			$sku = $collection->getFirstItem()->getSku();
+		
+			// If there's still no sku
+			if (!$sku)
+			{
+				// That means the product has been deleted
+				$sku = "UNKNOWN";
+			}
+		}
+		// If the name is not set
+		if (!$name)
+		{
+			// We get the name
+			$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($args['row']['entity_id']))
+					->addAttributeToSelect(array('name'))
+					->setPageSize(1);
+		
+			$name = $collection->getFirstItem()->getName();
+			
+			// If there's still no name
+			if (!$name)
+			{
+				// That means the product has been deleted
+				$name = "PRODUCT NO LONGER EXISTS";
+			}
+		}
+		
+		// We fill the array with the data
+		$this->arrayBestSellers[$args['row']['entity_id']] = array(
+			'sku'			=>	$sku,
+			'name'			=>	$name,
+			'ordered_qty'	=>	$args['row']['ordered_qty'],
+			'views'			=>	0,
+			'product_id'	=>	$args['row']['entity_id']
+		);
+	}
+	
+	public function addMostViewedData($args)
+	{
+		// If the product has been pushed to the first array
+		// That means it has been sold
+		if (array_key_exists($args['row']['entity_id'],$this->arrayBestSellers) && is_array($this->arrayBestSellers[$args['row']['entity_id']]))
+		{
+			// We get the number of views
+			$this->arrayBestSellers[$args['row']['entity_id']]['views'] = $args['row']['views'];
+		}
+		// Else it is a product that has never been sold
+		else
+		{
+			// Get Sku and Name
+			$sku = array_key_exists('sku',$args['row']) ? $args['row']['sku'] : "";
+			$name = array_key_exists('name',$args['row']) ? $args['row']['name'] : "";
+			// If the sku is not set
+			if (!$sku)
+			{
+				// We get the sku
+				$collection = Mage::getResourceModel('catalog/product_collection')
+						->addFieldToFilter('entity_id', array($args['row']['entity_id']))
+						->addAttributeToSelect(array('sku'))
+						->setPageSize(1);
+			
+				$sku = $collection->getFirstItem()->getSku();
+			}
+			// If the name is not set
+			if (!$name)
+			{
+				// We get the name
+				$collection = Mage::getResourceModel('catalog/product_collection')
+						->addFieldToFilter('entity_id', array($args['row']['entity_id']))
+						->addAttributeToSelect(array('name'))
+						->setPageSize(1);
+			
+				$name = $collection->getFirstItem()->getName();
+			}
+			// We fill the array with the data
+			$this->arrayBestSellers[$args['row']['entity_id']] = array(
+				'sku'			=>	$sku,
+				'name'			=>	$name,
+				'ordered_qty'	=>	0,
+				'views'			=>	$args['row']['views'],
+				'product_id'	=>	$args['row']['entity_id']
+			);
+		}
+	}
+	
     protected function _prepareCollection()
     {
+		
 		// Get the session
 		$session = Mage::getSingleton('core/session');
 		
@@ -61,106 +167,31 @@ class FactoryX_CustomReports_Block_Worstsellers_Grid extends Mage_Adminhtml_Bloc
 			->setOrder('ordered_qty');
 			
 		$bestSellers->getSelect()->join( array ('catalog_product' => Mage::getSingleton('core/resource')->getTableName('catalog/product')), 'catalog_product.entity_id = order_items.product_id', array('catalog_product.sku'));
+		
+		// Call iterator walk method with collection query string and callback method as parameters
+		// Has to be used to handle massive collection instead of foreach
+		Mage::getSingleton('core/resource_iterator')->walk($bestSellers->getSelect(), array(array($this, 'fillBestsellersArray')));
 			
 		//echo $bestSellers->printlogquery(true);
-		
-		// Array that will contain the data
-		$arrayBestSellers = array();
-		foreach ($bestSellers as $productSold)
-		{
-			// Get Sku and Name
-			$sku = $productSold->getData('sku') ? $productSold->getData('sku') : $productSold->getData('catalog_product.sku');
-			$name = $productSold->getData('name') ? $productSold->getData('name') : $productSold->getData('order_items_name');
-			
-			// If the sku is not set
-			if (!$sku)
-			{
-				// We get the sku by loading the product
-				$sku = Mage::getModel('catalog/product')->load($productSold->getEntityId())->getSku();
-				// If there's still no sku
-				if (!$sku)
-				{
-					// That means the product has been deleted
-					$sku = "UNKNOWN";
-				}
-			}
-			// If the name is not set
-			if (!$name)
-			{
-				// We get the name by loading the product
-				$name = Mage::getModel('catalog/product')->load($productSold->getEntityId())->getName();
-				// If there's still no name
-				if (!$name)
-				{
-					// That means the product has been deleted
-					$name = "PRODUCT NO LONGER EXISTS";
-				}
-			}
-			
-			// We fill the array with the data
-			$arrayBestSellers[$productSold->getEntityId()] = array(
-				'sku'			=>	$sku,
-				'name'			=>	$name,
-				'ordered_qty'	=>	$productSold->getOrderedQty(),
-				'views'			=>	0,
-				'product_id'	=>	$productSold->getEntityId()
-			);
-		}
 			
 		// Get the most viewed products
 		$mostViewed = Mage::getResourceModel('reports/product_collection')
 			->addAttributeToSelect('*')
 			->addViewsCount($from, $to);
 			
-		//echo $mostViewed->printlogquery(true);
+		// Call iterator walk method with collection query string and callback method as parameters
+		// Has to be used to handle massive collection instead of foreach
+		Mage::getSingleton('core/resource_iterator')->walk($mostViewed->getSelect(), array(array($this, 'addMostViewedData')));
 			
-		// Array that will contain the data
-		$arrayMostViewed = array();
-		foreach ($mostViewed as $productViewed)
-		{
-			// If the product has been pushed to the first array
-			// That means it has been sold
-			if (array_key_exists($productViewed->getEntityId(),$arrayBestSellers) && is_array($arrayBestSellers[$productViewed->getEntityId()]))
-			{
-				// We get the number of views
-				$arrayBestSellers[$productViewed->getEntityId()]['views'] = $productViewed->getViews();
-			}
-			// Else it is a product that has never been sold
-			else
-			{
-				// Get Sku and Name
-				$sku = $productViewed->getSku();
-				$name = $productViewed->getName();
-				// If the sku is not set
-				if (!$sku)
-				{
-					// We get the sku by loading the product
-					$sku = Mage::getModel('catalog/product')->load($productViewed->getEntityId())->getSku();
-				}
-				// If the name is not set
-				if (!$name)
-				{
-					// We get the name by loading the product
-					$name = Mage::getModel('catalog/product')->load($productViewed->getEntityId())->getName();
-				}
-				// We fill the array with the data
-				$arrayBestSellers[$productViewed->getEntityId()] = array(
-					'sku'			=>	$sku,
-					'name'			=>	$name,
-					'ordered_qty'	=>	0,
-					'views'			=>	$productViewed->getViews(),
-					'product_id'	=>	$productViewed->getEntityId()
-				);
-			}
-		}
-		
+		//echo $mostViewed->printlogquery(true);
+
 		// Obtain a list of columns to sort the array using subkeys
 		$views = array();
 		$qty = array();
-		foreach ($arrayBestSellers as $key => $row) {
+		foreach ($this->arrayBestSellers as $key => $row) {
 			// Remove the unexisting products
 			if ($row['sku'] == "UNKNOWN") {
-				unset($arrayBestSellers[$key]);
+				unset($this->arrayBestSellers[$key]);
 				continue;
 			}
 			$views[$key]  = $row['views'];
@@ -169,11 +200,11 @@ class FactoryX_CustomReports_Block_Worstsellers_Grid extends Mage_Adminhtml_Bloc
 
 		// Sort the data with qty ascending, views descending
 		// Add $arrayBestSellers as the last parameter, to sort by the common key
-		array_multisort($qty, SORT_ASC, $views, SORT_DESC, $arrayBestSellers);
+		array_multisort($qty, SORT_ASC, $views, SORT_DESC, $this->arrayBestSellers);
 		
 		// Convert the array to a collection
 		$collection = new Varien_Data_Collection();
-		foreach($arrayBestSellers as $product){
+		foreach($this->arrayBestSellers as $product){
 			$rowObj = new Varien_Object();
 			$rowObj->setData($product);
 			$collection->addItem($rowObj);
