@@ -36,11 +36,12 @@ class FactoryX_Lookbook_Model_Mysql4_Lookbook extends Mage_Core_Model_Mysql4_Abs
                 ->from($this->getTable('lookbook/store'))
                 ->where('lookbook_id = ?', $object->getId());
 
-        if ($data = $this->_getReadAdapter()->fetchAll($select)) {
+        if ($data = $this->_getReadAdapter()->query($select)) {
             $storesArray = array();
-            foreach ($data as $row) {
-                $storesArray[] = $row['store_id'];
-            }
+			while ($row = $data->fetch())
+			{
+				$storesArray[] = $row['store_id'];
+			}
             $object->setData('store_id', $storesArray);
         }
 
@@ -80,9 +81,8 @@ class FactoryX_Lookbook_Model_Mysql4_Lookbook extends Mage_Core_Model_Mysql4_Abs
 						->from($this->getTable('lookbook/store'))
 						->where('lookbook_id = ?', $object->getId());
 
-				if ($data = $this->_getReadAdapter()->fetchAll($select)) 
-				{
-					foreach ($data as $row) 
+				if ($data = $this->_getReadAdapter()->query($select)) {
+					while ($row = $data->fetch())
 					{
 						$affectedStoreId = $row['store_id'];
 						$idPath = $object->getIdentifier()."_".$affectedStoreId;

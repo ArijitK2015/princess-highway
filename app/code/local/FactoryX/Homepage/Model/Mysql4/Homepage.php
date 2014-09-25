@@ -36,11 +36,12 @@ class FactoryX_Homepage_Model_Mysql4_Homepage extends Mage_Core_Model_Mysql4_Abs
                 ->from($this->getTable('homepage/store'))
                 ->where('homepage_id = ?', $object->getId());
 
-        if ($data = $this->_getReadAdapter()->fetchAll($select)) {
+        if ($data = $this->_getReadAdapter()->query($select)) {
             $storesArray = array();
-            foreach ($data as $row) {
-                $storesArray[] = $row['store_id'];
-            }
+			while ($row = $data->fetch())
+			{
+				$storesArray[] = $row['store_id'];
+			}
             $object->setData('store_id', $storesArray);
         }
 

@@ -88,9 +88,9 @@ class FactoryX_Homepage_Model_Homepage extends Mage_Core_Model_Abstract
 						FROM {$resource->getTableName('homepage/store')}
 						WHERE homepage_id = {$this->getHomepageId()}";
 			
-			$homepageStoreIds = $readConnection->fetchAll($query);
+			$homepageStoreIds = $readConnection->query($query);
 			
-			foreach ($homepageStoreIds as $homepageStoreId)
+			while ($homepageStoreId = $homepageStoreIds->fetch())
 			{
 				$data['stores'][] = $homepageStoreId['store_id'];
 			}

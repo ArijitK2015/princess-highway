@@ -16,9 +16,9 @@ class FactoryX_CustomGrids_Block_Adminhtml_Sales_Order_Grid_Renderer_StoreGroup 
     public static function getStores()
 	{
         $query = 'SELECT title FROM ustorelocator_location'; 
-        $data = Mage::getSingleton('core/resource')->getConnection('core_read')->fetchAll($query);
+        $data = Mage::getSingleton('core/resource')->getConnection('core_read')->query($query);
         $result = array();
-        foreach ($data as $item)
+        while ($item = $data->fetch())
 		{
             $result[$item['title']] = $item['title'];
         }

@@ -102,23 +102,23 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
 				'values' => array(
 					array(
 						'value' => 1000,
-						'label' => Mage::helper('lookbook')->__('1'),
+						'label' => Mage::helper('homepage')->__('1'),
 					),
 					array(
 						'value' => 2000,
-						'label' => Mage::helper('lookbook')->__('2'),
+						'label' => Mage::helper('homepage')->__('2'),
 					),
 					array(
 						'value' => 3000,
-						'label' => Mage::helper('lookbook')->__('3'),
+						'label' => Mage::helper('homepage')->__('3'),
 					),
 					array(
 						'value' => 5000,
-						'label' => Mage::helper('lookbook')->__('5'),
+						'label' => Mage::helper('homepage')->__('5'),
 					),
 					array(
 						'value' => 10000,
-						'label' => Mage::helper('lookbook')->__('10'),
+						'label' => Mage::helper('homepage')->__('10'),
 					)
 				),
 				'note'      => Mage::helper('homepage')->__('In seconds.')
