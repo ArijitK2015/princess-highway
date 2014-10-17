@@ -8,32 +8,45 @@ class FactoryX_Homepage_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 *	Getter for the current homepage
 	 */
-	public function getCurrentHomepage($store = null)     
+	public function getCurrentHomepages($store = null)     
     {
 		if ($store == "")	$store = null;
 		
-		$homepage = Mage::getModel('homepage/homepage')
-					->getCollection()
-					->addStatusFilter(1)
-					->addStoreFilter($store)
-					->getFirstItem();
-		
-		// Ensure the homepage is viewable in the store
-		if ($homepage)
+		try
 		{
-			if (!Mage::app()->isSingleStoreMode()) 
+		
+			$homepages = Mage::getModel('homepage/homepage')
+						->getCollection()
+						->addDisplayedFilter(1)
+						->addStoreFilter($store)
+						->addAttributeToSort('sort_order');
+			
+			// Ensure the homepages are viewable in the store
+			if ($homepages)
 			{
-				if ($homepage->isStoreViewable()) 
-					return $homepage;
-				else 
-					throw new Exception ('This homepage is not available with this store.');
+				if (!Mage::app()->isSingleStoreMode()) 
+				{
+					foreach ($homepages as $currentHomepage)
+					{
+						if ($currentHomepage->isStoreViewable()) 
+							continue;
+						else 
+							throw new Exception ('This homepage is not available with this store.');
+					}
+					return $homepages;
+				}
+				else
+				{
+					return $homepages;
+				}
 			}
-			else
-			{
-				return $homepage;
-			}
+			else return false;
 		}
-		else return false;
+		catch (Exception $e)
+		{
+			Mage::helper('homepage')->log($this->__('Exception caught in %s under % with message: %s', __FILE__, __FUNCTION__, $e->getMessage()));
+			return false;
+		}
 	}
 	
 	/**

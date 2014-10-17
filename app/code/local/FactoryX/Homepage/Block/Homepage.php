@@ -15,9 +15,13 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
 		{
 			$homepage = Mage::getModel('homepage/homepage')->load($id);
 		}
-		else
+		elseif (array_key_exists('homepage',$data))
 		{
 			$homepage = $data['homepage'];
+		}
+		else
+		{
+			$homepage = null;
 		}
 		
 		$this->_homepage = $homepage;
