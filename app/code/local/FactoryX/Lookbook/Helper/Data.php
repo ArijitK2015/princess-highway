@@ -14,52 +14,72 @@ class FactoryX_Lookbook_Helper_Data extends Mage_Core_Helper_Abstract
 		Mage::log($data, null, $this->logFileName);
 	}
 	
-	public function calculateLookDimensions($lookbook)
-	{
-		$lookbookType = $lookbook->getLookbookType();
-		if ($lookbookType == "category")
+    /**
+     * calculateLookDimensions
+     *
+     * calculates the look dimensions
+     *
+     * @param FactoryX_Lookbook_Model_Lookbook $lookbook the lookbook
+     * @return array $dimensions array('width' => width, 'height' => height)
+     */     
+	public function calculateLookDimensions($lookbook) {
+	
+		$lookbookType = $lookbook->getLookbookType();	
+		if ($lookbookType == "category") 
 		{
-			// Get first lookbook product
-			$_firstProduct = $lookbook->getLookbookProducts()->getFirstItem();
-			
-			// Load product
-			$collection = Mage::getResourceModel('catalog/product_collection')
-					->addFieldToFilter('entity_id', array($_firstProduct->getEntityId()))
-					->addAttributeToSelect(array('image'))
-					->setPageSize(1);
-			
-			
-			$_loadedProduct = $collection->getFirstItem();
-			
-			// Get image without using the cache (as we need the original size)
-			$_image = Mage::getSingleton('catalog/product_media_config')->getBaseMediaUrl().$_loadedProduct->getImage();
-			
-			// Retrieve attributes of the image
-			list($width, $height) = getimagesize($_image);
-			
-			$dimensions['width'] = $width;
-			$dimensions['height'] = $height;
-			$dimensions['ratio'] = $height / $width;
+			if ($lookbookProducts = $lookbook->getLookbookProducts())
+			{
+				// Get first lookbook product
+				$_firstProduct = $lookbookProducts->getFirstItem();
+				// Get image without using the cache (as we need the original size)
+				$_image = sprintf("%s/catalog/product/%s", Mage::getBaseDir('media'), $_firstProduct->getImage() );
+				
+				// Retrieve attributes of the image (may not exist)
+				try {
+					list($width, $height) = getimagesize($_image);
+				}
+				catch(Exception $ex) {
+					// TODO: use dev default
+					$width = 0;
+					$height = 0;
+				}
+				$dimensions['width'] = $width;
+				$dimensions['height'] = $height;
+				$dimensions['ratio'] = 0;
+				if ($height != 0 && $width != 0) {
+					$dimensions['ratio'] = $height / $width;
+				}
+			}
+			else {
+				$dimensions['ratio'] = 0;
+				$dimensions['width'] = 0;
+				$dimensions['height'] = 0;
+				return $dimensions;
+			}
 		}
-		else
-		{
+		else {
 			// Get lookbook images
 			$_images = $lookbook->getGallery();
-			
 			// Get first image
 			$_firstImage = $_images[0];
-			
 			// Generate its real path
 			$imagePath = sprintf("%s/lookbook%s", Mage::getBaseDir('media'), $_firstImage['file']);
-			
 			// Retrieve attributes of the image
-			list($width, $height) = getimagesize($imagePath);
-			
+			try {
+			    list($width, $height) = getimagesize($imagePath);
+			}
+			catch(Exception $ex) {
+			    // TODO: use dev default
+			    $width = 0;
+			    $height = 0;
+			}
 			$dimensions['width'] = $width;
 			$dimensions['height'] = $height;
-			$dimensions['ratio'] = $height / $width;
+			$dimensions['ratio'] = 0;
+			if ($height != 0 && $width != 0) {
+			    $dimensions['ratio'] = $height / $width;
+			}
 		}
-		
 		return $dimensions;
 	}
 	

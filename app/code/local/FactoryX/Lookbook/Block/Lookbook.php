@@ -5,6 +5,7 @@
 class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 {
 	public $_lookbookId;
+	public $_currentLookbook;
 	
 	// Configurable attributes
 	public $_lookbookWidth = 960;
@@ -22,6 +23,8 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 	public $_barWidth = 2;
 	public $_scaleLeftPad = 30;	// Scale left padding
 	
+	public $_lookbookNavTyoe = "";
+		
 	/**
 	 *	Getter for the lookbook width
 	 */
@@ -45,7 +48,20 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 		
 		return $this->_looksPerPage;
 	}
-	
+
+	/**
+	 *	Getter for the lookbook nav type
+
+	public function getLookbookNavType()
+	{
+		if ($this->getCurrentLookbook()->getLookbookNavType()) {
+			$this->_lookbookNavType = $this->getCurrentLookbook()->getLookbookNavType();
+		}
+		
+		return $this->_lookbookNavType;
+	}
+	 */
+	 	
 	/**
 	 *	Getter for the lookbook border
 	 */
@@ -79,20 +95,17 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 	/**
 	 *	Getter for the look height
 	 */
-	public function getLookHeight()
-	{
+	public function getLookHeight() {
 		// If height is set via the lookbook
 		if ($this->getCurrentLookbook()->getLookHeight()) {
 			$this->_lookHeight = $this->getCurrentLookbook()->getLookHeight();
 		}
-		else
-		{
+		else {
 			// Calculate the look height based on the first image dimensions
 			$dimensions = Mage::helper('lookbook')->calculateLookDimensions($this->getCurrentLookbook());
-			
 			$this->_lookHeight = $this->getLookWidth() * $dimensions['ratio'];
 		}
-		
+		//Mage::helper('lookbook')->log(sprintf("%s->lookHeight=%s", __METHOD__, $this->_lookHeight) );
 		return $this->_lookHeight;
 	}
 	
@@ -230,10 +243,12 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 	/**
 	 *	Retrieve the current lookbook for the frontend
 	 */
-	public function getCurrentLookbook()     
-    {
-		try
-		{
+	public function getCurrentLookbook() {
+		try {
+		    if ($this->_currentLookbook) {
+		        return $this->_currentLookbook;
+		    }
+		    
 			if(!$this->_lookbookId) 
 			{
 				$this->_lookbookId = $this->getRequest()->getParam('id');
@@ -243,27 +258,27 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 			{
 				$this->_lookbookId = $this->getID();
 			}		
-			
+            Mage::helper('lookbook')->log(sprintf("%s->_lookbookId=%s", __METHOD__, $this->_lookbookId) );			
 			// Load lookbook based on the given id
-			$currentLookbook = Mage::getModel('lookbook/lookbook')->load($this->_lookbookId);
+			$this->_currentLookbook = Mage::getModel('lookbook/lookbook')->load($this->_lookbookId);
 			
 			// Ensure the lookbook is viewable in the store
 			if (!Mage::app()->isSingleStoreMode()) 
 			{
-				if ($currentLookbook->isStoreViewable()) 
-					return $currentLookbook;
-				else 
+				if ($this->_currentLookbook->isStoreViewable()) {
+					return $this->_currentLookbook;
+				}
+				else {
 					throw new Exception ('This lookbook is not available with this store');
+				}
 			}
-			else
-			{
-				return $currentLookbook;
+			else {
+				return $this->_currentLookbook;
 			}
 		}
-		catch (Exception $e)
-		{
+		catch (Exception $e) {
 			Mage::helper('lookbook')->log($this->__('Exception caught in %s under % with message: %s', __FILE__, __FUNCTION__, $e->getMessage()));
-			Mage::getSingleton('customer/session')->addError($this->__('There was a problem loading the lookbook'));
+			Mage::getSingleton('customer/session')->addError($this->__("There was a problem loading the lookbook: %s", $e->getMessage()));
 			$this->_redirectReferer();
 			return;
 		}
@@ -272,7 +287,7 @@ class FactoryX_Lookbook_Block_Lookbook extends Mage_Core_Block_Template
 	protected function _construct()
     {
         $this->addData(array(
-            'cache_lifetime'    => 120,
+            'cache_lifetime'    => 86400,
             'cache_tags'        => array(FactoryX_Lookbook_Model_Lookbook::CACHE_TAG),
             'cache_key'         => $this->makeCacheKey()
         ));

@@ -1,9 +1,11 @@
 <?php
+/**
 
-class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract 
-{
+ */
+class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract  {
+
 	const CACHE_TAG	= 'lookbook_lookbook';
-	
+
 	/**
      * constants for the media gallery
      */
@@ -22,7 +24,7 @@ class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract
     {
         $this->_init('lookbook/lookbook', 'lookbook_id');
     }
-	
+
 	/**
 	 *	Check if viewable in store
 	 */
@@ -31,31 +33,63 @@ class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract
 		$lookbooks = Mage::getResourceModel('lookbook/lookbook_collection')
 							->addIdsFilter($this->getLookbookId())
 							->addStoreFilter();
-		
-		if (count($lookbooks) == 1) 
+
+		if (count($lookbooks) == 1)
 			return true;
-		else 
+		else
 			return false;
 	}
-	
-	public function getLookbookProducts()
-	{
-		// Load category based on lookbook category ID
-		$category = Mage::getModel('catalog/category')->load($this->getCategoryId());
 
-		// Get products from category sorted by position
-		$_productCollection = Mage::getResourceModel('catalog/product_collection')
-								->addCategoryFilter($category)
-								->addAttributeToSort('position', 'asc');
-								
-		return $_productCollection;
+	/*
+	FactoryX_ImageCdn_Model_Catalog_Category
+	*/
+	public function getLookbookProducts() {
+
+		try
+		{
+			$storeId = 0;
+			$stores = $this->getStoreId();
+						
+			if (is_array($stores)) 
+			{
+				$storeId = $stores[0];
+				$category = Mage::getModel('catalog/category')->setStoreId($storeId)->load($this->getCategoryId());
+			}
+			else 
+			{
+				$category = Mage::getModel('catalog/category')->load($this->getCategoryId());
+			}
+
+			if (!$category->getId()) 
+			{
+				throw new Exception("cannot retrieve category '%d' to render, please check store", $this->getCategoryId());
+			}
+
+			// Get products from category sorted by position
+			$_productCollection = Mage::getResourceModel('catalog/product_collection')->addCategoryFilter($category);
+			// Sort by position
+			$_productCollection->addAttributeToSort('position', 'asc');
+			// Add attributes to the collection
+			$_productCollection->addAttributeToSelect(array('description'));
+			// Add image to the collection
+			$_productCollection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
+			// Add product urls to the collection
+			$_productCollection->addUrlRewrite($this->getCategoryId());
+
+			return $_productCollection;
+		}
+		catch (Exception $e)
+		{
+			Mage::helper('lookbook')->log($e->getMessage());
+			return 0;
+		}
 	}
-	
+
 	/**
      * Retrieve attributes for media gallery
      *
      * - Needed for media gallery
-     * 
+     *
      * @return array
      */
     public function getMediaAttributes()
@@ -79,7 +113,7 @@ class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract
     /**
      * Get's all the images linked to a reference and returns them, possible
      * merged with the given array.
-     * 
+     *
      * @param array $images
      * @return json
      */
@@ -108,4 +142,5 @@ class FactoryX_Lookbook_Model_Lookbook extends Mage_Core_Model_Abstract
 
         return $images;
     }
+
 }

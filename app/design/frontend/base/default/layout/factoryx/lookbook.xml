@@ -7,34 +7,30 @@
 		</reference>
 	</default>
 
-	<lookbook_index_view>
-		<reference name="head">
-			<action method="addItem">
-				<type>skin_css</type>
-				<name>css/factoryx/lookbook.css</name>
-				<params/>
-			</action>
-			<action method="addItem">
-				<type>skin_js</type>
-				<name>js/factoryx/lookbook.js</name>
-				<params/>
-			</action>
-			<action method="addJs">
-				<script>effects/bubbleup.js</script>
-			</action>
-			<action method="addJs">
-				<script>effects/scrolling-div.js</script>
-			</action>
-		</reference>
-		
-		<reference name="root">
-			<action method="setTemplate"><template>page/1column.phtml</template></action>
-		</reference>
-		
-		<reference name="content">
-			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/view.phtml" />
-		</reference>
-	</lookbook_index_view>
+    <lookbook_index_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/idangerous.swiper.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/lookbook.css</name>
+                <params/>
+            </action>
+            <action method="addJs">
+                <script>effects/bubbleup.js</script>
+            </action>
+            <action method="addJs">
+                <script>jquery/idangerous.swiper.min.js</script>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/view.phtml" />
+        </reference>
+    </lookbook_index_view>
 	
 	<lookbook_index_slideshow>
 		<reference name="head">
@@ -89,4 +85,33 @@
 			<block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/flipbook.phtml" />
 		</reference>
 	</lookbook_index_flipbook>
+	
+	<!-- facebook -->
+    <lookbook_facebook_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/idangerous.swiper.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/lookbook.css</name>
+                <params/>
+            </action>
+            <action method="addJs">
+                <script>effects/bubbleup.js</script>
+            </action>
+            <action method="addJs">
+                <script>jquery/idangerous.swiper.min.js</script>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/view.phtml" />
+            <!--
+            <block type="lookbook/facebook" name="lookbook" template="factoryx/lookbook/facebook.phtml" />
+            -->
+        </reference>
+    </lookbook_facebook_view>	
 </layout>

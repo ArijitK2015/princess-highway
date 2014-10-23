@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Balanced_CustomerSurvey>
-		  <version>1.0.1</version>
+		  <version>1.0.2</version>
 		</Balanced_CustomerSurvey>
 	</modules>
 	
@@ -81,13 +81,13 @@
 		
 	<admin>
         <routers>
-            <customersurvey>
+            <customersurvey_admin>
                 <use>admin</use>
                 <args>
                     <module>Balanced_CustomerSurvey</module>
-                    <frontName>customersurvey</frontName>
+                    <frontName>customersurvey_admin</frontName>
                 </args>
-            </customersurvey>
+            </customersurvey_admin>
         </routers>
     </admin>
 	
@@ -101,11 +101,11 @@
                 <children>
                     <menuitem1 module="CustomerSurvey">
                         <title>Create Survey</title>
-                        <action>customersurvey/view/edit</action>
+                        <action>customersurvey_admin/view/edit</action>
                     </menuitem1>
 					<menuitem2 module="CustomerSurvey">
                         <title>View Surveys</title>
-                        <action>customersurvey/view/index</action>
+                        <action>customersurvey_admin/view/index</action>
                     </menuitem2>
                 </children>                
             </customersurvey>

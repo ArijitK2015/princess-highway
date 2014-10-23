@@ -39,6 +39,15 @@ class FactoryX_Lookbook_Block_Adminhtml_Lookbook_Edit_Tabs extends Mage_Adminhtm
             'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_general')->toHtml(),
 			'active'	=> $active == 'general_tab' ? true : false
         ));
+        
+
+		// Add the general tab
+		$this->addTab('socal_media_tab', array(
+            'label'     => Mage::helper('lookbook')->__('Social Media'),
+            'title'     => Mage::helper('lookbook')->__('Social Media'),
+            'content'   => $this->getLayout()->createBlock('lookbook/adminhtml_lookbook_edit_tab_socialMedia')->toHtml(),
+			'active'	=> $active == 'socal_media_tab' ? true : false
+        ));        
 		
         // Check is single store mode
         if (!Mage::app()->isSingleStoreMode()) 

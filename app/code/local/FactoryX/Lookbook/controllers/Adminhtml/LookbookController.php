@@ -2,21 +2,17 @@
 
 class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Controller_Action
 {
-	
-	protected function _initAction() 
-	{
-        $this->loadLayout()
-                ->_setActiveMenu('factoryx_menu/lookbook');
 
+	protected function _initAction() {
+        $this->loadLayout()->_setActiveMenu('factoryx_menu/lookbook');
         return $this;
     }
 
-    public function indexAction() 
+    public function indexAction()
 	{
-        $this->_initAction()
-                ->renderLayout();
+        $this->_initAction()->renderLayout();
     }
-	
+
 	public function deleteAction() {
         $lookbookId = (int) $this->getRequest()->getParam('id');
         if ($lookbookId) {
@@ -32,15 +28,15 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
         }
         $this->_redirect('*/*/');
     }
-	
-	public function newAction() 
+
+	public function newAction()
 	{
-		if ($data = $this->getRequest()->getPost()) 
+		if ($data = $this->getRequest()->getPost())
 		{
 			// We add the lookbook type to the session
 			Mage::getSingleton('adminhtml/session')->setLookbookType($data['lookbook_type']);
-			
-			// If previous page has been filled 
+
+			// If previous page has been filled
 			if ($data['lookbook_type'] == "category")
 			{
 				// We add the category_id to the session
@@ -51,12 +47,12 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 				// We add the category_id to the session
 				Mage::getSingleton('adminhtml/session')->setCategory(NULL);
 			}
-			
+
 			// If an ID is provided, that means it is an existing lookbook and there is a type change
-			if ($id = $this->getRequest()->getParam('id')) 
+			if ($id = $this->getRequest()->getParam('id'))
 				// We set a flag
 				Mage::getSingleton('adminhtml/session')->setChangingType(1);
-			$this->_forward('edit'); 
+			$this->_forward('edit');
 		}
 		else
 		{
@@ -64,11 +60,11 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
 		}
     }
-	
-	public function choosecatAction() 
-	{		
+
+	public function choosecatAction()
+	{
 		// If an ID is provided, there is a layout change
-        if ($id = $this->getRequest()->getParam('id')) 
+        if ($id = $this->getRequest()->getParam('id'))
 		{
 			// We load the existing homepage
 			$model = Mage::getModel('lookbook/lookbook')->load($id);
@@ -80,7 +76,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					Mage::getSingleton('adminhtml/session')->setCategory($model->getCategoryId());
 			}
 		}
-		
+
 		$this->loadLayout();
 		$this->_setActiveMenu('factoryx_menu/lookbook');
 
@@ -92,29 +88,29 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 
 		$this->renderLayout();
     }
-	
-	public function editAction() 
+
+	public function editAction()
 	{
         $id = $this->getRequest()->getParam('id');
         $model = Mage::getModel('lookbook/lookbook')->load($id);
 
-        if ($model->getId() || $id == 0) 
+        if ($model->getId() || $id == 0)
 		{
 			// Data from the form
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-			
+
 			// If it is a new lookbook
 			if ($id == 0)
 			{
 				// We retrieve the category from session variables set in the previous steps
-				
+
 				if (!is_array($data) || (!array_key_exists('category_id',$data)))
 				{
 					$data['category_id'] = Mage::getSingleton('adminhtml/session')->getCategory(true);
 				}
-				
+
 				// We retrieve the lookbook type from session variables set in the previous steps
-				
+
 				if (!is_array($data) || (!array_key_exists('lookbook_type',$data)))
 				{
 					$data['lookbook_type'] = Mage::getSingleton('adminhtml/session')->getLookbookType(true);
@@ -130,7 +126,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					$saveFlag = false;
 					// This is the new lookbookType
 					$lookbookType = Mage::getSingleton('adminhtml/session')->getLookbookType(true);
-					
+
 					// We test the org and the new lookbookType
 					if ($lookbookType != $model->getLookbookType())
 					{
@@ -138,7 +134,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 						$model->setLookbookType($lookbookType);
 						$saveFlag = true;
 					}
-					
+
 					if ($lookbookType == 'category')
 					{
 						$categoryId = Mage::getSingleton('adminhtml/session')->getCategory(true);
@@ -151,7 +147,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 						$model->setCategoryId(NULL);
 						$saveFlag = true;
 					}
-					
+
 					// If the flag set, we save the homepage
 					if ($saveFlag)
 					{
@@ -159,12 +155,12 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					}
 				}
 			}
-			
+
 			// If data from the form, we add it to the model
             if (!empty($data)) {
                 $model->setData($data);
             }
-			
+
             Mage::register('lookbook_data', $model);
 
 			$this->loadLayout();
@@ -184,18 +180,18 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
         }
     }
-	
-	public function saveAction() 
+
+	public function saveAction()
 	{
-        if ($data = $this->getRequest()->getPost()) 
+        if ($data = $this->getRequest()->getPost())
 		{
             $model = Mage::getModel('lookbook/lookbook');
-			
-			try 
-			{	
+
+			try
+			{
 				// Before checking for errors we need to process the image data so they won't be lost in case of errors
 				// Save the shop the look image
-				if(isset($_FILES['shop_pix']['name']) and (file_exists($_FILES['shop_pix']['tmp_name']))) 
+				if(isset($_FILES['shop_pix']['name']) and (file_exists($_FILES['shop_pix']['tmp_name'])))
 				{
 					$uploader = new Mage_Core_Model_File_Uploader('shop_pix');
 					$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
@@ -219,17 +215,17 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 						'path'     => $this->_getSession()->getCookiePath(),
 						'domain'   => $this->_getSession()->getCookieDomain()
 					);
-					
+
 					$data['shop_pix'] = $result['file'];
 				}
-				else 
-				{       
+				else
+				{
 					if(isset($data['shop_pix']['delete']) && $data['shop_pix']['delete'] == 1)
 					{
 						$data['shop_pix'] = NULL;
 					}
 				}
-				
+
 				if (isset($data['shop_pix']))
 				{
 					if (is_array($data['shop_pix']))
@@ -238,27 +234,27 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					}
 					$model->setShopPix($data['shop_pix']);
 				}
-				
+
 				// Check is single store mode
-				if (!Mage::app()->isSingleStoreMode() && isset($data['stores'])) 
+				if (!Mage::app()->isSingleStoreMode() && isset($data['stores']))
 				{
-					if ($data['stores'][0] == 0) 
+					if ($data['stores'][0] == 0)
 					{
 						unset($data['stores']);
 						$data['stores'] = array();
 						$stores = Mage::getSingleton('adminhtml/system_store')->getStoreCollection();
-						foreach ($stores as $store) 
+						foreach ($stores as $store)
 							$data['stores'][] = $store->getId();
 					}
 				}
-				
+
 				// Edited date
 				$data['edited'] = Mage::getModel('core/date')->gmtDate();
-				
+
 				// Assign the data to the model
-				$model->setData($data)
-						->setId($this->getRequest()->getParam('id'));
-						
+				Mage::helper('lookbook')->log(sprintf("%s->data=%s", __METHOD__, print_r($data, true)) );
+				$model->setData($data)->setId($this->getRequest()->getParam('id'));
+
 				// Handle errors
 				// A shop the look image must be provided if show shop the look is enabled
 				if (array_key_exists('show_shop_pix',$data) && $data['show_shop_pix'] == 1 && !isset($data['shop_pix']))
@@ -267,7 +263,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					Mage::getSingleton('admin/session')->setActiveTab('general_tab');
 					throw new Exception ("If you want to display a shop the look picture, you must provide a shop the look image.");
 				}
-						
+
 				// Handle gallery before
 				if (isset($data['lookbook_image']))
                 {
@@ -280,14 +276,14 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
                 }
 
 				// Save the lookbook
-                $model->save();		
-				
+                $model->save();
+
 				// Handle gallery after
 				if (isset($data['lookbook_image']))
                 {
                     $this->afterSaveMediaGallery($model, $media_gallery);
                 }
-				
+
 				// Handle URL Rewrites
 				if ($data['lookbook_type'] == "slideshow")
 				{
@@ -301,17 +297,17 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 				{
 					$targetPath = "lookbook/index/view/id/".$model->getId();
 				}
-				
+
 				$requestedPath = $data['identifier'];
 				Mage::helper('core/url_rewrite')->validateRequestPath($requestedPath);
-				
-				if (!Mage::app()->isSingleStoreMode() && isset($data['stores'])) 
+
+				if (!Mage::app()->isSingleStoreMode() && isset($data['stores']))
 				{
 					foreach ($data['stores'] as $key => $storeId)
-					{						
-						$existingUrlRewrite = Mage::getModel('core/url_rewrite')->loadByRequestPathAndStoreId($requestedPath, $storeId);
+					{
+					    $existingUrlRewrite = Mage::getModel('core/url_rewrite')->loadByRequestPathAndStoreId($requestedPath, $storeId);
 						$existingTargetPath = $existingUrlRewrite->getTargetPath();
-						
+
 						if ($existingTargetPath != "")
 						{
 							if ($targetPath != $existingTargetPath)
@@ -320,7 +316,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 						else
 						{
 							$idPath = $requestedPath."_".$storeId;
-							
+
 							// Create the URL Rewrite
 							Mage::getModel('core/url_rewrite')
 								->setIsSystem(0)
@@ -333,10 +329,10 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 					}
 				}
 				else
-				{					
+				{
 					$existingUrlRewrite = Mage::getModel('core/url_rewrite')->loadByRequestPath($requestedPath);
 					$existingTargetPath = $existingUrlRewrite->getTargetPath();
-					
+
 					if ($existingTargetPath != "")
 					{
 						if ($targetPath != $existingTargetPath)
@@ -353,10 +349,10 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 							->save();
 					}
 				}
-				
+
 				// Clean cache of the homepages in case status have changed
 				Mage::app()->cleanCache(FactoryX_Lookbook_Model_Lookbook::CACHE_TAG);
-				
+
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('lookbook')->__('Lookbook was successfully saved'));
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
@@ -369,7 +365,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
-				if ($model->getId()) 
+				if ($model->getId())
 				{
 					$this->_redirect('*/*/edit', array('id' => $model->getId()));
 				}
@@ -383,8 +379,8 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('lookbook')->__('Unable to find lookbook to save'));
         $this->_redirect('*/*/');
     }
-	
-	public function massDeleteAction() 
+
+	public function massDeleteAction()
 	{
         $lookbookIds = $this->getRequest()->getParam('lookbook');
         if (!is_array($lookbookIds)) {
@@ -406,8 +402,8 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
         }
         $this->_redirect('*/*/index');
     }
-	
-	public function massStatusAction() 
+
+	public function massStatusAction()
 	{
         $lookbookIds = $this->getRequest()->getParam('lookbook');
         if (!is_array($lookbookIds)) {
@@ -433,14 +429,14 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
         }
         $this->_redirect('*/*/index');
     }
-	
+
 	/**
 	 *	function called when clicking the gallery upload button
-	 */ 
+	 */
 	public function uploadAction()
     {
 		Mage::helper('lookbook/image');
-		
+
         try {
             $uploader = new Mage_Core_Model_File_Uploader('image');
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
@@ -476,7 +472,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
-	
+
 	/**
      * Start based on the methods in /app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php
      */
@@ -541,7 +537,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 
     protected function afterSaveMediaGallery(FactoryX_Lookbook_Model_Lookbook $model, $value)
     {
-		
+
         if (!is_array($value) || !isset($value['images'])) {
             return;
         }
@@ -563,7 +559,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
 
                 $mymodelMedia = Mage::getModel('lookbook/lookbook_media');
             } else {
-				
+
                 $mymodelMedia = Mage::getModel('lookbook/lookbook_media')
                     ->load($image['value_id']);
 
@@ -597,7 +593,7 @@ class FactoryX_Lookbook_Adminhtml_LookbookController extends Mage_Adminhtml_Cont
         }
 
     }
-	
+
 	/**
      * Retrieve resource model
      *

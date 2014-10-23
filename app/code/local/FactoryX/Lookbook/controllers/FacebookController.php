@@ -1,20 +1,19 @@
 <?php
 
-class FactoryX_Lookbook_IndexController extends Mage_Core_Controller_Front_Action
+class FactoryX_Lookbook_FacebookController extends Mage_Core_Controller_Front_Action
 {
 	public function indexAction() {
         $this->_forward('view');
     }
 
 	public function viewAction()
-    {
+    {        
 		$this->loadLayout();
-
-		try
-		{
+		try {
 			// Load the lookbook
-			$lookbookId = $this->getRequest()->getParam('id');
-			//Mage::helper('lookbook')->log(sprintf("%s->lookbookId=%s", __METHOD__, $lookbookId) );
+			$lookbookId = $this->getRequest()->getParam('id');    
+            Mage::helper('lookbook')->log(sprintf("%s->lookbookId=%s", __METHOD__, $lookbookId) );
+			
 			$lookbook = Mage::getModel('lookbook/lookbook')->load($lookbookId);
 
 			// Ensure the lookbook is viewable in the store
@@ -27,14 +26,21 @@ class FactoryX_Lookbook_IndexController extends Mage_Core_Controller_Front_Actio
 			// Initiate the session messages
 			$this->_initLayoutMessages('core/session');
 
-            //if ($lookbook->getLookbookFacebook()){
-            //    $this->getLayout()->getBlock('root')->setTemplate("page/empty.phtml");
+            //if ($lookbook->getLookbookFacebook()) {
+                $this->getLayout()->getBlock('root')->setTemplate("page/empty.phtml");
             //}else{
-                $this->getLayout()->getBlock('root')->setTemplate("page/1column.phtml");
+            //    $this->getLayout()->getBlock('root')->setTemplate("page/1column.phtml");
             //}
+            
+            //$template = $this->getLayout()->getBlock('root')->getTemplate();
+            //Mage::helper('lookbook')->log(sprintf("%s->template=%s", __METHOD__, $template) );
 
 			// In order to get the title so we can set the head title
 			$lookbookTitle = $lookbook->getTitle();
+			
+			Mage::helper('lookbook')->log(sprintf("%s->lookbookTitle=%s", __METHOD__, $lookbookTitle) );
+			
+			// Mage_Core_Model_Layout
 			$this->getLayout()->getBlock('head')->setTitle($lookbookTitle);
 		}
 		catch (Exception $e)

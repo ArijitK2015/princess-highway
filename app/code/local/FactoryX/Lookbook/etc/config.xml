@@ -4,7 +4,7 @@
 
     <modules>
         <FactoryX_Lookbook>
-            <version>1.2.1</version>
+            <version>1.2.9</version>
         </FactoryX_Lookbook>
     </modules>
 	
@@ -102,7 +102,7 @@
 			<!-- Extend URL Rewrite Model -->
 			<core>
 				<rewrite>
-					<url_rewrite>FactoryX_Contests_Model_Core_Url_Rewrite</url_rewrite>
+					<url_rewrite>FactoryX_Lookbook_Model_Core_Url_Rewrite</url_rewrite>
 				</rewrite>
 			</core>
 		</models>

@@ -23,53 +23,48 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 
 		if (Mage::app()->isSingleStoreMode())
 		{
-			if ($row->getLookbookType() == "slideshow")
-			{
+			if ($row->getLookbookType() == "slideshow") {
 				$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
 			}
-			elseif ($row->getLookbookType() == "flipbook")
-			{
+			elseif ($row->getLookbookType() == "flipbook") {
 				$viewUrl = $this->getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store' => 'default'));
 			}
-			else $viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			else {
+			    $viewUrl = $this->getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+			}
 		}
-		else
-		{
+		else {
 			// Database resources
 			$resource = Mage::getSingleton('core/resource');
 			$readConnection = $resource->getConnection('core_read');
 			
 			// Get the contest related stores
-			$query = "SELECT store_id 
-						FROM {$resource->getTableName('lookbook/store')}
-						WHERE lookbook_id = {$row->getId()}";
+			$query = "SELECT store_id FROM {$resource->getTableName('lookbook/store')} WHERE lookbook_id = {$row->getId()}";
 			
 			// We use the first store URL even if there's several stores for the same lookbook
 			$lookbookStoreId = $readConnection->fetchOne($query);
 								
-			if ($lookbookStoreId)
-			{
-				if ($row->getLookbookType() == "slideshow")
-				{
+			if ($lookbookStoreId) {
+				if ($row->getLookbookType() == "slideshow") {
 					$viewUrl = $this->getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store'=>$lookbookStoreId));
 				}
-				elseif ($row->getLookbookType() == "flipbook")
-				{
+				elseif ($row->getLookbookType() == "flipbook") {
 					$viewUrl = $this->getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store'=>$lookbookStoreId));
 				}
-				else $viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+				else {
+				    $viewUrl = Mage::getUrl("lookbook/index/view",array('id' => $row->getId(),'_store'=>$lookbookStoreId));
+				}
 			}
-			else 
-			{
-				if ($row->getLookbookType() == "slideshow")
-				{
+			else  {
+				if ($row->getLookbookType() == "slideshow") {
 					$viewUrl = Mage::getUrl("lookbook/index/slideshow", array('id' => $row->getId(),'_store' => 'default'));
 				}
-				elseif ($row->getLookbookType() == "flipbook")
-				{
+				elseif ($row->getLookbookType() == "flipbook") {
 					$viewUrl = Mage::getUrl("lookbook/index/flipbook", array('id' => $row->getId(),'_store' => 'default'));
 				}
-				else $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+				else {
+				    $viewUrl = Mage::getUrl("lookbook/index/view", array('id' => $row->getId(),'_store' => 'default'));
+				}
 			}
 		}
 		
@@ -81,6 +76,20 @@ class FactoryX_Lookbook_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
             ),
             '#'	=> Mage::helper('lookbook')->__('View')
         );
+        
+
+		// link to the facebook frontend view
+		if ($row->getLookbookFacebook()) {
+    		$facebookViewUrl = preg_replace("/index/i", "facebook", $viewUrl);
+            $actions[] = array(
+                '@' => array(
+                    'href'  => $facebookViewUrl,
+                    'target'=>'_blank'
+                ),
+                '#'	=> Mage::helper('lookbook')->__('Facebook')
+            );
+        }
+                
         return $this->_actionsToHtml($actions);
     }
 
