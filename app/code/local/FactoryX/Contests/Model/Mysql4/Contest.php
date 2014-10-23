@@ -35,13 +35,12 @@ class FactoryX_Contests_Model_Mysql4_Contest extends Mage_Core_Model_Mysql4_Abst
         $select = $this->_getReadAdapter()->select()
                 ->from($this->getTable('contests/store'))
                 ->where('contest_id = ?', $object->getId());
-				
-		if ($data = $this->_getReadAdapter()->query($select)) {
+
+        if ($data = $this->_getReadAdapter()->fetchAll($select)) {
             $storesArray = array();
-			while ($row = $data->fetch())
-			{
-				$storesArray[] = $row['store_id'];
-			}
+            foreach ($data as $row) {
+                $storesArray[] = $row['store_id'];
+            }
             $object->setData('store_id', $storesArray);
         }
 
@@ -80,9 +79,10 @@ class FactoryX_Contests_Model_Mysql4_Contest extends Mage_Core_Model_Mysql4_Abst
 				$select = $this->_getReadAdapter()->select()
 						->from($this->getTable('contests/store'))
 						->where('contest_id = ?', $object->getId());
-						
-				if ($data = $this->_getReadAdapter()->query($select)) {
-					while ($row = $data->fetch())
+
+				if ($data = $this->_getReadAdapter()->fetchAll($select)) 
+				{
+					foreach ($data as $row) 
 					{
 						$affectedStoreId = $row['store_id'];
 						$idPath = $object->getIdentifier()."_".$affectedStoreId;

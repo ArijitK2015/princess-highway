@@ -102,13 +102,19 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
         $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
 		$translate->setTranslateInline(false);
-		
-		// Contest ID
-		$contestId = $this->getRequest()->getParam('contest_id');
-		$contest = Mage::getModel('contests/contest')->load($contestId);
         
         try 
 		{
+			// Contest ID
+			$contestId = $this->getRequest()->getParam('contest_id');
+			$contest = Mage::getModel('contests/contest')->load($contestId);
+			
+			// Avoid ghost competitions to be created
+			if (!$contest->getIdentifier())
+			{
+				Mage::throwException($this->__('An error has occured, please try again.'));
+			}
+			
 			// Get data
         	$name = $postObject['name'];
         	$email = $postObject['email'];

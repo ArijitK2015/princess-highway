@@ -67,6 +67,7 @@ class FactoryX_Contests_Block_Adminhtml_Referees_Grid extends Mage_Adminhtml_Blo
         $this->addColumn('entry_date', array(
             'header' => Mage::helper('contests')->__('Entry Date'),
             'index' => 'entry_date',
+            'filter_index' => 'main_table.entry_date',
             'type' => 'datetime',
             'width' => '120px',
             'gmtoffset' => true,
