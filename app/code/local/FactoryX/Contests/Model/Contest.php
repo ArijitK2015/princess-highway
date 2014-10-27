@@ -5,6 +5,8 @@ class FactoryX_Contests_Model_Contest extends Mage_Core_Model_Abstract
 
 	const CACHE_TAG	= 'contests_contest';
 	
+	public $arrayWinners = array();
+	
     protected function _construct()
     {
         $this->_init('contests/contest', 'contest_id');
@@ -109,10 +111,15 @@ class FactoryX_Contests_Model_Contest extends Mage_Core_Model_Abstract
 		return ($this->getType()==1) ? 1 : 0;
 	}
 	
+	public function generateWinnersArray($args)
+	{
+		$this->arrayWinners[] = $args['row']['referrer_id'];
+	}
+	
 	/**
 	 *
 	 */
-	public function drawWinners($numbersToDraw)
+	public function drawWinners($numbersToDraw,$states = null)
 	{
 
 		try
@@ -144,13 +151,14 @@ class FactoryX_Contests_Model_Contest extends Mage_Core_Model_Abstract
 				$table->setName($resource->getTableName('contests/contest_winner'));
 				$table->addColumn('email', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255);
 				$table->addColumn('referrer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, 11);
+				$table->addColumn('state', Varien_Db_Ddl_Table::TYPE_VARCHAR, 50);
 				$table->setOption('type', 'InnoDB');
 				$table->setOption('charset', 'utf8');
 				$writeConnection->createTable($table);
 				
 				// 1 entry per referee
 				$query = "INSERT INTO {$resource->getTableName('contests/contest_winner')}
-							SELECT r1.email, r1.referrer_id
+							SELECT r1.email, r1.referrer_id, r1.state
 							FROM {$resource->getTableName('contests/referrer')} r1 
 							INNER JOIN {$resource->getTableName('contests/referee')} r2 
 							ON r1.referrer_id = r2.referrer_id 
@@ -160,53 +168,146 @@ class FactoryX_Contests_Model_Contest extends Mage_Core_Model_Abstract
 												
 				// Plus 1 extra entry per referrer
 				$query = "INSERT INTO {$resource->getTableName('contests/contest_winner')}
-							SELECT DISTINCT r1.email, r1.referrer_id
+							SELECT DISTINCT r1.email, r1.referrer_id, r1.state
 							FROM {$resource->getTableName('contests/referrer')} r1 
 							WHERE contest_id = {$this->getContestId()}";
 				
 				$writeConnection->query($query);
 				
-				$arrayWinners = array();
-				
-				// Select the winner(s) randomly one by one (so we don't pick someone who has already win)
-				for ($i = 0; $i < $numbersToDraw; $i++)
+				if ($states)
 				{
-					$query = "SELECT referrer_id 
-							FROM {$resource->getTableName('contests/contest_winner')}
-							ORDER BY RAND()
-							LIMIT 1";
-					
-					$winnerReferrerId = $readConnection->fetchOne($query);
-					
-					$arrayWinners[] = $winnerReferrerId;
-					
-					// Remove every entry with the winner referrer id
-					$query = "DELETE FROM {$resource->getTableName('contests/contest_winner')}
-								WHERE referrer_id = {$winnerReferrerId}";
-					
-					$writeConnection->query($query);
+					// Single state
+					if (!is_array($states))
+					{
+						// Select the winner(s) randomly one by one (so we don't pick someone who has already win) per state
+						for ($i = 0; $i < $numbersToDraw; $i++)
+						{
+							$query = "SELECT referrer_id 
+									FROM {$resource->getTableName('contests/contest_winner')}
+									WHERE state = '$states'
+									ORDER BY RAND()
+									LIMIT 1";
+							
+							$winnerReferrerId = $readConnection->fetchOne($query);
+							
+							$this->arrayWinners[] = $winnerReferrerId;
+							
+							// Remove every entry with the winner referrer id
+							$query = "DELETE FROM {$resource->getTableName('contests/contest_winner')}
+										WHERE referrer_id = {$winnerReferrerId}";
+							
+							$writeConnection->query($query);
+						}
+					}
+					else
+					{
+						foreach($states as $state)
+						{
+							for ($i = 0; $i < $numbersToDraw; $i++)
+							{
+								$query = "SELECT referrer_id 
+										FROM {$resource->getTableName('contests/contest_winner')}
+										WHERE state = '$state'
+										ORDER BY RAND()
+										LIMIT 1";
+								
+								if ($winnerReferrerId = $readConnection->fetchOne($query))
+								{
+									$this->arrayWinners[] = $winnerReferrerId;
+								
+									// Remove every entry with the winner referrer id
+									$query = "DELETE FROM {$resource->getTableName('contests/contest_winner')}
+												WHERE referrer_id = {$winnerReferrerId}";
+								
+									$writeConnection->query($query);
+								}
+							}
+						}
+					}
 				}
-				
-				foreach ($arrayWinners as $winnerId)
+				else
 				{
-					Mage::getModel('contests/referrer')->load($winnerId)->wins();
+					// Select the winner(s) randomly one by one (so we don't pick someone who has already win)
+					for ($i = 0; $i < $numbersToDraw; $i++)
+					{
+						$query = "SELECT referrer_id 
+								FROM {$resource->getTableName('contests/contest_winner')}
+								ORDER BY RAND()
+								LIMIT 1";
+						
+						$winnerReferrerId = $readConnection->fetchOne($query);
+						
+						$this->arrayWinners[] = $winnerReferrerId;
+						
+						// Remove every entry with the winner referrer id
+						$query = "DELETE FROM {$resource->getTableName('contests/contest_winner')}
+									WHERE referrer_id = {$winnerReferrerId}";
+						
+						$writeConnection->query($query);
+					}
 				}
 				
 			}
 			elseif($this->isGiveAwayContest())
-			{
-				$collection = Mage::getResourceModel('contests/referrer_collection')
-							->addContestFilter($this->getContestId());
-				
-				$collection->load();
-			
-				foreach ($collection as $winner)
+			{							
+				if ($states)
 				{
-					Mage::getModel('contests/referrer')->load($winner['referrer_id'])->wins();
+					// Single state
+					if (!is_array($states))
+					{
+						$collection = Mage::getResourceModel('contests/referrer_collection');
+						$collection->addContestFilter($this->getContestId());
+						$collection->addStateFilter($states);
+						$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+						$collection->getSelect()->limit($numbersToDraw);
+						
+						// Call iterator walk method with collection query string and callback method as parameters
+						// Has to be used to handle massive collection instead of foreach
+						Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'generateWinnersArray')));
+					}
+					else
+					{
+						foreach($states as $state)
+						{
+							for ($i = 0; $i < $numbersToDraw; $i++)
+							{
+								$collection = Mage::getResourceModel('contests/referrer_collection');
+								$collection->addContestFilter($this->getContestId());
+								$collection->addStateFilter($state);
+								$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+								$collection->getSelect()->limit(1);
+								$collection->load();
+								if ($winnerReferrerId = $collection->getFirstItem()->getReferrerId())
+								{
+									$this->arrayWinners[] = $winnerReferrerId;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					$collection = Mage::getResourceModel('contests/referrer_collection');
+					$collection->addContestFilter($this->getContestId());
+					$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+					$collection->getSelect()->limit($numbersToDraw);
+					
+					// Call iterator walk method with collection query string and callback method as parameters
+					// Has to be used to handle massive collection instead of foreach
+					Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'generateWinnersArray')));
 				}
 			}
+			
+			foreach ($this->arrayWinners as $winnerId)
+			{
+				Mage::getModel('contests/referrer')->load($winnerId)->wins();
+			}
+			
 			// Set the winners tab as the active tab
-			Mage::getSingleton('admin/session')->setActiveTab('winners_tab');			
+			Mage::getSingleton('admin/session')->setActiveTab('winners_tab');	
+
+			// Return number of winners
+			return count($this->arrayWinners);
 		}
 		catch (Exception $e)
 		{

@@ -703,16 +703,46 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 			try
 			{
 				$numberToDraw = $data['amount'];
-				$model->drawWinners($numberToDraw);
+				$stateDraw = $data['state_enable'];
+				$states = $data['states'];
+				$state = $data['state'];
+				$onePerState = $data['one_per_state'];
+				
+				if ($stateDraw && !$state && !$onePerState)
+				{
+					throw new Exception('Please choose a state');
+				}
+				
+				// First case: no state selection
+				if ($numberToDraw && !$stateDraw)
+				{
+					$winnersDrawn = $model->drawWinners($numberToDraw);
+				}
+				// Second case: select amount per ONE state selected
+				elseif ($numberToDraw && $stateDraw && $state && !$onePerState)
+				{
+					$winnersDrawn = $model->drawWinners($numberToDraw,$state);
+				}
+				// Third case: one per state
+				elseif ($numberToDraw && $onePerState && $states)
+				{
+					$winnersDrawn = $model->drawWinners($numberToDraw,$states);
+				}
+				else
+				{
+					throw new Exception ("There has been an issue drawing the winners");
+				}
 				
 				$this->_getSession()->addSuccess(
-                        $this->__('%d winner(s) have been drawn', $numberToDraw)
+                        $this->__('%d winner(s) have been drawn', $winnersDrawn)
                 );
 				$this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
 			}
 			catch (Exception $e)
 			{
-				Mage::helper('contests')->log($e->getMessage);
+				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+				$this->_redirect('*/*/draw', array('id' => $this->getRequest()->getParam('id')));
+                return;
 			}
 			
         } else {

@@ -13,6 +13,12 @@ class FactoryX_Contests_Model_Mysql4_Referrer_Collection extends Mage_Core_Model
         return $this;
     }
 	
+	public function addStateFilter($state) {
+        $this->getSelect()
+                ->where('main_table.state = ?', $state);
+        return $this;
+    }
+	
 	public function addWinnersFilter() {
         $this->getSelect()
                 ->where('main_table.is_winner = 1');

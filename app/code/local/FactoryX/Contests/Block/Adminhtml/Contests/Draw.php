@@ -30,6 +30,47 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Draw extends Mage_Adminhtml_Blo
 					editForm.submit();
 				}
 			";
+			
+			// Add some JS to hide/show fields
+			$this->_formScripts[] = "
+				Event.observe(window, 'load', function(){
+					if ($('state_enable').selectedIndex == 0)
+					{
+						$('state').parentNode.parentNode.hide();
+						$('one_per_state').parentNode.parentNode.hide();
+						$('states').parentNode.parentNode.hide();
+					}
+				});
+				Event.observe($('state_enable'),'change', function(){
+					if ($('state_enable').selectedIndex == 0)
+					{
+						$('state').selectedIndex = 0;
+						$('state').parentNode.parentNode.hide();
+						$('one_per_state').selectedIndex = 0;
+						$('one_per_state').parentNode.parentNode.hide();
+					}
+					else
+					{
+						$('state').parentNode.parentNode.show();
+						$('one_per_state').parentNode.parentNode.show();
+					}
+				});
+				
+				Event.observe($('one_per_state'),'change', function(){
+					if ($('one_per_state').checked == 0)
+					{
+						$('state').parentNode.parentNode.show();
+						$('states').selectedIndex = 0;
+						$('states').parentNode.parentNode.hide();
+					}
+					else
+					{
+						$('state').parentNode.parentNode.hide();
+						$('state').selectedIndex = 0;
+						$('states').parentNode.parentNode.show();
+					}
+				});
+			";
 		}
 	}
 	
