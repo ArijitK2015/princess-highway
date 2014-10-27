@@ -8,7 +8,13 @@
 			if (is_file($imagePath)) {
 				list($width, $height, $type, $attr) = getimagesize($imagePath);
 			?>
-			<img <?php echo $attr; ?> alt="<?php echo $this->__('Thank you and good luck!!!') ?>" src="<?php echo $imageUrl ?>" />
+				<?php if (!Mage::getSingleton('core/session')->getData('thank_you_link_type')): ?>
+					<a href="<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url') ?>">
+				<?php endif; ?>
+				<img <?php echo $attr; ?> alt="<?php echo $this->__('Thank you and good luck!!!') ?>" src="<?php echo $imageUrl ?>" />
+				<?php if (!Mage::getSingleton('core/session')->getData('thank_you_link_type')): ?>
+					</a>
+				<?php endif; ?>
 		<?php } ?>
 	<?php else: ?>
 		<div>
@@ -18,12 +24,16 @@
 	
 </div>
 
-<script type="text/javascript">
-function delayedRedirect() {
-    var redirectUrl = "<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url', true); ?>";
-    if (redirectUrl) {
-        window.location = redirectUrl;
-    }
-}
-window.onload = setTimeout('delayedRedirect()', 2500)
-</script>
+<?php if (Mage::getSingleton('core/session')->getData('thank_you_link_type',true)): ?>
+	<script type="text/javascript">
+		function delayedRedirect() 
+		{
+			var redirectUrl = "<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url', true); ?>";
+			if (redirectUrl) 
+			{
+				window.location = redirectUrl;
+			}
+		}
+		window.onload = setTimeout('delayedRedirect()', 2500)
+	</script>
+<?php endif; ?>

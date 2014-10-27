@@ -445,6 +445,7 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
 				if ($data['button_background_colour']) $model->setButtonBackgroundColour($data['button_background_colour']);
 				if ($data['button_text_colour']) $model->setButtonTextColour($data['button_text_colour']);
 				if ($data['custom_css']) $model->setCustomCss($data['custom_css']);
+                if ($data['more_friend_line']) $model->setMoreFriendLine($data['more_friend_line']);
 				
                 $model->save();				
 				
@@ -766,6 +767,16 @@ class FactoryX_Contests_Adminhtml_ContestsController extends Mage_Adminhtml_Cont
         $fileName   = sprintf("%s%s-referrers.csv", date("Ymdhis"), $contestsTitle);        
         // FactoryX_Contests_Block_Adminhtml_Referrers_Grid
         $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+    }
+	
+	public function triggerAction()
+    {
+		$model = Mage::getModel('contests/observer');
+		$model->disableContests();
+		$model->enableContests();
+		
+        $result = 1;
+        Mage::app()->getResponse()->setBody($result);
     }
 	
 }

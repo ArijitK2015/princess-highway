@@ -343,7 +343,11 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
             );
 			
             $translate->setTranslateInline(true);
-            $session->addSuccess('Thank you for entering... good luck');
+			if ($thankYouLinkType = $contest->getThankYouLinkType())
+			{
+				$session->addSuccess('Thank you for entering... good luck. You are going to be redirected.');
+			}
+			else $session->addSuccess('Thank you for entering... good luck.');
 		}	
         catch (Exception $e) 
 		{
@@ -368,20 +372,25 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
 			$session->setData('thank_you_image_url', $thankYouImageUrl);
 		}
 		
+		$session->setData('thank_you_link_type', $thankYouLinkType);
+		
 		$this->_redirect('*/*/thankyou/');
         return;
 	}
 
 	protected function _validateWordCount($field, $fieldname, $minlen, $maxlen) 
 	{
-		if(str_word_count($field) < $minlen ) 
+		// calculation for counting in numbers		
+		$count = count(explode(' ',$field));
+				
+		if($count < $minlen ) 
 		{
-			return ($this->__("%s contains too few words (required:%s - %s) (current word count: %s)", $fieldname, $minlen, $maxlen, str_word_count($field)) );
+			return ($this->__("%s contains too few words (required:%s - %s) (current word count: %s)", $fieldname, $minlen, $maxlen, $count ) );
 		}		
 		// Check maximum string length
-		if(str_word_count($field) > $maxlen ) 
+		if($count > $maxlen ) 
 		{
-			return ($this->__("%s contains too many words (max:%s) (current word count: %s)", $fieldname, $maxlen, str_word_count($field) ) );
+			return ($this->__("%s contains too many words (max:%s) (current word count: %s)", $fieldname, $maxlen, $count ) );
 		}
 		
 		return true;

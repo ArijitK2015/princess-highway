@@ -93,6 +93,13 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
                 )
             )
 		));
+
+        // Displaying the more friends
+        $fieldset->addField('more_friend_line', 'text', array(
+            'label' => Mage::helper('contests')->__('More Friend Line'),
+            'name' => 'more_friend_line',
+            'note' => 'The line to display before email field (e.g. the more friend you refer...)'
+        ));
 		
 		// Field for the allow duplicate entries of the contest
 		$fieldset->addField('allow_duplicate_entries', 'select', array(
@@ -139,6 +146,34 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
 				array(
                     'value' => 1,
                     'label' => Mage::helper('contests')->__('Yes'),
+                )
+            )
+		));
+
+        // Field for facebook app id
+        $fieldset->addField('facebook_app_id', 'text', array(
+            'label' => Mage::helper('contests')->__('Facebook App Id'),
+            'name' => 'facebook_app_id',
+        ));
+
+        // Field for facebook app id
+        $fieldset->addField('facebook_app_secret', 'text', array(
+            'label' => Mage::helper('contests')->__('Facebook App Secret'),
+            'name' => 'facebook_app_secret',
+        ));
+		
+		// Field for the thank you type of the contest
+		$fieldset->addField('thank_you_link_type', 'select', array(
+            'label' => Mage::helper('contests')->__('Thank You Link Option'),
+            'name' => 'thank_you_link_type',
+            'values' => array(
+                array(
+                    'value' => 0,
+                    'label' => Mage::helper('contests')->__('Click Through On The Image'),
+                ),
+                array(
+                    'value' => 1,
+                    'label' => Mage::helper('contests')->__('Auto Redirect'),
                 )
             )
 		));
