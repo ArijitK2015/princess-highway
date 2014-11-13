@@ -339,7 +339,7 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
             		"mobile"			=> $mobile,
             		"state"				=> $state,
             		"title"				=> $source
-            	)
+            	),$contest->getCampaignmonitorList()
             );
 			
             $translate->setTranslateInline(true);

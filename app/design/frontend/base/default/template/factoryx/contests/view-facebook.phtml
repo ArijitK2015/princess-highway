@@ -1,0 +1,468 @@
+<?php
+    // Get the contest
+    $contest = $this->getCurrentContest();
+
+    // DYNAMIC CSS STYLING
+    $backgroundColour       = $contest->getBackgroundColour();
+    $textColour             = $contest->getTextColour();
+    $buttonBackgroundColour = $contest->getButtonBackgroundColour();
+    $buttonTextColour       = $contest->getButtonTextColour();
+?>
+<style>
+    #rafPage{ 
+        background-color: <?=$backgroundColour?>;
+        color: <?=$textColour?>;        
+    }
+    #rafPage a{ color: <?=$textColour?>;}
+    #contestForm button.button span {
+        background-color: <?=$buttonBackgroundColour?>;
+        color: <?=$buttonTextColour?>;
+    }
+
+    /* Modified Style */
+    html,body{overflow:hidden;padding:0!important;}
+    .row{ margin: 10px 0px 15px 0px; }
+    .row.center {text-align: center;}
+    .row .label {display: inline-block;text-transform: uppercase;font-size:12px;font-weight:bold;}
+    .row input, .row select { font-size:12px !important; padding:0px 5px !important; float:none !important; display: inline-block; height: 28px !important;width:20% !important;}
+    .row input[type=checkbox]{width:auto !important;}
+    .row textarea { min-width:90%;max-width:90%; min-height:150px; height:150px; float:none !important; display: inline-block; box-sizing: border-box; padding:10px;font-size:13px;line-height:20px;margin-top:0px !important; font-size:12px !important; }
+    .row select {height: 30px !important;}    
+    .row.email{margin-left:5%;}    
+    .row.email input{width:300px !important;}
+    .row.invert {background-color: <?=$textColour?>;color: <?=$backgroundColour?>;}
+    .nomargin {margin: 0;}
+    .form-control {float:right;margin-right: 5%;text-align: right;}
+    #contestForm button.button span {font-size:13px;}
+    #javascript-countdown {font-size:12px;text-transform:uppercase;}
+    .email-link {cursor: pointer;text-decoration: none;}
+    .validation-advice {display: none !important;}
+    .choice{display:inline-block;margin:0px 10px;padding:7px 0px;border:1px solid #CFC3D7;}
+    .choice-selected {background:black !important;color:white !important;border-color:black;}
+    .choice:hover {background:#E2E2E2;cursor:pointer;}
+    <?=$contest->getCustomCss()?>
+</style>
+
+<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript">
+    FB.init({
+      appId      : '<?=$contest->getFacebookAppId()?>',
+    });
+    setTimeout("FB.Canvas.setAutoGrow()",500);
+    FB.Event.subscribe('edge.create', function(href, widget) {
+        window.location.reload();
+    });
+</script>
+<?php
+
+/*
+    TEMPORARY DISABLE UNTIL WE FIND A BETTER WAY FOR LIKE-GATE
+
+include_once MAGENTO_ROOT . "/lib/Facebook/facebook.php";
+$facebook = new Facebook(array(
+    'appId' => $contest->getFacebookAppId(),
+    'secret' => $contest->getFacebookAppSecret(),
+    'cookie' => true
+));
+
+$user = $facebook->getUser();
+var_dump($user);
+$signed_request = $facebook->getSignedRequest();
+$like_status = $signed_request["page"]["liked"];
+ 
+enable when go live
+if (!$like_status) {
+    echo $this->getLayout()->createBlock('cms/block')->setBlockId('facebook_like')->toHtml();
+    return;
+}
+
+*/
+ 
+// Session variables
+$customerSession = Mage::getSingleton('customer/session');
+$session = Mage::getSingleton('core/session');
+$data =  $session->getFormData(true);
+// Mage::helper('contests')->log(sprintf("EncryptedSessionId=%s", $session->getEncryptedSessionId()));
+
+// Friends Handler
+$friends = array();
+if ($data)
+{
+    foreach($data as $key => $value)
+    {
+        if (!strpos($key,'friend') === false)
+        {
+            $friends[$key] = $value;
+        }
+    }
+}
+
+if ($customerSession->isLoggedIn())
+{
+    if (!array_key_exists('name',$data)) $data['name'] = $customerSession->getCustomer()->getName();
+    if (!array_key_exists('email',$data)) $data['email'] = $customerSession->getCustomer()->getEmail();
+}
+
+if (!Mage::app()->isSingleStoreMode())
+{
+    $storeCode = Mage::app()->getStore()->getCode();
+}
+else
+{
+    $storeCode = "";
+}
+?>
+<?php
+    $endTimeStamp = strtotime($contest->getEndDate());
+    $currentTimeStamp = Mage::getModel('core/date')->timestamp(time());
+?>
+<?php // No contest ?>
+<?php if (!$contest->getId()): ?>
+    <h1><?php echo $this->__('Sorry, this contest does not exist, you will be redirect in a few seconds'); ?></h1>
+    <script type="text/javascript">
+        function delayedRedirect() {
+            var redirectUrl = "<?php echo Mage::helper('contests')->getNotFoundRedirectUrl(); ?>";
+            if (redirectUrl) {
+                window.location = redirectUrl;
+            }
+        }
+        window.onload = setTimeout('delayedRedirect()', 2500)
+    </script>
+<?php // Contest disabled ?>
+<?php elseif ((!$contest->getDisplayed()) || ($currentTimeStamp > $endTimeStamp)): ?>
+     <div id="rafPage">      
+        <div class="row" style="margin:0;">
+            <?php
+                $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $contest->getImageUrl());
+                $imageUrl = sprintf("%s/contest%s", $relMediaPath, $contest->getImageUrl());
+                if (is_file($imagePath)) {
+                    list($width, $height, $type, $attr) = getimagesize($imagePath);
+                ?>
+                    <img <?php //echo $attr; ?> alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+                <?php
+                } // endif
+            ?>
+
+        </div>
+        <div class="row center invert nomargin">
+            <div class="label" style="padding:10px 0px">                  
+                <?=$this->__('Sorry this contest has closed!');?>
+            </div>
+        </div>
+    </div>
+<?php // Refer A Friend Mode ?>
+<?php elseif ($contest->getType() == 1): ?>
+    <div id="rafPage">  
+        
+        <div class="row" style="margin:0;">
+            <?php
+                $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $contest->getImageUrl());
+                $imageUrl = sprintf("%s/contest%s", $relMediaPath, $contest->getImageUrl());
+                if (is_file($imagePath)) {
+                    list($width, $height, $type, $attr) = getimagesize($imagePath);
+                ?>
+                    <img alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+                <?php
+                } // endif
+            ?>
+
+        </div>
+        <div>
+            <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $this->getRequest()->getParam('id') ?>" />
+                <div class="row center">
+                    <div class="label">                  
+                        <?=$this->__('Please Enter Your Details');?>
+                    </div>
+                </div>
+                <div class="row center">                      
+                    <input id="name" name="name" value="<?php echo $this->htmlEscape($data['name']) ?>" class="input-text required-entry input-text-medium" placeholder="<?php echo $this->__('Your Name')?>"/>
+                    <input id="email" name="email" value="<?php echo $this->htmlEscape($data['email']) ?>" class="input-text required-entry validate-email input-text-medium"  placeholder="<?php echo $this->__('Your Email')?>"/>
+                     <input id="mobile" name="mobile" value="<?php echo $this->htmlEscape($data['mobile']) ?>" class="input-text validate-number input-text-medium" placeholder="<?php echo $this->__('Your Mobile Number')?>" />
+                     <select id="state" name="state" class="validate-select">
+                        <option value="" disabled><?php echo $this->__('Your State')?></option>
+                        <?php $states = Mage::helper('contests')->getStates(); ?>
+                        <?php foreach($states as $key => $value): ?>
+                            <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                 <?php if ($contest->getIsCompetition()): ?>
+
+                <div class="row center">
+                    <div class="label">    
+                        <?=$contest->getCompetitionText()?>
+                    </div>
+                </div>
+
+                <div class="row center">
+
+                <?php
+                    if ($contest->getCompetitionOptions()){
+                        $options = explode(",",$contest->getCompetitionOptions());
+                        $width = round((770 - (25 * count($options)))/count($options));
+                        foreach ($options as $option){
+                ?>
+                            <div class="choice" style="width:<?=$width?>px;" data-choice="<?=$option?>"><?=$option?></div>
+                <?php                            
+                        }
+                    } 
+                ?>
+
+                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry" style="<?=($contest->getCompetitionOptions()) ? "display:none" : "" ?> "><?php echo $this->htmlEscape($data['competition']) ?></textarea>
+
+                </div>
+
+                <?php endif; ?>
+
+
+                <div class="row center">
+                    <div class="label">
+                        <?php if ($contest->getMoreFriendLine()){
+                            echo $contest->getMoreFriendLine();
+                        }else{
+                            echo $this->__('The more friends you refer the more entries you get to the prize draw.');
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <?php if ($this->getChildHtml('form.additional.info')) { ?>
+                    <div class="row center">
+                        <div class="label">    
+                            <?php // Call the Magento Captcha system ?>
+                            <?php echo $this->getChildHtml('form.additional.info') ?>
+                        </div>
+                    </div>        
+                <? } ?>
+
+                <div class="form-control">
+                    <div class="row" style="margin-top:0px;margin-bottom:5px;">
+                        <input name="terms" type="checkbox" checked>
+                        <?php echo $this->__('I have read and agree with the <a href="javascript:void(0);" onclick="popupTerms(\'%s\', %s);">terms and conditions</a>', $storeCode, $contest->getId())?>
+                        <?php if ($contest->getShareOnFacebook()): ?>
+                            &nbsp;|&nbsp;
+                            <?php
+                                $urlToShare = urlencode(Mage::helper('core/url')->getCurrentUrl());
+                            ?>
+                            <div class="fb-share-button" data-href="<?php echo $urlToShare ?>" data-type="button"></div>
+                        <?php endif; ?>
+                    </div>
+                    <button onclick="clearForm(this.form);" title="<?php echo $this->__('Reset') ?>" class="button">
+                        <span>
+                            <span>
+                                <?php echo $this->__('Reset') ?>
+                            </span>
+                        </span>
+                    </button>
+                    <button type="submit" title="<?php echo $this->__('Enter Now') ?>" class="button">
+                        <span>
+                            <span>
+                                <?php echo $this->__('Enter Now') ?>
+                            </span>
+                        </span>
+                    </button>
+
+                    <div class="row">                        
+                        <div id="javascript-countdown">
+                            <script type="text/javascript">
+                                TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+                                BackColor = ""; //"#ffffff";
+                                ForeColor = ""; //"#000000";
+                                CountActive = true;
+                                CountStepper = -1;
+                                LeadingZero = true;
+                                DisplayFormat = "Closes in %%D%%&nbsp;DAYS&nbsp;%%H%%&nbsp;HOURS&nbsp;%%M%%&nbsp;MINUTES&nbsp;%%S%%SECONDS";
+                                FinishMessage = "<b>CLOSED!</b>";
+                            </script>
+                            <script type="text/javascript" src="/js/countdown/countdown.js"></script>
+                        </div>                        
+                    </div>
+                </div>
+
+                <div id="emailReferee">
+                    <?php
+                    if ($friends && count($friends) > 0)
+                    {
+                        $cnt = 0;
+                        foreach ($friends as $key => $val)
+                        {
+                            $cnt++;
+                            // reset the label
+                            $label = "friend" . $cnt;
+                            ?>
+                                <div class="row email">
+                                    <input type="textbox" name="<?=$label?>" id="<?=$label?>" class="input-text validate-email" value="<?=$val?>" />
+                                    <a class="email-link" onclick="removeEmailField('<?=$label?>')">Remove</a>
+                                </div> 
+
+                            <?php
+                        }
+                    }else{
+                    ?>
+                        <div class="row email">
+                            <input type="textbox" name="friend1" id="friend1" class="input-text validate-email" value="<?=$this->htmlEscape($data['friend1'])?>" placeholder="Your Friend's Email" />
+                        </div> 
+                    <?php   }    ?>
+                </div>
+                <div class="row email">
+                     <a class="email-link" onclick="addEmailField('emailReferee')">+ Add More Friend</a>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php // Give Away mode ?>
+<?php elseif($contest->getType() == 2): ?>
+    <div id="rafPage">      
+        <div class="row" style="margin:0;">
+            <?php
+                $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $contest->getImageUrl());
+                $imageUrl = sprintf("%s/contest%s", $relMediaPath, $contest->getImageUrl());
+                if (is_file($imagePath)) {
+                    list($width, $height, $type, $attr) = getimagesize($imagePath);
+                ?>
+                    <img alt="<?php echo $contest->getTitle(); ?>" src="<?php echo $imageUrl; ?>" />
+                <?php
+                } // endif
+            ?>
+
+        </div>
+        <div>
+            <form name="contestForm" id="contestForm" action="<?php echo $this->getFormAction(); ?>" method="post">
+                <input type="hidden" id="contest_id" name="contest_id" value="<?php echo $this->getRequest()->getParam('id') ?>" />
+                <div class="row center">
+                    <div class="label">                  
+                        <?=$this->__('Please Enter Your Details');?>
+                    </div>
+                </div>
+                <div class="row center">                      
+                    <input id="name" name="name" value="<?php echo $this->htmlEscape($data['name']) ?>" class="input-text required-entry input-text-medium" placeholder="<?php echo $this->__('Your Name')?>"/>
+                    <input id="email" name="email" value="<?php echo $this->htmlEscape($data['email']) ?>" class="input-text required-entry validate-email input-text-medium"  placeholder="<?php echo $this->__('Your Email')?>"/>
+                     <input id="mobile" name="mobile" value="<?php echo $this->htmlEscape($data['mobile']) ?>" class="input-text validate-number input-text-medium" placeholder="<?php echo $this->__('Your Mobile Number')?>" />
+                     <select id="state" name="state" class="validate-select">
+                        <option value="" disabled><?php echo $this->__('Your State')?></option>
+                        <?php $states = Mage::helper('contests')->getStates(); ?>
+                        <?php foreach($states as $key => $value): ?>
+                            <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                 <?php if ($contest->getIsCompetition()): ?>
+
+                <div class="row center">
+                    <div class="label">    
+                        <?=$contest->getCompetitionText()?>
+                    </div>
+                </div>
+
+                <div class="row center">
+
+                <?php
+                    if ($contest->getCompetitionOptions()){
+                        $options = explode(",",$contest->getCompetitionOptions());
+                        $width = round((770 - (25 * count($options)))/count($options));
+                        foreach ($options as $option){
+                ?>
+                            <div class="choice" style="width:<?=$width?>px;" data-choice="<?=$option?>"><?=$option?></div>
+                <?php                            
+                        }
+                    } 
+                ?>
+
+                <textarea id="competition" name="competition" rows="4" cols="134" class="input-text input-competition required-entry" style="<?=($contest->getCompetitionOptions()) ? "display:none" : "" ?> "><?php echo $this->htmlEscape($data['competition']) ?></textarea>
+
+                </div>
+
+                <?php endif; ?>    
+
+                <?php if ($this->getChildHtml('form.additional.info')) { ?>
+                    <div class="row center">
+                        <div class="label">    
+                            <?php // Call the Magento Captcha system ?>
+                            <?php echo $this->getChildHtml('form.additional.info') ?>
+                        </div>
+                    </div>        
+                <? } ?>
+
+                <div class="form-control">
+                    <div class="row" style="margin-top:0px;margin-bottom:5px;">
+                        <input name="terms" type="checkbox" checked>
+                        <?php echo $this->__('I have read and agree with the <a href="javascript:void(0);" onclick="popupTerms(\'%s\', %s);">terms and conditions</a>', $storeCode, $contest->getId())?>
+                        <?php if ($contest->getShareOnFacebook()): ?>
+                            &nbsp;|&nbsp;
+                            <?php
+                                $urlToShare = urlencode(Mage::helper('core/url')->getCurrentUrl());
+                            ?>
+                            <div class="fb-share-button" data-href="<?php echo $urlToShare ?>" data-type="button"></div>
+                        <?php endif; ?>
+                    </div>
+                    <button onclick="clearForm(this.form);" title="<?php echo $this->__('Reset') ?>" class="button">
+                        <span>
+                            <span>
+                                <?php echo $this->__('Reset') ?>
+                            </span>
+                        </span>
+                    </button>
+                    <button type="submit" title="<?php echo $this->__('Enter Now') ?>" class="button">
+                        <span>
+                            <span>
+                                <?php echo $this->__('Enter Now') ?>
+                            </span>
+                        </span>
+                    </button>
+
+                    <div class="row">                        
+                        <div id="javascript-countdown">
+                            <script type="text/javascript">
+                                TargetDate = "<?php echo Mage::helper('contests')->getCountdownFormattedEndDate($contest->getEndDate()) ?>";
+                                BackColor = ""; //"#ffffff";
+                                ForeColor = ""; //"#000000";
+                                CountActive = true;
+                                CountStepper = -1;
+                                LeadingZero = true;
+                                DisplayFormat = "Closes in %%D%%&nbsp;DAYS&nbsp;%%H%%&nbsp;HOURS&nbsp;%%M%%&nbsp;MINUTES&nbsp;%%S%%SECONDS";
+                                FinishMessage = "<b>CLOSED!</b>";
+                            </script>
+                            <script type="text/javascript" src="/js/countdown/countdown.js"></script>
+                        </div>                        
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    //< ![CDATA[
+    var contestForm = new VarienForm('contestForm');
+    var state = '<?php echo $this->htmlEscape($data['state']); ?>';
+
+    oState = document.getElementById("state");
+    if (oState)
+    {
+        for(i=0;i<oState.length;i++)
+        {
+            if (oState.options[i].value == state)
+            {
+                oState.selectedIndex=i;
+            }
+        }
+    }
+
+    jQuery(document).ready(function(){
+        jQuery('.choice').click(function(){
+            jQuery('.choice-selected').removeClass('choice-selected');
+            jQuery(this).addClass('choice-selected');
+            jQuery('#competition').html(jQuery(this).attr('data-choice'));
+        });
+    });
+
+    //]]>
+</script>
+<style>
+.col-main {padding:0px;}
+</style>

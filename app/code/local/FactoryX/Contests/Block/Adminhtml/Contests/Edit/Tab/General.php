@@ -185,6 +185,14 @@ class FactoryX_Contests_Block_Adminhtml_Contests_Edit_Tab_General extends Mage_A
 			'note'  => Mage::helper('contests')->__('URL the thank you page redirects to. Start with forward slash for absolute path. Leave empty for home page.')
         ));
 
+        // Field for the campaign monitor list of the contest
+        $fieldset->addField('campaignmonitor_list', 'select', array(
+            'label' => Mage::helper('contests')->__('Campaign Monitor Subscription List'),
+            'name' => 'campaignmonitor_list',
+            'values' => Mage::helper('contests')->getCampaignMonitorLists(),
+            'note' => Mage::helper('contests')->__('Default to the website campaign monitor list.')
+        ));
+
 		// We fill the form based on the session or the data registered
         if (Mage::getSingleton('adminhtml/session')->getContestsData()) 
 		{

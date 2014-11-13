@@ -333,7 +333,7 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
             		"mobile"			=> $mobile,
             		"state"				=> $state,
             		"title"				=> $title
-            	)
+            	),$contest->getCampaignmonitorList()
             );
 			
             $translate->setTranslateInline(true);

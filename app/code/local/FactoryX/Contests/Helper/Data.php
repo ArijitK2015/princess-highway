@@ -1,11 +1,14 @@
 <?php
 require_once(Mage::getBaseDir("lib") . "/createsend/class/services_json.php");
 require_once(Mage::getBaseDir("lib") . "/createsend/csrest_subscribers.php");
+require_once(Mage::getBaseDir("lib") . "/createsend/csrest_clients.php");
 
 class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
     private static $subscribeToCampaignMonitor = true;
+
+    private static $campaignMonitorClientID = '93a76be4d9f1422ecf118d7d42e8cffa';
 
     private static $defaultMappings = array(
         'name'      => 'Name',
@@ -94,11 +97,11 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 	/*
 	 *
 	 */
-	public function subscribeToCampaignMonitor($fields) 
+	public function subscribeToCampaignMonitor($fields,$listID = NULL)
 	{
 		// Module relies on Campaign Monitor module
         $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
-        $listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));
+        if (!$listID)   $listID = trim(Mage::getStoreConfig('newsletter/campaignmonitor/list_id'));
 		$session = Mage::getSingleton('core/session');
 		$customFields = array();
 		$mapping = $this->generateMapping('formfields','campaignmonitor');
@@ -273,6 +276,33 @@ class FactoryX_Contests_Helper_Data extends Mage_Core_Helper_Abstract
 		catch(Exception $e) 
 		{
             Mage::helper('contests')->log($e->getMessage());            
+            return null;
+        }
+    }
+
+    public function getCampaignMonitorLists()
+    {
+        $response = array();
+        $response[] = array('value' => NULL, 'label' => "Default");
+        $apiKey = trim(Mage::getStoreConfig('newsletter/campaignmonitor/api_key'));
+        try
+        {
+            $client = new CS_REST_Clients(self::$campaignMonitorClientID,$apiKey);
+            $result = $client->get_lists();
+            if($result->was_successful()) {
+                foreach($result->response as $list)
+                {
+                    $response[] = array('value' => $list->ListID, 'label' => $list->Name);
+                }
+                return $response;
+            }
+            else{
+                Mage::log($result->response);
+            }
+        }
+        catch(Exception $e)
+        {
+            Mage::helper('contests')->log($e->getMessage());
             return null;
         }
     }
