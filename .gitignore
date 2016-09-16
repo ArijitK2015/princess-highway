@@ -1,7 +1,8 @@
-app/etc/local.xml
-<<<<<<< HEAD
-=======
-media
-var
->>>>>>> staging
-
+/media
+/var
+/index.php
+/app/etc/local.xml
+/.htaccess
+/.idea
+/.modman
+/downloader
