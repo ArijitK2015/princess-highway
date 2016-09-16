@@ -1,0 +1,2 @@
+app/code/local/FactoryX/ChooserWidget
+app/etc/modules/FactoryX_ChooserWidget.xml
