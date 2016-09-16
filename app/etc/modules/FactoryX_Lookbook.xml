@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-	<modules>
-		<FactoryX_Lookbook>
-			<active>true</active>
-			<codePool>local</codePool>
-		</FactoryX_Lookbook>
-	</modules>
-</config>

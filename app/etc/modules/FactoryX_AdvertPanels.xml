@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-	<modules>
-		<FactoryX_AdvertPanels>
-			<active>true</active>
-			<codePool>local</codePool>
-		</FactoryX_AdvertPanels>
-	</modules>
-</config>

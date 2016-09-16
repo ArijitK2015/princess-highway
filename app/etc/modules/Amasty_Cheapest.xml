@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Amasty_Cheapest>
-            <active>true</active>
-            <codePool>local</codePool>
-        </Amasty_Cheapest>
-    </modules>
-</config>

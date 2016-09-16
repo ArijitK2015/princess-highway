@@ -1,8 +1,0 @@
-<config>
-    <modules>
-        <FactoryX_ReviewCaptcha>
-            <active>true</active>
-            <codePool>local</codePool>
-        </FactoryX_ReviewCaptcha>
-    </modules>
-</config>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-   <modules>
-		<FactoryX_ExtendedApi>
-			<active>true</active>
-			<codePool>local</codePool>
-		</FactoryX_ExtendedApi>
-   </modules>
-</config>

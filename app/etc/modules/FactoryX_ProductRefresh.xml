@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-	<modules>
-		<FactoryX_ProductRefresh>
-			<active>true</active>
-			<codePool>local</codePool>
-		</FactoryX_ProductRefresh>
-	</modules>
-</config>
