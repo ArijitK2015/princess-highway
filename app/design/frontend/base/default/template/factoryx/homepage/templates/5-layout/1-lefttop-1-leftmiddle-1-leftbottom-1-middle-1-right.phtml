@@ -1,0 +1,27 @@
+<?php
+	// Set images
+	$this->getChild('right')->setData('image', $this->getRight());
+	$this->getChild('right')->setData('over', $this->getOverRight());
+	$this->getChild('middle')->setData('image', $this->getMiddle());
+	$this->getChild('middle')->setData('over', $this->getOverMiddle());
+	$this->getChild('lefttop')->setData('image', $this->getLefttop());
+	$this->getChild('lefttop')->setData('over', $this->getOverLefttop());
+	$this->getChild('leftmiddle')->setData('image', $this->getLeftmiddle());
+	$this->getChild('leftmiddle')->setData('over', $this->getOverLeftmiddle());
+	$this->getChild('leftbottom')->setData('image', $this->getLeftbottom());
+	$this->getChild('leftbottom')->setData('over', $this->getOverLeftbottom());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<table>
+	<tr>
+		<td><?php echo $this->getChildHtml('lefttop', false) // LEFTTOP ?></td>
+		<td rowspan="3"><?php echo $this->getChildHtml('middle', false) // MIDDLE ?></td>
+		<td rowspan="3"><?php echo $this->getChildHtml('right', false) // RIGHT ?></td>
+	</tr>
+	<tr>
+		<td><?php echo $this->getChildHtml('leftmiddle', false) // LEFTMIDDLE ?></td>
+	</tr>
+	<tr>
+		<td><?php echo $this->getChildHtml('leftbottom', false) // LEFTBOTTOM ?></td>
+	</tr>
+</table>

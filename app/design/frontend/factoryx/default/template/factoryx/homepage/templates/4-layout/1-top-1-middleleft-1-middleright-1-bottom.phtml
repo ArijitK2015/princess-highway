@@ -1,0 +1,24 @@
+<?php
+	// Set images
+	$this->getChild('top')->setData('image', $this->getTop());
+	$this->getChild('top')->setData('over', $this->getOverTop());
+	$this->getChild('middleleft')->setData('image', $this->getMiddleleft());
+	$this->getChild('middleleft')->setData('over', $this->getOverMiddleleft());
+	$this->getChild('middleright')->setData('image', $this->getMiddleright());
+	$this->getChild('middleright')->setData('over', $this->getOverMiddleright());
+	$this->getChild('bottom')->setData('image', $this->getBottom());
+	$this->getChild('bottom')->setData('over', $this->getOverBottom());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('top', false) // TOP ?>
+</div>
+<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('middleleft', false) // MIDDLELEFT ?>
+</div>
+<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('middleright', false) // MIDDLERIGHT ?>
+</div>
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('bottom', false) // BOTTOM ?>
+</div>

@@ -1,0 +1,14 @@
+<?php
+	// Set images
+	$this->getChild('left')->setData('image', $this->getLeft());
+	$this->getChild('left')->setData('over', $this->getOverLeft());
+	$this->getChild('right')->setData('image', $this->getRight());
+	$this->getChild('right')->setData('over', $this->getOverRight());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+	<?php echo $this->getChildHtml('left', false) // LEFT ?>
+</div>
+<div class="col-md-6 col-xs-12 col-sm-12 col-lg-6">
+    <?php echo $this->getChildHtml('right', false) // RIGHT ?>
+</div>

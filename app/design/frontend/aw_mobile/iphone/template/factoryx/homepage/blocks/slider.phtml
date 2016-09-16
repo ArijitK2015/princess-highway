@@ -1,0 +1,49 @@
+<?php
+$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+$slideHeight = "";
+$count = count($this->getSlides());
+$randomString = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1) . substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+$actualSlides = 0;
+?>
+<div class="swiper-container" id="<?php echo $randomString; ?>">
+    <div class="swiper-wrapper">
+        <?php foreach($this->getSlides() as $slide): ?>
+            <?php
+            // $links = explode(',',$this->getLinks());
+            $imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $slide->getUrl());
+            $imageUrl = sprintf("%s/homepage%s", $relMediaPath, $slide->getUrl());
+            ?>
+            <?php if (is_file($imagePath)): ?>
+                <?php
+                $actualSlides++;
+                list($width, $height, $type, $attr) = getimagesize($imagePath);
+                // If the slide height is not set we set it
+                if ($slideHeight == "") $slideHeight = $height;
+                ?>
+                <div class="swiper-slide">
+                    <?php if ($link = $slide->getLink()): ?>
+                        <a <?php if ($slide->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+                            <?php endif; ?>
+                            <img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $slide->getAlt(); ?>" />
+                            <?php if ($link): ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+    <div class="pagination paging<?php echo $randomString; ?>"></div>
+</div>
+<?php if ($actualSlides && count($this->getSlides())): ?>
+    <script>
+    var mySwiper = new Swiper('#<?php echo $randomString; ?>',{
+        //Your options here:
+        mode:'horizontal',
+        autoplay : 500,
+        calculateHeight: 'true',
+        loop: true,
+        pagination: '.paging<?php echo $randomString; ?>'
+        //etc..
+    });
+    </script>
+<?php endif; ?>

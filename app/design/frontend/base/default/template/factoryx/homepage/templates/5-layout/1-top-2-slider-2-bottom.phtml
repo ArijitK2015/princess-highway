@@ -1,0 +1,23 @@
+<?php
+	// Set images
+	$this->getChild('top')->setData('image', $this->getTop());
+	$this->getChild('top')->setData('over', $this->getOverTop());
+	$this->getChild('slider')->setData('slides', $this->getSlides());
+	$this->getChild('bottom1')->setData('image', $this->getBottom1());
+	$this->getChild('bottom1')->setData('over', $this->getOverBottom1());
+	$this->getChild('bottom2')->setData('image', $this->getBottom2());
+	$this->getChild('bottom2')->setData('over', $this->getOverBottom2());
+	// Set slider speed
+	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
+	$this->getChild('slider')->setData('nav', $this->getSliderNav());
+	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<?php echo $this->getChildHtml('top', false) // TOP ?>
+<?php echo $this->getChildHtml('slider', false) // SLIDER ?>
+<table>
+	<tr>
+		<td><?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?></td>
+		<td><?php echo $this->getChildHtml('bottom2', false) // BOTTOM2 ?></td>
+	</tr>
+</table>

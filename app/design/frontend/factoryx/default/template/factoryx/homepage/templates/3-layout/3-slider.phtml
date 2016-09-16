@@ -1,0 +1,12 @@
+<?php
+	// Set images
+	$this->getChild('slider')->setData('slides', $this->getSlides());
+	// Set slider speed
+	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
+	$this->getChild('slider')->setData('nav', $this->getSliderNav());
+	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+    <?php echo $this->getChildHtml('slider', false) // SLIDER ?>
+</div>

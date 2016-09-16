@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_Homepage>
+            <version>2.3.15</version>
+        </FactoryX_Homepage>
+    </modules>
+	
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_Homepage after="Mage_Adminhtml">FactoryX_Homepage_Adminhtml</FactoryX_Homepage>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	
+	<adminhtml>
+		<layout>
+			<updates>
+				<homepage module="FactoryX_Homepage">
+					<file>factoryx/homepage.xml</file>
+				</homepage>
+			</updates>
+		</layout>
+        <translate>
+            <modules>
+                <FactoryX_Homepage>
+                    <files>
+                        <default>FactoryX_Homepage.csv</default>
+                    </files>
+                </FactoryX_Homepage>
+            </modules>
+        </translate>
+	</adminhtml>
+	
+	<frontend>
+		<routers>
+			<homepage>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_Homepage</module>
+					<frontName>homepage</frontName>
+				</args>
+			</homepage>
+		</routers>
+		<translate>
+            <modules>
+                <FactoryX_Homepage>
+                    <files>
+                        <default>FactoryX_Homepage.csv</default>
+                    </files>
+                </FactoryX_Homepage>
+            </modules>
+        </translate>
+		<layout>
+			<updates>
+				<homepage module="FactoryX_Homepage">
+					<file>factoryx/homepage.xml</file>
+				</homepage>
+			</updates>
+		</layout>
+		<events>
+			<controller_action_layout_load_before>
+				<observers>
+					<factoryx_homepage_sethandle>
+						<class>homepage/observer</class>
+						<method>setHandle</method>
+					</factoryx_homepage_sethandle>
+				</observers>
+			</controller_action_layout_load_before>
+		</events>
+	</frontend>
+	
+	<global>
+		
+		<models>
+			<homepage>
+                <!-- Init model for mymod module -->
+                <class>FactoryX_Homepage_Model</class>
+                <!-- Init db config handler for mymod models -->
+                <resourceModel>homepage_mysql4</resourceModel>
+            </homepage>
+
+            <!-- declaring model vs db table relation -->
+            <homepage_mysql4>
+                <class>FactoryX_Homepage_Model_Mysql4</class>
+                <!-- declare table test -->
+                <entities>
+					<homepage>
+						<table>fx_homepage_homepage</table>
+					</homepage>
+                    <image>
+                        <table>fx_homepage_image</table>
+                    </image>
+					<block>
+						<table>fx_homepage_block</table>
+					</block>
+					<store>
+						<table>fx_homepage_store</table>
+					</store>
+                </entities>
+            </homepage_mysql4>
+		</models>
+		
+		<resources>
+			<homepage_setup>
+				<setup>
+					<module>FactoryX_Homepage</module>
+				</setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>				
+			</homepage_setup>
+            <homepage_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </homepage_write>
+            <homepage_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </homepage_read>
+        </resources>
+		
+		<helpers>
+			<homepage>
+                <class>FactoryX_Homepage_Helper</class>
+            </homepage>
+        </helpers>
+		
+		<blocks>
+            <homepage>
+                <class>FactoryX_Homepage_Block</class>
+            </homepage>
+        </blocks>
+
+	</global>
+	
+	<crontab> 
+		<jobs>
+			<factoryx_homepage_toggle>
+				<schedule>
+					<config_path>homepage/options/cron_expr</config_path>
+				</schedule>
+				<run>
+					<model>homepage/observer::toggleHomepages</model>
+				</run>
+			</factoryx_homepage_toggle>
+		</jobs> 
+	</crontab>
+	
+	<default>
+		<homepage>
+			<options>               
+				<enable>1</enable>
+				<cron_expr>0 1 * * *</cron_expr>
+				<position>before</position>
+				<remove_base_url>0</remove_base_url>
+			</options>
+		</homepage>
+	</default>
+
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_Homepage/>
+			</modules>
+		</suite>
+	</phpunit>
+
+</config>

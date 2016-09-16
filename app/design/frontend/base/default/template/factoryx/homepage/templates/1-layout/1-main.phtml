@@ -1,0 +1,41 @@
+<?php
+// Retrieve the image to display
+$image = $this->getData('image');
+if ($image->getType() == "image")
+{
+	$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+	$imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $this->getImage()->getUrl());
+	$imageUrl = str_replace(DS,"/",sprintf("%s/homepage%s", $relMediaPath, $this->getImage()->getUrl()));
+	if (is_file($imagePath)) {
+		if ($overImage = $this->getOver())
+		{
+			$overImagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $overImage->getUrl());
+			$overImageUrl = str_replace(DS,"/",sprintf("%s/homepage%s", $relMediaPath, $overImage->getUrl()));
+		}
+		list($width, $height, $type, $attr) = getimagesize($imagePath); ?>
+		<table>
+			<tr>
+				<td>
+					<?php if ($link = $this->getImage()->getLink()): ?>
+						<a <?php if ($this->getImage()->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+					<?php endif; ?>
+					<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $this->getImage()->getAlt(); ?>" />
+					<?php if (isset($overImageUrl)): ?>
+						<div><img <?php echo $attr; ?> src="<?php echo $overImageUrl ?>" alt="<?php echo $image->getAlt(); ?>"/></div>
+					<?php endif; ?>
+					<?php if ($link): ?>
+						</a>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</table>
+	<?php }  ?>
+<?php } else { ?>
+	<table>
+		<tr>
+			<td>
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($image->getBlockId())->toHtml(); ?>
+			</td>
+		</tr>
+	</table>
+<?php } // endif ?>

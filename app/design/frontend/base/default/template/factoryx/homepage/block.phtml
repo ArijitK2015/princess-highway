@@ -1,0 +1,29 @@
+<!-- THIS LAYOUT IS GOING TO HAVE A SLIDER THEN SOME THUMBNAIL AT THE BOTTOM -->
+<?php if(!Mage::helper('homepage')->isHomepageModuleUsed()): ?>
+	<?php
+		$images = explode(',',$this->getImages());
+		$size = getimagesize(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$images[0]);    
+		$links = explode(',',$this->getLinks());
+		$popup = explode(',',$this->getPopup());
+		$top=$this->getTop();    
+		$bottom=$this->getBottom();
+		$middle=$this->getMiddle();
+		if ($top) { $top .= 'px'; } else {$top = '0px';}
+		if ($bottom) { $bottom .= 'px'; } else {$bottom = '0px';}
+		if ($middle) { $middle .= 'px'; } else {$middle = '0px';}
+	?>
+
+
+	<div class="row">
+		<?php for ($i=0;$i<sizeof($images);$i++): ?><div>
+				<?php if (array_key_exists($i,$links)): ?>
+					<a href="<?=$links[$i]?>" <?=(array_key_exists($i,$popup) && $popup[$i] == "true") ? 'target="_blank"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$images[$i]?>" /></a>
+				<?php endif; ?></div><?php endfor; ?>
+	</div>
+
+	<style>
+		.row{padding-top:<?=$top?>;padding-bottom:<?=$bottom?>;}
+		.row div {padding-right:<?=$middle?>;display:inline-block;}
+		.row div:last-child{padding-right:0px;}
+	</style>
+<?php endif; ?>

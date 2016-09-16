@@ -1,0 +1,31 @@
+<div id="homepages" class="text-center">
+    <?php
+    $count = 0;
+    $homepages = $this->getHomepages();
+    if(empty($homepages)) return;
+    $count = 0;
+    foreach ($homepages as $homepage)
+    {
+        ++$count;
+        if($homepage->getFullWidth()) continue;
+        echo $this->getChildHtml('homepage_'.$count, false);
+        if ($customCss = $homepage->getCustomCss()): ?>
+            <script>
+            jQuery(document).ready(function() {
+                var $head = jQuery("head");
+                var $headlinklast = $head.find("link[rel='stylesheet']:last");
+                var linkElement = '<?php echo Mage::helper('homepage')->renderCustomCss($customCss) ?>';
+                if ($headlinklast.length) {
+                    //console.log("append after last link");
+                    $headlinklast.after(linkElement);
+                }
+                else {
+                    //console.log("append to head");
+                    $head.append(linkElement);
+                }
+            });    
+            </script>
+        <?php endif;
+    }
+    ?>
+</div>

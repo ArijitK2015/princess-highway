@@ -1,0 +1,22 @@
+<?php
+	// Set images
+	$this->getChild('top1')->setData('image', $this->getTop1());
+	$this->getChild('top1')->setData('over', $this->getOverTop1());
+	$this->getChild('top2')->setData('image', $this->getTop2());
+	$this->getChild('top2')->setData('over', $this->getOverTop2());
+	$this->getChild('bottom1')->setData('image', $this->getBottom1());
+	$this->getChild('bottom1')->setData('over', $this->getOverBottom1());
+	$this->getChild('bottom2')->setData('image', $this->getBottom2());
+	$this->getChild('bottom2')->setData('over', $this->getOverBottom2());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<table>
+	<tr>
+		<td><?php echo $this->getChildHtml('top1', false) // TOP1 ?></td>
+		<td><?php echo $this->getChildHtml('top2', false) // TOP2 ?></td>
+	</tr>
+	<tr>
+		<td><?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?></td>
+		<td><?php echo $this->getChildHtml('bottom2', false) // BOTTOM2 ?></td>
+	</tr>
+</table>

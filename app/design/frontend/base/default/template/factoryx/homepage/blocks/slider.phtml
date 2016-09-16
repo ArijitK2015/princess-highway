@@ -1,0 +1,92 @@
+<?php
+$randomString = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1) . substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+?>
+<div id="slidercontainer_<?php echo $randomString ?>" style="display:none; position: relative; margin: 0 auto; width:1260px;height:800px; overflow:hidden">
+	<div data-u="slides" class="slides" id="slides_<?php echo $randomString ?>">
+		<?php
+		$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+		$slideHeight = "";
+		$slideWidth = "";
+		// Loop through images
+		foreach($this->getSlides() as $slide)
+		{
+			// Generate URL
+			$imagePath = sprintf("%s/homepage%s", Mage::getBaseDir('media'), $slide->getUrl());
+			$imageUrl = str_replace(DS,"/",sprintf("%s/homepage%s", $relMediaPath, $slide->getUrl()));
+			// Test if image exists
+			if (is_file($imagePath)) {
+				// List its attribute
+				list($width, $height, $type, $attr) = getimagesize($imagePath);
+				// If the slide height is not set we set it
+				if ($slideHeight == "") $slideHeight = $height;
+				// If the slide width is not set we set it
+				if ($slideWidth == "") $slideWidth = $width;
+				?>
+				<div>
+					<?php if ($link = $slide->getLink()): ?>
+					<a <?php if ($slide->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+						<?php endif; ?>
+						<img data-u="image" <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $slide->getAlt(); ?>" />
+						<?php if ($link): ?>
+					</a>
+				<?php endif; ?>
+				</div>
+			<?php } // endif?>
+		<?php } // endforeach ?>
+
+		<div data-u="navigator" class="jssor<?php echo $this->getPag(); ?>" style="position: absolute; bottom: 26px; left: 6px;">
+			<div data-u="prototype" style="POSITION: absolute; text-align:center; color:White; font-size:12px;"><?php if (Mage::helper('homepage')->isNumberedPag($this->getPag())): ?><div data-u="numbertemplate"></div><?php endif; ?></div>
+		</div>
+		<span data-u="arrowleft" class="jssor<?php echo $this->getNav(); ?>l" style="top: 123px; left: 8px;">
+		</span>
+		<span data-u="arrowright" class="jssor<?php echo $this->getNav(); ?>r" style="top: 123px; right: 8px;">
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery("#slidercontainer_<?php echo $randomString ?>").css('width', '<?php echo $slideWidth ?>px');
+		jQuery("#slidercontainer_<?php echo $randomString ?>").css('height', '<?php echo $slideHeight ?>px');
+		jQuery("#slides_<?php echo $randomString ?>").css('width', '<?php echo $slideWidth ?>px');
+		jQuery("#slides_<?php echo $randomString ?>").css('height', '<?php echo $slideHeight ?>px');
+
+		var options = {
+			$SlideDuration: <?php echo ($this->getSpeed() ? $this->getSpeed() : 1); ?>,
+			$AutoPlay: true,
+			$DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+			$BulletNavigatorOptions: {                                //[Optional] Options to specify and enable navigator or not
+				$Class: $JssorBulletNavigator$,                       //[Required] Class to create navigator instance
+				$ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+				$AutoCenter: 1,                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+				$SpacingX: 8,                                  //[Optional] Horizontal space between each item in pixel, default value is 0
+				$SpacingY: 8                                  //[Optional] Vertical space between each item in pixel, default value is 0
+			},
+			$ArrowNavigatorOptions: {                       	//[Optional] Options to specify and enable arrow navigator or not
+				$Class: $JssorArrowNavigator$,              	//[Required] Class to create arrow navigator instance
+				$ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+				$AutoCenter: 2,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+				$Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+			}
+		};
+
+        jQuery("#slidercontainer_<?php echo $randomString ?>").css("display", "block");
+		var jssor_slider1_<?php echo $randomString ?> = new $JssorSlider$("slidercontainer_<?php echo $randomString ?>", options);
+
+		//responsive code begin
+		//you can remove responsive code if you don't want the slider scales while window resizes
+		function ScaleSlider_<?php echo $randomString ?>() {
+			var parentWidth = jQuery("#slidercontainer_<?php echo $randomString ?>").parent().width();
+			if (parentWidth)
+				jssor_slider1_<?php echo $randomString ?>.$ScaleWidth(Math.min(parentWidth, 1980));
+			else
+				window.setTimeout(ScaleSlider_<?php echo $randomString ?>, 30);
+		}
+		ScaleSlider_<?php echo $randomString ?>();
+
+		jQuery(window).bind("load", ScaleSlider_<?php echo $randomString ?>);
+		jQuery(window).bind("resize", ScaleSlider_<?php echo $randomString ?>);
+		jQuery(window).bind("orientationchange", ScaleSlider_<?php echo $randomString ?>);
+		//responsive code end
+	});
+</script>

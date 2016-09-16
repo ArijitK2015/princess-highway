@@ -1,0 +1,13 @@
+<?php
+	// Set images
+	$this->getChild('top')->setData('image', $this->getTop());
+	$this->getChild('top')->setData('over', $this->getOverTop());
+	$this->getChild('slider')->setData('slides', $this->getSlides());
+	// Set slider speed
+	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
+	$this->getChild('slider')->setData('nav', $this->getSliderNav());
+	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<?php echo $this->getChildHtml('top', false) // TOP ?>
+<?php echo $this->getChildHtml('slider', false) // SLIDER ?>

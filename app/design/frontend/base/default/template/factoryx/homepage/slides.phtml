@@ -1,0 +1,87 @@
+<!-- THIS LAYOUT IS GOING TO HAVE A SLIDER THEN SOME THUMBNAIL AT THE BOTTOM -->
+<?php if(!Mage::helper('homepage')->isHomepageModuleUsed()): ?>
+
+	<?php
+		
+		$slides = explode(',',$this->getSlides());
+		$size = getimagesize(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$slides[0]);
+		$slide_height = $size[1];
+		$links = explode(',',$this->getLinks());
+	?>
+
+
+	<div id="slides">
+		<?php 
+			for ($i=0;$i<sizeof($slides);$i++){
+		?>
+				<div>
+					<a href="<?=$links[$i]?>"><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$slides[$i]?>" /></a>
+				</div>
+		<?php
+			} 
+		?>
+	<a href="#" class="slidesjs-previous slidesjs-navigation"><img src="<?php echo $this->getSkinUrl('images/factoryx/homepage/arrow-prev.png'); ?>" width="24" height="43" alt="Arrow Prev"></a>
+	<a href="#" class="slidesjs-next slidesjs-navigation"><img src="<?php echo $this->getSkinUrl('images/factoryx/homepage/arrow-next.png'); ?>" width="24" height="43" alt="Arrow Next"></a>
+
+
+	</div>
+
+	<!-- </div> -->
+	<?php /*
+	<div id="thumbnails">
+	<?php 
+		foreach ($thumbs as $thumb){
+			echo "<div style='vertical-align:top;display:inline-block;'>".$thumb['html']."</div>";
+		} 
+	?>  
+	</div>
+ 	*/ ?>
+
+
+
+
+	 <style type="text/css" media="screen">
+	.col-main {padding:0 !important;}
+	#slides {
+		overflow: visible !important;position:relative;
+		background: url('<?php echo $this->getSkinUrl('images/factoryx/homepage/loading.gif'); ?>') no-repeat center center;
+	}
+
+	#slides .slidesjs-previous,#slides .slidesjs-next {
+		position:absolute;
+		top: <?=ceil($slide_height/2)-10;?>px;
+		left: -27px;
+		width:24px;
+		height:43px;
+		z-index:999;
+	}
+
+	#slides .slidesjs-next {
+		left:983px;
+	}
+
+	.text h1,.text a{ text-transform: uppercase;font-weight: normal;font-family: 'Helvetica Neue','Arial',san-serif;text-align: center;font-style:normal;font-size:16px;padding:10px 0px;text-decoration: none;display:block;}
+	.text p{padding:10px;text-align: center;}
+	.text {text-align: center;}
+	.text hr{width:90%;margin:0 auto;}
+			</style>
+
+	<script src="<?php echo $this->getSkinUrl('js/factoryx/homepage/slides.min.jquery.js'); ?>"></script>
+	<script>
+		jQuery(document).ready(function(){
+			jQuery("#slides").slidesjs({
+				width:980,height:<?=$slide_height?>,
+				navigation:{active:false},pagination: {active:false},
+				play:{active:false, interval:2500, restartDelay: 3500, pauseOnHover:true, auto:true}
+			});
+
+			// remove navigation button if there is only 1 slide
+			if (jQuery(".slides_control").children().length < 2)
+			{
+			  jQuery('.prev').remove();
+			  jQuery('.next').remove();
+			}
+		});
+	</script>
+
+<?php endif; ?>

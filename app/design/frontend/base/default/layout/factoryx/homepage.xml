@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+	<factoryx_homepage_before>
+		<!-- Remove old hardcoded layout update -->
+		<reference name="content">
+			<block type="homepage/homepages" name="content.homepages" before="cms.wrapper" template="factoryx/homepage/homepages.phtml" />
+		</reference>
+	</factoryx_homepage_before>
+
+	<factoryx_homepage_after>
+		<!-- Remove old hardcoded layout update -->
+		<reference name="content">
+			<block type="homepage/homepages" name="content.homepages" after="cms.wrapper" template="factoryx/homepage/homepages.phtml" />
+		</reference>
+	</factoryx_homepage_after>
+
+	<factoryx_homepage_handle>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>css/factoryx/homepage/styles.css</name>
+				<params/>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/factoryx/homepage/script.js</name>
+				<params/>
+			</action>
+			<action method="addJs">
+				<name>lib/factoryx/homepage/jssor.slider.mini.js</name>
+			</action>
+			<action method="addJs">
+				<name>lib/factoryx/homepage/modernizr.custom.86827.js</name>
+			</action>
+			<action method="addJs">
+				<name>lib/factoryx/homepage/jquery.hoverdir.js</name>
+			</action>
+			<action method="addItem">
+				<type>js_css</type>
+				<name>lib/factoryx/homepage/jquery.hoverdir.css</name>
+			</action>
+		</reference>
+		<reference name="root">
+			<block type="homepage/homepages" name="content_fw" template="factoryx/homepage/homepages_fw.phtml" />
+		</reference>
+	</factoryx_homepage_handle>
+
+    <cms_index_index>
+		<update handle="factoryx_homepage_handle" />
+    </cms_index_index>
+	
+	<homepage_index_preview>
+		<update handle="factoryx_homepage_handle" />
+
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		
+		<reference name="content">
+			<block type="homepage/homepage" name="content.homepage" />
+		</reference>
+	</homepage_index_preview>
+	
+	<homepage_index_storepreview>
+		<update handle="factoryx_homepage_handle" />
+
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		
+		<reference name="content">
+			<block type="homepage/homepages" name="content.homepage" />
+		</reference>
+	</homepage_index_storepreview>
+
+</layout>

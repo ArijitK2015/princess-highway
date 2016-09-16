@@ -1,0 +1,15 @@
+app/code/local/FactoryX/Homepage
+app/etc/modules/FactoryX_Homepage.xml
+app/design/adminhtml/default/default/template/factoryx/homepage
+app/design/adminhtml/default/default/layout/factoryx/homepage.xml
+app/design/frontend/base/default/template/factoryx/homepage
+app/design/frontend/base/default/layout/factoryx/homepage.xml
+app/design/frontend/factoryx/default/template/factoryx/homepage
+app/locale/en_AU/FactoryX_Homepage.csv
+skin/adminhtml/default/default/css/factoryx/homepage
+skin/adminhtml/default/default/images/factoryx/homepage
+skin/frontend/base/default/css/factoryx/homepage
+skin/frontend/base/default/images/factoryx/homepage
+skin/frontend/base/default/js/factoryx/homepage
+skin/frontend/factoryx/default/css/factoryx/homepage
+js/lib/factoryx/homepage

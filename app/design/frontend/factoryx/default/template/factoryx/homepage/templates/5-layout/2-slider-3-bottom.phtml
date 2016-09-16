@@ -1,0 +1,27 @@
+<?php
+	// Set images
+	$this->getChild('bottom1')->setData('image', $this->getBottom1());
+	$this->getChild('bottom1')->setData('over', $this->getOverBottom1());
+	$this->getChild('bottom2')->setData('image', $this->getBottom2());
+	$this->getChild('bottom2')->setData('over', $this->getOverBottom2());
+	$this->getChild('bottom3')->setData('image', $this->getBottom3());
+	$this->getChild('bottom3')->setData('over', $this->getOverBottom3());
+	$this->getChild('slider')->setData('slides', $this->getSlides());
+	// Set slider speed
+	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
+	$this->getChild('slider')->setData('nav', $this->getSliderNav());
+	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+	// Using the false parameter with getChildHtml is to tell not to cache block
+?>
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('slider', false) // SLIDER ?>
+</div>
+<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?>
+</div>
+<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('bottom2', false) // BOTTOM2 ?>
+</div>
+<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+    <?php echo $this->getChildHtml('bottom3', false) // BOTTOM3 ?>
+</div>

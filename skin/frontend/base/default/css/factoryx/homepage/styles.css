@@ -1,0 +1,835 @@
+/*.col-main {padding:0 !important;}*/
+.slides {
+    cursor: move;
+    overflow:hidden;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#homepages table{table-layout: fixed}
+#homepages table img{max-width:100%;height:auto;width:auto}
+
+@media (min-width:1px) and (max-width:780px) {
+    #homepages table{display:inline;width:100%}
+    #homepages  tr{display:inline}
+    #homepages  td{display:inline-block;width:100%}
+    #homepages table img{width:100%;height:auto}
+}
+
+.text h1,.text a{ text-transform: uppercase;font-weight: normal;font-family: 'Helvetica Neue','Arial',san-serif;text-align: center;font-style:normal;font-size:16px;padding:10px 0px;text-decoration: none;display:block;}
+.text p{padding:10px;text-align: center;}
+.text {text-align: center;}
+.text hr{width:90%;margin:0 auto;}
+
+/* Jssor Slider Styles */
+/* jssor slider arrow navigator skin 01 css */
+/*
+.jssora01l              (normal)
+.jssora01r              (normal)
+.jssora01l:hover        (normal mouseover)
+.jssora01r:hover        (normal mouseover)
+.jssora01ldn            (mousedown)
+.jssora01rdn            (mousedown)
+*/
+.jssora01l, .jssora01r, .jssora01ldn, .jssora01rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a01.png) no-repeat;
+    overflow:hidden;
+    width: 45px;
+    height: 45px;
+}
+.jssora01l { background-position: -8px -38px;z-index:1}
+.jssora01r { background-position: -68px -38px; z-index:1}
+.jssora01l:hover { background-position: -128px -38px; }
+.jssora01r:hover { background-position: -188px -38px; }
+.jssora01ldn { background-position: -8px -38px; }
+.jssora01rdn { background-position: -68px -38px; }
+/* jssor slider arrow navigator skin 02 css */
+/*
+.jssora02l              (normal)
+.jssora02r              (normal)
+.jssora02l:hover        (normal mouseover)
+.jssora02r:hover        (normal mouseover)
+.jssora02ldn            (mousedown)
+.jssora02rdn            (mousedown)
+*/
+.jssora02l, .jssora02r, .jssora02ldn, .jssora02rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a02.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.jssora02l { background-position: -3px -33px; z-index:1}
+.jssora02r { background-position: -63px -33px;z-index:1 }
+.jssora02l:hover { background-position: -123px -33px; }
+.jssora02r:hover { background-position: -183px -33px; }
+.jssora02ldn { background-position: -3px -33px; }
+.jssora02rdn { background-position: -63px -33px; }
+/* jssor slider arrow navigator skin 03 css */
+/*
+.jssora03l              (normal)
+.jssora03r              (normal)
+.jssora03l:hover        (normal mouseover)
+.jssora03r:hover        (normal mouseover)
+.jssora03ldn            (mousedown)
+.jssora03rdn            (mousedown)
+*/
+.jssora03l, .jssora03r, .jssora03ldn, .jssora03rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a03.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.jssora03l { background-position: -3px -33px;z-index:1 }
+.jssora03r { background-position: -63px -33px;z-index:1 }
+.jssora03l:hover { background-position: -123px -33px; }
+.jssora03r:hover { background-position: -183px -33px; }
+.jssora03ldn { background-position: -243px -33px; }
+.jssora03rdn { background-position: -303px -33px; }
+/* jssor slider arrow Navigator Skin 04 css */
+/*
+.jssora04l              (normal)
+.jssora04r              (normal)
+.jssora04l:hover        (normal mouseover)
+.jssora04r:hover        (normal mouseover)
+.jssora04ldn            (mousedown)
+.jssora04rdn            (mousedown)
+*/
+.jssora04l, .jssora04r, .jssora04ldn, .jssora04rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a04.png) no-repeat;
+    overflow:hidden;
+    width: 28px;
+    height: 40px;
+}
+.jssora04l { background-position: -16px -39px; z-index:1}
+.jssora04r { background-position: -76px -39px; z-index:1}
+.jssora04l:hover { background-position: -136px -39px; }
+.jssora04r:hover { background-position: -196px -39px; }
+.jssora04ldn { background-position: -256px -39px; }
+.jssora04rdn { background-position: -316px -39px; }
+/* jssor slider arrow navigator skin 05 css */
+/*
+.jssora05l              (normal)
+.jssora05r              (normal)
+.jssora05l:hover        (normal mouseover)
+.jssora05r:hover        (normal mouseover)
+.jssora05ldn            (mousedown)
+.jssora05rdn            (mousedown)
+*/
+.jssora05l, .jssora05r, .jssora05ldn, .jssora05rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a17.png) no-repeat;
+    overflow:hidden;
+    width: 40px;
+    height: 40px;
+}
+.jssora05l { background-position: -10px -40px; z-index:1}
+.jssora05r { background-position: -70px -40px; z-index:1}
+.jssora05l:hover { background-position: -130px -40px; }
+.jssora05r:hover { background-position: -190px -40px; }
+.jssora05ldn { background-position: -250px -40px; }
+.jssora05rdn { background-position: -310px -40px; }
+/* jssor slider arrow navigator skin 06 css */
+/*
+.jssora06l              (normal)
+.jssora06r              (normal)
+.jssora06l:hover        (normal mouseover)
+.jssora06r:hover        (normal mouseover)
+.jssora06ldn            (mousedown)
+.jssora06rdn            (mousedown)
+*/
+.jssora06l, .jssora06r, .jssora06ldn, .jssora06rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a06.png) no-repeat;
+    overflow:hidden;
+    width: 45px;
+    height: 45px;
+}
+.jssora06l { background-position: -8px -38px; z-index:1}
+.jssora06r { background-position: -68px -38px;z-index:1 }
+.jssora06l:hover { background-position: -128px -38px; }
+.jssora06r:hover { background-position: -188px -38px; }
+.jssora06ldn { background-position: -248px -38px; }
+.jssora06rdn { background-position: -308px -38px; }
+/* jssor slider arrow navigator skin 07 css */
+/*
+.jssora07l              (normal)
+.jssora07r              (normal)
+.jssora07l:hover        (normal mouseover)
+.jssora07r:hover        (normal mouseover)
+.jssora07ldn            (mousedown)
+.jssora07rdn            (mousedown)
+*/
+.jssora07l, .jssora07r, .jssora07ldn, .jssora07rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a07.png) no-repeat;
+    overflow:hidden;
+    width: 50px;
+    height: 50px;
+}
+.jssora07l { background-position: -5px -35px; z-index:1}
+.jssora07r { background-position: -65px -35px;z-index:1 }
+.jssora07l:hover { background-position: -125px -35px; }
+.jssora07r:hover { background-position: -185px -35px; }
+.jssora07ldn { background-position: -245px -35px; }
+.jssora07rdn { background-position: -305px -35px; }
+/* jssor slider arrow navigator skin 09 css */
+/*
+.jssora09l              (normal)
+.jssora09r              (normal)
+.jssora09l:hover        (normal mouseover)
+.jssora09r:hover        (normal mouseover)
+.jssora09ldn            (mousedown)
+.jssora09rdn            (mousedown)
+*/
+.jssora09l, .jssora09r, .jssora09ldn, .jssora09rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a09.png) no-repeat;
+    overflow:hidden;
+    opacity: .4;
+    filter:alpha(opacity=40);
+    width: 50px;
+    height: 50px;
+}
+.jssora09l { background-position: -5px -35px;z-index:1 }
+.jssora09r { background-position: -65px -35px; z-index:1}
+.jssora09l:hover { background-position: -5px -35px; opacity: .8; filter:alpha(opacity=80); }
+.jssora09r:hover { background-position: -65px -35px; opacity: .8; filter:alpha(opacity=80); }
+.jssora09ldn { background-position: -5px -35px; opacity: .3; filter:alpha(opacity=30); }
+.jssora09rdn { background-position: -65px -35px; opacity: .3; filter:alpha(opacity=30); }
+/* jssor slider arrow navigator skin 10 css */
+/*
+.jssora10l              (normal)
+.jssora10r              (normal)
+.jssora10l:hover        (normal mouseover)
+.jssora10r:hover        (normal mouseover)
+.jssora10ldn            (mousedown)
+.jssora10rdn            (mousedown)
+*/
+.jssora10l, .jssora10r, .jssora10ldn, .jssora10rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a10.png) no-repeat;
+    overflow:hidden;
+    width: 28px;
+    height: 40px;
+}
+.jssora10l { background-position: -16px -39px; z-index:1}
+.jssora10r { background-position: -76px -39px; z-index:1}
+.jssora10l:hover { background-position: -136px -39px; }
+.jssora10r:hover { background-position: -196px -39px; }
+.jssora10ldn { background-position: -256px -39px; }
+.jssora10rdn { background-position: -316px -39px; }
+/* jssor slider arrow navigator skin 11 css */
+/*
+.jssora11l              (normal)
+.jssora11r              (normal)
+.jssora11l:hover        (normal mouseover)
+.jssora11r:hover        (normal mouseover)
+.jssora11ldn            (mousedown)
+.jssora11rdn            (mousedown)
+*/
+.jssora11l, .jssora11r, .jssora11ldn, .jssora11rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a11.png) no-repeat;
+    overflow:hidden;
+    width: 37px;
+    height: 37px;
+}
+.jssora11l { background-position: -11px -41px;z-index:1 }
+.jssora11r { background-position: -71px -41px;z-index:1 }
+.jssora11l:hover { background-position: -131px -41px; }
+.jssora11r:hover { background-position: -191px -41px; }
+.jssora11ldn { background-position: -251px -41px; }
+.jssora11rdn { background-position: -311px -41px; }
+/* jssor slider arrow navigator skin 12 css */
+/*
+.jssora12l              (normal)
+.jssora12r              (normal)
+.jssora12l:hover        (normal mouseover)
+.jssora12r:hover        (normal mouseover)
+.jssora12ldn            (mousedown)
+.jssora12rdn            (mousedown)
+*/
+.jssora12l, .jssora12r, .jssora12ldn, .jssora12rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a12.png) no-repeat;
+    overflow:hidden;
+    width: 30px;
+    height: 46px;
+}
+.jssora12l { background-position: -16px -37px; z-index:1}
+.jssora12r { background-position: -75px -37px; z-index:1}
+.jssora12l:hover { background-position: -136px -37px; }
+.jssora12r:hover { background-position: -195px -37px; }
+.jssora12ldn { background-position: -256px -37px; }
+.jssora12rdn { background-position: -315px -37px; }
+/* jssor slider arrow navigator skin 13 css */
+/*
+.jssora13l              (normal)
+.jssora13r              (normal)
+.jssora13l:hover        (normal mouseover)
+.jssora13r:hover        (normal mouseover)
+.jssora13ldn            (mousedown)
+.jssora13rdn            (mousedown)
+*/
+.jssora13l, .jssora13r, .jssora13ldn, .jssora13rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a13.png) no-repeat;
+    overflow:hidden;
+    width: 40px;
+    height: 50px;
+}
+.jssora13l { background-position: -10px -35px;z-index:1 }
+.jssora13r { background-position: -70px -35px;z-index:1 }
+.jssora13l:hover { background-position: -130px -35px; }
+.jssora13r:hover { background-position: -190px -35px; }
+.jssora13ldn { background-position: -250px -35px; }
+.jssora13rdn { background-position: -310px -35px; }
+/* jssor slider arrow navigator skin 14 css */
+/*
+.jssora14l              (normal)
+.jssora14r              (normal)
+.jssora14l:hover        (normal mouseover)
+.jssora14r:hover        (normal mouseover)
+.jssora14ldn            (mousedown)
+.jssora14rdn            (mousedown)
+*/
+.jssora14l, .jssora14r, .jssora14ldn, .jssora14rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a14.png) no-repeat;
+    overflow:hidden;
+    width: 30px;
+    height: 50px;
+}
+.jssora14l { background-position: -15px -35px;z-index:1 }
+.jssora14r { background-position: -75px -35px;z-index:1 }
+.jssora14l:hover { background-position: -135px -35px; }
+.jssora14r:hover { background-position: -195px -35px; }
+.jssora14ldn { background-position: -255px -35px; }
+.jssora14rdn { background-position: -315px -35px; }
+/* jssor slider arrow navigator skin 15 css */
+/*
+.jssora15l              (normal)
+.jssora15r              (normal)
+.jssora15l:hover        (normal mouseover)
+.jssora15r:hover        (normal mouseover)
+.jssora15ldn            (mousedown)
+.jssora15rdn            (mousedown)
+*/
+.jssora15l, .jssora15r, .jssora15ldn, .jssora15rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a15.png) no-repeat;
+    overflow:hidden;
+    width: 20px;
+    height: 38px;
+}
+.jssora15l { background-position: -20px -41px;z-index:1 }
+.jssora15r { background-position: -80px -41px;z-index:1 }
+.jssora15l:hover { background-position: -140px -41px; }
+.jssora15r:hover { background-position: -200px -41px; }
+.jssora15ldn { background-position: -260px -41px; }
+.jssora15rdn { background-position: -320px -41px; }
+/* jssor slider arrow navigator skin 16 css */
+/*
+.jssora16l              (normal)
+.jssora16r              (normal)
+.jssora16l:hover        (normal mouseover)
+.jssora16r:hover        (normal mouseover)
+.jssora16ldn            (mousedown)
+.jssora16rdn            (mousedown)
+*/
+.jssora16l, .jssora16r, .jssora16ldn, .jssora16rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a16.png) no-repeat;
+    overflow:hidden;
+    width: 22px;
+    height: 36px;
+}
+.jssora16l { background-position: -19px -42px;z-index:1 }
+.jssora16r { background-position: -79px -42px; z-index:1}
+.jssora16l:hover { background-position: -139px -42px; }
+.jssora16r:hover { background-position: -199px -42px; }
+.jssora16ldn { background-position: -259px -42px; }
+.jssora16rdn { background-position: -319px -42px; }
+/* jssor slider arrow Navigator Skin 18 css */
+/*
+.jssora18l              (normal)
+.jssora18r              (normal)
+.jssora18l:hover        (normal mouseover)
+.jssora18r:hover        (normal mouseover)
+.jssora18ldn            (mousedown)
+.jssora18rdn            (mousedown)
+*/
+.jssora18l, .jssora18r, .jssora18ldn, .jssora18rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a18.png) no-repeat;
+    overflow:hidden;
+    width: 29px;
+    height: 29px;
+}
+.jssora18l {
+    background-position: -16px -45px;
+    z-index:1;
+}
+
+.jssora18r {
+    background-position: -76px -45px;
+    z-index:1;
+}
+
+.jssora18l:hover {
+    background-position: -136px -45px;
+}
+
+.jssora18r:hover {
+    background-position: -196px -45px;
+}
+
+.jssora18ldn {
+    background-position: -256px -45px;
+}
+
+.jssora18rdn {
+    background-position: -316px -45px;
+}
+/* jssor slider arrow navigator skin 19 css */
+/*
+.jssora19l              (normal)
+.jssora19r              (normal)
+.jssora19l:hover        (normal mouseover)
+.jssora19r:hover        (normal mouseover)
+.jssora19ldn            (mousedown)
+.jssora19rdn            (mousedown)
+*/
+.jssora19l, .jssora19r, .jssora19ldn, .jssora19rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a19.png) no-repeat;
+    overflow:hidden;
+    width: 50px;
+    height: 50px;
+}
+.jssora19l { background-position: -5px -35px;z-index:1; }
+.jssora19r { background-position: -65px -35px;z-index:1; }
+.jssora19l:hover { background-position: -125px -35px; }
+.jssora19r:hover { background-position: -185px -35px; }
+.jssora19ldn { background-position: -245px -35px; }
+.jssora19rdn { background-position: -305px -35px; }
+/* jssor slider arrow navigator skin 20 css */
+/*
+.jssora20l              (normal)
+.jssora20r              (normal)
+.jssora20l:hover        (normal mouseover)
+.jssora20r:hover        (normal mouseover)
+.jssora20ldn            (mousedown)
+.jssora20rdn            (mousedown)
+*/
+.jssora20l, .jssora20r, .jssora20ldn, .jssora20rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a20.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.jssora20l { background-position: -3px -33px;z-index:1; }
+.jssora20r { background-position: -63px -33px;z-index:1; }
+.jssora20l:hover { background-position: -123px -33px; }
+.jssora20r:hover { background-position: -183px -33px; }
+.jssora20ldn { background-position: -243px -33px; }
+.jssora20rdn { background-position: -303px -33px; }
+/* jssor slider arrow navigator skin 21 css */
+/*
+.jssora21l              (normal)
+.jssora21r              (normal)
+.jssora21l:hover        (normal mouseover)
+.jssora21r:hover        (normal mouseover)
+.jssora21ldn            (mousedown)
+.jssora21rdn            (mousedown)
+*/
+.jssora21l, .jssora21r, .jssora21ldn, .jssora21rdn
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../../images/factoryx/homepage/nav/a21.png) center center no-repeat;
+    overflow: hidden;
+    width: 55px;
+    height: 55px;
+}
+.jssora21l { background-position: -3px -33px; z-index:1;}
+.jssora21r { background-position: -63px -33px; z-index:1;}
+.jssora21l:hover { background-position: -123px -33px; }
+.jssora21r:hover { background-position: -183px -33px; }
+.jssora21ldn { background-position: -243px -33px; }
+.jssora21rdn { background-position: -303px -33px; }
+/*
+            .jssorb02 div           (normal)
+            .jssorb02 div:hover     (normal mouseover)
+            .jssorb02 .av           (active)
+            .jssorb02 .av:hover     (active mouseover)
+            .jssorb02 .dn           (mousedown)
+            */
+.jssorb02{z-index:1;}
+.jssorb02 div, .jssorb02 div:hover, .jssorb02 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b02.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb02 div { background-position: -5px -5px;width: 21px; height: 21px; line-height:21px;  }
+.jssorb02 div:hover, .jssorb02 .av:hover { background-position: -35px -5px; }
+.jssorb02 .av { background-position: -65px -5px; }
+.jssorb02 .dn, .jssorb02 .dn:hover { background-position: -95px -5px; }
+/* jssor slider bullet navigator skin 03 css */
+/*
+.jssorb03 div           (normal)
+.jssorb03 div:hover     (normal mouseover)
+.jssorb03 .av           (active)
+.jssorb03 .av:hover     (active mouseover)
+.jssorb03 .dn           (mousedown)
+*/
+.jssorb03{z-index:1;}
+.jssorb03 div, .jssorb03 div:hover, .jssorb03 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b03.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb03 div { background-position: -5px -4px;width: 21px; height: 21px;line-height:21px;  }
+.jssorb03 div:hover, .jssorb03 .av:hover { background-position: -35px -4px; }
+.jssorb03 .av { background-position: -65px -4px; }
+.jssorb03 .dn, .jssorb03 .dn:hover { background-position: -95px -4px; }
+/* jssor slider bullet navigator skin 05 css */
+/*
+.jssorb05 div           (normal)
+.jssorb05 div:hover     (normal mouseover)
+.jssorb05 .av           (active)
+.jssorb05 .av:hover     (active mouseover)
+.jssorb05 .dn           (mousedown)
+*/
+.jssorb05{z-index:1;}
+.jssorb05 div, .jssorb05 div:hover, .jssorb05 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b05.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb05 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
+.jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+.jssorb05 .av { background-position: -67px -7px; }
+.jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+/*
+            .jssorb06 div           (normal)
+            .jssorb06 div:hover     (normal mouseover)
+            .jssorb06 .av           (active)
+            .jssorb06 .av:hover     (active mouseover)
+            .jssorb06 .dn           (mousedown)
+            */
+.jssorb06 {z-index:1;}
+.jssorb06 div, .jssorb06 div:hover, .jssorb06 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b06.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb06 div { background-position: -6px -6px; WIDTH: 18px; HEIGHT: 18px;}
+.jssorb06 div:hover, .jssorb06 .av:hover { background-position: -36px -6px; }
+.jssorb06 .av { background-position: -66px -6px; }
+.jssorb06 .dn, .jssorb06 .dn:hover { background-position: -96px -6px; }
+/*
+            .jssorb07 div           (normal)
+            .jssorb07 div:hover     (normal mouseover)
+            .jssorb07 .av           (active)
+            .jssorb07 .av:hover     (active mouseover)
+            .jssorb07 .dn           (mousedown)
+            */
+.jssorb07 {z-index:1;}
+.jssorb07 div, .jssorb07 div:hover, .jssorb07 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b07.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb07 div { background-position: -5px -5px;WIDTH: 20px; HEIGHT: 20px; }
+.jssorb07 div:hover, .jssorb07 .av:hover { background-position: -35px -5px; }
+.jssorb07 .av { background-position: -65px -5px; }
+.jssorb07 .dn, .jssorb07 .dn:hover { background-position: -95px -5px; }
+/*
+            .jssorb09 div           (normal)
+            .jssorb09 div:hover     (normal mouseover)
+            .jssorb09 .av           (active)
+            .jssorb09 .av:hover     (active mouseover)
+            .jssorb09 .dn           (mousedown)
+            */
+.jssorb09 {z-index:1;}
+.jssorb09 div, .jssorb09 div:hover, .jssorb09 .av
+{
+    filter: alpha(opacity=70);
+    opacity: .7;
+    overflow:hidden;
+    cursor: pointer;
+    border: #fff 1px solid;
+}
+.jssorb09 div { background-color: #d3d3d3; WIDTH: 12px; HEIGHT: 12px;}
+.jssorb09 div:hover, .jssorb09 .av:hover { background-color: gray; }
+.jssorb09 .av { background-color: #000; }
+.jssorb09 .dn, .jssorb09 .dn:hover { background-color: #a9a9a9; }
+/* jssor slider bullet navigator skin 10 css */
+/*
+.jssorb10 div           (normal)
+.jssorb10 div:hover     (normal mouseover)
+.jssorb10 .av           (active)
+.jssorb10 .av:hover     (active mouseover)
+.jssorb10 .dn           (mousedown)
+*/
+.jssorb10 {z-index:1;}
+.jssorb10 div, .jssorb10 div:hover, .jssorb10 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b10.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb10 div { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;}
+.jssorb10 div:hover, .jssorb10 .av:hover { background-position: -40px -10px; }
+.jssorb10 .av { background-position: -70px -10px; }
+.jssorb10 .dn, .jssorb10 .dn:hover { background-position: -100px -10px; }
+/* jssor slider bullet navigator skin 11 css */
+/*
+.jssorb11 div           (normal)
+.jssorb11 div:hover     (normal mouseover)
+.jssorb11 .av           (active)
+.jssorb11 .av:hover     (active mouseover)
+.jssorb11 .dn           (mousedown)
+*/
+.jssorb11 {z-index:1;}
+.jssorb11 div, .jssorb11 div:hover, .jssorb11 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b11.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb11 div { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;}
+.jssorb11 div:hover, .jssorb11 .av:hover { background-position: -40px -10px; }
+.jssorb11 .av { background-position: -70px -10px; }
+.jssorb11 .dn, .jssorb11 .dn:hover { background-position: -100px -10px; }
+/* jssor slider bullet navigator skin 12 css */
+/*
+.jssorb12 div           (normal)
+.jssorb12 div:hover     (normal mouseover)
+.jssorb12 .av           (active)
+.jssorb12 .av:hover     (active mouseover)
+.jssorb12 .dn           (mousedown)
+*/
+.jssorb12 {z-index:1;}
+.jssorb12 div, .jssorb12 div:hover, .jssorb12 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b12.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb12 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
+.jssorb12 div:hover, .jssorb12 .av:hover { background-position: -37px -7px; }
+.jssorb12 .av { background-position: -67px -7px; }
+.jssorb12 .dn, .jssorb12 .dn:hover { background-position: -97px -7px; }
+/* jssor slider bullet navigator skin 13 css */
+/*
+.jssorb13 div           (normal)
+.jssorb13 div:hover     (normal mouseover)
+.jssorb13 .av           (active)
+.jssorb13 .av:hover     (active mouseover)
+.jssorb13 .dn           (mousedown)
+*/
+.jssorb13 {z-index:1;}
+.jssorb13 div, .jssorb13 div:hover, .jssorb13 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b13.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb13 div { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px; }
+.jssorb13 div:hover, .jssorb13 .av:hover { background-position: -35px -5px; }
+.jssorb13 .av { background-position: -65px -5px; }
+.jssorb13 .dn, .jssorb13 .dn:hover { background-position: -95px -5px; }
+/* jssor slider bullet navigator skin 14 css */
+/*
+.jssorb14 div           (normal)
+.jssorb14 div:hover     (normal mouseover)
+.jssorb14 .av           (active)
+.jssorb14 .av:hover     (active mouseover)
+.jssorb14 .dn           (mousedown)
+*/
+.jssorb14 {z-index:1;}
+.jssorb14 div, .jssorb14 div:hover, .jssorb14 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b14.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb14 div { background-position: -9px -9px;WIDTH: 12px; HEIGHT: 12px; }
+.jssorb14 div:hover, .jssorb14 .av:hover { background-position: -39px -9px; }
+.jssorb14 .av { background-position: -69px -9px; }
+.jssorb14 .dn, .jssorb14 .dn:hover { background-position: -99px -9px; }
+/* jssor slider bullet navigator skin 16 css */
+/*
+.jssorb16 div           (normal)
+.jssorb16 div:hover     (normal mouseover)
+.jssorb16 .av           (active)
+.jssorb16 .av:hover     (active mouseover)
+.jssorb16 .dn           (mousedown)
+*/
+.jssorb16 {z-index:1;}
+.jssorb16 div, .jssorb16 div:hover, .jssorb16 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b16.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb16 div { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px; }
+.jssorb16 div:hover, .jssorb16 .av:hover { background-position: -35px -5px; }
+.jssorb16 .av { background-position: -65px -5px; }
+.jssorb16 .dn, .jssorb16 .dn:hover { background-position: -95px -5px; }
+/* jssor slider bullet navigator skin 17 css */
+/*
+.jssorb17 div           (normal)
+.jssorb17 div:hover     (normal mouseover)
+.jssorb17 .av           (active)
+.jssorb17 .av:hover     (active mouseover)
+.jssorb17 .dn           (mousedown)
+*/
+.jssorb17 {z-index:1;}
+.jssorb17 div, .jssorb17 div:hover, .jssorb17 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b17.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb17 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
+.jssorb17 div:hover, .jssorb17 .av:hover { background-position: -37px -7px; }
+.jssorb17 .av { background-position: -67px -7px; }
+.jssorb17 .dn, .jssorb17 .dn:hover { background-position: -97px -7px; }
+/* jssor slider bullet navigator skin 18 css */
+/*
+.jssorb18 div           (normal)
+.jssorb18 div:hover     (normal mouseover)
+.jssorb18 .av           (active)
+.jssorb18 .av:hover     (active mouseover)
+.jssorb18 .dn           (mousedown)
+*/
+.jssorb18 {z-index:1;}
+.jssorb18 div, .jssorb18 div:hover, .jssorb18 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b18.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb18 div { background-position: -3px -3px;width: 24px; height: 24px; line-height: 24px }
+.jssorb18 div:hover, .jssorb18 .av:hover { background-position: -33px -3px; }
+.jssorb18 .av { background-position: -63px -3px; }
+.jssorb18 .dn, .jssorb18 .dn:hover { background-position: -93px -3px; }
+
+.jssorb18 .n
+{
+    display: none;
+    color: #000;
+}
+.jssorb18 div:hover .n, .jssorb18 .av .n, .jssorb18 .av:hover .n, .jssorb18 .dn .n { display: block; }
+/* jssor slider bullet navigator skin 20 css */
+/*
+.jssorb20 div           (normal)
+.jssorb20 div:hover     (normal mouseover)
+.jssorb20 .av           (active)
+.jssorb20 .av:hover     (active mouseover)
+.jssorb20 .dn           (mousedown)
+*/
+.jssorb20 {z-index:1;}
+.jssorb20 div, .jssorb20 div:hover, .jssorb20 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b20.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb20 div { background-position: -5px -5px;WIDTH: 19px; HEIGHT: 19px; line-height:19px; }
+.jssorb20 div:hover, .jssorb20 .av:hover { background-position: -35px -5px; }
+.jssorb20 .av { background-position: -65px -5px; }
+.jssorb20 .dn, .jssorb20 .dn:hover { background-position: -95px -5px; }
+/* jssor slider bullet navigator skin 21 css */
+/*
+.jssorb21 div           (normal)
+.jssorb21 div:hover     (normal mouseover)
+.jssorb21 .av           (active)
+.jssorb21 .av:hover     (active mouseover)
+.jssorb21 .dn           (mousedown)
+*/
+.jssorb21 {z-index:1;}
+.jssorb21 div, .jssorb21 div:hover, .jssorb21 .av
+{
+    background: url(../../../images/factoryx/homepage/pag/b21.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.jssorb21 div { background-position: -5px -5px; WIDTH: 19px; HEIGHT: 19px;line-height:19px;}
+.jssorb21 div:hover, .jssorb21 .av:hover { background-position: -35px -5px; }
+.jssorb21 .av { background-position: -65px -5px; }
+.jssorb21 .dn, .jssorb21 .dn:hover { background-position: -95px -5px; }
+
+#homepages_fw [class^="col-"][class$="-12"] {
+    padding-left: 0;
+    padding-right: 0;
+}
