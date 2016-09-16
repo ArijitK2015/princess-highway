@@ -1,3 +1,4 @@
+<?php
 /**
  * Magento
  *
@@ -18,10 +19,27 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
- * @package     rwd_default
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @see Mage_Catalog_Block_Layer_Filter
+ */
+?>
 
-// Avoid PrototypeJS conflicts, assign jQuery to $j instead of $
-var $j = jQuery.noConflict();
+<?php foreach ($this->getItems() as $_item): ?>
+    <li role="presentation">
+        <a role="menuitem" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"
+            <?php if ($_item->getCount() <= 0): ?>
+                class="disabled"
+            <?php endif; ?>
+            ><?php echo $_item->getLabel() ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>(<?php echo $_item->getCount() ?>)<?php endif; ?>
+        </a>
+    </li>
+<?php endforeach ?>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    design
+ * @package     bootstrap_default
+ * @author		Factory X Team <raphael@factoryx.com.au>
+ * @copyright   Copyright (c) 2015 Factory X
+ */
+-->
+<layout version="0.1.0">
+
+    <!--
+        Default layout, loads most of the pages
+    -->
+
+    <default>
+        <reference name="head">
+            <!--Removing items set in the page.xml we don't need anymore-->
+            <action method="removeItem"><type>skin_css</type><name>css/styles.css</name></action>
+            <action method="removeItem"><type>skin_css</type><name>css/styles-ie.css</name></action>
+            <action method="removeItem"><type>skin_css</type><name>css/print.css</name></action>
+            <action method="removeItem"><type>skin_css</type><name>css/widgets.css</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/ie6.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/ds-sleight.js</name></action>
+            <action method="removeItem"><type>js</type><name>varien/menu.js</name></action>
+            <!-- Add responsive script for the grids -->
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/bootstrap/grids.js</name>
+                <params/>
+            </action>
+            <!-- Add small CSS to hack bootstrap if menu hover -->
+            <block type="core/text" name="hover_bootstrap">
+                <action method="setText" ifconfig="framework/navigation/hover">
+                    <text>
+                        <![CDATA[
+                            <style type="text/css">
+                                @media (min-width: 768px) {
+                                    #nav li.parent:hover > ul.dropdown-menu {
+                                        display: block;
+                                    }
+                                }
+                            </style>
+                        ]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+
+        <reference name="catalog.topnav">
+            <!-- Add extra items to the mobile menu -->
+            <block type="core/template" name="navbar.search" template="bootstrap/navbar/search.phtml"/>
+            <block type="page/template_links" name="navbar.account" template="bootstrap/navbar/links.phtml">
+                <action method="addLink" translate="label title" module="customer"><label>My Account</label><url helper="customer/getAccountUrl"/><title>My Account</title><prepare/><urlParams/><position>10</position></action>
+                <block type="wishlist/links" name="wishlist_link" />
+                <action method="addLinkBlock"><blockName>wishlist_link</blockName></action>
+            </block>
+            <block type="page/template_links" name="navbar.cart" template="bootstrap/navbar/links.phtml">
+                <block type="checkout/links" name="checkout_cart_link_navbar">
+                    <action method="addCartLink"></action>
+                    <action method="addCheckoutLink"></action>
+                </block>
+            </block>
+        </reference>
+
+    </default>
+
+    <!--
+        Product page view
+    -->
+    <catalog_product_view>
+        <!-- Add zoom from RWD theme -->
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><script>js/lib/elevatezoom/jquery.elevateZoom-3.0.8.min.js</script></action>
+            <action method="addItem"><type>skin_js</type><script>js/app.js</script></action>
+        </reference>
+        <!-- Add titles to the product tabs -->
+        <reference name="product.description">
+            <action method="setTitle" translate="value"><value>Description</value></action>
+        </reference>
+        <reference name="product.attributes">
+            <action method="setTitle" translate="value"><value>Additional Information</value></action>
+        </reference>
+    </catalog_product_view>
+
+    <!--
+        One page checkout main layout
+    -->
+    <checkout_onepage_index translate="label">
+        <reference name="right">
+            <block type="checkout/onepage_progress" name="checkout.progress.block" before="checkout.progress.wrapper" translate="label" template="bootstrap/checkout/onepage/progress.phtml"/>
+            <!-- Add offcanvas progress block for mobile -->
+            <block type="page/html_wrapper" name="checkout.progress.wrapper.offcanvas" translate="label">
+                <label>Checkout Progress Wrapper</label>
+                <action method="setElementId"><value>checkout-progress-wrapper-offcanvas</value></action>
+                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="bootstrap/checkout/onepage/progress_offcanvas.phtml">
+                    <block type="checkout/onepage_progress" name="billing.progress" template="checkout/onepage/progress/billing.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
+                    <block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+                    <block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
+                </block>
+            </block>
+        </reference>
+    </checkout_onepage_index>
+
+    <!--
+        Load this update on every page when customer is logged in
+    -->
+    <customer_logged_in>
+        <reference name="navbar.account">
+            <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position></action>
+        </reference>
+    </customer_logged_in>
+
+    <!--
+        Load this update on every page when customer is logged out
+    -->
+
+    <customer_logged_out>
+        <reference name="navbar.account">
+            <action method="addLink" translate="label title" module="customer"><label>Log In</label><url helper="customer/getLoginUrl"/><title>Log In</title><prepare/><urlParams/><position>100</position></action>
+        </reference>
+    </customer_logged_out>
+
+</layout>

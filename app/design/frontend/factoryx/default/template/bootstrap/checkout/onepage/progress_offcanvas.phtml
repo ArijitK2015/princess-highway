@@ -1,0 +1,28 @@
+<nav id="progressMenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs hidden-sm hidden-lg hidden-md" role="navigation">
+    <a class="navmenu-brand" href="#"><?php echo $this->__('Your Checkout Progress') ?></a>
+    <ul class="nav navmenu-nav">
+        <?php if ($this->getCheckout()->getStepData('billing', 'is_show')): ?>
+            <li id="billing-progress-opcheckout-offcanvas">
+                <?php echo $this->getChildHtml('billing.progress') ?>
+            </li>
+        <?php endif; ?>
+
+        <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
+            <li id="shipping-progress-opcheckout-offcanvas">
+                <?php echo $this->getChildHtml('shipping.progress') ?>
+            </li>
+        <?php endif; ?>
+
+        <?php if ($this->getCheckout()->getStepData('shipping_method', 'is_show')): ?>
+            <li id="shipping_method-progress-opcheckout-offcanvas">
+                <?php echo $this->getChildHtml('shippingmethod.progress') ?>
+            </li>
+        <?php endif; ?>
+
+        <?php if ($this->getCheckout()->getStepData('payment', 'is_show')): ?>
+            <li id="payment-progress-opcheckout-offcanvas">
+                <?php echo $this->getChildHtml('payment.progress') ?>
+            </li>
+        <?php endif; ?>
+    </ul>
+</nav>

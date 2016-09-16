@@ -1,0 +1,137 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Sendfriend_Block_Send */
+/**
+ * Send to friend form
+ *
+ * @see Mage_Sendfriend_Block_Send
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    i=0;
+    var recipCount  = 1;
+    var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
+    function remove_recipient(i){
+        $('recipients_name'+i).up('div').remove();
+        $('recipients_email'+i).up('div').up('div').remove();
+        recipCount--;
+        if(recipCount<maxRecip && maxRecip != 0) {
+            $('add_recipient_button').show();
+            $('max_recipient_message').hide();
+        }
+        return false;
+    }
+
+    function add_recipient(){
+        div = $('recipients_options');
+        var div_mail = Element.extend(document.createElement("DIV"));
+        var div_mail2 = Element.extend(document.createElement("DIV"));
+        div_mail.addClassName('col-lg-6 col-md-6 col-sm-6 col-xs-12');
+        div_mail2.addClassName('col-lg-6 col-md-6 col-sm-6 col-xs-12');
+        div_mail.innerHTML += '<div class="form-group"><input placeholder="<?php echo $this->jsQuoteEscape($this->__('Name:')) ?>" title="<?php echo $this->jsQuoteEscape($this->__('Name:')) ?>" name="recipients[name][]" type="text" class="input-text required-entry form-control" id="recipients_name'+i+'" /></div>';
+        div_mail2.innerHTML += '<div class="form-group"><div class="input-group"><input placeholder="<?php echo $this->jsQuoteEscape($this->__('Email Address:')) ?>" title="<?php echo $this->jsQuoteEscape($this->__('Email Address:')) ?>" name="recipients[email][]" value="" title="<?php echo $this->jsQuoteEscape($this->__('Email Address')) ?>" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email form-control" /><span class="input-group-btn"><button class="btn btn-default" type="button" onclick="remove_recipient('+i+'); return false"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-times"></i><?php else: echo $this->__('Remove'); endif; ?></button></span></div></div>';
+        i++;
+        recipCount++;
+        if(recipCount>=maxRecip && maxRecip != 0) {
+            $('add_recipient_button').hide();
+            $('max_recipient_message').show();
+        }
+
+        div.appendChild(div_mail);
+        div.appendChild(div_mail2);
+    }
+    //]]>
+</script>
+
+<div class="send-friend">
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('Email to a Friend') ?></h1>
+    </div>
+    <form action="<?php echo $this->getSendUrl() ?>" method="post" id="product_sendtofriend_form">
+        <fieldset>
+            <?php echo $this->getBlockHtml('formkey')?>
+            <legend><?php echo $this->__('Sender:') ?></legend>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <input name="sender[name]" value="<?php echo $this->escapeHtml($this->getUserName()) ?>" title="<?php echo $this->__('Name') ?>" placeholder="<?php echo $this->__('Name') ?>" id="sender_name" type="text" class="form-control input-text required-entry" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <input name="sender[email]" value="<?php echo $this->escapeHtml($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" placeholder="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="form-control input-text required-entry validate-email" />
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <textarea name="sender[message]" placeholder="<?php echo $this->__('Message:') ?>" title="<?php echo $this->__('Message:') ?>" class="form-control input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->escapeHtml($this->getMessage())?></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend><?php echo $this->__('Recipient:') ?></legend>
+            <div id="recipients_options">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input name="recipients[name][]" placeholder="<?php echo $this->__('Name:') ?>" title="<?php echo $this->__('Name:') ?>" type="text" class="form-control input-text required-entry" id="recipients_name" />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input name="recipients[email][]" value="" title="<?php echo $this->__('Email Address') ?>" placeholder="<?php echo $this->__('Email Address') ?>" id="recipients_email" type="text" class="form-control input-text required-entry validate-email" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <p class="back-link"><a href="#" onclick="history.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+            <button type="submit" class="btn btn-primary pull-right button<?php if (!$this->canSend()):?> disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send Email') ?></span></span></button>
+            <div id="max_recipient_message" style="display:none;">
+                <?php if ($this->getMaxRecipients()): ?>
+                    <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
+                <?php endif; ?>
+            </div>
+            <?php if (1 < $this->getMaxRecipients()): ?>
+                <p id="add_recipient_button">
+                    <button type="button" onclick="add_recipient();" class="btn btn-default pull-left button"><span><span><?php echo $this->__('Add Recipient') ?></span></span></button>
+                </p>
+            <?php endif; ?>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        var productSendtofriendForm = new VarienForm('product_sendtofriend_form');
+        productSendtofriendForm.submit = function() {
+            if(this.validator.validate()) {
+                this.form.submit();
+            }
+        }.bind(productSendtofriendForm);
+        //]]>
+    </script>
+</div>

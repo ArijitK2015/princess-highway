@@ -1,0 +1,46 @@
+<?php $activeSteps = 0; ?>
+<?php foreach ($this->getCheckout()->getSteps() as $step): ?>
+    <?php if (array_key_exists('is_show',$step) && $step['is_show']): ?>
+        <?php $activeSteps++; ?>
+    <?php endif; ?>
+<?php endforeach; ?>
+
+<?php $activeSteps--; ?>
+
+<?php switch ($activeSteps):
+    case 6:
+        $class = 2;
+        break;
+    case 5:
+        $class = 15;
+        break;
+    case 4:
+        $class = 3;
+        break;
+    case 3:
+        $class = 4;
+        break;
+    case 2:
+        $class = 6;
+        break;
+    default:
+        $class = 12;
+        break;
+endswitch; ?>
+
+<?php if (Mage::getStoreConfig('framework/options/progress_checkout') == "bar"): ?>
+    <div class="progress">
+        <div id="progressbar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="<?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>20<?php else: ?>0<?php endif; ?>" aria-valuemin="0" aria-valuemax="100" style="<?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>width:20%;<?php endif; ?>min-width: 2em;">
+            <?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?><?php echo (100/$activeSteps); ?>%<?php else: ?>0%<?php endif; ?>
+        </div>
+    </div>
+<?php elseif (Mage::getStoreConfig('framework/options/progress_checkout') == "checkbox"): ?>
+    <?php $end = $activeSteps++; ?>
+    <?php for ($i = 0; $i < $end; $i++): ?>
+        <div class="col-md-<?php echo $class; ?> col-xs-<?php echo $class; ?> col-sm-<?php echo $class; ?> col-lg-<?php echo $class; ?> text-center">
+            <div class="form-group">
+                <input type="checkbox" disabled id="progresscheckbox-<?php echo $i; ?>"/>
+            </div>
+        </div>
+    <?php endfor; ?>
+<?php endif; ?>

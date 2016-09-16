@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_Framework>
+            <version>0.3.23</version>
+        </FactoryX_Framework>
+    </modules>
+
+    <frontend>
+        <layout>
+            <updates>
+                <framework module="FactoryX_Framework">
+                    <file>factoryx/framework.xml</file>
+                </framework>
+            </updates>
+        </layout>
+        <events>
+            <!-- Event to change the HTML on the fly -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <factoryx_framework_core_block_abstract_to_html_afterl>
+                        <type>singleton</type>
+                        <class>framework/observer</class>
+                        <method>addBootstrapClasses</method>
+                    </factoryx_framework_core_block_abstract_to_html_afterl>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </frontend>
+
+    <global>
+
+        <helpers>
+            <framework>
+                <class>FactoryX_Framework_Helper</class>
+            </framework>
+        </helpers>
+
+        <models>
+            <framework>
+                <class>FactoryX_Framework_Model</class>
+            </framework>
+        </models>
+
+        <blocks>
+            <framework>
+                <class>FactoryX_Framework_Block</class>
+            </framework>
+
+            <catalog>
+                <rewrite>
+                    <!-- Mage_Catalog_Block_Product_View_Options_Type_Select -->
+                    <product_view_options_type_select>FactoryX_Framework_Block_Catalog_Product_View_Options_Type_Select</product_view_options_type_select>
+                </rewrite>
+            </catalog>
+
+            <core>
+                <rewrite>
+                    <!-- Mage_Core_Block_Messages -->
+                    <messages>FactoryX_Framework_Block_Core_Messages</messages>
+                </rewrite>
+            </core>
+
+            <page>
+                <rewrite>
+                    <!-- Mage_Page_Block_Html_Topmenu -->
+                    <html_topmenu>FactoryX_Framework_Block_Page_Html_Topmenu</html_topmenu>
+                </rewrite>
+            </page>
+        </blocks>
+
+    </global>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_Framework/>
+            </modules>
+        </suite>
+    </phpunit>
+
+    <default>
+        <framework>
+            <toplinks>
+                <wishlist>count</wishlist>
+                <cart>count</cart>
+            </toplinks>
+        </framework>
+    </default>
+
+</config>

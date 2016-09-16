@@ -1,0 +1,41 @@
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <?php echo $this->getChildHtml('head') ?>
+    </head>
+    <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+        <?php echo $this->getChildHtml('after_body_start') ?>
+        <?php echo $this->getChildHtml('global_notices') ?>
+        <header>
+            <?php echo $this->getChildHtml('header') ?>
+        </header>
+        <section id="maincontent">
+            <div class="container">
+                <div class="row main">
+                    <?php echo $this->getChildHtml('breadcrumbs') ?>
+                    <aside class="col-md-4 col-lg-4 col-sm-12 col-xs-12 sidebar"><?php echo $this->getChildHtml('left') ?></aside>
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                        <?php echo $this->getChildHtml('global_messages') ?>
+                        <?php echo $this->getChildHtml('content') ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer" id="footer">
+                <div class="container">
+                    <div class="row">
+                        <?php echo $this->getChildHtml('footer') ?>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+        <?php echo $this->getAbsoluteFooter() ?>
+    </body>
+</html>

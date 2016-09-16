@@ -1,0 +1,101 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @see Mage_Catalog_Block_Product_List_Toolbar
+ */
+?>
+<?php if($this->getCollection()->getSize()): ?>
+    <div class="toolbar">
+        <div class="pager row">
+            <?php if( $this->isExpanded() ): ?>
+                <div class="text-left col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                <div class="sorter pull-left">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="sortMenu" data-toggle="dropdown" aria-expanded="true">
+                            <?php echo $this->__('Sort By') ?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="sortMenu">
+                            <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"><?php echo $this->__($_order) ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php if($this->getCurrentDirection() == 'desc'): ?>
+                            <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" title="<?php echo $this->__('Set Ascending Direction') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-long-arrow-down"></i><?php else: ?><img src="<?php echo $this->getSkinUrl('images/i_desc_arrow.gif') ?>" alt="<?php echo $this->__('Set Ascending Direction') ?>" class="v-middle" /><?php endif; ?></a>
+                        <?php else: ?>
+                            <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" title="<?php echo $this->__('Set Descending Direction') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-long-arrow-up"></i><?php else: ?><img src="<?php echo $this->getSkinUrl('images/i_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /><?php endif; ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                    <?php if( $this->isEnabledViewSwitcher() ): ?>
+                        <span class="view-mode pull-right">
+                        <?php $_modes = $this->getModes(); ?>
+                            <?php if($_modes && count($_modes)>1): ?>
+                                <label><?php echo $this->__('View as') ?>:</label>
+                            <?php foreach ($this->getModes() as $_code=>$_label): ?>
+                                    <?php if($this->isModeActive($_code)): ?>
+                                        <strong title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-lg fa-<?php echo Mage::helper('framework')->getFaViewSwitcher(strtolower($_code)); ?>"></i><?php else: ?><?php echo $_label ?><?php endif; ?></strong>&nbsp;
+                                    <?php else: ?>
+                                        <a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-lg fa-<?php echo Mage::helper('framework')->getFaViewSwitcher(strtolower($_code)); ?>"></i><?php else: ?><?php echo $_label ?><?php endif; ?></a>&nbsp;
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="text-right  col-lg-6 col-xs-6 col-sm-6 col-md-6">
+            <span class="amount pull-left">
+                <?php if($this->getLastPageNum()>1): ?>
+                    <?php echo $this->__('Items %s to %s of %s', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+                <?php else: ?>
+                    <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
+                <?php endif; ?>
+            </span>
+
+            <span class="limiter form-group form-inline pull-right">
+                <label><?php echo $this->__('Show') ?></label>
+                <select class="form-control input-sm" onchange="setLocation(this.value)">
+                    <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                        <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                            <?php echo $_limit ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select> <?php //echo $this->__('per page') ?>
+            </span>
+            </div>
+
+            <?php echo $this->getPagerHtml() ?>
+
+        </div>
+    </div>
+<?php endif ?>

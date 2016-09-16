@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <!-- Sets viewport meta tag using text block -->
+            <block type="core/text" name="head.viewport">
+                <action method="setText"><text><![CDATA[<meta name="viewport" content="initial-scale=1.0, width=device-width" />]]>&#10;</text></action>
+            </block>
+            <action method="addJs" ifconfig="framework/options/enable_jquery"><script>lib/jquery/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_jquery"><script>lib/jquery/noconflict.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_js"><script>lib/factoryx/framework/bootstrap/bootstrap.min.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_jasny_bootstrap_js"><script>lib/factoryx/framework/bootstrap/jasny-bootstrap.min.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_js"><script>lib/factoryx/framework/prototype-bootstrap-noconflict.js</script></action>
+            <!-- Workaround to load the js.js after loading the new validation.js file -->
+            <action method="removeItem" ifconfig="framework/options/enable_bootstrap_css"><type>js</type><name>prototype/validation.js</name></action>
+            <action method="removeItem" ifconfig="framework/options/enable_bootstrap_css"><type>js</type><name>varien/js.js</name></action>
+            <action method="removeItem" ifconfig="framework/options/enable_bootstrap_css"><type>js</type><name>varien/form.js</name></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_css"><script>lib/factoryx/framework/validation.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_css"><script>lib/factoryx/framework/form.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_css"><script>varien/js.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_css"><script>lib/factoryx/framework/bootstrap/jquery.placeholder.min.js</script></action>
+            <action method="addItem" ifconfig="framework/options/enable_bootstrap_css"><type>skin_js</type><name>js/factoryx/framework/placeholder.js</name><params/></action>
+
+            <action method="addItem" ifconfig="framework/options/enable_bootstrap_css"><type>skin_css</type><name>css/bootstrap/bootstrap.min.css</name><params/></action>
+            <action method="addItem" ifconfig="framework/options/enable_jasny_bootstrap_css"><type>skin_css</type><name>css/bootstrap/jasny-bootstrap.min.css</name><params/></action>
+            <block type="core/text" name="fontawesome">
+                <action method="setText" ifconfig="framework/options/enable_fontawesome">
+                    <text><![CDATA[<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">]]>
+                    </text>
+                </action>
+            </block>
+            <block type="core/text" name="bootstrap.ie8">
+                <action method="setText" ifconfig="framework/options/enable_bootstrap_css">
+                    <text><![CDATA[<!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script><script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->]]>
+                    </text>
+                </action>
+            </block>
+            <!-- Google Font -->
+            <block type="core/text" name="googlefontlink">
+                <action method="setText">
+                    <text helper="framework/getGoogleFontLink" />
+                </action>
+            </block>
+            <block type="core/text" name="googlefontname">
+                <action method="setText">
+                    <text helper="framework/getGoogleFontName" />
+                </action>
+            </block>
+        </reference>
+    </default>
+</layout>

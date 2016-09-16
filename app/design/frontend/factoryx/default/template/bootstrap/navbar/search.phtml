@@ -1,0 +1,15 @@
+<form id="search_mini_form_navbar" action="<?php echo Mage::helper('catalogsearch')->getResultUrl() ?>" method="get" class="navbar-form navbar-left" role="form">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" id="search" name="<?php echo Mage::helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo Mage::helper('catalogsearch')->getEscapedQueryText() ?>" class="form-control" maxlength="<?php echo Mage::helper('catalogsearch')->getMaxQueryLength();?>" placeholder="<?php echo $this->__('Search entire store here...') ?>">
+            <span class="input-group-btn">
+                <button type="submit" title="<?php echo $this->__('Search') ?>" class="btn btn-default"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-search"></i><?php else: echo $this->__('Search'); endif; ?></button>
+            </span>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var navSearchForm = new Varien.searchForm('search_mini_form_navbar', 'search', '<?php echo $this->__('Search entire store here...') ?>');
+    //]]>
+</script>

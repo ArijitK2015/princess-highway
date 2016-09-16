@@ -1,0 +1,101 @@
+<div class="page-title">
+	<h1>Careers</h1>
+</div>
+<?php
+$helper = new Xigmapro_Jobs_Helper_Data();
+
+$jobId = 1;
+if (array_key_exists("id", $_GET)) {
+	$jobId = reverse_escape($_GET['id']);
+}
+$job = Mage::getModel('Jobs/Jobs')->load($jobId);
+$country = $job->getCountrys();
+$position = $job->getPosition();
+$location = $job->getLocations();
+$hours = trim($job->getHours());
+$entitlements = trim($job->getEntitlements());
+$specific = $job->getRequirements();
+$adminemaill = $job->getEmail();
+$status = $helper->getJobStatus($job->getstatuss());
+?>
+<div id="careers" class="table-responsive">
+<table class="stores table-hover table">
+<tr>
+	<td colspan="2" class="title1">
+	    <a href="/jobsview.html/?id=<?php echo $jobId; ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-lg fa-arrow-circle-left"></i><?php else: ?>&lt;&lt;<?php endif; ?></a>&nbsp;
+	    <?php echo $country . " :: " . $location; ?></td>
+</tr>
+<tr>
+	<td>Position title</td>
+	<td><?php echo $position; ?></td>
+</tr>
+<tr>
+	<td>Employment status</td>
+	<td><?php echo $status; ?></td>
+</tr>
+<tr>
+	<td>Location</td>
+	<td><?php echo $location; ?></td>
+</tr>
+<?php
+if ($hours && strlen($hours)) {
+?>
+    <tr>
+    	<td>Hours</td>
+    	<td><?php echo $hours; ?></td>
+    </tr>
+<?php
+}
+if ($entitlements && strlen($entitlements)) {
+?>
+    <tr>
+    	<td>Entitlements</td>
+    	<td><?php echo $entitlements; ?></td>
+    </tr>
+<?php
+}
+?>
+<tr>
+	<td>Specific Requirements</td>
+	<td><?php echo $specific; ?></td>
+</tr>
+<tr>
+	<td>To Apply</td>
+	<td>
+	    <?php
+	    // print a href mailto
+	    if (filter_var($adminemaill, FILTER_VALIDATE_EMAIL)) {
+	        echo sprintf("<p>Email resume and expression of interest to: <a href='mailto:%s?subject=%s'>%s</a>",
+	            $adminemaill,
+	            urlencode($position),
+	            $adminemaill
+            );
+	    }
+	    // print a href
+	    elseif (preg_match("/\.html$/i", $adminemaill)) {
+	        echo sprintf("<p>click <a href='%s'>here</a> to apply",
+	            $adminemaill
+            );
+	    }
+	    // print as is
+	    else {
+	        echo sprintf("%s", $adminemaill);
+	    }
+	    ?>
+	</td>
+</tr>
+</table>
+
+</div>
+
+<?php
+/**
+ * @param $str
+ * @return mixed
+ */
+function reverse_escape($str) {
+	$search = array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
+	$replace = array("\\","\0","\n","\r","\x1a","'",'"');
+	return str_replace($search,$replace,$str);
+} 
+?>

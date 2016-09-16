@@ -1,0 +1,64 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="page-title clearfix">
+    <h1 class="pull-left"><?php echo $this->__('Checkout') ?></h1>
+    <button type="button" data-toggle="offcanvas" data-target="#progressMenu" data-canvas="body" class="btn btn-default pull-right hidden-lg hidden-md hidden-sm" id="toggleProgressMenu">
+        <?php echo $this->__('Toggle Checkout Progress'); ?>
+    </button>
+</div>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
+<div class="panel-group opc" id="checkoutSteps">
+    <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+        <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+        <div id="opc-<?php echo $_stepId ?>" class="panel panel-default section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+            <div class="panel-heading step-title">
+                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#checkoutSteps" href="#checkout-step-<?php echo $_stepId ?>"><span class="badge"><?php echo $i ?></span> <?php echo $_stepInfo['label'] ?></a></h4>
+            </div>
+            <div id="checkout-step-<?php echo $_stepId ?>" class="panel-collapse collapse step a-item">
+                <div class="panel-body">
+                    <?php echo $this->getChildHtml($_stepId) ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    var accordion = new Accordion('checkoutSteps', '.step-title', true);
+    <?php if($this->getActiveStep()): ?>
+    jQuery("#checkout-step-<?php echo $this->getActiveStep() ?>").collapse("show");
+    //accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+    <?php endif ?>
+    var checkout = new Checkout(accordion,{
+            progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+            review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+            saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+            failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+    );
+    //]]>
+</script>

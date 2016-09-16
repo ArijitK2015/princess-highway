@@ -1,0 +1,124 @@
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php $_menu = $this->getHtml('level-top') ?>
+<?php if($_menu): ?>
+    <div class="container">
+        <?php if (Mage::helper('framework')->isFixedNavbar()): ?>
+            <nav class="navbar navbar-default navbar-fixed-top nav-container text-uppercase hidden hidden-xs hidden-sm">
+                <div class="collapse navbar-collapse" id="nav2">
+                    <ul class="nav navbar-nav">
+                        <?php echo $_menu ?>
+                    </ul>
+                </div>
+            </nav>
+        <?php endif; ?>
+        <nav class="navbar navbar-default nav-container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header row">
+                <!-- Try to make a proper mobile menu -->
+                <div class="col-xs-3 hidden-md hidden-lg visible-xs-block">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-search">
+                        <span class="sr-only">Toggle navigation</span>
+                        <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-search fa-2x"></i><?php else: echo $this->__('Search'); endif; ?>
+                    </button>
+                </div>
+                <div class="col-xs-3 hidden-md hidden-lg visible-xs-block">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-account">
+                        <span class="sr-only">Toggle navigation</span>
+                        <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-user fa-2x"></i><?php else: echo $this->__('Account'); endif; ?>
+                    </button>
+                </div>
+                <div class="col-xs-3 hidden-md hidden-lg visible-xs-block">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-cart">
+                        <span class="sr-only">Toggle navigation</span>
+                        <?php if ($shoppingCartIcon = Mage::getStoreConfig('toplinks/options/shopping_cart_icon')): ?>
+                            <img src="<?php echo Mage::getUrl('media/factoryx/toplinks').$shoppingCartIcon; ?>" alt="Cart" class="img-responsive"/>
+                        <?php elseif (Mage::helper('framework')->isFaEnabled()):?>
+                            <i class="fa fa-2x fa-shopping-cart"></i>
+                        <?php else:
+                            echo $this->__('Cart');
+                        endif; ?>
+                    </button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <?php if (Mage::helper('framework')->isFaEnabled()):?>
+                            <i class="fa fa-align-justify fa-2x"></i>
+                        <?php else: ?>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        <?php endif; ?>
+                    </button>
+                </div>
+                <!--<a class="navbar-brand" href="#">Brand</a>-->
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse" id="nav-search" style="display:none !important">
+                <?php
+                if (
+                    Mage::helper('core')->isModuleEnabled('FactoryX_SliSearch')
+                    &&
+                    Mage::helper('slisearch')->isEnabled()
+                ) {
+                    echo $this->getChildHtml('navbar.slisearch');
+                } else {
+                    echo $this->getChildHtml('navbar.search');
+                }
+                ?>
+            </div>
+            <div class="navbar-collapse collapse hidden-md hidden-lg" id="nav-account" style="display:none !important">
+                <?php echo $this->getChildHtml('navbar.account'); ?>
+            </div>
+            <div class="navbar-collapse collapse hidden-md hidden-lg" id="nav-cart" style="display:none !important">
+                <?php echo $this->getChildHtml('navbar.cart'); ?>
+            </div>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="nav navbar-nav">
+                    <?php echo $_menu ?>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                <?php if (Mage::helper('framework')->isFixedNavbar()): ?>
+                    jQuery(window).scroll(function(){
+                        var offset = jQuery('header').height() - jQuery('#nav').height();
+                        if (offset <= jQuery(window).scrollTop())
+                        {
+                            jQuery('.navbar-fixed-top').removeClass('hidden');
+                        }
+                        else if (offset > jQuery(window).scrollTop())
+                        {
+                            jQuery('.navbar-fixed-top').addClass('hidden');
+                        }
+                    });
+                <?php endif; ?>
+                jQuery('#nav-search').on('show.bs.collapse', function () {
+                    jQuery('#nav-account').collapse('hide');
+                    jQuery('#nav-cart').collapse('hide');
+                    jQuery('#nav').collapse('hide');
+                });
+                jQuery('#nav-account').on('show.bs.collapse', function () {
+                    jQuery('#nav-search').collapse('hide');
+                    jQuery('#nav-cart').collapse('hide');
+                    jQuery('#nav').collapse('hide');
+                });
+                jQuery('#nav-cart').on('show.bs.collapse', function () {
+                    jQuery('#nav-account').collapse('hide');
+                    jQuery('#nav-search').collapse('hide');
+                    jQuery('#nav').collapse('hide');
+                });
+                jQuery('#nav').on('show.bs.collapse', function () {
+                    jQuery('#nav-account').collapse('hide');
+                    jQuery('#nav-cart').collapse('hide');
+                    jQuery('#nav-search').collapse('hide');
+                });
+            </script>
+        </nav>
+    </div>
+<?php endif ?>

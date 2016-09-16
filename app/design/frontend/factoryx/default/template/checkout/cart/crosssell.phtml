@@ -1,0 +1,34 @@
+<?php
+/**
+ * Cart cross sell items template
+ *
+ * @see Mage_Checkout_Block_Cart_Crosssell
+ */
+?>
+<?php if($this->getItemCount()): ?>
+<div class="crosssell">
+    <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
+    <div id="crosssell-products-list">
+    <?php foreach ($this->getItems() as $_item): ?>
+        <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6 text-center item">
+            <a class="product-image" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>"><img class="img-responsive" src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail'); ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+            <div class="product-details">
+                <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
+                <?php echo $this->getPriceHtml($_item, true) ?>
+                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn btn-default btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                <ul class="list-inline add-to-links">
+                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                        <li><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                    <?php endif; ?>
+                    <?php if($_compareUrl=$this->getAddToCompareUrl($_item)): ?>
+                        <li><span class="separator">|</span></li>
+                        <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
+    <script type="text/javascript">decorateList('crosssell-products-list', 'none-recursive')</script>
+</div>
+<?php endif; ?>

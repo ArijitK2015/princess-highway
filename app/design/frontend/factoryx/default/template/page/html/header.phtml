@@ -1,0 +1,24 @@
+<?php
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-4 col-xs-8">
+            <?php if ($this->getIsHomePage()):?>
+                <h1 class="logo"><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img class="img-responsive" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+            <?php else:?>
+                <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img class="img-responsive" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+            <?php endif?>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-8 col-xs-4 quick-access">
+            <?php echo $this->getChildHtml('store_language') ?>
+            <?php echo $this->getChildHtml('topSearch') ?>
+            <div class="welcome-msg text-right"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></div>
+            <div class="pull-right hidden-xs"><?php echo $this->getChildHtml('topLinks') ?></div>
+        </div>
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </div>
+</div>
+<?php echo $this->getChildHtml('topMenu') ?>

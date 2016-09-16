@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <factoryx translate="label" module="framework">
+            <label>Factory X</label>
+            <sort_order>101</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <framework translate="label" module="framework">
+            <label>Framework</label>
+            <tab>factoryx</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <options translate="label">
+                    <label>Frameworks Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_bootstrap_css translate="label">
+                            <label>Enable Bootstrap CSS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_bootstrap_css>
+                        <enable_bootstrap_js translate="label">
+                            <label>Enable Bootstrap JS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_bootstrap_js>
+                        <enable_jasny_bootstrap_css translate="label">
+                            <label>Enable Jasny Bootstrap CSS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[what it <a href='http://www.jasny.net/bootstrap/css/' target='_blank' rel='noopener noreferrer'>jasny bootstrap css</a>?]]></comment>
+                        </enable_jasny_bootstrap_css>
+                        <enable_jasny_bootstrap_js translate="label">
+                            <label>Enable Jasny Bootstrap JS</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[what it <a href='http://www.jasny.net/bootstrap/javascript/' target='_blank' rel='noopener noreferrer'>jasny bootstrap js</a>?]]></comment>
+                        </enable_jasny_bootstrap_js>
+                        <enable_fontawesome translate="label">
+                            <label>Enable FontAwesome</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_fontawesome>
+                        <enable_jquery translate="label">
+                            <label>Enable jQuery</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_jquery>
+                        <google_font_link translate="label comment">
+                            <label>Google Font Link</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Copy here the code given by Google Fonts. You can add more fonts by pasting code after each other</comment>
+                        </google_font_link>
+                        <google_font_name translate="label comment">
+                            <label>Google Font Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Copy here the nameof the Google Fonts without quotes. Comma separated if you add several. First one is automatically assigned to body.</comment>
+                        </google_font_name>
+                        <fixed_navbar translate="label">
+                            <label>Fixed Navbar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fixed_navbar>
+                        <progress_checkout translate="label">
+                            <label>Progress Checkout Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>framework/system_config_source_progress</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </progress_checkout>
+                    </fields>
+                </options>
+                <toplinks translate="label">
+                    <label>Top Links</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <wishlist translate="label">
+                            <label>Wislist Configuration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>framework/system_config_source_toplinksconfig</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wishlist>
+                        <wishlist_after translate="label">
+                            <label>Wislist After Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wishlist_after>
+                        <wishlist_text translate="label">
+                            <label>Wislist Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wishlist_text>
+                        <cart translate="label">
+                            <label>Cart Configuration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>framework/system_config_source_toplinksconfig</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart>
+                        <cart_after translate="label">
+                            <label>Cart After Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_after>
+                        <cart_text translate="label">
+                            <label>Cart Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_text>
+                    </fields>
+                </toplinks>
+                <navigation translate="label">
+                    <label>Navigation</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <show_view_all translate="label">
+                            <label>Show View All</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_view_all>
+                        <hover translate="label comment">
+                            <label>Show Subcategories on Hover</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default behavior is a click on the parent category</comment>
+                        </hover>
+                    </fields>
+                </navigation>                
+            </groups>
+        </framework>
+    </sections>
+</config>
