@@ -121,12 +121,12 @@
                     <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
                     <?php if ($_dob->isEnabled() || $_gender->isEnabled()): ?>
                         <?php if ($_dob->isEnabled()): ?>
-                            <div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
                             </div>
                         <?php endif; ?>
                         <?php if ($_gender->isEnabled()): ?>
-                            <div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
                             </div>
                         <?php endif ?>

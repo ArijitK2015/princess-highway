@@ -41,17 +41,24 @@
                 </div>
             </div>
         </div>
+        
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
-            <div><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?>
+            </div>
         <?php endif ?>
+        
         <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
         <?php if ($_taxvat->isEnabled()): ?>
             <div><?php echo $_taxvat->setTaxvat($this->getCustomer()->getTaxvat())->toHtml() ?></div>
         <?php endif ?>
+        
         <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
         <?php if ($_gender->isEnabled()): ?>
-            <div><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?>
+            </div>
         <?php endif ?>
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
             <div class="checkbox">

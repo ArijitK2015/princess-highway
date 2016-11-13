@@ -31,11 +31,11 @@
  */
 ?>
 <div class="row page-title title-buttons">
-    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-8">
         <h1><?php echo $this->__('Address Book') ?></h1>
     </div>
-    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-        <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="btn btn-default pull-right button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-4 text-right">
+        <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="btn btn-default button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
     </div>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
@@ -49,7 +49,7 @@
                     <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
                 <p><a href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>" title="<?php echo $this->__('Change Billing Address') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-pencil"></i><?php else: echo $this->__('Change Billing Address'); endif; ?></a></p>
-           </div>
+            </div>
         <?php else: ?>
             <div>
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
@@ -76,12 +76,12 @@
         <h2><?php echo $this->__('Additional Address Entries') ?></h2>
         <?php if($_pAddsses = $this->getAdditionalAddresses()): ?>
             <?php foreach($_pAddsses as $_address): ?>
-            <div>
-                <address>
-                    <?php echo $this->getAddressHtml($_address) ?>
-                </address>
-                <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>" title="<?php echo $this->__('Edit Address') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-pencil"></i><?php else: echo $this->__('Edit Address'); endif; ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');" title="<?php echo $this->__('Delete Address') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-times"></i><?php else: echo $this->__('Delete Address'); endif; ?></a></p>
-            </div>
+                <div>
+                    <address>
+                        <?php echo $this->getAddressHtml($_address) ?>
+                    </address>
+                    <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>" title="<?php echo $this->__('Edit Address') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-pencil"></i><?php else: echo $this->__('Edit Address'); endif; ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');" title="<?php echo $this->__('Delete Address') ?>"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-times"></i><?php else: echo $this->__('Delete Address'); endif; ?></a></p>
+                </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div>
@@ -94,12 +94,12 @@
     <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
 </div>
 <script type="text/javascript">
-//<![CDATA[
+    //<![CDATA[
     function deleteAddress(addressId) {
         if(confirm('<?php echo $this->__('Are you sure you want to delete this address?') ?>')) {
             window.location='<?php echo $this->getDeleteUrl() ?>id/'+addressId;
         }
         return false;
     }
-//]]>
+    //]]>
 </script>

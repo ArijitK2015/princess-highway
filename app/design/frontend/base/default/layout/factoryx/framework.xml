@@ -11,6 +11,7 @@
             <action method="addJs" ifconfig="framework/options/enable_jquery"><script>lib/jquery/noconflict.js</script></action>
             <action method="addJs" ifconfig="framework/options/enable_bootstrap_js"><script>lib/factoryx/framework/bootstrap/bootstrap.min.js</script></action>
             <action method="addJs" ifconfig="framework/options/enable_jasny_bootstrap_js"><script>lib/factoryx/framework/bootstrap/jasny-bootstrap.min.js</script></action>
+            <action method="addJs" ifconfig="framework/options/enable_bootstrap_js"><script>lib/factoryx/framework/zebra_datepicker.min.js</script></action>
             <action method="addJs" ifconfig="framework/options/enable_bootstrap_js"><script>lib/factoryx/framework/prototype-bootstrap-noconflict.js</script></action>
             <!-- Workaround to load the js.js after loading the new validation.js file -->
             <action method="removeItem" ifconfig="framework/options/enable_bootstrap_css"><type>js</type><name>prototype/validation.js</name></action>
@@ -23,6 +24,7 @@
             <action method="addItem" ifconfig="framework/options/enable_bootstrap_css"><type>skin_js</type><name>js/factoryx/framework/placeholder.js</name><params/></action>
 
             <action method="addItem" ifconfig="framework/options/enable_bootstrap_css"><type>skin_css</type><name>css/bootstrap/bootstrap.min.css</name><params/></action>
+            <action method="addItem" ifconfig="framework/options/enable_bootstrap_css"><type>js_css</type><name>lib/factoryx/framework/zebra_datepicker.css</name><params/></action>
             <action method="addItem" ifconfig="framework/options/enable_jasny_bootstrap_css"><type>skin_css</type><name>css/bootstrap/jasny-bootstrap.min.css</name><params/></action>
             <block type="core/text" name="fontawesome">
                 <action method="setText" ifconfig="framework/options/enable_fontawesome">

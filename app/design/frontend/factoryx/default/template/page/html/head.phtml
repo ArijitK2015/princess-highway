@@ -1,0 +1,54 @@
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<?php
+$_helper = Mage::helper('framework');
+?>
+<?php if ($icon = $_helper->getTouchIcon("57x57")): ?>
+    <!-- iPhone(first generation or 2G), iPhone 3G, iPhone 3GS -->
+    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("76x76")): ?>
+    <!-- iPad and iPad mini @1x -->
+    <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("120x120")): ?>
+    <!-- iPhone 4, iPhone 4s, iPhone 5, iPhone 5c, iPhone 5s, iPhone 6, iPhone 6s -->
+    <link rel="apple-touch-icon" sizes="120x120" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("152x152")): ?>
+    <!-- iPad and iPad mini @2x -->
+    <link rel="apple-touch-icon" sizes="152x152" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("167x167")): ?>
+    <!-- iPad Pro -->
+    <link rel="apple-touch-icon" sizes="167x167" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("180x180")): ?>
+    <!-- iPhone 6 Plus and iPhone 6s Plus -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("192x192")): ?>
+    <!-- Android Devices High Resolution -->
+    <link rel="icon" sizes="192x192" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<?php if ($icon = $_helper->getTouchIcon("128x128")): ?>
+    <!-- Android Devices Normal Resolution -->
+    <link rel="icon" sizes="128x128" href="<?php echo $icon; ?>">
+<?php endif; ?>
+<!--[if lt IE 7]>
+<script type="text/javascript">
+    //<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>

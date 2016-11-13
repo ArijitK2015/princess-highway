@@ -359,7 +359,7 @@ Object.extend(Validation, {
         }
         else if (elm.up('div').hasClassName('has-error'))
         {
-            feedback = "times";
+            feedback = "ban";
             feedbackMsg = "(error)";
         }
         else

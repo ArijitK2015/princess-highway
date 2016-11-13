@@ -205,7 +205,113 @@
                             <comment>Default behavior is a click on the parent category</comment>
                         </hover>
                     </fields>
-                </navigation>                
+                </navigation>
+                <icons translate="label">
+                    <label>Touch Icons</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <icon_57x57 translate="label comment">
+                            <label>57x57 Icon</label>
+                            <comment>Png only. iPhone(first generation or 2G), iPhone 3G, iPhone 3GS</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_57x57>
+                        <icon_76x76 translate="label comment">
+                            <label>76x76 Icon</label>
+                            <comment>Png only. iPad and iPad mini @1x</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_76x76>
+                        <icon_120x120 translate="label comment">
+                            <label>120x120 Icon</label>
+                            <comment>Png only. iPhone 4, iPhone 4s, iPhone 5, iPhone 5c, iPhone 5s, iPhone 6, iPhone 6s</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_120x120>
+                        <icon_152x152 translate="label comment">
+                            <label>152x152 Icon</label>
+                            <comment>Png only. iPad and iPad mini @2x</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_152x152>
+                        <icon_167x167 translate="label comment">
+                            <label>167x167 Icon</label>
+                            <comment>Png only. iPad Pro</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_167x167>
+                        <icon_180x180 translate="label comment">
+                            <label>180x180 Icon</label>
+                            <comment>Png only. iPhone 6 Plus and iPhone 6s Plus</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_180x180>
+                        <icon_192x192 translate="label comment">
+                            <label>192x192 Icon</label>
+                            <comment>Png only. Android Devices High Resolution</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_192x192>
+                        <icon_128x128 translate="label comment">
+                            <label>128x128 Icon</label>
+                            <comment>Png only. Android Devices Normal Resolution</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">touch-icons</upload_dir>
+                            <base_url type="media" scope_info="1">touch-icons</base_url>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </icon_128x128>
+                    </fields>
+                </icons>
             </groups>
         </framework>
     </sections>

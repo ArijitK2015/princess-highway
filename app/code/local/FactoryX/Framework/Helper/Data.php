@@ -113,4 +113,18 @@ class FactoryX_Framework_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $css;
     }
+
+    /**
+     * Get the touch icon based on size
+     * @param $size
+     * @return string
+     */
+    public function getTouchIcon($size)
+    {
+        if ($icon = Mage::getStoreConfig('framework/icons/icon_'.$size)) {
+            return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'touch-icons/' . $icon;
+        } else {
+            return false;
+        }
+    }
 }

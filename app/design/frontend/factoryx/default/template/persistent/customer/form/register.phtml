@@ -40,7 +40,9 @@
         <?php endif ?>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
-            <?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?>
+            </div>
         <?php endif ?>
         <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
         <?php if ($_taxvat->isEnabled()): ?>
@@ -48,7 +50,9 @@
         <?php endif ?>
         <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
         <?php if ($_gender->isEnabled()): ?>
-            <?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?>
+            </div>    
         <?php endif ?>
     </fieldset>
 <?php if($this->getShowAddressFields()): ?>
