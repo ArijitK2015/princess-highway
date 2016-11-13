@@ -1,0 +1,866 @@
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   .htaccess
+#	modified:   .htaccess.sample
+#	modified:   RELEASE_NOTES.txt
+#	modified:   api.php
+#	modified:   app/Mage.php
+#	modified:   app/code/core/Mage/Admin/Model/User.php
+#	modified:   app/code/core/Mage/Admin/etc/config.xml
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price/Group.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery/Content.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Cms/Wysiwyg/Images/Content/Uploader.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Media/Uploader.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/System/Variable/Edit/Form.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
+#	modified:   app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
+#	modified:   app/code/core/Mage/Adminhtml/Helper/Data.php
+#	modified:   app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
+#	modified:   app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Cms/WysiwygController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/DashboardController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/IndexController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Media/UploaderController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
+#	modified:   app/code/core/Mage/Adminhtml/controllers/UrlrewriteController.php
+#	modified:   app/code/core/Mage/Adminhtml/etc/config.xml
+#	modified:   app/code/core/Mage/Adminhtml/etc/jstranslator.xml
+#	modified:   app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
+#	modified:   app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Attributes.php
+#	modified:   app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
+#	modified:   app/code/core/Mage/Catalog/Block/Product/Abstract.php
+#	modified:   app/code/core/Mage/Catalog/Block/Product/List.php
+#	modified:   app/code/core/Mage/Catalog/Block/Product/View.php
+#	modified:   app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
+#	modified:   app/code/core/Mage/Catalog/Helper/Image.php
+#	modified:   app/code/core/Mage/Catalog/Helper/Product.php
+#	modified:   app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php
+#	modified:   app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php
+#	modified:   app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php
+#	modified:   app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php
+#	modified:   app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Groupprice.php
+#	modified:   app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
+#	modified:   app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
+#	modified:   app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php
+#	modified:   app/code/core/Mage/Catalog/etc/config.xml
+#	modified:   app/code/core/Mage/Catalog/etc/system.xml
+#	modified:   app/code/core/Mage/CatalogInventory/Model/Observer.php
+#	modified:   app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
+#	modified:   app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh.php
+#	modified:   app/code/core/Mage/CatalogSearch/Model/Resource/Advanced.php
+#	modified:   app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
+#	modified:   app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
+#	modified:   app/code/core/Mage/CatalogSearch/Model/Resource/Helper/Mysql4.php
+#	modified:   app/code/core/Mage/Centinel/Model/Api.php
+#	modified:   app/code/core/Mage/Checkout/Model/Cart.php
+#	modified:   app/code/core/Mage/Checkout/Model/Type/Multishipping.php
+#	modified:   app/code/core/Mage/Checkout/Model/Type/Onepage.php
+#	modified:   app/code/core/Mage/Checkout/controllers/CartController.php
+#	modified:   app/code/core/Mage/Checkout/controllers/OnepageController.php
+#	modified:   app/code/core/Mage/Cms/Block/Page.php
+#	modified:   app/code/core/Mage/Cms/Helper/Wysiwyg/Images.php
+#	modified:   app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
+#	modified:   app/code/core/Mage/ConfigurableSwatches/Helper/Data.php
+#	modified:   app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php
+#	modified:   app/code/core/Mage/ConfigurableSwatches/Model/Observer.php
+#	modified:   app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Attribute/Super/Collection.php
+#	modified:   app/code/core/Mage/ConfigurableSwatches/etc/system.xml
+#	modified:   app/code/core/Mage/Core/Block/Abstract.php
+#	modified:   app/code/core/Mage/Core/Block/Template.php
+#	modified:   app/code/core/Mage/Core/Controller/Varien/Action.php
+#	modified:   app/code/core/Mage/Core/Helper/String.php
+#	modified:   app/code/core/Mage/Core/Helper/Url.php
+#	modified:   app/code/core/Mage/Core/Model/Config.php
+#	modified:   app/code/core/Mage/Core/Model/Email/Queue.php
+#	modified:   app/code/core/Mage/Core/Model/Email/Template.php
+#	modified:   app/code/core/Mage/Core/Model/Email/Template/Abstract.php
+#	modified:   app/code/core/Mage/Core/Model/Encryption.php
+#	modified:   app/code/core/Mage/Core/Model/File/Storage/Abstract.php
+#	modified:   app/code/core/Mage/Core/Model/File/Validator/AvailablePath.php
+#	modified:   app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php
+#	modified:   app/code/core/Mage/Core/Model/Layout.php
+#	modified:   app/code/core/Mage/Core/Model/Resource/Url/Rewrite.php
+#	modified:   app/code/core/Mage/Core/Model/Resource/Variable/Collection.php
+#	modified:   app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
+#	modified:   app/code/core/Mage/Core/etc/config.xml
+#	modified:   app/code/core/Mage/Core/etc/jstranslator.xml
+#	modified:   app/code/core/Mage/Core/etc/system.xml
+#	modified:   app/code/core/Mage/Core/functions.php
+#	modified:   app/code/core/Mage/Cron/Model/Schedule.php
+#	modified:   app/code/core/Mage/Customer/Block/Address/Book.php
+#	modified:   app/code/core/Mage/Customer/Helper/Data.php
+#	modified:   app/code/core/Mage/Customer/Model/Customer.php
+#	modified:   app/code/core/Mage/Customer/Model/Observer.php
+#	modified:   app/code/core/Mage/Customer/controllers/AccountController.php
+#	modified:   app/code/core/Mage/Customer/controllers/AddressController.php
+#	modified:   app/code/core/Mage/Customer/etc/config.xml
+#	modified:   app/code/core/Mage/Customer/etc/system.xml
+#	modified:   app/code/core/Mage/Dataflow/Model/Profile.php
+#	modified:   app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
+#	modified:   app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Samples.php
+#	modified:   app/code/core/Mage/Downloadable/Helper/File.php
+#	modified:   app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Options/Abstract.php
+#	modified:   app/code/core/Mage/Eav/Model/Entity/Abstract.php
+#	modified:   app/code/core/Mage/Eav/Model/Entity/Attribute.php
+#	modified:   app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
+#	modified:   app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
+#	modified:   app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
+#	modified:   app/code/core/Mage/ImportExport/Helper/Data.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Adapter/Abstract.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Adapter/Csv.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Export/Entity/Product/Type/Abstract.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Configurable.php
+#	modified:   app/code/core/Mage/ImportExport/Model/Import/Uploader.php
+#	modified:   app/code/core/Mage/ImportExport/controllers/Adminhtml/ExportController.php
+#	modified:   app/code/core/Mage/ImportExport/etc/config.xml
+#	modified:   app/code/core/Mage/ImportExport/etc/system.xml
+#	modified:   app/code/core/Mage/Oauth/Model/Server.php
+#	modified:   app/code/core/Mage/Paygate/Model/Authorizenet.php
+#	modified:   app/code/core/Mage/Payment/Block/Info/Checkmo.php
+#	modified:   app/code/core/Mage/Payment/Model/Method/Cc.php
+#	modified:   app/code/core/Mage/Paypal/Model/Api/Nvp.php
+#	modified:   app/code/core/Mage/Paypal/Model/Express/Checkout.php
+#	modified:   app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php
+#	modified:   app/code/core/Mage/Persistent/Model/Persistent/Config.php
+#	modified:   app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
+#	modified:   app/code/core/Mage/Reports/Model/Resource/Helper/Mysql4.php
+#	modified:   app/code/core/Mage/Rss/controllers/CatalogController.php
+#	modified:   app/code/core/Mage/Rss/controllers/IndexController.php
+#	modified:   app/code/core/Mage/Rss/controllers/OrderController.php
+#	modified:   app/code/core/Mage/Rss/etc/config.xml
+#	modified:   app/code/core/Mage/Rss/etc/system.xml
+#	modified:   app/code/core/Mage/Sales/Helper/Guest.php
+#	modified:   app/code/core/Mage/Sales/Model/Email/Template.php
+#	modified:   app/code/core/Mage/Sales/Model/Order.php
+#	modified:   app/code/core/Mage/Sales/Model/Order/Invoice/Total/Subtotal.php
+#	modified:   app/code/core/Mage/Sales/Model/Quote/Address/Total/Subtotal.php
+#	modified:   app/code/core/Mage/Sales/Model/Quote/Item.php
+#	modified:   app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Order/Payment.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Order/Payment/Transaction.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Quote.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Quote/Payment.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Recurring/Profile.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers.php
+#	modified:   app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
+#	modified:   app/code/core/Mage/Sales/etc/config.xml
+#	modified:   app/code/core/Mage/SalesRule/Model/Rule/Condition/Product.php
+#	modified:   app/code/core/Mage/SalesRule/Model/Rule/Condition/Product/Combine.php
+#	modified:   app/code/core/Mage/SalesRule/Model/Validator.php
+#	modified:   app/code/core/Mage/SalesRule/etc/config.xml
+#	modified:   app/code/core/Mage/Sitemap/Model/Sitemap.php
+#	modified:   app/code/core/Mage/Tax/etc/config.xml
+#	modified:   app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
+#	modified:   app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
+#	modified:   app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
+#	modified:   app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+#	modified:   app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
+#	modified:   app/code/core/Mage/Usa/etc/config.xml
+#	modified:   app/code/core/Mage/Usa/etc/system.xml
+#	modified:   app/code/core/Mage/Weee/Model/Observer.php
+#	modified:   app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Options.php
+#	modified:   app/code/core/Mage/Wishlist/Helper/Data.php
+#	modified:   app/code/core/Mage/Wishlist/controllers/IndexController.php
+#	modified:   app/code/core/Mage/XmlConnect/Block/Adminhtml/Mobile/Edit/Tab/Design.php
+#	modified:   app/code/core/Mage/XmlConnect/Block/Adminhtml/Mobile/Edit/Tab/Design/Images.php
+#	modified:   app/code/core/Mage/XmlConnect/Helper/Image.php
+#	modified:   app/code/core/Mage/XmlConnect/Helper/Theme.php
+#	modified:   app/code/core/Mage/XmlConnect/Model/Theme.php
+#	modified:   app/code/core/Mage/XmlConnect/controllers/Adminhtml/MobileController.php
+#	modified:   app/design/adminhtml/default/default/layout/admin.xml
+#	modified:   app/design/adminhtml/default/default/layout/cms.xml
+#	modified:   app/design/adminhtml/default/default/layout/main.xml
+#	modified:   app/design/adminhtml/default/default/layout/xmlconnect.xml
+#	modified:   app/design/adminhtml/default/default/template/backup/dialogs.phtml
+#	modified:   app/design/adminhtml/default/default/template/catalog/category/tree.phtml
+#	modified:   app/design/adminhtml/default/default/template/catalog/product/edit/price/group.phtml
+#	modified:   app/design/adminhtml/default/default/template/catalog/product/helper/gallery.phtml
+#	modified:   app/design/adminhtml/default/default/template/cms/browser/content/uploader.phtml
+#	modified:   app/design/adminhtml/default/default/template/connect/extension/custom/package.phtml
+#	modified:   app/design/adminhtml/default/default/template/downloadable/product/edit/downloadable.phtml
+#	modified:   app/design/adminhtml/default/default/template/downloadable/product/edit/downloadable/links.phtml
+#	modified:   app/design/adminhtml/default/default/template/downloadable/product/edit/downloadable/samples.phtml
+#	modified:   app/design/adminhtml/default/default/template/login.phtml
+#	modified:   app/design/adminhtml/default/default/template/media/uploader.phtml
+#	modified:   app/design/adminhtml/default/default/template/oauth/authorize/form/login-simple.phtml
+#	modified:   app/design/adminhtml/default/default/template/oauth/authorize/form/login.phtml
+#	modified:   app/design/adminhtml/default/default/template/promo/salesrulejs.phtml
+#	modified:   app/design/adminhtml/default/default/template/resetforgottenpassword.phtml
+#	modified:   app/design/adminhtml/default/default/template/system/config/system/storage/media/synchronize.phtml
+#	modified:   app/design/adminhtml/default/default/template/xmlconnect/edit/tab/design.phtml
+#	modified:   app/design/frontend/base/default/layout/catalog.xml
+#	modified:   app/design/frontend/base/default/layout/review.xml
+#	modified:   app/design/frontend/base/default/layout/sendfriend.xml
+#	modified:   app/design/frontend/base/default/template/checkout/onepage/payment.phtml
+#	modified:   app/design/frontend/base/default/template/customer/form/edit.phtml
+#	modified:   app/design/frontend/base/default/template/paypal/express/review.phtml
+#	modified:   app/design/frontend/base/default/template/paypal/hss/js.phtml
+#	modified:   app/design/frontend/base/default/template/sales/guest/form.phtml
+#	modified:   app/design/frontend/base/default/template/sales/widget/guest/form.phtml
+#	modified:   app/design/frontend/default/iphone/layout/catalog.xml
+#	modified:   app/design/frontend/default/iphone/layout/review.xml
+#	modified:   app/design/frontend/default/iphone/layout/sendfriend.xml
+#	modified:   app/design/frontend/default/modern/layout/catalog.xml
+#	modified:   app/design/frontend/default/modern/layout/review.xml
+#	modified:   app/design/frontend/default/modern/layout/sendfriend.xml
+#	modified:   app/design/frontend/rwd/default/layout/catalog.xml
+#	modified:   app/design/frontend/rwd/default/layout/configurableswatches.xml
+#	modified:   app/design/frontend/rwd/default/layout/page.xml
+#	modified:   app/design/frontend/rwd/default/layout/review.xml
+#	modified:   app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+#	modified:   app/design/frontend/rwd/default/template/catalog/product/view/addtocart.phtml
+#	modified:   app/design/frontend/rwd/default/template/catalog/product/view/type/grouped.phtml
+#	modified:   app/design/frontend/rwd/default/template/checkout/cart/item/configure/updatecart.phtml
+#	modified:   app/design/frontend/rwd/default/template/checkout/cart/item/default.phtml
+#	modified:   app/design/frontend/rwd/default/template/checkout/cart/render/default.phtml
+#	modified:   app/design/frontend/rwd/default/template/checkout/cart/render/simple.phtml
+#	modified:   app/design/frontend/rwd/default/template/checkout/onepage/payment.phtml
+#	modified:   app/design/frontend/rwd/default/template/configurableswatches/catalog/product/list/swatches.phtml
+#	modified:   app/design/frontend/rwd/default/template/customer/form/edit.phtml
+#	modified:   app/design/frontend/rwd/default/template/downloadable/checkout/cart/item/default.phtml
+#	modified:   app/design/frontend/rwd/default/template/wishlist/item/column/quantity.phtml
+#	modified:   app/design/install/default/default/template/install/create_admin.phtml
+#	modified:   app/design/install/default/default/template/install/state.phtml
+#	modified:   app/etc/modules/Mage_All.xml
+#	modified:   app/locale/en_US/Mage_Adminhtml.csv
+#	modified:   app/locale/en_US/Mage_Catalog.csv
+#	modified:   app/locale/en_US/Mage_CatalogInventory.csv
+#	modified:   app/locale/en_US/Mage_ConfigurableSwatches.csv
+#	modified:   app/locale/en_US/Mage_Core.csv
+#	modified:   app/locale/en_US/Mage_Customer.csv
+#	modified:   app/locale/en_US/Mage_ImportExport.csv
+#	modified:   app/locale/en_US/Mage_Media.csv
+#	modified:   app/locale/en_US/Mage_Rss.csv
+#	modified:   app/locale/en_US/Mage_Usa.csv
+#	modified:   cron.php
+#	modified:   dev/tests/functional/bootstrap.php
+#	modified:   dev/tests/functional/composer.json
+#	modified:   dev/tests/functional/etc/config.xml
+#	modified:   dev/tests/functional/etc/config.xsd
+#	modified:   dev/tests/functional/etc/events.xml
+#	modified:   dev/tests/functional/etc/events.xsd
+#	modified:   dev/tests/functional/lib/Magento/Mtf/Page/BackendPage.php
+#	modified:   dev/tests/functional/lib/Magento/Mtf/Util/Protocol/CurlTransport/BackendDecorator.php
+#	modified:   dev/tests/functional/lib/Magento/Mtf/Util/Protocol/CurlTransport/FrontendDecorator.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Constraint/AssertUserWrongCredentialsMessage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/Role.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/Role/GwsStoreGroups.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/Role/InRoleUsers.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/Role/RolesResources.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/User.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Fixture/User/RoleId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Handler/Role/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Handler/User/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Page/Adminhtml/UserEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Page/Adminhtml/UserIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Repository/Role.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/Repository/User.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/TestCase/CreateAdminUserEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/TestCase/CreateAdminUserRoleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/TestCase/UseAclRoleWithRestrictedGwsScopeTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Admin/Test/TestCase/UseAclRoleWithRestrictedGwsScopeTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Admin/Login.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Api/User/UserForm.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Catalog/Category/Tree.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Catalog/Product/Edit/Tab/Configurable/Attribute.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Catalog/Product/Edit/Tab/Configurable/QuickCreation.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Catalog/Product/Edit/Tab/Configurable/SimpleAssociatedProduct.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Catalog/Product/Edit/Tab/CustomOptions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Cms/Page/Edit/Tab/Content.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/FormPageActions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Sales/Order/Create/Items/ItemProduct.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/Widget/FormTabs.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Constraint/AssertProductIsPresentOnCustomWebsite.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/Store.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/Store/GroupId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/StoreGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/StoreGroup/CategoryId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/StoreGroup/WebsiteId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Fixture/Website.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Handler/Extractor.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Handler/Store/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Handler/StoreGroup/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Handler/Website/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/AdminAuthLogin.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/Cache.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/DeleteGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/DeleteStore.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/DeleteWebsite.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/EditGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/EditStore.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/EditWebsite.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/NewStoreGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/NewWebsite.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/ProcessList.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/StoreIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/StoreNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Page/Adminhtml/SystemConfig.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Repository/Store.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Repository/StoreGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/Repository/Website.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/TestCase/CreateStoreEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/TestCase/CreateStoreGroupEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/TestCase/CreateWebsiteEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Adminhtml/Test/TestCase/CreateWebsiteEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/Repository/ConfigData.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOfflineInvoiceForAuthorizenetDirectpostMethodTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOfflineInvoiceForAuthorizenetDirectpostMethodTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOfflineRefundForAuthorizenetDirectpostMethodTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOfflineRefundForAuthorizenetDirectpostMethodTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOnlineInvoiceForAuthorizenetDirectpostMethodTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOnlineInvoiceForAuthorizenetDirectpostMethodTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOnlineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOrderWithAuthorizenetDirectpostMethodTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOrderWithAuthorizenetDirectpostMethodTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateShipmentForAuthorizenetDirectpostMethodTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestCase/CreateShipmentForAuthorizenetDirectpostMethodTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Authorizenet/Test/TestStep/FillCreditCardStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Selection.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Constraint/AssertBundlePriceView.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Constraint/AssertBundleProductPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Fixture/BundleProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Fixture/BundleProduct/BundleSelections.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Handler/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Page/Product/CatalogProductView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/Repository/BundleProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/AddProductToWishlistEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/AddProductsToCartFromCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/AddProductsToShoppingCartEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/ConfigureProductInCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/CreateBundleProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/DeleteBundleProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Bundle/Test/TestCase/MoveProductFromShoppingCartToWishlistTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Block/Product/View/ConfigurableOptions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Block/Product/View/GroupedItemForm.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertCategoryPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertProductAttributeSearchableByLabel.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertProductCompareBlockOnCmsPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertProductComparePage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertProductTemplateOnProductForm.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Constraint/AssertProductTierPriceOnProductPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/Cart/Item.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogAttributeSet.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogAttributeSet/AssignedAttributes.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogAttributeSet/SkeletonSet.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogCategory.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogCategory/CategoryProducts.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogCategory/ParentId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductAttribute.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductAttribute/Options.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/AbstractRelatedProducts.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/AttributeSetId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/Attributes.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/CategoryIds.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/CustomOptions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/Fpt.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/Price.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/TaxClass.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductSimple/WebsiteIds.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/CatalogProductVirtual.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/ConfigurableProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/ConfigurableProduct/ConfigurableOptions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/GroupedProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Fixture/GroupedProduct/Associated.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Handler/CatalogAttributeSet/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Handler/CatalogCategory/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Handler/CatalogProductAttribute/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Handler/CatalogProductSimple/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Handler/ConfigurableProduct/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Adminhtml/CatalogProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Adminhtml/CatalogProductNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Adminhtml/CatalogProductSetAdd.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Adminhtml/CatalogProductSetEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Adminhtml/CatalogProductSetIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Page/Category/CatalogCategoryView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogAttributeSet.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogCategory.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductAttribute.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductSimple.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductVirtual.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/ConfigurableProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/GroupedProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Category/CreateCategoryEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Category/DeleteCategoryEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Category/UpdateCategoryEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Category/UpdateCategoryEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Layer/FilterProductListTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Layer/FilterProductListTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AbstractAddAppurtenantProductsEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddCrossSellProductsEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddCrossSellProductsEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddProductsToCompareTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddProductsToCompareTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddRelatedProductsEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddRelatedProductsEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddUpSellProductsEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/AddUpSellProductsEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/ApplyMapTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/ApplyMapTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/ClearAllCompareProductsTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/CreateConfigurableProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/CreateGroupedProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/CreateSimpleProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/CreateVirtualProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/DeleteProductEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/DeleteProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/DuplicateProductEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/DuplicateProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/PromoteProductsAsCrossSellsTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/PromoteProductsAsRelatedTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/PromoteProductsAsUpSellsTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/UpdateConfigurableProductEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/UpdateConfigurableProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/Product/UpdateSimpleProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/ProductAttribute/CreateAttributeSetEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestCase/ProductAttribute/CreateProductAttributeEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestStep/CreateProductStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestStep/CreateProductTemplateStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestStep/CreateProductsStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestStep/UpdateConfigurableProductStep/AddOptionsSubStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Catalog/Test/TestStep/UpdateConfigurableProductStep/CreateProductSubStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/Fixture/CatalogRule.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/Handler/CatalogRule/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/Page/Adminhtml/CatalogRuleEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/Page/Adminhtml/CatalogRuleIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/Repository/CatalogRule.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestCase/ApplySeveralCatalogPriceRuleEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestCase/ApplySeveralCatalogPriceRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestCase/CreateCatalogPriceRuleEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestCase/CreateCatalogPriceRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestCase/DeleteCatalogPriceRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogRule/Test/TestStep/CreateCatalogRuleStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogSearch/Test/Fixture/CatalogSearchQuery.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogSearch/Test/Fixture/CatalogSearchQuery/QueryText.php
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogSearch/Test/Page/CatalogsearchAdvanced.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogSearch/Test/TestCase/CreateSearchTermEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CatalogSearch/Test/TestCase/SuggestSearchingResultEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Block/Multishipping/Register.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Block/Onepage/Billing.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Fixture/Cart.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Fixture/Cart/Items.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Fixture/CheckoutAgreement.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/Fixture/CheckoutAgreement/Stores.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/AddProductsToShoppingCartEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/CheckoutWithMultishippingTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/CreateTermEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/CreateTermEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/DeleteProductsFromShoppingCartTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/OnePageCheckoutTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/OnePageCheckoutWithinOnlineShippingMethods.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/OnePageCheckoutWithinOnlineShippingMethods.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/UpdateShoppingCartTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestStep/FillBillingInformationStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestStep/SelectPaymentMethodStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/TestStep/SelectPaymentMethodWithMultishippingStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Checkout/Test/etc/testcase.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Constraint/AssertCmsBlockNotOnCategoryPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Constraint/AssertCmsBlockOnCategoryPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Constraint/AssertCmsPageForm.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsBlock.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsBlock/Stores.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsPage.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsPage/Content.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsPage/StoreId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Handler/CmsPage/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Page/Adminhtml/CmsPageEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Page/Adminhtml/CmsPageIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Page/Adminhtml/CmsPageNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Page/CmsIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/Repository/CmsPage.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/CreateCmsBlockEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/CreateCmsPageEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/CreateCmsPageEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/DeleteCmsPageEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/DeleteCmsPageEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/UpdateCmsPageEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Cms/Test/TestCase/UpdateCmsPageEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Connect/Test/Fixture/Connect.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Connect/Test/TestCase/UpgradeTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Core/Test/Fixture/ConfigData.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Core/Test/Fixture/Date.php
+#	modified:   dev/tests/functional/tests/app/Mage/Core/Test/Handler/ConfigData/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Core/Test/TestStep/SetupConfigurationStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/Fixture/CurrencySymbolEntity.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/Page/Adminhtml/SystemCurrencyIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/Page/Adminhtml/SystemCurrencySymbolIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/TestCase/EditCurrencySymbolEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/TestCase/EditCurrencySymbolEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Block/Form/Register.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/Address.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/Customer.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/Customer/Address.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/Customer/GroupId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/CustomerGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Fixture/CustomerGroup/TaxClassIds.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Handler/Customer/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Handler/CustomerGroup/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Page/CustomerAccountCreate.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Page/CustomerAccountLogin.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Repository/Address.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Repository/Customer.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/Repository/CustomerGroup.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/ChangeCustomerPasswordTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/CreateCustomerFromBackendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/CreateCustomerGroupEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/CreateExistingCustomerFrontendEntity.php
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/CreateExistingCustomerFrontendEntity.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/DeleteCustomerAddressEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestCase/RegisterCustomerFrontendEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Customer/Test/TestStep/CreateNewAddressesFixturesStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/Fixture/DownloadableProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/Handler/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/Page/CheckoutOnepage.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/Page/Product/CatalogProductView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/Repository/DownloadableProduct.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/AddProductToWishlistEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/AddProductsToCartFromCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/ConfigureProductInCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/CreateDownloadableProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/DeleteDownloadableProductEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/MoveProductFromShoppingCartToWishlistTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/TaxCalculationForDownloadableProductTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/TestCase/TaxCalculationForDownloadableProductTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Downloadable/Test/etc/fixture.xml
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Block/Message/Inline.php
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Constraint/AssertGiftMessageInFrontendOrder.php
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Constraint/AssertGiftMessageInFrontendOrderItems.php
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Fixture/GiftMessage.xml
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Fixture/GiftMessage/Items.php
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Page/CheckoutOnepage.xml
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/Page/OrderView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/TestCase/CheckoutWithGiftMessagesTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/GiftMessage/Test/TestCase/CheckoutWithGiftMessagesTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/Block/ContinueDownloadBlock.php
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/Block/Welcome.php
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/Fixture/Install.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/Page/DownloaderWelcome.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/TestCase/DownloaderTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/TestCase/DownloaderTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Newsletter/Test/Page/Adminhtml/SubscriberIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Payment/Test/Fixture/Cc.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Payment/Test/Repository/Cc.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Payment/Test/TestStep/Fill3DSecureCreditCardValidationStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Block/Form/Centinel.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Fixture/PaypalAddress.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Fixture/PaypalCustomer.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Fixture/PaypalCustomer/Address.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Page/PaypalExpressReview.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/Page/Product/CatalogProductView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/AbstractCreateSalesEntityForOnlinePaymentMethodsTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/AbstractCreateSalesEntityForPaypalExpressCheckoutTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateInvoiceForPaypalExpressCheckoutTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateInvoiceForPaypalExpressCheckoutTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOfflineInvoiceForOnlinePaymentsMethodsWithIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOfflineInvoiceForOnlinePaymentsMethodsWithIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOfflineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineInvoiceForOnlinePaymentsMethodsWithIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineInvoiceForOnlinePaymentsMethodsWithIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineInvoiceForOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForOnlinePaymentsMethodsWithIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForOnlinePaymentsMethodsWithoutIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForPaypalExpressCheckoutTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOnlineRefundForPaypalExpressCheckoutTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWith3DSecureTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWithIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWithIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithOnlinePaymentsMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithPayPalStandardTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateOrderWithPayPalStandardTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForOnlinePaymentMethodsWithIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForOnlinePaymentMethodsWithIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForOnlinePaymentMethodsWithoutIFrameTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForOnlinePaymentMethodsWithoutIFrameTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForPaypalExpressCheckoutTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/CreateShipmentForPaypalExpressCheckoutTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/TestCreationForExpressCheckoutWithinPayPalButtonFromProductPageTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/TestCreationForExpressCheckoutWithinPayPalButtonTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestCase/TestCreationForExpressCheckoutWithinPayPalButtonTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestStep/FillCreditCardInIFrameStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Paypal/Test/TestStep/LoginToPayPalStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Rating/Test/Fixture/Rating.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Rating/Test/Fixture/Rating/Stores.php
+#	modified:   dev/tests/functional/tests/app/Mage/Rating/Test/Handler/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Rating/Test/Repository/Rating.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/Block/Product/View/Form.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/Constraint/AssertProductReviewIsAbsentOnProductPage.php
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/Fixture/Review.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/Fixture/Review/EntityId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/Fixture/Review/Ratings.php
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/TestCase/CreateProductReviewFrontendEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Review/Test/TestCase/CreateProductReviewFrontendEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AbstractAssertSalesEntityInSalesEntityTab.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertCreditMemoInCreditMemosGrid.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertCreditMemoItems.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertCreditMemoItemsOnFrontend.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertInvoiceInInvoicesGrid.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertInvoiceItems.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Constraint/AssertInvoiceItemsOnFrontend.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Fixture/Order.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Fixture/Order/BillingAddressId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Fixture/Order/CustomerId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Fixture/Order/EntityId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Fixture/Order/StoreId.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Handler/Order/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/Repository/Order.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/CancelCreatedOrderTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/CreateOrderFromBackendCustomerPageTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/CreateOrderFromBackendCustomerPageTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/CreateOrderFromBackendWithinOfflinePaymentMethodsTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/CreateOrderFromBackendWithinOfflinePaymentMethodsTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/MoveShoppingCartProductsOnOrderPageTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/PrintOrderFrontendGuestTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestCase/ReorderOrderEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/TestStep/CreateNewOrderViaCurlStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Sales/Test/etc/testcase.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Constraint/AssertCartPriceRuleForm.php
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Constraint/AssertCartPriceRuleIsAppliedToShipping.php
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Fixture/SalesRule.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Fixture/SalesRule/WebsiteIds.php
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Handler/SalesRule/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Page/Adminhtml/PromoQuoteEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Page/Adminhtml/PromoQuoteIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/Page/Adminhtml/PromoQuoteNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/TestCase/CreateSalesRuleEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/TestCase/CreateSalesRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/TestCase/DeleteSalesRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/TestCase/ReorderOrderEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/SalesRule/Test/TestStep/CreateSalesRuleStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Constraint/AssertShipmentInShipmentsGrid.php
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Constraint/AssertShipmentItems.php
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Constraint/AssertShipmentItemsOnFrontend.php
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Page/Adminhtml/SalesOrderShipmentNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Page/Adminhtml/SalesShipment.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Page/Adminhtml/SalesShipmentView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Shipping/Test/Page/ShipmentView.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sitemap/Test/Fixture/Sitemap.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sitemap/Test/TestCase/CreateSitemapEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Sitemap/Test/TestCase/GenerateSitemapEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Constraint/AbstractAssertOrderTaxOnBackend.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Constraint/AbstractAssertTaxCalculationAfterCheckout.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Constraint/AssertTaxRuleIsAppliedToAllPricesExcludingIncludingTax.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Constraint/AssertTaxRuleIsAppliedToAllPricesExcludingTax.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Constraint/AssertTaxRuleIsAppliedToAllPricesIncludingTax.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Fixture/TaxClass.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Fixture/TaxRate.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Fixture/TaxRule.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Fixture/TaxRule/TaxClass.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Fixture/TaxRule/TaxRate.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Handler/TaxClass/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Handler/TaxRate/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Handler/TaxRule/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Page/Adminhtml/TaxRateEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Page/Adminhtml/TaxRateIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Page/Adminhtml/TaxRateNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Page/Adminhtml/TaxRuleIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Page/Adminhtml/TaxRuleNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Repository/ConfigData.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Repository/TaxRate.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/Repository/TaxRule.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/AutomaticTaxApplyingBasedOnVatIdTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/CreateTaxRateEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/CreateTaxRateEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/CreateTaxRuleEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/CreateTaxRuleEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/DeleteTaxRateEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/TaxCalculationTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/TaxCalculationTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/TaxWithCrossBorderTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestCase/TaxWithCrossBorderTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Tax/Test/TestStep/CreateTaxRuleStep.php
+#	modified:   dev/tests/functional/tests/app/Mage/Weee/Test/TestCase/CreateTaxWithFptTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Weee/Test/TestCase/CreateTaxWithFptTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Block/Adminhtml/Widget/Instance/Edit/WidgetForm.php
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Fixture/Widget.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Fixture/Widget/LayoutUpdates.php
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Fixture/Widget/StoreIds.php
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Fixture/Widget/WidgetOptions.php
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Handler/Widget/Curl.php
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Page/Adminhtml/WidgetInstanceEdit.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Page/Adminhtml/WidgetInstanceIndex.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Page/Adminhtml/WidgetInstanceNew.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Widget/Test/Repository/Widget.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Wishlist/Test/TestCase/AddProductToWishlistEntityTest.php
+#	modified:   dev/tests/functional/tests/app/Mage/Wishlist/Test/TestCase/AddProductToWishlistEntityTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Wishlist/Test/TestCase/AddProductsToCartFromCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Wishlist/Test/TestCase/ConfigureProductInCustomerWishlistOnFrontendTest.xml
+#	modified:   dev/tests/functional/tests/app/Mage/Wishlist/Test/TestCase/MoveProductFromShoppingCartToWishlistTest.xml
+#	modified:   dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/suite3.xml
+#	modified:   errors/processor.php
+#	modified:   js/lib/jquery/noconflict.js
+#	modified:   js/mage/adminhtml/accordion.js
+#	modified:   js/mage/adminhtml/backup.js
+#	modified:   js/mage/adminhtml/browser.js
+#	modified:   js/mage/adminhtml/events.js
+#	modified:   js/mage/adminhtml/flexuploader.js
+#	modified:   js/mage/adminhtml/form.js
+#	modified:   js/mage/adminhtml/giftmessage.js
+#	modified:   js/mage/adminhtml/giftoptions/tooltip.js
+#	modified:   js/mage/adminhtml/grid.js
+#	modified:   js/mage/adminhtml/image.js
+#	modified:   js/mage/adminhtml/loader.js
+#	modified:   js/mage/adminhtml/moneybookers.js
+#	modified:   js/mage/adminhtml/product.js
+#	modified:   js/mage/adminhtml/product/composite/configure.js
+#	modified:   js/mage/adminhtml/rules.js
+#	modified:   js/mage/adminhtml/sales.js
+#	modified:   js/mage/adminhtml/sales/centinel.js
+#	modified:   js/mage/adminhtml/sales/packaging.js
+#	modified:   js/mage/adminhtml/scrollbar.js
+#	modified:   js/mage/adminhtml/tabs.js
+#	modified:   js/mage/adminhtml/tools.js
+#	modified:   js/mage/adminhtml/wysiwyg/tiny_mce/setup.js
+#	modified:   js/mage/adminhtml/wysiwyg/widget.js
+#	modified:   js/mage/captcha.js
+#	modified:   js/mage/directpost.js
+#	modified:   js/mage/translate.js
+#	modified:   js/mage/translate_inline.js
+#	modified:   js/prototype/validation.js
+#	modified:   js/prototype/window.js
+#	modified:   js/prototype/window_ext.js
+#	modified:   js/varien/accordion.js
+#	modified:   js/varien/configurable.js
+#	modified:   js/varien/form.js
+#	modified:   js/varien/iehover-fix.js
+#	modified:   js/varien/js.js
+#	modified:   js/varien/payment.js
+#	modified:   js/varien/product.js
+#	modified:   js/varien/telephone.js
+#	modified:   lib/Unserialize/Parser.php
+#	modified:   lib/Unserialize/Reader/Arr.php
+#	modified:   lib/Unserialize/Reader/ArrValue.php
+#	modified:   lib/Varien/Autoload.php
+#	modified:   lib/Varien/Db/Ddl/Table.php
+#	modified:   lib/Varien/File/Uploader.php
+#	modified:   lib/Varien/Io/Abstract.php
+#	modified:   lib/Varien/Io/File.php
+#	modified:   skin/adminhtml/default/default/boxes.css
+#	modified:   skin/adminhtml/default/default/xmlconnect/boxes.css
+#	modified:   skin/frontend/base/default/js/bundle.js
+#	modified:   skin/frontend/base/default/js/checkout/review.js
+#	modified:   skin/frontend/base/default/js/giftmessage.js
+#	modified:   skin/frontend/base/default/js/ie6.js
+#	modified:   skin/frontend/base/default/js/msrp.js
+#	modified:   skin/frontend/base/default/js/opcheckout.js
+#	modified:   skin/frontend/default/iphone/js/dnd.js
+#	modified:   skin/frontend/default/iphone/js/iphone.js
+#	modified:   skin/frontend/default/iphone/js/modernizr.js
+#	modified:   skin/frontend/rwd/default/js/app.js
+#	modified:   skin/frontend/rwd/default/js/configurableswatches/product-media.js
+#	modified:   skin/frontend/rwd/default/js/configurableswatches/swatches-list.js
+#	modified:   skin/frontend/rwd/default/js/configurableswatches/swatches-product.js
+#	modified:   skin/frontend/rwd/default/js/minicart.js
+#	modified:   skin/frontend/rwd/default/js/opcheckout_rwd.js
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	app/code/core/Mage/Adminhtml/Block/Notification/Curl.php
+#	app/code/core/Mage/Adminhtml/Controller/Rss/
+#	app/code/core/Mage/Adminhtml/Helper/Help/
+#	app/code/core/Mage/Adminhtml/Model/System/Config/Source/Customer/Forgotpassword.php
+#	app/code/core/Mage/Catalog/Helper/Product/Type/
+#	app/code/core/Mage/Catalog/data/catalog_setup/data-upgrade-1.6.0.0.19.1.3-1.6.0.0.19.1.4.php
+#	app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.19.1.2-1.6.0.0.19.1.3.php
+#	app/code/core/Mage/Catalog/sql/catalog_setup/upgrade-1.6.0.0.19.1.4-1.6.0.0.19.1.5.php
+#	app/code/core/Mage/Centinel/Model/Api/
+#	app/code/core/Mage/ConfigurableSwatches/Block/Catalog/Product/List/
+#	app/code/core/Mage/ConfigurableSwatches/Helper/List/
+#	app/code/core/Mage/Customer/Model/Flowpassword.php
+#	app/code/core/Mage/Customer/Model/Resource/Flowpassword.php
+#	app/code/core/Mage/Customer/Model/Resource/Flowpassword/
+#	app/code/core/Mage/Customer/data/customer_setup/data-upgrade-1.6.2.0.4-1.6.2.0.5.php
+#	app/code/core/Mage/Customer/sql/customer_setup/upgrade-1.6.2.0.4-1.6.2.0.5.php
+#	app/code/core/Mage/Rss/Controller/
+#	app/code/core/Mage/Rss/data/
+#	app/code/core/Mage/Sales/sql/sales_setup/upgrade-1.6.0.9-1.6.0.10.php
+#	app/code/core/Mage/Uploader/
+#	app/code/core/Zend/Validate/
+#	app/design/adminhtml/default/default/template/notification/curl.phtml
+#	app/design/frontend/rwd/default/template/configurableswatches/catalog/product/list/price/
+#	app/locale/en_US/Mage_Uploader.csv
+#	app/locale/en_US/template/email/password_or_email_changed.html
+#	dev/tests/functional/tests/app/Mage/Admin/Test/Constraint/AssertUserAccessDeniedMessage.php
+#	dev/tests/functional/tests/app/Mage/Admin/Test/Constraint/AssertUserAccountInactiveMessage.php
+#	dev/tests/functional/tests/app/Mage/Adminhtml/Test/Block/System/Currency/CurrencyGrid.php
+#	dev/tests/functional/tests/app/Mage/Bundle/Test/Repository/BundleProduct/
+#	dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductAttribute/
+#	dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductConfigurable/
+#	dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductSimple/
+#	dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/CatalogProductVirtual/
+#	dev/tests/functional/tests/app/Mage/Catalog/Test/Repository/GroupedProduct/
+#	dev/tests/functional/tests/app/Mage/Checkout/Test/Repository/CheckoutAgreement.xml
+#	dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/OnePageCheckoutWithinDhlShippingMethod.php
+#	dev/tests/functional/tests/app/Mage/Checkout/Test/TestCase/OnePageCheckoutWithinDhlShippingMethod.xml
+#	dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsBlockMultiStore.xml
+#	dev/tests/functional/tests/app/Mage/Cms/Test/Fixture/CmsPageMultiStore.xml
+#	dev/tests/functional/tests/app/Mage/Cms/Test/Repository/CmsBlock.xml
+#	dev/tests/functional/tests/app/Mage/Core/Test/Repository/
+#	dev/tests/functional/tests/app/Mage/CurrencySymbol/Test/TestStep/SetupCurrencyRatesStep.php
+#	dev/tests/functional/tests/app/Mage/Downloadable/Test/Repository/DownloadableProduct/
+#	dev/tests/functional/tests/app/Mage/Install/Test/Fixture/InstallLocale.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/DownloaderPart2Test.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/DownloaderPart2Test.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest2.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest2.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest3.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest3.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest4.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest4.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest5.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest5.xml
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest6.php
+#	dev/tests/functional/tests/app/Mage/Install/Test/TestCase/InstallTest6.xml
+#	dev/tests/functional/tests/app/Mage/Payment/Test/Fixture/ValidationPassword.xml
+#	dev/tests/functional/tests/app/Mage/Payment/Test/Repository/ValidationPassword.xml
+#	dev/tests/functional/tests/app/Mage/Sitemap/Test/Repository/
+#	dev/tests/functional/tests/app/Mage/Widget/Test/Repository/Widget/
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/ce_download.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/ce_download2.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/installationce2.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/installationce3.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/installationce4.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/installationce5.xml
+#	dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/installationce6.xml
+#	git-status.txt
+#	js/lib/uploader/
+#	js/mage/adminhtml/uploader/
+#	js/varien/product_options.js
+#	lib/Unserialize/Reader/Null.php
+#	skin/frontend/base/default/images/window_overlay.png
+#	skin/frontend/default/blank/images/window_overlay.png
+#	skin/frontend/default/blue/images/window_overlay.png
+#	skin/frontend/default/default/images/window_overlay.png
+#	skin/frontend/default/modern/images/window_overlay.png
+#	skin/frontend/rwd/default/js/configurableswatches/configurable-swatch-prices.js
+no changes added to commit (use "git add" and/or "git commit -a")
