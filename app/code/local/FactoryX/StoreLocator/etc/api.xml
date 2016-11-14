@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <ustorelocator translate="title" module="ustorelocator">
+                <model>ustorelocator/api</model>
+                <title>Location Resource</title>
+                <acl>ustorelocator</acl>
+                <methods>
+                    <list translate="title" module="ustorelocator">
+                        <title>Retrieve locations</title>
+                        <acl>ustorelocator/list</acl>
+                        <method>items</method>
+                    </list>
+                </methods>
+            </ustorelocator>
+        </resources>
+        <acl>
+            <resources>
+                <ustorelocator translate="title" module="ustorelocator">
+                    <title>Locations</title>
+                    <list translate="title" module="ustorelocator">
+                        <title>Retrieve locations</title>
+                    </list>
+                </ustorelocator>
+            </resources>
+        </acl>
+    </api>
+</config>

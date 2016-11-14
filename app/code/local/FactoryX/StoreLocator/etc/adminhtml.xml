@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!--
+	This an extra file that doesn't come with the module to override the default menu and use Factory X menu instead
+-->
+<config>
+	<menu>
+		<factoryx_menu>
+            <title>Factory X</title>
+            <sort_order>85</sort_order>
+			<children>
+				<factoryx_menu_store_locations translate="title" module="ustorelocator">
+					<title>Store Locations</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/location/index</action>
+					<children>
+						<storelocations translate="title" module="ustorelocator">
+							<title>Store Locations</title>
+							<sort_order>10</sort_order>
+							<action>adminhtml/location/index</action>
+						</storelocations>
+						<config module="ustorelocator">
+							<title>Configuration</title>
+							<sort_order>20</sort_order>
+							<action>adminhtml/system_config/edit/section/ustorelocator</action>
+						</config>
+					</children>
+				</factoryx_menu_store_locations>
+			 </children>
+		</factoryx_menu>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<factoryx_menu>
+						<children>
+							<factoryx_menu_store_locations>
+								<title>Store Locations</title>
+								<sort_order>10</sort_order>
+								<children>
+									<storelocations>
+										<title>Store Locations</title>
+										<sort_order>10</sort_order>
+									</storelocations>
+									<config>
+										<title>Configuration</title>
+										<sort_order>20</sort_order>
+									</config>
+								</children>
+							</factoryx_menu_store_locations>
+						</children>
+					</factoryx_menu>
+					<system>
+						<children>
+							<config>
+								<children>
+									<ustorelocator>
+										<title>Store Locations</title>
+									</ustorelocator>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+    <translate>
+        <modules>
+            <FactoryX_StoreLocator>
+                <files>
+                    <default>FactoryX_StoreLocator.csv</default>
+                </files>
+            </FactoryX_StoreLocator>
+        </modules>
+    </translate>	
+</config>

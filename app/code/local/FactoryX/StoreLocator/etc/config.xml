@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FactoryX_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FactoryX
+ * @package    FactoryX_StoreLocator
+ * @copyright
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   FactoryX
+ * @package    FactoryX_StoreLocator
+ * @author
+ */
+-->
+<config>
+    <modules>
+        <FactoryX_StoreLocator>
+            <version>2.2.6</version>
+        </FactoryX_StoreLocator>
+    </modules>
+    <crontab>
+        <jobs>
+            <factoryx_storelocator_store_resolver>
+                <schedule>
+                    <config_path>ustorelocator/store_resolver_cron/cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>ustorelocator/observer::storeResolver</model>
+                </run>
+            </factoryx_storelocator_store_resolver>
+        </jobs>
+    </crontab>
+    <global>
+        <models>
+            <ustorelocator>
+                <class>FactoryX_StoreLocator_Model</class>
+                <resourceModel>ustorelocator_mysql4</resourceModel>
+            </ustorelocator>
+            <ustorelocator_mysql4>
+                <class>FactoryX_StoreLocator_Model_Mysql4</class>
+                <entities>
+                    <location>
+                        <table>ustorelocator_location</table>
+                    </location>
+                </entities>
+            </ustorelocator_mysql4>
+        </models>
+        <resources>
+            <ustorelocator_setup>
+                <setup>
+                    <module>FactoryX_StoreLocator</module>
+                    <class>FactoryX_StoreLocator_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ustorelocator_setup>
+            <ustorelocator_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ustorelocator_write>
+            <ustorelocator_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ustorelocator_read>
+        </resources>
+        <helpers>
+            <ustorelocator>
+                <class>FactoryX_StoreLocator_Helper</class>
+            </ustorelocator>
+        </helpers>
+        <blocks>
+            <ustorelocator>
+                <class>FactoryX_StoreLocator_Block</class>
+            </ustorelocator>
+        </blocks>
+        <events>
+            <admin_system_config_changed_section_ustorelocator>
+                <observers>
+                    <mymodule>
+                        <type>singleton</type>
+                        <class>ustorelocator/observer</class>
+                        <method>createUrlRewrite</method>
+                    </mymodule>
+                </observers>
+            </admin_system_config_changed_section_ustorelocator>
+        </events>
+    </global>
+    <frontend>
+        <routers>
+            <ustorelocator>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_StoreLocator</module>
+                    <frontName>ustorelocator</frontName>
+                </args>
+            </ustorelocator>
+        </routers>
+        <translate>
+            <modules>
+                <FactoryX_StoreLocator>
+                    <files>
+                        <default>FactoryX_StoreLocator.csv</default>
+                    </files>
+                </FactoryX_StoreLocator>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <ustorelocator module="FactoryX_StoreLocator">
+                    <file>factoryx/storelocator.xml</file>
+                </ustorelocator>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_StoreLocator before="Mage_Adminhtml">FactoryX_StoreLocator_Adminhtml</FactoryX_StoreLocator>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <!-- To register the controller action -->
+            <controller_action_predispatch_adminhtml>
+                <observers>
+                    <factoryx_storelocator_register>
+                        <type>singleton</type>
+                        <class>ustorelocator/observer</class>
+                        <method>registerController</method>
+                    </factoryx_storelocator_register>
+                </observers>
+            </controller_action_predispatch_adminhtml>
+            <!-- Called after creating a block -->
+            <core_layout_block_create_after>
+                <observers>
+                    <factoryx_storelocator_create_after>
+                        <type>singleton</type>
+                        <class>ustorelocator/observer</class>
+                        <method>blockCreateAfter</method>
+                    </factoryx_storelocator_create_after>
+                </observers>
+            </core_layout_block_create_after>
+            <!-- Called before a block is rendered in HTML -->
+            <adminhtml_block_html_before>
+                <observers>
+                    <factoryx_storelocator_before_block>
+                        <type>singleton</type>
+                        <class>ustorelocator/observer</class>
+                        <method>blockHtmlBefore</method>
+                    </factoryx_storelocator_before_block>
+                </observers>
+            </adminhtml_block_html_before>
+            <!-- Called before loading a non EAV collection -->
+            <core_collection_abstract_load_before>
+                <observers>
+                    <factoryx_storelocator_before_core_load_collection>
+                        <class>ustorelocator/observer</class>
+                        <method>beforeCoreCollectionLoad</method>
+                    </factoryx_storelocator_before_core_load_collection>
+                </observers>
+            </core_collection_abstract_load_before>
+        </events>
+    </adminhtml>
+    <default>
+        <ustorelocator>
+            <general>
+                <!--<google_geo_url><![CDATA[http://maps.google.com/maps/geo]]></google_geo_url>-->
+                <distance_units>mi</distance_units>
+                <api_version>3</api_version>
+                <num_results>20</num_results>
+                <show_search>1</show_search>
+                <show_map>0</show_map>
+                <scale_icon>0</scale_icon>
+                <use_geo_address>0</use_geo_address>
+                <min_zoom>10</min_zoom>
+                <search_radius_options>25,100,200</search_radius_options>
+                <upload_overwrite>1</upload_overwrite>
+                <no_result>40,-100</no_result>
+                <multiple_results><![CDATA[Multiple results found, please pick one closest to your search]]></multiple_results>
+            </general>
+            <api>
+                <google_maps>AIzaSyCmjZDpBRt0EGcLVGcsFAJhIxcQBvHrhbs</google_maps>
+            </api>
+            <field>
+                <domain_name_postfix>.stores.factoryx.com.au</domain_name_postfix>
+            </field>
+            <store_resolver_cron>
+                <enabled>1</enabled>
+                <cron_expr>0 * * * *</cron_expr>
+            </store_resolver_cron>
+        </ustorelocator>
+    </default>
+</config>

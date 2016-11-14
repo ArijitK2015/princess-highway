@@ -1,0 +1,72 @@
+.store {
+    margin-bottom: 20px;
+}
+.store-image {
+    display: inline-block;
+    width: 34%;
+    margin-right: 2%;
+    vertical-align: top;
+}
+.store-image img {
+    width: 100%;
+    height: 100%;
+}
+.store-info-with-image {
+    display: inline-block;
+    width: 64%;
+}
+.store-info {
+    display: inline-block;
+    width: 100%;
+}
+/*
+hide the address
+*/
+/*
+.store-info .icon:nth-child(2), .store-info .info:nth-child(3) {
+    display: none;
+}
+*/
+
+#map-canvas {
+    height: 500px;
+    width: 100%;
+    margin-bottom: 10px;
+    line-height: normal;
+    display: inline-block;
+}
+.store-location-states {
+    display: inline-block
+}
+.store-location-stores h4 {
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+.store-location-wrapper .icon,
+.store-location-wrapper .info {
+    display: inline-block
+}
+.store-location-wrapper .info {
+    width: 90%;
+}
+.store-location-wrapper .info a {
+    text-decoration: none;
+    color: black;
+}
+.store-location-wrapper .icon {
+    vertical-align: top;
+    width: 20px;
+}
+@media screen and (max-width: 720px) {
+    #map-canvas {
+        height: 300px;
+    }
+    .store-image {
+        display: none;
+    }
+    .store-info-with-image {
+        width: 100%;
+    }
+}

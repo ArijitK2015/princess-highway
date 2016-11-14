@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FactoryX_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FactoryX
+ * @package    FactoryX_StoreLocator
+ * @copyright
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   FactoryX
+ * @package    FactoryX_StoreLocator
+ * @author
+ */
+-->
+<config>
+    <tabs>
+        <factoryx translate="label" module="ustorelocator">
+            <label>Factory X</label>
+            <sort_order>101</sort_order>
+        </factoryx>
+    </tabs>
+
+    <sections>
+        <ustorelocator translate="label comment" module="ustorelocator">
+            <tab>general</tab>
+            <label>Store Locations</label>
+            <tab>factoryx</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="ustorelocator">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <page_title translate="label">
+                            <label>Page title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set map page title.]]></comment>
+                        </page_title>
+                        <page_url translate="label">
+                            <label>Location page URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[This will create the URL rewrite automatically (do not enter / prefix)]]></comment>
+                        </page_url>
+                        <use_continents translate="label">
+                            <label>Use Continents for the region</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_continents>
+                        <location_icon translate="label">
+                            <label>Location icon on map</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">storelocator</upload_dir>
+                            <base_url type="media" scope_info="1">storelocator</base_url>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Location PNG file to use as map pin (instead of default Google pin)]]></comment>
+                        </location_icon>
+                        <location_placeholder translate="label">
+                            <label>Location thumbnails placeholder</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">storelocator/thumbnails/</upload_dir>
+                            <base_url type="media" scope_info="1">storelocator/thumbnails/</base_url>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Default location thumbnail file to use]]></comment>
+                        </location_placeholder>
+                        <min_zoom translate="label">
+                            <label>Minimal map zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>61</sort_order>
+                            <source_model>ustorelocator/settings_zoom</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[This setting is to prevent too close to the ground zoom.<br/>The higher the number, the closer the zoom.<br/>1 is furthest away, 25 closest to earth.]]></comment>
+                        </min_zoom>
+                        <upload_locations translate="label">
+                            <label>Import locations</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>ustorelocator/import</backend_model>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </upload_locations>
+                        <upload_overwrite translate="label">
+                            <label>Overwrite existing locations on import?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>96</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </upload_overwrite>
+                        <download_locations translate="label">
+                            <label>Export Locations</label>
+                            <frontend_model>ustorelocator/adminhtml_export</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </download_locations>
+                        <sl_layout>
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sl_layout>
+                        <extra_css>
+                            <label>Extra CSS</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>125</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </extra_css>
+                    </fields>
+                </general>
+                <api translate="label comment" module="ustorelocator">
+                    <label>API Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <google_maps translate="label">
+                            <label>Google Maps</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<a target='_blank' rel='noopener noreferrer' href='https://developers.google.com/maps/documentation/javascript/get-api-key'>get-api-key</a>]]></comment>
+                        </google_maps>
+                    </fields>                    
+                </api>
+                <field translate="label comment" module="ustorelocator">
+                    <label>Field Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <domain_name_postfix translate="label">
+                            <label>Domain Name Postfix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[a store's hostname = storeCode + domainNamePostfix, used for resolving a stores IP address]]></comment>
+                        </domain_name_postfix>
+                    </fields>
+                </field>
+                <store_resolver_cron translate="label comment" module="ustorelocator">
+                    <label>Store Resolver Cron</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>                    
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <cron_expr translate="label">
+                            <label>Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Standard cron format <Minute> <Hour> <Day_of_the_Month> <Month_of_the_Year> <Day_of_the_Week>]]></comment>
+                        </cron_expr>
+                        <cron_run translate="label comment">
+                            <label>Run Cron</label>
+                            <comment>Save settings before running the cron.</comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>ustorelocator/adminhtml_system_config_form_button_runCron</frontend_model>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_run>                        
+                    </fields>
+                </store_resolver_cron>
+            </groups>
+        </ustorelocator>
+    </sections>
+</config>

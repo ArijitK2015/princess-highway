@@ -1,0 +1,241 @@
+<?php
+/** @var FactoryX_StoreLocator_Block_Map $this
+
+use is_featured to show stores.
+
+previously it would not show stores with out a lat or lon, but saving a store
+automatically populates these fields, which then requires manual intervention
+
+update ustorelocator_location set latitude = 0, longitude =0 where store_code = 'H00';
+*/
+$query = $this->getSlHelper()->convertUrlQuery(parse_url($this->helper('core/url')->getCurrentUrl(), PHP_URL_QUERY));
+
+/** @var FactoryX_StoreLocator_Helper_Data $hlp */
+$hlp = Mage::helper('ustorelocator');
+
+$region = (array_key_exists('region', $query)
+    && !empty($query['region']))
+    ? $query['region']
+    : $hlp->getDefaultRegion();
+
+$collection = $this->getSlHelper()->getDefaultCollection()
+    ->addFieldToFilter('region', array('eq' => $region))
+    ->addFieldToFilter('is_featured', array('eq' => 1));
+
+$this->setCollection($collection);
+
+$loadedRegion = $this->getRegions();
+
+$url = Mage::getStoreConfig('ustorelocator/general/page_url');
+$ico = Mage::getStoreConfig('ustorelocator/general/location_icon');
+
+if ($ico) {
+    $ico = "/media/storelocator/".$ico;
+}
+$placeholder = Mage::getStoreConfig('ustorelocator/general/location_placeholder');
+
+if ($placeholder) {
+    $placeholder = "/media/storelocator/thumbnails/".$placeholder;
+}
+
+// Array of regions
+$regions = $hlp->getRegions();
+?>
+<div class="store-location-wrapper text-center">
+    <ul class="nav nav-pills store-location-states text-uppercase">
+        <?php foreach ($regions as $value => $region_name): ?>
+            <?php if (preg_grep( "/".$value."/i",$loadedRegion)): ?>
+                <li role="presentation" class="<?php echo ($value==$region)?'active disabled':''?>">
+                    <a href="<?php echo $url ?>?region=<?php echo $value ?>">
+                        <?php echo $value ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+
+<?php if (count($collection)): ?>
+    <div id="map-canvas" style=""></div>
+        <div class="store-location-stores text-left">
+        <?php foreach($collection as $location): ?>
+            <div class="store col-md-4 col-lg-4 col-sm-6 col-xs-6">
+            <div>
+                <?php //echo sprintf("is_featured=%d", $location->getData('is_featured')); ?>
+                <?php if ($location->image): ?>
+                    <?php
+                    $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                    $imagePath = Mage::getBaseDir('media') . $location->image;
+                    $imageUrl = $relMediaPath . $location->image;
+                    ?>
+                    <div class="store-image">
+                        <img src="<?php echo $imageUrl; ?>" width="150" height="150" class="img-responsive" />
+                    </div>
+                    <div class="store-info-with-image">
+                <?php elseif($placeholder): ?>
+                    <div class="store-image">
+                        <img src="<?php echo $placeholder?>" width="150" height="150" class="img-responsive" />
+                    </div>
+                    <div class="store-info-with-image">
+                        <?php else: ?>
+                        <div class="store-info">
+                            <?php endif; ?>
+                            <h4 id="marker-<?php echo $location->location_id?>">
+                                <?php echo $location->title; ?>
+                                <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-location-arrow"></i><?php endif; ?>
+                            </h4>
+                            <div class="icon">
+                                <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-map-marker"></i><?php endif; ?>
+                            </div>
+                            <div class="info">
+                                <a rel="noopener noreferrer" target="_blank" href="https://maps.google.com.au/?q=<?php echo urlencode($location->address)?>">
+                                    <?php echo $location->address_display; ?>
+                                </a>
+                            </div>
+                            <?php if ($location->phone): ?>
+                                <div class="icon">
+                                    <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-phone"></i><?php else: echo $this->__('Telephone:'); endif; ?>
+                                </div>
+                                <div class="info">
+                                    <a href="tel:<?php echo str_replace(" ","",$location->phone); ?>">
+                                        <?php echo $location->phone?>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($location->notes): ?>
+                                <div class="icon">
+                                    <?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-clock-o"></i><?php else: echo $this->__('Opening Hours:'); endif; ?>
+                                </div>
+                                <div class="info">
+                                    <?php echo nl2br($location->notes)?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+<?php else: ?>
+    <h3><?php echo $hlp->__("We currently don't have stores in this area yet."); ?></h3>
+<?php endif; ?>
+</div>
+
+<script>
+/*
+ the initialize SHOULD be done using callbacks see $callback FactoryX_StoreLocator_Block_Map
+ but it fails to load ...
+ */
+jQuery(document).ready(function() {
+    // this still stalls ...
+    //google.maps.event.addDomListener(window, 'load', initialize);
+    //jQuery(document).bind("projectLoadComplete", initialize);
+
+    // force after .5 seconds
+    setTimeout(function() {
+        //console.log("initialize...");
+        initialize();
+    }, 500);
+});
+
+// make function initialize() visible from the global scope
+//window.initialize = function() {
+
+function initialize() {
+    var styles = [{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+            {
+                lightness: 100
+            },
+            {
+                visibility: "simplified"
+            }
+        ]
+    }];
+
+    var mapOptions = {
+        center  : new google.maps.LatLng(-37.811419, 144.963498),
+        zoom    : 15,
+        styles  : styles
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var bounds = new google.maps.LatLngBounds();
+    //google.maps.event.addDomListener(window, 'load', initialize);
+
+    <?php foreach($collection as $location): ?>
+    bounds.extend(new google.maps.LatLng(
+        <?php echo $location->latitude; ?>,
+        <?php echo $location->longitude; ?>)
+    );
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(
+            <?php echo $location->latitude; ?>,
+            <?php echo $location->longitude; ?>
+        ),
+        title:"<?php echo addslashes($location->title) ?>",
+        <?php echo ($ico) ? "icon : '$ico'," : ""; ?>
+        map: map
+    });
+    try {
+        <?php
+        $title = sprintf("<b>%s</b></p>%s</p>%s</p>%s",
+            addslashes(htmlentities($location->title)),
+            htmlentities($location->address),
+            htmlentities($location->phone),
+            preg_replace("/\r\n|\r|\n/",'<br/>',$location->notes)
+        );
+        ?>
+        addMarker(
+            marker,
+            <?php echo $location->location_id; ?>,
+            <?php echo sprintf("'%s'", $title); ?>
+        );
+    }
+    catch(err) {
+        console.log(err);
+    }
+    <?php endforeach; ?>
+
+    <?php if (count($collection) > 1): ?>
+    map.fitBounds(bounds);
+    <?php else: ?>
+    <?php foreach($collection as $location): ?>
+    map.setCenter(new google.maps.LatLng(<?php echo $location->latitude?>, <?php echo $location->longitude?>));
+    <?php endforeach; ?>
+    <?php endif; ?>
+}
+
+function addMarker(marker, id, title) {
+    var infowindow = new google.maps.InfoWindow();
+
+    //console.log(id + ':' + title);
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(title);
+        infowindow.open(marker.get('map'), marker);
+    });
+
+    google.maps.event.addDomListener(document.getElementById("marker-" + id), 'click', function() {
+        marker.get('map').panTo(marker.getPosition());
+        marker.get('map').setZoom(15);
+        new google.maps.event.trigger( marker, 'click' );
+        jQuery(document).scrollTop(jQuery("#map-canvas").offset().top);
+        return false;
+    });
+}
+
+//initialize();
+//jQuery('.store').responsiveEqualHeightGrid();
+
+</script>
+
+<?php
+$extra_css = Mage::getStoreConfig('ustorelocator/general/extra_css');
+$extra_css = str_replace("\n", "", $extra_css);
+$extra_css = str_replace("\r", "", $extra_css);
+if ($extra_css): ?>
+    <script>
+        jQuery("head link[rel='stylesheet']").last().after("<style type='text/css'><?php echo $extra_css ?></style>");
+    </script>
+<?php endif; ?>

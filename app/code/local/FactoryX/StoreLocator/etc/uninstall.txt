@@ -1,0 +1,7 @@
+app/code/local/FactoryX/StoreLocator
+app/etc/modules/FactoryX_StoreLocator.xml
+app/design/frontend/base/default/template/factoryx/storelocator
+app/design/frontend/factoryx/default/template/factoryx/storelocator
+app/design/frontend/base/default/layout/factoryx/storelocator.xml
+skin/frontend/base/default/css/factoryx/storelocator
+skin/frontend/factoryx/default/css/factoryx/storelocator

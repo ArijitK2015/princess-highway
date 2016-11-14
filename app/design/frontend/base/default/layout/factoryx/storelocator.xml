@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<layout>
+    <ustorelocator_location_map>
+        <reference name="root">
+            <action method="setTemplate">
+                <name>page/1column.phtml</name>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <name>css/factoryx/storelocator/style.css</name>
+            </action>
+            <block type="core/text" name="fontawesome.cdn">
+                <action method="setText">
+                    <text><![CDATA[<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="ustorelocator/map" template="factoryx/storelocator/map.phtml" name="ustorelocator.map"></block>
+        </reference>
+    </ustorelocator_location_map>
+</layout>
