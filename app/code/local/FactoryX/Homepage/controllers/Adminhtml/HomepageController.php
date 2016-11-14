@@ -579,14 +579,11 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
                         $pictureModel->setIndex($i);
                         $pictureModel->save();
                     }
-                    else
-                    {
+                    else {
                         $existingImage->setType($data['type_'.$i]);
-                        if ($data['type_'.$i] == "image")
-                        {
+                        if ($data['type_'.$i] == "image") {
                             // We replace the old image with the new one
                             $existingImage->setUrl($data['image_' . $i]);
-
                             if (substr($data['link_'.$i], 0, 1) != '/'
                                 && Mage::helper('homepage')->isRemoveBaseUrl()
                                 && (strpos($data['link_' . $i], Mage::app()->getStore(1)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK)) !== false)) {
@@ -612,8 +609,7 @@ class FactoryX_Homepage_Adminhtml_HomepageController extends Mage_Adminhtml_Cont
                             $existingImage->setOver(0);
                             $existingImage->setBlockId('');
                         }
-                        else
-                        {
+                        else {
                             $existingImage->setBlockId($data['block_id_'.$i]);
                             $existingImage->setUrl('');
                             $existingImage->setLink('');

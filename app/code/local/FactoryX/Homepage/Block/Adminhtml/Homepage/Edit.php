@@ -29,7 +29,8 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit extends Mage_Adminhtml_Blo
 
 			$this->_formScripts[] = "
 				function preview(){
-					window.open('" . $this->getPreviewUrl() . "', '_blank');
+					var newWnd = window.open('" . $this->getPreviewUrl() . "', '_blank');
+					newWnd.opener = null;
 				}";
 
 			// Add the Duplicate button

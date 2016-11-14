@@ -20,7 +20,7 @@
 
 
 	<div id="thumbnails" style="float:left;">
-	<div style="vertical-align:top;display:inline-block;max-width:245px;"><a href="<?=$link?>" <?php ($popup) ? 'target="_blank"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$image?>" /></a><div class="text"><h1><?=$header?></h1>
+	<div style="vertical-align:top;display:inline-block;max-width:245px;"><a href="<?=$link?>" <?php ($popup) ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$image?>" /></a><div class="text"><h1><?=$header?></h1>
 	<hr>
 	<p><?=$text?>
 	</p><hr>

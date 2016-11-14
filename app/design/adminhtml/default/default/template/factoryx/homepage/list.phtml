@@ -35,7 +35,8 @@
 					alert('The homepage module is not used to generate homepages for this store at the moment, please enabled under System > Configuration > Factory X > Homepage');
 				<?php else: ?>
 					previewUrl = "<?php echo Mage::getUrl("homepage/index/storepreview", array('_store' => (int) $this->getRequest()->getParam('store'))); ?>";
-					window.open(previewUrl,'_blank');
+					var newWnd = window.open(previewUrl,'_blank');
+					newWnd.opener = null;
 				<?php endif; ?>
 			}
 		<?php endif; ?>

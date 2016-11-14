@@ -22,7 +22,7 @@ $actualSlides = 0;
                 ?>
                 <div class="swiper-slide">
                     <?php if ($link = $slide->getLink()): ?>
-                        <a <?php if ($slide->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+                        <a <?php if ($slide->getPopup()): ?>target="_blank" rel="noopener noreferrer" <?php endif; ?>href="<?php echo $link ?>">
                             <?php endif; ?>
                             <img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $slide->getAlt(); ?>" />
                             <?php if ($link): ?>

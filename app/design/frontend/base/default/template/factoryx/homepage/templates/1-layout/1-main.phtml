@@ -17,7 +17,7 @@ if ($image->getType() == "image")
 			<tr>
 				<td>
 					<?php if ($link = $this->getImage()->getLink()): ?>
-						<a <?php if ($this->getImage()->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+						<a <?php if ($this->getImage()->getPopup()): ?>target="_blank" rel="noopener noreferrer" <?php endif; ?>href="<?php echo $link ?>">
 					<?php endif; ?>
 					<img <?php echo $attr; ?> src="<?php echo $imageUrl ?>" alt="<?php echo $this->getImage()->getAlt(); ?>" />
 					<?php if (isset($overImageUrl)): ?>

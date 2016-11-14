@@ -12,7 +12,7 @@ class FactoryX_Homepage_Test_Config_Main extends EcomDev_PHPUnit_Test_Case_Confi
     {
         // Testing configuration
         $this->assertModuleCodePool('local');
-        $this->assertModuleVersion("2.3.11");
+        $this->assertModuleVersion("2.3.16");
     }
 
     public function testClassAliasDefinitions()

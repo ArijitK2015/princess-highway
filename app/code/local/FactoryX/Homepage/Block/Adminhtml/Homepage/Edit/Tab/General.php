@@ -144,7 +144,7 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_General extends Mage_A
         // List of Full Width
 
         // Field for the Full Width (Yes or no)
-        $statusField = $fieldset->addField('full_width', 'select', array(
+        $fw_statusField = $fieldset->addField('full_width', 'select', array(
             'label' => Mage::helper('homepage')->__('Full Width'),
             'name' => 'full_width',
             'values' => array(

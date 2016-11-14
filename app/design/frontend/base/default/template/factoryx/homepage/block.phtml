@@ -17,7 +17,7 @@
 	<div class="row">
 		<?php for ($i=0;$i<sizeof($images);$i++): ?><div>
 				<?php if (array_key_exists($i,$links)): ?>
-					<a href="<?=$links[$i]?>" <?=(array_key_exists($i,$popup) && $popup[$i] == "true") ? 'target="_blank"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$images[$i]?>" /></a>
+					<a href="<?=$links[$i]?>" <?=(array_key_exists($i,$popup) && $popup[$i] == "true") ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$images[$i]?>" /></a>
 				<?php endif; ?></div><?php endfor; ?>
 	</div>
 

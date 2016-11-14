@@ -23,7 +23,7 @@ if ($image->getType() == "image")
 		// If a link is set, we display it
 		?>
 		<?php if ($link = $image->getLink()): ?>
-			<a <?php if ($image->getPopup()): ?>target="_blank" <?php endif; ?>href="<?php echo $link ?>">
+			<a <?php if ($image->getPopup()): ?>target="_blank" rel="noopener noreferrer" <?php endif; ?>href="<?php echo $link ?>">
 		<?php endif; ?>
 
 		<?php // Display picture ?>

@@ -4,7 +4,7 @@
 
     <modules>
         <FactoryX_Homepage>
-            <version>2.3.15</version>
+            <version>2.3.18</version>
         </FactoryX_Homepage>
     </modules>
 	
@@ -78,6 +78,16 @@
 	</frontend>
 	
 	<global>
+
+		<cache>
+			<types>
+				<homepage translate="label,description" module="homepage">
+					<label>Homepage</label>
+					<description>Factory X homepages</description>
+					<tags>FX_HOMEPAGE_CACHE_TAG</tags>
+				</homepage>
+			</types>
+		</cache>
 		
 		<models>
 			<homepage>

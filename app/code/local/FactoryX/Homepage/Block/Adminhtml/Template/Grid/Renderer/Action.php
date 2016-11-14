@@ -79,7 +79,8 @@ class FactoryX_Homepage_Block_Adminhtml_Template_Grid_Renderer_Action extends Ma
 		$actions[] = array(
 			'@' => array(
 				'href'  => $previewUrl,
-				'target'=> '_blank'
+				'target'=> '_blank',
+                 'rel'  =>  'noopener noreferrer'
 			),
 			'#'	=> Mage::helper('homepage')->__('Preview')
 		);
