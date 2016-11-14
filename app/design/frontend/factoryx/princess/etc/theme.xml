@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<theme>
+    <parent>factoryx/default</parent>
+    <layout>
+        <updates>
+            <princess_default>
+                <file>princess/default.xml</file>
+            </princess_default>
+        </updates>
+    </layout>
+</theme>
