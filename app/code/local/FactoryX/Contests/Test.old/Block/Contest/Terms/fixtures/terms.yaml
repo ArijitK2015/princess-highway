@@ -1,0 +1,31 @@
+tables:
+  fx_contests_contest:
+    - contest_id: 1
+      title: PHPUnit Test
+      identifier: phpunittest
+      status: 1
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 1
+      is_in_list: 1
+      is_popup: 1
+      popup_referers: www.facebook.com
+      popup_text: Popup Test
+      background_colour: #000
+      text_colour: #fff
+      button_background_colour: #000
+      button_text_colour: #fff
+      campaignmonitor_list: 13e54ef132fbee7b0e31c11a4dcc1e13
+    - contest_id: 2
+      title: PHPUnit Test 2
+      identifier: phpunittest2
+      status: 1
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 1
+      is_in_list: 1
+      background_colour: #000
+      text_colour: #fff
+      button_background_colour: #000
+      button_text_colour: #fff
+      campaignmonitor_list: 13e54ef132fbee7b0e31c11a4dcc1e13

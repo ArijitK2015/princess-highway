@@ -1,0 +1,20 @@
+tables:
+  fx_contests_contest:
+    - contest_id: 1
+      title: PHPUnit Test
+      identifier: phpunittest
+      status: 1
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 1
+      background_colour: #000
+      text_colour: #fff
+      button_background_colour: #000
+      button_text_colour: #fff
+      campaignmonitor_list: 13e54ef132fbee7b0e31c11a4dcc1e13
+  fx_contests_store:
+    - contest_id: 1
+      store_id: 1
+  fx_contests_referrer:
+    - referrer_id: 1
+      contest_id: 1

@@ -1,0 +1,6 @@
+tables:
+  core_url_rewrite:
+    - store_id: 1
+      id_path: phpunit
+      request_path: phpunit
+      target_path: contests/view/id/1

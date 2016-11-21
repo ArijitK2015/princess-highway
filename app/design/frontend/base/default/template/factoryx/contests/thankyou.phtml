@@ -1,0 +1,64 @@
+<div id="thankyou">
+    <?php
+    if (Mage::getSingleton('core/session')->getData('thank_you_image_url')) {
+        $thankYouImageUrl = Mage::getSingleton('core/session')->getData('thank_you_image_url');
+        $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+        $imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $thankYouImageUrl);
+        $imageUrl = sprintf("%s/contest%s", $relMediaPath, $thankYouImageUrl);
+        if (is_file($imagePath)) {
+            list($width, $height, $type, $attr) = getimagesize($imagePath);
+            if (!Mage::getSingleton('core/session')->getData('thank_you_link_type')) {    
+            ?>
+                <a id="thank_you_redirect_url" href="<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url') ?>">
+            <?php
+            }
+            ?>
+            <img <?php //echo $attr; ?> alt="<?php echo $this->__('Thank you and good luck!!!') ?>" src="<?php echo $imageUrl ?>" />
+            <?php
+            if (!Mage::getSingleton('core/session')->getData('thank_you_link_type')) {
+            ?>
+                </a>
+            <?php
+            }
+        }
+    }
+    else {
+    ?>
+        <div>
+            <h1 class="thanks-title"><?php echo $this->__('Thank you and good luck!!!') ?></h1>
+        </div>
+    <?php
+    }
+    ?>    
+</div>
+
+<?php if (Mage::getSingleton('core/session')->getData('thank_you_redirect_url')): ?>
+    <?php
+    $redirect_timeout = Mage::getStoreConfig('contests/options/redirect_timeout');
+    if (!$redirect_timeout) {
+        $redirect_timeout = 10000;
+    }
+    else {
+        $redirect_timeout = $redirect_timeout * 1000;
+    }
+    ?>
+    <script type="text/javascript">
+        function delayedRedirect() {
+            var redirectUrl = "<?php echo Mage::getSingleton('core/session')->getData('thank_you_redirect_url', true); ?>";
+            console.log("check fb: " + window.top.location);
+            // test if we are in a fb iframe and don't redirect
+            if (redirectUrl && !/^(.*\.)?facebook\./.test(window.top.location)) {
+                window.location = redirectUrl;
+            }
+        }
+        window.onload = function() {
+
+            // test if we are in a fb and make the href a new tab
+            if (/^(.*\.)?facebook\./.test(window.top.location)) {
+                jQuery("#thank_you_redirect_url").attr('target','_blank');
+                jQuery("#thank_you_redirect_url").attr('rel','noopener noreferrer');
+            }
+            setTimeout('delayedRedirect()', <?php echo $redirect_timeout ?>)
+        }
+    </script>
+<?php endif; ?>

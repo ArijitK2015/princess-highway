@@ -1,0 +1,27 @@
+tables:
+  fx_contests_contest:
+    - contest_id: 1
+      title: PHPUnit Test
+      identifier: phpunittest
+      status: 2
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 1
+      background_colour: #000
+      text_colour: #fff
+      button_background_colour: #000
+      button_text_colour: #fff
+    - contest_id: 2
+      title: PHPUnit Test 2
+      identifier: phpunittest2
+      status: 2
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 0
+      background_colour: #000
+      text_colour: #fff
+      button_background_colour: #000
+      button_text_colour: #fff
+  fx_contests_store:
+    - contest_id: 1
+      store_id: 1

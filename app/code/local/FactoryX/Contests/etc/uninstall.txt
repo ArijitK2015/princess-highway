@@ -1,0 +1,14 @@
+app/code/local/FactoryX/Contests
+app/etc/modules/FactoryX_Contests.xml
+app/design/adminhtml/default/default/template/factoryx/contests
+app/design/frontend/base/default/template/factoryx/contests
+app/design/frontend/base/default/layout/factoryx/contests.xml
+app/design/frontend/factoryx/default/layout/factoryx/contests.xml
+app/design/frontend/factoryx/default/template/factoryx/contests
+app/locale/en_AU/FactoryX_Contests.csv
+skin/frontend/base/default/css/factoryx/contests
+skin/frontend/base/default/images/factoryx/contests
+skin/frontend/base/default/js/factoryx/contests
+skin/frontend/factoryx/default/js/factoryx/contests
+app/locale/en_AU/template/email/factoryx/contests
+js/lib/factoryx/contests

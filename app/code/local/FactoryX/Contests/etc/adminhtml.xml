@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<config>
+	<menu>
+		<factoryx_menu>
+            <title>Factory X</title>
+            <sort_order>85</sort_order>
+			<children>
+				<contests translate="title" module="contests">
+					<title>Contests</title>
+					<sort_order>190</sort_order>
+					<children>
+						<new translate="title" module="contests">
+							<title>Add a Contest</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/contests/new</action>
+						</new>
+						<list translate="title" module="contests">
+							<title>Contests</title>
+							<sort_order>10</sort_order>
+							<action>adminhtml/contests/index</action>
+						</list>
+						<referrers translate="title" module="contests">
+							<title>Referrers</title>
+							<sort_order>20</sort_order>
+							<action>adminhtml/contests/referrers</action>
+						</referrers>
+						<referees translate="title" module="contests">
+							<title>Referees</title>
+							<sort_order>30</sort_order>
+							<action>adminhtml/contests/referees</action>
+						</referees>
+						<config translate="title" module="contests">
+							<title>Configuration</title>
+							<sort_order>40</sort_order>
+							<action>adminhtml/system_config/edit/section/contests</action>
+						</config>
+					</children>                
+				</contests>
+			</children>
+		</factoryx_menu>
+	</menu>		
+	
+    <acl>
+        <resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+					<factoryx_menu>
+						<children>
+							<contests>
+								<title>Contests</title>
+								<sort_order>190</sort_order>
+								<children>
+									<new>
+										<title>Add a Contest</title>
+										<sort_order>0</sort_order>
+									</new>
+									<list>
+										<title>Contests</title>
+										<sort_order>10</sort_order>
+									</list>
+									<referrers>
+										<title>Referrers</title>
+										<sort_order>20</sort_order>
+									</referrers>
+									<referees>
+										<title>Referees</title>
+										<sort_order>30</sort_order>
+									</referees>
+									<config>
+										<title>Configuration</title>
+										<sort_order>40</sort_order>
+									</config>
+								</children>
+							</contests>
+						</children>
+					</factoryx_menu>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <contests>
+                                        <title>Contests</title>
+                                    </contests>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                 </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

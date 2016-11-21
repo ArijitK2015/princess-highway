@@ -1,0 +1,6 @@
+1-1:
+  validation: true
+1-2:
+  validation: "Test contains too few words (required:10 - 20) (current word count: 4)"
+1-3:
+  validation: "Test contains too many words (max:3) (current word count: 4)"

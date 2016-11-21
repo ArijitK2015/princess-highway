@@ -1,0 +1,9 @@
+1-1:
+  status: 1
+  label: Enabled
+1-2:
+  status: 0
+  label: Disabled
+1-3:
+  status: 2
+  label: Automatic

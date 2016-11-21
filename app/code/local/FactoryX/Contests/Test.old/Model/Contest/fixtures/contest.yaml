@@ -1,0 +1,28 @@
+tables:
+  fx_contests_contest:
+    - contest_id: 1
+      title: PHPUnit Test
+      identifier: phpunittest
+      status: 2
+      type: 2
+      terms: Bla Bla Bla
+      displayed: 1
+      allow_duplicate_entries: 1
+      allow_duplicate_referrals: 1
+    - contest_id: 2
+      title: PHPUnit Test 2
+      identifier: phpunittest2
+      status: 1
+      type: 1
+      terms: Bla Bla Bla
+      displayed: 1
+      allow_duplicate_entries: 0
+      allow_duplicate_referrals: 0
+  fx_contests_store:
+    - contest_id: 1
+      store_id: 1
+  fx_contests_referrer:
+    - contest_id: 2
+      is_winner: 1
+    - contest_id: 2
+      is_winner: 1

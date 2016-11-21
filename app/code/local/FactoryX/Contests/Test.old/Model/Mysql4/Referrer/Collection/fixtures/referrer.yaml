@@ -1,0 +1,21 @@
+tables:
+  fx_contests_contest:
+    - contest_id: 1
+      title: Bla Bla Bla
+    - contest_id: 2
+    title: Bla Bla Bla 2
+  fx_contests_referrer:
+      - referrer_id: 1
+        contest_id: 1
+        name: Test
+        state: VIC
+        is_winner: 1
+      - referrer_id: 2
+        contest_id: 2
+        name: Test
+        state: VIC
+  fx_contests_referee:
+      - referee_id: 1
+        contest_id: 1
+        referrer_id: 1
+        email: phpunit@factoryx.com.au

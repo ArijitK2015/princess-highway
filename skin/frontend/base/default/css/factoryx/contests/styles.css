@@ -1,0 +1,67 @@
+.row{ margin: 10px 0px 15px 0px; }
+.row.center {text-align: center;}
+.row .label {display: inline-block;text-transform: uppercase;font-size:12px;font-weight:bold;}
+.row input, .row select { font-size:12px !important; padding:0px 5px !important; float:none !important; display: inline-block; height: 28px !important;width:23% !important;}
+.row input[type=checkbox]{width:auto !important;height:auto !important;}
+.row textarea { min-width:90%;max-width:90%; min-height:150px; height:150px; float:none !important; display: inline-block; box-sizing: border-box; padding:10px;font-size:13px;line-height:20px;margin-top:0px !important; font-size:12px !important; }
+.row select {height: 30px !important;  border: 1px solid #C0C0C0; background: #FFF;}
+.row.email{margin-left:5%;}
+.row.email input{width:300px !important;}
+.nomargin {margin: 0;}
+.form-control {margin-right: 5%;text-align: right;}
+.emailRefereeForm {float:left;}
+#contestForm button.button span {font-size:13px;}
+.email-link {cursor: pointer;text-decoration: none;}
+.choice{display:inline-block;margin:0 0.5%;padding:7px 0px;border:1px solid #CFC3D7;box-sizing:border-box;}
+.choice-selected {background:black !important;color:white !important;border-color:black;}
+.choice:hover {background:#E2E2E2;cursor:pointer;}
+.row input, .row select{box-sizing: border-box;}
+.middle-container{padding:10px;box-sizing: border-box;}
+#thankyou img, .row img {margin:0 auto;max-width:100%;}
+#overlay_modal {
+    background-color: #000;
+    opacity: 0.6;
+}
+#winTerms_close {
+    background: url("/skin/frontend/base/default/images/factoryx/contests/btn_remove.gif") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 13px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 13px;
+    z-index: 1000;
+}
+#winTerms .table_window {
+    background-color: #fff;
+}
+.col-main {padding:0px;}
+.validation-advice {display: none !important;}
+a.zoomable{cursor: default;}
+
+@media screen and (max-width: 640px){
+    .row input, .row select {width:100% !important;  margin: 0 0 10px 0;}
+    .emailRefereeForm {float:none;width:100%;}
+}
+
+.contest-popup {
+    background: #ffffff none repeat scroll 0 0;
+    box-shadow: 1px 1px 1px 1px #000;
+}
+
+#popup {
+    text-align: center;
+}
+
+#popup-link{
+    width: 100%;
+    height: 100%;
+}
+
+@media all and (max-width: 640px) {
+    .contest-popup {
+        width: 320px !important;
+        left: 50% !important;
+        margin-left: -160px;
+    }
+}

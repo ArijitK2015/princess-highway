@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<FactoryX_Contests>
+			<version>1.3.22</version>
+		</FactoryX_Contests>
+	</modules>
+	
+	<admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_Contests before="Mage_Adminhtml">FactoryX_Contests_Adminhtml</FactoryX_Contests>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+	</admin>
+	
+	<frontend>
+		<secure_url>
+			<contests>/contests/</contests>
+		</secure_url>
+		<routers>
+			<contests>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_Contests</module>
+					<frontName>contests</frontName>
+				</args>
+			</contests>
+		</routers>
+		<layout>
+			<updates>
+				<contests module="FactoryX_Contests">
+					<file>factoryx/contests.xml</file>
+				</contests>
+			</updates>
+		</layout>
+		<translate>
+            <modules>
+                <FactoryX_Contests>
+                    <files>
+                        <default>FactoryX_Contests.csv</default>
+                    </files>
+                </FactoryX_Contests>
+            </modules>
+        </translate>
+	</frontend>
+	
+	<adminhtml>
+        <translate>
+            <modules>
+                <FactoryX_Contests>
+                    <files>
+                        <default>FactoryX_Contests.csv</default>
+                    </files>
+                </FactoryX_Contests>
+            </modules>
+        </translate>
+        <events>
+            <contests_save_before>
+                <observers>
+                    <contests_url_generate>
+                        <type>singleton</type>
+                        <class>contests/observer</class>
+                        <method>generateContestUrl</method>
+                    </contests_url_generate>
+                    <contests_disable_popup>
+                        <type>model</type>
+                        <class>contests/observer</class>
+                        <method>disableCmPopup</method>
+                    </contests_disable_popup>
+                </observers>
+            </contests_save_before>
+        </events>
+	</adminhtml>
+	
+	<global>
+
+        <cache>
+            <types>
+                <contests translate="label,description" module="contests">
+                    <label>Contests</label>
+                    <description>Factrory X Contests.</description>
+                    <tags>FX_CONTESTS_CACHE_TAG</tags>
+                </contests>
+            </types>
+        </cache>
+		
+		<models>
+			<contests>
+                <!-- Init model for mymod module -->
+                <class>FactoryX_Contests_Model</class>
+                <!-- Init db config handler for mymod models -->
+                <resourceModel>contests_mysql4</resourceModel>
+            </contests>
+
+            <!-- declaring model vs db table relation -->
+            <contests_mysql4>
+                <class>FactoryX_Contests_Model_Mysql4</class>
+                <!-- declare table test -->
+                <entities>
+					<contest>
+						<table>fx_contests_contest</table>
+					</contest>
+                    <referrer>
+                        <table>fx_contests_referrer</table>
+                    </referrer>
+					<referee>
+						<table>fx_contests_referee</table>
+					</referee>
+					<contest_winner>
+						<table>fx_contests_winner_tmp</table>
+					</contest_winner>
+					<store>
+						<table>fx_contests_store</table>
+					</store>
+                </entities>
+            </contests_mysql4>
+		</models>
+		
+		<blocks>
+            <contests>
+                <class>FactoryX_Contests_Block</class>
+            </contests>
+        </blocks>
+		
+		<resources>
+			<contests_setup>
+				<setup>
+					<module>FactoryX_Contests</module>
+					<class>FactoryX_Contests_Model_Resource_Mysql4_Setup</class>
+				</setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>				
+			</contests_setup>
+            <contests_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </contests_write>
+            <contests_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </contests_read>
+        </resources>
+		
+		<helpers>
+			<contests>
+                <class>FactoryX_Contests_Helper</class>
+            </contests>
+        </helpers>
+		
+		<default>
+			<contests>
+				<options>
+					<allow_duplicate_referrals>yes</allow_duplicate_referrals>
+				</options>
+			</contests>
+	   </default>
+		
+		
+		<template>
+			<email>
+				<contests_options_template translate="label" module="contests">
+					<label>Contests Email</label>
+					<file>factoryx/contests.html</file>
+					<type>html</type>
+				</contests_options_template>
+                <contest_confirmation_template translate="label" module="contests">
+                    <label>Contests Confirmation Email</label>
+                    <file>factoryx/contests_confirmation.html</file>
+                    <type>html</type>
+                </contest_confirmation_template>
+			</email>
+		</template>
+
+	</global>
+
+    <default>
+        <!-- Required for the in built Magento Captcha -->
+        <captcha>
+            <frontend>
+                <areas>
+                    <contests>
+                        <label>Contest Page</label>
+                    </contests>
+                </areas>
+            </frontend>
+        </captcha>
+        <customer>
+            <captcha>
+                <always_for>
+                    <contests>1</contests>
+                </always_for>
+            </captcha>
+        </customer>
+        <contests>
+            <options>
+                <cron_expr>*/5 * * * *</cron_expr>
+                <redirect_timeout>10</redirect_timeout>
+                <location_options>Australian Capital Territory,New South Wales,Northern Territory,Queensland,South Australia,Tasmania,Victoria,Western Australia,New Zealand,Other</location_options>
+            </options>
+        </contests>
+    </default>
+	
+	<crontab> 
+		<jobs> 
+			<factoryx_contests_toggle>
+				<schedule>
+                    <config_path>contests/options/cron_expr</config_path>
+				</schedule>
+				<run>
+					<model>contests/observer::toggleContests</model>
+				</run>
+			</factoryx_contests_toggle>
+		</jobs> 
+	</crontab>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_Contests/>
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>

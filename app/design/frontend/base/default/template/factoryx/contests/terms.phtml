@@ -1,0 +1,18 @@
+<div id="terms-div">
+	<h1><?php echo $this->__("%s - Terms and Conditions", $this->getCurrentContestTitle()) ?></h1>
+	<div>
+		<?php $terms = $this->getCurrentContestTerms(); ?>
+		
+		<?php if (!is_array($terms) && $terms == ''): ?> 	
+			<?php echo $this->__('No terms and conditions have been specified for this contest'); ?>
+		<?php elseif (is_array($terms)): ?>
+			<ol>
+				<?php foreach ($terms as $term): ?>
+					<li><?php echo $term; ?></li>
+				<?php endforeach; ?>
+			</ol>
+		<?php else: ?>
+			<?php echo nl2br($terms); ?>
+		<?php endif; ?>
+	</div>
+</div>

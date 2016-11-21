@@ -1,0 +1,16 @@
+html{
+	overflow:hidden;
+	padding:0 !important;margin:0 !important;
+}
+body{
+	max-width: 810px;
+	min-width: 810px;
+	padding:0 !important;margin:0 !important;
+}
+img{
+	max-width: 810px;
+}
+.row {
+    margin-left: -5px;
+    margin-right: -5px;
+}

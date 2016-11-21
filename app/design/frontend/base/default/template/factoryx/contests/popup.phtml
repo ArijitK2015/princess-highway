@@ -1,0 +1,252 @@
+<?php
+if (!Mage::app()->isSingleStoreMode())
+{
+	$storeCode = Mage::app()->getStore()->getCode();
+	$storeId = Mage::app()->getStore()->getId();
+}
+else
+{
+	$storeCode = "";
+	$storeId = "";
+}
+?>
+<?php if ($this->hasPopupContest($storeId)): ?>
+	<?php
+	$popupImg = $this->getPopupImage();
+	$popupType = $this->getPopupType();
+	$relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+	$imagePath = sprintf("%s/contest%s", Mage::getBaseDir('media'), $popupImg);
+	$imageUrl = sprintf("%s/contest%s", $relMediaPath, $popupImg);
+
+	// Generate the background
+	$imageObj = new Varien_Image($imagePath);
+	$width = $imageObj->getOriginalWidth();
+	$height = $imageObj->getOriginalHeight();
+	?>
+	<script type="text/javascript">
+		var link = document.createElement('link');
+		link.rel = "stylesheet";
+		link.type = "type/css";
+		link.href = "<?php echo $this->getSkinUrl('css/factoryx/contests/styles.css') ?>";
+		document.head.appendChild(link);
+	</script>
+	<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') . 'lib/jquery/jquery-ui.min.js'; ?>"></script>
+	<div id="popup" style="display: none;">
+		<?php if ($popupType == "link"): ?>
+			<a href="<?php echo Mage::getUrl($this->getPopupIdentifier()); ?>">
+				<div id="popup-link"></div>
+			</a>
+		<?php else: ?>
+			<form id="contests-popup-form">
+				<input type="hidden" value="<?php echo $this->getPopupContestId(); ?>" id="contests-popup-id" />
+				<div class="name">
+					<input type="text" placeholder="<?php echo $this->__('Name'); ?>" class="required-entry" id="contests-popup-name" />
+				</div>
+				<div class="email">
+					<input type="text" placeholder="<?php echo $this->__('Email'); ?>" class="required-entry validate-email" id="contests-popup-email" />
+				</div>
+				<div class="button-set">
+					<input type="submit" id="contests-popup-button" value="<?php echo $this->__('Enter'); ?>" />
+				</div>
+			</form>
+		<?php endif; ?>
+	</div>
+	<script type="text/javascript">
+		// Expiry Date
+		var expDate = new Date();
+		expDate.setDate(expDate.getDate() + 60);
+		// Past Date used to erase cookies (notice the -1)
+		var eraseDate = new Date();
+		eraseDate.setTime(eraseDate.getTime()+(-1*24*60*60*1000));
+		// Test if iPad or another touchscreen device
+		if ("ontouchstart" in window || "ontouch" in window)
+		{
+			// Bind the click event to hide the popup on contest page
+			jQuery('#popup').find('a').bind('touchstart',function(){
+				Mage.Cookies.set("hasOpened-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+				window.location = jQuery(this).attr('href');
+			});
+		}
+		else
+		// If it's a normal browser
+		{
+			// Bind the click event to hide the popup on contest page
+			jQuery('#popup').find('a').bind('click',function(){
+				Mage.Cookies.set("hasOpened-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+			});
+		}
+		// If the contest popup has got referer limitations
+		<?php if ($referersLimitation = $this->getReferersLimitation()): ?>
+		// We first check if the http referer key is set in the server array
+		<?php if (array_key_exists('HTTP_REFERER',$_SERVER)): ?>
+		// We parse the url to get the referer host/domain
+		<?php $refererInfo = parse_url($_SERVER['HTTP_REFERER']); ?>
+		// We loop through the popup limitations
+		<?php foreach ($referersLimitation as $refererLimitation): ?>
+		// And check if the referer host contains one of the referer limitation
+		<?php if ($refererInfo && strpos($refererInfo['host'], $refererLimitation) !== FALSE): ?>
+		// If the cookie is present, the popup is showed
+		if(!Mage.Cookies.get("hasSubscribed-<?php echo $this->getPopupContestId(); ?>") && !Mage.Cookies.get("hasRefused-<?php echo $this->getPopupContestId(); ?>"))
+		{
+			jQuery(document).ready(
+				function(){
+					// If the customer has just opened the contest page we hide the popup and remove the related cookie
+					if (Mage.Cookies.get("hasOpened-<?php echo $this->getPopupContestId(); ?>"))
+					{
+						Mage.Cookies.set("hasOpened-<?php echo $this->getPopupContestId(); ?>", "", eraseDate);
+					}
+					else
+					{
+						jQuery("#popup").dialog({
+							dialogClass: "contest-popup",
+							<?php if ($height): ?>
+							height: <?php echo $height;?>,
+							<?php endif; ?>
+							<?php if ($width): ?>
+							width: <?php echo $width ?>,
+							<?php endif; ?>
+							close: function (event, ui) {
+								Mage.Cookies.set("hasRefused-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+							}
+						}).show();
+					}
+				}
+			);
+		}
+		<?php break; ?>
+		<?php endif; ?>
+		<?php endforeach; ?>
+		<?php endif; ?>
+		<?php else: ?>
+		// If the cookie is present, the popup is showed
+		if(!Mage.Cookies.get("hasSubscribed-<?php echo $this->getPopupContestId(); ?>") && !Mage.Cookies.get("hasRefused-<?php echo $this->getPopupContestId(); ?>"))
+		{
+			jQuery(document).ready(
+				function(){
+					// If the customer has just opened the contest page we hide the popup and remove the related cookie
+					if (Mage.Cookies.get("hasOpened-<?php echo $this->getPopupContestId(); ?>"))
+					{
+						Mage.Cookies.set("hasOpened-<?php echo $this->getPopupContestId(); ?>", "", eraseDate);
+					}
+					else
+					{
+						jQuery("#popup").dialog({
+							dialogClass: "contest-popup",
+							<?php if ($height): ?>
+							height: <?php echo $height;?>,
+							<?php endif; ?>
+							<?php if ($width): ?>
+							width: <?php echo $width ?>,
+							<?php endif; ?>
+							close: function (event, ui) {
+								Mage.Cookies.set("hasRefused-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+							}
+
+						}).show();
+					}
+				}
+			);
+		}
+		<?php endif; ?>
+
+		<?php if ($popupType == "form"): ?>
+
+			function clearContestPopup()
+			{
+				var formHtml = '<form id="contests-popup-form">';
+				formHtml += '<input type="hidden" value="<?php echo $this->getPopupContestId(); ?>" id="contests-popup-id" />';
+				formHtml += '<div class="name"><input type="text" placeholder="<?php echo $this->__('Name'); ?>" class="required-entry" id="contests-popup-name" /></div>';
+				formHtml += '<div class="email"><input type="text" placeholder="<?php echo $this->__('Email'); ?>" class="required-entry validate-email" id="contests-popup-email" /></div>';
+				formHtml += '<div class="button-set"><input type="submit" id="contests-popup-button" value="<?php echo $this->__('Enter'); ?>" /></div>';
+				formHtml += '</form>';
+
+				jQuery('#popup').html(formHtml);
+			}
+
+			jQuery('#contests-popup-button').click(function(event) {
+
+				var base_url = '<?php echo Mage::getBaseUrl()?>';
+				if (location.protocol == 'https:') {
+					base_url = "<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+				}
+
+				// validate using prototype validation
+				var valid = new Validation('contests-popup-form');
+				var result = valid.validate();
+				if (!result) {
+					return result;
+				}
+
+				var email = jQuery("#contests-popup-email").val();
+				var contestsId = jQuery('#contests-popup-id').val();
+				var name = jQuery('#contests-popup-name').val();
+
+				jQuery('#popup').html('Please wait while we subscribe your email...');
+				jQuery.ajax( {
+					url : base_url + "contests/index/popup",
+					dataType : 'json',
+					type : 'post',
+					data : {
+						"email": email,
+						"contest_id": contestsId,
+						"name": name
+					},
+					success : function(data) {
+						if (data.status == "success") {
+							jQuery('#popup').html(data.message);
+							Mage.Cookies.set("hasRefused-<?php echo $this->getPopupContestId(); ?>", true, expDate);
+						} else {
+							var btnReturn = "<button type='button' onclick='clearContestPopup();'>Return</button>"
+							jQuery('#popup').html(data.message + btnReturn);
+						}
+					}
+				});
+			});
+		<?php endif; ?>
+	</script>
+	<style type="text/css">
+		.contest-popup{
+			background:url('<?php echo $imageUrl; ?>') white center center no-repeat;
+			-webkit-box-shadow: 0 0 40px 10px #4e4e4e;
+			-moz-box-shadow: 0 0 40px 10px #4e4e4e;
+			box-shadow: 0 0 40px 10px #4e4e4e;
+		}
+
+		#popup{
+			padding-top: 120px;
+		}
+		#popup form .name,
+		#popup form .email{
+			float:left;
+			width:40%;
+		}
+		#popup form .button-set{
+			float:left;
+			width: 20%;
+		}
+		#popup div {
+			padding-left:5px;
+		}
+		#popup input[type="submit"] {
+			background-color: #000;
+			border: medium none;
+			color: #fff;
+			font-weight: bold;
+			height: 30px;
+			padding: 0 8px;
+			text-align: center;
+			text-transform: capitalize;
+		}
+
+		@media all and (max-width: 640px)
+		{
+			.contest-popup {
+			<?php if ($height && $width): ?>
+				width: 100% !important;
+				height:<?php echo ceil($height/($width/320))?>px !important;
+				background-size:320px <?php echo ceil($height/($width/320))?>px !important;
+			<?php endif; ?>
+			}
+		}
+	</style>
+<?php endif; ?>

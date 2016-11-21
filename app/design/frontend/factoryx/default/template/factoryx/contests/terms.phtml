@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-times"></i><?php else: echo $this->__('Close'); endif; ?></button>
+    <h4 class="modal-title"><?php echo $this->__("%s - Terms and Conditions", $this->getCurrentContestTitle()) ?></h4>
+</div>
+<div class="modal-body">
+    <div>
+        <?php $terms = $this->getCurrentContestTerms(); ?>
+
+        <?php if (!is_array($terms) && $terms == ''): ?>
+            <?php echo $this->__('No terms and conditions have been specified for this contest'); ?>
+        <?php elseif (is_array($terms)): ?>
+            <ol>
+                <?php foreach ($terms as $term): ?>
+                    <li><?php echo $term; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <?php echo nl2br($terms); ?>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-times"></i><?php else: echo $this->__('Close'); endif; ?></button>
+</div>

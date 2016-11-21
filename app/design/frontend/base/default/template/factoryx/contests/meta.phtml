@@ -1,0 +1,7 @@
+<?php if($_contest = $this->getContest()):?>
+    <meta property="og:title" content="<?php echo htmlspecialchars($_contest->getTitle()) ?>"/>
+    <meta property="og:url" content="<?php echo Mage::helper('core/url')->getCurrentUrl() ?>"/>
+    <meta property="og:image" content="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . substr($_contest->getImageUrl(),1) ?>"/>
+    <meta property="og:description" content="<?php echo htmlspecialchars(strip_tags($_contest->getTitle())) ?>"/>
+    <meta property="og:type" content="website"/>
+<?php endif; ?>
