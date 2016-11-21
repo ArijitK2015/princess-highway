@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_BirthdayGift>
+            <version>0.7.3</version>
+        </FactoryX_BirthdayGift>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_BirthdayGift before="Mage_Adminhtml">FactoryX_BirthdayGift_Adminhtml</FactoryX_BirthdayGift>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+	<frontend>
+		<!-- Translation file -->
+		<translate>
+            <modules>
+                <FactoryX_BirthdayGift>
+                    <files>
+                        <default>FactoryX_BirthdayGift.csv</default>
+                    </files>
+                </FactoryX_BirthdayGift>
+            </modules>
+        </translate>
+	</frontend>
+
+	<adminhtml>
+		<!-- Backend translation file -->
+        <translate>
+            <modules>
+                <FactoryX_BirthdayGift>
+                    <files>
+                        <default>FactoryX_BirthdayGift.csv</default>
+                    </files>
+                </FactoryX_BirthdayGift>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <global>
+		<blocks>
+            <birthdaygift>
+                <class>FactoryX_BirthdayGift_Block</class>
+            </birthdaygift>
+        </blocks>
+		<helpers>
+            <birthdaygift>
+                <class>FactoryX_BirthdayGift_Helper</class>
+            </birthdaygift>
+        </helpers>
+        <models>
+        	<birthdaygift>
+        		<class>FactoryX_BirthdayGift_Model</class>
+        	</birthdaygift>
+        </models>
+        <template>
+            <email>
+                <bdayconfig_options_template translate="label" module="birthdaygift">
+                    <label>Birthday Gift Template</label>
+                    <file>factoryx/birthdaygift/customer_birthday.html</file>
+                    <type>html</type>
+                </bdayconfig_options_template>
+            </email>
+        </template>
+        <resources>
+            <birthdaygift_setup>
+                <setup>
+                    <module>FactoryX_BirthdayGift</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </birthdaygift_setup>
+            <birthdaygift_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </birthdaygift_write>
+            <birthdaygift_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </birthdaygift_read>
+        </resources>
+    </global>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_BirthdayGift/>
+            </modules>
+        </suite>
+    </phpunit>
+
+    <crontab>
+		<jobs>
+			<factoryx_birthdaygift_send>
+                <schedule>
+                    <config_path>bdayconfig/options/cron_expr</config_path>
+                </schedule>
+				<run>
+					<model>birthdaygift/observer::sendBirthdayEmail</model>
+				</run>
+			</factoryx_birthdaygift_send>
+		</jobs>
+	</crontab>
+
+    <default>
+        <bdayconfig>
+            <options>
+                <enable>0</enable>
+                <cron_expr>0 2 * * *</cron_expr>
+                <template>bdayconfig_options_template</template>
+            </options>
+            <coupon>
+                <label>Happy Birthday</label>
+                <prefix>bday</prefix>
+                <length>7</length>                
+                <type>by_percent</type>
+                <value>10</value>
+                <customer_groups>0,1,2,3</customer_groups>                
+                <uses_coupon>1</uses_coupon>
+                <uses_customer>1</uses_customer>
+                <valid>14</valid>
+                <date_format>D \t\h\e jS \o\f F Y</date_format>
+                <exclude_sku>gift</exclude_sku>
+                <exclude_sale>1</exclude_sale>
+            </coupon>
+        </bdayconfig>
+    </default>
+
+</config>

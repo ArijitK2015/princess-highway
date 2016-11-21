@@ -1,0 +1,41 @@
+<!--@subject Happy Birthday{{var firstname}}! @-->
+<!--@vars{
+"var bday_code_to_date":"x",
+"var bday_code_valid_for":"x"
+}@-->
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="action-content">
+            			<h1>Dear {{var firstname}},</h1>
+
+            			<p>We know it's your Birthday and we would love to give you a little something.</p>
+
+            			<p>Simply enter the code <b>{{var bday_code}}</b> in the discount section of the shopping cart to receive your discount.</p>
+
+            			<h3>Terms and Conditions</h3>
+            			<ul>
+                            <li>Not to be used in conjunction with any other offer</li>
+                            <li>Only applies to full price merchandise</li>
+
+                            {{depend bday_code_valid_for}}
+                			    <li>the coupon is valid for {{var bday_code_valid_for}}</li>
+                			{{depend}}
+                			
+                			{{depend bday_code_to_date}}
+                                <li>the coupon expires on the {{var bday_code_to_date}}</li>
+                            {{/depend}}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

@@ -1,0 +1,6 @@
+app/code/local/FactoryX/BirthdayGift
+app/etc/modules/FactoryX_BirthdayGift.xml
+app/design/adminhtml/default/default/template/factoryx/birthdaygift
+app/locale/en_AU/FactoryX_BirthdayGift.csv
+app/locale/en_AU/template/email/factoryx/birthdaygift
+shell/bday.php

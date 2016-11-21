@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <factoryx translate="label" module="birthdaygift">
+            <label>Factory X</label>
+            <sort_order>101</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <bdayconfig translate="label" module="birthdaygift">
+            <label>Birthday Gift</label>
+            <tab>factoryx</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <options translate="label">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable Birthday Gift Emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-emailSender</validate>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name>
+                        <email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-email</validate>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email>
+                        <template translate="label">
+                            <label>Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                        <dryrun translate="label">
+                            <label>Dry Run</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Setting this parameter to Yes will log all the email addresses supposed to receive a notification into the var/log/factoryx_birthdaygift.log file and will not send the real email notification</comment>
+                        </dryrun>
+                        <testemail translate="label">
+                            <label>Test Email</label>
+                            <validate>validate-email</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>With dry run set to yes, this email is used to filter the emails supposed to be sent and the module only logs the information of the related customer if today is his/her birthday.</comment>
+                        </testemail>
+                        <send translate="label">
+                            <label>Send Notifications Now</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>birthdaygift/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </send>
+                        <cron_expr translate="label">
+                            <label>Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_expr>
+                    </fields>
+                </options>
+                <coupon translate="label">
+                    <label>Coupon Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <label translate="label">
+                            <label>Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </label>
+                        <prefix translate="label">
+                            <label>Coupon Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </prefix>
+                        <length translate="label">
+                            <label>Coupon Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[the random part after the prefix e.g. prefix_XXXXX]]></comment>
+                        </length>
+                        <type translate="label">
+                            <label>Coupon Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>birthdaygift/system_config_source_salesRuleType</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </type>
+                        <value translate="label">
+                            <label>Coupon Value</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </value>
+                        <customer_groups translate="label">
+                            <label>Customer Groups Restriction</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <!--
+                            see class notes
+                            <source_model>adminhtml/system_config_source_customer_group_multiselect</source_model>
+                            -->
+                            <source_model>birthdaygift/system_config_source_groupCollection</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_groups>
+                        <uses_coupon translate="label">
+                            <label>Number of uses per coupon</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </uses_coupon>
+                        <uses_customer translate="label">
+                            <label>Number of uses per customer</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[only applicable if 'Customer Groups Restriction' 'NOT LOGGED IN' is unselected]]></comment>
+                        </uses_customer>
+                        <valid translate="label">
+                            <label>Valid for (days)</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </valid>
+                        <date_format translate="label">
+                            <label>Date Format</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>71</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[see php function date(), note. you must escape plain text e.g. \t\h\e \y\e\a\r \i\s Y, default value is D \t\h\e jS \o\f F Y]]></comment>
+                        </date_format>
+                        <exclude_sku translate="label">
+                            <label>Exclude terms in SKU's</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[comma delimited list of terms used to exclude a list of SKU's]]></comment>
+                        </exclude_sku>
+                        <exclude_sale translate="label">
+                            <label>Exclude Sale Items</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </exclude_sale>
+                        <restrict translate="label">
+                            <label>Restrict Coupon to Customer Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </restrict>
+                    </fields>
+                </coupon>
+                <campaignmonitor translate="label">
+                    <label>Campaign Monitor</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                           <label>Include Campaign Monitor Subscribers</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>10</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                        </enabled>
+                        <segmentID translate="label comment">
+                           <label>Campaign Monitor Segment ID</label>
+                           <frontend_type>text</frontend_type>
+                           <sort_order>20</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <comment><![CDATA[use a CM segment to check the custom field containing the DOB (see field condition 'is provided')]]></comment>
+                        </segmentID>
+                    </fields>
+                </campaignmonitor>
+            </groups>
+        </bdayconfig>
+    </sections>
+</config>
