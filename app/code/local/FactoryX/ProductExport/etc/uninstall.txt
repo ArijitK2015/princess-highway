@@ -1,0 +1,2 @@
+app/code/local/FactoryX/ProductExport
+app/etc/modules/FactoryX_ProductExport.xml
