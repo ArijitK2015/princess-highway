@@ -1,0 +1,76 @@
+<?php
+$params = $this->getParams();
+$helper = Mage::helper('merchandising');
+?>
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?=$this->__('Manage Merchandising') ?></h3></td>
+            <td class="a-right">
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <!-- todo check if there is more than 1 store -->
+    <h4 class="icon-head head-edit-form fieldset-legend"><?=$this->__('Please select a store to merchandise')?></h4>
+    <fieldset id="my-fieldset">
+    <?php
+    $stores = array();
+    foreach (Mage::app()->getWebsites() as $website) {
+        foreach ($website->getGroups() as $group) {
+            $stores = $group->getStores();
+            foreach ($stores as $store) {
+                //$store is a store object
+                echo sprintf("<input type='radio' name='store' value='%d'>&nbsp;%s [%s]<br/>", $store->getId(), $website->getName(), $store->getName());
+            }
+        }
+    }
+    ?>
+    </fieldset>
+    
+    <h4 class="icon-head head-edit-form fieldset-legend"><?=$this->__('Please select a category to merchandise')?></h4>
+    <fieldset id="my-fieldset">
+    <form id="view_form" action="<?=Mage::helper("adminhtml")->getUrl('*/*/view')?>" method="POST">
+        <?php
+        $currentLevel = 1;
+        $maxLevel = 10;
+        $output = "";
+        foreach (Mage::app()->getWebsites() as $website) {
+            foreach ($website->getGroups() as $group) {
+                $stores = $group->getStores();
+                foreach ($stores as $store) {
+                    $rootCatId = Mage::app()->getStore($store->getId())->getRootCategoryId();
+                    //echo sprintf("%d: %d<br/>", $store->getId(), $rootCatId);
+                    // FactoryX_ImageCdn_Model_Catalog_Category
+                    $rootCategory = Mage::getModel('catalog/category')->load($rootCatId);
+                    //echo sprintf("rootCategory=%s,currentLevel=%s,maxLevel=%s<br/>", $rootCategory->getName(), $currentLevel, $maxLevel);
+                    $cats = $helper->renderChildren($rootCategory, $currentLevel, $maxLevel, $output);
+                    echo sprintf("<div style='display:none;' id='storeCat%d' class='storeCats'>%s</div>\n", $store->getId(), $cats);
+                }
+            }
+        }
+        ?>
+        <input type="hidden" name="store_id" id="store_id" value=""/>
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="cat_id" type="hidden" id="cat_id" />
+    </form>
+</fieldset>
+<script>
+jQuery('#my-fieldset > input[type="radio"]').click(function(){
+    var store = jQuery('input[name=store]:checked').val();
+    console.log("show:" + store);
+    // hide all cats
+    jQuery(".storeCats").hide();
+    // show cats for store
+    jQuery("#storeCat" + store).show();
+});       
+        
+jQuery('#view_form .category').click(function() {
+    jQuery('#view_form #cat_id').attr('value', jQuery(this).attr('cat_id'));
+    jQuery('#view_form').submit();
+});
+</script>
+<style>
+#view_form .category {cursor: pointer;line-height:20px;text-transform:uppercase;}
+</style>

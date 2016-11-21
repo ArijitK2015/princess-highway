@@ -1,0 +1,114 @@
+<?php
+$originalStore = Mage::app()->getStore();
+$indexURL = Mage::helper("adminhtml")->getUrl('*/*/index');
+$saveURL = Mage::helper("adminhtml")->getUrl('*/*/save');
+$products = $this->getData('products');
+$category = $this->getData('category');
+$cat_id = $category->getId();
+
+$height = $this->getData('height');
+$width = $this->getData('width');
+?>
+
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?=$this->__('Merchandise ').$category->getName()?></h3></td>
+            <td class="a-right">
+               <button onclick="window.location='<?=$indexURL?>'" class="scalable back" type="button"><span>Back to Category List</span></button>
+               <button onclick="showOutOfStock()" class="scalable show-out-of-stock" type="button" id="show-out-of-stock"  style="display:none;"><span>Show Out-of-stock Products</span></button>
+               <button onclick="hideOutOfStock()" class="scalable hide-out-of-stock" type="button" id="hide-out-of-stock"><span>Hide Out-of-stock Products</span></button>               
+               <button onclick="submitMerchandising()" class="scalable save" type="button"><span>Finish Merchandising</span></button>
+               
+            </td>
+        </tr>
+    </table>
+</div>
+    <ul class="sortable">
+    <?php
+$simple_products = array();
+$nonexist_products = array();
+$_product_image = array();
+
+foreach($products as $_product)
+{
+    if (($_product["type_id"] != 'simple') ||
+        (($_product["type_id"] == 'simple') && ( $_product["visibility"] != 1 )))
+    {
+        $price = $_product["price"];
+        if ($_product["special_price"] !=0 )
+        {
+            $fPrice = $_product["special_price"];
+        }
+        else
+        {
+            $fPrice = $price;
+        }
+        ?>
+
+        <li class="isotopey enable <?php echo ($_product["stock_status"] == 1) ? "in-stock" : "out-of-stock"?>" id="<?php echo $_product["entity_id"]?>">
+            <?php
+            try{
+                $img = $this->helper('catalog/image')->init($_product,'small_image')->resize($width,$height);
+                ?>
+                <img src="<?php echo $img ?>" />
+            <?php
+            } catch (Exception $e){
+                echo "<div style='height:".$height."px;font-weight:bold;text-transform:uppercase;'>No image available</div>";
+            }
+            ?>
+            <div class="prod_name"><?php echo $_product["name"]?></div>
+            <div class="prod_sku"><?php echo $_product["sku"]?></div>
+            <?php if ($price == $fPrice):?>
+                <div class="prod_price">
+                    <?php echo number_format((float)$price, 2, '.', '')?>
+                </div>
+            <?php else: ?>
+                <div class="prod_price">
+                        <span style="text-decoration: line-through">
+                            <?php echo number_format((float)$price, 2, '.', '')?>
+                        </span>
+                        <span style="color:red">
+                            <?php echo number_format((float)$fPrice, 2, '.', '')?>
+                        </span>
+                </div>
+            <?php endif; ?>
+        </li>
+    <?php } else {
+        $simple_products[] = array(
+            'id' => $_product["product_id"],
+            'name' => $_product["name"]
+        );
+    }
+}
+?>
+    </ul>
+</div>
+<form id="pos_form" action="<?php echo $saveURL?>" method="POST">
+    <input type="hidden" name="prod" id="prod_data" />
+    <input type="hidden" name="cat_id" value="<?php echo $cat_id?>" />
+    <input type="hidden" name="invalid_ids" value='<?php echo serialize($nonexist_products)?>' />
+    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+</form>
+<div>
+    <p>Warning for developers: </p>
+    <textarea rows="5" cols="100">
+        <?php echo count($simple_products)?> simples products which are not visible individually are found in this category
+        <?php
+        foreach($simple_products as $simple_product)
+        {
+            echo $simple_product["id"].", ".$simple_product["name"];
+        }
+        ?>
+        <?php echo count($nonexist_products)?> not-exist-anymore products in this category
+        <?php
+        foreach($nonexist_products as $nonexist_product){
+            echo $nonexist_product;
+        }
+        ?>
+      </textarea>
+</div>
+<?php Mage::app()->setCurrentStore($originalStore->getId()); ?>
+<script type="text/javascript">
+    jQuery("head link[rel='stylesheet']").last().after("<style type='text/css'>ul.sortable li {width: <?php echo ($width+20)?>px;height: <?php echo ($height+90)?>px;}</style>");
+</script>

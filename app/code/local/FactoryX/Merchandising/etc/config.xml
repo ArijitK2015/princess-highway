@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_Merchandising>
+            <version>1.0.13</version>
+        </FactoryX_Merchandising>
+    </modules>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_Merchandising before="Mage_Adminhtml">FactoryX_Merchandising_Adminhtml</FactoryX_Merchandising>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <merchandising module="FactoryX_Merchandising">
+                    <file>factoryx/merchandising.xml</file>
+                </merchandising>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <global>
+
+        <helpers>
+            <merchandising>
+                <class>FactoryX_Merchandising_Helper</class>
+            </merchandising>
+        </helpers>
+
+
+    </global>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_Merchandising/>
+            </modules>
+        </suite>
+    </phpunit>
+
+    <default>
+        <merchandising>
+            <imagesize>
+                <width>150</width>
+                <height>200</height>
+            </imagesize>
+        </merchandising>
+    </default>
+
+</config>

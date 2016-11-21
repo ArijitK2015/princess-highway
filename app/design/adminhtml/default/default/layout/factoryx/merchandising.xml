@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_merchandising_index>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Manage Merchandising</title></action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/jquery-1.10.2.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/noconflict.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/jquery-ui.min.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="merchandising" template="factoryx/merchandising/index.phtml" />
+        </reference>
+    </adminhtml_merchandising_index>
+    <adminhtml_merchandising_view>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Manage Merchandising</title></action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/jquery-1.10.2.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/noconflict.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/jquery-ui.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/merchandising/isotope.pkgd.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/merchandising/styles.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/factoryx/merchandising/script.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="merchandising" template="factoryx/merchandising/view.phtml" />
+        </reference>
+    </adminhtml_merchandising_view>
+</layout>

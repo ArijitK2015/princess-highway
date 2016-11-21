@@ -1,0 +1,7 @@
+app/code/local/FactoryX/Merchandising
+app/etc/modules/FactoryX_Merchandising.xml
+app/design/adminhtml/default/default/template/factoryx/merchandising
+app/design/adminhtml/default/default/layout/factoryx/merchandising.xml
+skin/adminhtml/default/default/css/factoryx/merchandising
+skin/adminhtml/default/default/js/factoryx/merchandising
+js/lib/factoryx/merchandising
