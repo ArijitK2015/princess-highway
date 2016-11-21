@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<layout>
+	<adminhtml_sales_order_view>
+		<reference name="order_items">
+		    <action method="setTemplate">
+		        <!-- add column headings -->
+				<template>factoryx/consolidated/sales_order_view_items.phtml</template>
+			</action>
+            <action method="addItemRender">
+                <!-- add column data + css class -->
+                <type>default</type>
+                <block>adminhtml/sales_order_view_items_renderer_default</block>
+                <template>factoryx/consolidated/sales_order_view_items_renderer.phtml</template>
+            </action>
+            <!--
+            add columns: online_only + pre_order
+            -->            
+            <action method="addColumnRender">
+                <column>online_only</column>
+                <block>adminhtml/sales_items_column_default</block>
+                <template>factoryx/consolidated/sales_items_column_online_only.phtml</template>
+            </action>
+			<action method="addColumnRender">
+                <column>pre_order</column>
+                <block>adminhtml/sales_items_column_default</block>
+                <template>factoryx/consolidated/sales_items_column_pre_order.phtml</template>
+            </action>
+		</reference>
+	</adminhtml_sales_order_view>
+
+	<adminhtml_sales_order_shipment_new>
+		<reference name="order_items">
+		    <action method="setTemplate">
+		        <!-- add column headings -->
+				<template>factoryx/consolidated/sales_order_shipment_create_items.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <!-- add column data + css class -->
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>factoryx/consolidated/sales_order_shipment_create_items_renderer.phtml</template>
+            </action>
+            <!--
+            add columns: online_only + pre_order
+            -->
+            <action method="addColumnRender">
+                <column>online_only</column>
+                <block>adminhtml/sales_items_column_default</block>
+                <template>factoryx/consolidated/sales_items_column_online_only.phtml</template>
+            </action>
+			<action method="addColumnRender">
+                <column>pre_order</column>
+                <block>adminhtml/sales_items_column_default</block>
+                <template>factoryx/consolidated/sales_items_column_pre_order.phtml</template>
+            </action>
+		</reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/factoryx/consolidated/script.js</name>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+</layout>

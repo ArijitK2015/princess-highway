@@ -1,0 +1,5 @@
+app/code/local/FactoryX/Consolidated
+app/etc/modules/FactoryX_Consolidated.xml
+app/design/adminhtml/default/default/template/factoryx/consolidated
+app/design/adminhtml/default/default/layout/factoryx/consolidated.xml
+skin/adminhtml/default/default/js/factoryx/consolidated

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Consolidated>
+            <active>true</active>
+            <codePool>local</codePool>
+            <!--
+            <depends>
+            </depends>
+            -->
+        </FactoryX_Consolidated>
+    </modules>
+</config>

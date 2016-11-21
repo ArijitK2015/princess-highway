@@ -1,0 +1,160 @@
+<?php
+/**
+
+ */
+class FactoryX_Consolidated_Model_Observer {
+
+    /**
+     * beforeBlockToHtml
+     *
+     * shippedfrom_add_column_to_grid
+     *
+     * @param Varien_Event_Observer $observer
+     * @internal param $ (type) (name) about this param
+     */
+    public function beforeBlockToHtml(Varien_Event_Observer $observer) {
+
+        //$_block = $observer->getBlock();
+        $_block = $observer->getEvent()->getBlock();
+        if (!isset($_block)) return;
+
+        // Mage_Adminhtml_Block_Sales_Shipment_Grid
+        if (
+            $_block instanceof Mage_Adminhtml_Block_Catalog_Product_Grid
+            ||
+            $_block instanceof Mage_Adminhtml_Block_Catalog_Category_Tab_Product
+        ) {
+            //Mage::helper('fxcons')->log(sprintf("%s->grid=%s", __METHOD__, get_class($_block)) );
+            $afterColumnCode = 'sku';
+            if (Mage::getStoreConfigFlag('fxcons/options/show_on_grid')) {
+        		$_block->addColumnAfter(
+        		    'fx_cons_location', // column_code
+        		    array(
+                        'header'    => Mage::helper('fxcons')->__("Item Location"),
+                        'filter_index'     => 'fx_cons_location',
+                        'index'     => 'fx_cons_location',
+                        'type'      => 'text',
+                        'width'     => '50px',
+                        'align'     => 'right',
+                        // 'renderer'  => new MyRenderer(),
+                        //'filter'    => false,
+                        'sortable'      => false,
+        			    'filter_condition_callback' => array('FactoryX_Consolidated_Model_Observer', '_filterCallback')
+        			    //'filter_condition_callback' => array($_block, '_filterCallback')
+                    ),
+                    $afterColumnCode
+                );
+                $_block->sortColumnsByOrder();
+                $afterColumnCode = 'fx_cons_location';
+            }
+        }
+    }
+
+    /**
+     * _filterConsLocationConditionCallback
+     *
+     * @param Mage_Sales_Model_Resource_Order_Shipment_Grid_Collection $collection
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this $collection
+     */
+    protected function _filterCallback($collection, $column) {
+        Mage::helper('fxcons')->log(sprintf("%s->column=%s", __METHOD__, get_class($column, true)) );
+        /*
+        $collection = $observer->getCollection();
+        Mage::helper('fxcons')->log(sprintf("%s->collection=%s", __METHOD__, get_class($collection)) );
+        if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        if (empty($value) || preg_match("/null/i", $value)) {
+            $collection->getSelect()->where("main_table.fx_cons_location IS NULL");
+        }
+        else {
+            $collection->getSelect()->where(sprintf("main_table.fx_cons_location = '%s'", $value));
+        }
+        Mage::helper('fxcons')->log(sprintf("%s->sql=%s", __METHOD__, $collection->getSelect()->__toString()) );
+        return $this;
+        */
+    }
+
+    /**
+     * beforeCollectionLoad
+     *
+     *
+     * @param Varien_Event_Observer $observer
+     * @internal param $ (type) (name) about this param
+     */
+    public function beforeCollectionLoad(Varien_Event_Observer $observer) {
+        //Mage::helper('fxcons')->log(sprintf("%s", __METHOD__) );
+        $collection = $observer->getCollection();
+        if (!isset($collection)) return;
+
+        Mage::helper('fxcons')->log(sprintf("%s->collection=%s", __METHOD__, get_class($collection)) );
+        if ($collection instanceof Mage_Catalog_Model_Resource_Product_Collection) {
+            //$collection->addAttributeToSelect(array('fx_cons_location'), 'inner');
+            //$collection->addFieldToSelect('fx_cons_location');
+            $collection->addAttributeToSelect('fx_cons_location');
+            //$collection->addExpressionAttributeToSelect('fx_cons_location', '...Some SQL goes here...');
+            //Mage::helper('fxcons')->log(sprintf("%s->sql=%s", __METHOD__, $collection->getSelect()->__toString()) );
+        }
+    }
+
+
+    /**
+    copies attribute val from product to quote item
+
+    @param $observer Varien_Event_Observer
+    */
+	public function salesQuoteItemSetAttribute($observer) {
+
+		if (Mage::helper('fxcons')->isEnabled())
+		{
+			/* @var $eavConfig Mage_Eav_Model_Config */
+			$eavConfig = Mage::getModel('eav/config');
+
+			/* @var $quoteItem Mage_Sales_Model_Quote_Item */
+			$quoteItem = $observer->getQuoteItem();
+
+			/* @var $product Mage_Catalog_Model_Product */
+			$product = $observer->getProduct();
+			if (!$product || !$product->getSku()) {
+				//Mage::helper('fxcons')->log(sprintf("no product"));
+				return;
+			}
+
+			// Load product
+			$product = Mage::getModel('catalog/product')->load($product->getId());
+
+			$consolidatedAttr = Mage::helper('fxcons')->getConsolidatedAttributes();
+
+			foreach($consolidatedAttr as $attribute)
+			{
+				$attributes = $eavConfig->getEntityAttributeCodes(Mage_Catalog_Model_Product::ENTITY, $product);
+
+				if (in_array($attribute, $attributes))
+				{
+					$val = $product->getData($attribute);
+					$attributes = $eavConfig->getEntityAttributeCodes(Mage_Catalog_Model_Product::ENTITY, $quoteItem);
+					if (in_array($attribute, $attributes))
+					{
+						if ($attribute == "pre_order" && strtotime($product->getData('available_date')) > Mage::getModel('core/date')->timestamp(time()))
+						{
+							$quoteItem->setData($attribute, true);
+						}
+						elseif($attribute != "pre_order")
+						{
+							$quoteItem->setData($attribute, $val);
+						}
+					}
+					else {
+						Mage::helper('fxcons')->log(sprintf("quote item doesn't have attribute '%s'", $attribute), Zend_Log::WARN);
+					}
+				}
+				else {
+					Mage::helper('fxcons')->log(sprintf("product '%s' doesn't have attribute '%s'", $product->getSku(), $attribute), Zend_Log::WARN);
+				}
+			}
+		}
+
+	}
+
+}
