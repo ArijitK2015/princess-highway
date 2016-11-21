@@ -1,0 +1,135 @@
+<?php /** */?>
+<?php if($this->isActive()): ?>
+	<!-- Google Universal Analytics Section start -->
+	<script type="text/javascript">
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', '<?php echo $this->getAccountId(); ?>', '<?php echo $this->getRequest()->getHttpHost() ?>');
+		ga('set', 'anonymizeIp', <?php echo $this->isAnonymizeIp()?>);
+		<?php if($this->isRemarketing()):?>
+		ga('require', 'displayfeatures');
+		<?php endif;?>
+		<?php if($this->isSSL()):?>
+		ga('set', 'forceSSL', true);
+		<?php endif; ?>
+		<?php if($this->isCustomerGroup()):?>
+		ga('set', 'dimension<?php echo $this->getCustomerGroupDimensionId() ?>', '<?php echo $this->getCustomerGroup()?>');
+		<?php endif; ?>
+		<?php if($this->isFirstPurchase() && $this->isEcommerce()): ?>
+		ga('set', 'dimension<?php echo $this->getFirstPurchaseDimensionId() ?>', '<?php echo $this->getOrder()->getCreatedAtDate()?>');
+		<?php endif;?>
+		<?php if($this->isNumberOfPurchase() && $this->isEcommerce()): ?>
+		ga('set', 'metric<?php echo $this->getNumberOfPurchaseMetricId() ?>', '<?php echo $this->getNumberOfOrders()?>');
+		<?php endif;?>
+		<?php if($this->getProduct()): ?>
+			<?php if($this->isPriceTracking()): ?>
+			ga('set', 'metric<?php echo $this->getPriceMetricId() ?>', '<?php echo $this->getProduct()->getFinalPrice() ?>');
+			<?php endif; ?>
+			<?php if($this->isAvailabilityTracking()): ?>
+				ga('set', 'dimension<?php echo $this->getAvailabilityDimensionId() ?>', '<?php echo $this->getProduct()->isSaleable() ? 'Available' : 'Not Available' ?>');
+			<?php endif; ?>
+		<?php endif;?>
+		ga('send', 'pageview');
+		<?php if($this->isEnhancedEcommerceAndCart()): ?>
+		
+			/*************** Add to cart handler ***************/
+			// Retrieve the single product via session
+			<?php $_product = Mage::getModel('core/session')->getProductToShoppingCart() ?>
+			// Retrieve the multiple products via session
+			<?php $_products = Mage::getModel('core/session')->getProductsToShoppingCart(); ?>
+			// If single product is set and multiple products isn't 
+			<?php if ($_product && $_product->getId() && (!$_products || !is_array($_products))): ?>
+				// We add the single product to an array to be able to process it in the loop
+				<?php $_products[$_product->getId()] = $_product; ?>
+				// Delete the session variable
+				<?php Mage::getModel('core/session')->unsProductToShoppingCart(); ?>
+			<?php endif; ?>
+			<?php if (is_array($_products)): ?>
+				// Loop through all products
+				<?php foreach ($_products as $_product): ?>
+					<?php if ($_product && $_product->getId()): ?>
+						// Generate GUA code
+						ga('require', 'ec');
+						ga('ec:addProduct', {
+						  'id': '<?php echo $_product->getId() ?>',
+						  'name': '<?php echo str_replace('\'','', $_product->getName()) ?>',
+						  'category': '<?php echo $_product->getCategory() ?>',
+						  'brand': '',
+						  'variant': '',
+						  'price': '<?php echo $_product->getPrice() ?>',
+						  'quantity': <?php echo (int) $_product->getQty() ?>
+						});
+						// Transaction level information is provided via an actionFieldObject.
+						ga('ec:setAction', 'add');
+						ga('send','event','UX','click','add to cart');
+						<?php 
+							// We use session to store data from cart to checkout (handle category properly)
+							// Case of existing products
+							if (Mage::getModel('core/session')->getGuaCheckout() && is_array(Mage::getModel('core/session')->getGuaCheckout()))
+							{
+								$checkoutGua = Mage::getModel('core/session')->getGuaCheckout();
+								// If the product is already in the object, we just increase its quantity
+								if (array_key_exists($_product->getId(),$checkoutGua))
+								{
+									$_existingProduct = $checkoutGua[$_product->getId()];
+									$_existingProduct->setData('qty',(int) $_existingProduct->getQty() + (int) $_product->getQty());
+									$checkoutGua[$_product->getId()] = $_existingProduct;
+								}
+								// If the product is not part of the object, we add it to the array
+								else
+								{
+									$checkoutGua[$_product->getId()] = $_product;
+								}
+							}
+							else
+							{
+								$checkoutGua[$_product->getId()] = $_product;
+							}
+							Mage::getModel('core/session')->setGuaCheckout($checkoutGua);
+						?>
+					<?php endif; ?>
+				<?php endforeach;?>
+			<?php endif; ?>
+			// Unset the multiple products session variable
+			<?php Mage::getModel('core/session')->unsProductsToShoppingCart(); ?>
+			
+			/*************** Remove from cart handler ***************/
+			// Retrieve the single product via session
+			<?php $_product = Mage::getModel('core/session')->getProductFromShoppingCart() ?>
+			// Retrieve the multiple products via session
+			<?php $_products = Mage::getModel('core/session')->getProductsFromShoppingCart(); ?>
+			// If single product is set and multiple products isn't 
+			<?php if ($_product && $_product->getId() && (!$_products || !is_array($_products))): ?>
+				// We add the single product to an array to be able to process it in the loop
+				<?php $_products[$_product->getId()] = $_product; ?>
+				// Delete the session variable
+				<?php Mage::getModel('core/session')->unsProductFromShoppingCart(); ?>
+			<?php endif; ?>
+			<?php if (is_array($_products)): ?>
+				// Loop through all products
+				<?php foreach ($_products as $_product): ?>
+					<?php if ($_product && $_product->getId()): ?>
+						ga('require', 'ec');
+						ga('ec:addProduct', {
+						  'id': '<?php echo $_product->getId() ?>',
+						  'name': '<?php echo str_replace('\'','', $_product->getName()) ?>',
+						  'category': '<?php echo $_product->getCategory() ?>',
+						  'brand': '',
+						  'variant': '',
+						  'price': '<?php echo $_product->getPrice() ?>',
+						  'quantity': <?php echo (int) $_product->getQty() ?>
+						});
+						// Transaction level information is provided via an actionFieldObject.
+						ga('ec:setAction', 'remove');
+						ga('send','event','UX','click','remove from cart');
+					<?php endif;?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+			<?php Mage::getModel('core/session')->unsProductsFromShoppingCart(); ?>
+		<?php endif;?>
+	</script>
+<?php endif; ?>
+	<!-- Google Universal Analytics Section end -->

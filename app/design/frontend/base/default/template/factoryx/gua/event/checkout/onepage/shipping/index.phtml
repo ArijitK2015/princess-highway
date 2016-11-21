@@ -1,0 +1,67 @@
+<?php if (Mage::getStoreConfigFlag('gua/general/enable')): ?>
+	<!-- Google Universal Analytics Section start -->
+	<script type="text/javascript">
+		<?php if(Mage::getStoreConfigFlag('gua/ecommerce/enableec')): ?>
+			function onShippingComplete(formId) {
+
+				var joForm = document.getElementById(formId);
+				var i;
+				var shippingOption = "";
+
+				ga('require', 'ec');
+				<?php try{
+					$_products = Mage::getModel('core/session')->getGuaCheckout();
+					foreach ($_products as $_product): ?>
+						ga('ec:addProduct', {
+						  'id': '<?php echo $_product->getSku() ?>',
+						  'name': '<?php echo str_replace('\'','', $_product->getName()) ?>',
+						  'category': '<?php echo $_product->getCategory() ?>',
+						  'brand': '',
+						  'variant': '',
+						  'price': '<?php echo $_product->getPrice() ?>',
+						  'quantity': <?php echo (int) $_product->getQty() ?>
+						});
+				<?php endforeach; ?>				
+				<?php
+				}catch (Exception $e)
+				{
+					Mage::helper('factoryx_gua')->log($e->getMessage());
+				}
+				?>
+
+				for (i = 0; i < joForm.elements.length; i++) {
+					if (joForm.elements[i].checked)
+					{
+						switch (joForm.elements[i].value)
+						{
+							case 'tablerate_bestway':
+								shippingOption = "International";
+								break;
+							case 'freeshipping_freeshipping':
+								shippingOption = "Free Parcel (AusPost)";
+								break;
+							case 'flatrate_flatrate':
+								shippingOption = "Express (AusPost)";
+								break;
+							default:
+								if (joForm.elements[i].value.indexOf("temando") == -1) {
+									shippingOption = joForm.elements[i].value;
+								} else {
+									shippingOption = "Temando";
+								}
+								break;
+						}
+						break;
+					}
+				}
+				ga('ec:setAction', 'checkout', {
+					'step': 1,
+					'option': shippingOption
+				});
+				
+				ga('send', 'pageview');
+				ga('send', 'event', 'Checkout', 'Shipping');
+			}
+		<?php endif; ?>	
+	</script>
+<?php endif; ?>

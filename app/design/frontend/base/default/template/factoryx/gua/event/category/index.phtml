@@ -1,0 +1,20 @@
+<?php if (Mage::getStoreConfigFlag('gua/general/enable')): ?>
+	<?php $_product = $this->getData('product'); ?>
+	<!-- Google Universal Analytics Section start -->
+	<script type="text/javascript">
+		<?php if(Mage::getStoreConfigFlag('gua/ecommerce/enableec')): ?>
+			<?php $_prod_cat  = (is_object(Mage::registry('current_category'))&& !is_null(Mage::registry('current_category'))) ? Mage::registry('current_category')->getName() : "deleted"; ?>
+			ga('require', 'ec');
+			ga('ec:addImpression', {
+			  'id': '<?php echo $_product->getId() ?>',
+			  'name': '<?php echo str_replace('\'','',Mage::helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')) ?>',
+			  'category': '<?php echo $_prod_cat ?>',
+			  'brand': '',
+			  'variant': '',
+			  'list': '<?php echo $_prod_cat ?>',
+			  'position': <?php echo $this->getData('position') ?>
+			});
+			ga('send', 'pageview');
+		<?php endif; ?>
+	</script>
+<?php endif; ?>

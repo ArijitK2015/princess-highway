@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="factoryx_gua/gua" name="google_universal_analytics" template="factoryx/gua/gua.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="factoryx_gua/gua" name="google_universal_analytics" template="factoryx/gua/gua.phtml" />
+        </reference>
+    </default>
+    <checkout_cart_index>
+        <reference name="head">
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_checkout_cart_index" template="factoryx/gua/event/checkout/cart/index.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_checkout_cart_index" template="factoryx/gua/event/checkout/cart/index.phtml" />
+        </reference>
+    </checkout_cart_index>
+    <catalog_product_view>
+        <reference name="head">
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_catalog_view_index" template="factoryx/gua/event/catalog/view/index.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_catalog_view_index" template="factoryx/gua/event/catalog/view/index.phtml" />
+        </reference>
+    </catalog_product_view>
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.shipping_method">
+            <action method="setTemplate"><template>factoryx/gua/checkout/onepage/shipping_method.phtml</template></action>
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_checkout_onepage_shipping" template="factoryx/gua/event/checkout/onepage/shipping/index.phtml" />
+        </reference>
+        <reference name="checkout.onepage.payment">
+            <action method="setTemplate"><template>factoryx/gua/checkout/onepage/payment.phtml</template></action>
+            <block type="factoryx_gua/gua" name="factoryx_gua_event_checkout_onepage_payment" template="factoryx/gua/event/checkout/onepage/payment/index.phtml" />
+        </reference>
+    </checkout_onepage_index>
+</layout>

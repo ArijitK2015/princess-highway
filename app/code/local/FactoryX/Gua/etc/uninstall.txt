@@ -1,0 +1,5 @@
+app/code/local/FactoryX/Gua
+app/etc/modules/FactoryX_Gua.xml
+app/design/frontend/base/default/template/factoryx/gua
+app/design/frontend/base/default/layout/factoryx/gua.xml
+app/design/frontend/factoryx/default/template/factoryx/gua
