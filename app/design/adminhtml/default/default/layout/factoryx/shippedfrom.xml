@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<layout>
+	<adminhtml_sales_order_shipment_view>
+		<reference name="form">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/view/form.phtml</template>
+			</action>
+			<block type="shippedfrom/adminhtml_sales_order_shipment_view_shippedfrom" name="shippedfrom_view" template="factoryx/shippedfrom/sales/order/shipment/view/shippedfrom.phtml" />
+		</reference>
+		<!--
+		<reference name="order_items">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/view/items.phtml</template>
+				<action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>factoryx/shippedfrom/sales/order/shipment/view/items/renderer/default.phtml</template></action>
+			</action>
+		</reference>
+		-->
+	</adminhtml_sales_order_shipment_view>
+
+	<adminhtml_sales_order_shipment_new>
+		<reference name="form">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/create/form.phtml</template>
+			</action>
+		</reference>
+		<!--
+		<reference name="order_items">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/create/items.phtml</template>
+			</action>
+			<action method="addItemRender">
+				<type>default</type>
+				<block>adminhtml/sales_items_renderer_default</block>
+				<template>factoryx/shippedfrom/sales/order/shipment/create/items/renderer/default.phtml</template>
+			</action>
+		</reference>
+        -->
+	</adminhtml_sales_order_shipment_new>
+
+	<adminhtml_sales_order_shipment_updatestore>
+		<block type="shippedfrom/adminhtml_sales_order_shipment_view_shippedfrom" name="shippedfrom_view" template="factoryx/shippedfrom/sales/order/shipment/view/shippedfrom.phtml" />
+	</adminhtml_sales_order_shipment_updatestore>
+
+</layout>

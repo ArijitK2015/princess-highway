@@ -1,0 +1,72 @@
+<?php
+/**
+ * reference
+ * http://www.demacmedia.com/ecommerce/enabling-linked-field-configuration-magento-module/
+ */
+class FactoryX_ShippedFrom_Block_Adminhtml_System_Config_Form_Field_Linkedattributes
+    extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+{
+    protected $optionsArray;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->optionsArray = array();
+
+        $this->addColumn('storecode', array(
+            'label' => Mage::helper('adminhtml')->__('Store Code'),
+            'size'  => 10,
+        ));
+        $this->addColumn('emailaddress', array(
+            'label' => Mage::helper('adminhtml')->__('Email Address'),
+            'size'  => 70
+        ));
+
+        $this->_addAfter = false;
+        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Mapping');
+
+        parent::__construct();
+        $this->setTemplate('factoryx/shippedfrom/system/config/form/field/array_dropdown.phtml');
+
+        /**
+        populate drop downs
+        */
+        $this->optionsArray['storecode'] = array();
+        $collection = Mage::getModel('ustorelocator/location')->getCollection();        
+        foreach($collection as $location) {
+            $this->optionsArray['storecode'][$location->store_code] = sprintf("%s - %s",
+                $location->store_code, $location->title);
+        }
+        asort($this->optionsArray['storecode']);        
+    }
+
+    /**
+     * @param string $columnName
+     * @return string
+     * @throws Exception
+     */
+    protected function _renderCellTemplate($columnName) {
+
+        if (empty($this->_columns[$columnName])) {
+            throw new Exception('Wrong column name specified.');
+        }
+        
+        $column     = $this->_columns[$columnName];
+        $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
+        
+        if (isset($this->optionsArray[$columnName])){
+            $rendered = '<select name="' . $inputName . '">';
+            $rendered .= '<option value=""></option>';
+            foreach($this->optionsArray[$columnName] as $att => $name) {
+                $rendered .= '<option value="'.$att.'">' . $name . '</option>';
+            }
+            $rendered .= '</select>';
+        }
+        else {
+            return '<input type="text" class="input-text" name="' . $inputName . '" value="#{' . $columnName . '}" ' . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . '/>';
+        }
+        return $rendered;
+    }
+}

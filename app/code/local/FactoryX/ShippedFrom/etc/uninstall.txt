@@ -1,0 +1,5 @@
+app/code/local/FactoryX/ShippedFrom
+app/etc/modules/FactoryX_ShippedFrom.xml
+app/design/adminhtml/default/default/template/factoryx/shippedfrom
+app/design/adminhtml/default/default/layout/factoryx/shippedfrom.xml
+app/locale/en_AU/template/email/factoryx/shippedfrom

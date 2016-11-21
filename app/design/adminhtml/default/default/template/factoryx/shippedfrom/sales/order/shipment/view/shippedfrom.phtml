@@ -1,0 +1,53 @@
+<?php
+$user = Mage::getSingleton('admin/session');
+$userId = $user->getUser()->getUserId();
+$userName = $user->getUser()->getName();
+$showAllStores = false;
+
+if (Mage::helper('shippedfrom')->isShowAllStores()) {
+    $showAllStores = true;
+}
+else {
+    $userStoreId = $user->getUser()->getStore();
+    // only show all stores is user has no store
+    if (empty($userStoreId)) {
+        $showAllStores = true;
+    }
+    else{
+        $userStoreName = Mage::getModel('ustorelocator/location')->load($userStoreId)->getTitle();
+    }
+}
+
+$shippingStoreId = $this->getShipment()->getShippedFrom();
+// FactoryX_StoreLocator_Model_Location
+$shippingStore = null;
+if ($shippingStoreId) {
+    $shippingStore = Mage::getModel('ustorelocator/location')->load($shippingStoreId);
+}
+//echo sprintf("shippingStoreId=%d|%s", $shippingStoreId, get_class($shippingStore));
+if ($shippingStore && $shippingStore->getTitle()) {
+    $title = $shippingStore->getTitle();
+}
+else {
+    $title = "No Store Assigned";
+}
+?>
+<?php if (Mage::helper('shippedfrom')->isAllowedToEdit($this->getShipment()->getCreatedAt())): ?>
+    <select name="shipment[shipped_from]" id="shipment[shipped_from]" class="select">
+        <?php
+        if ($showAllStores) {
+            $stores = Mage::helper('shippedfrom')->getStores($useShortTitle = true);
+            foreach($stores as $storeId => $store)
+            {
+                echo sprintf("<option value='%d'%s>%s</option>", $storeId, (($storeId == $shippingStoreId) ?" selected":""), $store);
+            }
+        }
+        else {
+            echo sprintf("<option value='%d'%s>%s</option>", $userStoreId, " selected", $userStoreName);
+        }
+        ?>
+    </select>
+    <?php echo $this->getSaveButtonHtml(); ?>
+<?php else: ?>
+    <?php echo $title; ?>
+<?php endif; ?>

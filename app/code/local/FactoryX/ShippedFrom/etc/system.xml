@@ -1,0 +1,537 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <factoryx translate="label" module="shippedfrom">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <shippedfrom translate="label" module="shippedfrom">
+            <label>Ship From Stores</label>
+            <tab>factoryx</tab>
+            <sort_order>1011</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <default_values translate="label" module="shippedfrom">
+                    <label>Default Values</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <shipped_from translate="label">
+                            <label>Shipped From</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_stores</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipped_from>
+                        <shipped_from_show_in_gird translate="label">
+                            <label>Shipped From Show In Grid</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipped_from_show_in_gird>
+                        <shipped_by translate="label">
+                            <label>Shipped By</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_users</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipped_by>
+                        <shipped_by_user_field translate="label">
+                            <label>Shipped By User Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_userFields</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[only set this once, changing will vary result in grids]]></comment>
+                        </shipped_by_user_field>
+                        <shipped_by_show_in_gird translate="label">
+                            <label>Shipped By Show In Grid</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </shipped_by_show_in_gird>
+                    </fields>
+                </default_values>
+                <settings_form translate="label" module="shippedfrom">
+                    <label>Form Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <show_all_stores translate="label">
+                            <label>Show ALL Stores</label>
+                            <comment><![CDATA[use to populate "Shipped From" drop-down field]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_all_stores>
+                        <show_stores translate="label">
+                            <label>Show Stores</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>shippedfrom/system_config_source_stores</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[does not support stores with email mappings set below]]></comment>
+                        </show_stores>                        
+                        <check_send_store_email translate="label">
+                            <label>Check 'Send Store Email' check-box</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </check_send_store_email>
+                    </fields>
+                </settings_form>
+                <settings_email translate="label" module="shippedfrom">
+                    <label>Email Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <send_store_email translate="label">
+                            <label>Send Store Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_store_email>
+                        <exclude_stores translate="label">
+                            <label>Exclude Emailing Stores</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>shippedfrom/system_config_source_stores</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[does not support stores with email mappings set below]]></comment>
+                        </exclude_stores>
+                        <email_postfix translate="label">
+                            <label>Store Email Postfix</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Defaults to factoryx.com.au</comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><send_store_email>1</send_store_email></depends>
+                        </email_postfix>
+                        <template>
+                            <label>Email Template</label>
+                            <comment><![CDATA[see factoryx/shippedfrom_packing_slip.txt]]></comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                        </template>
+                        <subject translate="label">
+                            <label>Subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[valid placeholders: %STORE_NAME%, %ORDER_NBR%]]></comment>
+                        </subject>
+                        <sender_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sender_name>
+                        <sender_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sender_email>
+                        <additional_emails translate="label">
+                            <label>Additional email(s)</label>
+                            <comment><![CDATA[comma separated list of emails, ignores 'Send Store Email' setting]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </additional_emails>
+                        <store_mappings translate="label">
+                            <label>Store Email Mapping</label>
+                            <comment><![CDATA[map a store to a comma separated list of emails. store emails default to storeCode@storeEmailPostfix]]></comment>
+                            <frontend_model>shippedfrom/adminhtml_system_config_form_field_linkedattributes</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <!--
+                            <source_model>shippedfrom ...
+                            -->
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </store_mappings>
+                    </fields>
+                </settings_email>
+                <settings_email_attachment>
+                    <label>Email Attachment Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>21</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <attachment_prefix translate="label">
+                            <label>Attachment Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[prefix attachment file name]]></comment>
+                        </attachment_prefix>
+                        <add_shipped_from_to_notes translate="label">
+                            <label>Add shipped from to notes</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </add_shipped_from_to_notes>
+                        <add_shipped_by_to_notes translate="label">
+                            <label>Add shipped by to notes</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </add_shipped_by_to_notes>
+                    </fields>
+                </settings_email_attachment>
+                <cron_job_store_sales_report translate="label" module="shippedfrom">
+                    <label>Cron Job - Store Sales Report</label>
+                    <comment><![CDATA[Automate store sales report.]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <cron_expr translate="label comment">
+                            <label>Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cron_expr>
+                        <send_on translate="label">
+                            <label>Send On</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>shippedfrom/system_config_source_daysOfTheWeek</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </send_on>
+                        <additional_emails translate="label">
+                            <label>Additional email(s)</label>
+                            <comment><![CDATA[comma separated list of emails]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </additional_emails>
+                        <test_date translate="label comment">
+                            <label>Test Daily Report Date</label>
+                            <comment>Save settings before running this test.</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shippedfrom/adminhtml_system_config_form_field_dateSelection</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[use shipments from this date for testing]]></comment>
+                        </test_date>
+                        <test_button translate="label comment">
+                            <label>Test Daily Report Cron</label>
+                            <comment>Save settings before running this test.</comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>shippedfrom/adminhtml_system_config_form_button_testReport</frontend_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </test_button>
+                    </fields>
+                </cron_job_store_sales_report>
+                <clickandsend translate="label">
+                    <label>Australia Post Click &amp; Send</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>Allows merchants to export a CSV of selected orders into the Click &amp; Send service for bulk processing. Please note the generated CSV file won't work if you select "Pick and Ship" when importing into Click &amp; Send.</comment>
+                    <fields>
+                        <active translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please note you won't be able to import the Courier Post shipping methods or standard shipping methods that have options, e.g. "Parcel Post + Extra Cover", into Click &amp; Send.</comment>
+                        </active>
+                        <filter translate="label comment">
+                            <label>Filter Shipping Methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Don't display Australia Post shipping methods that can't be imported into Click &amp; Send during checkout.</comment>
+                        </filter>
+                        <export_all translate="label comment">
+                            <label>Allow Export All Shipping Methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Allows the merchant to export any order with an Australia Post shipping method even if it can't be imported into Click &amp; Send.</comment>
+                        </export_all>
+                        <category_of_items>
+                            <label>Category of Items</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/shipping_carrier_clickandsend_source_categories_item</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_of_items>
+                        <category_of_items_explanation>
+                            <label>Category of Items Explanation</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This is mandatory if Category of Items is Other.</comment>
+                        </category_of_items_explanation>
+                        <nondelivery_instructions>
+                            <label>Non-delivery instructions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/shipping_carrier_clickandsend_source_instructions_nondelivery</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nondelivery_instructions>
+                        <return_address>
+                            <label>Return Address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Return to the following address if undeliverable</comment>
+                        </return_address>
+                        <from_name>
+                            <label>From Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_name>
+                        <from_company_name>
+                            <label>From Company Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_company_name>
+                        <from_phone>
+                            <label>From Phone</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_phone>
+                        <from_fax>
+                            <label>From Fax</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_fax>
+                        <from_email>
+                            <label>From Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_email>
+                        <from_abn>
+                            <label>From ABN</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Click &amp; Send does not support adding spaces to your ABN.</comment>
+                        </from_abn>
+                        <from_address_line_1>
+                            <label>From Address (Line 1)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_address_line_1>
+                        <from_address_line_2>
+                            <label>From Address (Line 2)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_address_line_2>
+                        <from_address_line_3>
+                            <label>From Address (Line 3)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_address_line_3>
+                        <from_city>
+                            <label>From City / Suburb</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_city>
+                        <from_state>
+                            <label>From State</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_state>
+                        <from_postcode>
+                            <label>From Postcode</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_postcode>
+                        <from_country>
+                            <label>From Country</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </from_country>
+                        <service_code>
+                            <label>Service Code</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_serviceCodes</source_model>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </service_code>
+                        <article_type>
+                            <label>Article Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_articleTypes</source_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </article_type>
+                        <sender_track_advice>
+                            <label>Sender track advice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>225</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sender_track_advice>
+                        <receiver_track_advice>
+                            <label>Receiver track advice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>226</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </receiver_track_advice>
+                    </fields>
+                </clickandsend>
+            </groups>
+        </shippedfrom>
+    </sections>
+</config>

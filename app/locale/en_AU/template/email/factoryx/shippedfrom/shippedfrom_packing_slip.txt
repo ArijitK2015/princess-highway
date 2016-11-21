@@ -1,0 +1,5 @@
+<!--@subject {{var subject}} @-->Attached is the Packing Slip for Order #{{var orderNbr}}.
+
+Please print this Packing Slip, add it to your customers order and then delete this email.
+
+Thank-you

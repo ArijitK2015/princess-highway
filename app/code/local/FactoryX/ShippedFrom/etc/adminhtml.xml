@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <shipment>
+                                <children>
+                                    <actions translate="title" module="shippedfrom">
+                                        <title>Actions</title>
+                                        <children>
+                                            <can_edit_shippedfrom translate="title" module="shippedfrom">
+                                                <title>Can Edit Ship From Stores</title>
+                                            </can_edit_shippedfrom>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </shipment>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <shippedfrom translate="title">
+                                        <title>Ship From Stores</title>
+                                    </shippedfrom>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

@@ -1,0 +1,131 @@
+Column ID,Field Name,Data Validation,Field Size,Mandatory,Default Value
+A,Delivery Company Name,,40,N,
+B,Delivery Name,,40,Y,
+C,Delivery Telephone,,20,N,
+D,Delivery Email,,80,N,
+E,Delivery Address (Line 1),,50,Y,
+F,Delivery Address (Line 2),,50,N,
+G,Delivery Address (Line 3),,50,N,
+H,Delivery City/ Suburb,,35,Y,
+I,Delivery State,For Domestic must be one of the following values :,10,Y,
+,,8      VIC,,,
+,,8      NSW,,,
+,,8      WA,,,
+,,8      QLD,,,
+,,8      SA,,,
+,,8      TAS,,,
+,,8      NT,,,
+,,8      ACT,,,
+J,Delivery Postcode,,17,Y,
+K,Delivery Country Code,For domestic must be AU only,2,Y,
+L,Service Code:,,10,Y,
+,PP Parcel Post;,,,,
+,EP Expres Post;,,,,
+,,,,,
+,PPS Parcel Post <500g,,,,
+,EPS Express Post <500g,,,,
+,,,,,
+M,Article Type:,,4,Y,
+,7: Own Packaging,,,,
+,19: Small Flat Rate Satchel (up to 500g),,,,
+,20: Medium Flat Rate Satchel (up to 3kg),,,,
+,21: Large Flat Rate Satchel (up to 5kg),,,,
+,16: Small Flat Rate Box (up to 1kg),,,,
+,17: Medium Flat Rate Box (up to 3kg),,,,
+N,Length,"Must be of type:
+999.99 cm",6,Y,
+O,Width,"Must be of type:
+999.99 cm",6,Y,
+P,Height,"Must be of type:
+999.99 cm",6,Y,
+Q,Declared Weight,"Must be of type:
+99.999 Kg",7,Y,
+R,Extra Cover,"0 = No extra cover
+1 = Extra cover",1,Y,Defaults to 0 if left blank
+S,Declared Value,Domestic:,7,N,
+,,Mandatory only if extra cover = 1,,,
+T,Description of Goods,Domestic:,250,N,
+,Item description,Mandatory only if extra cover = 1,,,
+U,From Name,,35,Y,
+V,From Company Name,,40,Y,
+W,From Phone,,20,Y,
+X,From Fax,,20,N,
+Y,From Email,,80,Y,
+Z,From ABN,,11,N,
+AA,From Address (line 1),,50,Y,
+AB,From Address (line 2),,50,N,
+AC,From Address (line 3),,50,N,
+AD,From City/ Suburb,,35,Y,
+AE,From State,,10,Y,
+AF,From Postcode,,4,Y,
+AG,From Country Code,,2,Y,
+AH,Your Reference,,35,N,
+AI,Delivery instructions to choose from the list:,,1,N,Defaults to 1 means None
+,1. None,,,,
+,2. If premises unattended leave in a secure location,,,,
+,3. If premises unattended leave in a secure location out of the weather,,,,
+,4. If premises unattended leave in a secure location behind gate/fence,,,,
+,5. If premises unattended leave in a secure location in carport/garage,,,,
+,6. If premises unattended leave in a secure location near front door,,,,
+,7. If premises unattended leave in a secure location on back porch,,,,
+,8. If premises unattended place a card in the post box and leave parcel at nearest AP Outlet,,,,
+,,,,,
+AJ,Additional services:,,1,N,
+,0=Tracking,,,,
+,1=Tracking with Signature,,,,
+AK,Box or Irregular shaped item,,1,N,Defaulted to 0 if empty
+,0=Box or Carton,,,,
+,1=Irregular shapped item,,,,
+AL,CDP Location code,Must be an existing CDP Location code provided by Australia Post Delivery choices web services,10,N,
+,,,,,
+,,,,,
+AM,Embargoed date,[YYYYMMDD-TTTTTTTT-TTTTTTTT-...],100,N,"Timeslots available:
+07000900
+09001100
+11001300
+13001500
+15001700
+07001200
+12001700"
+,,"The date must be under brackets [] and each timeslot if there are separated by a dash.
+Timeslots are 8 digits numbers from valid timeslots.",,,
+AN,Specify delivery day,The format must be :,100,N,"Timeslots available:
+07000900
+09001100
+11001300
+13001500
+15001700
+07001200
+12001700"
+,,SC[D:TTTTTTTT-TTTTTTTT-TTTTTTTT-TTTTTTTT-...],,,
+,,Each day must be under bracket [],,,
+,,SC is 100 for delivery day and 101 for do not deliver.,,,
+,,D corresponds to the day from 1 to 7.,,,
+,,TTTTTTTT represent the code of each time for the day separated by a dash.,,,
+AO,Specify delivery date,[YYYYMMDD-TTTTTTTT-TTTTTTTT-...],100,N,"Timeslots available:
+07000900
+09001100
+11001300
+13001500
+15001700
+07001200
+12001700"
+,,The date must be under brackets [] and each timeslot if there are separated by a dash,,,
+AP,Delivery timslots,[TTTTTTTT-TTTTTTTT],100,N,"Timeslots available:
+07000900
+09001100
+11001300
+13001500
+15001700
+07001200
+12001700"
+,,TTTTTTTT represents the code of each time slot.,,,
+,,"Not valid if delivery day or delivery date is entered. In that case, time slot must be within the date or day structure.",,,
+AQ,Receiver customer number,,10,N,
+AR,Sender track advice,"N=No
+Y=Yes",1,N,
+AS,Receiver track advice,"N=No
+Y=Yes",1,N,
+AT,Expected delivery date,"N=No
+Y=Yes
+Not compatible with Delivery day or Delivery date options",1,N,

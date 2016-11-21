@@ -1,0 +1,201 @@
+<?xml version="1.0" ?>
+<config>
+	<modules>
+		<FactoryX_ShippedFrom>
+			<version>1.3.8</version>
+		</FactoryX_ShippedFrom>
+	</modules>
+
+    <default>
+        <shippedfrom>
+            <settings_email>
+                <template>shippedfrom_packing_slip_text</template>
+                <subject>%STORE_NAME% - Packing Slip for Order #%ORDER_NBR%</subject>
+                <attachment_prefix>packing_slip_</attachment_prefix>
+            </settings_email>
+            <default_values>
+                <shipped_by>user</shipped_by>
+                <shipped_by_user_field>fullname</shipped_by_user_field>
+            </default_values>
+            <settings_form>
+                <show_all_stores>1</show_all_stores>
+            </settings_form>
+            <clickandsend>
+                <active>1</active>
+                <nondelivery_instructions>5</nondelivery_instructions>
+                <from_country>AU</from_country>
+                <service_code>auto</service_code>
+                <article_type>21</article_type>
+                <sender_track_advice>1</sender_track_advice>
+                <receiver_track_advice>0</receiver_track_advice>
+            </clickandsend>
+            <cron_job_store_sales_report>
+                <cron_expr>30 16 * * *</cron_expr>
+            </cron_job_store_sales_report>
+        </shippedfrom>
+    </default>
+
+    <global>
+        <resources>
+            <shippedfrom_setup>
+                <setup>
+                    <module>FactoryX_ShippedFrom</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </shippedfrom_setup>
+            <shippedfrom_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </shippedfrom_write>
+            <shippedfrom_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </shippedfrom_read>
+        </resources>
+        <models>
+            <shippedfrom>
+                <class>FactoryX_ShippedFrom_Model</class>
+            </shippedfrom>
+        </models>
+        <events>
+            <core_layout_block_create_after>
+                <observers>
+                    <shippedfrom_add_column_to_grid>
+                        <type>singleton</type>
+                        <class>shippedfrom/observer</class>
+                        <method>beforeBlockToHtml</method>
+                    </shippedfrom_add_column_to_grid>
+                </observers>
+            </core_layout_block_create_after>
+            <core_collection_abstract_load_before>
+                <observers>
+                    <shippedfrom_core_collection_abstract_load_before>
+                        <class>shippedfrom/observer</class>
+                        <method>beforeCollectionLoad</method>
+                    </shippedfrom_core_collection_abstract_load_before>
+                </observers>
+            </core_collection_abstract_load_before>
+            <firegento_pdf_shipment_insert_note>
+                <observers>
+                    <shippedfrom_insert_note>
+                        <type>singleton</type>
+                        <class>shippedfrom/observer</class>
+                        <method>addShipmentNotes</method>
+                    </shippedfrom_insert_note>
+                </observers>
+            </firegento_pdf_shipment_insert_note>
+            <sales_order_shipment_save_before>
+                <observers>
+                    <shippedfrom_sales_order_shipment_save_before>
+                        <type>singleton</type>
+                        <class>shippedfrom/observer</class>
+                        <method>salesOrderShipmentSaveBefore</method>
+                    </shippedfrom_sales_order_shipment_save_before>
+                </observers>
+            </sales_order_shipment_save_before>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <shippedfrom_sales_order_shipment_save_after>
+                        <type>singleton</type>
+                        <class>shippedfrom/observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </shippedfrom_sales_order_shipment_save_after>
+                </observers>
+            </sales_order_shipment_save_after>
+            <adminhtml_block_html_before>
+                <observers>
+                    <shippedfrom_shipment_clickandsend_export_bulkaction>
+                        <type>singleton</type>
+                        <class>shippedfrom/shipping_carrier_clickandsend</class>
+                        <method>addExportToBulkAction</method>
+                    </shippedfrom_shipment_clickandsend_export_bulkaction>
+                </observers>
+            </adminhtml_block_html_before>
+        </events>
+        <blocks>
+            <shippedfrom>
+                <class>FactoryX_ShippedFrom_Block</class>
+            </shippedfrom>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_shipment_view>FactoryX_ShippedFrom_Block_Adminhtml_Sales_Order_Shipment_View</sales_order_shipment_view>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <shippedfrom>
+                <class>FactoryX_ShippedFrom_Helper</class>
+            </shippedfrom>
+        </helpers>
+        <template>
+            <email>
+                <shippedfrom_packing_slip_html module="shippedfrom">
+                    <label>Shipped From Stores Packing Slip HTML</label>
+                    <file>factoryx/shippedfrom/shippedfrom_packing_slip.html</file>
+                    <type>html</type>
+                </shippedfrom_packing_slip_html>
+                <shippedfrom_packing_slip_text module="shippedfrom">
+                    <label>Shipped From Stores Packing Slip TXT</label>
+                    <file>factoryx/shippedfrom/shippedfrom_packing_slip.txt</file>
+                    <type>text</type>
+                </shippedfrom_packing_slip_text>
+                <shippedfrom_report module="shippedfrom">
+                    <label>shippedfrom_report</label>
+                    <file>factoryx/shippedfrom/shippedfrom_report.html</file>
+                    <type>html</type>
+                </shippedfrom_report>
+            </email>
+        </template>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <!--
+                        before defines whether the controller should be looked
+                        up in Mage_Adminhtml first (required for extending core)
+
+                        Note. we cant use the FactoryX_ShippedFrom_Adminhtml class names as we are extending Mage_Adminhtml_Sales_Order_ShipmentController
+                        e.g. any class under this space will fail, need to use observers!
+                        <factoryx_shippedfrom before="Mage_Adminhtml">FactoryX_ShippedFrom_Adminhtml</factoryx_shippedfrom>
+                        -->
+                        <factoryx_shippedfrom before="Mage_Adminhtml">FactoryX_ShippedFrom</factoryx_shippedfrom>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <FactoryX_ShippedFrom>
+                    <file>factoryx/shippedfrom.xml</file>
+                </FactoryX_ShippedFrom>
+            </updates>
+        </layout>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <factoryx_shippedfrom_report>
+                <schedule>
+                    <config_path>shippedfrom/cron_job_store_sales_report/cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>shippedfrom/observer::storeSalesReport</model>
+                </run>
+            </factoryx_shippedfrom_report>
+        </jobs>
+    </crontab>
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_ShippedFrom/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ShippedFrom>
+            <active>true</active>
+            <codePool>local</codePool>
+		    <depends>
+                <FactoryX_StoreLocator />
+				<Mage_Sales />
+			</depends>
+        </FactoryX_ShippedFrom>
+    </modules>
+</config>
