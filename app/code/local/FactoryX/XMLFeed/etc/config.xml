@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_XMLFeed>
+            <version>0.1.11</version>
+        </FactoryX_XMLFeed>
+    </modules>
+    <global>
+        <models>
+            <xmlfeed>
+                <class>FactoryX_XMLFeed_Model</class>
+                <resourceModel>xmlfeedmysql4</resourceModel>
+            </xmlfeed>
+            <xmlfeedmysql4>
+                <class>FactoryX_XMLFeed_Model_Mysql4</class>
+            </xmlfeedmysql4>
+        </models>
+        <blocks>
+            <xmlfeed>
+                <class>FactoryX_XMLFeed_Block</class>
+            </xmlfeed>
+        </blocks>
+		<helpers>
+            <xmlfeed>
+                <class>FactoryX_XMLFeed_Helper</class>
+            </xmlfeed>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <xmlfeed>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_XMLFeed</module>
+                    <frontName>xmlfeed</frontName>
+                </args>
+            </xmlfeed>
+        </routers>
+    </frontend>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_XMLFeed/>
+            </modules>
+        </suite>
+    </phpunit>
+    
+    <default>
+        <xmlfeed>
+            <options>
+                <enabled>1</enabled>
+                <limit>0</limit>
+            </options>
+        </xmlfeed>
+    </default>    
+</config>

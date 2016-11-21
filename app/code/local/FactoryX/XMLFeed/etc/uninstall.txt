@@ -1,0 +1,3 @@
+app/code/local/FactoryX/XMLFeed
+app/etc/modules/FactoryX_XMLFeed.xml
+shell/getXMLFeed.sh

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <factoryx translate="label" module="xmlfeed">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <xmlfeed translate="label" module="xmlfeed">
+            <label>XML Product Feed</label>
+            <tab>factoryx</tab>
+            <sort_order>1011</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>            
+            <groups>
+                <options translate="label">
+                    <label>XML Product Feed Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1001</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<limit translate="label">
+                            <label>Product Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">zero = unlimited</span>]]></comment>
+                        </limit>
+                        <brand>
+                            <label>Brand</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </brand>
+						<additional_attributes translate="label">
+                            <label>Additional Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>xmlfeed/system_config_additionalAttributes</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">product attributes to show in the feed</span>]]></comment>
+                        </additional_attributes>
+                        <!--
+                        TODO: add link to feed using limit above e.g. /xmlfeed/index/catalog?limit=10
+                        <view_feed>
+                            <label>Product XML Feed</label>
+                            <frontend_type>url</frontend_type>
+                            <source_model>xmlfeed/system_config_url</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </view_feed>
+                        -->
+                    </fields>
+                </options>
+            </groups>
+        </xmlfeed>
+    </sections>
+</config>
