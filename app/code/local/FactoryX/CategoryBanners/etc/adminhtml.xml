@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<config>
+	<menu>
+		<!-- Factory X Menu -->
+		<factoryx_menu translate="title">
+			<title>Factory X</title>
+			<sort_order>110</sort_order>
+			<children>
+				<!-- Cateogory Banners Item -->
+				<categorybanners translate="title" module="categorybanners">
+					<title>Category Banners</title>
+					<sort_order>200</sort_order>
+					<children>
+						<!-- New Banner Item -->
+						<new translate="title" module="categorybanners">
+							<title>Add a Banner</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/categorybanners/new</action>
+						</new>
+						<!-- Banner List Item -->
+						<list translate="title" module="categorybanners">
+							<title>Banners</title>
+							<sort_order>10</sort_order>
+							<action>adminhtml/categorybanners/index</action>
+						</list>
+						<!-- Configuration -->
+						<config translate="title" module="categorybanners">
+							<title>Configuration</title>
+							<sort_order>20</sort_order>
+							<action>adminhtml/system_config/edit/section/categorybanners</action>
+						</config>
+					</children>                
+				</categorybanners>
+			</children>
+		</factoryx_menu>
+	</menu>		
+	
+    <acl>
+        <resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+					<!-- Factory X Menu -->
+					<factoryx_menu>
+						<title>Factory X</title>
+						<sort_order>110</sort_order>
+						<children>
+							<!-- Cateogory Banners Item -->
+							<categorybanners>
+								<title>Category Banners</title>
+								<sort_order>190</sort_order>
+								<children>
+									<!-- New Banner Item -->
+									<new>
+										<title>Add a Banner</title>
+										<sort_order>10</sort_order>
+									</new>
+									<!-- Banner List Item -->
+									<list>
+										<title>Banners</title>
+										<sort_order>20</sort_order>
+									</list>
+									<!-- Configuration -->
+									<config>
+										<title>Configuration</title>
+										<sort_order>20</sort_order>
+									</config>
+								</children>
+							</categorybanners>
+						</children>
+					</factoryx_menu>
+					<!-- System Menu -->
+					<system>
+						<children>
+							<!-- Configuration Page -->
+							<config>
+								<children>
+									<!-- Category Banners Section -->
+									<categorybanners>
+										<title>Category Banners</title>
+									</categorybanners>
+								</children>
+							</config>
+						</children>
+					</system>
+                 </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
