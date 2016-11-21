@@ -1,0 +1,4 @@
+app/code/local/FactoryX/ModulesFeed
+app/etc/modules/FactoryX_ModulesFeed.xml
+skin/adminhtml/default/default/css/factoryx/modulesfeed
+skin/adminhtml/default/default/js/factoryx/modulesfeed

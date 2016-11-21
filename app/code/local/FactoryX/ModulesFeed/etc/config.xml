@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ModulesFeed>
+            <version>0.3.3</version>
+        </FactoryX_ModulesFeed>
+    </modules>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_ModulesFeed before="Mage_Adminhtml">FactoryX_ModulesFeed_Adminhtml</FactoryX_ModulesFeed>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<global>
+		<models>
+			<!-- Model declaration -->
+			<modulesfeed>
+				<class>FactoryX_ModulesFeed_Model</class>
+			</modulesfeed>
+		</models>
+		<helpers>
+			<!-- Helper declaration -->
+			<modulesfeed>
+				<class>FactoryX_ModulesFeed_Helper</class>
+			</modulesfeed>
+		</helpers>
+		<blocks>
+			<!-- Block declaration -->
+			<modulesfeed>
+				<class>FactoryX_ModulesFeed_Block</class>
+			</modulesfeed>
+		</blocks>
+
+	</global>
+    <frontend>
+		<routers> 
+			<modulesfeed>
+				<use>standard</use>
+				<args> 
+					<module>FactoryX_ModulesFeed</module> 
+					<frontName>modulesfeed</frontName> 
+				</args> 
+			</modulesfeed> 
+		</routers>
+	</frontend>
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_ModulesFeed/>
+			</modules>
+		</suite>
+	</phpunit>
+</config>
