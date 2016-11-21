@@ -1,0 +1,10 @@
+app/code/local/FactoryX/AjaxLogin
+app/etc/modules/FactoryX_AjaxLogin.xml
+app/design/frontend/base/default/layout/factoryx/ajaxlogin.xml
+app/design/frontend/base/default/template/factoryx/ajaxlogin
+app/design/frontend/factoryx/default/layout/factoryx/ajaxlogin.xml
+app/design/frontend/factoryx/default/template/factoryx/ajaxlogin
+skin/frontend/base/default/css/factoryx/ajaxlogin
+skin/frontend/base/default/images/factoryx/ajaxlogin
+skin/frontend/base/default/js/factoryx/ajaxlogin
+skin/frontend/factoryx/default/js/factoryx/ajaxlogin
