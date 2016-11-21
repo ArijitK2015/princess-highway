@@ -130,10 +130,10 @@ class FactoryX_StoreLocator_Model_Observer
      *
      * resolve the store domain name and store the ip address in the store model
      *
-     * @param Varien_Event_Observer $observer
+     * @param Mage_Cron_Model_Schedule $schedule
      * @return
      */
-    public function storeResolver(Varien_Event_Observer $observer) {
+    public function storeResolver(Mage_Cron_Model_Schedule $schedule = null) {
         $stores = Mage::getModel('ustorelocator/location')->getCollection();
         foreach($stores as $store) {
             $ip = null;

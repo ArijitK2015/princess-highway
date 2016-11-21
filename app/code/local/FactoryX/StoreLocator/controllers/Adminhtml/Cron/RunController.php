@@ -26,7 +26,7 @@ class FactoryX_StoreLocator_Adminhtml_Cron_RunController extends Mage_Adminhtml_
             $websiteModel = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
 
             $observer = Mage::getModel('ustorelocator/observer');
-            $observer->storeResolver(new Varien_Event_Observer());
+            $observer->storeResolver();
             
             $msg = "Cron job complete";
             $_helper->log($msg);

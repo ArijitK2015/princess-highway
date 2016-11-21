@@ -25,7 +25,7 @@
 <config>
     <modules>
         <FactoryX_StoreLocator>
-            <version>2.2.6</version>
+            <version>2.2.7</version>
         </FactoryX_StoreLocator>
     </modules>
     <crontab>
