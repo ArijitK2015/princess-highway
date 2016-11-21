@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_CustomGrids>
+			<version>0.4.14</version>
+		</FactoryX_CustomGrids>
+	</modules>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_CustomGrids before="Mage_Adminhtml">FactoryX_CustomGrids_Adminhtml</FactoryX_CustomGrids>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+	<global>
+		<blocks>
+			<customgrids>
+                <class>FactoryX_CustomGrids_Block</class>
+            </customgrids>
+		</blocks>
+		<helpers>
+			<customgrids>
+				<class>FactoryX_CustomGrids_Helper</class>
+			</customgrids>
+		</helpers>
+		<models>
+			<customgrids>
+				<class>FactoryX_CustomGrids_Model</class>
+				<resourceModel>customgrids_mysql4</resourceModel>
+			</customgrids>
+
+			<customgrids_mysql4>
+				<class>FactoryX_CustomGrids_Model_Mysql4</class>
+				<entities>
+					<column>
+						<table>fx_customgrids_columns</table>
+					</column>
+				</entities>
+			</customgrids_mysql4>
+			<catalog_resource>
+				<rewrite>
+					<!-- Mage_Catalog_Model_Resource_Product_Collection -->
+					<product_collection>FactoryX_CustomGrids_Model_Catalog_Resource_Product_Collection</product_collection>
+				</rewrite>
+			</catalog_resource>
+		</models>
+		<resources>
+			<customgrids_setup>
+				<setup>
+					<module>FactoryX_CustomGrids</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</customgrids_setup>
+			<customgrids_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</customgrids_write>
+			<customgrids_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</customgrids_read>
+		</resources>
+	</global>
+
+	<adminhtml>
+		<events>
+			<!-- Called before HTML render -->
+			<adminhtml_block_html_before>
+				<observers>
+					<factoryx_custom_before_block>
+						<type>singleton</type>
+						<class>customgrids/observer</class>
+						<method>blockBeforeHtml</method>
+					</factoryx_custom_before_block>
+				</observers>
+			</adminhtml_block_html_before>
+			<!-- To register the controller action -->
+			<controller_action_predispatch_adminhtml>
+				<observers>
+					<factoryx_custom_register>
+						<type>singleton</type>
+						<class>customgrids/observer</class>
+						<method>registerController</method>
+					</factoryx_custom_register>
+				</observers>
+			</controller_action_predispatch_adminhtml>
+			<!-- Called after creating a block -->
+			<core_layout_block_create_after>
+				<observers>
+					<factoryx_custom_after_block>
+						<type>singleton</type>
+						<class>customgrids/observer</class>
+						<method>blockCreateAfter</method>
+					</factoryx_custom_after_block>
+				</observers>
+			</core_layout_block_create_after>
+			<!-- Called before loading an EAV collection -->
+			<eav_collection_abstract_load_before>
+				<observers>
+					<factoryx_custom_before_eav_load_collection>
+						<class>customgrids/observer</class>
+						<method>beforeEavCollectionLoad</method>
+					</factoryx_custom_before_eav_load_collection>
+				</observers>
+			</eav_collection_abstract_load_before>
+			<!-- Called before loading a non EAV collection -->
+			<core_collection_abstract_load_before>
+				<observers>
+					<factoryx_custom_before_core_load_collection>
+						<class>customgrids/observer</class>
+						<method>beforeCoreCollectionLoad</method>
+					</factoryx_custom_before_core_load_collection>
+				</observers>
+			</core_collection_abstract_load_before>
+			<!-- Called after deleting a column -->
+			<customgrids_column_delete_after>
+				<observers>
+					<factoryx_custom_delete_after>
+						<class>customgrids/observer</class>
+						<method>afterDelete</method>
+					</factoryx_custom_delete_after>
+				</observers>
+			</customgrids_column_delete_after>
+		</events>
+	</adminhtml>
+
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_CustomGrids/>
+			</modules>
+		</suite>
+	</phpunit>
+</config>
