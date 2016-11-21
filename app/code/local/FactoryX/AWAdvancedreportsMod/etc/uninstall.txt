@@ -1,0 +1,3 @@
+app/code/local/FactoryX/AWAdvancedreportsMod
+app/etc/modules/FactoryX_AWAdvancedreportsMod.xml
+app/design/adminhtml/default/default/layout/factoryx/awadvancedreportsmod.xml

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_AWAdvancedreportsMod>
+            <version>0.1.11</version>
+        </FactoryX_AWAdvancedreportsMod>
+    </modules>
+
+    <global>
+        <models>
+            <awadvancedreportsmod>
+                <class>FactoryX_AWAdvancedreportsMod_Model</class>
+                <resourceModel>awadvancedreportsmod_mysql4</resourceModel>
+            </awadvancedreportsmod>
+            <advancedreports_mysql4>
+                <rewrite>
+                    <!-- AW_Advancedreports_Model_Mysql4_Collection_Sales -->
+                    <collection_sales>FactoryX_AWAdvancedreportsMod_Model_Mysql4_Collection_Sales</collection_sales>
+                </rewrite>
+            </advancedreports_mysql4>
+            <awadvancedreportsmod_mysql4>
+                <class>FactoryX_AWAdvancedreportsMod_Model_Mysql4</class>
+            </awadvancedreportsmod_mysql4>
+        </models>
+
+        <blocks>
+            <awadvancedreportsmod>
+                <class>FactoryX_AWAdvancedreportsMod_Block</class>
+            </awadvancedreportsmod>
+            <advancedreports>
+                <rewrite>
+                    <!-- AW_Advancedreports_Block_Chart -->
+                    <chart>FactoryX_AWAdvancedreportsMod_Block_Chart</chart>
+                    <!-- AW_Advancedreports_Block_Advanced_Bestsellers -->
+                    <advanced_bestsellers>FactoryX_AWAdvancedreportsMod_Block_Advanced_Bestsellers</advanced_bestsellers>
+                    <!-- AW_Advancedreports_Block_Advanced_Bestsellers_Grid -->
+                    <advanced_bestsellers_grid>FactoryX_AWAdvancedreportsMod_Block_Advanced_Bestsellers_Grid</advanced_bestsellers_grid>
+                    <!-- AW_Advancedreports_Block_Advanced_Sales_Grid -->
+                    <advanced_sales_grid>FactoryX_AWAdvancedreportsMod_Block_Advanced_Sales_Grid</advanced_sales_grid>
+                </rewrite>
+            </advancedreports>
+        </blocks>
+
+        <helpers>
+            <awadvancedreportsmod>
+                <class>FactoryX_AWAdvancedreportsMod_Helper</class>
+            </awadvancedreportsmod>
+            <advancedreports>
+                <rewrite>
+                    <!-- AW_Advancedreports_Helper_Data -->
+                    <data>FactoryX_AWAdvancedreportsMod_Helper_Data</data>
+                    <!-- AW_Advancedreports_Helper_Setup -->
+                    <setup>FactoryX_AWAdvancedreportsMod_Helper_Setup</setup>
+                </rewrite>
+            </advancedreports>
+        </helpers>
+
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_AWAdvancedreportsMod after="Mage_Adminhtml">FactoryX_AWAdvancedreportsMod_Adminhtml</FactoryX_AWAdvancedreportsMod>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <awadvancedreportsmod module="FactoryX_AWAdvancedreportsMod">
+                    <file>factoryx/awadvancedreportsmod.xml</file>
+                </awadvancedreportsmod>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_AWAdvancedreportsMod>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				<AW_Advancedreports/>
+			</depends>
+		</FactoryX_AWAdvancedreportsMod>
+	</modules>
+</config>
