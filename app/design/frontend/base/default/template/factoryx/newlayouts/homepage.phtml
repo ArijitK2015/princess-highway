@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+</head>
+<body<?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+
+<!-- Header Section
+================================================== -->
+<header>
+    <section id="navbar">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <?php echo $this->getChildHtml('header') ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- End: Header
+    ================================================== -->
+</header>
+
+
+<!-- Brand Section
+================================================== -->
+<section id="brand">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <?php echo $this->getChildHtml('phsocial') ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End: Brand Section
+================================================== -->
+
+
+<!-- Navigation Section
+================================================== -->
+<section id="navigation">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <!-- Mobile Menu -->
+                <a id="mobile-nav" class="menu-nav" data-toggle="collapse" data-target=".nav-collapse"><span class="menu-icon"></span>
+                </a>
+
+                <!-- Standard Menu -->
+                <nav id="menu">
+                    <?php echo $this->getChildHtml('phmenu') ?>
+
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End: Navigation Section
+================================================== -->
+
+
+<!-- Filters Section
+================================================== -->
+<section id="filters">
+    <div class="container">
+        <div class="row">
+            <?php echo $this->getChildHtml('phfilters') ?>
+
+        </div>
+    </div>
+</section>
+
+<!-- End: Filters Section
+================================================== -->
+
+
+<!-- Main Section
+================================================== -->
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <?php echo $this->getChildHtml('breadcrumbs') ?>
+
+                <!-- Middle Column
+                ================================================== -->
+                <?php echo $this->getChildHtml('global_messages') ?>
+                <?php echo $this->getChildHtml('content') ?>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cta-middle')->toHtml();?>
+            </div>
+
+            <!-- End: Middle Column
+            ================================================== -->
+
+        </div>
+    </div>
+</section>
+
+<!-- End: Main Content
+================================================== -->
+
+
+<!-- Featured Product Placeholder
+================================================== -->
+<section id="product">
+    <div class="container">
+        <div class="row">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('featuredproducts')->toHtml();?>
+
+        </div>
+    </div>
+</section>
+<!-- End: Featured Product Placeholder
+================================================== -->
+
+
+<!-- Call To Actions
+================================================== -->
+<section id="calltoactions">
+    <div class="container">
+        <div class="row">
+            <div class="span12" id="cta01">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cta-bottom')->toHtml();?>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End: Call To Actions
+================================================== -->
+
+
+<!-- Footer
+================================================== -->
+<?php echo $this->getChildHtml('footer'); ?>
+<!-- End: Footer
+================================================== -->
+
+
+<!-- Javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="<?php echo $this->getSkinUrl('js/google-code-prettify/prettify.js'); ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/bootstrap.js'); ?>"></script>
+<script src="//assets.pinterest.com/js/pinit.js" type="text/javascript"></script>
+<script src="<?php echo $this->getSkinUrl('js/account.js'); ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/responsive-navigation.js'); ?>"></script>
+
+<?php echo $this->getChildHtml('before_body_end') ?>
+</body>
+</html>

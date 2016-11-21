@@ -1,0 +1,3 @@
+app/code/local/FactoryX/NewLayouts
+app/etc/modules/FactoryX_NewLayouts.xml
+app/design/frontend/base/default/template/factoryx/newlayouts

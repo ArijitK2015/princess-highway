@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_NewLayouts>
+            <version>0.0.4</version>
+        </FactoryX_NewLayouts>
+    </modules>
+    <global>
+        <page>
+            <layouts>
+                <one_column_fp module="page" translate="label">
+                    <label>front page</label>
+                    <template>factoryx/newlayouts/1column-fp.phtml</template>
+                    <layout_handle>page_one_column_fp</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_fp>
+                <one_column_collection module="page" translate="label">
+                    <label>1 column collection</label>
+                    <template>factoryx/newlayouts/collection.phtml</template>
+                    <layout_handle>page_one_column_collection</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_collection>   
+                <one_column_navigation module="page" translate="label">
+                    <label>1 column navigation</label>
+                    <template>factoryx/newlayouts/1navigation.phtml</template>
+                    <layout_handle>page_one_column_navigation</layout_handle>
+                    <is_default>1</is_default>
+                </one_column_navigation>
+                <homepage module="page" translate="label">
+                    <label>Homepage</label>
+                    <template>factoryx/newlayouts/homepage.phtml</template>
+                    <layout_handle>page_homepage</layout_handle>
+                </homepage>
+            </layouts>
+        </page>
+    </global>
+</config>
