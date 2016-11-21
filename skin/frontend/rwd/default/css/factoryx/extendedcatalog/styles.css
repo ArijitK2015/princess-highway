@@ -1,0 +1,36 @@
+.sorter > .view-mode .gridx5
+{
+    background-image: url(/skin/frontend/rwd/default/images/icon_sprite.png);
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 4 / 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    .sorter > .view-mode .gridx5
+    {
+        background-image: url(/skin/frontend/rwd/default/images/icon_sprite@2x.png);
+        background-size: 100px 1000px;
+    }
+}
+
+.gridx5:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.sorter > .view-mode .gridx5 {
+    float: left;
+    width: 30px;
+    height: 30px;
+}
+.sorter > .view-mode .gridx5 {
+    margin-right: 5px;
+    background-position: 8px -492px;
+}
+.sorter > .view-mode strong.gridx5,
+.sorter > .view-mode a.gridx5:hover {
+    background-position: -42px -492px;
+}
+
+.hoverdir .button{margin:20px 0}
+.hoverdir h2.product-name{color:#FFFFFF}
