@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_MenuImage>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				<Mage_Catalog/>
+				<Mage_Page/>
+			</depends>
+		</FactoryX_MenuImage>
+	</modules>
+</config>

@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_MenuImage>
+            <version>0.2.2</version>
+        </FactoryX_MenuImage>
+    </modules>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_MenuImage before="Mage_Adminhtml">FactoryX_MenuImage_Adminhtml</FactoryX_MenuImage>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <global>
+        <blocks>
+            <menuimage>
+                <class>FactoryX_MenuImage_Block</class>
+            </menuimage>
+
+            <page>
+                <rewrite>
+                    <!-- Mage_Page_Block_Html_Topmenu -->
+                    <html_topmenu>FactoryX_MenuImage_Block_Page_Html_Topmenu</html_topmenu>
+                </rewrite>
+            </page>
+        </blocks>
+
+        <helpers>
+            <menuimage>
+                <class>FactoryX_MenuImage_Helper</class>
+            </menuimage>
+        </helpers>
+
+        <models>
+            <menuimage>
+                <!-- Init model for mymod module -->
+                <class>FactoryX_MenuImage_Model</class>
+                <!-- Init db config handler for mymod models -->
+                <resourceModel>menuimage_mysql4</resourceModel>
+            </menuimage>
+
+            <!-- declaring model vs db table relation -->
+            <menuimage_mysql4>
+                <class>FactoryX_MenuImage_Model_Mysql4</class>
+                <!-- declare table test -->
+                <entities>
+                    <menuimage>
+                        <table>fx_menuimage_menuimage</table>
+                    </menuimage>
+                    <block>
+                        <table>fx_menuimage_block</table>
+                    </block>
+                    <store>
+                        <table>fx_menuimage_store</table>
+                    </store>
+                </entities>
+            </menuimage_mysql4>
+        </models>
+
+        <resources>
+            <menuimage_setup>
+                <setup>
+                    <module>FactoryX_MenuImage</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </menuimage_setup>
+            <menuimage_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </menuimage_write>
+            <menuimage_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </menuimage_read>
+        </resources>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <menuimage module="FactoryX_MenuImage">
+                    <file>factoryx/menuimage.xml</file>
+                </menuimage>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <menuimage module="FactoryX_MenuImage">
+                    <file>factoryx/menuimage.xml</file>
+                </menuimage>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

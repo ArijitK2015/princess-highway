@@ -1,0 +1,17 @@
+.menu-image{
+    background: none repeat scroll 0 0 #fbfbfb;
+    border: 1px solid #ccc;
+    border-left:none;
+    padding: 20px;
+    position: absolute;
+    top: -1px;
+}
+.menu-image img{
+    width:auto;
+}
+
+@media (max-width:780px) {
+    .menu-image{
+        display:none;
+    }
+}

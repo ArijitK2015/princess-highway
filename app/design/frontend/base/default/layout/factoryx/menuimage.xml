@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/menuimage/styles.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/factoryx/menuimage/script.js</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="catalog.topnav.renderer">
+            <action method="setTemplate"><template>factoryx/menuimage/page/html/topmenu/renderer.phtml</template></action>
+        </reference>
+    </default>
+</layout>

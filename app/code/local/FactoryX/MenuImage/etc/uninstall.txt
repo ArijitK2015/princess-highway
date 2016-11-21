@@ -1,0 +1,10 @@
+app/code/local/FactoryX/MenuImage
+app/etc/modules/FactoryX_MenuImage.xml
+app/design/adminhtml/default/default/layout/factoryx/menuimage.xml
+app/design/adminhtml/default/default/template/factoryx/menuimage
+app/design/frontend/base/default/template/factoryx/menuimage
+app/design/frontend/base/default/layout/factoryx/menuimage.xml
+skin/frontend/base/default/css/factoryx/menuimage
+skin/frontend/base/default/js/factoryx/menuimage
+skin/frontend/factoryx/default/css/factoryx/menuimage
+skin/frontend/factoryx/default/js/factoryx/menuimage

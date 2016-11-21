@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<config>
+	<menu>
+		<factoryx_menu translate="title">
+			<title>Factory X</title>
+			<sort_order>110</sort_order>
+			<children>
+				<menuimage translate="title" module="menuimage">
+					<title>Menu Images</title>
+					<sort_order>200</sort_order>
+					<children>
+						<new translate="title" module="menuimage">
+							<title>Add a Menu Image</title>
+							<sort_order>0</sort_order>
+							<action>adminhtml/menuimage/new</action>
+						</new>
+						<list translate="title" module="menuimage">
+							<title>Menu Images</title>
+							<sort_order>10</sort_order>
+							<action>adminhtml/menuimage/index</action>
+						</list>
+					</children>                
+				</menuimage>
+			</children>
+		</factoryx_menu>
+	</menu>		
+	
+    <acl>
+        <resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+					<factoryx_menu>
+						<title>Factory X</title>
+						<sort_order>110</sort_order>
+						<children>
+							<menuimage>
+								<title>Menu Images</title>
+								<sort_order>190</sort_order>
+								<children>
+									<new>
+										<title>Add a Menu Image</title>
+										<sort_order>10</sort_order>
+									</new>
+									<list>
+										<title>Menu Images</title>
+										<sort_order>20</sort_order>
+									</list>
+								</children>
+							</menuimage>
+						</children>
+					</factoryx_menu>
+                 </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
