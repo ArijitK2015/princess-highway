@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<FactoryX_AdvertPanels>
+			<version>0.2.8</version>
+		</FactoryX_AdvertPanels>
+	</modules>
+	
+	<frontend>
+		<!-- Translation file -->
+		<translate>
+            <modules>
+                <FactoryX_AdvertPanels>
+                    <files>
+                        <default>FactoryX_AdvertPanels.csv</default>
+                    </files>
+                </FactoryX_AdvertPanels>
+            </modules>
+        </translate>
+	</frontend>
+	
+	<adminhtml>
+		<translate>
+			<modules>
+				<FactoryX_AdvertPanels>
+					<files>
+						<default>FactoryX_AdvertPanels.csv</default>
+					</files>
+				</FactoryX_AdvertPanels>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<global>
+	
+		<models>
+			<advertpanels>
+				<class>FactoryX_AdvertPanels_Model</class>
+			</advertpanels>
+		</models>
+
+		<catalog>
+			<product>
+				<type>
+					<panel translate="label" module="advertpanels">
+						<label>Panel Type</label>
+						<model>advertpanels/product_type_panel</model>
+						<is_qty>1</is_qty>
+					</panel>
+				</type>
+			</product>
+		</catalog>
+
+		<helpers>
+			<advertpanels>
+				<class>FactoryX_AdvertPanels_Helper</class>
+			</advertpanels>
+		</helpers>
+		
+	</global>
+
+	<frontend>
+		<events>
+			<controller_action_predispatch_catalog_product_view>
+				<observers>
+					<factoryx_advertpanels_predispatch_product_view>
+						<class>advertpanels/observer</class>
+						<method>redirectAdvertPanels</method>
+					</factoryx_advertpanels_predispatch_product_view>
+				</observers>
+			</controller_action_predispatch_catalog_product_view>
+		</events>
+	</frontend>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_AdvertPanels/>
+            </modules>
+        </suite>
+    </phpunit>
+	
+</config>
