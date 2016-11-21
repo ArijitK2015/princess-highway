@@ -20,3 +20,4 @@
 /app/code/local/FactoryX/DevTools
 /app/code/local/Mage/Core/Controller/Varien/Front.php
 /app/etc/modules/FactoryX_DevTools.xml
+/shell/emailTemplateGenerator.php
