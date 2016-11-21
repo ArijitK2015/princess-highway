@@ -1,0 +1,43 @@
+<?php
+$tableColumns = array('position', 'work_type', 'locations', 'requirements', 'apply_to');
+$career = $this->getCareer();
+
+// $career['status'] = $career['status'] ? 'Active' : 'Inactive';
+
+if (!empty($career['email'])) {
+    $adminemail = $career['email'];
+    // print a href mailto
+    if (filter_var($adminemail, FILTER_VALIDATE_EMAIL)) {
+        $position = urlencode($career['position']);
+        $career['apply_to'] = "<p>Email resume and expression of interest to: <a href='mailto:$adminemail?subject=$position'>$adminemail</a>";
+    } // print a href
+    elseif (preg_match("/\.html$/i", $adminemail)) {
+        $career['apply_to'] = "<p>click <a href='$adminemail'>here</a> to apply";
+    }
+}
+?>
+<div class="careers">
+    <div class="img-section">
+        <?php echo $this->getChildHtml('careers-view') ?>
+    </div>
+    <div id="careers" class="table-responsive">
+        <table class="stores table table-hover">
+            <tr>
+                <td colspan="2" class="title1">
+                    <a href="<?php echo $this->getUrl('careers/index/list', array('area' => $career['area'])); ?>">&lt;&lt;&nbsp;<?php echo $career['area']; ?>
+                    </a>
+                    <?php echo " :: " . $career['locations']; ?>
+                </td>
+            </tr>
+            <?php foreach ($tableColumns as $column) {
+                if (empty($career[$column])) continue; ?>
+                <tr>
+                    <td class="label">
+                        <?php $field = ucwords(str_replace('_', ' ', $column));
+                        echo $this->__($field); ?></td>
+                    <td><?php echo $career[$column]; ?></td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+</div>

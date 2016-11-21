@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <factoryx_menu translate="title">
+            <title>Factory X</title>
+            <sort_order>110</sort_order>
+            <children>
+                <manage_careers translate="title" module="careers">
+                    <title>Manage Careers</title>
+                    <sort_order>10</sort_order>
+                    <action>adminhtml/careers</action>
+                    <children>
+                        <careers_img translate="title" module="careers">
+                            <title>CMS Career Image</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/careers/editCareerPage/btn/0</action>
+                        </careers_img>
+                        <careers_list translate="title" module="careers">
+                            <title>CMS List Image</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/careers/editCareerPage/btn/1</action>
+                        </careers_list>
+                        <careers_view translate="title" module="careers">
+                            <title>CMS Detail Image</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/careers/editCareerPage/btn/2</action>
+                        </careers_view>
+                        <manage_careers translate="title" module="careers">
+                            <title>Manage Careers</title>
+                            <sort_order>40</sort_order>
+                            <action>adminhtml/careers/index</action>
+                        </manage_careers>
+                    </children>
+                </manage_careers>
+            </children>
+        </factoryx_menu>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin translate="title" module="adminhtml">
+                <children>
+                    <factoryx_menu>
+                        <children>
+                            <manage_careers>
+                                <title>Manage Careers</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <careers_img>
+                                        <title>Career Image</title>
+                                        <sort_order>10</sort_order>
+                                    </careers_img>
+                                    <careers_list>
+                                        <title>List Image</title>
+                                        <sort_order>20</sort_order>
+                                    </careers_list>
+                                    <careers_view>
+                                        <title>Detail Image</title>
+                                        <sort_order>30</sort_order>
+                                    </careers_view>
+                                    <manage_careers>
+                                        <title>Manage Careers</title>
+                                        <sort_order>40</sort_order>
+                                    </manage_careers>
+                                </children>
+                            </manage_careers>
+                        </children>
+                    </factoryx_menu>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <careers translate="title">
+                                        <title>Careers</title>
+                                    </careers>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <factoryx translate="label" module="careers">
+            <label>Factory X</label>
+            <sort_order>101</sort_order>
+        </factoryx>
+    </tabs>
+
+    <sections>
+        <careers translate="label" module="careers">
+            <label>Careers</label>
+            <tab>factoryx</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <module_options translate="label" module="careers">
+                    <label>Module Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_jquery translate="label">
+                            <label>Enable jQuery</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enable_jquery>
+                        <enable_bootstrap translate="label">
+                            <label>Enable Bootstrap</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enable_bootstrap>
+                    </fields>
+                </module_options>
+            </groups>
+        </careers>
+    </sections>
+
+</config>

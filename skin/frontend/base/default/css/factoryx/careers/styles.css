@@ -1,0 +1,82 @@
+.stores td {
+	padding:5px 0 5px 10px;
+}
+
+.stores td.label {
+	background-color:#FAF2EE;
+	color: #283344;
+	padding: 5px 0 5px 10px;
+	width: 20%;
+	height: 25px;
+	font-weight: bold;
+	font-size: inherit;
+    line-height: inherit;
+	text-align: left;
+	display: table-cell;
+	border-radius: 0;
+}
+
+.stores td.labely {
+	background-color:#FAF2EE;
+	color: #283344;
+	width: 20%;	
+}
+
+/*
+.stores tbody {
+	border:1px solid #283344;
+	width: 100%;
+}
+*/
+.title1 {
+	background-color:#F09EAA;
+	font-size:18px;
+	font-weight:bold;
+	padding:5px 0 5px 5px;
+	color: #FFF;
+}
+
+.header2 {
+	background-color:#FAF2EE;
+	color: #283344;
+	text-transform: uppercase;
+}
+
+#careers {
+	/* height:450px; */
+}
+
+.section {
+	line-height: 48px;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.career-header1 {
+	color: #ffffff;
+	background-color: #ffddf5;
+}
+
+.career-header2 {
+	color: #F09EAA;
+	background-color: #ffffff;
+}
+.search {
+max-width: 100%;
+}
+
+.img-section img{
+	width: 100%;
+}
+
+.career-header1 a, .title1 a {
+	color:#ffffff;
+}
+.career-footer2 a {
+	color: #F09EAA;
+}
+.no-records-found td {
+	text-align: center;
+}

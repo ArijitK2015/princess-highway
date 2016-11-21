@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Careers>
+            <version>0.2.21</version>
+        </FactoryX_Careers>
+    </modules>
+
+    <frontend>
+        <routers>
+            <careers>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_Careers</module>
+                    <frontName>careers</frontName>
+                </args>
+            </careers>
+        </routers>
+
+        <layout>
+            <updates>
+                <careers>
+                    <file>factoryx/careers.xml</file>
+                </careers>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <FactoryX_Careers>
+                    <files>
+                        <default>factoryx/FactoryX_Careers.csv</default>
+                    </files>
+                </FactoryX_Careers>
+            </modules>
+        </translate>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_Careers after="Mage_Adminhtml">FactoryX_Careers_Adminhtml</FactoryX_Careers>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <global>
+        <models>
+            <careers>
+                <class>FactoryX_Careers_Model</class>
+                <resourceModel>careers_mysql4</resourceModel>
+            </careers>
+
+            <careers_mysql4>
+                <class>FactoryX_Careers_Model_Mysql4</class>
+                <entities>
+                    <careers>
+                        <table>fx_careers</table>
+                    </careers>
+                    <old_careers>
+                        <table>Jobs</table>
+                    </old_careers>
+                    <old_careers_lowercase>
+                        <table>jobs</table>
+                    </old_careers_lowercase>
+                </entities>
+            </careers_mysql4>
+        </models>
+
+        <resources>
+            <careers_setup>
+                <setup>
+                    <module>FactoryX_Careers</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </careers_setup>
+            <careers_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </careers_write>
+            <careers_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </careers_read>
+        </resources>
+
+        <blocks>
+            <careers>
+                <class>FactoryX_Careers_Block</class>
+            </careers>
+        </blocks>
+
+        <helpers>
+            <careers>
+                <class>FactoryX_Careers_Helper</class>
+            </careers>
+        </helpers>
+    </global>
+
+    <default>
+        <careers>
+            <module_options>
+                <enable_jquery>1</enable_jquery>
+                <enable_bootstrap>1</enable_bootstrap>
+            </module_options>
+        </careers>
+    </default>
+</config>

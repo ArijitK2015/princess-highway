@@ -1,0 +1,42 @@
+<?php
+
+$area = $this->getCareerArea();
+$careers = $this->getCollection();
+
+$html = "";
+foreach ($careers as $career) {
+
+    $careersId = $career->getId();
+
+    $html .= "<tr>";
+    $html .= "<td>" . $career->getLocations() . "</td>";
+    $html .= "<td>" . $career->getPosition() . "</td>";
+    $html .= "<td>" . $career->getWorkType() . "</td>";
+    $html .= "<td><a href=" . $this->getUrl('careers/index/view', array('id' => $careersId)) . ">more info</a></td></tr>";
+}
+?>
+<div class="careers">
+    <div class="img-section">
+        <?php echo $this->getChildHtml('careers-list') ?>
+    </div>
+    <div class="title1">
+        <a href="<?php echo Mage::getURL('careers') ?>">
+            <<
+        </a><?php echo $this->__($area); ?>
+    </div>
+    <div id="careers" class="table-responsive">
+        <table id="careertable" class="stores table table-hover" data-toggle="table" data-search="true">
+            <thead>
+            <tr class="header2">
+                <th data-field="location" data-sortable="true"><?php echo $this->__('Location'); ?></th>
+                <th data-field="position" data-sortable="true"><?php echo $this->__('Position'); ?></th>
+                <th data-field="status" data-sortable="true"><?php echo $this->__('Work Type'); ?></th>
+                <th data-field="description"><?php echo $this->__('Description'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php echo $html; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

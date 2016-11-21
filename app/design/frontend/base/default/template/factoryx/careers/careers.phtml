@@ -1,0 +1,36 @@
+<div class="careers">
+    <div class="section">
+        <div class="career-header1">
+            <?php
+            $areas = $this->getAvailableCareerAreas();
+            asort($areas);
+            $divider = "<span class='fs-divider' style='padding:0 10px 0 10px;'>|</span>";
+            $html = "";
+            foreach ($areas as $area) {
+                if ($area == "HQ") {
+                    continue;
+                }
+                $careerUrl = $this->getUrl('careers/index/list', array('area' => $area));
+                $html .= "<a href='$careerUrl'>$area</a>$divider";
+            }
+            $html = rtrim($html, $divider);
+            echo $html;
+            ?>
+        </div>
+        <div class="career-header2">
+            <?php
+            //$careerUrl = $this->getUrl('careers/index/list', array('area' => $area));
+            //echo "<a href='$careerUrl'>$area</a>";
+            ?>
+        </div>
+        <div class="img-section">
+            <?php echo $this->getChildHtml('careers-img') ?>
+        </div>
+        <div class="career-footer2">
+            <a href='<?php echo $this->getUrl('careers/index/list'); ?>'>Browse All Current Positions</a>
+        </div>
+        <div class="career-header1">
+            <?php echo $html; ?>
+        </div>
+    </div>
+</div>

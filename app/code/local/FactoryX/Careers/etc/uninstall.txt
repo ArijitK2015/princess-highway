@@ -1,0 +1,7 @@
+app/code/local/FactoryX/Careers
+app/etc/modules/FactoryX_Careers.xml
+app/design/frontend/base/default/layout/factoryx/careers.xml
+app/design/frontend/base/default/template/factoryx/careers
+app/design/frontend/factoryx/default/layout/factoryx/careers.xml
+app/locale/en_AU/FactoryX_Careers.csv
+skin/frontend/base/default/css/factoryx/careers
