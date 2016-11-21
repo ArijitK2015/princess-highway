@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<FactoryX_Westfield>
+			<version>1.0.9</version>
+		</FactoryX_Westfield>
+	</modules>
+
+	<frontend>
+		<layout>
+			<updates>
+				<westfield module="FactoryX_Westfield">
+					<file>factoryx/westfield.xml</file>
+				</westfield>
+			</updates>
+		</layout>
+	</frontend>
+
+	<global>
+		<models>
+			<westfield>
+                <class>FactoryX_Westfield_Model</class>
+            </westfield>
+		</models>
+		<helpers>
+			<westfield>
+                <class>FactoryX_Westfield_Helper</class>
+            </westfield>
+        </helpers>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <westfield>
+                        <class>westfield/observer</class>
+                        <method>saveReferrer</method>
+                    </westfield>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+	</global>
+
+    <default>
+        <westfield>
+            <options>
+                <enabled>1</enabled>
+                <query_string>source=westfield</query_string>
+                <!--
+                <track_domain>prf.hn</track_domain>
+                -->
+            </options>
+        </westfield>
+    </default>
+
+</config>

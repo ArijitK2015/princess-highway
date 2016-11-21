@@ -1,0 +1,119 @@
+<?php
+// get session
+$session = Mage::getSingleton("core/session",  array("name"=>"frontend"));
+if (Mage::helper('westfield')->isEnabled() && $session->getData("from_westfield") === true): ?>
+	<?php
+	$createPixel = true;
+	// Build the Westfield affiliate (PHG) pixel string for inclusion in the page source (Ben Tubby September 2013)
+ 
+	// Get the order id, Set the order model, Load the order with the successful order id
+	$thisOrderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+	
+	$order = Mage::getModel('sales/order');
+	$order->loadByIncrementId($thisOrderId);
+ 
+	// Get the order grand total NOTE this should be total order - shipping (we don't charge commission on the shipping amount)
+	// Note this is needed for simple pixel only.
+	$grandTotal = $order->getGrandTotal() - $order->getShippingAmount();
+ 
+	// Get any coupon codes $order->getCouponCode();
+	// Get any gift certificate codes $order->getGiftcertCode();
+ 
+	// For the standard pixel, we need item specific information
+	$pixelItemsArray = "";
+	/*
+    $order->getAllItems() - refers to the all items parent and it's child (ref: configurable product and it's child items) 
+    $order->getAllVisibleItems() refers to the Parent items only (ref: configurable product only)
+    $order->getItemsCollection() - same as $order->getAllItems()
+    */
+	$items = $order->getAllItems();
+	
+	$itemCategory = "";
+	$itemPrice = 0;
+	$qty = 1;
+	foreach ($items as $item) {
+        $productType = $item->getProductType();
+        switch ($productType) {
+            case 'simple':
+                // ignore parents, as we are only interested in simples
+				$collection = Mage::getResourceModel('catalog/product_collection')
+					->addFieldToFilter('entity_id', array($item->getProductId()))
+					->addAttributeToSelect(array('visibility'))
+					->setPageSize(1);				
+					
+				$product = $collection->getFirstItem();
+                // get a category for each product in the order
+                // check if its part of a configurable or bundle
+                if ($product->getVisibility() == Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) {
+                    $parentItem = $item->getParentItem();
+                    if ($parentItem) {
+                		$itemPrice = number_format($parentItem->getPriceInclTax() - $parentItem->getDiscountAmount(), 2, '.','');
+                		$qty = $parentItem->getQtyOrdered();
+						$categories = Mage::getResourceModel('catalog/category_collection')
+							->joinField('product_id',
+								'catalog/category_product',
+								'product_id',
+								'category_id = entity_id',
+								null)
+							->addAttributeToSelect('name')
+							->addFieldToFilter('product_id', $parentItem->getProductId());
+                		$categories = $categories->exportToArray();
+                		// get the first category assigned to the item.  This is retailer specific
+                		if (count($categories)) {
+                		    //Mage::helper('westfield')->log(sprintf("%s->categories=%s", __METHOD__, print_r($categories, true)) );
+                		    $category = array_shift($categories);
+                		    $itemCategory = $category['name'];
+                		    //Mage::helper('westfield')->log(sprintf("%s->%s=%s", __METHOD__, $itemCategory, print_r($category, true)) );
+							
+                		}
+                	}
+                }
+                else {
+            		$itemPrice = number_format($item->getPriceInclTax() - $item->getDiscountAmount(), 2, '.','');
+            		$qty = $item->getQtyOrdered();
+                    // get category
+    			    $categories = Mage::getResourceModel('catalog/category_collection')
+						->joinField('product_id',
+							'catalog/category_product',
+							'product_id',
+							'category_id = entity_id',
+							null)
+						->addAttributeToSelect('name')
+						->addFieldToFilter('product_id', $item->getProductId());
+					$categories = $categories->exportToArray();
+					// get the first category assigned to the item.  This is retailer specific
+					if (count($categories) && array_key_exists(0, $categories)) {
+						$itemCategory = $categories[0]['name'];
+					}
+        		}
+        		if (empty($itemCategory)) {
+        		    $itemCategory = "unknown";
+        		}
+        		$itemSku = $item->getSku();
+		        // Build the item array string
+		        $pixelItemsArray .= sprintf("[category:%s/sku:%s/value:%s/quantity:%s]", $itemCategory, $itemSku, $itemPrice, $qty);
+            	$itemCategory = "";
+            	$itemPrice = 0;
+            	$qty = 0;		        
+                break;
+            default: // ignore everything else
+                /*
+        		$itemPrice = number_format($item->getPriceInclTax() - $item->getDiscountAmount(), 2, '.','');
+        		$qty = $item->getQtyOrdered();
+                echo sprintf("parent:%s|%s<br/>", $itemPrice, $qty);
+                */
+        }
+	}
+	
+	$campaignId = Mage::helper('westfield')->getCampaignId();
+	$initialPixelString = sprintf("<img src=\"https://prf.hn/conversion/campaign:%s/conversionref:%s", $campaignId, $this->escapeHtml($thisOrderId));
+	if ($createPixel) {
+        //echo sprintf("initialPixelString=<code>%s</code></br>", $initialPixelString);
+    	echo sprintf("%s/currency:%s/%s\" height=\"1\" width=\"2\" />",
+    	    $initialPixelString,
+    	    Mage::app()->getStore()->getCurrentCurrencyCode(),
+    	    $this->escapeHtml($pixelItemsArray)
+        );
+    }
+?>
+<?php endif; ?>

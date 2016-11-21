@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <factoryx translate="label" module="westfield">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+	<sections>
+		<westfield translate="label" module="westfield">
+            <label>Westfield</label>
+            <tab>factoryx</tab>
+            <sort_order>1001</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+				<options translate="label" module="westfield">
+					<label>Westfield Options</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1001</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+						<campaign_id translate="label">
+                            <label>Campaign ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">used by Westfield to track the retailer</span>]]></comment>
+                        </campaign_id>
+						<query_string translate="label">
+                            <label>Track Query String</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">key value pair in query string used to turn on tracking</span>]]></comment>
+                        </query_string>
+                        <!--
+						<track_domain translate="label">
+                            <label>Track Domain</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="notice">Note. replaced by source=westfield (currently hard coded)</span>]]></comment>
+                        </track_domain>
+                        -->
+					</fields>
+				</options>
+			</groups>
+		</westfield>
+	</sections>
+</config>

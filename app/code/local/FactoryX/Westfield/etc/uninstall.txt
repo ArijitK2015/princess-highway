@@ -1,0 +1,4 @@
+app/code/local/FactoryX/Westfield
+app/etc/modules/FactoryX_Westfield.xml
+app/design/frontend/base/default/layout/factoryx/westfield.xml
+app/design/frontend/base/default/template/factoryx/westfield
