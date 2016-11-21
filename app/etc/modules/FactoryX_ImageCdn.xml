@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_ImageCdn>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				<Mage_Widget/>
+			</depends>
+		</FactoryX_ImageCdn>
+	</modules>
+</config>

@@ -1,0 +1,43 @@
+<!-- Script for handling image not loading correctly - still a hack after 2 days digging in OnePica -->
+<script type="text/javascript">
+    (function(){
+        var eleCount = 0;
+        var loggedUrls = [""];
+
+        function imageError(ele){
+            var replacement_url = "/js/colorpicker/images/blank.gif";
+            var img = jQuery(ele);
+            var faultyUrl = img.attr('src');
+
+            if (replacement_url != faultyUrl && loggedUrls.indexOf(faultyUrl) == -1){
+                loggedUrls.push(faultyUrl);
+                jQuery.ajax({
+                    type: "post",
+                    url: "<?php echo Mage::getBaseUrl(); ?>imagecdn/index/log/",
+                    dataType: 'json',
+                    data: { url: faultyUrl , url_referrer: window.location.href },
+                    success: function (data){
+                        if (data.status){
+                            // Reload the image width append timestamp
+                            img.attr('src',faultyUrl+"?id="+(Number(new Date())));
+                        }
+                    }
+                });
+            }
+
+            img.attr('alt','');
+            img.attr('src',replacement_url);
+
+            if (jQuery('#overlay').is(':visible')){
+                img.attr('width','720px');
+                img.attr('height','720px');
+            }
+        }
+
+        jQuery(document).ready(function(){
+            jQuery('img').on('error',function(){
+                imageError(this);
+            });
+        });
+    })();
+</script>

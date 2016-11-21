@@ -1,0 +1,4 @@
+app/code/local/FactoryX/ImageCdn
+app/etc/modules/FactoryX_ImageCdn.xml
+app/design/frontend/base/default/template/factoryx/imagecdn
+app/design/frontend/base/default/layout/factoryx/imagecdn.xml
