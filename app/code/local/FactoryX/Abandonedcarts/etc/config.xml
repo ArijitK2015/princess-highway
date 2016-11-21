@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_Abandonedcarts>
+            <version>1.2.11</version>
+        </FactoryX_Abandonedcarts>
+    </modules>
+	
+	<admin>
+        <routers>
+
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_Abandonedcarts before="Mage_Adminhtml">FactoryX_Abandonedcarts_Adminhtml</FactoryX_Abandonedcarts>
+					</modules>
+				</args>
+			</adminhtml>
+			
+        </routers>
+	</admin>
+	
+	<frontend>
+		<!-- Translation file -->
+		<translate>
+            <modules>
+                <FactoryX_Abandonedcarts>
+                    <files>
+                        <default>FactoryX_Abandonedcarts.csv</default>
+                    </files>
+                </FactoryX_Abandonedcarts>
+            </modules>
+        </translate>
+
+		<secure_url>
+			<abandonedcarts>/abandonedcarts/</abandonedcarts>
+		</secure_url>
+
+		<routers>
+			<abandonedcarts>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_Abandonedcarts</module>
+					<frontName>abandonedcarts</frontName>
+				</args>
+			</abandonedcarts>
+		</routers>
+	</frontend>
+	
+	<adminhtml>
+		<!-- Backend translation file -->
+        <translate>
+            <modules>
+                <FactoryX_Abandonedcarts>
+                    <files>
+                        <default>FactoryX_Abandonedcarts.csv</default>
+                    </files>
+                </FactoryX_Abandonedcarts>
+            </modules>
+        </translate>
+
+		<layout>
+			<updates>
+				<abandonedcarts module="FactoryX_Abandonedcarts">
+					<file>factoryx/abandonedcarts.xml</file>
+				</abandonedcarts>
+			</updates>
+		</layout>
+
+		<events>
+			<!-- To register the controller action -->
+			<controller_action_predispatch_adminhtml>
+				<observers>
+					<factoryx_abandonedcarts_predispatch_register>
+						<type>singleton</type>
+						<class>abandonedcarts/adminhtml_observer</class>
+						<method>registerController</method>
+					</factoryx_abandonedcarts_predispatch_register>
+				</observers>
+			</controller_action_predispatch_adminhtml>
+			<!-- Called after creating a block -->
+			<core_layout_block_create_after>
+				<observers>
+					<factoryx_abandonedcarts_block_create_after>
+						<type>singleton</type>
+						<class>abandonedcarts/adminhtml_observer</class>
+						<method>addExtraColumnsToGrid</method>
+					</factoryx_abandonedcarts_block_create_after>
+				</observers>
+			</core_layout_block_create_after>
+			<!-- Called before loading a non EAV collection -->
+			<core_collection_abstract_load_before>
+				<observers>
+					<factoryx_abandonedcarts_before_core_load_collection>
+						<class>abandonedcarts/adminhtml_observer</class>
+						<method>addExtraColumnsToCollection</method>
+					</factoryx_abandonedcarts_before_core_load_collection>
+				</observers>
+			</core_collection_abstract_load_before>
+		</events>
+    </adminhtml>
+	
+	<global>
+		<blocks>
+            <abandonedcarts>
+                <class>FactoryX_Abandonedcarts_Block</class>
+            </abandonedcarts>
+        </blocks>
+		
+		<helpers>
+            <abandonedcarts>
+                <class>FactoryX_Abandonedcarts_Helper</class>
+            </abandonedcarts>
+        </helpers>
+	
+        <models>
+        	<abandonedcarts>
+        		<class>FactoryX_Abandonedcarts_Model</class>
+				<resourceModel>abandonedcarts_mysql4</resourceModel>
+        	</abandonedcarts>
+
+			<abandonedcarts_mysql4>
+				<class>FactoryX_Abandonedcarts_Model_Resource</class>
+				<!-- declare table test -->
+				<entities>
+					<log>
+						<table>fx_abandonedcarts_log</table>
+					</log>
+					<link>
+						<table>fx_abandonedcarts_link</table>
+					</link>
+				</entities>
+			</abandonedcarts_mysql4>
+
+            <sales_resource>
+                <rewrite>
+                    <quote>FactoryX_Abandonedcarts_Model_Sales_Resource_Quote</quote>
+                </rewrite>
+            </sales_resource>
+        </models>
+
+		<template>
+			<email>
+				<abandonedcartsconfig_email_email_template translate="label" module="abandonedcarts">
+					<label>Abandoned Cart Template</label> 
+					<file>factoryx/abandonedcarts/sales_abandonedcarts.html</file>
+					<type>html</type>
+				</abandonedcartsconfig_email_email_template>
+				<abandonedcartsconfig_email_email_template_sale translate="label" module="abandonedcarts">
+					<label>Abandoned Cart Sale Template</label> 
+					<file>factoryx/abandonedcarts/sales_abandonedcarts_sale.html</file>
+					<type>html</type>
+				</abandonedcartsconfig_email_email_template_sale>
+			</email>
+		</template>
+		
+		<resources>       
+			<abandonedcarts_setup>
+				<setup>
+					<module>FactoryX_Abandonedcarts</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</abandonedcarts_setup>
+			<abandonedcarts_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</abandonedcarts_write>
+			<abandonedcarts_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</abandonedcarts_read>
+		</resources>
+        
+    </global>
+	
+	<crontab> 
+		<jobs> 
+			<factoryx_abandonedcarts_send>
+				<schedule>
+					<config_path>abandonedcartsconfig/options/cron_expr</config_path>
+				</schedule>
+				<run>
+					<model>abandonedcarts/notifier::sendAbandonedCartsEmail</model>
+				</run>
+			</factoryx_abandonedcarts_send>
+			<factoryx_abandonedcarts_sendsale>
+				<schedule>
+					<config_path>abandonedcartsconfig/options/cron_expr</config_path>
+				</schedule>
+				<run>
+					<model>abandonedcarts/notifier::sendAbandonedCartsSaleEmail</model>
+				</run>
+			</factoryx_abandonedcarts_sendsale>
+			<factoryx_abandonedcarts_deleteexpiredlinks>
+				<schedule>
+					<cron_expr>*/5 * * * *</cron_expr>
+				</schedule>
+				<run>
+					<model>abandonedcarts/link_cleaner::cleanExpiredLinks</model>
+				</run>
+			</factoryx_abandonedcarts_deleteexpiredlinks>
+		</jobs> 
+	</crontab>
+	
+	<default>
+		<abandonedcartsconfig>
+			<options>
+				<enable>0</enable>
+				<cron_expr>0 1 * * *</cron_expr>
+				<notify_delay>20</notify_delay>
+				<enable_sale>1</enable_sale>
+				<customer_groups>1,2,3</customer_groups>
+			</options>
+			<email>
+				<email_template>abandonedcartsconfig_email_email_template</email_template>
+				<email_template_sale>abandonedcartsconfig_email_email_template_sale</email_template_sale>
+				<autologin>0</autologin>
+			</email>
+			<campaign>
+				<enable>0</enable>
+			</campaign>
+			<url>
+				<enable>0</enable>
+			</url>
+			<test>
+				<dryrun>0</dryrun>
+			</test>
+		</abandonedcartsconfig>
+	</default>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_Abandonedcarts/>
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>

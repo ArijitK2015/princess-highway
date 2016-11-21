@@ -1,0 +1,2 @@
+config:
+  default/abandonedcartsconfig/options/testemail: phpunit@factoryx.com.au

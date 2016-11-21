@@ -1,0 +1,12 @@
+1-1:
+  recipients:
+    phpunit@factoryx.com.au:
+      cartId: 999999
+      emailTemplateVariables:
+        fullname: PHP Unit Test
+        firstname: PHP Unit
+        productname: Product Test
+        extraproductcount: 0
+        cartprice: $100.00
+        specialprice: $75.00
+        discount: $25.00

@@ -1,0 +1,132 @@
+eav:
+  catalog_product:
+    - entity_id: 1
+      type_id: simple
+      sku: test
+      name: test
+      short_description: test
+      description: test
+      url_key: test
+      stock:
+        qty: 100.00
+        is_in_stock: 1
+      websites_ids:
+        - base
+      price: 26.00
+      tax_class_id: 2
+      status: 1
+      visibility: 4
+      attribute_set_id: 1
+tables:
+  sales/quote:
+    - entity_id: 1
+      store_id: 1
+      created_at: 2015-03-05 18:00:41
+      updated_at: 2015-05-05 18:00:41
+      converted_at: null
+      is_active: 1
+      is_virtual: 0
+      is_multi_shipping: 0
+      items_count: 1
+      items_qty: 1.0000
+      orig_order_id: 0
+      store_to_base_rate: 1.0000
+      store_to_quote_rate: 1.0000
+      base_currency_code: AUD
+      store_currency_code: AUD
+      quote_currency_code: AUD
+      grand_total: 26.0000
+      base_grand_total: 26.0000
+      checkout_method: null
+      customer_id: null
+      customer_tax_class_id: 3
+      customer_group_id: 0
+      customer_email: null
+      customer_prefix: null
+      customer_firstname: null
+      customer_middlename: null
+      customer_lastname: null
+      customer_suffix: null
+      customer_dob: null
+      customer_note: null
+      customer_note_notify: 1
+      customer_is_guest: 0
+      remote_ip: null
+      applied_rule_ids: null
+      reserved_order_id: null
+      password_hash: null
+      coupon_code: null
+      global_currency_code: AUD
+      base_to_global_rate: 1.0000
+      base_to_quote_rate: 1.0000
+      customer_taxvat: null
+      customer_gender: null
+      subtotal: 26.0000
+      base_subtotal: 26.0000
+      subtotal_with_discount: 26.0000
+      base_subtotal_with_discount: 26.0000
+      is_changed: 1
+      trigger_recollect: 0
+      ext_shipping_info: null
+      gift_message_id: null
+      is_persistent: 0
+      abandoned_notified: 0
+      abandoned_sale_notified: 0
+  sales/quote_item:
+    - item_id: 1
+      quote_id: 1
+      product_id: 1
+      parent_item_id: null
+      is_virtual: 0
+      sku: test
+      name: test
+      description: test
+      applied_rule_ids: 0
+      additional_data: null
+      free_shipping: 0
+      is_qty_decimal: 0
+      no_discount: 0
+      weight: 0.4000
+      qty: 1
+      price: 26.0000
+      base_price: 26.0000
+      custom_price: 10.0000
+      discount_percent: 0.0000
+      discount_amount: 0.0000
+      base_discount_amount: 0.0000
+      tax_percent: 0.0000
+      tax_amount: 0.0000
+      base_tax_amount: 0.0000
+      row_total: 20.0000
+      base_row_total: 20.0000
+      row_total_with_discount: 0.0000
+      row_weight: 0.0000
+      product_type: configurable
+      base_tax_before_discount: null
+      tax_before_discount: null
+      original_custom_price: 10.0000
+      redirect_url: null
+      base_cost: null
+      price_incl_tax: 13.0000
+      base_price_incl_tax: 13.0000
+      row_total_incl_tax: 26.0000
+      base_row_total_incl_tax: 26.0000
+      hidden_tax_amount: null
+      base_hidden_tax_amount: null
+      gift_message_id: null
+      weee_tax_disposition: 0.0000
+      weee_tax_row_disposition: 0.0000
+      base_weee_tax_disposition: 0.0000
+      base_weee_tax_row_disposition: 0.0000
+      weee_tax_applied: 'a:0:{}'
+      weee_tax_applied_amount: 0.0000
+      weee_tax_applied_row_amount: 0.0000
+      base_weee_tax_applied_amount: 0.0000
+      base_weee_tax_applied_row_amnt: null
+      event_id: null
+      giftregistry_item_id: null
+      gw_id: null
+      gw_base_price: null
+      gw_price: null
+      gw_base_tax_amount: null
+      gw_tax_amount: null

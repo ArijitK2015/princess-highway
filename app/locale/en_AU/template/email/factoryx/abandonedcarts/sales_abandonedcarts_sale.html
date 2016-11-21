@@ -1,0 +1,29 @@
+<!--@subject {{var fullname}} Abandoned Sale Products In Your Shopping Bag! @-->
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td align="center" valign="top" style="padding:20px 0 20px 0">
+				<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+					<!-- [ header starts here] -->
+					<tr>
+						<td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+					</tr>
+					<!-- [ middle starts here] -->
+					<tr>
+						<td valign="top">
+							<div>
+								<p>Dear {{var firstname}},</p>
+								<p>You have abandoned the following product(s) in your shopping bag and they are now on sale:</p>
+								{{block type='core/template' area='frontend' template='factoryx/abandonedcarts/email/sale_items.phtml' productname=$productname productimage=$productimage cartprice=$cartprice specialprice=$specialprice}}
+								<p>Purchase every product in your cart and save {{var discount}} on your order.</p>
+								<p>Follow this link to finalize your purchase with the new special price: <a href="{{var link}}">{{var link}}</a></p>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>

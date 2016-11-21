@@ -1,0 +1,8 @@
+app/code/local/FactoryX/Abandonedcarts
+app/etc/modules/FactoryX_Abandonedcarts.xml
+app/design/adminhtml/default/default/layout/factoryx/abandonedcarts.xml
+app/design/adminhtml/default/default/template/factoryx/abandonedcarts
+app/design/frontend/base/default/template/factoryx/abandonedcarts
+app/locale/en_AU/FactoryX_Abandonedcarts.csv
+app/locale/en_AU/template/email/factoryx/abandonedcarts
+lib/googl-php

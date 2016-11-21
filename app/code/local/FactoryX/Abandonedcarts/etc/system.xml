@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<factoryx translate="label" module="abandonedcarts">
+			<label>Factory X</label>
+			<sort_order>101</sort_order>
+		</factoryx>
+	</tabs>
+	<sections>
+		<abandonedcartsconfig translate="label" module="abandonedcarts">
+			<label>Abandoned Carts Emails</label>
+			<tab>factoryx</tab>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+                <general translate="label" module="abandonedcarts">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <modules_disable_output translate="label">
+                            <label>Disable Modules Output</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>abandonedcarts/adminhtml_system_config_form_field_disableModulesOutput</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Note. if this is disabled then the email body will not get rendered!</comment>
+                        </modules_disable_output>
+                    </fields>
+                </general>			    
+				<options translate="label">
+					<label>Global Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label">
+							<label>Enable Abandoned Carts Notification</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<enable_sale translate="label">
+							<label>Enable Sale Abandoned Carts Notification</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_sale>
+						<cron_expr translate="label">
+							<label>Cron Schedule</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</cron_expr>
+						<notify_delay translate="label comment">
+							<label>Delay / Send Abandoned Cart Email After</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-not-negative-number</validate>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+							<comment>(days). NB: this only affects unaltered abandoned carts. If products go on sale, the email below is sent on the same day.</comment>
+						</notify_delay>
+						<customer_groups translate="label">
+							<label>Customer Groups Restriction</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>adminhtml/system_config_source_customer_group_multiselect</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+						</customer_groups>
+					</fields>
+				</options>
+				<email translate="label">
+					<label>Email Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<name translate="label">
+							<label>Sender Name</label>
+							<frontend_type>text</frontend_type>
+							<backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+							<validate>validate-emailSender</validate>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</name>
+						<email translate="label">
+							<label>Sender Email</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-email</validate>
+							<backend_model>adminhtml/system_config_backend_email_address</backend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email>
+						<email_template translate="label">
+							<label>Email Template for Unaltered Abandoned Carts</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email_template>
+						<email_template_sale translate="label">
+							<label>Email Template for Abandoned Carts Sale</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email_template_sale>
+						<autologin translate="label comment">
+							<label>Enable Automatic login link in the email</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Autologin links are one use only and expire after 48 hours for security reasons.</comment>
+						</autologin>
+					</fields>
+				</email>
+				<campaign translate="label">
+					<label>Campaign Tracker</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>4</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label comment">
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<name translate="label comment">
+							<label>Campaign Name</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>
+							<comment>utm_campaign</comment>
+						</name>
+					</fields>
+				</campaign>
+				<url translate="label comment">
+					<label>Google URL Shortener</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>Use these settings to shorten the document URL's.</comment>
+					<fields>
+						<enabled translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						<google_api_key translate="label comment">
+							<label>Google API Key</label>
+							<comment><![CDATA[see <a target='_blank' rel='noopener noreferrer' href='https://developers.google.com/url-shortener/v1/getting_started'>url-shortener</a>]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enabled>1</enabled></depends>
+						</google_api_key>
+						<http_proxy translate="label comment">
+							<label>HTTP Proxy</label>
+							<comment><![CDATA[use host:port e.g. 192.168.100.3:3128]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enabled>1</enabled></depends>
+						</http_proxy>
+					</fields>
+				</url>
+				<test translate="label">
+					<label>Test and debug</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>6</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<dryrun translate="label comment">
+							<label>Dry Run</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Setting this parameter to Yes will not send the real email notification.</comment>
+						</dryrun>
+						<testemail translate="label comment">
+							<label>Test Email</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><dryrun>1</dryrun></depends>
+							<comment>With dry run set to yes, this email is used as a recipient email replacement so the real customer don't receive the email.</comment>
+						</testemail>
+					</fields>
+				</test>
+			</groups>
+		</abandonedcartsconfig>
+	</sections>
+</config>
