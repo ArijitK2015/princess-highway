@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_AskStylist>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				<Mage_Contacts/>
+			</depends>
+		</FactoryX_AskStylist>
+	</modules>
+</config>

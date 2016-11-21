@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FactoryX_AskStylist>
+            <version>1.1.2</version>
+        </FactoryX_AskStylist>
+    </modules>
+    <global>
+        <helpers>
+            <askstylist>
+                <class>FactoryX_AskStylist_Helper</class>
+            </askstylist>
+        </helpers>
+        <blocks>
+            <askstylist>
+                <class>FactoryX_AskStylist_Block</class>
+            </askstylist>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>           
+            <contacts>
+                <args>
+                    <modules>
+                        <askstylist before="Mage_Contacts">FactoryX_AskStylist</askstylist>
+                    </modules>
+                </args>
+            </contacts> 
+        </routers>
+    </frontend>
+</config>

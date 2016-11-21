@@ -1,0 +1,3 @@
+app/code/local/FactoryX/AskStylist
+app/etc/modules/FactoryX_AskStylist.xml
+app/design/adminhtml/default/default/template/factoryx/askstylist
