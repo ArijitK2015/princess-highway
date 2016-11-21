@@ -1,0 +1,2 @@
+app/code/local/FactoryX/Checkout
+app/etc/modules/FactoryX_Checkout.xml

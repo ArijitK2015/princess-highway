@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_Checkout>
+			<version>0.1.1</version>
+		</FactoryX_Checkout>
+	</modules>
+ 
+	<global>
+		<blocks>
+			<checkout>
+				<rewrite>
+					<!-- Mage_Checkout_Block_Onepage_Shipping_Method_Available -->
+					<onepage_shipping_method_available>FactoryX_Checkout_Block_Onepage_Shipping_Method_Available</onepage_shipping_method_available>
+					<!-- Mage_Checkout_Block_Cart_Shipping -->
+					<cart_shipping>FactoryX_Checkout_Block_Cart_Shipping</cart_shipping>
+				</rewrite>
+			</checkout>
+		</blocks>
+		
+		<helpers>
+            <fx_checkout>
+                <class>FactoryX_Checkout_Helper</class>
+            </fx_checkout>
+        </helpers>
+
+		<models>
+			<fx_checkout>
+				<class>FactoryX_Checkout_Model</class>
+			</fx_checkout>
+		</models>
+        
+        <events>
+			<!-- Called after creating a block -->
+			<core_layout_block_create_after>
+				<observers>
+					<factoryx_checkout_core_layout_block_create_after>
+						<type>singleton</type>
+						<class>fx_checkout/observer</class>
+						<method>blockCreateAfter</method>
+					</factoryx_checkout_core_layout_block_create_after>
+				</observers>
+			</core_layout_block_create_after>
+			<!-- Called after saving the shipping method on the onepage checkout -->
+			<checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <addGiftWrapping>
+                        <type>singleton</type>
+                        <class>fx_checkout/checkout_observer</class>
+                        <method>addGiftWrapping</method>
+                    </addGiftWrapping>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>			
+		</events>
+        
+	</global>
+</config>

@@ -1,0 +1,29 @@
+<config>
+    <sections>
+        <sales>
+            <groups>
+                <gift_options translate="label" module="checkout">
+                    <fields>
+                        <product_sku translate="label">
+                            <label>Gift Wrapping Service Sku</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </product_sku>
+                        <url translate="label">
+                            <label>Gift Wrapping Service URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </url>                        
+                    </fields>
+                </gift_options>
+            </groups>
+        </sales>
+    </sections>
+</config>
+                        
