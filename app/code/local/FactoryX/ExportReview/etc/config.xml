@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+ 
+    <modules>
+		<FactoryX_ExportReview>
+			<version>0.1.6</version>
+		</FactoryX_ExportReview>
+    </modules>
+	
+	<global>
+		<models>
+			<exportreview>
+				<class>FactoryX_ExportReview_Model</class>
+			</exportreview>
+		</models>
+	</global>
+ 
+    <admin>
+		<routers>
+
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_ExportReview before="Mage_Adminhtml">FactoryX_ExportReview_Adminhtml</FactoryX_ExportReview>
+					</modules>
+				</args>
+			</adminhtml>
+
+		</routers>
+    </admin>
+
+	<adminhtml>
+		<events>
+			<!-- Before rendering event -->
+			<core_block_abstract_prepare_layout_before>
+				<observers>
+					<factoryx_exportreview_add>
+						<type>singleton</type>
+						<class>exportreview/observer</class>
+						<method>addMassExport</method>
+					</factoryx_exportreview_add>
+				</observers>
+			</core_block_abstract_prepare_layout_before>
+		</events>
+	</adminhtml>
+
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_ExportReview/>
+			</modules>
+		</suite>
+	</phpunit>
+ 
+</config>
