@@ -1,0 +1,2 @@
+app/code/local/FactoryX/Promo
+app/etc/modules/FactoryX_Promo.xml
