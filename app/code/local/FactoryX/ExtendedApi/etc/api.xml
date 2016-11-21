@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <!-- FactoryX_ExtendedApi_Model_Catalog_Product_Api -->
+            <extended_api translate="title" module="extended_api">
+                <model>extended_api/catalog_product_api</model>
+                <acl>extended_api</acl>
+                <title>catalog_product_api</title>
+                <methods>
+                    <info translate="title" module="extended_api">
+                        <title>catalog_product_attribute_group_price.info</title>
+                        <method>info</method>
+                        <acl>extended_api/catalog_product_api/info</acl>
+                    </info>
+                    <update translate="title" module="extended_api">
+                        <title>catalog_product_attribute_group_price.update</title>
+                        <method>update</method>
+                        <acl>extended_api/catalog_product_api/update</acl>
+                    </update>
+                </methods>
+            </extended_api>
+            <!-- FactoryX_ExtendedApi_Model_Transaction_Api -->
+            <transaction translate="title" module="extended_api">
+                <model>extended_api/transaction_api</model>
+                <acl>transaction</acl>
+                <title>Transaction Resource</title>
+                <methods>
+                    <info translate="title" module="extended_api">
+                        <title>Retrieve transaction data</title>
+                        <method>info</method>
+                        <acl>extended_api/transaction_api/info</acl>
+                    </info>
+                </methods>
+                <faults module="extended_api">
+                    <data_invalid>
+                        <code>100</code >
+                        <message>Invalid ...</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code >
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code >
+                        <message>Transaction doesn't exist.</message>
+                    </not_exists>
+                </faults>
+            </transaction>
+        </resources>
+        <acl>
+            <resources>
+                <extended_api translate="title" module="extended_api">
+                    <title>Extended Catalog Product API</title>
+                    <info translate="title" module="extended_api">
+                        <title>Catalog Product Attribute Group Price Info</title>
+                    </info>
+                    <update translate="title" module="extended_api">
+                        <title>Catalog Product Attribute Group Price Update</title>
+                    </update>
+                </extended_api>
+                <transaction translate="title" module="extended_api">
+                    <title>Transaction</title>
+                    <info translate="title" module="extended_api">
+                        <title>Info</title>
+                    </info>
+                </transaction>
+            </resources>
+        </acl>
+        <v2>
+            <resources_function_prefix>
+                <new>extendedApiCatalogProduct</new>
+            </resources_function_prefix>
+        </v2>
+        <resources_alias>
+            <new>extended_api</new>
+        </resources_alias>
+    </api>
+</config>

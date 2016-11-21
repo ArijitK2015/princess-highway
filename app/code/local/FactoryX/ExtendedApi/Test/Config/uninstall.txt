@@ -1,0 +1,2 @@
+app/code/local/FactoryX/ExtendedApi
+app/etc/modules/FactoryX_ExtendedApi.xml

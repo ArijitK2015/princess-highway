@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ExtendedApi>
+            <version>0.0.11</version>
+        </FactoryX_ExtendedApi>
+    </modules>
+    <global>
+        <helpers>
+             <extended_api>
+                <class>FactoryX_ExtendedApi_Helper</class>
+            </extended_api>
+        </helpers>
+        <models>
+            <api>
+                <rewrite>
+                    <!-- Mage_Api_Model_Server_Adapter_Soap -->
+                    <server_adapter_soap>FactoryX_ExtendedApi_Model_Api_Server_Adapter_Soap</server_adapter_soap>
+                </rewrite>
+            </api>
+            <catalog>
+                <rewrite>
+                    <!-- Mage_Catalog_Model_Product_Link_Api -->
+                    <product_link_api>FactoryX_ExtendedApi_Model_Catalog_Product_Link_Api</product_link_api>
+                    <!-- Mage_Catalog_Model_Product_Attribute_Media_Api -->
+                    <product_attribute_media_api>FactoryX_ExtendedApi_Model_Catalog_Product_Attribute_Media_Api</product_attribute_media_api>
+                </rewrite>
+            </catalog>
+            <extended_api>
+                <class>FactoryX_ExtendedApi_Model</class>
+            </extended_api>
+        </models>
+    </global>
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_ExtendedApi/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
