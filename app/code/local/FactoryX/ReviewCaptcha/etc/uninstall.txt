@@ -1,0 +1,3 @@
+app/code/local/FactoryX/ReviewCaptcha
+app/etc/modules/FactoryX_ReviewCaptcha.xml
+app/design/frontend/base/default/layout/factoryx/reviewcaptcha.xml
