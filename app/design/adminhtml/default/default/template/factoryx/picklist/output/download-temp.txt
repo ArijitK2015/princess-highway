@@ -1,0 +1,108 @@
+            $storeId = 0;
+            $websites = Mage::app()->getWebsites(true);
+
+            if (count($websites) > 1) {
+                $storeId = $websites[1]->getDefaultStore()->getCode();
+            }
+
+            $output = Mage::getModel("picklist/output_download");
+            $path = $output->createTmpDir();
+            // copy tmp file to media
+            $files = array();
+
+            $store = "admin";
+            if (array_key_exists('send_to_stores', $params)) {
+                $stores = $params['send_to_stores'];
+                if (is_array($stores)) {
+                    shuffle($stores);
+                }
+                elseif(!empty($stores)) {
+                    $store = $stores;
+                }
+            }
+            foreach ($outFiles as $file) {
+                // $parts['basename'];
+                $parts = pathinfo($file);
+                // one store
+                if (isset($stores) && is_array($stores)) {
+                    $store = array_pop($stores);
+                }
+                $newName = sprintf("%s_%s_pick_list.pdf", date('Ymd_a'), $store);
+                $new = sprintf("%s/%s", $path, $newName);
+                if (!rename($file, $new)) {
+                    throw new Exception(sprintf("file rename from '%s' to '%s' failed: %s", $file, $new, error_get_last()));
+                }
+                if (!chmod($new, 0644)) {
+                    throw new Exception(sprintf("cannot chmod '%s' to '0644': %s", $new, error_get_last()));
+                }
+
+                $new = str_replace(Mage::getBaseDir('media'), '', $new);
+                if (preg_match("/^\//", $new)) {
+                    $new = substr($new, 1);
+                }
+
+                // Mage_Core_Model_Store::URL_TYPE_LINK
+                $mediaPath = Mage::app()->getStore($storeId)->getBaseUrl('media', array('_secure' => false));
+                $files[] = array(
+                    'url'   => sprintf("%s%s", $mediaPath, $new),
+                    'store' => $store,
+                    'file'  => $new,
+                    'name'  => $newName
+                );
+            }
+
+			header('Cache-Control: public');
+            header('Content-Type: text/html');
+
+    	    $title = sprintf('%s :: Pick List - %s [%s - %s]',
+    		    Mage::getStoreConfig('general/store_information/name'),
+    		    Mage::helper('picklist')->getStatusLabel($params['status']),
+    		    $params['report_from'],
+    		    $params['report_to']
+    	    );
+
+            $html .= sprintf("<html><head><title>%s</title></head>", $title);
+            $html .= sprintf("<body><div style='width: 800px; margin-left: auto; margin-right: auto ;'><h2>%s</h2>", $title);
+
+            $target = "target='_blank' rel='noopener noreferrer'";
+            foreach ( $files as $file) {
+
+                // direct link
+                $link1 = sprintf("<a href='%s' %s>%s</a><br/>", $file['url'], $target, $file['url']);
+                // link via controller
+                $getDoc = Mage::app()->getStore($storeId)->getUrl('picklist/index/get', array(
+                        '_nosid'    => true,
+                        '_secure'   => false,
+                        '_query'    => array(
+                            'file_path' => $file['file'],
+                            'store'     => $file['store']
+                        )
+                    )
+                );
+                if (Mage::helper('picklist')->isMinifyUrlsEnabled()) {
+                    $getDoc = Mage::helper('picklist')->minifyUrl($getDoc);
+                }
+                $link2 = sprintf("<a href='%s' target='_blank' rel='noopener noreferrer'>%s</a><br/>", $getDoc, $file['name']);
+
+                //$html .= sprintf("<p>%s</p>", $link1);
+                $html .= sprintf("<p>%s</p>", $link2);
+
+                if ($sendEmail) {
+
+                    $recipientEmail = sprintf("%s@factoryx.com.au", $file['store']);
+                    $recipientName = $recipientEmail; //sprintf("%s", $file['store']);
+                    Mage::helper('picklist')->log(sprintf("%s->recipient: %s", __METHOD__, $recipientEmail));
+
+                    $body = sprintf("<html><body>%s</body></html>", $link2);
+
+                    if (!Mage::helper('picklist')->isEmailAdminOnly()) {
+                        Mage::helper('picklist')->sendEmail($recipientName, $recipientEmail, $title, $body);
+                    }
+
+                    $recipientEmail = Mage::helper('picklist')->getAdminEmail();
+                    $recipientName = $recipientEmail;
+                    //$recipientName = Mage::getStoreConfig('trans_email/adminemail/name');
+                    Mage::helper('picklist')->sendEmail($recipientName, $recipientEmail, $title, $body);
+                }
+            }
+            $html .= "</div></body></html>";

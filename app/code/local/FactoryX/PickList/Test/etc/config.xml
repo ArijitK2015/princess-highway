@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_TestFramework>
+            <version>0.0.1</version>
+        </FactoryX_TestFramework>
+    </modules>
+
+    <global>
+
+        <models>
+            <!-- Declare module block -->
+            <testframework>
+                <class>FactoryX_TestFramework_Model</class>
+            </testframework>
+        </models>
+
+        <helpers>
+            <!-- Declare module helper -->
+            <testframework>
+                <class>FactoryX_TestFramework_Helper</class>
+            </testframework>
+        </helpers>
+
+    </global>
+
+</config>

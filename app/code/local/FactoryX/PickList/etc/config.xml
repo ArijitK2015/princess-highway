@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_PickList>
+            <version>1.4.20</version>
+        </FactoryX_PickList>
+    </modules>
+
+    <default>
+        <picklist>
+            <default_filter>
+                <show_cg_filter>0</show_cg_filter>
+                <customer_group_filter_default>ALL</customer_group_filter_default>
+                <show_pt_filter>1</show_pt_filter>
+                <product_type_filter_default>ALL</product_type_filter_default>
+            </default_filter>
+            <default_output>
+                <show_images>1</show_images>
+                <include_summary>1</include_summary>
+            </default_output>
+            <email_settings>
+                <template>picklist_basic_text_email_template</template>
+            </email_settings>
+            <debug>
+                <logenabled>0</logenabled>
+                <cleanlog>1</cleanlog>
+                <cleanlog_after_days>30</cleanlog_after_days>
+                <log_debug>0</log_debug>
+            </debug>
+            <minify>
+                <google_api_key>AIzaSyD9n1eGcbrYQOUZv5QKSorr1K0q8gnt8Oo</google_api_key>
+                <http_proxy>192.168.100.3:3128</http_proxy>
+            </minify>
+        </picklist>
+    </default>
+
+    <frontend>
+        <routers>
+            <picklist>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_PickList</module>
+                    <frontName>picklist</frontName>
+                </args>
+            </picklist>
+        </routers>
+    </frontend>
+
+    <global>
+        <models>
+            <picklist>
+                <class>FactoryX_PickList_Model</class>
+                <resourceModel>picklist_mysql4</resourceModel>
+            </picklist>
+            <picklist_mysql4>
+                <class>FactoryX_PickList_Model_Mysql4</class>
+                <entities>
+                    <job_log>
+                        <table>picklist_job_log</table>
+                    </job_log>
+                    <request_log>
+                        <table>picklist_request_log</table>
+                    </request_log>
+                </entities>
+            </picklist_mysql4>
+        </models>
+
+        <template>
+            <email>
+                <picklist_basic_text_email_template translate='label' module='picklist'>
+                    <label>Pick List - Basic Text Email</label>
+                    <file>factoryx/picklist/picklist_basic_text_email.txt</file>
+                    <type>text</type>
+                </picklist_basic_text_email_template>
+            </email>
+        </template>
+
+        <resources>
+            <picklist_setup>
+                <setup>
+                    <module>FactoryX_PickList</module>
+                    <class>FactoryX_PickList_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </picklist_setup>
+            <picklist_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </picklist_write>
+            <picklist_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </picklist_read>
+        </resources>
+        <blocks>
+            <picklist>
+                <class>FactoryX_PickList_Block</class>
+            </picklist>
+        </blocks>
+        <helpers>
+            <picklist>
+                <class>FactoryX_PickList_Helper</class>
+            </picklist>
+        </helpers>
+
+    </global>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_PickList before="Mage_Adminhtml">FactoryX_PickList_Adminhtml</FactoryX_PickList>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <crontab>
+        <jobs>
+            <picklist_cron_delete>
+                <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
+                <run><model>picklist/observer::dailyOutputDirPurge</model></run>
+            </picklist_cron_delete>
+            <picklist_cron_generate>
+                <schedule><cron_expr>30 1 * * *</cron_expr></schedule>
+                <run><model>picklist/observer::dailyGeneratePickList</model></run>
+            </picklist_cron_generate>
+        </jobs>
+    </crontab>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_PickList/>
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>

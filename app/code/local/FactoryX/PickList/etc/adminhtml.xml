@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <factoryx_menu translate="title" module="picklist">
+            <title>Factory X</title>
+            <sort_order>110</sort_order>
+            <children>
+                <picklist module="picklist">
+                    <title>Pick List</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/picklist</action>
+                    <children>
+                        <generate translate="title" module="picklist">
+                            <title>Generate</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/picklist</action>
+                        </generate>
+                        <settings translate="title" module="picklist">
+                            <title>Settings</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/system_config/edit/section/picklist/options</action>
+                        </settings>
+                        <log>
+                            <title>Logs</title>
+                            <sort_order>3</sort_order>
+                            <action>adminhtml/log/job</action>
+                            <children>
+                                <log_job translate="title" module="picklist">
+                                    <title>Jobs</title>
+                                    <sort_order>3</sort_order>
+                                    <action>adminhtml/log_job</action>
+                                </log_job>
+                                <log_request translate="title" module="picklist">
+                                    <title>Requests</title>
+                                    <sort_order>4</sort_order>
+                                    <action>adminhtml/log_request</action>
+                                </log_request>
+                            </children>
+                        </log>
+                    </children>
+                </picklist>
+            </children>
+        </factoryx_menu>
+    </menu>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin translate="title" module="adminhtml">
+                <children>
+                    <factoryx_menu translate="title">
+                        <title>Factory X</title>
+                        <sort_order>110</sort_order>
+                        <children>
+                            <picklist>
+                                <title>Pick List</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <generate translate="title" module="picklist">
+                                        <title>Generate</title>
+                                        <sort_order>1</sort_order>
+                                    </generate>
+                                    <settings translate="title" module="picklist">
+                                        <title>Settings</title>
+                                        <sort_order>2</sort_order>
+                                    </settings>
+                                    <log translate="title" module="picklist">
+                                        <title>Logs</title>
+                                        <sort_order>3</sort_order>
+                                        <children>
+                                            <log_job translate="title" module="picklist">
+                                                <title>Jobs</title>
+                                                <sort_order>1</sort_order>
+                                            </log_job>
+                                            <log_request translate="title" module="picklist">
+                                                <title>Requests</title>
+                                                <sort_order>2</sort_order>
+                                            </log_request>
+                                        </children>
+                                    </log>
+                                </children>
+                            </picklist>
+                        </children>
+                    </factoryx_menu>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <picklist>
+                                        <title>Pick List</title>
+                                    </picklist>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

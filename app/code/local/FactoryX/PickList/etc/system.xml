@@ -1,0 +1,555 @@
+<?xml version="1.0"?>
+<config>
+
+    <tabs>
+        <factoryx translate="label" module="picklist">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <picklist translate="label" module="picklist">
+            <label>Pick List</label>
+            <tab>factoryx</tab>
+            <sort_order>1010</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <default_output translate="label" module="picklist">
+                    <label>Default Output Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <show_images translate="label">
+                            <label>Include Product Images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_images>
+                        <include_summary translate="label">
+                            <label>Include Summary</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_summary>
+                        <send_to_stores>
+                            <label>Send To Stores</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>picklist/system_config_source_stores</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_to_stores>
+                        <split_pdf translate="label">
+                            <label>Split PDF's</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </split_pdf>
+                        <send_email translate="label">
+                            <label>Send Emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_email>
+                        <file_output>
+                            <label>File Output Destination</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>picklist/system_config_source_option</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </file_output>
+                        <!-- download settings -->
+                        <download_path translate="label">
+                            <label>Output Path</label>
+                            <comment><![CDATA[defaults to media/picklists]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><file_output>download</file_output></depends>
+                        </download_path>
+                        <!-- ftp settings -->
+                        <ftp_host translate="label">
+                            <label>FTP Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><file_output>ftp</file_output></depends>
+                        </ftp_host>
+                        <ftp_port translate="label">
+                            <label>FTP Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><file_output>ftp</file_output></depends>
+                        </ftp_port>
+                        <ftp_username translate="label">
+                            <label>FTP Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><file_output>ftp</file_output></depends>
+                        </ftp_username>
+                        <ftp_password translate="label">
+                            <label>FTP Password</label>
+                            <frontend_type>password</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><file_output>ftp</file_output></depends>
+                        </ftp_password>
+
+                    </fields>
+                </default_output>
+                <default_filter translate="label" module="picklist">
+                    <label>Default Filter Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!--
+                        <include_consolidations translate="label">
+                            <label>Include consolidations</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_consolidations>
+                        <include_preorders translate="label">
+                            <label>Include pre-orders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_preorders>
+                        -->
+                        <include_zero translate="label">
+                            <label>Include item with zero quantity</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_zero>
+                        <show_cg_filter translate="label">
+                            <label>Show Customer Groups Filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_cg_filter>
+                        <show_cg_filter translate="label">
+                            <label>Show Customer Groups Filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_cg_filter>
+                        <customer_group_filter_default>
+                            <label>Customer Group Filter Default</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>picklist/system_config_source_customerGroup</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </customer_group_filter_default>
+                        <show_pt_filter translate="label">
+                            <label>Show Product Type Filter</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_pt_filter>
+                        <product_type_filter_default>
+                            <label>Product Type Filter Default</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>picklist/system_config_source_productTypes</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </product_type_filter_default>
+                    </fields>
+                </default_filter>
+
+                <email_settings translate="label" module="picklist">
+                    <label>Email Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>21</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <send_store_email translate="label">
+                            <label>Send Store Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_store_email>
+                        <email_postfix translate="label">
+                            <label>Store Email Postfix</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Defaults to factoryx.com.au</comment>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><send_store_email>1</send_store_email></depends>
+                        </email_postfix>
+                        <template>
+                            <label>Email Template</label>
+                            <comment><![CDATA[see factoryx/picklist_basic_text_email.txt]]></comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                        </template>
+                        <sender_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sender_name>
+                        <sender_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sender_email>
+                        <additional_emails translate="label">
+                            <label>Additional email(s)</label>
+                            <comment><![CDATA[comma separated list of emails, ignores 'Send Store Email' setting]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </additional_emails>
+                    </fields>
+                </email_settings>
+
+                <debug module="picklist" translate="label comment">
+                    <label>Logging and Debugging</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>Please only use these settings if you are a software developer or server admin.</comment>
+                    <fields>
+                        <!--
+                        <logenabled translate="label comment">
+                            <label>Log Pick Lists</label>
+                            <comment><![CDATA[This will log all created pick lists.<br/>View from Factory X -> Pick List -> Log]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </logenabled>
+                        <cleanlog translate="label comment">
+                            <label>Clean Pick List Logs</label>
+                            <comment><![CDATA[If this is set to yes, old entries will be deleted from pick list log.
+                                Cron is required and log cleaning must be enabled in system/log/enabled for this to work.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><logenabled>1</logenabled></depends>
+                        </cleanlog>
+                        <cleanlog_after_days translate="label">
+                            <label>Pick List Log Days Kept</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <cleanlog>1</cleanlog>
+                                <logenabled>1</logenabled>
+                            </depends>
+                        </cleanlog_after_days>
+                        -->
+                        <log_debug translate="label">
+                            <label>Enable Debug Logging</label>
+                            <comment><![CDATA[If yes, a log file will be written with debug information.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_debug>
+                        <test translate="label comment">
+                            <label>Run Test</label>
+                            <comment>Save settings before running this test.</comment>
+                            <!--
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>picklist/adminhtml_system_config_form_button_testCreate</frontend_model>
+                            -->
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>picklist/adminhtml_system_config_form_button_test</frontend_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </test>
+                    </fields>
+                </debug>
+
+                <cron_job_daily_generation translate="label" module="picklist">
+                    <label>Cron Job - Daily Generation</label>
+                    <comment><![CDATA[Automate pick list generation, runs at 1:30am each night using the following ranges.<pre>
+DoW (sun - sat)
+s   n/a
+m   thu, fri, sat
+t   fri, sat, sun, mon
+w   sun, mon, tue
+t   tue, wed
+f   wed, thu
+s   n/a</pre>]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <label_filter_options translate="label">
+                            <label><![CDATA[<h3>Filter Options</h3>]]></label>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </label_filter_options>
+                        <include_consolidations translate="label">
+                            <label>Include consolidations</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_consolidations>
+                        <include_preorders translate="label">
+                            <label>Include pre-orders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_preorders>
+                        <label_output_options translate="label">
+                            <label><![CDATA[<h3>Ouput Options</h3>]]></label>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </label_output_options>
+                        <show_images translate="label">
+                            <label>Include Product Images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_images>
+                        <include_summary translate="label">
+                            <label>Include Summary</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </include_summary>
+                        <send_to_stores>
+                            <label>Send to stores</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>picklist/system_config_source_stores</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_to_stores>
+                        <split_pdf translate="label">
+                            <label>Split PDF's</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </split_pdf>
+                        <send_email translate="label">
+                            <label>Send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </send_email>
+                        <additional_emails translate="label">
+                            <label>Additional email(s)</label>
+                            <comment><![CDATA[comma separated list of emails]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </additional_emails>
+                        <test translate="label comment">
+                            <label>Run Daily Create Cron</label>
+                            <comment>Save settings before running this test.</comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>picklist/adminhtml_system_config_form_button_testCreate</frontend_model>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </test>
+                    </fields>
+                </cron_job_daily_generation>
+
+                <cron_job_daily_delete translate="label" module="picklist">
+                    <label>Cron Job - Daily Purge</label>
+                    <comment><![CDATA[Automate pick list deletion, runs at 1am each night]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>42</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <test translate="label comment">
+                            <label>Run Daily Purge Cron</label>
+                            <comment>Save settings before running this test.</comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>picklist/adminhtml_system_config_form_button_testPurge</frontend_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </test>
+                    </fields>
+                </cron_job_daily_delete>
+
+                <minify module="picklist" translate="label comment">
+                    <label>Minify URL's</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>Use these settings to minify the document URL's.</comment>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <google_api_key translate="label comment">
+                            <label>Google API Key</label>
+                            <comment><![CDATA[see <a target='_blank' rel='noopener noreferrer' href='https://developers.google.com/url-shortener/v1/getting_started'>url-shortener</a>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </google_api_key>
+                        <http_proxy translate="label comment">
+                            <label>HTTP Proxy</label>
+                            <comment><![CDATA[use host:port e.g. 192.168.100.3:3128]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </http_proxy>
+                    </fields>
+                </minify>
+
+            </groups>
+        </picklist>
+    </sections>
+</config>

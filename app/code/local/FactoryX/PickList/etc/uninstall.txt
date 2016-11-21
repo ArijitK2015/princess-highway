@@ -1,0 +1,4 @@
+app/code/local/FactoryX/PickList
+app/etc/modules/FactoryX_PickList.xml
+app/design/adminhtml/default/default/template/factoryx/picklist
+app/locale/en_AU/template/email/factoryx/picklist

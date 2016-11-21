@@ -1,0 +1,24 @@
+<?php
+/**
+ */
+?>
+<div class="page-head">
+    <h3><?php echo $this->__('Pick List :: Output Files') ?></h3>
+</div>
+<?php
+if ($outfiles = $this->getOutFiles()): ?>
+    <div class="files">
+    <table>
+    <?php
+    foreach($outfiles as $file) {
+        echo sprintf("<tr><td>%s</td></tr>", $this->getDocumentLink($file));
+    }
+    ?>
+    </table>
+    </div>
+    <!--
+    <br/>
+    <div class="button-set"><a href="<?php //echo $this->getBackUrl() ?>" class="left">&laquo; <?php //echo $this->__('Back to Job Log') ?></a></div><br />
+    -->
+<?php endif;
+?>

@@ -1,0 +1,31 @@
+<?php
+/**
+ */
+?>
+<?php
+if ($request = $this->getRequestData()): ?>
+    <div class="page-head">
+        <h3><?php echo $this->__('Request Details') ?></h3>
+    </div>
+    <div class="request-detail">
+        <table>
+        <tr><td><p><strong><?php echo $this->__('Created Date:') ?>&nbsp;</strong></td><td><?php
+            echo Mage::helper('core')->formatDate($request->getData('created_at'), $format = 'full', $showTime = true);
+        ?></p></td></tr>
+	    <tr><td><p><strong><?php echo $this->__('Source Client:') ?>&nbsp;</strong></td><td><?php echo $request->getData('source_client'); ?></p></td></tr>
+	    <tr><td><p><strong><?php echo $this->__('Source IP:') ?>&nbsp;</strong></td><td><?php echo $request->getData('source_ip'); ?></p></td></tr>
+	    <tr><td><p><strong><?php echo $this->__('Response Code:') ?>&nbsp;</strong></td><td><?php echo $request->getData('response_code'); ?></p></td></tr>
+	    <tr><td><p><strong><?php echo $this->__('Response:') ?>&nbsp;</strong></td><td><div><pre><?php
+	        // not supported php < 5.4
+	        //$data = json_decode($request->getData('http_request'), true);	        
+            //echo json_encode($data, JSON_PRETTY_PRINT);
+            
+            echo Mage::helper('picklist')->pretty_json($request->getData('http_request'));
+	    ?>
+	    </pre></div></td></tr>
+	    </table>
+    </div>
+    <br/>
+    <div class="button-set"><a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back to Request Log') ?></a></div><br />
+<?php endif;
+?>

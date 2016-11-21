@@ -1,0 +1,37 @@
+<?php
+/**
+ */
+?>
+<?php
+if ($job = $this->getJobData()): ?>
+    <div class="page-head">
+        <h3><?php echo $this->__('Jobs Details') ?></h3>
+    </div>
+    <div class="job-detail">
+        <table>
+        <tr><td><p><strong><?php echo $this->__('Created Date:') ?>&nbsp;</strong></td><td><?php
+            echo Mage::helper('core')->formatDate($job->getData('created_at'), $format = 'full', $showTime = true);
+        ?></p></td></tr>
+        <tr><td><p><strong><?php echo $this->__('Type:') ?>&nbsp;</strong></td><td><?php echo $job->getData('job_type'); ?></p></td></tr>
+        <tr><td><p><strong><?php echo $this->__('Source:') ?>&nbsp;</strong></td><td><?php echo $job->getData('source_type'); ?></p></td></tr>
+        <tr><td><p><strong><?php echo $this->__('Source IP:') ?>&nbsp;</strong></td><td><?php echo $job->getData('source_ip'); ?></p></td></tr>
+        <tr><td><p><strong><?php echo $this->__('Output:') ?>&nbsp;</strong></td><td><?php echo $job->getData('output_type'); ?></p></td></tr>
+        <tr><td><p><strong><?php echo $this->__('Email Sent:') ?>&nbsp;</strong></td><td><?php echo ($job->getData('email_sent') ? 'Y' : 'N'); ?></p></td></tr>        
+        <tr><td><p><strong><?php echo $this->__('Response:') ?>&nbsp;</strong></td><td><?php
+            $render = new FactoryX_PickList_Block_Adminhtml_Renderer_Url();
+            echo $render->convertPathToUrl($job->getData('http_response'));
+        ?></p></td></tr>
+	    <tr><td><p><strong><?php echo $this->__('Request:') ?>&nbsp;</strong></td><td><div><pre><?php
+	        // not supported php < 5.4
+	        //$data = json_decode($job->getData('http_request'), true);
+	        //echo json_encode($data, JSON_PRETTY_PRINT);	        
+
+            echo Mage::helper('picklist')->pretty_json($job->getData('http_request'));
+	    ?>
+	    </pre></div></td></tr>
+	    </table>
+    </div>
+    <br/>
+    <div class="button-set"><a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back to Job Log') ?></a></div><br />
+<?php endif;
+?>
