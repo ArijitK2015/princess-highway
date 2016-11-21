@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config>
+
+	<modules>
+		<FactoryX_TwelveHoursRange>
+			<version>0.1.6</version>
+		</FactoryX_TwelveHoursRange>
+	</modules>
+	
+	<global>
+		<models>
+			<reports_resource>
+				<rewrite>
+					<!-- Mage_Reports_Model_Resource_Order_Collection -->
+					<order_collection>FactoryX_TwelveHoursRange_Model_Reports_Resource_Order_Collection</order_collection>
+				</rewrite>
+			</reports_resource>
+		</models>
+		
+		<blocks>
+			<adminhtml>
+				<rewrite>
+					<!-- Mage_Adminhtml_Block_Dashboard_Graph -->
+					<dashboard_graph>FactoryX_TwelveHoursRange_Block_Adminhtml_Dashboard_Graph</dashboard_graph>
+					<!-- Mage_Adminhtml_Block_Dashboard_Totals -->
+					<dashboard_totals>FactoryX_TwelveHoursRange_Block_Adminhtml_Dashboard_Totals</dashboard_totals>
+					<!-- Mage_Adminhtml_Block_Dashboard_Tab_Amounts -->
+					<dashboard_tab_amounts>FactoryX_TwelveHoursRange_Block_Adminhtml_Dashboard_Tab_Amounts</dashboard_tab_amounts>
+					<!-- Mage_Adminhtml_Block_Dashboard_Tab_Orders -->
+					<dashboard_tab_orders>FactoryX_TwelveHoursRange_Block_Adminhtml_Dashboard_Tab_Orders</dashboard_tab_orders>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+		
+		<helpers>
+			<adminhtml>
+				<rewrite>
+					<!-- Mage_Adminhtml_Helper_Dashboard_Data -->
+					<dashboard_data>FactoryX_TwelveHoursRange_Helper_Adminhtml_Dashboard_Data</dashboard_data>
+				</rewrite>
+			</adminhtml>
+		</helpers>
+	</global>
+
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_TwelveHoursRange/>
+			</modules>
+		</suite>
+	</phpunit>
+	
+</config>
