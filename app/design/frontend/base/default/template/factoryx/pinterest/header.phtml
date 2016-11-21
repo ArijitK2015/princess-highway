@@ -1,0 +1,9 @@
+<?php
+    if (!$this->getData('isActive')) return false;
+?>
+
+<meta property="og:title" content="<?=$this->getData('description')?>" />
+<meta property="og:type" content="product" />
+<meta property="og:price:amount" content="<?=$this->getData('price')?>" />
+<meta property="og:price:currency" content="AUD" />
+<meta property="og:availability" content="instock" />

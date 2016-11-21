@@ -1,0 +1,4 @@
+app/code/local/FactoryX/Pinterest
+app/etc/modules/FactoryX_Pinterest.xml
+app/design/frontend/base/default/template/factoryx/pinterest
+app/design/frontend/base/default/layout/factoryx/pinterest.xml

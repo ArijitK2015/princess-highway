@@ -1,0 +1,123 @@
+<?php
+/**
+There are four categories of settings
+- pin type settings
+- button style settings
+- source settings
+- log settings
+
+Pin settings
+data-pin-count  = above | beside // does not work for round, hover or custom buttons
+data-pin-shape  = round
+data-pin-config = beside
+count-layout    = horizontal
+data-pin-do     = buttonBookmark | buttonPin (requires media query string)
+
+@see
+https://developers.pinterest.com/docs/widgets/pin-it/
+*/
+
+//if (!$this->getData('isActive')) return false;
+if (!Mage::helper('factoryx_pinterest')->isEnabled()) return false;
+
+// $pinSettings['type']['data-pin-do']
+$pinSettings = array(
+    "type" => array(
+        "data-pin-do" => "buttonPin"
+    )
+    /*
+    // see pinterest/general/custom_image
+    "style" => array(
+        "data-pin-custom" => "true"
+    )
+    */
+);
+
+$pinterestCreateButton = sprintf("%s?url=%s&description=%s",
+    "//pinterest.com/pin/create/button/",
+    $this->getData('url'),
+    $this->getData('description')
+    // &media=%s | $this->getData('media')
+);
+
+/*
+alternate method:
+$pinterestCreateButton = "//pinterest.com/pin/create/button/";
++ add these to the anchor
+        data-pin-description="<?php echo $this->getData('description'); ?>"
+        data-pin-media="<?php echo $this->getData('media'); ?>"
+        data-pin-url="<?php echo $this->getData('url'); ?>"
+*/
+
+// custom image
+$imgSize = array();
+if ($customImageSrc = Mage::helper('factoryx_pinterest')->getCustomImage()) {
+    $imgSize = Mage::helper('factoryx_pinterest')->getCustomImageSize();
+}
+?>
+
+<!--
+async - executed asynchronously with the rest of the page
+defer - wont run until after the page has loaded
+data-pin-build - causes pinit.js to expose its internal build function to the global window object as parsePinBtns function
+-->
+<script defer src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePinBtns"></script>
+<span class="pin-it-button">
+    <a href="<?php echo $pinterestCreateButton ?>" id="pin-it-button" class="social pinterest"
+        data-pin-do="<?php echo $pinSettings['type']['data-pin-do']; ?>"
+        <?php if ($customImageSrc): ?>
+            data-pin-custom="true"
+        <?php endif; ?>
+        data-pin-error>
+        <img
+            <?php echo ($imgSize && $imgSize['w']) ? sprintf("width=\"%d\"", $imgSize['w']) : ""; ?>
+            <?php echo ($imgSize && $imgSize['h']) ? sprintf("height=\"%d\"", $imgSize['h']) : ""; ?>
+            src="<?php echo ($customImageSrc) ? $customImageSrc : ""; ?>" /></a>
+</span>
+<script>
+(function(){
+    jQuery(document).ready(function(){
+        var renderPinterest = setInterval(function() {
+            if (!(typeof(window.parsePinBtns) == "function")) {
+                return false;
+            }
+            // Magic Zoom Support
+            if (jQuery('.MagicZoom img').length > 0) {
+                jQuery(".MagicZoom img").load(function() {
+                    //console.log("MagicZoom img.load()");
+                    jQuery('#pin-it-button').hide();
+                    var pinThis = jQuery('.MagicZoom img').attr('src');
+                    //console.log("pinThis:" + pinThis);
+                    var sHref = "<?php echo $pinterestCreateButton ?>";
+                    sHref += "&media=" + encodeURI(pinThis);
+                    var pinIt = jQuery("#pin-it-button");
+                    //console.log("sHref:" + sHref);
+                    pinIt.attr('href', sHref);
+                    //window.parsePinBtns(pinIt); // this will fail as parsePinBtns requires a DOM element
+                    window.parsePinBtns(document.getElementById('#pin-it-button'));
+                    jQuery('#pin-it-button').show();
+                    return true;
+                });
+                clearInterval(renderPinterest);
+            }
+            // AW Mobile Support
+            else if (jQuery('.swiper-slide-active img').length > 0){
+                jQuery('#pin-it-button').hide();
+                var pinThis = jQuery('.swiper-slide-active img').attr('src');
+                var sHref = "<?php echo $pinterestCreateButton ?>";
+                sHref += "&media=" + encodeURI(pinThis);
+                // get the new pinterest object
+                var pinIt = jQuery("#pin-it-button");
+                pinIt.attr('href', sHref);
+                window.parsePinBtns(pinIt);
+                jQuery('#pin-it-button').show();
+                clearInterval(renderPinterest);
+            }
+            else {
+                window.parsePinBtns(document.getElementById('#pin-it-button'));
+                clearInterval(renderPinterest);
+            }
+        },100);
+    });
+}())
+</script>
