@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_CampaignMonitor>
+            <active>true</active>
+            <codePool>local</codePool>
+			<depends>
+				<Mage_Checkout />
+                <FactoryX_ChooserWidget/>
+                <FactoryX_PromoRestriction/>
+			</depends>
+        </FactoryX_CampaignMonitor>
+    </modules>
+</config> 

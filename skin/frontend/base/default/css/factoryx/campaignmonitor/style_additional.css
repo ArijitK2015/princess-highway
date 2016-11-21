@@ -1,0 +1,21 @@
+.subscribe-popup {
+    border: 0;
+    background-color: #ff466a;
+}    
+.ui-dialog .ui-dialog-titlebar-close {
+    margin: 2px 8px 0 0 !important;
+    z-index: 1;
+    max-width: 40px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px
+}
+
+
+#popup-sub-text .minimum{
+    margin-top: 10px;
+}
+
+#block-sub-popup .message{
+    padding-top: 180px;
+}

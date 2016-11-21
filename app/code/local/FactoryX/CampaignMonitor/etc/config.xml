@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_CampaignMonitor>
+            <version>1.1.27</version>
+        </FactoryX_CampaignMonitor>
+    </modules>
+
+    <frontend>
+        <!-- Translation file -->
+        <translate>
+            <modules>
+                <FactoryX_CampaignMonitor>
+                    <files>
+                        <default>FactoryX_CampaignMonitor.csv</default>
+                    </files>
+                </FactoryX_CampaignMonitor>
+            </modules>
+        </translate>
+        <routers>
+            <!-- Declare frontend name -->
+            <factoryx_campaignmonitor>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_CampaignMonitor</module>
+                    <frontName>campaignmonitor</frontName>
+                </args>
+            </factoryx_campaignmonitor>
+            <!-- Override original newsletter controller -->
+            <newsletter>
+                <args>
+                    <modules>
+                        <FactoryX_CampaignMonitor before="Mage_Newsletter">FactoryX_CampaignMonitor</FactoryX_CampaignMonitor>
+                    </modules>
+                </args>
+            </newsletter>
+        </routers>
+        <!-- Frontend layout file -->
+        <layout>
+            <updates>
+                <campaignmonitor>
+                    <file>factoryx/campaignmonitor.xml</file>
+                </campaignmonitor>
+            </updates>
+        </layout>
+
+        <!-- Disable the default IWD OPC subscription system -->
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <newsletter_order_place_after>
+                        <type>disabled</type>
+                    </newsletter_order_place_after>
+                </observers>
+            </sales_order_place_after>
+        </events>
+    </frontend>
+
+    <admin>
+        <!-- Admin route -->
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_CampaignMonitor after="Mage_Adminhtml">FactoryX_CampaignMonitor_Adminhtml</FactoryX_CampaignMonitor>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+      </admin>
+
+    <adminhtml>
+        <!-- Backend translation file -->
+        <translate>
+            <modules>
+                <FactoryX_CampaignMonitor>
+                    <files>
+                        <default>FactoryX_CampaignMonitor.csv</default>
+                    </files>
+                </FactoryX_CampaignMonitor>
+            </modules>
+        </translate>
+        <!-- Events observers -->
+        <events>
+            <!-- Called after creating a block -->
+            <core_layout_block_create_after>
+                <observers>
+                    <factoryx_campaignmonitor_after_block>
+                        <type>singleton</type>
+                        <class>campaignmonitor/observer</class>
+                        <method>blockCreateAfter</method>
+                    </factoryx_campaignmonitor_after_block>
+                </observers>
+            </core_layout_block_create_after>
+            <!-- Called before the html render -->
+            <adminhtml_block_html_before>
+                <observers>
+                    <!--<add_coupon_chooser>
+                        <type>model</type>
+                        <class>campaignmonitor/observer</class>
+                        <method>addFormCouponChooser</method>
+                    </add_coupon_chooser>-->
+                    <factoryx_campaignmonitor_before_block>
+                        <type>singleton</type>
+                        <class>campaignmonitor/observer</class>
+                        <method>blockHtmlBefore</method>
+                    </factoryx_campaignmonitor_before_block>
+                </observers>
+            </adminhtml_block_html_before>
+            <!-- Called before the layout load -->
+            <!--<controller_action_layout_load_before>
+                <observers>
+                    <add_editor_handle>
+                        <class>campaignmonitor/observer</class>
+                        <method>addEditorHandle</method>
+                    </add_editor_handle>
+                </observers>
+            </controller_action_layout_load_before>-->
+        </events>
+    </adminhtml>
+
+    <global>
+
+        <blocks>
+            <!-- Declare module blocks -->
+            <campaignmonitor>
+                <class>FactoryX_CampaignMonitor_Block</class>
+            </campaignmonitor>
+        </blocks>
+
+        <models>
+            <!-- Declare module models -->
+            <campaignmonitor>
+                <class>FactoryX_CampaignMonitor_Model</class>
+            </campaignmonitor>
+            <!-- Override original newsletter subscriber model -->
+            <newsletter>
+                <rewrite>
+                    <subscriber>FactoryX_CampaignMonitor_Model_Subscriber</subscriber>
+                </rewrite>
+            </newsletter>
+        </models>
+
+        <!-- Observer events -->
+        <events>
+            <!-- After a customer has successfully registered -->
+            <customer_register_success>
+                <observers>
+                    <factoryx_campaignmonitor_observer_customer_register_success>
+                        <type>singleton</type>
+                        <class>campaignmonitor/customer_observer</class>
+                        <method>subscribeCustomer</method>
+                    </factoryx_campaignmonitor_observer_customer_register_success>
+                </observers>
+            </customer_register_success>
+            <!-- Before saving a customer -->
+            <customer_save_before>
+                <observers>
+                    <factoryx_campaignmonitor_customer_save_before>
+                        <type>singleton</type>
+                        <class>campaignmonitor/customer_observer</class>
+                        <method>checkSubscriptionStatus</method>
+                    </factoryx_campaignmonitor_customer_save_before>
+                </observers>
+            </customer_save_before>
+            <!-- Before deleting a customer -->
+            <customer_delete_before>
+                <observers>
+                    <factoryx_campaignmonitor_customer_delete_before>
+                        <type>singleton</type>
+                        <class>campaignmonitor/customer_observer</class>
+                        <method>customerDeleted</method>
+                    </factoryx_campaignmonitor_customer_delete_before>
+                </observers>
+            </customer_delete_before>
+            <!-- After clicking submit of billing information through onepage checkout -->
+            <controller_action_predispatch_checkout_onepage_saveBilling>
+                <observers>
+                    <factoryx_campaignmonitor_save_billing_after>
+                        <type>singleton</type>
+                        <class>campaignmonitor/checkout_observer</class>
+                        <method>checkIfSubscribed</method>
+                    </factoryx_campaignmonitor_save_billing_after>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_saveBilling>
+            <!-- Subscribe via IWD OPC -->
+            <controller_action_predispatch_opc_json_saveOrder>
+                <observers>
+                    <factoryx_campaignmonitor_opc_save_billing_after>
+                        <type>singleton</type>
+                        <class>campaignmonitor/checkout_observer</class>
+                        <method>checkIfSubscribed</method>
+                    </factoryx_campaignmonitor_opc_save_billing_after>
+                </observers>
+            </controller_action_predispatch_opc_json_saveOrder>
+            <!-- After an order has been placed through onepage checkout -->
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <factoryx_campaignmonitor_checkout_order_after>
+                        <type>singleton</type>
+                        <class>campaignmonitor/checkout_observer</class>
+                        <method>subscribeCustomer</method>
+                    </factoryx_campaignmonitor_checkout_order_after>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+            <!-- After clicking Manage Subscribptions in the My Account section -->
+            <controller_action_predispatch_newsletter_manage_index>
+                <observers>
+                    <factoryx_campaignmonitor_newsletter_manage_index>
+                        <type>singleton</type>
+                        <class>campaignmonitor/newsletter_observer</class>
+                        <method>redirectToSubscribe</method>
+                    </factoryx_campaignmonitor_newsletter_manage_index>
+                </observers>
+            </controller_action_predispatch_newsletter_manage_index>
+        </events>
+
+        <!-- Database access resources -->
+        <resources>
+            <campaignmonitor_setup>
+                <setup>
+                    <module>FactoryX_CampaignMonitor</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </campaignmonitor_setup>
+            <campaignmonitor_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </campaignmonitor_write>
+            <campaignmonitor_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </campaignmonitor_read>
+        </resources>
+
+        <helpers>
+            <!-- Declare module helper -->
+            <campaignmonitor>
+                <class>FactoryX_CampaignMonitor_Helper</class>
+            </campaignmonitor>
+        </helpers>
+
+    </global>
+
+    <default>
+        <!-- Default Backend Values -->
+        <newsletter>
+            <subscription>
+                <generate_coupon>0</generate_coupon>
+            </subscription>
+            <coupon>
+                <label>Welcome %OFFER% OFF</label>
+                <prefix>newsletter</prefix>
+                <length>7</length>
+                <type>by_percent</type>
+                <value>10</value>
+                <customer_groups>0,1,2,3</customer_groups>
+                <uses_coupon>1</uses_coupon>
+                <uses_customer>1</uses_customer>
+                <valid>14</valid>
+                <date_format>D \t\h\e jS \o\f F Y</date_format>
+                <priority>1</priority>
+                <stop>1</stop>
+                <exclude_sku>gift</exclude_sku>
+                <exclude_sale>1</exclude_sale>
+            </coupon>
+            <checkoutnewsletter>
+                <enable>1</enable>
+                <checked>1</checked>
+                <visible_guest>1</visible_guest>
+                <visible_register>1</visible_register>
+            </checkoutnewsletter>
+        </newsletter>
+    </default>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_CampaignMonitor/>
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>

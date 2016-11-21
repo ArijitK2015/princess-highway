@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <!-- Add css to head if popup is enabled -->
+        <reference name="head">
+            <action method="addItem" ifconfig="newsletter/popup/enable">
+                <type>skin_css</type>
+                <name>css/factoryx/campaignmonitor/popup.css</name>
+                <params/>
+            </action>
+            <action method="addItem" ifconfig="newsletter/popup/enable">
+                <type>js_css</type>
+                <name>lib/jquery/jquery-ui.min.css</name>
+                <params/>
+            </action>
+        </reference>
+        <!-- Footer Reference -->
+        <reference name="footer">
+            <!-- Add the popup subscription block -->
+            <block type="core/template" name="popup">
+                <!-- Only if popup newsletter is enabled -->
+                <action method="setTemplate" ifconfig="newsletter/popup/enable">
+                    <template>factoryx/campaignmonitor/popup.phtml</template>
+                </action>
+            </block>
+        </reference>
+        <!-- Change the original mini subscribe -->
+        <reference name="left.newsletter">
+            <action method="setTemplate">
+                <template>factoryx/campaignmonitor/subscribe.mini.phtml</template>
+            </action>
+        </reference>
+        <!-- Change the RWD mini subscribe -->
+        <reference name="footer.newsletter">
+            <action method="setTemplate">
+                <template>factoryx/campaignmonitor/subscribe.mini.phtml</template>
+            </action>
+        </reference>
+    </default>
+
+    <!-- Subscribe page -->
+    <factoryx_campaignmonitor_subscriber_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/campaignmonitor/style.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/factoryx/campaignmonitor/dob.js</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="newsletter/subscribe" name="newsletter_subscription_page" template="factoryx/campaignmonitor/subscribe.phtml">
+                <!-- AH -->
+                <block type="cms/block" name="subscription-right-img">
+                    <action method="setBlockId"><block_id>subscription-right-img</block_id></action>
+                </block>
+                <!-- DF -->
+                <block type="cms/block" name="subscribe-img-boys">
+                    <action method="setBlockId"><block_id>subscribe-img-boys</block_id></action>
+                </block>
+                <block type="cms/block" name="subscribe-img-girls">
+                    <action method="setBlockId"><block_id>subscribe-img-boys</block_id></action>
+                </block>
+                <!-- JL -->
+                <block type="cms/block" name="followjack-img">
+                    <action method="setBlockId"><block_id>followjack-img</block_id></action>
+                </block>
+            </block>
+        </reference>
+    </factoryx_campaignmonitor_subscriber_index>
+
+    <!-- Onepage checkout -->
+    <checkout_onepage_index>
+        <!-- Add the checkout newsletter block to the form additional info to avoid rewrite the entire billing template -->
+        <reference name="checkout.onepage.billing">
+            <reference name="form.additional.info">
+                <block type="campaignmonitor/checkoutnewsletter" name="checkoutnewsletter">
+                    <!-- Only if checkout newsletter is enabled -->
+                    <action method="setTemplate" ifconfig="newsletter/checkoutnewsletter/enable">
+                        <template>factoryx/campaignmonitor/persistent/checkout/onepage/checkoutnewsletter.phtml</template>
+                    </action>
+                </block>
+            </reference>
+        </reference>
+    </checkout_onepage_index>
+
+    <!-- AW Mobile Newsletter block -->
+    <cms_index_index>
+        <reference name="bottom.newsletter">
+            <action method="setTemplate" ifconfig="awmobile/settings/enabled">
+                <template>factoryx/campaignmonitor/mobile.subscribe.mini.phtml</template>
+            </action>
+        </reference>
+    </cms_index_index>
+</layout>

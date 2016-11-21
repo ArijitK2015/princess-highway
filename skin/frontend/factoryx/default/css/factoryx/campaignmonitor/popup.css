@@ -1,0 +1,17 @@
+#terms-link {
+    margin-top: 50px;
+}
+#terms-link a {
+    color:#000;
+    text-decoration: none;
+}
+#terms-link a:hover {
+    text-decoration: underline;
+}
+#link-div a:hover {
+    opacity: 0.8;
+}
+#popup-sub-text .minimum{font-size:13px;text-align: center;margin-top:75px;}
+#popup-sub-text .minimum a {color: #d3d3d3;}
+#popup-sub-text .message{padding-top:135px;line-height:16px;font-size:19px;}
+.subscription_list {margin-top:10px;line-height:25px;}

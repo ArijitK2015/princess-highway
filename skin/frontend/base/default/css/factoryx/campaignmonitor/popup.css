@@ -1,0 +1,53 @@
+.subscribe-popup {
+    box-shadow: 0px 0px 40px 10px #4E4E4E;
+}
+#subpopup {
+    text-align: center;
+}
+
+#subpopup .form {margin-top:40px;}
+
+#terms-link {
+    margin-top: 50px;
+}
+#terms-link a {
+    color:#000;
+    text-decoration: none;
+}
+#terms-link a:hover {
+    text-decoration: underline;
+}
+#link-div a:hover {
+    opacity: 0.8;
+}
+#popup-sub-text .minimum{font-size:13px;text-align: center;margin-top:75px;}
+#popup-sub-text .minimum a {color: #d3d3d3;}
+#popup-sub-text .message{padding-top:135px;line-height:16px;font-size:19px;}
+#popup-sub-text input{
+    padding:8px;margin-top:7px;
+}
+#popup-sub-text select {
+    height: 33px;
+    text-align: center;
+    float: none;
+    margin-top: 6px;
+    width: 100px;
+    margin-bottom: 0px;
+}
+#popup-sub-text input[type=text] {
+    width: 200px;
+    text-align: center;
+}
+#popup-sub-text input[type=submit]{color:white;border:none;text-align: center;width:120px;}
+.subscription_list {margin-top:10px;line-height:25px;}
+
+@media all and (max-width: 640px) {
+    .subscribe-popup {
+        width: 320px !important;
+        left: 50% !important;
+        margin-left: -160px;
+    }
+    #popup-sub-text select{height:33px;width:60px;}
+    #popup-sub-text input[type=text]{width:100px;}
+    #popup-sub-text input[type=submit]{width:90px;}
+}

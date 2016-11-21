@@ -1,0 +1,34 @@
+<div class="newsletter-box a-center">
+    <div class="head">
+        <h4 class="subscription-header"><?php echo $this->__('Sign up for our newsletter:') ?><a name="newsletter-box"></a></h4>
+    </div>
+    <form action="<?php echo Mage::getUrl('newsletter/subscriber/new', array('_secure' => true)) ?>" method="post" id="newsletter-validate-detail">
+        <fieldset class="content">
+            <div class="input-box bottom-space"><input name="email" type="text" id="newsletter" class="required-entry validate-email input-text" />
+                <?php
+                $brands = Mage::helper('campaignmonitor')->getPreferredBrands();
+                if (!empty($brands)):
+                    ?>
+                    <select id="brands" name="brands">
+                        <?php foreach ($brands as $brand): ?>
+                            <option value="<?php echo(($brand['list'] == 'all') ? 'all' : $brand['brand']); ?>">
+                                <?php echo $brand['brand']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
+                <div class="clear"></div>
+            </div>
+            <input type="hidden" name="mini" id="mini" value="1" />
+            <button type="submit" class="form-button button-space"><span><?php echo $this->__('Subscribe') ?></span></button>
+        </fieldset>
+    </form>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    if (typeof VarienForm === 'function') {
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    }
+    //]]>
+</script>

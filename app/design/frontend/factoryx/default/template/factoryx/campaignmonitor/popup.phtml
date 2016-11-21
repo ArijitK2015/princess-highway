@@ -1,0 +1,293 @@
+<?php
+$hlp = Mage::helper('campaignmonitor/popup');
+$hlpCp = Mage::helper('campaignmonitor/coupon');
+$background_path = $hlp->getBgPath();
+if ((!$hlp->getBg())
+    || (!file_exists($background_path)))
+{
+    echo sprintf("<!-- popup disabled due to background settings [%d|%d] -->",
+        (!$hlp->getBg()),
+        (!file_exists($background_path))
+    );
+    return;
+}
+// Get coupon confi
+$couponEnabled = $hlpCp->isCouponEnabled();
+$amount = $hlpCp->getCouponValue();
+$minimum = $hlpCp->getCouponSpend();
+
+// Get popup config
+$displayText = $hlp->getDisplayText();
+$text = $hlp->getTextToDisplay();
+$referers = $hlp->getReferers();
+$pagesOnly = $hlp->getPagesOnly();
+$terms = $hlp->getTerms();
+$background_css = $hlp->getBgCss();
+$styles = $hlp->getStyles();
+$mobile_styles = $hlp->getMobileStyles();
+$themecolor = $hlp->getThemeColor();
+$preferred_brands = $hlp->getPreferredBrands();
+
+// Generate the background
+$imageObj = new Varien_Image($background_path);
+$width = $imageObj->getOriginalWidth();
+$height = $imageObj->getOriginalHeight();
+$title = "";
+if ($displayText):
+    if ($text):
+        $title .= $text;
+    else:
+        $title .= $hlp->__("Subscribe to get $%s voucher",$amount);
+    endif;
+    if ($minimum):
+        $title .= " *";
+    endif;
+endif;
+?>
+<div class="modal fade" tabindex="-1" role="dialog" id="subscribePopupModal" aria-labelledby="subscribePopupModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title" id="subscribePopupModalLabel"><?php echo $title; ?></h4>
+            </div>
+            <div class="modal-body" id="popup-sub-text">
+                <form id='subpopup-form'>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group">
+                                <input type="text" placeholder="<?php echo $this->__('Your Email Address'); ?>" class="subpop-email required-entry validate-email form-control" id="subpop-email" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group">
+                                <select id="subpop-state" name="state" class="form-control">
+                                    <option value="Unknown" disabled selected><?php echo $this->__('State') ?></option>
+                                    <?php if ($states = Mage::helper('campaignmonitor')->getCampaignMonitorStates()): ?>
+                                        <?php sort($states); ?>
+                                        <?php foreach ($states as $state): ?>
+                                            <?php if ($state != "Unknown"): ?>
+                                                <option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <?php if ($preferred_brands): ?>
+                            <div class="subscription_list checkbox">
+                                <?php foreach ($preferred_brands as $preferred_brand): ?>
+                                    <label style='font-size:13px;font-weight:normal;text-transform:none;' for='<?php echo $preferred_brand ?>'>
+                                        <input type='checkbox' name='preferredBrands' class="form-control" value='<?php echo $preferred_brand ?>' id='<?php echo $preferred_brand ?>' />
+                                        <?php echo $preferred_brand ?>
+                                    </label>";
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <button type="submit" id="subpop-subscribe" class="btn btn-primary full-width-button"><?php echo $this->__('Subscribe'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="minimum">
+                <?php if ($terms): ?>
+                    <?php echo $terms; ?>
+                <?php elseif ($minimum): ?>
+                    <sup>*</sup> <?php echo $hlp->__("on $%s or more purchase",$minimum); ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php // Add dynamic JS ?>
+<script type="text/javascript">
+    var okToShow = true;
+    <?php if (!empty($pagesOnly[0]) && !in_array($_SERVER['REQUEST_URI'],$pagesOnly)): ?>
+    okToShow = false;
+    <?php endif; ?>
+    // If the competition popup has got referer limitations
+    <?php if ($referers): ?>
+    // We first check if the http referer key is set in the server array
+    <?php if (array_key_exists('HTTP_REFERER',$_SERVER)): ?>
+    // We parse the url to get the referer host/domain
+    <?php $refererInfo = parse_url($_SERVER['HTTP_REFERER']); ?>
+    // We loop through the popup limitations
+    <?php foreach ($referers as $referer): ?>
+    // And check if the referer host contains one of the referer limitation
+    <?php if ($refererInfo && strpos($refererInfo['host'], $referer) !== FALSE): ?>
+    // If the cookie is present, the popup is showed
+    if(!Mage.Cookies.get("hasRefused-subpopup")) {
+        jQuery(document).ready(
+            function() {
+                // If the customer has just opened the competition page we hide the popup and remove the related cookie
+                if (!Mage.Cookies.get("hasRefused-subpopup") && okToShow) {
+                    jQuery('#subscribePopupModal').modal();
+                    if (jQuery(window).width() < <?php echo $width ?>) {
+                        var ratio = <?php echo $height/$width; ?>;
+                        jQuery('#subscribePopupModal .modal-dialog').width(jQuery(window).width() - 10);
+                        jQuery('#subscribePopupModal .modal-content').width(jQuery(window).width() - 10);
+                        jQuery('#subscribePopupModal .modal-dialog').height(ratio * (jQuery(window).width() - 10));
+                        jQuery('#subscribePopupModal .modal-content').height(ratio * (jQuery(window).width() - 10));
+                    }
+                }
+            }
+        );
+    }
+    <?php break; ?>
+    <?php endif; ?>
+    <?php endforeach; ?>
+    <?php endif; ?>
+    <?php else: ?>
+    // If the cookie is present, the popup is showed
+    if(!Mage.Cookies.get("hasRefused-subpopup")) {
+        jQuery(document).ready(
+            function(){
+                // If the customer has just opened the competition page we hide the popup and remove the related cookie
+                if (!Mage.Cookies.get("hasRefused-subpopup") && okToShow) {
+                    jQuery('#subscribePopupModal').modal();
+                    if (jQuery(window).width() < <?php echo $width ?>) {
+                        var ratio = <?php echo $height/$width; ?>;
+                        jQuery('#subscribePopupModal .modal-dialog').width(jQuery(window).width() - 10);
+                        jQuery('#subscribePopupModal .modal-content').width(jQuery(window).width() - 10);
+                        jQuery('#subscribePopupModal .modal-dialog').height(ratio * (jQuery(window).width() - 10));
+                        jQuery('#subscribePopupModal .modal-content').height(ratio * (jQuery(window).width() - 10));
+                    }
+                }
+            }
+        );
+    }
+    <?php endif; ?>
+
+    // used for ajax call
+    var base_url = '<?php echo Mage::getBaseUrl()?>';
+    if (location.protocol == 'https:') {
+        base_url = "<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+    }
+
+    jQuery('#subpop-subscribe').click(function(event) {
+        // Expiry Date
+        var expDate = new Date();
+        expDate.setMonth(expDate.getMonth() + 12);
+
+        // validate using prototype validation
+        var valid = new Validation('subpopup-form');
+        var result = valid.validate();
+        if (!result) {
+            return result;
+        }
+
+        <?php if ($preferred_brands): ?>
+        // TODO: write a prototype validator
+        var preferredBrands = jQuery("input[name=preferredBrands]:checked").map(function() {
+            return this.value;
+        }).get().join(",");
+        if (!preferredBrands) {
+            alert('Please select at least one preferred brand');
+            return false;
+        }
+        <?php endif; ?>
+
+        var email = jQuery("#subpop-email").val();
+        var state = jQuery("#subpop-state").val();
+
+        //jQuery('#popup-sub-text').css({'padding-top':'135px','line-height':'16px','font-size':'19px'});
+        jQuery('#popup-sub-text').addClass('message');
+        jQuery('#popup-sub-text').addClass('text-center');
+        jQuery('#popup-sub-text').html('Please wait while we subscribe your email...');
+        jQuery.ajax( {
+            url : base_url + "campaignmonitor/subscriber/new",
+            dataType : 'json',
+            type : 'post',
+            data : {
+                "popup": "true",
+                "email": email,
+                "state": state
+                <?php if ($preferred_brands): ?>
+                ,"preferredBrands":preferredBrands
+                <?php endif; ?>
+            },
+            success : function(data) {
+                if (data.status == "subscribed") {
+                    <?php if ($couponEnabled): ?>
+                    jQuery('#popup-sub-text').html('Thank-you, please check your email for your welcome code.');
+                    <?php else: ?>
+                    jQuery('#popup-sub-text').html('Thank-you for joining our mailing list.');
+                    <?php endif; ?>
+                }
+                else {
+                    jQuery('#popup-sub-text').html('Sorry, you have already subscribed.');
+                }
+                Mage.Cookies.set("hasRefused-subpopup", true, expDate);
+            }
+        });
+    });
+    jQuery('#subscribePopupModal .close').on('click', function(event) {
+        // Expiry Date
+        var expDate = new Date();
+        expDate.setMonth(expDate.getMonth() + 12);
+        Mage.Cookies.set("hasRefused-subpopup", true, expDate);
+    });
+</script>
+
+<?php // Add dynamic CSS ?>
+<style type="text/css">
+    #subscribePopupModal .modal-content{
+        background: url('<?php echo $background_css;?>') white center center no-repeat;
+        -webkit-background-size: 100% auto;
+        background-size: 100% auto;
+    }
+    #subscribePopupModal .modal-header{
+        border:0px;
+    }
+    #subscribePopupModal .modal-dialog,
+    #subscribePopupModal .modal-content{
+        width: <?php echo $width; ?>px;
+        height: <?php echo $height; ?>px;
+    }
+
+    #subscribePopupModal .modal-content .message {
+        padding: 3px 0 3px 0;
+        margin:0 20px 0 10px;
+    }
+
+    #popup-sub-text .message {
+        color: <?php echo $themecolor?>;
+    }
+
+    #popup-sub-text .validation-advice{
+        color: <?php echo $themecolor?>;
+        font-size:12px;
+    }
+
+    #popup-sub-text select {
+        border: 1px solid <?php echo $themecolor?>;
+        color: <?php echo $themecolor?>;
+    }
+
+    #popup-sub-text input[type=text] {
+        border: 1px solid <?php echo $themecolor?>;
+        color: <?php echo $themecolor?>;
+    }
+
+    #popup-sub-text input::-webkit-input-placeholder {
+        color: <?php echo $themecolor?>;
+    }
+
+    #popup-sub-text input:-moz-placeholder {
+        color: <?php echo $themecolor?>;
+    }
+
+    #popup-sub-text input[type=submit] {
+        background-color:<?php echo $themecolor?>;
+    }
+
+    <?php echo $styles; ?>
+
+    @media all and (max-width: 640px)
+    {
+    <?php echo $mobile_styles?>
+    }
+</style>

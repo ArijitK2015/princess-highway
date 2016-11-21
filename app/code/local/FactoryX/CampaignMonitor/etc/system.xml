@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <newsletter>
+            <groups>
+                <subscription translate="label">
+                    <fields>
+                        <!--
+                        moved from
+                        newsletter/coupon/enable
+                        to
+                        newsletter/subscription/generate_coupon
+                        -->
+                        <generate_coupon translate="label">
+                            <label>Generate Coupon</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </generate_coupon>
+                    </fields>
+                </subscription>
+                <campaignmonitor translate="label">
+                    <label>Campaign Monitor Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <authentication_type translate="label">
+                            <label>Authentication Type</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_source_authtype</frontend_model>
+                            <source_model>campaignmonitor/system_config_source_authtype</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </authentication_type>
+                        <client_id translate="label">
+                            <label>Campaign Monitor Client ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><authentication_type>oauth</authentication_type></depends>
+                        </client_id>
+                        <client_secret translate="label">
+                            <label>Campaign Monitor Client Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><authentication_type>oauth</authentication_type></depends>
+                        </client_secret>
+                        <auth translate="label comment">
+                            <label>Auth user</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_auth</frontend_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Auth user on Campaign Monitor</comment>
+                        </auth>
+                        <refresh_token translate="label">
+                            <label>Refresh Token</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_refreshtoken</frontend_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </refresh_token>
+                        <api_key translate="label comment">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This can be found on your Account Settings page in Campaign Monitor.</comment>
+                        </api_key>
+                        <list_id translate="label comment">
+                            <label>API List ID</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_list</frontend_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Magento users who subscribe/unsubscribe to the newsletter will be added/removed from this Campaign Monitor email list.</comment>
+                        </list_id>
+                        <redirect_url translate="label comment">
+                            <label>Unsubscribe Redirect URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>URL the unsubscribe page (/campaignmonitor/unsubscribe?email=[email]) redirects to. Start with forward slash for absolute path.</comment>
+                        </redirect_url>
+                        <m_to_cm_attributes translate="label comment">
+                            <label>Mapping betweens form, models and CM</label>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_linkedattributes</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Campaign monitor is giving different "Key" in setting data and getting data</comment>
+                        </m_to_cm_attributes>
+                        <preferred_brands translate="label comment">
+                            <label>Preferred Brands Mapping</label>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_preferredbrands</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add preferred brands to subscription page and link to CM via the API Subscriber List ID. List ID - 'all' is for signing up all brands.</comment>
+                        </preferred_brands>
+                        <interests translate="label comment">
+                            <label>Interests values</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Comma separated values</comment>
+                        </interests>
+                        <default_interests translate="label comment">
+                            <label>Default interests values</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>53</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Comma separated values. Used for quick subscribes such as mini, account creation or checkout subscription.</comment>
+                        </default_interests>
+                        <proxy translate="label">
+                            <label>Proxy</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>E.g. 192.168.100.3:3128, leave blank for not using proxy</comment>
+                        </proxy>
+                    </fields>
+                </campaignmonitor>
+                <coupon translate="label">
+                    <label>Coupon Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <valid_till translate="label comment">
+                            <label>Generate Coupons Until</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>campaignmonitor/adminhtml_system_config_form_field_dateSelection</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If this field is used, and the date has passed, the coupons are no longer generated.</comment>
+                        </valid_till>                        
+                        <label translate="label comment">
+                            <label>Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>use ther place holder %OFFER% to denote offer and value e.g. 10% or $10</comment>
+                        </label>
+                        <length translate="label comment">
+                            <label>Coupon Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>the random part after the prefix e.g. prefix_XXXXX</comment>
+                        </length>
+                        <prefix translate="label">
+                            <label>Coupon Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </prefix>
+                        <offer translate="label">
+                            <label>Coupon Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>campaignmonitor/system_config_source_offer</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </offer>
+                        <value translate="label">
+                            <label>Coupon Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </value>
+                        <customer_groups translate="label">
+                            <label>Customer Groups Restriction</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <!--
+                            see class notes
+                            <source_model>adminhtml/system_config_source_customer_group_multiselect</source_model>
+                            -->
+                            <source_model>campaignmonitor/system_config_source_groupCollection</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_groups>
+                        <uses_coupon translate="label">
+                            <label>Number of uses per coupon</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </uses_coupon>
+                        <uses_customer translate="label comment">
+                            <label>Number of uses per customer</label>
+                            <validate>validate-number</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>only applicable if 'Customer Groups Restriction' 'NOT LOGGED IN' is unselected</comment>
+                        </uses_customer>
+                        <valid_for translate="label">
+                            <label>Valid for (days)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </valid_for>
+                        <date_format translate="label comment">
+                            <label>Date Format</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>see php function date(), note. you must escape plain text e.g. \t\h\e \y\e\a\r \i\s Y, default value is D \t\h\e jS \o\f F Y</comment>
+                        </date_format>
+                        <priority translate="label">
+                            <label>Priority</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>the lower the priority the first to run</comment>
+                        </priority>
+                        <stop translate="label">
+                            <label>Stop further rules processing</label>
+                            <frontend_type>select</frontend_type>                            
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </stop>
+                        <exclude_sku translate="label comment">
+                            <label>Exclude terms in SKU's</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>comma delimited list of terms used to exclude a list of SKU's</comment>
+                        </exclude_sku>
+                        <exclude_sale translate="label">
+                            <label>Exclude Sale Items</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </exclude_sale>
+                        <spend translate="label">
+                            <label>Minimum Spend</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </spend>
+                        <restrict translate="label">
+                            <label>Restrict Coupon to Customer Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </restrict>
+                    </fields>
+                </coupon>
+                <popup translate="label">
+                    <label>Popup Subscription</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <background translate="label">
+                            <label>Popup Background</label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">popup</upload_dir>
+                            <base_url type="media" scope_info="1">popup</base_url>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </background>
+                        <background_mobile translate="label">
+                            <label>Popup Background Mobile</label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">popup</upload_dir>
+                            <base_url type="media" scope_info="1">popup</base_url>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </background_mobile>
+                        <!--
+                        <margintop translate="label">
+                            <label>Amount of space to put between top and input form</label>
+                            <comment>E.g. for 200px, put in 200</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </margintop>
+                        <buttoncolor translate="label">
+                            <label>Button Color</label>
+                            <comment>Hex value for button colour (e.g. #a1a1a1)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </buttoncolor>
+                        <textcolor translate="label">
+                            <label>Text Color</label>
+                            <comment>Hex value for text colour (e.g. #a1a1a1)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </textcolor>
+                        -->
+                        <pagesonly translate="label comment">
+                            <label>Only display on the following pages</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>One path per line starting with /</comment>
+                            <depends><enable>1</enable></depends>
+                        </pagesonly>
+                        <texttodisplay translate="label comment">
+                            <label>Text to display</label>
+                            <comment>Leave blank to have the system auto generate the text (Subscribe to get $x voucher on $y or more purchase)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </texttodisplay>
+                        <terms translate="label comment">
+                            <label>Terms to display</label>
+                            <comment>Leave blank to have the system auto generate the text (* on $minimum or more purchase)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </terms>
+                        <preferred_brands translate="label comment">
+                            <label>Preferred brands</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>List of brand names to subscribe. One brand per line. Leave blank for not showing. Should be corresponding to CM value.</comment>
+                            <depends><enable>1</enable></depends>
+                        </preferred_brands>
+                        <referers translate="label comment">
+                            <label>Referrer</label>
+                            <comment>You can allow a list of domains (delimited by comma). This will be checked each time someone accesses the website and then only popup if the referrer is one of the allowed domain.Left blank not to limit.</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </referers>
+                        <themecolor translate="label">
+                            <label>Theme Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </themecolor>
+                        <styles translate="label">
+                            <label>Extra styling</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </styles>
+                        <mobilestyles translate="label">
+                            <label>Mobile styles</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </mobilestyles>
+                    </fields>
+                </popup>
+                <checkoutnewsletter translate="label">
+                    <label>Checkout Newsletter</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <checked translate="label">
+                            <label>Checked by default</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </checked>
+                        <visible_guest translate="label">
+                            <label>Visible to guest</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </visible_guest>
+                        <visible_register translate="label">
+                            <label>Visible to registrant</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </visible_register>
+                    </fields>
+                </checkoutnewsletter>
+            </groups>
+        </newsletter>
+    </sections>
+</config>

@@ -1,0 +1,16 @@
+#retrieve-img{display:none}
+#hidden-newsletter{display:none}
+
+.brands .input-box{float:right;clear:right; line-height: 20px;}
+.brands span {
+    display: table;
+}
+.brands img {
+    vertical-align: middle;
+    max-width: 200px;
+    max-height: 80px;
+    float: right;
+}
+.brands .input-box input {width: inherit;float: right;}
+
+div.customer-dob.input-box select {width: inherit;}

@@ -1,0 +1,462 @@
+<?php
+$pre_fill_email = '';
+if ($this->getRequest()->getParam('email')) {
+	$pre_fill_email = htmlspecialchars($this->getRequest()->getParam('email'), ENT_QUOTES, 'UTF-8');;
+} else {
+	$pre_fill_email = Mage::getSingleton('core/session')->getEmail();
+}
+
+$email_hidden = ($pre_fill_email || $this->helper('customer')->isLoggedIn()) ? "display: none" : "";
+
+?>
+<div id="subscription-page">
+
+	<div class="page-title" >
+		<h1><?php echo $this->__('Newsletter Subscription') ?></h1>
+	</div>
+
+	<table border="0" style="<?php echo $email_hidden;?>">
+		<tr>
+			<td>
+				<label for="email_address" class="required"><?php echo $this->__('Enter your email address.') ?><em>*</em></label>
+			</td>
+			<td colspan="2">
+				<div class="input-box">
+					<input type="text" name="email" id="email_address" value="<?php echo $pre_fill_email; ?>" title="<?php echo $this->__('Email Address') ?>"
+						   class="input-text validate-email required-entry" />
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="3" id="subscription-next-button">
+				<?php if ($email_hidden == ""): ?>
+					<img id="retrieve-img" src="<?php echo $this->getSkinUrl('images/factoryx/campaignmonitor/ajax-loader.gif'); ?>" alt="Loading" />
+				<?php endif; ?>
+				<?php $key = $this->getRequest()->getParam('key') ? $this->getRequest()->getParam('key') : ""; ?>
+				<button type="button" onclick="retrieveDetails(<?php echo "'".$key."'" ?>)" title="<?php echo $this->__('Next') ?>" class="button">
+					<span>
+						<span class="buttonSpan">
+							<?php echo $this->__('Next') ?>
+						</span>
+					</span>
+				</button>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="retrieve-message" colspan="3">
+			</td>
+		</tr>
+
+	</table>
+
+	<?php if ($email_hidden != ""): ?>
+		<div id="main-loading">
+			<img id="retrieve-img" src="<?php echo $this->getSkinUrl('images/factoryx/campaignmonitor/ajax-loader.gif'); ?>" alt="Loading" />
+		</div>
+	<?php endif ?>
+
+	<form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+
+		<table border="0" width="450" class="tbl1" id="hidden-newsletter">
+
+			<input type="hidden" id="hidden_email" name="email" value="" />
+			<input type="hidden" id="hidden_hash" name="hidden_hash" value="<?php if (isset($key)) { echo $key; } ?>" />
+
+			<?php if ($key && !$this->helper('customer')->isLoggedIn()): ?>
+				<tr>
+					<td class="label1">
+						<label for="new_email"><?php echo $this->__('Update Email') ?></label>
+					</td>
+					<td colspan="2">
+						<div class="input-box">
+							<input type="text" name="new_email" id="new_email_address" value="<?php echo $pre_fill_email; ?>" title="<?php echo $this->__('New Email') ?>" class="input-text validate-email" />
+						</div>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+			<tr>
+				<td class="label1">
+					<label for="<?php echo $this->getFieldId('name')?>"><?php echo $this->__('Full Name') ?></label>
+				</td>
+				<td colspan="2">
+					<div class="input-box">
+						<input type="text" id="name" name="name" value="<?php
+						if (Mage::getSingleton('core/session')->getFirstname() != "")
+						{
+							echo Mage::getSingleton('core/session')->getFirstname();
+						}
+						if (Mage::getSingleton('core/session')->getFirstname() != "" && Mage::getSingleton('core/session')->getLastname() != "")
+						{
+							echo " " . Mage::getSingleton('core/session')->getLastname();
+						}
+						if (Mage::getSingleton('core/session')->getName() != "")
+						{
+							echo Mage::getSingleton('core/session')->getName();
+						}
+						?>" title="<?php echo $this->__('Full Name') ?>" class="input-text" <?php echo $this->getFieldParams() ?> />
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="label1">
+					<label for="mobile"><?php echo $this->__('Mobile') ?></label>
+				</td>
+				<td colspan="2">
+					<div class="input-box">
+						<input type="text" name="mobile" id="mobile" value="<?php echo Mage::getSingleton('core/session')->getMobile(); ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text validate-number" />
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="label1"><label for="state" ><?php echo $this->__('State') ?></label></td>
+				<td colspan="2">
+					<div class="input-box">
+						<select id="state" name="state">
+							<option value="Unknown"><?php echo $this->__('Select-->') ?></option>
+							<?php if ($states = Mage::helper('campaignmonitor')->getCampaignMonitorStates()): ?>
+								<?php sort($states); ?>
+								<?php foreach ($states as $state): ?>
+									<?php if ($state != "Unknown"): ?>
+										<option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</select>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="label1">
+					<label for="postcode" class="required"><?php echo $this->__('Postcode') ?><em>*</em></label>
+				</td>
+				<td colspan="2">
+					<div class="input-box">
+						<input type="text" name="postcode" id="postcode" value="<?php echo Mage::getSingleton('core/session')->getPostcode(); ?>" title="<?php echo $this->__('Postcode') ?>"
+							   class="input-text validate-number" />
+					</div>
+				</td>
+			</tr>
+
+			<?php $_dob = $this->getLayout()->createBlock('customer/widget_dob'); ?>
+			<?php if ($_dob->isEnabled()): ?>
+				<tr>
+					<td class="label1">
+						<label for="month"><?php echo $this->__('Birthday, you might get a treat') ?></label>
+					</td>
+					<td  colspan="2">
+						<div class="input-box subscriber-dob">
+							<select id="month" name="month" onchange="populateDays(this, 0);">
+								<option value="-1"><?php echo $this->__('Month') ?></option>
+								<?php
+								$populateDays = false;
+								$mon = Mage::getSingleton('core/session')->getDobMonth();
+
+								for ($x = 1; $x <= 12; $x++) {
+									$month_name = date("M", mktime(0, 0, 0, $x, 1, 2002));
+									if ($mon == $x) {
+										$populateDays = true;
+										echo "  <option value=\"$x\" selected>$month_name</option>\n";
+									}
+									else {
+										echo "  <option value=\"$x\">$month_name</option>\n";
+									}
+								}
+								?>
+							</select>
+
+							<select id="day" name="day" onchange="setDob();">
+								<option value="-1"><?php echo $this->__('Day') ?></option>
+							</select>
+
+							<div class="dob-full">
+								<input type="hidden" id="dob" name="dob" />
+							</div>
+							<!-- ???
+                            <div class="validation-advice"></div>
+                            -->
+						</div>
+					</td>
+				</tr>
+			<?php endif ?>
+
+			<?php
+			$brands = Mage::helper('campaignmonitor')->getPreferredBrands();
+			if (!empty($brands)):
+				?>
+				<tr>
+					<td class="label1"><label for="brands"><?php echo $this->__('Brands') ?></label></td>
+					<td colspan="2" class="brands">
+						<?php foreach ($brands as $brand):
+							if ($brand['list'] == 'all') continue; ?>
+							<div class="input-box">
+								<input type="checkbox" value="<?php echo $brand['brand']; ?>" name="brands[]">
+								<span>
+                                        <?php if (empty($brand['img_url'])) {
+											echo $brand['brand'];
+										} else {
+											$brandImgs = explode(';', $brand['img_url']);
+											foreach ($brandImgs as $brandImg) {
+												echo '<img src="' . $brandImg . '" alt="' . $brand['brand'] . '">';
+											}
+										}
+										?>
+                                </span>
+							</div>
+						<?php endforeach; ?>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+			<?php
+			$interests = Mage::helper('campaignmonitor')->getInterests();
+			if ($interests && !empty($interests)):
+				?>
+
+				<tr <?php if (!$this->getRequest()->getParam('key')): ?>style="display:none"<?php endif; ?>>
+					<td class="label1">
+						<label for="list"><?php echo $this->__('Newsletter Lists') ?></label>
+					</td>
+					<td colspan="2">
+						<div id="newslists" class="input-box">
+							<?php foreach ($interests as $interest): ?>
+								<input type="checkbox" id="<?php echo $interest; ?>" name="interests[]" value="<?php echo $interest; ?>"><span><?php echo $this->__(ucfirst($interest)); ?></span>
+							<?php endforeach; ?>
+						</div>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+			<tr>
+				<td colspan="2"></td>
+				<td id="subscription-button-td">
+					<button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button">
+					   <span>
+						   <span class="buttonSpan">
+							   <?php echo $this->__('Subscribe') ?>
+						   </span>
+					   </span>
+					</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+		//]]>
+
+		// Auto populate the date of birth
+		<?php if (isset($populateDays) && $populateDays): ?>
+		populateDays(document.getElementById('month'), '<?php echo Mage::getSingleton('core/session')->getDobDay(); ?>');
+		<?php endif; ?>
+
+		// Auto populate the state
+		var state = '<?php echo Mage::getSingleton('core/session')->getState(); ?>';
+		var oState = document.getElementById("state");
+		if (oState)
+		{
+			for(var i=0;i<oState.length;i++) {
+				if (oState.options[i].value == state) {
+					oState.selectedIndex=i;
+				}
+			}
+		}
+
+		// Auto populate the periodicity
+		var periodicity = '<?php echo Mage::getSingleton('core/session')->getPeriodicity(); ?>';
+		var oPeriodicity = document.getElementById("periodicity");
+		if (oPeriodicity)
+		{
+			for(var i=0;i<oPeriodicity.length;i++) {
+				if (oPeriodicity.options[i].value == periodicity) {
+					oPeriodicity.selectedIndex=i;
+				}
+			}
+		}
+	</script>
+</div>
+
+<?php // Display the childs ?>
+<?php echo $this->getChildHtml(); ?>
+
+<script type="text/javascript">
+	//<![CDATA[
+	// Function that retrieve the Campaign Monitor details
+	function retrieveDetails(securehash) {
+		// Strict mode
+		"use strict";
+		// Validate the email address
+		if (!Validation.validate($('email_address'))) {
+			jQuery('#retrieve-message').removeClass();
+			jQuery('#retrieve-message').html("Please enter a valid email address");
+			jQuery('#retrieve-message').addClass('error');
+			return;
+		}
+		// Get the email
+		var email = document.getElementById("email_address").value;
+
+		// We show the loading icon
+		jQuery('#retrieve-img').css("display","inline");
+		// We store the email in the form via an hidden input
+		jQuery('#hidden_email').attr('value',email);
+		// Base URL in case we're using a subfolder
+		var base_url = '';
+		// Handle the HTTPS protocol
+		if (location.protocol == 'https:')
+		{
+			base_url="<?php echo Mage::getUrl('',array('_secure'=>true));?>";
+		}
+		else
+		{
+			base_url='<?php echo Mage::getBaseUrl()?>';
+		}
+		// AJAX Call
+		jQuery.ajax( {
+			url : base_url+"campaignmonitor/subscriber/retrieve",
+			dataType : 'json',
+			type : 'get',
+			data : {"email" :email, "securehash": securehash},
+			success : function(data) {
+				// If the AJAX call has worked
+				// We first empty everything in the form
+				jQuery('#name').attr("value","");
+				jQuery('#mobile').attr("value","");
+				jQuery('#new_email_address').attr("value",email);
+				if (document.getElementById("state")) document.getElementById("state").selectedIndex = 0;
+				jQuery('#postcode').attr("value","");
+				if (document.getElementById("periodicity")) document.getElementById("periodicity").selectedIndex = 0;
+				if (document.getElementById("month")) document.getElementById("month").selectedIndex = 0;
+				if (document.getElementById("day")) document.getElementById("day").selectedIndex = 0;
+				if (document.getElementById("jobinterest")) document.getElementById("jobinterest").selectedIndex = 0;
+
+				if (data.interests){
+					for (var i=0;i<data.interests.length;i++){
+						jQuery('#'+data.interests[i]).attr('checked','checked');
+					}
+				}else if(data.status != "EXISTING"){
+					jQuery('#newslists > input').each(function(){
+						jQuery(this).attr('checked','checked');
+					})
+				}
+
+				if (data.status == "INVALID"){
+					window.location.replace(data.message);
+				}else{
+					// We display the message
+					jQuery('#retrieve-message').removeClass();
+					jQuery('#retrieve-message').html(data.message);
+				}
+
+				// If there was an error, we hide the form (in case it was displayed by a previous subscription)
+				if (data.status == "ERROR")
+				{
+					jQuery('#retrieve-message').addClass('error');
+					jQuery('#hidden-newsletter').slideUp();
+					jQuery('#retrieve-img').css("display","none");
+					return;
+				}
+
+				// If it's an existing subscriber we fill the form with the corresponding details
+				if (data.status == "EXISTING")
+				{
+					jQuery('#retrieve-message').addClass('success');
+					// Name
+					if (data.Name)
+					{
+						jQuery('#name').attr("value",data.Name);
+					}
+					else if(data.firstname || data.lastname)
+					{
+						if (data.firstname && data.lastname) jQuery('#name').attr("value",data.firstname+" "+data.lastname);
+						else if (data.firstname) jQuery('#name').attr("value",data.firstname);
+						else if (data.lastname) jQuery('#name').attr("value", data.lastname);
+					}
+					// Mobile
+					if (data.Mobile) jQuery('#mobile').attr("value",data.Mobile);
+					// State
+					if (data.State)
+					{
+						var oState = document.getElementById("state");
+						if (oState)
+						{
+							for(var i=0;i<oState.length;i++) {
+								if (oState.options[i].value == data.State) {
+									oState.selectedIndex=i;
+								}
+							}
+						}
+					}
+					// Postcode
+					if (data.Postcode) jQuery('#postcode').attr("value",data.Postcode);
+					// Periodicity
+					if (data.Periodicity)
+					{
+						var oPeriodicity = document.getElementById("periodicity");
+						if (oPeriodicity)
+						{
+							for(var i=0;i<oPeriodicity.length;i++) {
+								if (oPeriodicity.options[i].value == data.Periodicity) {
+									oPeriodicity.selectedIndex=i;
+								}
+							}
+						}
+					}
+					// Date Of Birth
+					if (data.DateOfBirth)
+					{
+						var splitDob = data.DateOfBirth.split('-');
+						var monthDob = parseInt(splitDob[1],10);
+						var oMonthDob = document.getElementById("month");
+						for(var i=0;i<oMonthDob.length;i++) {
+							if (monthDob==i) oMonthDob.selectedIndex=i;
+						}
+						var dayDob = parseInt(splitDob[2],10);
+						populateDays(document.getElementById('month'),dayDob);
+					}
+					// Job Interest
+					if (data["Job Interest"])
+					{
+						var oJobInterest = document.getElementById("jobinterest");
+						if (oJobInterest)
+						{
+							for(var i=0;i<oJobInterest.length;i++) {
+								if (oJobInterest.options[i].value == data["Job Interest"]) {
+									oJobInterest.selectedIndex=i;
+								}
+							}
+						}
+					}
+					// Hide the loading img
+					jQuery('#retrieve-img').css("display","none");
+					// Change the title of the button
+					jQuery('#subscription-button-td button').attr('title','Update');
+					jQuery('#subscription-button-td button span span').html('Update');
+					// Show the form
+					jQuery('#hidden-newsletter').slideDown();
+				}
+				else if(data.status == "NEW")
+				{
+					// If it's a new subscriber
+					jQuery('#retrieve-img').css("display","none");
+					jQuery('#subscription-button-td button').attr('title','Subscribe');
+					jQuery('#subscription-button-td button span span').html('Subscribe');
+					jQuery('#hidden-newsletter').slideDown();
+				}
+			}
+		});
+	}
+	//]]>
+</script>
+
+<?php if ($key): ?>
+	<script type="text/javascript">retrieveDetails("<?php echo $key ?>")</script>
+<?php elseif (Mage::getSingleton('core/session')->getEmail()): ?>
+	<script type="text/javascript">retrieveDetails()</script>
+<?php endif; ?>
