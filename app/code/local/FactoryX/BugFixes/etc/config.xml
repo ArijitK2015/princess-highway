@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_BugFixes>
+			<version>0.2.11</version>
+		</FactoryX_BugFixes>
+	</modules>
+
+    <global>
+        <models>
+            <eav_resource>
+                <rewrite>
+                    <!-- Mage_Eav_Model_Resource_Helper_Mysql4 -->
+                    <helper_mysql4>FactoryX_BugFixes_Model_Eav_Resource_Helper_Mysql4</helper_mysql4>
+                </rewrite>
+            </eav_resource>
+            <core>
+                <rewrite>
+                    <!-- Mage_Core_Model_Config -->
+                    <config>FactoryX_BugFixes_Model_Core_Config</config>
+                </rewrite>
+            </core>
+            <catalog>
+                <rewrite>
+                    <!-- Mage_Catalog_Model_Category_Attribute_Backend_Image -->
+                    <category_attribute_backend_image>FactoryX_BugFixes_Model_Catalog_Category_Attribute_Backend_Image</category_attribute_backend_image>
+                </rewrite>
+            </catalog>
+            <catalogrule>
+                <rewrite>
+                    <!-- Mage_CatalogRule_Model_Rule_Condition_Product -->
+                    <rule_condition_product>FactoryX_BugFixes_Model_CatalogRule_Rule_Condition_Product</rule_condition_product>
+                    <!-- Mage_CatalogRule_Model_Action_Index_Refresh -->
+                    <action_index_refresh>FactoryX_BugFixes_Model_CatalogRule_Action_Index_Refresh</action_index_refresh>
+                </rewrite>
+            </catalogrule>
+            <catalogrule_resource>
+                <rewrite>
+                    <!-- Mage_CatalogRule_Model_Resource_Rule -->
+                    <rule>FactoryX_BugFixes_Model_CatalogRule_Resource_Rule</rule>
+                </rewrite>
+            </catalogrule_resource>
+            <importexport>
+                <rewrite>
+                    <!-- Mage_ImportExport_Model_Export_Entity_Abstract -->
+                    <export_entity_abstract>FactoryX_BugFixes_Model_ImportExport_Export_Entity_Abstract</export_entity_abstract>
+                    <!-- Mage_ImportExport_Model_Export_Entity_Product -->
+                    <export_entity_product>FactoryX_BugFixes_Model_ImportExport_Export_Entity_Product</export_entity_product>
+                </rewrite>
+            </importexport>
+            <catalog_resource>
+                <rewrite>
+                    <!-- Mage_Catalog_Model_Resource_Product_Status -->
+                    <product_status>FactoryX_BugFixes_Model_Catalog_Resource_Product_Status</product_status>
+                    <!-- Mage_Catalog_Model_Resource_Product_Collection -->
+                    <product_collection>FactoryX_BugFixes_Model_Catalog_Resource_Product_Collection</product_collection>
+                    <!-- Mage_Catalog_Model_Resource_Product_Type_Configurable -->
+                    <product_type_configurable>FactoryX_BugFixes_Model_Catalog_Resource_Product_Type_Configurable</product_type_configurable>
+                    <!-- Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection -->
+                    <product_type_configurable_attribute_collection>FactoryX_BugFixes_Model_Catalog_Resource_Product_Type_Configurable_Attribute_Collection</product_type_configurable_attribute_collection>
+                </rewrite>
+            </catalog_resource>
+            <salesrule>
+                <rewrite>
+                    <!-- Mage_SalesRule_Model_Rule_Condition_Product_Subselect -->
+                    <rule_condition_product_subselect>FactoryX_BugFixes_Model_Salesrule_Rule_Condition_Product_Subselect</rule_condition_product_subselect>
+                    <!-- Mage_SalesRule_Model_Validator -->
+                    <validator>FactoryX_BugFixes_Model_Salesrule_Validator</validator>
+                </rewrite>
+            </salesrule>
+            <reports_resource>
+                <rewrite>
+                    <!-- Mage_Reports_Model_Resource_Quote_Collection -->
+                    <quote_collection>FactoryX_BugFixes_Model_Reports_Resource_Quote_Collection</quote_collection>
+                </rewrite>
+            </reports_resource>
+            <sales_resource>
+                <rewrite>
+                    <!-- Mage_Sales_Model_Resource_Order -->
+                    <order>FactoryX_BugFixes_Model_Sales_Resource_Order</order>
+                </rewrite>
+            </sales_resource>
+            <!-- @todo fix that
+            <rule_resource>
+                <rewrite>
+                    Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
+                    <rule_condition_sqlBuilder>FactoryX_BugFixes_Model_Rule_Resource_Rule_Condition_SqlBuilder</rule_condition_sqlBuilder>
+                </rewrite>
+            </rule_resource> -->
+        </models>
+
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <!-- Mage_Adminhtml_Block_Widget_Grid -->
+                    <widget_grid>FactoryX_BugFixes_Block_Adminhtml_Widget_Grid</widget_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+		<helpers>
+			<cms>
+				<rewrite>
+					<!-- Mage_Cms_Helper_Wysiwyg_Images -->
+					<wysiwyg_images>FactoryX_BugFixes_Helper_Cms_Wysiwyg_Images</wysiwyg_images>
+				</rewrite>
+			</cms>
+		</helpers>
+
+        <resources>
+            <bugfixes_setup>
+                <setup>
+                    <module>FactoryX_BugFixes</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bugfixes_setup>
+            <bugfixes_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bugfixes_write>
+            <bugfixes_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bugfixes_read>
+        </resources>
+
+	</global>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_BugFixes/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

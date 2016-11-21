@@ -1,0 +1,5 @@
+app/code/local/FactoryX/BugFixes
+app/etc/modules/FactoryX_BugFixes.xml
+app/code/local/Varien/Data/Collection/Db.php
+app/code/local/Mage/Eav/Model/Entity/Collection/Abstract.php
+app/code/local/Mage/Eav/Model/Entity/Abstract.php

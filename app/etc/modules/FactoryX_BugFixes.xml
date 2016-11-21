@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_BugFixes>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Customer/>
+            </depends>
+        </FactoryX_BugFixes>
+    </modules>
+</config>
