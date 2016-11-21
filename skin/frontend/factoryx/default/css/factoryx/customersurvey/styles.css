@@ -1,0 +1,36 @@
+#feedback {
+    bottom: 0;
+    display: none;
+    position: fixed;
+    right: 0;
+    background-color:#ddd;
+}
+.survey-question .textarea{
+    width: 440px;
+    height: 80px;
+}
+.survey-question h6{
+    display: inline;
+    padding-bottom: 5px;
+}
+.survey-question{
+    padding:10px;
+}
+.star-container img{
+    float:left;
+}
+.star-container{
+    height: 22px;
+}
+.customradio{
+    padding-left:10px;
+    padding-top:10px;
+}
+.checkbox-container{
+    padding-top:10px;
+}
+#rand{
+    width: 25px;
+    padding:2px;
+    margin-left:7px;
+}

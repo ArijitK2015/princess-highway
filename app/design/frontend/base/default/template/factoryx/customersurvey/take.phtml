@@ -1,0 +1,147 @@
+<?php
+$survey = $this->getCurrentSurvey();
+if ($survey->title == '') {
+    echo 'invalid survey id';
+    exit;
+}
+?>
+<div class="survey_block">
+    <div class="block">
+    <div class="block-title">
+        <strong><span><?php echo $survey->title ?></span></strong>
+    </div>
+    <?php
+    // check for cms block named customersurvey_N where N = customersurvey_id
+    // TODO: make this part of survey model
+    $cmsBlockId = sprintf("customersurvey_%d", $survey->customersurvey_id);
+    $block  = Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($cmsBlockId);
+    if ($cmsBlockId == $block->getIdentifier()):
+        $var = array('variable' => 'value', 'other_variable' => 'other value');
+        /* This will be {{var variable}} and {{var other_variable}} in your CMS block */
+        $filterModel = Mage::getModel('cms/template_filter');
+        $filterModel->setVariables($var);    
+        ?>
+        <div class="block-description">
+            <p><?php echo  $filterModel->filter($block->getContent()); ?></p>
+        </div>
+    <?php endif; ?>
+    <div class="block-content">
+        <form id="survey_form" method="POST" action="<?php echo $this->getSaveUrl(); ?>">
+            <input type="hidden" name="survey_number" value="<?php echo $survey->customersurvey_id ?>" />
+            <?php foreach($this->getMyQuestions() as $question): ?>
+                    <div class="survey-question"><div><h6><?php echo $question->question ?></h6>
+                    <?php
+                    switch($question->answer_type) {
+                         case "bubbles1": ?>
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);" value="Very satisfied">  Very satisfied &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="Satisfied" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Satisfied &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="Neutral" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Neutral &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="Dissatisfied" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Dissatisfied &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="Very dissatisfied" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Very dissatisfied
+                            <input type="hidden" class="input-text required-entry" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" />
+                            <?php break; ?>
+                        <?php case "bubbles2": ?>
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="excellent" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Excellent &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="good" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Good &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="fair" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Fair &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="poor" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Poor &nbsp;&nbsp;
+
+                            <input type="hidden" class="input-text required-entry" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" />
+
+                            <?php break; ?>
+                        <?php case "field": ?>
+                            <input type="text" name="question<?php echo $question->question_id ?>" class="input-text required-entry" value="" />
+                            <?php break; ?>
+                        <?php case "area": ?>
+                            <textarea name="question<?php echo $question->question_id ?>" class="required-entry required-entry textarea"></textarea>
+                            <?php break; ?>
+                        <?php case "star": ?>
+                        <div class="star-container">
+                            <img onmouseout="starLeave(<?php echo $question->question_id ?>);" onclick="starClick(1, <?php echo $question->question_id ?>);" onmouseover="StarHover(1, this, <?php echo $question->question_id ?>);" id="question<?php echo $question->question_id ?>_1" src="<?php echo $this->getSkinUrl('images/factoryx/customersurvey/star.png'); ?>" />
+                            <img onmouseout="starLeave(<?php echo $question->question_id ?>);" onclick="starClick(2, <?php echo $question->question_id ?>);" onmouseover="StarHover(2, this, <?php echo $question->question_id ?>);" id="question<?php echo $question->question_id ?>_2" src="<?php echo $this->getSkinUrl('images/factoryx/customersurvey/star.png'); ?>" />
+                            <img onmouseout="starLeave(<?php echo $question->question_id ?>);" onclick="starClick(3, <?php echo $question->question_id ?>);" onmouseover="StarHover(3, this, <?php echo $question->question_id ?>);" id="question<?php echo $question->question_id ?>_3" src="<?php echo $this->getSkinUrl('images/factoryx/customersurvey/star.png'); ?>" />
+                            <img onmouseout="starLeave(<?php echo $question->question_id ?>);" onclick="starClick(4, <?php echo $question->question_id ?>);" onmouseover="StarHover(4, this, <?php echo $question->question_id ?>);" id="question<?php echo $question->question_id ?>_4" src="<?php echo $this->getSkinUrl('images/factoryx/customersurvey/unstar.png'); ?>" />
+                            <img onmouseout="starLeave(<?php echo $question->question_id ?>);" onclick="starClick(5, <?php echo $question->question_id ?>);" onmouseover="StarHover(5, this, <?php echo $question->question_id ?>);" id="question<?php echo $question->question_id ?>_5" src="<?php echo $this->getSkinUrl('images/factoryx/customersurvey/unstar.png'); ?>" />
+                            <input type="hidden" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" value="3" />
+                         </div>
+                            <?php break; ?>
+                        <?php case "yesno": ?>
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="Yes" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  Yes &nbsp;&nbsp;
+                            <input type="radio" name="question<?php echo $question->question_id ?>_answer" value="No" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);">  No
+
+                            <input type="hidden" class="input-text required-entry" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" />
+                            <?php break; ?>
+                        <?php case "customradio": ?>
+                            <?php
+							if($question->possible_answers) {
+								$possibleAnswers = explode('|||', $question->possible_answers);
+							}
+							else {
+								$possibleAnswers = array();
+							}
+							?>
+							<?php foreach($possibleAnswers as $possibleAnswer) { ?>
+                                   <input class="customradio" type="radio" name="question<?php echo $question->question_id ?>_answer" value="<?php echo $possibleAnswer; ?>" onchange="ChangeHidden(<?php echo $question->question_id ?>, this);"><?php echo $possibleAnswer; ?> &nbsp;&nbsp;
+							<?php } ?>
+                            		<input type="hidden" class="input-text required-entry" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" />
+                    		<?php break; ?>
+                        <?php case "checkboxes": ?>
+                            <?php
+							if($question->possible_answers) {
+								$possibleAnswers = explode('|||', $question->possible_answers);
+							}
+							else {
+								$possibleAnswers = array();
+							}
+							?>
+                            <?php $counterA = 0 ?>
+							<?php foreach($possibleAnswers as $possibleAnswer) { ?>
+								<div class="checkbox-container">
+                                   <input type="checkbox" name="question<?php echo $question->question_id ?>_answer" value="<?php echo $counterA; ?>" onchange="CheckBoxAction(<?php echo $question->question_id ?>, this);">&nbsp;&nbsp;<?php echo $possibleAnswer; ?>
+                                </div>
+                                <?php $counterA++ ?>
+							<?php } ?>
+                            		<input type="hidden" class="input-text required-entry" name="question<?php echo $question->question_id ?>" id="question<?php echo $question->question_id ?>" />
+                    		<?php break; ?>
+                    <?php } // end switch ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <?php
+            $x = rand(0, 9);
+            $y = rand(0, 9);
+            $_SESSION['rand'] = $x + $y;
+            ?>
+            <div class="survey-question"><h6>What is the result of <?php echo $x; ?> + <?php echo $y; ?>?<input name="rand" id="rand" class="required-entry validate-are-you-human" /></h6></div>
+            <div class="actions">
+                <button class="button" title="Submit" type="submit"><span><span>Submit</span></span></button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <input type="hidden" value="<?php  echo $this->getSkinUrl('images/factoryx/customersurvey/star.png'); ?>" id="goodstar" />
+    <input type="hidden" value="<?php  echo $this->getSkinUrl('images/factoryx/customersurvey/unstar.png'); ?>" id="badstar" />
+
+    <script type="text/javascript">
+        var customForm = new VarienForm('survey_form');
+
+        // custom validation for 'What is the result of'
+        Validation.add('validate-are-you-human', 'Are you a human?!', function(val) {
+            console.log("test: " + val + " == <?php echo ($x + $y); ?>");
+            return (val == '<?php echo ($x + $y); ?>');
+        });
+        // stop double clicks/submits
+        jQuery("#survey_form .button").click(
+            function() {
+                if (customForm.validator && customForm.validator.validate()) {
+                    console.log("clicked + valid...");
+                    jQuery(this).attr('disabled', 'disabled');
+                    jQuery("span > span", this).html("Submitting...");
+                    customForm.submit();
+                }
+            }
+        );
+    </script>
+</div>

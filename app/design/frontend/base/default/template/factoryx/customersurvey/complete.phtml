@@ -1,0 +1,17 @@
+<div style="height: 200px; padding-top: 60px; text-align: center;">
+<h3>Thank you for completing the survey.</h3>
+<h4>
+<?php
+$surveyID = $this->getCurrentSurvey();
+
+if ($surveyID->customersurvey_id) {
+    if (($coupon = $this->getCoupon()) && ($rule = $this->getRule())) {
+		echo sprintf("<br/><br/>Completing this survey granted you the following offer:<br/><br/>%s<br/> Use promo code: %s",
+		    $rule->getName(),
+		    $coupon
+        );
+	}
+}
+?>
+</h4>
+</div>

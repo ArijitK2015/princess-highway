@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<layout version="1.0.0">
+
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/customersurvey/styles.css</name>
+                <params/>
+            </action>
+        </reference>
+    </default>
+
+	<customersurvey_index_index>
+	    <reference name="content">
+            <block type="customersurvey/list" name="survey_list" template="factoryx/customersurvey/list.phtml"/>
+        </reference>
+	</customersurvey_index_index>
+	
+	<customersurvey_index_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/customersurvey/styles.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/factoryx/customersurvey/script.js</name>
+                <params/>
+            </action>
+        </reference>
+	    <reference name="content">
+            <block type="customersurvey/take" name="survey_view" template="factoryx/customersurvey/take.phtml"/>
+        </reference>
+	</customersurvey_index_view>
+	
+	<customersurvey_index_complete>
+	    <reference name="content">
+            <block type="customersurvey/complete" name="survey_complete" template="factoryx/customersurvey/complete.phtml"/>
+        </reference>
+	</customersurvey_index_complete>
+</layout>

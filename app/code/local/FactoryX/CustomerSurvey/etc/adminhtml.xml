@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <factoryx_menu translate="title">
+            <title>Factory X</title>
+            <sort_order>110</sort_order>
+            <children>
+                <customersurvey translate="title" module="customersurvey">
+                    <title>Customer Surveys</title>
+                    <sort_order>200</sort_order>
+                    <children>
+                        <new module="customersurvey">
+                            <title>Create Survey</title>
+                            <action>adminhtml/survey/edit</action>
+                        </new>
+                        <view module="customersurvey">
+                            <title>View Surveys</title>
+                            <action>adminhtml/survey/index</action>
+                        </view>
+                        <config module="customersurvey">
+                            <title>Configuration</title>
+                            <action>adminhtml/system_config/edit/section/customersurvey</action>
+                        </config>
+                    </children>
+                </customersurvey>
+            </children>
+        </factoryx_menu>
+    </menu>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <factoryx_menu>
+                        <title>Factory X</title>
+                        <sort_order>110</sort_order>
+                        <children>
+                            <customersurvey>
+                                <title>Customer Surveys</title>
+                                <sort_order>190</sort_order>
+                                <children>
+                                    <new>
+                                        <title>Create Survey</title>
+                                    </new>
+                                    <view>
+                                        <title>View Surveys</title>
+                                    </view>
+                                    <config>
+                                        <title>Configuration</title>
+                                    </config>
+                                </children>
+                            </customersurvey>
+                        </children>
+                    </factoryx_menu>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <customersurvey>
+                                        <title>Customer Surveys</title>
+                                    </customersurvey>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

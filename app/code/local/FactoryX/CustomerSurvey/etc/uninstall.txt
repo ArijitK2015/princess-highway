@@ -1,0 +1,15 @@
+app/code/local/FactoryX/CustomerSurvey
+app/etc/modules/FactoryX_CustomerSurvey.xml
+app/design/adminhtml/default/default/template/factoryx/customersurvey
+app/design/adminhtml/default/default/layout/factoryx/customersurvey.xml
+app/design/frontend/base/default/template/factoryx/customersurvey
+app/design/frontend/base/default/layout/factoryx/customersurvey.xml
+app/design/frontend/factoryx/default/layout/factoryx/customersurvey.xml
+app/design/frontend/factoryx/default/template/factoryx/customersurvey
+app/locale/en_AU/template/email/factoryx/customersurvey
+skin/adminhtml/default/default/images/factoryx/customersurvey
+skin/frontend/base/default/css/factoryx/customersurvey
+skin/frontend/base/default/images/factoryx/customersurvey
+skin/frontend/base/default/js/factoryx/customersurvey
+skin/frontend/factoryx/default/css/factoryx/customersurvey
+js/lib/factoryx/customersurvey

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_CustomerSurvey>
+            <version>1.2.4</version>
+        </FactoryX_CustomerSurvey>
+    </modules>
+
+    <frontend>
+        <routers>
+            <customersurvey>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_CustomerSurvey</module>
+                    <frontName>customersurvey</frontName>
+                </args>
+            </customersurvey>
+        </routers>
+        <layout>
+            <updates>
+                <customersurvey>
+                    <file>factoryx/customersurvey.xml</file>
+                </customersurvey>
+            </updates>
+        </layout>
+    </frontend>
+
+
+    <global>
+        <blocks>
+            <customersurvey>
+                <class>FactoryX_CustomerSurvey_Block</class>
+            </customersurvey>
+        </blocks>
+        <helpers>
+            <customersurvey>
+                <class>FactoryX_CustomerSurvey_Helper</class>
+            </customersurvey>
+        </helpers>
+        <models>
+            <customersurvey>
+                <class>FactoryX_CustomerSurvey_Model</class>
+                <resourceModel>survey_mysql4</resourceModel>
+            </customersurvey>
+            <survey_mysql4>
+                <class>FactoryX_CustomerSurvey_Model_Mysql4</class>
+                <entities>
+                    <old_survey>
+                        <table>survey</table>
+                    </old_survey>
+                    <old_questions>
+                        <table>survey_questions</table>
+                    </old_questions>
+                    <old_results>
+                        <table>survey_results</table>
+                    </old_results>
+                    <survey>
+                        <table>fx_survey</table>
+                    </survey>
+                    <questions>
+                        <table>fx_survey_questions</table>
+                    </questions>
+                    <results>
+                        <table>fx_survey_results</table>
+                    </results>
+                </entities>
+            </survey_mysql4>
+        </models>
+        <resources>
+            <customersurvey_setup>
+                <setup>
+                    <module>FactoryX_CustomerSurvey</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customersurvey_setup>
+            <customersurvey_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customersurvey_write>
+            <customersurvey_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customersurvey_read>
+        </resources>
+
+        <template>
+            <email>
+                <customersurvey_email_template translate="label" module="customersurvey">
+                    <label>Feedback Template</label>
+                    <file>factoryx/customersurvey/feedback.html</file>
+                    <type>html</type>
+                </customersurvey_email_template>
+            </email>
+        </template>
+    </global>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_CustomerSurvey before="Mage_Adminhtml">FactoryX_CustomerSurvey_Adminhtml</FactoryX_CustomerSurvey>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <customersurvey>
+                    <file>factoryx/customersurvey.xml</file>
+                </customersurvey>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <default>
+        <customersurvey>
+            <feedbackemail>
+                <email_template>customersurvey_email_template</email_template>
+            </feedbackemail>
+        </customersurvey>
+    </default>
+</config>

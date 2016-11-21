@@ -1,0 +1,48 @@
+.survey_block .block {
+    margin: 20px 0 30px 20px;
+}
+.survey_block .block p {
+    margin: 5px 0 10px 0;
+}
+#survey_form h6 {
+    display: block;
+} 
+#feedback {
+    bottom: 0;
+    display: none;
+    position: fixed;
+    right: 0;
+}
+.survey-question .textarea{
+    width: 440px;
+    height: 80px;
+}
+.survey-question h6{
+    display: inline;
+    padding-bottom: 5px;
+}
+.survey-question{
+    padding:10px;
+}
+.star-container img{
+    float:left;
+}
+.star-container{
+    height: 22px;
+}
+.customradio{
+    padding-left:10px;
+    padding-top:10px;
+}
+.checkbox-container{
+    padding-top:10px;
+}
+#rand{
+    width: 25px;
+    padding: 2px;
+    margin-left: 7px;
+}
+#survey_form div.actions {
+    padding: 10px;
+    text-align:left
+}

@@ -1,0 +1,6 @@
+<!--@subject Feedback from {{var storename}} @-->
+<body>
+<p>Hi, you have a new feedback from online store!</p>
+{{block type='core/template' area='frontend' template='factoryx/customersurvey/email_template.phtml' questions=$questions}}
+<b>HTTP AGENT</b>: {{var useragent}}
+</body>
