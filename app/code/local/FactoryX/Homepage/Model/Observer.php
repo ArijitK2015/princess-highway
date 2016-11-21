@@ -6,7 +6,7 @@
 class FactoryX_Homepage_Model_Observer extends Mage_Core_Model_Abstract
 {
 
-	public function toggleHomepages($dryrun = false)
+	public function toggleHomepages(Mage_Cron_Model_Schedule $schedule = null, $dryrun = false)
 	{
 		$this->disableHomepages($dryrun);
 		$this->enableHomepages($dryrun);
