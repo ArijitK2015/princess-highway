@@ -1,0 +1,453 @@
+<?php
+
+// Retrieve the lookbook
+$lookbook = $this->getCurrentLookbook();
+
+// Retrieve configurable settings
+$lookbookWidth = $this->getLookbookWidth();
+$looksPerPage = $this->getLooksPerPage();
+$lookBorder = $this->getLookbookBorder();
+$lookWidth = $this->getLookWidth();
+$lookHeight = $this->getLookHeight();
+$lookColor = $this->getLookColor();
+$lookbookType = $lookbook->getLookbookType();
+$includePrice = true;
+
+/*
+# Nav Types
+    fontawesome ???
+    arrows
+    dots
+    arrows-dots
+    scrollbar
+*/
+
+if ($lookbookNavType = $lookbook->getNavType()) {
+    // Get the corresponding nav/pag styles
+    switch($lookbookNavType) {
+        case "fontawesome":
+            $arrowStyle = Mage::helper('lookbook')->stripNav($lookbook->getSliderNavStyle());
+            //$dotStyle = Mage::helper('lookbook')->stripPag($lookbook->getSliderPaginationStyle());
+            $dotStyle = "pagination-fontawesome";
+        case "arrows":
+            $arrowStyle = Mage::helper('lookbook')->stripNav($lookbook->getSliderNavStyle());
+            break;
+        case "dots":
+            $dotStyle = Mage::helper('lookbook')->stripPag($lookbook->getSliderPaginationStyle());
+            break;
+        case "arrows-dots":
+            $arrowStyle = Mage::helper('lookbook')->stripNav($lookbook->getSliderNavStyle());
+            $dotStyle = Mage::helper('lookbook')->stripPag($lookbook->getSliderPaginationStyle());
+            break;
+        default:
+            $arrowStyle = "a01";
+            $dotStyle = "b02";
+            break;
+    }
+}
+
+$newTarget = "";
+if ($lookbook->getClickNewTab() || $lookbook->getLookbookFacebook()) {
+    $newTarget = "target='_blank'  rel='noopener noreferrer'";
+}
+if ($lookbook->getBundleClick() != 0) {
+    if ($lookbook->getClickToUrl()) {
+        $clickToUrl = $lookbook->getClickToUrl();
+    }
+}
+
+// Under product
+// 0 - none
+// 1 - Show Child Products with Links
+// 2 - ???
+// 3 - Show Bundle Product Description
+$underProductDisplay = $lookbook->getUnderProductInfo();
+
+// 1 - Show Child Products with Links (additional fields)
+$underProductLinksContact = $lookbook->getUnderProductInfoLinksContact();
+$underProductLinksSubject = $lookbook->getUnderProductInfoLinksSubject();
+$underProductLinksUnavailablePrefix = $lookbook->getUnderProductInfoLinksUnavailablePrefix();
+$underProductLinksAvailablePrefix = $lookbook->getUnderProductInfoLinksAvailablePrefix();
+
+/*
+Mage::helper('lookbook')->log("lookbookWidth=".$lookbookWidth);
+Mage::helper('lookbook')->log("looksPerPage=".$looksPerPage);
+Mage::helper('lookbook')->log("lookWidth=".$lookWidth);
+Mage::helper('lookbook')->log("lookHeight=".$lookHeight);
+*/
+
+// Retrieve non configurable settings
+$lookDescTopPadding = $this->getLookDescTopPadding();
+$lookDescMaxLines = $this->getLookDescMaxLines();
+$lookDescHeight = $this->getLookDescHeight();
+$lookScaleHeight = $this->getLookScaleHeight();
+$lookDescBorderWidth = $this->getLookDescBorderWidth();
+$lookDescSidePadding = $this->getLookDescSidePadding();
+$barWidth = $this->getBarWidth();
+$scaleLeftPad = $this->getScaleLeftPad();
+$lookbookLayout = $lookbook->getLayout();
+
+// Generate color differences
+switch ($lookColor) {
+    case "black":
+        $mainBorder = "10px solid #000";
+        $mainPadding = "0";
+        $arrowLeft = $this->getSkinUrl('images/slider/arrow-prev.png');
+        $arrowRight = $this->getSkinUrl('images/slider/arrow-next.png');
+        break;
+    case "white":
+        $mainBorder = "1px solid #FFF";
+        $mainPadding = "9px";
+        $arrowLeft = $this->getSkinUrl('images/slider/arrow-prev.png');
+        $arrowRight = $this->getSkinUrl('images/slider/arrow-next.png');
+        break;
+}
+
+// Add borders to lookbook width
+$lookbookWidth += ($lookBorder * 2 * $looksPerPage);
+
+if ($lookbookType == "category") {
+    // Get lookbook products
+    $_productCollection = $lookbook->getLookbookProducts();
+    // Count lookbook products
+    $numOfLooks = count($_productCollection);
+}
+else {
+    // Get lookbook images
+    $_imageCollection = $lookbook->getGallery();
+
+    // Count lookbook images
+    $numOfLooks = count($_imageCollection);
+}
+?>
+<?php if ($lookbookLayout == "default"): ?>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <?php
+        if ($lookbookType == "category") {
+            // Loop through looks
+            foreach ($_productCollection as $_product) {
+                // Resize the look image based on the look width and height
+                $img = (string)Mage::helper('catalog/image')->init($_product, 'image');
+
+                $_href = "";
+                if ($lookbook->getBundleClick() == 1 )
+                {
+                    $_href = sprintf(" href='%s'", $_product->getProductUrl());
+                }
+                elseif ($lookbook->getBundleClick() == 3 )
+                {
+                    $_href = sprintf(" href='%s'", $clickToUrl);
+                }
+                ?>
+                <div class="swiper-slide">
+                    <?php if ($lookbook->getBundleClick()): ?>
+                        <a <?php echo $newTarget." ".$_href; ?>>
+                    <?php endif; ?>
+                    <img class="lookImg" src="<?php echo $img; ?>" style="width: 100%" />
+                    <?php if ($underProductDisplay == 2): ?>
+                        <?php
+                        $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+                        $imageUrl = sprintf("%s/lookbook%s", $relMediaPath, $lookbook->getShopPix());
+                        ?>
+                        <div class="lookDesc">
+                            <img src="<?php echo $imageUrl; ?>" style="width: <?php echo $lookWidth; ?>px; height:auto" />
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($lookbook->getBundleClick()): ?>
+                        </a>
+                    <?php endif; ?>
+                    
+                    <!-- Display configurable products links if enabled -->
+                    <?php if ($underProductDisplay == 1) { ?>
+                        <div class="childProductsLink">
+                            <?php $childProductsLinks = Mage::helper('lookbook')->getChildProductsLink($_product, $stripPrice = false); ?>
+                            <?php $cnt = 1; ?>
+                            <?php foreach ($childProductsLinks as $childProductLink): ?>
+                                <?php
+                                $class = "";
+                                $productLink = "";
+                                ?>
+                                <?php if (array_key_exists('link', $childProductLink)): ?>
+                                    <?php
+                                    $class = "available";
+                                    $name = $childProductLink['name'];
+                                    if ($includePrice && array_key_exists('price', $childProductLink)) {
+                                        $name = sprintf("%s %s", $name, $childProductLink['price']);
+                                    }
+                                    $productLink = sprintf("%s<a %s href=\"%s\">%s</a>", $underProductLinksAvailablePrefix, $newTarget, $childProductLink['link'], $name);
+                                    ?>
+                                <?php else: ?>
+                                    <?php
+                                    $class = "unavailable";
+                                    $name = sprintf("%s", $childProductLink['name']);
+                                    if ($underProductLinksContact) {
+                                        $subject = "";
+                                        if ($underProductLinksSubject) {
+                                            $newName = Mage::helper('lookbook')->stripPrice($name);
+                                            $subject = "?subject=" . rawurlencode(preg_replace("/%PRODUCT_NAME%/i", "$newName", $underProductLinksSubject));
+                                        }
+                                        $productLink = sprintf("%s <a href=\"mailto:%s%s\">%s</a>", $underProductLinksUnavailablePrefix, $underProductLinksContact, $subject, $newName);
+                                    }
+                                    else {
+                                        $productLink = $name;
+                                    }
+                                    ?>
+                                <?php endif; ?>
+                                <div class='link <?php echo $class; ?>'>
+                                    <?php echo $productLink; ?><br/>
+                                </div>
+                                <?php if ($cnt++ >= $lookDescMaxLines) break; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php }elseif ($underProductDisplay == 3){ ?>
+                        <div class="product_description"><?php echo nl2br(rtrim($_product->getDescription())); ?></div>
+                    <?php } ?>
+                </div>
+            <?php
+            } //endforeach
+        }
+        else {
+            // Loop through looks
+            foreach ($_imageCollection as $_image)
+            {
+                // Resize the look image based on the look width and height
+                $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file'])->resize($lookWidth, $lookHeight);
+                ?>
+                <div class="swiper-slide" style="width: <?php echo $lookWidth + ($lookBorder * 2); ?>px;height:  <?php echo ($lookHeight + $lookDescHeight + ($lookDescTopPadding * 2)); ?>px">
+                    <?php if ($lookbook->getDefaultUrl()): ?>
+                    <a <?php echo $newTarget; ?> href="<?php echo $lookbook->getDefaultUrl();?>">
+                        <?php endif; ?>
+                        <img class="lookImg" src="<?php echo $img; ?>" />
+                        <?php if ($lookbook->getDefaultUrl()): ?>
+                    </a>
+                <?php endif; ?>
+                </div>
+            <?php
+            } //endforeach
+        }
+        ?>
+    </div>
+
+    <?php if ($lookbookNavType): ?>
+        <?php if ($lookbookNavType == "dots" || $lookbookNavType == "arrows-dots" || $lookbookNavType == "fontawesome"): ?>
+            <div class="pagination-wrapper <?php echo $dotStyle; ?>">
+                <div class="pagination"></div>
+            </div>
+        <?php endif; ?>
+    <?php else: ?>        
+        <!--
+        <div class="pagination-wrapper">
+            <div class="pagination"></div>
+        </div>    
+        -->
+    <?php endif; ?>
+
+</div> <!-- end swiper-container -->
+</div> <!-- end swiper-wrapper -->
+<?php if ($lookbook->getShowCredits()): ?>
+    <!-- show credits start -->
+    <div id="lookbook-credits">
+        <!-- Model -->
+        <?php if ($model = $lookbook->getModel()): ?>
+            <?php echo $this->__('Model: <b>%s</b>', $model); ?>
+        <?php endif; ?>
+        |
+        <!-- Photography -->
+        <?php if ($photography = $lookbook->getPhotography()): ?>
+            <?php echo $this->__('Photography: <b>%s</b>', $photography); ?>
+        <?php endif; ?>
+        |
+        <!-- Make Up -->
+        <?php if ($makeup = $lookbook->getMakeUp()): ?>
+            <?php echo $this->__('Make up: <b>%s</b>', $makeup); ?>
+        <?php endif; ?>
+    </div>
+    <!-- show credits end -->
+<?php endif; ?>
+
+<script>
+var mySwiper = new Swiper('.swiper-container', {
+    //Your options here:
+    mode:'horizontal',
+    speed : 500,
+    calculateHeight: 'true',
+    pagination: '.pagination',
+    <?php if ($lookbookType != "category") { ?>
+        paginationAsRange: true,
+        slidesPerView: <?php echo $looksPerPage; ?>,
+    <?php } ?>
+    loop: false
+    //etc..
+});
+
+<!-- Enable Zoom -->
+<?php if ($lookbook->getZoomOnHover()): ?>
+jQuery(function() {
+    jQuery("div#lookbook ul#menu li img.lookImg").bubbleup({tooltip: false, scale:<?php echo $lookWidth; ?>+10});
+});
+<?php endif; ?>
+</script>
+
+<?php elseif ($lookbookLayout == "grid"): ?>
+<div class="lookbook-grid">
+    <?php
+    if ($lookbookType == "category")
+    {
+    // Loop through looks
+    $num = 0;
+    foreach ($_productCollection as $_product)
+    {
+    $num++;
+
+    // Get original image as their resolution is ready for lookbook
+    $img = (string)Mage::helper('catalog/image')->init($_product, 'image');
+    ?>
+    <div class="lookbook-grid-item">
+        <?php if ($lookbook->getBundleClick() == 1): ?>
+        <a data-product="<?php echo $_product->getId(); ?>" class="lookbook-product-item" href="javascript:void(0);">
+            <?php endif; ?>
+            <img class="lookImg" src="<?php echo $img; ?>" alt="<?php $_product->getName(); ?>" />
+            <?php if ($lookbook->getShowShopPix()): ?>
+                            <?php
+            $relMediaPath = substr(Mage::getBaseDir('media'), strlen(Mage::getBaseDir()) );
+            $imageUrl = sprintf("%s/lookbook%s", $relMediaPath, $lookbook->getShopPix());
+            ?>
+            <div class="lookDesc">
+                <img src="<?php echo $imageUrl; ?>" alt="<?php echo $this->__('Shop'); ?>" />
+            </div>
+            <?php endif; ?>
+                        <?php if ($lookbook->getBundleClick() == 1): ?>
+        </a>
+        <?php endif; ?>
+            <!-- Display configurable products links if enabled -->
+        <?php if ($underProductDisplay == 1): ?>
+        <div class="childProductsLink">
+            <?php $childProductsLinks = Mage::helper('lookbook')->getChildProductsLink($_product); ?>
+                            <?php $cnt = 1; ?>
+                            <?php foreach ($childProductsLinks as $childProductLink): ?>
+                                <?php if (array_key_exists('link', $childProductLink)): ?>
+                                    <?php
+            $name = $childProductLink['name'];
+            if ($includePrice && array_key_exists('price', $childProductLink)) {
+            $name = sprintf("%s %s", $name, $childProductLink['price']);
+            }
+            ?>
+            <a <?php echo $newTarget; ?> href="<?php echo $childProductLink['link'] ?>"><?php echo $name ?></a><br/>
+            <?php else: ?>
+                                    <?php echo $childProductLink['name'] ?><br/>
+            <?php endif; ?>
+                                <?php if ($cnt++ >= $lookDescMaxLines) break; ?>
+                            <?php endforeach; ?>
+        </div>
+        <?php elseif ($underProductDisplay == 3): ?>
+        <div class="product_description"><?php echo nl2br(rtrim(strip_tags($_product->getDescription()))); ?></div>
+        <?php endif; ?>
+
+                    <?php if ($lookbook->getShowLookNumber()): ?>
+        <div class='numberedBoxes' id="num<?php echo sprintf("%02d", $num); ?>">
+            <?php echo sprintf("%02d", $num); ?></div>
+        <?php endif; ?>
+    </div>
+    <?php
+    } //endforeach
+    }
+    else
+    {
+    // Loop through looks
+    foreach ($_imageCollection as $_image)
+    {
+    $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image['file']);
+    ?>
+    <div class="lookbook-grid-item">
+        <?php if ($lookbook->getDefaultUrl()): ?>
+        <a <?php echo $newTarget; ?> href="<?php echo $lookbook->getDefaultUrl();?>">
+            <?php endif; ?>
+            <img class="lookImg" src="<?php echo $img; ?>" alt="<?php echo $lookbook->getTitle(); ?>" />
+            <?php if ($lookbook->getDefaultUrl()): ?>
+        </a>
+        <?php endif; ?>
+    </div>
+    <?php
+    } //endforeach
+    }
+    ?>
+</div>
+<script>
+    // Variables declaration
+    var scrollOnShow;
+    var winHeight;
+    var jqueryDialog = jQuery('<div></div>');
+
+    // Function to render the bundle product in a popup/modal
+    function renderBundle(product_id)
+    {
+         // Get viewport size
+        var w = window;
+        var d = document;
+        var e = d.documentElement;
+        var g = d.getElementsByTagName('body')[0];
+        // Calculate dimensions
+        var width = (w.innerWidth || e.clientWidth || g.clientWidth);
+        var height = winHeight = (w.innerHeight || e.clientHeight || g.clientHeight);
+        //console.log("width:" + width + ", height:" + height);
+        
+        // External URL to load the bundle view
+        var url = "<?php echo Mage::getUrl("lookbook/index/bundle"); ?>id/" + product_id;
+        // Use an iframe with jQuery UI Dialog
+        jqueryDialog.html('<iframe width="100%" height="100%" style="border: 0px; width:100%; height:100%; display:block;" src="' + url + '"></iframe>')
+            .dialog({
+                autoOpen: false,
+                modal: true,
+                showText: false,
+                closeOnEscape: true,
+                maxHeight: height,
+                maxWidth: width,
+                height: height,
+                width: width,
+                position: { my: 'left top' }
+            });
+        // Open the dialog
+        jqueryDialog.dialog('open');
+    }
+
+    // Use a flag to check if dragging or opening a bundle
+    jQuery("body").on("touchmove", function(){
+          dragging = true;
+    });
+
+    jQuery("body").on("touchstart", function(){
+        dragging = false;
+    });
+
+    // When touching or click an image
+    jQuery(document).on('touchend click', '.lookbook-product-item', function(event){
+        // If we are dragging we skip
+        if (typeof dragging !== 'undefined' && dragging)
+            return;
+        // Render the bundle
+        event.preventDefault();
+        var product_id = jQuery(this).data('product');
+        renderBundle(product_id);
+        // Register the scrolling position
+        scrollOnShow = jQuery('body').scrollTop();
+    });
+
+    // When scrolling
+    jQuery(document).on('scroll', function() {
+        // Set a limit
+        if (winHeight)
+        {
+            var limit = winHeight / 3;
+        }
+        // If we have opening a bundle view and if we reach the limit
+        if (scrollOnShow && winHeight && limit && jQuery('body').scrollTop() >= (scrollOnShow + limit))
+        {
+            // Close the dialog and reset the values
+            jqueryDialog.dialog("close");
+            scrollOnShow = 0;
+            winHeight = 0;
+        }
+    });
+</script>
+<?php endif; ?>

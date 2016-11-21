@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Lookbook>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <FactoryX_ChooserWidget/>
+            </depends>
+        </FactoryX_Lookbook>
+    </modules>
+</config>

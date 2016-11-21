@@ -1,0 +1,160 @@
+/*Horizontal Orientation CSS*/
+.jscarousal-horizontal
+{
+/*	width: 740px;
+	height: 118px;
+	border: solid 1px #7A7677;*/
+	margin: 0;
+	padding: 0;
+/*	padding: 22px 8px 22px 8px;*/
+	/*position: relative; *//*overflow: hidden;*/
+}
+.jscarousal-horizontal-back, .jscarousal-horizontal-forward
+{
+	float: left;
+	width: 23px;
+	height: 98px;
+	color: White;
+	position: relative;
+	top: 6px;
+	cursor: pointer;
+}
+.jscarousal-horizontal-back
+{
+	background-image: url(/skin/frontend/base/default/images/factoryx/lookbook/slideshow/arrow-left.jpg);
+	background-repeat: no-repeat;
+	background-position: left;
+}
+.jscarousal-horizontal-forward
+{
+	background-image: url(/skin/frontend/base/default/images/factoryx/lookbook/slideshow/arrow-right.jpg);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+.jscarousal-contents-horizontal
+{
+	width: 690px;
+	height: 124px;
+	float: left;
+	position: relative;
+	overflow: hidden;
+}
+.jscarousal-contents-horizontal > div
+{
+	position: absolute;
+	width: 100%;
+	height: 124px;
+}
+.jscarousal-contents-horizontal > div > div
+{
+	float: left;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.jscarousal-contents-horizontal img
+{
+	border: solid 1px #7A7677;
+}
+/*Horizontal Orientation CSS Ends*/
+
+/*Vertical Orientation CSS Starts*/
+.jscarousal-vertical
+{
+	/*width: 280px;
+	height: 1000px; *//* content height + -back height + + -forward height */
+	background-color: #fff;
+	/*
+	border: solid 1px #7A7677;
+	*/
+	margin: 0;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	margin-top:30px;
+}
+.jscarousal-vertical-back, .jscarousal-vertical-forward
+{
+	width: 100%;
+	height: 15px;
+	background-color: #fff;
+	color: White;
+	position: relative;
+	cursor: pointer;
+	z-index:100;
+}
+.jscarousal-vertical-back
+{
+	background-image: url(/skin/frontend/base/default/images/factoryx/lookbook/slideshow/arrow-up.jpg);
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+.jscarousal-vertical-forward
+{
+	background-image: url(/skin/frontend/base/default/images/factoryx/lookbook/slideshow/arrow-dn.jpg);
+	background-repeat: no-repeat;
+	background-position: top;
+}
+.jscarousal-contents-vertical
+{
+	overflow: hidden;
+	width: 280px;
+	height: 970px; /* - arrow height x 2 */
+}
+.jscarousal-contents-vertical > div
+{
+	position: absolute;
+	top: 15px;
+	width: 100%;
+	/*height: 970px;*/ /* - arrow height x 2 */
+	overflow: hidden;
+}
+.jscarousal-contents-vertical > div > div
+{
+	margin-left : 5px;
+	margin-right: 5px;
+	margin-top  : 7px;
+	margin-bottom : 7px;
+}
+.jscarousal-contents-vertical > div > div span
+{
+	display: block;
+	width: 70%;
+	text-align: center;
+}
+.jscarousal-contents-vertical img
+{
+	/*width: 218px;
+	height: 312px;
+	border: solid 1px #e0e0e0;*/
+}
+/*Vertical Orientation CSS Ends*/
+
+/*Common*/
+.hidden
+{
+	display: none;
+}
+.visible
+{
+	display: block;
+}
+.thumbnail-active
+{
+	filter: alpha(opacity=100);
+	opacity: 1.0;
+	cursor: pointer;
+}
+.thumbnail-inactive
+{
+	filter: alpha(opacity=20);
+	opacity: 0.2;
+	cursor: pointer;
+}
+.thumbnail-text
+{
+	color: #7A7677;
+	font-weight: bold;
+	text-align: left;
+	display: block;
+	padding: 10px 2px 2px 0px;
+}

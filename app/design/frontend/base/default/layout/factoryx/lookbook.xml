@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <factoryx_lookbook_handle>
+        <reference name="head">
+            <action method="addJs" ifconfig="lookbook/options/enable_jquery"><script>lib/jquery/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="lookbook/options/enable_jquery"><script>lib/jquery/noconflict.js</script></action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/lookbook/styles.css</name>
+                <params/>
+            </action>
+        </reference>
+    </factoryx_lookbook_handle>
+
+    <lookbook_index_view>
+        <update handle="factoryx_lookbook_handle" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>lib/factoryx/lookbook/swiper.css</name>
+                <params/>
+            </action>
+            <action method="addJs">
+                <script>lib/factoryx/lookbook/bubbleup.js</script>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>lib/jquery/jquery-ui.min.css</name>
+                <params/>
+            </action>
+            <action method="addJs">
+                <script>lib/jquery/jquery-ui.min.js</script>
+            </action>
+            <action method="addJs">
+                <script>lib/factoryx/lookbook/swiper.min.js</script>
+            </action>
+            <block type="core/text" name="fontawesome.cdn">
+                <action method="setText">
+                    <text><![CDATA[<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/view.phtml" />
+        </reference>
+    </lookbook_index_view>
+
+    <lookbook_index_bundle>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/factoryx/lookbook/styles.css</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/empty.phtml</template>
+            </action>
+        </reference>
+        <reference name="after_body_start">
+            <remove name="notification"/>
+        </reference>
+        <reference name="content">
+            <block type="lookbook/lookbook_bundle" name="bundle" template="factoryx/lookbook/bundle.phtml"/>
+        </reference>
+    </lookbook_index_bundle>
+
+    <lookbook_index_slideshow>
+        <update handle="factoryx_lookbook_handle" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>lib/factoryx/lookbook/jsCarousel-2.0.0.css</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/lookbook/fadeslideshow.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/lookbook/jsCarousel-2.0.0.js</name>
+            </action>
+        </reference>
+
+        <reference name="content">
+            <block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/slideshow.phtml" />
+        </reference>
+    </lookbook_index_slideshow>
+
+    <lookbook_index_flipbook>
+        <update handle="factoryx_lookbook_handle" />
+        <reference name="head">
+            <action method="addJs">
+                <script>lib/factoryx/lookbook/turn.min.js</script>
+            </action>
+            <block type="core/text" name="fontawesome.cdn">
+                <action method="setText">
+                    <text><![CDATA[<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+
+        <reference name="content">
+            <block type="lookbook/lookbook" name="lookbook" template="factoryx/lookbook/flipbook.phtml" />
+        </reference>
+    </lookbook_index_flipbook>
+
+    <!-- facebook -->
+    <lookbook_facebook_view>
+        <update handle="factoryx_lookbook_handle" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>lib/factoryx/lookbook/swiper.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>lib/jquery/jquery-ui.min.css</name>
+                <params/>
+            </action>
+            <action method="addJs">
+                <script>lib/jquery/jquery-ui.min.js</script>
+            </action>
+            <action method="addJs">
+                <script>lib/factoryx/lookbook/bubbleup.js</script>
+            </action>
+            <action method="addJs">
+                <script>lib/factoryx/lookbook/swiper.min.js</script>
+            </action>
+            <block type="core/text" name="fontawesome.cdn">
+                <action method="setText">
+                    <text><![CDATA[<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+
+        <reference name="content">
+            <block type="lookbook/facebook" name="lookbook" template="factoryx/lookbook/view.phtml" />
+        </reference>
+    </lookbook_facebook_view>
+</layout>

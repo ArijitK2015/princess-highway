@@ -1,0 +1,13 @@
+app/code/local/FactoryX/Lookbook
+app/etc/modules/FactoryX_Lookbook.xml
+app/design/adminhtml/default/default/layout/factoryx/lookbook.xml
+app/design/adminhtml/default/default/template/factoryx/lookbook
+app/design/frontend/base/default/template/factoryx/lookbook
+app/design/frontend/base/default/layout/factoryx/lookbook.xml
+app/design/frontend/aw_mobile/iphone/template/factoryx/lookbook
+app/locale/en_AU/FactoryX_Lookbook.csv
+skin/adminhtml/default/default/css/factoryx/lookbook
+skin/adminhtml/default/default/images/factoryx/lookbook
+skin/frontend/base/default/css/factoryx/lookbook
+skin/frontend/base/default/images/factoryx/lookbook
+js/lib/factoryx/lookbook

@@ -1,0 +1,52 @@
+<?php
+$_product = $this->getCurrentBundle();
+
+// Get original image as their resolution is ready for lookbook
+$img = (string)Mage::helper('catalog/image')->init($_product, 'image');
+?>
+<div class="bundle-image">
+    <img src="<?php echo $img; ?>" alt="<?php $_product->getName(); ?>" />
+</div>
+<div class="bundle-items">
+    <?php
+
+    $selectionCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
+        $_product->getTypeInstance(true)->getOptionsIds($_product), $_product
+    );
+
+    $options = array();
+    foreach($selectionCollection as $option)
+    {
+        if (array_key_exists($option->getOptionId(),$options)) continue;
+        // Get the simple product ID
+        $selectionId = $option->getId();
+
+        // Get the parent configurable
+        $parentIds = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($selectionId);
+
+        if ($parentIds)
+        {
+            // Load the configurable
+            $parent = Mage::getModel('catalog/product')->load($parentIds[0]);
+            // Get the image of the parent configurable
+            $img = (string)Mage::helper('catalog/image')->init($parent, 'small_image');
+            // Add to the array
+            $options[$option->getOptionId()]['image'] = $img;
+            $options[$option->getOptionId()]['name'] = $parent->getName();
+            $options[$option->getOptionId()]['url'] = $parent->getProductUrl();
+            $options[$option->getOptionId()]['price'] = Mage::helper('core')->currency($parent->getPrice(), true, false);
+        }
+    }
+    ?>
+    <?php foreach ($options as $option): ?>
+        <div class="bundle-item-image">
+            <a href="<?php echo $option['url']; ?>">
+                <img src="<?php echo $option['image']; ?>" alt="<?php echo $option['name']; ?>" />
+            </a>
+        </div>
+        <div class="bundle-item-info">
+            <p><?php echo $option['name']; ?></p>
+            <p><?php echo $option['price']; ?></p>
+        </div>
+    <?php endforeach; ?>
+</div>

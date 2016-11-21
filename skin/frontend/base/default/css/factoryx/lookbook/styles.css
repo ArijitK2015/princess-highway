@@ -1,0 +1,1125 @@
+/*
+start jquery dialog styles
+*/
+/* remove blue border onfocus */
+.ui-button:focus { outline:none !important }
+.ui-dialog-content.ui-widget-content { padding: 0; overflow: hidden; }
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
+    background: 0;
+    background-color: #ffffff;
+    border:0;
+    padding: 0;
+}
+.lookbook-index-bundle { padding: 0 }
+.ui-dialog .ui-dialog-title {
+    display: none;
+}
+div.ui-dialog .ui-dialog-titlebar-close {
+    position : absolute;
+    margin:0;
+    top: 5px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+    z-index:9999;
+}
+div.ui-dialog .ui-icon-closethick {
+    background: url("../../../images/factoryx/lookbook/btn_window_close.gif");
+    background-size: 24px 24px !important;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    margin-top: -1px !important;
+    margin-left: -1px !important;
+    width: 24px;
+    height: 24px;
+}
+/*
+end jquery dialog styles
+*/
+
+.lookbook-grid {
+    text-align:center;
+}
+#lookbook_banner_img_wrapper {
+    text-align:center;
+}
+.lookbook-grid-item {
+    width: 33%;
+    float: left;
+    margin-left: 0.5%;
+    margin-bottom: 0.5%
+}
+.bundle-item:nth-child(n+2) {
+    border-top: 2px solid lightgrey;
+}
+.lookbook-grid-item:nth-child(3n+1) {
+    margin-left:0
+}
+#bundle {
+    background-color:#ffffff;
+}
+#bundle .table_window{background-color:#FFF}
+#bundle_top{margin-left:10px}
+#bundle_row1 {
+    display:none;
+}
+
+.lookbook-index-bundle {
+    padding:10px 0 0 10px;
+}
+
+.bundle-item-info-desc {
+    padding:0 0 0 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bundle-item-image {
+    margin-top: 3px;
+    width: 30%;
+    float: left;
+}
+
+.bundle-items {
+    width: 48%;
+    float: right;
+}
+
+.bundle-image {
+    width: 50%;
+    float: left;
+}
+.bundle-image img {
+    max-width:100%;
+}
+
+.bundle-item {
+    max-width: 98%;
+    float: left;
+}
+
+.bundle-item .bundle-item-image a img {
+    max-width: 100%;
+}
+.bundle-items div.bundle-item-desc p {
+    max-width: 98%;
+    border-bottom: 2px solid lightgrey;
+}
+.bundle-items div.bundle-items-list {
+    padding-left:10px;
+}
+.bundle-items div.bundle-item-info-desc h2 {
+    font-size: 1.4em;
+}
+.bundle-items div.bundle-item-info-desc h2 a {
+    text-decoration: none;
+}
+.bundle-items .bundle-item-info-desc p {
+    font-size: 1.4em;
+}
+.bundle-items div.bundle-item-desc p {
+    padding: 10px 0 30px 0;
+    line-height: 150% !important;
+    font-size: 1.4em;
+}
+.bundle-items div.bundle-item div.bundle-item-info {
+    width: 70%;
+    float: left;
+    padding: 5px 0;
+    position: relative;
+    height:140px;
+}
+.bundle-items div.bundle-item div.bundle-item-info p {
+    padding: 10px 0 0 0;
+}
+.col1-layout .category-title {
+    display:none;
+}
+#lookbook {
+    text-align:left;
+    background-color:#ccc;
+    z-index:-999
+}
+#lookbook ul#menu li img {
+    float: left;
+    vertical-align: top;
+}
+
+div#lookbook {
+    background-color:#fff !important;
+    margin: 0px auto 0px auto;
+    text-align: center;
+}
+
+div#lookbook ul#menu {
+    margin: 0px 0px;
+    list-style: none;
+    display: inline-block;
+}
+
+div#lookbook ul#menu li a div.lookDesc img {
+    position: relative;
+    overflow: visible;
+}
+#main {
+    margin-top:0px;
+    padding-top:0px;
+    position: relative;
+}
+.getTheLook {
+    position:absolute;
+    left:0px;
+    top:0px;
+    height:22px;
+    width:10px;
+    z-index:1;
+    background-color:transparent;
+    color:transparent;
+    margin:0;
+    padding:0px 0 0px 0px;
+    font-size:13px;
+    font-family:verdana;
+    font-weight:bold;
+    text-align:left;
+    visibility:hidden;
+}
+.scrollNav, .scrollNav a:link, .scrollNav a:visited  {
+    font-size: 12px;
+    font-family: verdana;
+    color:#00009C;
+    font-weight: bold;
+}
+.col-main {
+    padding:0px;
+}
+
+#lookbook div.lookDesc {
+    padding-top:10px;
+    display: inline-block;
+    z-index: 999;
+    font-size: 11px;
+}
+.whiteBar {
+    position: absolute;
+    top: 10px;
+    z-index: 9999;
+    background-color:#fff;
+}
+
+div#lookbook ul#menu li {
+    float: left;
+    position: relative;
+}
+
+div#lookbook ul#menu li img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    /*
+    TODO: calc if required
+    margin: 0 4px 0 0;
+    */
+    border: 0px solid #000;
+    overflow: hidden;
+}
+
+#container {
+    margin-top:0px;
+    padding-top:10px;
+    position: relative;
+    overflow: hidden;
+    border: 0px solid #000;
+}
+
+#scaleContainer {
+    position:absolute;
+    height:5px;
+    z-index: 0;
+}
+
+#scale {
+    left:0px;
+    position:relative;
+    height:5px;
+    background-color:#4E4E4E;
+    margin:0;
+    padding:0;
+    font-size:1px;
+    /**
+    left & width are rendered dynamically
+    */
+}
+
+.mainContainer {
+    float:left;
+    text-align: center;
+    background-color: #fff;
+}
+
+#lookbook-arrowleft{position: absolute; left: -5px; height: 26px; width: 26px; z-index:9999999}
+#lookbook-arrowright{position: absolute; left: 940px; height: 26px; width: 26px; z-index:9999999}
+
+#lookbook-credits{text-align:center; font-size:11px; padding:5px}
+
+.numberedBoxes{
+    margin-left:4px;
+    position:absolute;
+    bottom:4px;
+    padding:4px 0 0 0;
+    width:22px;
+    height:18px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000;
+    background-color:#fff;
+    text-align:center
+}
+
+/* Slideshow */
+body.lookbook-index-slideshow {
+    margin: 0;
+    text-align:center;
+    overflow:hidden;
+    padding:0px !important;
+}
+.jscarousal-contents-vertical{width:auto!important;}
+body.lookbook-index-slideshow #wrapper {
+    margin-top:2px;
+    display: block;
+    /*
+    border: 1px solid black;
+    */
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+    float: center;
+}
+.lookbook-index-slideshow div.gallerylayer{
+    z-index: auto !important;
+}
+.slide {
+    position:relative;
+}
+.slideNum, #slidePagination div, #currentpos  {
+    color:#6e6e6e;
+    font-size:11px;
+    font-family:century gothic,verdana,arial,helvetica,sans-serif;
+    width:17px;
+    height:17px;
+    border:1px solid #6e6e6e;
+    border-radius:9px;
+    line-height:15px;
+    right:10px;
+    background-color:#FFF
+}
+
+.slideNum{
+    position:absolute;
+    top:10px;
+}
+#slidePagination{margin-bottom:5px}
+#slidePagination div {
+    display:inline-block;
+    margin:5px 5px;
+    cursor: pointer;
+}
+
+#slidePagination div.selected{
+    color:white;background:#ff8371;border-color:#ff8371;
+}
+#carouselh.jscarousal-vertical div.jscarousal-vertical-back {
+    z-index: 2;
+}
+#currentpos {
+    position: absolute;
+    z-index: 3;
+    right:10px;
+    top:10px;
+}
+#fadeshow1toggler .prev img,
+#fadeshow1toggler .next img{border-width:0}
+#fadeshow1toggler {
+    display:none
+}
+#fadeshow1 {
+    border:1px solid #e0e0e0;
+}
+#close{position:absolute;top:0px;right:0px;cursor:pointer;}
+#close img{width:60px;}
+.jscarousal-vertical{margin-top:5px !important;margin-right:10px !important;}
+.noshow{visibility:hidden}
+.horizontal-left-nav{clear:both;margin:0 auto}
+.vertical-left-nav{margin-right:8px;float:left}
+
+/* Flipbook */
+#flipbook-container{
+    text-align:center;
+}
+#flipbook{
+    z-index: 1002;
+    margin: 0 auto;
+    overflow:visible
+}
+
+#flipbook .page{
+    background-color:white;
+    line-height:300px;
+    font-size:20px;
+    text-align:center;
+    margin:0;
+}
+
+#flipbook .page-wrapper{
+    -webkit-perspective:2000px;
+    -moz-perspective:2000px;
+    -ms-perspective:2000px;
+    -o-perspective:2000px;
+    perspective:2000px;
+}
+
+#flipbook .hard{
+    background:#ccc !important;
+    color:#333;
+    -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666;
+    font-weight:bold;
+}
+
+#flipbook .odd{
+    background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #FFF), color-stop(1, #DADADA));
+    background-image:-webkit-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:-moz-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:-ms-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:-o-linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    background-image:linear-gradient(right, #FFF 95%, #C4C4C4 100%);
+    -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666;
+
+}
+
+#flipbook .even{
+    background:-webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
+    background-image:-webkit-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:-moz-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:-ms-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:-o-linear-gradient(left, #fff 95%, #dadada 100%);
+    background-image:linear-gradient(left, #fff 95%, #dadada 100%);
+    -webkit-box-shadow:inset 0 0 5px #666;
+    -moz-box-shadow:inset 0 0 5px #666;
+    -o-box-shadow:inset 0 0 5px #666;
+    -ms-box-shadow:inset 0 0 5px #666;
+    box-shadow:inset 0 0 5px #666;
+}
+
+.pagination-wrapper {
+    text-align: center;
+    padding:8px 0;
+}
+
+.pagination{
+    display: inline-block;
+    text-align: center;
+    margin:5px 0;
+}
+
+.nav-button.nav-button-right{right:0}
+
+/* Arrow navigator styles */
+/*
+.nav-button-left                    (normal)
+.nav-button-right                   (normal)
+.nav-button-right:hover             (normal mouseover)
+.nav-button-right:hover             (normal mouseover)
+.nav-button-left:active             (mousedown)
+.nav-button-right:active            (mousedown)
+*/
+/* Default */
+.nav-button {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 36px;
+    line-height: 50px;
+    margin: 13px;
+    min-height: 20px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    z-index: 9999;
+}
+.nav-button.nav-button-right {
+    right: 0;
+}
+.nav-button.nav-button-left {
+    left: 0;
+}
+.nav-button i {
+    color: rgb(0, 0, 0);
+    font-size: 1.1em;
+    opacity: 0.5;
+}
+/* Style 1 */
+.a01.nav-button-left, .a01.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a01.png) no-repeat;
+    overflow:hidden;
+    width: 45px;
+    height: 45px;
+}
+.a01.nav-button-left { background-position: -8px -38px;}
+.a01.nav-button-right { background-position: -68px -38px; }
+.a01.nav-button-left:hover { background-position: -128px -38px; }
+.a01.nav-button-right:hover { background-position: -188px -38px; }
+.a01.nav-button-left:active { background-position: -8px -38px; }
+.a01.nav-button-right:active { background-position: -68px -38px; }
+/* Style 2*/
+.a02.nav-button-left, .a02.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a02.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.a02.nav-button-left { background-position: -3px -33px; }
+.a02.nav-button-right { background-position: -63px -33px; }
+.a02.nav-button-left:hover { background-position: -123px -33px; }
+.a02.nav-button-right:hover { background-position: -183px -33px; }
+.a02.nav-button-left:active { background-position: -3px -33px; }
+.a02.nav-button-right:active { background-position: -63px -33px;}
+/* Style 3 */
+.a03.nav-button-left, .a03.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a03.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.a03.nav-button-left { background-position: -3px -33px; }
+.a03.nav-button-right { background-position: -63px -33px; }
+.a03.nav-button-left:hover { background-position: -123px -33px; }
+.a03.nav-button-right:hover { background-position: -183px -33px; }
+.a03.nav-button-left:active { background-position: -243px -33px; }
+.a03.nav-button-right:active { background-position: -303px -33px; }
+/* Style 4 */
+.a04.nav-button-left, .a04.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a04.png) no-repeat;
+    overflow:hidden;
+    width: 28px;
+    height: 40px;
+}
+.a04.nav-button-left { background-position: -16px -39px; }
+.a04.nav-button-right { background-position: -76px -39px; }
+.a04.nav-button-left:hover { background-position: -136px -39px; }
+.a04.nav-button-right:hover { background-position: -196px -39px; }
+.a04.nav-button-left:active { background-position: -256px -39px; }
+.a04.nav-button-right:active { background-position: -316px -39px; }
+/* Style 5 */
+.a05.nav-button-left, .a05.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a17.png) no-repeat;
+    overflow:hidden;
+    width: 40px;
+    height: 40px;
+}
+.a05.nav-button-left { background-position: -10px -40px; }
+.a05.nav-button-right { background-position: -70px -40px; }
+.a05.nav-button-left:hover { background-position: -130px -40px; }
+.a05.nav-button-right:hover { background-position: -190px -40px; }
+.a05.nav-button-left:active { background-position: -250px -40px; }
+.a05.nav-button-right:active { background-position: -310px -40px; }
+/* Style 6 */
+.a06.nav-button-left, .a06.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a06.png) no-repeat;
+    overflow:hidden;
+    width: 45px;
+    height: 45px;
+}
+.a06.nav-button-left { background-position: -8px -38px; }
+.a06.nav-button-right { background-position: -68px -38px; }
+.a06.nav-button-left:hover { background-position: -128px -38px; }
+.a06.nav-button-right:hover { background-position: -188px -38px; }
+.a06.nav-button-left:active { background-position: -248px -38px; }
+.a06.nav-button-right:active { background-position: -308px -38px; }
+/* Style 7 */
+.a07.nav-button-left, .a07.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a07.png) no-repeat;
+    overflow:hidden;
+    width: 50px;
+    height: 50px;
+}
+.a07.nav-button-left { background-position: -5px -35px; }
+.a07.nav-button-right { background-position: -65px -35px; }
+.a07.nav-button-left:hover { background-position: -125px -35px; }
+.a07.nav-button-right:hover { background-position: -185px -35px; }
+.a07.nav-button-left:active { background-position: -245px -35px; }
+.a07.nav-button-right:active { background-position: -305px -35px; }
+/* Style 9 */
+.a09.nav-button-left, .a09.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a09.png) no-repeat;
+    overflow:hidden;
+    opacity: .4;
+    filter:alpha(opacity=40);
+    width: 50px;
+    height: 50px;
+}
+.a09.nav-button-left { background-position: -5px -35px; }
+.a09.nav-button-right { background-position: -65px -35px; }
+.a09.nav-button-left:hover { background-position: -5px -35px; opacity: .8; filter:alpha(opacity=80); }
+.a09.nav-button-right:hover { background-position: -65px -35px; opacity: .8; filter:alpha(opacity=80); }
+.a09.nav-button-left:active { background-position: -5px -35px; opacity: .3; filter:alpha(opacity=30); }
+.a09.nav-button-right:active { background-position: -65px -35px; opacity: .3; filter:alpha(opacity=30); }
+/* Style 10 */
+.a10.nav-button-left, .a10.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a10.png) no-repeat;
+    overflow:hidden;
+    width: 28px;
+    height: 40px;
+}
+.a10.nav-button-left { background-position: -16px -39px; }
+.a10.nav-button-right { background-position: -76px -39px; }
+.a10.nav-button-left:hover { background-position: -136px -39px; }
+.a10.nav-button-right:hover { background-position: -196px -39px; }
+.a10.nav-button-left:active { background-position: -256px -39px; }
+.a10.nav-button-right:active { background-position: -316px -39px; }
+/* Style 11 */
+.a11.nav-button-left, .a11.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a11.png) no-repeat;
+    overflow:hidden;
+    width: 37px;
+    height: 37px;
+}
+.a11.nav-button-left { background-position: -11px -41px; }
+.a11.nav-button-right { background-position: -71px -41px; }
+.a11.nav-button-left:hover { background-position: -131px -41px; }
+.a11.nav-button-right:hover { background-position: -191px -41px; }
+.a11.nav-button-left:active { background-position: -251px -41px; }
+.a11.nav-button-right:active { background-position: -311px -41px; }
+/* Style 12 */
+.a12.nav-button-left, .a12.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a12.png) no-repeat;
+    overflow:hidden;
+    width: 30px;
+    height: 46px;
+}
+.a12.nav-button-left { background-position: -16px -37px; }
+.a12.nav-button-right { background-position: -75px -37px; }
+.a12.nav-button-left:hover { background-position: -136px -37px; }
+.a12.nav-button-right:hover { background-position: -195px -37px; }
+.a12.nav-button-left:active { background-position: -256px -37px; }
+.a12.nav-button-right:active { background-position: -315px -37px; }
+/* Style 13 */
+.a13.nav-button-left, .a13.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a13.png) no-repeat;
+    overflow:hidden;
+    width: 40px;
+    height: 50px;
+}
+.a13.nav-button-left { background-position: -10px -35px; }
+.a13.nav-button-right { background-position: -70px -35px; }
+.a13.nav-button-left:hover { background-position: -130px -35px; }
+.a13.nav-button-right:hover { background-position: -190px -35px; }
+.a13.nav-button-left:active { background-position: -250px -35px; }
+.a13.nav-button-right:active { background-position: -310px -35px; }
+/* Style 14 */
+.a14.nav-button-left, .a14.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a14.png) no-repeat;
+    overflow:hidden;
+    width: 30px;
+    height: 50px;
+}
+.a14.nav-button-left { background-position: -15px -35px; }
+.a14.nav-button-right { background-position: -75px -35px; }
+.a14.nav-button-left:hover { background-position: -135px -35px; }
+.a14.nav-button-right:hover { background-position: -195px -35px; }
+.a14.nav-button-left:active { background-position: -255px -35px; }
+.a14.nav-button-right:active { background-position: -315px -35px; }
+/* Style 15 */
+.a15.nav-button-left, .a15.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a15.png) no-repeat;
+    overflow:hidden;
+    width: 20px;
+    height: 38px;
+}
+.a15.nav-button-left { background-position: -20px -41px; }
+.a15.nav-button-right { background-position: -80px -41px; }
+.a15.nav-button-left:hover { background-position: -140px -41px; }
+.a15.nav-button-right:hover { background-position: -200px -41px; }
+.a15.nav-button-left:active { background-position: -260px -41px; }
+.a15.nav-button-right:active { background-position: -320px -41px; }
+/* Style 16 */
+.a16.nav-button-left, .a16.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a16.png) no-repeat;
+    overflow:hidden;
+    width: 22px;
+    height: 36px;
+}
+.a16.nav-button-left { background-position: -19px -42px; }
+.a16.nav-button-right { background-position: -79px -42px; }
+.a16.nav-button-left:hover { background-position: -139px -42px; }
+.a16.nav-button-right:hover { background-position: -199px -42px; }
+.a16.nav-button-left:active { background-position: -259px -42px; }
+.a16.nav-button-right:active { background-position: -319px -42px; }
+/* Style 18 */
+.a18.nav-button-left, .a18.nav-button-left
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a18.png) no-repeat;
+    overflow:hidden;
+    width: 29px;
+    height: 29px;
+}
+.a18.nav-button-left { background-position: -16px -45px;}
+.a18.nav-button-right { background-position: -76px -45px;}
+.a18.nav-button-left:hover { background-position: -136px -45px;}
+.a18.nav-button-right:hover { background-position: -196px -45px;}
+.a18.nav-button-left:active { background-position: -256px -45px;}
+.a18.nav-button-right:active { background-position: -316px -45px;}
+/* Style 19 */
+.a19.nav-button-left, .a19.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a19.png) no-repeat;
+    overflow:hidden;
+    width: 50px;
+    height: 50px;
+}
+.a19.nav-button-left { background-position: -5px -35px; }
+.a19.nav-button-right { background-position: -65px -35px; }
+.a19.nav-button-left:hover { background-position: -125px -35px; }
+.a19.nav-button-right:hover { background-position: -185px -35px; }
+.a19.nav-button-left:active { background-position: -245px -35px; }
+.a19.nav-button-right:active { background-position: -305px -35px; }
+/* Style 20 */
+.a20.nav-button-left, .a20.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a20.png) no-repeat;
+    overflow:hidden;
+    width: 55px;
+    height: 55px;
+}
+.a20.nav-button-left { background-position: -3px -33px; }
+.a20.nav-button-right { background-position: -63px -33px; }
+.a20.nav-button-left:hover { background-position: -123px -33px; }
+.a20.nav-button-right:hover { background-position: -183px -33px; }
+.a20.nav-button-left:active { background-position: -243px -33px; }
+.a20.nav-button-right:active { background-position: -303px -33px; }
+/* Style 21 */
+.a21.nav-button-left, .a21.nav-button-right
+{
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/nav/a21.png) center center no-repeat;
+    overflow: hidden;
+    width: 55px;
+    height: 55px;
+}
+.a21.nav-button-left { background-position: -3px -33px; }
+.a21.nav-button-right { background-position: -63px -33px; }
+.a21.nav-button-left:hover { background-position: -123px -33px; }
+.a21.nav-button-right:hover { background-position: -183px -33px; }
+.a21.nav-button-left:active { background-position: -243px -33px; }
+.a21.nav-button-right:active { background-position: -303px -33px; }
+/* Bullet navigator style */
+/*
+span                               (normal)
+span:hover                         (normal mouseover)
+.swiper-active-switch              (active)
+.swiper-active-switch:hover        (active mouseover)
+:active                            (mousedown)
+*/
+/* Style 2 */
+.b02 span, .b02 span:hover, .b02 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b02.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b02 span { background-position: -5px -5px;width: 21px; height: 21px; line-height:21px;display:inline-block  }
+.b02 span:hover, .b02 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b02 .swiper-active-switch { background-position: -65px -5px; }
+.b02:active, .b02:active:hover { background-position: -95px -5px; }
+/* Style 3 */
+.b03 span, .b03 span:hover, .b03 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b03.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b03 span { background-position: -5px -4px;width: 21px; height: 21px;line-height:21px;display:inline-block  }
+.b03 span:hover, .b03 .swiper-active-switch:hover { background-position: -35px -4px; }
+.b03 .swiper-active-switch { background-position: -65px -4px; }
+.b03:active, .b03:active:hover { background-position: -95px -4px; }
+/* Style 5 */
+.b05 span, .b05 span:hover, .b05 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b05.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b05 span { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px;display:inline-block }
+.b05 span:hover, .b05 .swiper-active-switch:hover { background-position: -37px -7px; }
+.b05 .swiper-active-switch { background-position: -67px -7px; }
+.b05:active, .b05:active:hover { background-position: -97px -7px; }
+/* Style 6 */
+.b06 span, .b06 span:hover, .b06 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b06.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b06 span { background-position: -6px -6px; WIDTH: 18px; HEIGHT: 18px;display:inline-block}
+.b06 span:hover, .b06 .swiper-active-switch:hover { background-position: -36px -6px; }
+.b06 .swiper-active-switch { background-position: -66px -6px; }
+.b06:active, .b06:active:hover { background-position: -96px -6px; }
+/* Style 7 */
+.b07 span, .b07 span:hover, .b07 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b07.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b07 span { background-position: -5px -5px;WIDTH: 20px; HEIGHT: 20px;display:inline-block }
+.b07 span:hover, .b07 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b07 .swiper-active-switch { background-position: -65px -5px; }
+.b07:active, .b07:active:hover { background-position: -95px -5px; }
+/* Style 9 */
+.b09 span, .b09 span:hover, .b09 .swiper-active-switch
+{
+    filter: alpha(opacity=70);
+    opacity: .7;
+    overflow:hidden;
+    cursor: pointer;
+    border: #fff 1px solid;
+}
+.b09 span { background-color: #d3d3d3; WIDTH: 12px; HEIGHT: 12px;display:inline-block}
+.b09 span:hover, .b09 .swiper-active-switch:hover { background-color: gray; }
+.b09 .swiper-active-switch { background-color: #000; }
+.b09:active, .b09:active:hover { background-color: #a9a9a9; }
+/* Style 10 */
+.b10 span, .b10 span:hover, .b10 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b10.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b10 span { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;display:inline-block}
+.b10 span:hover, .b10 .swiper-active-switch:hover { background-position: -40px -10px; }
+.b10 .swiper-active-switch { background-position: -70px -10px; }
+.b10:active, .b10:active:hover { background-position: -100px -10px; }
+/* Style 11 */
+.b11 span, .b11 span:hover, .b11 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b11.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b11 span { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;display:inline-block}
+.b11 span:hover, .b11 .swiper-active-switch:hover { background-position: -40px -10px; }
+.b11 .swiper-active-switch { background-position: -70px -10px; }
+.b11:active, .b11:active:hover { background-position: -100px -10px; }
+/* Style 12 */
+.b12 span, .b12 span:hover, .b12 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b12.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b12 span { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; display:inline-block}
+.b12 span:hover, .b12 .swiper-active-switch:hover { background-position: -37px -7px; }
+.b12 .swiper-active-switch { background-position: -67px -7px; }
+.b12:active, .b12:active:hover { background-position: -97px -7px; }
+/* Style 13 */
+.b13 span, .b13 span:hover, .b13 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b13.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b13 span { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px;display:inline-block }
+.b13 span:hover, .b13 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b13 .swiper-active-switch { background-position: -65px -5px; }
+.b13:active, .b13:active:hover { background-position: -95px -5px; }
+/* Style 14 */
+.b14 span, .b14 span:hover, .b14 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b14.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b14 span { background-position: -9px -9px;WIDTH: 12px; HEIGHT: 12px;display:inline-block }
+.b14 span:hover, .b14 .swiper-active-switch:hover { background-position: -39px -9px; }
+.b14 .swiper-active-switch { background-position: -69px -9px; }
+.b14:active, .b14:active:hover { background-position: -99px -9px; }
+/* Style 16 */
+.b16 span, .b16 span:hover, .b16 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b16.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b16 span { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px;display:inline-block }
+.b16 span:hover, .b16 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b16 .swiper-active-switch { background-position: -65px -5px; }
+.b16:active, .b16:active:hover { background-position: -95px -5px; }
+/* Style 17 */
+.b17 span, .b17 span:hover, .b17 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b17.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b17 span { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px;display:inline-block }
+.b17 span:hover, .b17 .swiper-active-switch:hover { background-position: -37px -7px; }
+.b17 .swiper-active-switch { background-position: -67px -7px; }
+.b17:active, .b17:active:hover { background-position: -97px -7px; }
+/* Style 18 */
+.b18 span, .b18 span:hover, .b18 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b18.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b18 span { background-position: -3px -3px;width: 24px; height: 24px; line-height: 24px;display:inline-block }
+.b18 span:hover, .b18 .swiper-active-switch:hover { background-position: -33px -3px; }
+.b18 .swiper-active-switch { background-position: -63px -3px; }
+.b18:active, .b18:active:hover { background-position: -93px -3px; }
+
+.b18 .n
+{
+    display: none;
+    color: #000;
+}
+.b18 span:hover .n, .b18 .swiper-active-switch .n, .b18 .swiper-active-switch:hover .n, .b18:active .n { display: block; }
+/* Style 20 */
+.b20 span, .b20 span:hover, .b20 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b20.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b20 span { background-position: -5px -5px;WIDTH: 19px; HEIGHT: 19px; line-height:19px;display:inline-block }
+.b20 span:hover, .b20 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b20 .swiper-active-switch { background-position: -65px -5px; }
+.b20:active, .b20:active:hover { background-position: -95px -5px; }
+/* Style 21 */
+.b21 span, .b21 span:hover, .b21 .swiper-active-switch
+{
+    background: url(/skin/frontend/base/default/images/factoryx/lookbook/pag/b21.png) no-repeat;
+    overflow:hidden;
+    cursor: pointer;
+}
+.b21 span { background-position: -5px -5px; WIDTH: 19px; HEIGHT: 19px;line-height:19px;display:inline-block}
+.b21 span:hover, .b21 .swiper-active-switch:hover { background-position: -35px -5px; }
+.b21 .swiper-active-switch { background-position: -65px -5px; }
+.b21:active, .b21:active:hover { background-position: -95px -5px; }
+
+/* Alvin's modification */
+.lookImg{max-width:100%;display:inline;}
+.swiper-slide{text-align:center;}
+.nav-button{
+    text-decoration: none;
+    cursor: pointer;
+    min-height: 20px;
+    padding: 0;
+    display: inline-block;
+    line-height: 50px;
+    text-align: center;
+    font-size: 36px;
+    margin: 13px;
+    position: absolute;
+    z-index: 9999;
+}
+.nav-button i{font-size:1.1em;color: rgb(0,0,0);opacity:0.5;}
+.nav-button i:hover{opacity:0.7;}
+.nav-button.nav-button-right{right:0px;}
+.nav-button.nav-button-left{left:0px;}
+.pagination-fontawesome .swiper-pagination-bullet {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: #999;
+    box-shadow: 0px 1px 2px #555 inset;
+    margin: 0 3px;
+    cursor: pointer;
+    opacity: 1;
+}
+.swiper-pagination-bullet-active {
+    background: #fff !important;
+}
+
+#hint {background:#BABABA; color:white;border-radius:5px;padding:0px 5px 2px 5px;margin-top:10px;text-align: center;}
+#hint div {font-size:1em;display: inline-block;vertical-align: middle;}
+#hint div.text {padding-left:0;}
+#hint i {margin-right:5px;}
+#flipbook img {width:100%;}
+
+div.childProductsLink div.link {
+    margin: 5px 0;
+    text-transform: uppercase;
+}
+
+div.childProductsLink div.link a {
+    color: grey;
+    text-decoration: none
+}
+
+@media (max-width: 480px){
+    #bundle_row1 {
+        display: none;
+    }
+    #bundle_close {
+        width: 24px;
+        height: 24px;
+        background-size: 23px 23px;
+        top: 13px;
+        right: 13px;
+        display:none;
+    }
+
+    .bundle-items div.bundle-item-desc {
+        padding-left:4px;
+    }
+    .bundle-items div.bundle-item-desc p {
+        border-bottom: 1px solid lightgrey;
+        max-width: 98%;
+    }
+    .bundle-items div.bundle-item-desc {
+    }
+    .bundle-items div.bundle-items-list {
+        padding-left:4px;
+    }
+
+    .pagination-fontawesome .swiper-pagination-bullet {
+        width: 16px;
+        height: 16px;
+        border-radius: 16px;
+        margin:0 2px;
+    }
+    #hint div{font-size:0.8em;}
+
+    div.childProductsLink div.link {
+        margin: 5px 0;
+        text-transform: uppercase;
+    }
+    
+    div.childProductsLink div.link a {
+        color: grey
+    }
+
+    .lookbook-grid-item{width:100%;float:none;margin-left:0}
+
+    .bundle-item-info {
+        width: 70%;
+        float: left;
+        padding: 5px 0;
+        text-align:center;
+    }
+    .bundle-item-image {
+        width: 30%;
+        text-align:center;
+        float: left;
+    }
+
+    .bundle-items {
+        width: 100%;
+        float: none;
+    }
+
+    .bundle-image {
+        display: none;
+    }
+
+    .bundle-items div.bundle-item-desc p {
+        font-size: 1.2em;
+        padding: 0;
+    }
+	.bundle-items .bundle-item-info-desc p {
+    	font-size: 1.2em;
+	}
+    .bundle-items div.bundle-item-info-desc h2 {
+        font-size: 1.2em;
+    }
+    .bundle-items div.bundle-item-info-desc h2 a {
+        color: #000000;
+        font-weight: normal;
+    }
+	.bundle-item:nth-child(n+2) {
+    	border-top: 1px solid lightgrey;
+	}
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_lookbook_choosecat>
+        <update handle="editor" />
+    </adminhtml_lookbook_choosecat>
+    <adminhtml_lookbook_edit>
+        <reference name="head">
+            <action method="addJs"><file helper="lookbook/getFlowMin" /></action>
+            <action method="addJs"><file helper="lookbook/getFustyFlow" /></action>
+            <action method="addJs"><file helper="lookbook/getFustyFlowFactory" /></action>
+            <action method="addJs"><file helper="lookbook/getAdminhtmlUploaderInstance" /></action>
+        </reference>
+    </adminhtml_lookbook_edit>
+</layout>
