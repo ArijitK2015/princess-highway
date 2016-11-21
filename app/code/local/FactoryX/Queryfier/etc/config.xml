@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_Queryfier>
+            <version>1.0.4</version>
+        </FactoryX_Queryfier>
+    </modules>
+    <global>
+        <blocks>
+            <queryfier>
+                <class>FactoryX_Queryfier_Block</class>
+            </queryfier>
+            <page>
+                <rewrite>
+                    <html_head>FactoryX_Queryfier_Block_Page_Html_Head</html_head>
+                </rewrite>
+            </page>
+        </blocks>
+        <helpers>
+            <queryfier>
+                <class>FactoryX_Queryfier_Helper</class>
+            </queryfier>
+        </helpers>
+    </global>
+    <default>
+        <queryfier>
+            <suffix_js_css>
+                <enable>1</enable>
+                <auto>1</auto>
+                <suffix>123456</suffix>
+            </suffix_js_css>
+        </queryfier>
+    </default>
+</config>

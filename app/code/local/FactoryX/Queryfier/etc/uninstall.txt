@@ -1,0 +1,2 @@
+app/code/local/FactoryX/Queryfier
+app/etc/modules/FactoryX_Queryfier.xml
