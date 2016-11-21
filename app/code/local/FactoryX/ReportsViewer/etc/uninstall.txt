@@ -1,0 +1,2 @@
+app/code/local/FactoryX/ReportsViewer
+app/etc/modules/FactoryX_ReportsViewer.xml

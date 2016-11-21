@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ReportsViewer>
+            <version>0.1.6</version>
+        </FactoryX_ReportsViewer>
+    </modules>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_ReportsViewer before="Mage_Adminhtml">FactoryX_ReportsViewer_Adminhtml</FactoryX_ReportsViewer>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <global>
+        <models>
+            <!-- Model declaration -->
+            <reportsviewer>
+                <class>FactoryX_ReportsViewer_Model</class>
+            </reportsviewer>
+        </models>
+        <helpers>
+            <!-- Helper declaration -->
+            <reportsviewer>
+                <class>FactoryX_ReportsViewer_Helper</class>
+            </reportsviewer>
+        </helpers>
+        <blocks>
+            <!-- Block declaration -->
+            <reportsviewer>
+                <class>FactoryX_ReportsViewer_Block</class>
+            </reportsviewer>
+        </blocks>
+
+    </global>
+</config>
