@@ -1,0 +1,9 @@
+app/code/local/FactoryX/ReviewNotification
+app/etc/modules/FactoryX_ReviewNotification.xml
+app/design/adminhtml/default/default/template/factoryx/reviewnotification
+app/design/adminhtml/default/default/layout/factoryx/reviewnotification.xml
+app/design/frontend/base/default/template/factoryx/reviewnotification
+app/design/frontend/base/default/layout/factoryx/reviewnotification.xml
+app/design/frontend/factoryx/default/template/factoryx/reviewnotification
+app/locale/en_AU/template/email/factoryx/reviewnotification
+skin/frontend/base/default/js/factoryx/reviewnotification

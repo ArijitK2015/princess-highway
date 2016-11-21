@@ -1,0 +1,102 @@
+<div class="form-add">
+    <h2><?php echo $this->__('Write your reviews for order #%s', $this->getOrder()->getincrement_id()) ?></h2>
+
+    <p>&nbsp;</p>
+
+    <script>
+        var notesCount = 5;
+        var notesIds = new Array();
+        <?php foreach ($this->getRatings() as $_rating): ?>
+            notesIds[notesIds.length] = <?php echo $_rating->getId() ?>;
+        <?php endforeach; ?>
+        var productIds = new Array();
+        <?php foreach ($this->getProducts() as $product): ?>
+            productIds[productIds.length] = <?php echo $product->getId() ?>;
+        <?php endforeach; ?>
+
+        var fillFieldsMessage = '<?php echo $this->__('Please fill all fields'); ?>';
+        var fillNotesMessage = '<?php echo $this->__('Please fill all notes'); ?>';
+        
+    </script>
+
+    <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+        <input type="hidden" name="order_id" id="order_id" value="<?php echo $this->getOrder()->getId(); ?>" />
+        <fieldset>
+           <table border="0" width="100%">
+            <?php foreach ($this->getProducts() as $product): ?>
+
+                <tr>
+                    <td align="center" valign="center">
+                        <img src="<?php echo Mage::helper('catalog/image')->init($product, 'small_image')->resize(100); ?>" />
+                        <br><?php echo $product->getName(); ?>
+                    </td>
+                    <td>
+                        <span id="input-message-box"></span>
+                        <table class="data-table" id="product-review-table">
+                            <col />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th><span class="nobr"><?php echo $this->__('1 star') ?></span></th>
+                                    <th><span class="nobr"><?php echo $this->__('2 stars') ?></span></th>
+                                    <th><span class="nobr"><?php echo $this->__('3 stars') ?></span></th>
+                                    <th><span class="nobr"><?php echo $this->__('4 stars') ?></span></th>
+                                    <th><span class="nobr"><?php echo $this->__('5 stars') ?></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->getRatings() as $_rating): ?>
+                                <tr>
+                                    <th><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></th>
+                                <?php foreach ($_rating->getOptions() as $_option): ?>
+                                    <td align="center"><input type="radio" name="ratings[<?php echo $product->getId(); ?>][notes][<?php echo $_rating->getId() ?>]" id="ratings[<?php echo $product->getId(); ?>][notes][<?php echo $_rating->getId() ?>][<?php echo $_option->getValue() ?>]" value="<?php echo $_option->getId() ?>" class="radio" /></td>
+                                <?php endforeach; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <input type="hidden" name="validate_rating" class="validate-rating" value="" />
+                        <script type="text/javascript">decorateTable('product-review-table')</script>
+
+                        <table border="0" width="100%">
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><label for="summary_field" class="required"><?php echo $this->__('Summary') ?></label> <span class="required">*</span></td>
+                                <td><input type="text" size="50" name="ratings[<?php echo $product->getId(); ?>][title]" id="ratings[<?php echo $product->getId(); ?>][title]" class="input-text-long required-entry" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="review_field" class="required"><?php echo $this->__('Review') ?></label> <span class="required">*</span></td>
+                                <td><textarea name="ratings[<?php echo $product->getId(); ?>][detail]" id="ratings[<?php echo $product->getId(); ?>][detail]" cols="60" rows="3" class="required-entry textarea"></textarea></td>
+                            </tr>
+                        </table>
+
+
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><hr></td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+
+            <?php endforeach; ?>
+
+            </table>
+        </fieldset>
+        <div class="buttons-set">
+            <button onclick="submitReviews();" type="button" title="<?php echo $this->__('Submit Review') ?>" class="button"><span><span><?php echo $this->__('Submit Review') ?></span></span></button>
+        </div>
+    </form>
+</div>

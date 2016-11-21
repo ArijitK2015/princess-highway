@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab">
+                <name>reviewnotification</name>
+                <block>reviewnotification/adminhtml_sales_order_view_tab_reviewNotification</block>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+</layout>
