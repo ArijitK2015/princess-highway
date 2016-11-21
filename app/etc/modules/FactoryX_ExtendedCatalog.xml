@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+   <modules>
+		<FactoryX_ExtendedCatalog>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				<Mage_Catalog/>
+				<FactoryX_BugFixes />
+			</depends>
+		</FactoryX_ExtendedCatalog>
+   </modules>
+</config>

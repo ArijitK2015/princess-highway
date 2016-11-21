@@ -1,0 +1,9 @@
+app/code/local/FactoryX/ExtendedCatalog
+app/etc/modules/FactoryX_ExtendedCatalog.xml
+app/design/frontend/base/default/layout/factoryx/extendedcatalog.xml
+app/design/frontend/rwd/default/layout/factoryx/extendedcatalog.xml
+app/design/frontend/base/default/template/factoryx/extendedcatalog
+js/lib/factoryx/extendedcatalog
+skin/frontend/base/default/js/factoryx/extendedcatalog
+skin/frontend/rwd/default/css/factoryx/extendedcatalog
+skin/frontend/rwd/default/js/factoryx/extendedcatalog

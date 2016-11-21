@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ExtendedCatalog>
+            <version>0.3.3</version>
+        </FactoryX_ExtendedCatalog>
+    </modules>
+
+    <global>
+        <cache>
+            <types>
+                <extendedcatalog translate="label,description" module="extendedcatalog">
+                    <label>Extended Catalog</label>
+                    <description>Factrory X Extended Catalog.</description>
+                    <tags>FX_EXTENDED_CACHE_TAG</tags>
+                </extendedcatalog>
+            </types>
+        </cache>
+
+        <models>
+            <extendedcatalog>
+                <class>FactoryX_ExtendedCatalog_Model</class>
+            </extendedcatalog>
+
+            <core>
+                <rewrite>
+                    <!--  Mage_Core_Model_Layout_Update -->
+                    <layout_update>FactoryX_ExtendedCatalog_Model_Core_Layout_Update</layout_update>
+                </rewrite>
+            </core>
+
+            <catalogsearch_resource>
+                <rewrite>
+                    <!-- Mage_CatalogSearch_Model_Resource_Fulltext -->
+                    <fulltext>FactoryX_ExtendedCatalog_Model_CatalogSearch_Resource_Fulltext</fulltext>
+                </rewrite>
+            </catalogsearch_resource>
+
+            <catalog>
+                <rewrite>
+                    <!-- Mage_Catalog_Model_Config -->
+                    <config>FactoryX_ExtendedCatalog_Model_Catalog_Config</config>
+                </rewrite>
+            </catalog>
+
+            <adminhtml>
+                <rewrite>
+                    <!-- Mage_Adminhtml_Model_System_Config_Source_Catalog_ListMode -->
+                    <system_config_source_catalog_listMode>FactoryX_ExtendedCatalog_Model_Adminhtml_System_Config_Source_Catalog_ListMode</system_config_source_catalog_listMode>
+                </rewrite>
+            </adminhtml>
+        </models>
+
+        <blocks>
+            <extendedcatalog>
+                <class>FactoryX_ExtendedCatalog_Block</class>
+            </extendedcatalog>
+
+            <catalog>
+                <rewrite>
+                    <!-- Mage_Catalog_Block_Product_View_Type_Configurable -->
+                    <product_view_type_configurable>FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Type_Configurable</product_view_type_configurable>
+                    <!-- Mage_Catalog_Block_Product_List -->
+                    <product_list>FactoryX_ExtendedCatalog_Block_Catalog_Product_List</product_list>
+                    <!-- Mage_Catalog_Block_Product_List_Toolbar -->
+                    <product_list_toolbar>FactoryX_ExtendedCatalog_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+                </rewrite>
+            </catalog>
+        </blocks>
+
+        <events>
+            <!--
+            WARNING: please be careful when changing these events
+            as it effects how different templates get cached.
+            Disabling CSRF is required for AW_Mobile
+            -->
+            <controller_action_predispatch_checkout_cart_add>
+                <observers>
+                    <original_controller_action_before>
+                        <class>extendedcatalog/observer</class>
+                        <method>disableCsrf</method>
+                    </original_controller_action_before>
+                </observers>
+            </controller_action_predispatch_checkout_cart_add>
+            <controller_action_predispatch_awmobile_cart_add>
+                <observers>
+                    <mobile_controller_action_before>
+                        <class>extendedcatalog/observer</class>
+                        <method>disableCsrf</method>
+                    </mobile_controller_action_before>
+                </observers>
+            </controller_action_predispatch_awmobile_cart_add>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <extendedcatalog_add_navigation_caching>
+                        <type>singleton</type>
+                        <class>extendedcatalog/observer</class>
+                        <method>initNavBlockCache</method>
+                    </extendedcatalog_add_navigation_caching>
+                    <extendedcatalog_add_category_caching>
+                        <type>singleton</type>
+                        <class>extendedcatalog/observer</class>
+                        <method>initCategoryBlockCache</method>
+                    </extendedcatalog_add_category_caching>
+                    <extendedcatalog_add_product_caching>
+                        <type>singleton</type>
+                        <class>extendedcatalog/observer</class>
+                        <method>initProductBlockCache</method>
+                    </extendedcatalog_add_product_caching>
+                    <extendedcatalog_add_footer_caching>
+                        <type>singleton</type>
+                        <class>extendedcatalog/observer</class>
+                        <method>initFooterBlockCache</method>
+                    </extendedcatalog_add_footer_caching>
+                    <extendedcatalog_add_currency_caching>
+                        <type>singleton</type>
+                        <class>extendedcatalog/observer</class>
+                        <method>initCurrencyBlockCache</method>
+                    </extendedcatalog_add_currency_caching>
+                </observers>
+            </core_block_abstract_to_html_before>
+
+        </events>
+
+        <helpers>
+            <extendedcatalog>
+                <class>FactoryX_ExtendedCatalog_Helper</class>
+            </extendedcatalog>
+        </helpers>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <extendedcatalog module="FactoryX_ExtendedCatalog">
+                    <file>factoryx/extendedcatalog.xml</file>
+                </extendedcatalog>
+            </updates>
+        </layout>
+    </frontend>
+
+    <default>
+        <catalog>
+            <frontend>
+                <replace_default_option_text>1</replace_default_option_text>
+                <gridx5_image_dimensions>266,301</gridx5_image_dimensions>
+            </frontend>
+        </catalog>
+    </default>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_ExtendedCatalog/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

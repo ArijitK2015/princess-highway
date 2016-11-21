@@ -1,0 +1,14 @@
+<?php
+/**
+ * Product short description template
+ *
+ * @see FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Shortdescription
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+$_shortDescription = $this->getProduct()->getShortDescription();
+if ($_shortDescription): ?>
+    <h2><?php echo $this->__('Details') ?></h2>
+    <div class="std">
+        <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_shortDescription, 'short_description') ?>
+    </div>
+<?php endif; ?>

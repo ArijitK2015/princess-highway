@@ -1,0 +1,14 @@
+<?php
+/**
+ * Product size and fit template
+ *
+ * @see FactoryX_ExtendedCatalog_Block_Catalog_Product_View_Sizeandfit
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+$_sizeAndFit = $this->getProduct()->getSizeAndFit();
+if ($_sizeAndFit): ?>
+    <h2><?php echo $this->__('Size & Fit') ?></h2>
+    <div class="std">
+        <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_sizeAndFit, 'size_and_fit') ?>
+    </div>
+<?php endif; ?>
