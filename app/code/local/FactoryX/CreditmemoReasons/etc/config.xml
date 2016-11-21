@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_CreditmemoReasons>
+            <version>0.3.3</version>
+        </FactoryX_CreditmemoReasons>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_CreditmemoReasons before="Mage_Adminhtml">FactoryX_CreditmemoReasons_Adminhtml</FactoryX_CreditmemoReasons>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <creditmemoreasons module="FactoryX_CreditmemoReasons">
+                    <file>factoryx/creditmemoreasons.xml</file>
+                </creditmemoreasons>
+            </updates>
+        </layout>
+        <events>
+            <!-- Called after initiating a creditmemo -->
+            <adminhtml_sales_order_creditmemo_register_before>
+                <observers>
+                    <factoryx_creditmemoreasons_save>
+                        <type>singleton</type>
+                        <class>creditmemoreasons/observer</class>
+                        <method>addReasonToCreditmemo</method>
+                    </factoryx_creditmemoreasons_save>
+                </observers>
+            </adminhtml_sales_order_creditmemo_register_before>
+            <!-- Called after the save action -->
+            <controller_action_predispatch_adminhtml_sales_order_creditmemo_save>
+                <observers>
+                    <factoryx_creditmemoreasons_predispatch_save>
+                        <type>singleton</type>
+                        <class>creditmemoreasons/observer</class>
+                        <method>addCommentToCreditmemo</method>
+                    </factoryx_creditmemoreasons_predispatch_save>
+                </observers>
+            </controller_action_predispatch_adminhtml_sales_order_creditmemo_save>
+            <!-- To register the controller action -->
+            <controller_action_predispatch_adminhtml>
+                <observers>
+                    <factoryx_creditmemoreasons_register>
+                        <type>singleton</type>
+                        <class>creditmemoreasons/observer</class>
+                        <method>registerController</method>
+                    </factoryx_creditmemoreasons_register>
+                </observers>
+            </controller_action_predispatch_adminhtml>
+            <!-- Called after creating a block -->
+            <core_layout_block_create_after>
+                <observers>
+                    <factoryx_creditmemoreasons_after_block>
+                        <type>singleton</type>
+                        <class>creditmemoreasons/observer</class>
+                        <method>blockCreateAfter</method>
+                    </factoryx_creditmemoreasons_after_block>
+                </observers>
+            </core_layout_block_create_after>
+            <!-- Called before loading a non EAV collection -->
+            <core_collection_abstract_load_before>
+                <observers>
+                    <factoryx_creditmemoreasons_before_core_load_collection>
+                        <class>creditmemoreasons/observer</class>
+                        <method>beforeCoreCollectionLoad</method>
+                    </factoryx_creditmemoreasons_before_core_load_collection>
+                </observers>
+            </core_collection_abstract_load_before>
+            <!-- Called after to HTML -->
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <factoryx_creditmemoreasons_after_html>
+                        <class>creditmemoreasons/observer</class>
+                        <method>afterToHtml</method>
+                    </factoryx_creditmemoreasons_after_html>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </adminhtml>
+
+    <global>
+        <models>
+            <creditmemoreasons>
+                <class>FactoryX_CreditmemoReasons_Model</class>
+                <resourceModel>creditmemoreasons_mysql4</resourceModel>
+            </creditmemoreasons>
+
+            <creditmemoreasons_mysql4>
+                <class>FactoryX_CreditmemoReasons_Model_Mysql4</class>
+                <entities>
+                    <reason>
+                        <table>fx_creditmemoreasons_reasons</table>
+                    </reason>
+                </entities>
+            </creditmemoreasons_mysql4>
+        </models>
+
+        <blocks>
+            <creditmemoreasons>
+                <class>FactoryX_CreditmemoReasons_Block</class>
+            </creditmemoreasons>
+        </blocks>
+
+        <helpers>
+            <creditmemoreasons>
+                <class>FactoryX_CreditmemoReasons_Helper</class>
+            </creditmemoreasons>
+        </helpers>
+
+        <resources>
+            <creditmemoreasons_setup>
+                <setup>
+                    <module>FactoryX_CreditmemoReasons</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </creditmemoreasons_setup>
+            <creditmemoreasons_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </creditmemoreasons_write>
+            <creditmemoreasons_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </creditmemoreasons_read>
+        </resources>
+    </global>
+
+</config>

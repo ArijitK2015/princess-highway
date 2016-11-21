@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="order_items">
+            <action method="setTemplate">
+                <template>factoryx/creditmemoreasons/sales/order/creditmemo/create/items.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="order_items">
+            <action method="setTemplate">
+                <template>factoryx/creditmemoreasons/sales/order/creditmemo/create/items.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <!--
+    app/design/adminhtml/default/default/layout/sales.xml
+    -->
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="form">
+            <action method="setTemplate">
+                <template>factoryx/creditmemoreasons/sales/order/creditmemo/view/form.phtml</template>
+            </action>
+            <block type="core/template" name="creditmemoreason" template="factoryx/creditmemoreasons/sales/order/creditmemo/view/reason.phtml" />
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+</layout>

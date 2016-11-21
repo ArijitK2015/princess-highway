@@ -1,0 +1,8 @@
+<?php
+$creditmemo = Mage::registry('current_creditmemo');
+$reasonCode = $creditmemo->getReason();
+if ($reasonCode) {
+    $reason = Mage::helper('creditmemoreasons')->getReasonLabel($reasonCode);
+    echo sprintf("<div><strong>Reason:</strong> %s</div><br/>", $reason);
+    //echo $this->getChildHtml('creditmemoreason');
+}

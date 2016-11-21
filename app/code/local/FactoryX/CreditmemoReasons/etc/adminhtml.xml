@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <report>
+            <children>
+                <salesroot>
+                    <children>
+                        <reasons translate="title" module="creditmemoreasons">
+                            <title>Credit Memo Reasons</title>
+                            <action>adminhtml/reasonsreport/index/</action>
+                        </reasons>
+                    </children>
+                </salesroot>
+            </children>
+        </report>
+        <factoryx_menu>
+            <title>Factory X</title>
+            <sort_order>85</sort_order>
+            <children>
+                <creditmemoreasons>
+                    <title>Credit Memo Reasons</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/creditmemoreasons/index/</action>
+                </creditmemoreasons>
+            </children>
+        </factoryx_menu>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <report>
+                        <children>
+                            <salesroot>
+                                <children>
+                                    <reasons>
+                                        <title>Credit Memo Reasons</title>
+                                        <sort_order>100</sort_order>
+                                    </reasons>
+                                </children>
+                            </salesroot>
+                        </children>
+                    </report>
+                    <factoryx_menu>
+                        <children>
+                            <creditmemoreasons>
+                                <title>Credit Memo Reasons</title>
+                                <sort_order>100</sort_order>
+                            </creditmemoreasons>
+                        </children>
+                    </factoryx_menu>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

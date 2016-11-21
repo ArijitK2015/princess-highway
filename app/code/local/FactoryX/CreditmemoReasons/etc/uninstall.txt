@@ -1,0 +1,4 @@
+app/code/local/FactoryX/CreditmemoReasons
+app/etc/modules/FactoryX_CreditmemoReasons.xml
+app/design/adminhtml/default/default/template/factoryx/creditmemoreasons
+app/design/adminhtml/default/default/layout/factoryx/creditmemoreasons.xml
