@@ -1,0 +1,8 @@
+app/code/local/FactoryX/Quickshop
+app/etc/modules/FactoryX_Quickshop.xml
+app/design/frontend/base/default/template/factoryx/quickshop
+app/design/frontend/base/default/layout/factoryx/quickshop.xml
+skin/frontend/base/default/images/factoryx/quickshop
+skin/frontend/base/default/css/factoryx/quickshop
+skin/frontend/base/default/js/factoryx/quickshop
+js/lib/factoryx/quickshop

@@ -1,0 +1,5 @@
+<?php if (Mage::helper('quickshop')->isMagicZoomUsed()): ?>
+    <?php echo $this->getChildChildHtml('head','magiczoom_header'); ?>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('content'); ?>

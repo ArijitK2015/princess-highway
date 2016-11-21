@@ -1,0 +1,42 @@
+<?xml version="1.0"?> 
+<config>
+    <modules> 
+        <FactoryX_Quickshop> 
+            <version>1.0.7</version>
+        </FactoryX_Quickshop> 
+    </modules>
+    <global>
+        <helpers>
+            <quickshop>
+                <class>FactoryX_Quickshop_Helper</class>
+            </quickshop>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <quickshop>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_Quickshop</module>
+                    <frontName>quickshop</frontName>
+                </args>
+            </quickshop>
+        </routers>
+        <layout>
+           <updates>
+               <quickshop>
+                   <file>factoryx/quickshop.xml</file>
+               </quickshop>
+           </updates>
+        </layout>
+    </frontend>
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_Quickshop/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
+
+   
