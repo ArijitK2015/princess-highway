@@ -1,0 +1,4 @@
+app/code/local/FactoryX/OrderBy
+app/etc/modules/FactoryX_OrderBy.xml
+app/design/adminhtml/default/default/template/factoryx/orderby
+app/design/adminhtml/default/default/layout/factoryx/orderby.xml
