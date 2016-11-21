@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config>
+    <modules> 
+        <FactoryX_CustomReports> 
+            <version>0.3.6</version>
+        </FactoryX_CustomReports> 
+    </modules>
+    
+    <frontend>
+        <!-- Translation file -->
+        <translate>
+            <modules>
+                <FactoryX_CustomReports>
+                    <files>
+                        <default>FactoryX_CustomReports.csv</default>
+                    </files>
+                </FactoryX_CustomReports>
+            </modules>
+        </translate>
+    </frontend>
+    
+    <adminhtml>
+        <!-- Backend translation file -->
+        <translate>
+            <modules>
+                <FactoryX_CustomReports>
+                    <files>
+                        <default>FactoryX_CustomReports.csv</default>
+                    </files>
+                </FactoryX_CustomReports>
+            </modules>
+        </translate>
+    </adminhtml>
+    
+    <global>
+        <models>
+            <customreports>
+                <class>FactoryX_CustomReports_Model</class>
+            </customreports>
+
+            <reports_resource>
+                <rewrite>
+                    <!-- Mage_Reports_Model_Resource_Product_Collection -->
+                    <product_collection>FactoryX_CustomReports_Model_Reports_Resource_Product_Collection</product_collection>
+                </rewrite>
+            </reports_resource>
+        </models>
+        
+        <blocks>
+            <customreports>
+                <class>FactoryX_CustomReports_Block</class>
+            </customreports>
+        </blocks>
+        
+        <helpers>
+            <customreports>
+                <class>FactoryX_CustomReports_Helper</class>
+            </customreports>            
+        </helpers>
+    </global>
+    
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_CustomReports before="Mage_Adminhtml">FactoryX_CustomReports_Adminhtml</FactoryX_CustomReports>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_CustomReports/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

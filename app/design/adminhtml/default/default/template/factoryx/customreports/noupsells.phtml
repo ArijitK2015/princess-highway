@@ -1,0 +1,43 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-online-visitors"><?php echo $this->getTitle(); ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="information">
+    <p></p>
+    <?php if ($nb = $this->getSideNote()): ?>
+    <div class="nb">
+    	<p><?php echo $nb; ?></p>
+    </div>
+</div>
+<div>
+	<div class="entry-edit">
+		<form id="noupsells_form" method="POST" action="<?php echo $this->getFormAction(); ?>">
+			<input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>" />
+			<div></div>
+			<div class="entry-edit-head">
+				<h4 class="icon-head head-edit-form fieldset-legent">Form Filter</h4>
+			</div>
+			<div id="advanced_report_base_fieldset" class="fieldset">
+				<ul>
+					<li class="fields">
+						<div class="field">
+							<label for="from"><?php echo Mage::helper('reports')->__('Products with upsells less than:') ?></label>
+							<div class="input-box">
+								<input name="count" id="count"
+								    title="<?php echo Mage::helper('reports')->__('From:') ?>"
+								    value="<?php echo Mage::getSingleton('core/session')->getMinNoupsellsCount() ?>"
+								    class="input-text validate-number" type="text" />
+							</div>
+						</div>
+					</li>
+				</ul>
+				<button type="submit" title="<?php echo $this->__('Run Report') ?>" class="scalable task"><span><span><span><?php echo $this->__('Run Report') ?></span></span></span></button>
+			</div>
+		</form>
+	</div>
+</div>
+<?php endif; ?>
+<?php echo $this->getChildHtml('grid') ?>
