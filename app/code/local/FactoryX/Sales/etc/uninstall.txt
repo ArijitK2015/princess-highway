@@ -1,0 +1,6 @@
+app/code/local/FactoryX/Sales
+app/etc/modules/FactoryX_Sales.xml
+app/design/frontend/base/default/template/factoryx/sales
+app/design/frontend/base/default/layout/factoryx/sales.xml
+app/locale/en_AU/template/email/factoryx/sales
+scripts/reports/shipped_orders.php

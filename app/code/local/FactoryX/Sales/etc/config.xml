@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<FactoryX_Sales>
+			<version>0.2.5</version>
+		</FactoryX_Sales>
+	</modules>
+
+    <frontend>
+		<!-- Frontend layout updates -->
+        <layout>
+			<updates>
+				<factoryx_sales>
+					<file>factoryx/sales.xml</file>
+				</factoryx_sales>
+			</updates>
+        </layout>
+    </frontend>	
+	
+	<default>
+		<!-- Default configuration values -->
+    	<sales_email>
+            <stage2>
+                <enabled>1</enabled>
+                <template>sales_email_stage2_template</template>
+                <guest_template>sales_email_stage2_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </stage2>
+		</sales_email>
+		<sales>
+			<creditmemo>
+				<zero_total_refund>0</zero_total_refund>
+			</creditmemo>
+		</sales>
+	</default>
+	
+	<global>
+		<models>
+			<!-- Model declaration -->
+			<fx_sales>
+				<class>FactoryX_Sales_Model</class>
+			</fx_sales>
+			<!-- Models rewrites -->
+			<sales>
+				<rewrite>
+					<order>FactoryX_Sales_Model_Order</order>
+					<order_shipment>FactoryX_Sales_Model_Order_Shipment</order_shipment>
+				</rewrite>
+			</sales>
+		</models>
+		<events>
+			<!-- After a shipment has been saved -->
+			<sales_order_shipment_save_after>
+				<observers>
+					<factoryx_sales_modify_status>
+						<type>singleton</type>
+						<class>fx_sales/observer</class>
+						<method>changeOrderStatus</method>
+					</factoryx_sales_modify_status>
+				</observers>
+			</sales_order_shipment_save_after>
+			<!-- Before status history comment -->
+			<add_status_history_comment_before>
+				<observers>
+					<factoryx_sales_history_comment_before>
+						<type>singleton</type>
+						<class>fx_sales/observer</class>
+						<method>statusHistoryCommentBefore</method>
+					</factoryx_sales_history_comment_before>
+				</observers>
+			</add_status_history_comment_before>
+			<!-- Before credit memo registration -->
+			<adminhtml_sales_order_creditmemo_register_before>
+				<observers>
+					<factoryx_sales_creditmemo_refund_zero_total>
+						<class>fx_sales/observer</class>
+						<method>enableZeroTotalRefund</method>
+					</factoryx_sales_creditmemo_refund_zero_total>
+				</observers>
+			</adminhtml_sales_order_creditmemo_register_before>
+			<!-- After status history comment -->
+			<!--<add_status_history_comment_after>
+				<observers>
+					<factoryx_sales_history_comment_after>
+						<type>singleton</type>
+						<class>fx_sales/observer</class>
+						<method>statusHistoryCommentAfter</method>
+					</factoryx_sales_history_comment_after>
+				</observers>
+			</add_status_history_comment_after>-->
+			<!-- After sales order save -->
+			<sales_order_save_after>
+				<observers>
+					<factoryx_sales_order_after>
+						<type>singleton</type>
+						<class>fx_sales/observer</class>
+						<method>salesOrderAfter</method>
+					</factoryx_sales_order_after>
+				</observers>
+			</sales_order_save_after>
+		</events>
+		
+		<template>
+	    	<email>
+	    		<sales_email_stage2_template translate='label' module='sales'>
+	    			<label>Stage2 Email</label>
+	    			<file>factoryx/sales/stage2Email.txt</file>
+	    			<type>text</type>
+	    		</sales_email_stage2_template>
+	    	</email>
+	    </template>
+		
+		<helpers>
+			<!-- Helper declaration -->
+            <fx_sales>
+                <class>FactoryX_Sales_Helper</class>
+            </fx_sales>
+        </helpers>
+
+		<!-- Database resources -->
+		<resources>
+			<fxsales_setup>
+				<setup>
+					<module>FactoryX_Sales</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</fxsales_setup>
+			<fxsales_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</fxsales_write>
+			<fxsales_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</fxsales_read>
+		</resources>
+	</global>
+
+	<!-- PHPUnit tests -->
+	<phpunit>
+		<suite>
+			<modules>
+				<FactoryX_Sales/>
+			</modules>
+		</suite>
+	</phpunit>
+</config>
