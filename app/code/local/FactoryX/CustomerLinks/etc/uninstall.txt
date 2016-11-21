@@ -1,0 +1,3 @@
+app/code/local/FactoryX/CustomerLinks
+app/etc/modules/FactoryX_CustomerLinks.xml
+app/etc/modules/FactoryX_CustomerLinks.xml
