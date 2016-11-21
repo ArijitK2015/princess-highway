@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <!-- Footer Reference -->
+        <reference name="footer">
+            <block type="core/template" name="htmlinject" template="factoryx/htmlinject/default.phtml">
+                <!-- Add the phone support block to the footer -->
+                <block type="core/template" name="phonesupport" template="factoryx/htmlinject/phonesupport.phtml"/>
+                <!-- Add the navigation adjustment block -->
+                <block type="core/template" name="navigation" template="factoryx/htmlinject/navigation.phtml"/>
+            </block>
+        </reference>
+    </default>
+</layout>

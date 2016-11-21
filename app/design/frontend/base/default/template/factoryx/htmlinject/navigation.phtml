@@ -1,0 +1,87 @@
+<?php if (Mage::helper('htmlinject')->adjustNav()): ?>
+    <!--
+    function taken from
+    https://github.com/northk/justifyNav/blob/master/jquery.justifyNav.js
+    -->
+    <script> // src="//rawgit.com/northk/justifyNav/master/jquery.justifyNav.js">
+    (function($) {
+    	$.fn.justifyNav = function() {
+    		return this.each(function() {
+    			var $this = $(this),
+    				//$children = $this.children(),
+    				$children = $this.find("> li"),
+    				containerWidth = $this.width(),
+    				linksWidth = 0,
+    				count = $children.length;
+
+    			$children.each(function() {
+    			    console.log('outerWidth: ' + $(this).outerWidth());
+    				linksWidth += $(this).outerWidth();
+    			});
+
+    			// Don't give the last item or the 2nd to last item any right margin, then float the last item right.
+    			// This will account for small errors in JQuery's calculation of the item widths.
+    			// Otherwise the list can overflow the container!
+    			console.log(containerWidth + '-' + linksWidth + ' / ' + (count - 1));
+
+    			var linkSpacing = Math.floor((containerWidth - linksWidth) / (count - 1));
+    			$children
+    				.css('margin-right', linkSpacing + "px")
+    				.filter(":last")
+    				.css({
+                        "margin-right":0,
+                        "float":"right"
+                    })
+                    .prev()
+                    .css({
+                        "margin-right":0
+                    }
+                );
+    		});
+    	};
+    })(jQuery);
+    </script>
+
+    <!-- Start script to adjust the navigation -->
+    <script>
+    jQuery(window).load(function() {
+
+        /*
+        note. jQuery('#nav').children().length is WRONG!
+        as it counts any child including <!-- -->
+        */
+
+        var paddingMethod = '<?php echo Mage::helper('htmlinject')->getPaddingMethod(); ?>';
+        var navMaxWidth = jQuery('.nav-container').outerWidth(false);
+
+        //console.log('paddingMethod=' + paddingMethod);
+        if (paddingMethod === 'centered') {
+
+            jQuery('#nav > li').css({'padding-left':'0px','padding-right':'0px'});
+
+            // navWith = all the text compressed together
+            var navWith = jQuery('#nav').outerWidth(false);
+            //itemNbr = jQuery('#nav').children().length;
+            itemNbr = jQuery('ul#nav > li').length;
+            var spaceToDivide = navMaxWidth - navWith;
+            var itemWidth = spaceToDivide / itemNbr;
+
+            var maxItemWidth = <?php echo Mage::helper('htmlinject')->getMaxWidth() ?>;
+            if (itemWidth > maxItemWidth && maxItemWidth != 980) {
+                itemWidth = maxItemWidth;
+            }
+            var paddingX = Math.floor(itemWidth / 2);
+            jQuery('#nav > li > a').css({'padding-left': paddingX + 'px','padding-right': paddingX + 'px'});
+            jQuery('#nav > li').animate({'opacity':'1'}, 500);
+        }
+
+        if (paddingMethod === 'justified') {
+            console.log('item->navMaxWidth=' + navMaxWidth);
+            jQuery('#nav').width(navMaxWidth);
+            jQuery('#nav').justifyNav();
+        }
+
+    });
+    </script>
+    <!-- End script to adjust the navigation -->
+<?php endif; ?>

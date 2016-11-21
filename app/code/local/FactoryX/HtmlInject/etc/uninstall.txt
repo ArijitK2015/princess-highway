@@ -1,0 +1,5 @@
+app/code/local/FactoryX/HtmlInject
+app/etc/modules/FactoryX_HtmlInject.xml
+app/design/frontend/base/default/layout/factoryx/htmlinject.xml
+app/design/frontend/base/default/template/factoryx/htmlinject
+app/design/frontend/factoryx/default/template/factoryx/htmlinject

@@ -1,0 +1,61 @@
+<?php if (Mage::helper('htmlinject')->adjustNav()): ?>
+    <!-- Start script to adjust the navigation -->
+    <script type="text/javascript">
+        function adjustFixedNav()
+        {
+            <?php if (Mage::helper('framework')->isFixedNavbar()): ?>
+            // Fixed navbar adjust
+            // Get maincontent offset
+            var offset = jQuery('#maincontent').offset();
+            jQuery('#maincontent').css('margin-top',jQuery('.navbar-fixed-top').height() - offset.top);
+            <?php endif; ?>
+        }
+        function adjustNav(id)
+        {
+            // Adjust Top Items
+            jQuery(id+' > ul > li > a').css({'padding-left':'0px','padding-right':'0px'});
+            var navMaxWidth = jQuery(id).width();
+            var navWidth = jQuery(id+' > .nav').outerWidth(false);
+            var itemNo = jQuery(id+' > .nav').children().length;
+            var spaceToDivide = navMaxWidth - navWidth;
+            var itemWidth = spaceToDivide/itemNo;
+            var maxItemWidth = <?php echo Mage::helper('htmlinject')->getMaxWidth() ?>;
+            if (itemWidth > maxItemWidth && maxItemWidth != 1170)
+            {
+                itemWidth = maxItemWidth;
+            }
+            var paddingX = Math.floor(itemWidth/2);
+            jQuery(id+' > ul > li > a').css({'padding-left':paddingX+'px','padding-right':paddingX+'px'});
+
+            // Adjust children dropdowns
+            jQuery(id+' ul.dropdown-menu').each(function(){
+                if (jQuery(this).width() < jQuery(this).prev().outerWidth())
+                {
+                    jQuery(this).css("width","100%");
+                }
+                else
+                {
+                    jQuery(this).css("width","auto");
+                }
+            });
+            jQuery(id+' > ul > li').animate({'opacity':'1'},500);
+        }
+        jQuery(window).load(function(){
+            // 768 is the breakpoint with default bootstrap when the original menu switches to mobile menu
+            if (jQuery(window).width() >= 768 )
+            {
+                adjustNav('#nav');
+            }
+            adjustFixedNav();
+        });
+        jQuery(window).resize(function(){
+            // 768 is the breakpoint with default bootstrap when the original menu switches to mobile menu
+            if (jQuery(window).width() >= 768 )
+            {
+                adjustNav('#nav');
+            }
+            adjustFixedNav();
+        })
+    </script>
+    <!-- End script to adjust the navigation -->
+<?php endif; ?>
