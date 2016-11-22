@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<config>
+
+    <modules>
+        <FactoryX_CouponValidation>
+            <version>0.3.4</version>
+        </FactoryX_CouponValidation>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_CouponValidation before="Mage_Adminhtml">FactoryX_CouponValidation_Adminhtml</FactoryX_CouponValidation>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <global>
+        <blocks>
+            <couponvalidation>
+                <class>FactoryX_CouponValidation_Block</class>
+            </couponvalidation>
+        </blocks>
+
+        <models>
+            <couponvalidation>
+                <class>FactoryX_CouponValidation_Model</class>
+                <resourceModel>couponvalidation_mysql4</resourceModel>
+            </couponvalidation>
+
+            <couponvalidation_mysql4>
+                <class>FactoryX_CouponValidation_Model_Resource</class>
+                <!-- declare table test -->
+                <entities>
+                    <log>
+                        <table>fx_couponvalidation_log</table>
+                    </log>
+                </entities>
+            </couponvalidation_mysql4>
+        </models>
+
+        <helpers>
+            <couponvalidation>
+                <class>FactoryX_CouponValidation_Helper</class>
+            </couponvalidation>
+        </helpers>
+
+        <resources>
+            <couponvalidation_setup>
+                <setup>
+                    <module>FactoryX_CouponValidation</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </couponvalidation_setup>
+            <couponvalidation_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </couponvalidation_write>
+            <couponvalidation_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </couponvalidation_read>
+        </resources>
+
+        <events>
+            <factoryx_couponvalidation_redeem>
+                <observers>
+                    <factoryx_couponvalidation_redeem>
+                        <type>singleton</type>
+                        <class>couponvalidation/observer</class>
+                        <method>logRedeemedCoupons</method>
+                    </factoryx_couponvalidation_redeem>
+                </observers>
+            </factoryx_couponvalidation_redeem>
+        </events>
+    </global>
+
+    <frontend>
+        <routers>
+            <coupon>
+                <use>standard</use>
+                <args>
+                    <module>FactoryX_CouponValidation</module>
+                    <frontName>coupon</frontName>
+                </args>
+            </coupon>
+        </routers>
+        <layout>
+            <updates>
+                <couponvalidation module="FactoryX_CouponValidation">
+                    <file>factoryx/couponvalidation.xml</file>
+                </couponvalidation>
+            </updates>
+        </layout>
+    </frontend>
+
+    <crontab>
+        <jobs>
+            <factoryx_couponvalidation_clean>
+                <schedule>
+                    <config_path>couponvalidation/options/cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>couponvalidation/cron::logClean</model>
+                </run>
+            </factoryx_couponvalidation_clean>
+        </jobs>
+    </crontab>
+
+    <default>
+        <couponvalidation>
+            <options>
+                <hash>0</hash>
+                <log_cleaning>0</log_cleaning>
+                <cron_expr>0 1 * * *</cron_expr>
+            </options>
+        </couponvalidation>
+    </default>
+
+</config>

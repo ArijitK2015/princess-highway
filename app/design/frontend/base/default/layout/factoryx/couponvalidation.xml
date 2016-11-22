@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <coupon_validation_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+
+        <reference name="content">
+            <block type="couponvalidation/validation" name="validation" template="factoryx/couponvalidation/form.phtml" />
+        </reference>
+    </coupon_validation_index>
+
+    <coupon_validation_redeem>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+
+        <reference name="content">
+            <block type="couponvalidation/validation" name="redeem" template="factoryx/couponvalidation/form.phtml" />
+        </reference>
+    </coupon_validation_redeem>
+
+</layout>

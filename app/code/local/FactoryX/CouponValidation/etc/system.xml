@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <factoryx translate="label" module="couponvalidation">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <couponvalidation translate="label" module="couponvalidation">
+            <label>Coupon Validation</label>
+            <tab>factoryx</tab>
+            <sort_order>1001</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="couponvalidation">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1001</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <modules_disable_output translate="label">
+                            <label>Disable Modules Output</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>couponvalidation/adminhtml_system_config_form_field_disableModulesOutput</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </modules_disable_output>
+                        <front_end translate="label">
+                            <label>Front-end URL</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>couponvalidation/adminhtml_system_config_form_field_frontEnd</frontend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </front_end>
+                    </fields>
+                </general>
+                <options translate="label" module="couponvalidation">
+                    <label>Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1002</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <hash translate="label">
+                            <label>Enable Hash Validation</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </hash>
+                        <log_cleaning translate="label">
+                            <label>Enable Log Cleaning</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_cleaning>
+                        <clean_after_day translate="label">
+                            <label>Save Log, Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><log_cleaning>1</log_cleaning></depends>
+                        </clean_after_day>
+                        <cron_expr translate="label">
+                            <label>Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><log_cleaning>1</log_cleaning></depends>
+                        </cron_expr>
+                    </fields>
+                </options>
+            </groups>
+        </couponvalidation>
+    </sections>
+</config>

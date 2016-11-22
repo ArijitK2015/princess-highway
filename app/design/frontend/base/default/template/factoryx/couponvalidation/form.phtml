@@ -1,0 +1,115 @@
+<?php
+/*
+// TODO make config field
+// other fields excluded from outpur
+website_id
+entity_id
+entity_type_id
+attribute_set_id
+group_id
+increment_id
+store_id
+disable_auto_group_change
+prefix
+suffix: 
+password_hash
+taxvat
+default_billing
+default_shipping
+*/
+$displayFields = array(
+    'email',
+    'created_at',
+    'updated_at',
+    'is_active',
+    'created_in',
+    'firstname',
+    'middlename',
+    'lastname',
+    'dob'
+);
+?>
+<style>
+.main {
+    margin: 20px 0 20px 0;
+}
+.button-set {
+    padding: 7px 0px 7px 0;
+}
+.info {
+    margin: 10px 0 20px 0;
+    border:1px solid black;
+    padding: 10px;
+}
+.col-main > div:first-of-type {
+    margin: 0 !important;
+}
+</style>
+<div class='main'>
+<h1><?php echo Mage::app()->getStore()->getGroup()->getName() ?> - Coupon Validation</h1>
+<br/>
+<?php
+if ($this->getNameInLayout() == "validation") {
+    $formUrl = $this->getSubmitUrl();
+    $buttonName = $this->__('Validate');
+    $code = "";
+    if (Mage::getSingleton('core/session')->getCurrentCode()) {
+        $code = Mage::getSingleton('core/session')->getCurrentCode();
+    }
+}
+elseif ($this->getNameInLayout() == "redeem") {
+    $formUrl = $this->getRedeemUrl();
+    $buttonName = $this->__('Redeem');
+    $code = Mage::getSingleton('core/session')->getValidCode();
+}
+if ($subscriberId = Mage::app()->getRequest()->getParam('subscriber')) {
+    $subscriberData = Mage::getModel('newsletter/subscriber')->load($subscriberId)->getData();
+}
+if ($customer = Mage::app()->getRequest()->getParam('customer')) {
+    $customerData = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getStore()->getWebsiteId())->loadByEmail($customer)->getData();
+}
+?>
+<?php if ($subscriberId): ?>
+    <div class='info'>
+        <?php echo $this->__('Subscriber linked to this coupon code'); ?>
+        <table>
+            <?php foreach($subscriberData as $key => $data): ?>
+                <tr>
+                    <td><?php echo $key; ?>:</td>
+                    <td><?php echo $data; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif; ?>
+<?php if ($customer && $customerData): ?>
+    <div class='info'>
+        <h2><?php echo $this->__('Customer linked to this coupon code'); ?></h2>
+        <br/>
+        <table>
+            <tr>
+                <td>Coupon:&nbsp;</td>
+                <td><?php echo $code; ?></td>
+            </tr>            
+            <?php foreach($customerData as $key => $data): ?>            
+                <?php if (in_array($key, $displayFields)): ?>
+                    <tr>
+                        <td><?php echo $key; ?>:&nbsp;</td>
+                        <td><?php echo $data; ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif; ?>
+<form action="<?php echo $formUrl; ?>" method="POST" id="coupon-validation-form">
+    <div>
+        <label for="code"><?php echo $this->__('Enter the coupon code you would like validate and or redeem:') ?></label>
+        <input id="code" type="text" name="code" value="<?php echo $code; ?>" class="required-entry input-text" />
+        <input id="hash" type="hidden" name="hash" value="<?php echo $this->getRequest()->getParam('hash'); ?>" />
+    </div>
+    <div class='button-set'>
+        <button type="submit" title="<?php echo $buttonName ?>" class="button"><span><span><?php echo $buttonName ?></span></span></button>
+    </div>
+</form>
+</div>

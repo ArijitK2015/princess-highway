@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <promo>
+            <children>
+                <validation translate="title" module="couponvalidation">
+                    <title>Coupon Validation</title>
+                    <action>adminhtml/couponvalidation/</action>
+                    <children>
+                        <validate translate="title" module="couponvalidation">
+                            <title>Validation a Coupon</title>
+                            <action>adminhtml/couponvalidation/</action>
+                            <sort_order>10</sort_order>
+                        </validate>
+                        <logs translate="title" module="couponvalidation">
+                            <title>Redeemed Coupons Logs</title>
+                            <action>adminhtml/couponvalidation/grid</action>
+                            <sort_order>20</sort_order>
+                        </logs>
+                    </children>
+                </validation>
+            </children>
+        </promo>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<couponvalidation translate="title">
+										<title>Coupon Validation</title>
+										<sort_order>101</sort_order>
+									</couponvalidation>
+								</children>
+							</config>
+						</children>
+					</system>                    
+                    <promo>
+                        <children>
+                            <validation translate="title" module="couponvalidation">
+                                <title>Coupon Validation</title>
+                                <sort_order>60</sort_order>
+                                <children>
+                                    <validate translate="title" module="couponvalidation">
+                                        <title>Validation a Coupon</title>
+                                        <sort_order>10</sort_order>
+                                    </validate>
+                                    <logs translate="title" module="couponvalidation">
+                                        <title>Redeemed Coupons Logs</title>
+                                        <sort_order>20</sort_order>
+                                    </logs>
+                                </children>
+                            </validation>
+                        </children>
+                    </promo>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
