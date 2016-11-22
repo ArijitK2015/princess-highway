@@ -4,6 +4,7 @@
 /index.php
 /app/etc/local.xml
 /.htaccess
+/dev
 
 # IDE
 /.idea
