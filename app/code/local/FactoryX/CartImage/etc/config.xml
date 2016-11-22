@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_CartImage>
+            <version>0.1.5</version>
+        </FactoryX_CartImage>
+    </modules>
+
+    <global>
+
+        <blocks>
+            <cartimage>
+                <class>FactoryX_CartImage_Block</class>
+            </cartimage>
+
+            <checkout>
+                <rewrite>
+                    <!-- Mage_Checkout_Block_Cart_Item_Renderer_Configurable -->
+                    <cart_item_renderer_configurable>FactoryX_CartImage_Block_Checkout_Cart_Item_Renderer_Configurable</cart_item_renderer_configurable>
+                </rewrite>
+            </checkout>
+        </blocks>
+
+        <helpers>
+            <cartimage>
+                <class>FactoryX_CartImage_Helper</class>
+            </cartimage>
+        </helpers>
+
+    </global>
+</config>

@@ -1,0 +1,2 @@
+app/code/local/FactoryX/CartImage
+app/etc/modules/FactoryX_CartImage.xml
