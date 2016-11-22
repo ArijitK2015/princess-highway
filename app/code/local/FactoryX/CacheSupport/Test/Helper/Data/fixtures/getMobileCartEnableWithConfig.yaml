@@ -1,0 +1,2 @@
+config:
+  default/varnishcache/mobilecart/enable: 0

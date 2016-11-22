@@ -1,0 +1,87 @@
+<?php
+    $_helper = Mage::helper('factoryx_cachesupport');
+    if ($_helper->getRecentlyViewedEnable()):
+        $oCurrentProduct = $this->getProduct();
+
+        $html = str_replace(array("  ","\r","\n","\t"),"",$this->getPriceHtml($oCurrentProduct));
+        $iStorageSize = $_helper->getRecentlyViewedCount();
+        $expiration = $_helper->getRecentlyViewedTtl() * 60 * 60 * 1000;
+    ?>
+    <div class="box-collateral box-recently" id="block-recentlyviewed">
+        <h2><?php echo $this->__('Recently Viewed') ?></h2>
+        <table class="products-grid" id="upsell-product-table">
+            <tr id="recently-viewed-placeholder">
+
+
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var RecentlyViewedProducts = Class.create();
+        RecentlyViewedProducts.prototype = {
+            initialize: function() {
+                if (typeof(Storage) == "undefined") {
+                    $('block-recentlyviewed').setStyle({display: 'none'});
+                } else {
+                    this.trackProduct();
+                    this.getProduct();
+                }
+
+            },
+            trackProduct: function() {
+                var aLastViewProducts = JSON.parse(localStorage.getItem('lastViewedProducts')) || [];
+                var currentTimeStamp = new Date().getTime();
+                var ttl = <?php echo $expiration; ?>;
+                var oCurrentProduct = {
+                    'name'      :   '<?php echo $oCurrentProduct->getName(); ?>',
+                    'image'     :   '<?php echo $this->helper("catalog/image")->init($oCurrentProduct, "thumbnail")->resize(150); ?>',
+                    'url'       :   '<?php echo basename($oCurrentProduct->getProductUrl()); ?>',
+                    'priceHtml' :   '<?php echo $html; ?>',
+                    'timeStamp' :   currentTimeStamp
+                }
+                //remove product if already exist in queue or ttl is over
+                aLastViewProducts.each(function(oProduct,iIndex) {
+                    if ((oProduct.url == oCurrentProduct.url) || ((currentTimeStamp - oProduct.timeStamp) > ttl)) {
+                        var aRight = aLastViewProducts.slice(iIndex+1);
+                        var aLeft = aLastViewProducts.slice(0,iIndex);
+                        aLeft.push.apply(aLeft,aRight);
+                        aLastViewProducts = aLeft;
+                        return false;
+                    }
+                });
+                //append to end of array
+                aLastViewProducts.push(oCurrentProduct);
+
+                //remove old item
+                while (aLastViewProducts.length><?php echo $iStorageSize; ?>) {
+                    aLastViewProducts.shift();
+                }
+                //put back to storage queue
+                localStorage.setItem('lastViewedProducts',JSON.stringify(aLastViewProducts));
+            },
+            getProduct: function() {
+                var aLastViewProducts = JSON.parse(localStorage.getItem('lastViewedProducts')) || [];
+                var oSidebar = $('recently-viewed-placeholder');
+                var sHtml = "";
+                var count = 0;
+                aLastViewProducts.reverse().each(function(oProduct){
+                    if (window.location.pathname.indexOf(oProduct.url) == -1){
+                        count++;
+                        sHtml += "<td>";
+                        sHtml += '<a href='+oProduct.url+' class="product-image"> <img src='+oProduct.image +'></a>';
+                        sHtml += '<h3 class="product-name product-details"><a href='+oProduct.url+'>'+oProduct.name+'</a></h3>';
+                        sHtml += oProduct.priceHtml;
+                        sHtml += '</td>';
+                    }
+                });
+                if (count == 0){
+                    $('block-recentlyviewed').setStyle({display: 'none'});
+                }
+                oSidebar.update(sHtml);
+            }
+        }
+        document.observe("dom:loaded", function() {
+            new RecentlyViewedProducts();
+        });
+    </script>
+<?php endif; ?>

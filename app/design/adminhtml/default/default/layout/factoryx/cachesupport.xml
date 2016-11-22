@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_cachesupport_warm>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Cache Warming</title></action>
+            <action method="addJs">
+                <name>js/lib/jquery/jquery-1.10.2.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>js/lib/jquery/noconflict.js</name>
+            </action>
+            <action method="addJs">
+                <name>js/lib/jquery/jquery-ui.min.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="cachesupport" template="factoryx/cachesupport/index.phtml" />
+        </reference>
+    </adminhtml_cachesupport_warm>
+</layout>

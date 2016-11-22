@@ -1,0 +1,7 @@
+app/code/local/FactoryX/CacheSupport
+app/etc/modules/FactoryX_CacheSupport.xml
+app/design/adminhtml/default/default/template/factoryx/cachesupport
+app/design/adminhtml/default/default/layout/factoryx/cachesupport.xml
+app/design/frontend/base/default/template/factoryx/cachesupport
+app/design/frontend/base/default/layout/factoryx/cachesupport.xml
+skin/frontend/base/default/css/factoryx/cachesupport

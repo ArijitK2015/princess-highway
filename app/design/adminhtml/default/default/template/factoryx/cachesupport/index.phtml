@@ -1,0 +1,134 @@
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?=$this->__('Varnish Cache Warming ')?></h3></td>
+            <td class="a-right">
+                <div class="progress-wrapper"><div class="progress"></div></div>
+                <button onclick="startCrawler()" class="scalable save" type="button"><span>Start Warming</span></button>
+                <button onclick="stopCrawler()" class="scalable delete" type="button"><span>Stop Warming</span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<?php
+    $helper = Mage::helper('factoryx_cachesupport');
+    $cms_pages = $this->getData('cms_pages');
+    $base_url  = $this->getData('base_url');
+    $category_pages =$this->getData('category_pages');
+    $product_pages =$this->getData('product_pages');
+    $threads = $helper->getWarmThreadNo();
+    $topx = $helper->getProductTop();
+
+    $global_counter = 0;
+    $global_url_prefix = "url_";
+    $global_status_prefix = "status_";
+    $global_row_prefix = "row_";
+?>
+
+<table class="cache">
+    <thead>
+        <td>URL</td>
+        <td>Type</td>
+        <td>Status</td>
+    </thead>
+    <tbody>
+<?php
+    foreach ($cms_pages as $cms_page){
+        $url = $base_url.$cms_page['value'];
+        echo "<tr id=\"{$global_row_prefix}{$global_counter}\"><td id=\"{$global_url_prefix}{$global_counter}\">{$url}</td><td>CMS</td><td id=\"{$global_status_prefix}{$global_counter}\">Pending</td></tr>";
+        $global_counter++;
+    }
+
+    foreach ($category_pages as $category_page){
+        $url = $category_page;
+        echo "<tr id=\"{$global_row_prefix}{$global_counter}\"><td id=\"{$global_url_prefix}{$global_counter}\">{$url}</td><td>Category</td><td id=\"{$global_status_prefix}{$global_counter}\">Pending</td></tr>";
+        $global_counter++;
+    }
+
+    foreach ($product_pages as $product_page){
+        $url = $base_url.$product_page;
+        echo "<tr id=\"{$global_row_prefix}{$global_counter}\"><td id=\"{$global_url_prefix}{$global_counter}\">{$url}</td><td>Product</td><td id=\"{$global_status_prefix}{$global_counter}\">Pending</td></tr>";
+        $global_counter++;
+    }
+?>
+    </tbody>
+</table>
+
+<p/>
+<h4>Closing this tab will prevent the remaining URLs to be crawled</h4>
+
+
+<style>
+    table.cache {border-collapse: collapse; width:100%;}
+    table.cache thead td {font-weight: bold; color:white;background-color:black;text-transform: uppercase;}
+    table.cache td{padding:5px 8px;border:1px solid gray;}
+    table.cache tr:nth-child(odd) {background-color: #d3d3d3;}
+    table.cache tr:hover {background-color: lightyellow;}
+    table.cache tr.pending {background-color: lightblue;}
+    table.cache tr.completed {background-color: lightgreen;}
+    table.cache tr.missing {background-color: lightpink;}
+    .progress-wrapper{position: relative;display: inline-block;width: 200px;height: 19px;border: 1px solid #808080;vertical-align: bottom;}
+    .progress{position: absolute;left: 0;height: 19px;background: #808080;width: 0%;text-align: center;color: #FFF;}
+</style>
+
+<script>
+    var global_counter = 0;
+    var total_counter = <?=$global_counter?>;
+    var global_flag = false;
+    jQuery(document).ready(function(){
+        global_flag = true;
+    });
+
+    function updateProgress(){
+        global_counter++;
+        var percentage = Math.floor(global_counter/total_counter*100);
+        jQuery('.progress').css('width',percentage+'%').html(percentage+'%');
+    }
+
+    function stopCrawler(){
+        global_flag = false;
+    }
+
+    function startCrawler(){
+        if (global_flag){
+            for (i=0; i < <?=$threads?>;i++)
+                crawlUrl(i, <?=$threads?>);
+        }
+    }
+
+    function crawlUrl(count, step){
+        if (!global_flag){
+            return;
+        }
+        var eleId = "#"+"<?=$global_url_prefix?>"+count.toString();
+        var staId = "#"+"<?=$global_status_prefix?>"+count.toString();
+        var rowId = "#"+"<?=$global_row_prefix?>"+count.toString();
+        if (jQuery(eleId).length == 0){
+            return;
+        }
+        jQuery(rowId).addClass('pending');
+        jQuery(staId).html("Crawling");
+        var urlToCrawl = jQuery(eleId).html();
+        jQuery.ajax({
+            type: 'POST',
+            dataType : 'json',
+            url: "<?=Mage::helper("adminhtml")->getUrl('*/*/crawl')?>?isAjax=true",
+            data: {url: urlToCrawl, form_key: window.FORM_KEY},
+            success: function(data){
+                console.log(data);
+                if (data.http_status == 200){
+                    jQuery(staId).html("Crawled");
+                    jQuery(rowId).removeClass('pending');jQuery(rowId).addClass('completed');
+                }else{
+                    jQuery(staId).html("Missing");
+                    jQuery(rowId).removeClass('pending');jQuery(rowId).addClass('missing');
+                }
+                count += step;
+                updateProgress();
+                crawlUrl(count, step);
+            }
+        });
+    }
+</script>

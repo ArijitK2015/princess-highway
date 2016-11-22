@@ -1,0 +1,62 @@
+<?php if (Mage::helper('factoryx_cachesupport')->getTopLinksEnable()): ?>
+
+    <script type="text/javascript">
+        if (jQuery('#topLinks').length > 0){
+            // Desktop
+            jQuery('#topLinks').css('opacity',0);
+            jQuery(document).ready(function() {
+                var baseUrl = '<?php echo Mage::getUrl('');?>';
+                if (window.location.protocol == "https:"){
+                    baseUrl = baseUrl.replace('http://','https://');
+                }
+                var ajaxUrl = baseUrl + 'cachesupport/index/cart/';
+                var placeholder = $('topLinks');
+                new Ajax.Request(ajaxUrl,{
+                    method: 'get',
+                    onSuccess: function(response){
+                        placeholder.update(response.responseText);
+                        jQuery('#topLinks').animate({'opacity':1});
+                    }
+                });
+            });
+        }
+        // Mobile
+        <?php if (Mage::helper('factoryx_cachesupport')->getMobileCartEnable()): ?>
+            else{
+
+                jQuery('#main-cart').css('opacity',0);
+                jQuery('#gotocart-button-container').css('opacity',0);
+                jQuery(document).ready(function() {
+                    var baseUrl = '<?php echo Mage::getUrl('');?>';
+                    if (window.location.protocol == "https:"){
+                        baseUrl = baseUrl.replace('http://','https://');
+                    }
+                    var ajaxUrl = baseUrl + 'cachesupport/index/mobileCart/';
+                    var cartHolder = $('main-cart');
+                    new Ajax.Request(ajaxUrl,{
+                        method: 'get',
+                        onSuccess: function(response){
+                            cartHolder.update(response.responseText);
+                            jQuery('#main-cart').animate({'opacity':1});
+                        }
+                    });
+
+                    ajaxUrl = baseUrl + 'cachesupport/index/cartQty/';
+                    new Ajax.Request(ajaxUrl,{
+                        method: 'get',
+                        onSuccess: function(response){
+                            var displayText = "";
+                            if (response.responseText == "0"){
+                                displayText = "My Cart";
+                            }else{
+                                displayText = "My Cart ("+response.responseText+")";
+                            }
+                            jQuery("#gotocart-button-container .nowrap").html(displayText);
+                            jQuery('#gotocart-button-container').animate({'opacity':1});
+                        }
+                    });
+                });
+            }
+        <?php endif; ?>
+    </script>
+<?php endif; ?>
