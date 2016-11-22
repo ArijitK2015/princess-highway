@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FactoryX_PromoRestriction>
+            <version>0.1.9</version>
+        </FactoryX_PromoRestriction>
+    </modules>
+
+    <global>
+        <helpers>
+            <promorestriction>
+                <class>FactoryX_PromoRestriction_Helper</class>
+            </promorestriction>
+        </helpers>
+        <models>
+            <promorestriction>
+                <class>FactoryX_PromoRestriction_Model</class>
+                <resourceModel>promorestriction_resource</resourceModel>
+            </promorestriction>
+            <promorestriction_resource>
+                <class>FactoryX_PromoRestriction_Model_Resource</class>
+                <entities>
+                    <restriction>
+                        <table>fx_promo_restriction</table>
+                    </restriction>
+                </entities>
+            </promorestriction_resource>
+        </models>
+        <resources>
+            <promorestriction_setup>
+                <setup>
+                    <module>FactoryX_PromoRestriction</module>
+                </setup>
+            </promorestriction_setup>
+        </resources>
+        <events>
+            <!--
+            To validate the promo coupon via restriction
+
+            alternate event ???
+            controller_action_predispatch_checkout_cart_couponPost
+            -->
+            <salesrule_validator_process>
+                <observers>
+                    <factoryx_promorestriction_validate>
+                        <type>singleton</type>
+                        <class>promorestriction/observer</class>
+                        <method>validate</method>
+                    </factoryx_promorestriction_validate>
+                </observers>
+            </salesrule_validator_process>
+        </events>
+    </global>
+
+    <adminhtml>
+        <events>
+            <!-- To register the controller action -->
+            <controller_action_predispatch_adminhtml>
+                <observers>
+                    <factoryx_promorestriction_register>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>registerController</method>
+                    </factoryx_promorestriction_register>
+                </observers>
+            </controller_action_predispatch_adminhtml>
+            <!-- Called after creating a block -->
+            <core_layout_block_create_after>
+                <observers>
+                    <factoryx_promorestriction_create_after>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>blockCreateAfter</method>
+                    </factoryx_promorestriction_create_after>
+                </observers>
+            </core_layout_block_create_after>
+            <!-- Called before a block is rendered in HTML -->
+            <adminhtml_block_html_before>
+                <observers>
+                    <factoryx_promorestriction_before_block>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>blockHtmlBefore</method>
+                    </factoryx_promorestriction_before_block>
+                </observers>
+            </adminhtml_block_html_before>
+            <!-- Called during the form preparation -->
+            <adminhtml_promo_quote_edit_tab_main_prepare_form>
+                <observers>
+                    <factoryx_promorestriction_prepare_quote_form>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>prepareQuoteForm</method>
+                    </factoryx_promorestriction_prepare_quote_form>
+                </observers>
+            </adminhtml_promo_quote_edit_tab_main_prepare_form>
+            <!-- Called once the save customer group action has been called -->
+            <controller_action_postdispatch_adminhtml_promo_quote_save>
+                <observers>
+                    <factoryx_promorestriction_promo_quote_save>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>promoQuoteSave</method>
+                    </factoryx_promorestriction_promo_quote_save>
+                </observers>
+            </controller_action_postdispatch_adminhtml_promo_quote_save>
+            <!-- Delete customer group will delete customer group payment -->
+            <salesrule_rule_delete_after>
+                <observers>
+                    <factoryx_promorestriction_salesrule_rule_delete>
+                        <type>singleton</type>
+                        <class>promorestriction/admin_observer</class>
+                        <method>salesRuleDelete</method>
+                    </factoryx_promorestriction_salesrule_rule_delete>
+                </observers>
+            </salesrule_rule_delete_after>
+        </events>
+    </adminhtml>
+
+</config>

@@ -1,0 +1,2 @@
+app/code/local/FactoryX/PromoRestriction
+app/etc/modules/FactoryX_PromoRestriction.txt

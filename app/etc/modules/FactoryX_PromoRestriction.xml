@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FactoryX_PromoRestriction>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Customer/>
+                <Mage_SalesRule/>
+                <FactoryX_StoreLocator/>
+            </depends>
+        </FactoryX_PromoRestriction>
+    </modules>
+</config>
