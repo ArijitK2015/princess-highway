@@ -18,8 +18,8 @@
  * =================================================================
  *
  * @category   AW
- * @package    AW_Ajaxcatalog
- * @version    2.0.1
+ * @package    AW_Ajaxcartpro
+ * @version    3.2.11
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
@@ -141,14 +141,6 @@ class AW_All_Model_Feed_Extensions extends AW_All_Model_Feed_Abstract
             $Node = $this->getFeedData();
             if (!$Node) return false;
             foreach ($Node->children() as $ext) {
-                if (strripos((string)$ext->display_name,'Community')) {
-                    if (AW_All_Helper_Versions::getPlatform() != AW_All_Helper_Versions::CE_PLATFORM)
-                        continue;
-                }
-                if (strripos((string)$ext->display_name,'Enterprise')) {
-                    if (AW_All_Helper_Versions::getPlatform() != AW_All_Helper_Versions::EE_PLATFORM)
-                        continue;
-                }
                 $exts[(string)$ext->name] = array(
                     'display_name' => (string)$ext->display_name,
                     'version' => (string)$ext->version,
