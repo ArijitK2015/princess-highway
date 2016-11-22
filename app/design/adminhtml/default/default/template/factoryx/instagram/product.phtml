@@ -1,0 +1,201 @@
+<?php
+if (!Mage::helper('instagram/product')->isEnable()){
+?>
+    Please enable this in System -> Configuration -> Instagram -> Product Options -> Enable
+<?php
+    return;
+}
+
+$_htmlId = $this->getElement()->getHtmlId();
+$_htmlClass = $this->getElement()->getClass();
+$_htmlName = $this->getElement()->getName();
+$_readonly = $this->getElement()->getReadonly();
+$value = $this->getElement()->getValue();
+//get the values for the 2 text elements
+$hashtag = (isset($value['hash_tag']) ? $value['hash_tag'] : '');
+$approved_images = (isset($value['approved_images']) ? $value['approved_images'] : '');
+?>
+
+<tr> <!-- should be wrapped in a tr element to fit in the admin template -->
+    <td class="label"><?php echo $this->getElement()->getLabel(); ?></td>
+    <td class="value">
+        <input type="text" class="input-text" id="hash_tag" name="<?php echo $_htmlName; ?>[hash_tag]" value='<?php echo $hashtag?>' <?= ($hashtag) ? 'readonly="readonly"' : '' ?> />
+        <input type="hidden" id="approved_images" name="<?php echo $_htmlName; ?>[approved_images]" value='<?php echo $approved_images?>'<?php echo ($_readonly) ? ' readonly="readonly"' : ''?> />
+        <p class="note" style="width:400px;">Once the hashtag is set, it cannot be modified.<br/>Click save on the top right to attach approved images to the product.</p>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding:5px;">
+        <center><h3>APPROVED IMAGES<h3></center>
+        <div id="instagram-images-approved-area" class="instagram-images"></div>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding:5px;">
+        <center>
+            <button id="removeSlected" style="margin: 0 5px;">Remove Selected</button>
+            <button id="loadNewInsta" style="margin: 0 5px;">Load latest images from tag</button>
+            <button id="loadNext" data-url="" style="margin: 0 5px;">Load older images from tag</button>
+            <button id="submitNow" style="margin: 0 5px;">Approve selected images</button><br/><br/>
+            <h3>UNAPPROVED IMAGES</h3>
+        </center>
+        <div id="instagram-images-area" class="instagram-images"></div>
+    </td>
+
+</tr>
+
+<style>
+    .instagram-images .instagram-image{
+        width:128px;height:128px;margin: 0 10px 0 0;position:relative;display:inline-block;
+    }
+    .instagram-image.selected::before{
+        width: 128px;height: 128px;position: absolute;background-color: rgba(255, 255, 255, 0.7);content: '\2714';color: #000;font-size: 20px;text-align: right;padding: 10px;box-sizing: border-box;
+    }
+    .instagram-image.hide{
+        display:none;
+    }
+    .instagram-images .instagram-image img{
+        max-width:100%;max-height:100%;padding-bottom:10px;
+    }
+    .instagram-images::selection
+    {
+        background-color:transparent;
+    }
+    .instagram-images::-moz-selection
+    {
+        background-color:transparent;
+    }
+    .instagram-images
+    {
+        -webkit-user-select: none;
+        -moz-user-select: -moz-none;
+        /*IE10*/
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+<script>
+    (function(){
+        function simplifyObject(image){
+            var result = {};
+            result.link = image.link;
+            result.id = image.id;
+            result.images = image.images;
+            return JSON.stringify(result);
+        }
+        function loadApprovedPhoto(){
+            document.getElementById('instagram-images-approved-area').innerHTML = "";
+            var json_approved_image = document.getElementById('approved_images').value;
+            var approved_images = [];
+            if (json_approved_image) {
+                approved_images = JSON.parse(document.getElementById('approved_images').value);
+                for (i=0; i < approved_images.length; i++){
+                    document.getElementById('instagram-images-approved-area').innerHTML += "<div id='" + approved_images[i].id + "' class='instagram-image' data-object='" + simplifyObject(approved_images[i]) +"'><img src='"+approved_images[i].images.low_resolution.url+"' /></div>";
+                }
+            }
+            jQuery('#instagram-images-approved-area').sortable({
+                cursor: 'move'
+                //, tolerance: 'intersection'  //'pointer' is too janky
+                , start: function (event, ui) {
+
+                }
+                , change: function (event, ui) {
+                }
+                , beforeStop: function (event, ui) {
+                }
+                , stop: function (event, ui) {
+                    var sorted_approved_images = [];
+                    var position_array = jQuery(this).sortable('toArray');
+                    for (i=0; i<position_array.length; i++){
+                        for (j=0; j<approved_images.length; j++){
+                            if (approved_images[j].id == position_array[i]){
+                                sorted_approved_images.push(approved_images[j]);
+                                break;
+                            }
+                        }
+                    }
+                    document.getElementById('approved_images').value = JSON.stringify(sorted_approved_images);
+                }
+            });
+        }
+        function loadInstagramPhoto(hash_tag, url){
+            new Ajax.Request('<?php echo $this->getUrl('adminhtml/instagram/loadtaggedproduct') ?>', {
+                parameters: {isAjax: 'true', form_key: FORM_KEY, url: url, hash_tag: hash_tag},
+                method: 'post',
+                onSuccess: function(data) {
+                    var next_url = JSON.parse(data.responseText).pagination.next_url;
+                    if (next_url){
+                        document.getElementById('loadNext').setAttribute('data-url',next_url);
+                    }
+                    var images = JSON.parse(data.responseText).data;
+                    for (i=0; i<images.length; i++){
+                        document.getElementById('instagram-images-area').innerHTML = "<div class='instagram-image' data-object='" + simplifyObject(images[i]) +"'><img src='"+images[i].images.low_resolution.url+"' /></div>" + document.getElementById('instagram-images-area').innerHTML;
+                    }
+                }
+            });
+        }
+        function toggleElement(e){
+            if (e.target.nodeName == "IMG") {
+                e.target.parentNode.className += " selected";
+            }else if(e.target.nodeName == "DIV"){
+                e.target.className = e.target.className.replace('selected', '');
+            }
+        }
+        document.getElementById('loadNewInsta').addEventListener("click",function(e){
+            loadInstagramPhoto(document.getElementById('hash_tag').value, '');
+            e.preventDefault();
+        });
+        document.getElementById('loadNext').addEventListener("click",function(e){
+            var url = this.getAttribute('data-url');
+            loadInstagramPhoto('', url);
+            e.preventDefault();
+        });
+        document.getElementById('instagram-images-area').addEventListener("click",function(e){
+            toggleElement(e);
+        });
+        document.getElementById('instagram-images-approved-area').addEventListener("click",function(e){
+            toggleElement(e);
+        });
+        document.getElementById('removeSlected').addEventListener("click", function(e){
+            var instagrams = document.getElementById('instagram-images-approved-area').childNodes;
+            var json_approved_image = document.getElementById('approved_images').value;
+            var approved_images = [];
+            if (json_approved_image) {
+                approved_images = JSON.parse(document.getElementById('approved_images').value);
+            }
+            var new_approved_images = [];
+            for (i=0; i<instagrams.length; i++){
+                if (instagrams[i].className.indexOf('selected') != -1){
+                    instagrams[i].className += " hide";
+                    instagrams[i].className = instagrams[i].className.replace('selected','');
+                }else{
+                    new_approved_images.push(JSON.parse(instagrams[i].getAttribute('data-object')));
+                }
+            }
+            document.getElementById('approved_images').value = JSON.stringify(new_approved_images);
+            loadApprovedPhoto();
+            e.preventDefault();
+        });
+        document.getElementById('submitNow').addEventListener("click", function(e){
+            var instagrams = document.getElementById('instagram-images-area').childNodes;
+            var json_approved_image = document.getElementById('approved_images').value;
+            var approved_images = [];
+            if (json_approved_image) {
+                approved_images = JSON.parse(document.getElementById('approved_images').value);
+            }
+            for (i=0; i<instagrams.length; i++){
+                if (instagrams[i].className.indexOf('selected') != -1){
+                    instagrams[i].className += " hide";
+                    instagrams[i].className = instagrams[i].className.replace('selected','');
+                    approved_images.push(JSON.parse(instagrams[i].getAttribute('data-object')));
+                }
+            }
+            document.getElementById('approved_images').value = JSON.stringify(approved_images);
+            loadApprovedPhoto();
+            e.preventDefault();
+        });
+        loadApprovedPhoto();
+    })();
+</script>

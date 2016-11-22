@@ -1,0 +1,96 @@
+<?php
+if (!Mage::helper('instagram/product')->isEnable()) {
+    return;
+}
+$jsonData = $this->getJSONData();
+$hashTag = $this->getTag();
+if (!($jsonData && $hashTag)) {
+    return;
+}
+// check if hash tag starts with a hash
+if (preg_match("/^#/", $hashTag)) {
+    $hashTag = substr($hashTag, 1);
+}
+$hashTag = sprintf("<b>#%s</b>", $hashTag);
+$instruction = str_replace('#TAG', $hashTag, $this->getInstruction());
+?>
+<div class="instagram-wrapper">
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-xs-6 instruction">
+            <?php echo $this->__($instruction);?>
+        </div><div class="col-xs-6 insta-nav-wrapper" style="text-align:right;">
+            <div id="insta-loadPrev" class="insta-nav"><i class="fa fa-arrow-circle-left"></i></div><div id="insta-pagination" class="insta-nav"></div><div id="insta-loadNext" class="insta-nav"><i class="fa fa-arrow-circle-right"></i></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="product-instagram-view instagram-view" id="instagram-view"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        var jsonData = '<?php echo $this->getJSONData()?>';
+        if (!jsonData) return;
+        var instagrams = JSON.parse(jsonData);
+        if (instagrams.length <= 12){
+            jQuery('.insta-nav-wrapper').hide();
+        }
+
+        function loadPage(start){
+            var current_page = parseInt(start/12) + 1;
+            document.getElementById('insta-pagination').innerHTML = current_page + '/' + (Math.ceil(instagrams.length/12));
+            var ele = document.getElementById('instagram-view');
+            if (ele.offsetHeight != 0){
+                ele.style.height = ele.offsetHeight + 'px';
+            }
+            jQuery(ele).animate({opacity:0},500,function(){
+                ele.innerHTML = '';
+                for (i=start; (i<instagrams.length && (i < (start+12))); i++){
+                    ele.innerHTML += "<div class='item'><a href='" + instagrams[i].link + "' target='_blank' rel='noopener noreferrer'><img src='"+instagrams[i].images.low_resolution.url+"' /></a></div>";
+                }
+                // Hide Prev
+                if (start == 0){
+                    document.getElementById('insta-loadPrev').className += ' faded';
+                }else{
+                    document.getElementById('insta-loadPrev').className = document.getElementById('insta-loadPrev').className.replace('faded','');
+                    document.getElementById('insta-loadPrev').setAttribute('data-start',(parseInt(start)-12).toString());
+                }
+
+                // Hide Next
+                if ((start+12) < instagrams.length){
+                    document.getElementById('insta-loadNext').className = document.getElementById('insta-loadNext').className.replace('faded','');
+                    document.getElementById('insta-loadNext').setAttribute('data-start',(parseInt(start)+12).toString());
+                }else{
+                    document.getElementById('insta-loadNext').className += ' faded';
+                }
+
+                document.getElementById('instagram-view').style.height = 'auto';
+
+                jQuery(ele).imagesLoaded(function(){
+                    jQuery(ele).animate({opacity:1},500);
+                });
+            });
+
+        }
+        loadPage(0);
+
+        document.getElementById('insta-loadPrev').addEventListener('click',function(){
+            if (this.className.indexOf('faded') == -1){
+                loadPage(this.getAttribute('data-start'));
+            }
+        });
+
+        document.getElementById('insta-loadNext').addEventListener('click',function(){
+            if (this.className.indexOf('faded') == -1) {
+                loadPage(this.getAttribute('data-start'));
+            }
+        });
+
+    })();
+</script>
+
+<style type="text/css">
+    <?php echo $this->getExtraCSS();?>
+</style>

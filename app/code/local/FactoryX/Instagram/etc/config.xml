@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * iKantam
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade InstagramConnect to newer
+ * versions in the future.
+ *
+ * @category    FactoryX
+ * @package     FactoryX_Instagram
+ * @copyright   Copyright (c) 2012 iKantam LLC (http://www.factoryx.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<modules>
+		<FactoryX_Instagram>
+			<version>1.7.12</version>
+		</FactoryX_Instagram>
+	</modules>
+
+	<frontend>
+		<routers>
+			<instagram>
+				<use>standard</use>
+				<args>
+					<module>FactoryX_Instagram</module>
+					<frontName>instagrams</frontName>
+				</args>
+			</instagram>
+		</routers>
+		<layout>
+			<updates>
+				<instagram>
+					<file>factoryx/instagram.xml</file>
+				</instagram>
+			</updates>
+		</layout>
+	</frontend>
+
+	<global>
+		<helpers>
+			<instagram>
+				<class>FactoryX_Instagram_Helper</class>
+			</instagram>
+		</helpers>
+
+		<blocks>
+			<instagram>
+				<class>FactoryX_Instagram_Block</class>
+			</instagram>
+		</blocks>
+
+		<models>
+			<instagram>
+				<class>FactoryX_Instagram_Model</class>
+				<resourceModel>instagram_resource</resourceModel>
+			</instagram>
+
+			<instagram_resource>
+				<class>FactoryX_Instagram_Model_Resource</class>
+				<entities>
+					<instagramimage>
+						<table>fx_instagram_image</table>
+					</instagramimage>
+					<instagramlist>
+						<table>fx_instagram_list</table>
+					</instagramlist>
+					<instagramlog>
+						<table>fx_instagram_log</table>
+					</instagramlog>
+					<old_instagramimage>
+						<table>ikantam_instagramconnect_image</table>
+					</old_instagramimage>
+					<old_instagramlist>
+						<table>ikantam_instagramconnect_list</table>
+					</old_instagramlist>
+				</entities>
+			</instagram_resource>
+		</models>
+
+		<resources>
+			<instagram_setup>
+				<setup>
+					<module>FactoryX_Instagram</module>
+					<class>Mage_Catalog_Model_Resource_Setup</class>
+				</setup>
+			</instagram_setup>
+		</resources>
+
+	</global>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<FactoryX_Instagram before="Mage_Adminhtml">FactoryX_Instagram_Adminhtml</FactoryX_Instagram>
+						<!--
+						<FactoryX_Instagram before="Mage_Adminhtml">FactoryX_Instagram</FactoryX_Instagram>
+						-->
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+	<adminhtml>
+		<layout>
+			<updates>
+				<instagram>
+					<file>factoryx/instagram.xml</file>
+				</instagram>
+			</updates>
+		</layout>
+		<events>
+			<adminhtml_catalog_product_edit_prepare_form>
+				<observers>
+					<instagram>
+						<class>FactoryX_Instagram_Model_Adminhtml_Observer</class>
+						<method>renderCustomTemplate</method>
+					</instagram>
+				</observers>
+			</adminhtml_catalog_product_edit_prepare_form>
+		</events>
+	</adminhtml>
+
+	<default>
+		<factoryx_instagram>
+			<module_options>
+				<enable_jquery>1</enable_jquery>
+			</module_options>
+			<feed_options>
+				<image_size>237</image_size>
+				<show_per_page>20</show_per_page>
+			</feed_options>
+			<homepage_options>
+				<header_text>Instagram</header_text>
+			</homepage_options>
+			<product_options>
+				<enabled>0</enabled>
+				<instruction>Get your instagram photos featured by #TAG</instruction>
+			</product_options>
+		</factoryx_instagram>
+	</default>
+
+</config> 

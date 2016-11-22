@@ -1,0 +1,9 @@
+app/code/local/FactoryX/Instagram
+app/etc/modules/FactoryX_Instagram.xml
+app/design/adminhtml/default/default/template/factoryx/instagram
+app/design/adminhtml/default/default/layout/factoryx/instagram.xml
+app/design/frontend/base/default/template/factoryx/instagram
+app/design/frontend/base/default/layout/factoryx/instagram.xml
+skin/adminhtml/default/default/css/factoryx/instagram
+skin/frontend/base/default/css/factoryx/instagram
+js/lib/factoryx/instagram

@@ -1,0 +1,141 @@
+<?php
+/**
+ * iKantam
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade InstagramConnect to newer
+ * versions in the future.
+ *
+ * @category    Ikantam
+ * @package     Ikantam_InstagramConnect
+ * @copyright   Copyright (c) 2012 iKantam LLC (http://www.ikantam.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$list = $this->getCurrentList();
+$limit         = $this->getData('limit') ? $this->getData('limit') : $list->getLimit();
+$image_size       = $list->getImageSize() ? $list->getImageSize() : 237;
+$style            = $list->getStyle();
+$layout = $list->getLayoutMode() ? $list->getLayoutMode() : 'masonry';
+$hover          = $list->getHover();
+$collection =   $this->getInstagramGalleryImages($limit);
+$per_page         = $list->getShowPerPage() ? $list->getShowPerPage() : count(Mage::helper('core')->jsonDecode($collection));
+
+if (Mage::helper('instagram')->isEnabled()) : ?>
+
+    <div id="instagram-nav-header" class="instagram-nav">
+
+    </div>
+
+    <div class="instagram-loading"><i class="fa fa-spin fa-spinner"></i></div>
+
+    <div class="instagram-view clearer" id="instagram-view">
+
+    </div>
+
+    <div id="instagram-nav-footer" class="instagram-nav">
+
+    </div>
+
+
+    <script type="text/javascript">
+        var images = <?php echo $this->getInstagramGalleryImages($limit) ?>;
+        var perpage = <?php echo $per_page ?>;
+        var min_start = 0;
+        var max_start = images.length - perpage;
+        var min_stop = perpage;
+        var max_stop = images.length;
+        var isotop_init = false;
+
+        function renderPhoto(position) {
+            var image = images[position];
+            var html = "<img src='" + image.standard_resolution_url + "'/><div class=\"instagram-caption\"><div>" + image.caption_text +<?php if ($this->getCurrentList()->getDisplayLikes()): ?>" " + image.likes +" likes" +<?php endif; ?> "</div></div>";
+            if (image.link) html = "<a class=\"hoverwrapper\" target=\"_blank\" rel=\"noopener noreferrer\" href='" + image.link + "'>" + html + "</a>";
+            else html = "<div class=\"hoverwrapper\">" + html + "</div>";
+            html = "<div class=\"item<?php if ($hover):?> hoverdir<?php endif; ?>\">" + html + "</div>";
+            return html;
+        }
+
+        function renderPage(start, stop) {
+            var content = "";
+            for (var i = start, len = stop; (i < len) && (i < images.length); i++) {
+                content += renderPhoto(i);
+            }
+            document.getElementById('instagram-view').innerHTML = content;
+            renderNav(start, stop);
+            affectRender();
+        }
+
+        function renderNav(start, stop) {
+            if (perpage >= images.length) {
+                return false;
+            }
+            var content = "";
+            if (start > (perpage - 1)) {
+                content += "<div><div onclick=\"renderPage(" + (start - perpage) + "," + (start) + ")\" class=\"button\">Previous</div></div>";
+            } else {
+                content += "<div></div>";
+            }
+            if (stop < (images.length)) {
+                content += "<div><div onclick=\"renderPage(" + (stop) + "," + (stop + perpage) + ")\" class=\"button\">Next</div></div>";
+            } else {
+                content += "<div></div>";
+            }
+            document.getElementById('instagram-nav-header').innerHTML = content;
+            document.getElementById('instagram-nav-footer').innerHTML = content;
+        }
+
+        function affectRender() {
+            if (isotop_init) {
+                jQuery('.instagram-view').isotope('destroy');
+            } else {
+                isotop_init = true;
+            }
+            jQuery('.instagram-view').css({'opacity': 0});
+            jQuery('.instagram-loading').show();
+            jQuery('.instagram-view').imagesLoaded(function () {
+                jQuery('.instagram-view').isotope({
+                    itemSelector: '.item',
+                    layoutMode: '<?php echo $layout; ?>',
+                    <?php if ($layout == "masonry"): ?>
+                    masonry: {
+                        columnWidth: <?php echo $image_size ?>
+                    }
+                    <?php endif; ?>
+                });
+                jQuery('.instagram-loading').hide();
+                jQuery('.instagram-view').animate({'opacity': 1}, 500);
+            });
+        }
+
+        jQuery(document).ready(function () {
+            jQuery('#instagram-nav-footer').click(function () {
+                jQuery('body').animate({scrollTop: 0}, 500)
+            });
+        });
+
+        <?php if ($hover): ?>
+        jQuery(window).load(function(){
+            jQuery('.hoverdir').each(function(){
+                jQuery(this).hoverdir({hoverElem: '.instagram-caption'});
+            });
+        });
+        <?php endif; ?>
+
+        renderPage(0, perpage);
+
+    </script>
+
+<?php endif; ?>
+<style type="text/css">
+    <?php echo $style?>
+</style>

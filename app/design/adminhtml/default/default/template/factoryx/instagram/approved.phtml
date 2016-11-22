@@ -1,0 +1,130 @@
+<?php
+/**
+ * iKantam
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade InstagramConnect to newer
+ * versions in the future.
+ *
+ * @category    Ikantam
+ * @package     Ikantam_InstagramConnect
+ * @copyright   Copyright (c) 2012 iKantam LLC (http://www.ikantam.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<?php
+$width      = 150;
+$height     = 150;
+$saveURL    = Mage::helper("adminhtml")->getUrl('*/*/order');
+$image_size = $this->getImageSize();
+?>
+
+<div class="content-header">
+    <table cellspacing="0">
+        <tbody>
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-sales-order">Approved Instagram Images</h3></td>
+            <td class="a-right">
+                <button onclick="showCaptions()" class="scalable" type="button"><span>Show Captions</span>
+                </button>
+                <button onclick="hideCaptions()" class="scalable" type="button"><span>Hide Captions</span>
+                </button>
+                <button onclick="submitMerchandising()" class="scalable save" type="button"><span>Save</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <?php
+    $collection = $this->getCollection();
+    $totalRecords = $collection->getSize();
+    $currentPage = $collection->getCurPage();
+    $pageSize = $collection->getPageSize();
+    ?>
+    <?php if ($collection->getCurPage() > 1): ?>
+        <button type="button" class="scalable add" onclick="navigationLoad('<?php echo $this->getUrl('*/*/navigation',array('page' => $currentPage - 1, 'id'  =>  $this->getRequest()->getParam('id'))); ?>')" title="Previous">
+            <span><span><span><?php echo $this->__('Previous'); ?></span></span></span>
+        </button>
+    <?php endif; ?>
+    <ul class="sortable">
+        <?php foreach ($collection as $image) : ?>
+            <li class="isotopey item" id="<?php echo $image->getImageId(); ?>">
+                <img src="<?php echo $image->getLowResolutionUrl(); ?>"/>
+                <div class="caption-text"><?= $image->getCaptionText() ?></div>
+                <div class="link" style="text-align:center;">
+                    <input type="text" name="url" placeholder="Click-through link"
+                           title="Enter URL to link through or leave blank for no link"
+                           style="width:100%;margin-bottom:5px;"
+                           value="<?= $image->getLink() ?>"/>
+                    <a class="show" id="toggle-<?php echo $image->getImageId(); ?>" onclick="return toggleCaption('<?php echo $image->getImageId(); ?>');"
+                       href="javascript:void(0);">Toggle Caption</a>&nbsp;|&nbsp;
+                    <a onclick="return editCaption('<?php echo $image->getImageId(); ?>');"
+                       href="javascript:void(0);">Edit Caption</a>&nbsp;|&nbsp;
+                    <a onclick="return deleteImage('<?php echo $image->getImageId(); ?>','<?= $this->getUrl('adminhtml/instagram/deleteimage'); ?>');"
+                       href="javascript:void(0);">Delete</a>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php if (($currentPage * $pageSize) < $totalRecords): ?>
+        <button type="button" class="scalable add" onclick="navigationLoad('<?php echo $this->getUrl('*/*/navigation',array('page' => $currentPage+1, 'id'  =>  $this->getRequest()->getParam('id'))); ?>')" title="Next">
+            <span><span><span><?php echo $this->__('Next'); ?></span></span></span>
+        </button>
+    <?php endif; ?>
+
+</div>
+
+<form id="pos_form" action="<?= $saveURL ?>" method="POST">
+    <input type="hidden" name="image" id="image_data"/>
+    <input type="hidden" name="links" id="links_data"/>
+    <input type="hidden" name="captions" id="captions_data"/>
+    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+</form>
+
+<style>
+    ul.sortable li {
+        width: <?=$image_size?>px;
+    }
+</style>
+
+<script type="text/javascript">
+    function navigationLoad(url)
+    {
+        // Ajax request
+        new Ajax.Request(url, {
+            parameters: {form_key: FORM_KEY},
+            evalScripts: true,
+            onSuccess: function(transport) {
+                try {
+                    if (transport.responseText.isJSON()) {
+                        var response = transport.responseText.evalJSON()
+                        if (response.error) {
+                            alert(response.message);
+                        }
+                        if(response.ajaxExpired && response.ajaxRedirect) {
+                            setLocation(response.ajaxRedirect);
+                        }
+                    } else {
+                        // Update the block
+                        $('instagram_tabs_approved_tab_content').update(transport.responseText);
+                    }
+                }
+                catch (e) {
+                    // Update the block
+                    $('instagram_tabs_approved_tab_content').update(transport.responseText);
+                }
+            }});
+    }
+</script>

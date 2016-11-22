@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * iKantam
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade InstagramConnect to newer
+ * versions in the future.
+ *
+ * @category    Ikantam
+ * @package     Ikantam_InstagramConnect
+ * @copyright   Copyright (c) 2012 iKantam LLC (http://www.ikantam.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<layout version="0.1.0">
+
+    <adminhtml_catalog_product_edit>
+        <reference name="head">
+            <action method="addJs">
+                <name helper="instagram/isConfigurableSkusjQuery" />
+            </action>
+            <action method="addJs">
+                <name helper="instagram/isConfigurableSkusNoConflict" />
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/jquery-ui.min.js</name>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_instagram_edit>
+        <reference name="head">
+            <action method="addCSS">
+                <name>css/factoryx/instagram/styles.css</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/jquery-1.10.2.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/noconflict.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/jquery-ui.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/imagesloaded.pkgd.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/isotope.pkgd.min.js</name>
+            </action>
+            <action method="addJs">
+                <name>lib/factoryx/instagram/instagram.js</name>
+            </action>
+        </reference>
+    </adminhtml_instagram_edit>
+
+    <adminhtml_instagram_navigation>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="instagram/adminhtml_instagram_edit_tab_approved" name="instagram.edit.tab.approved"/>
+        </block>
+    </adminhtml_instagram_navigation>
+
+</layout>

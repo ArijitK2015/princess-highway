@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<widgets>
+    <instagram_list type="instagram/widget_list" translate="name description" module="instagram">
+        <name>Instagram List</name>
+        <description>Displays an Instagram List</description>
+        <parameters>
+            <list_id>
+                <label>List</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <source_model>instagram/options</source_model>
+            </list_id>
+            <template>
+                <label>Template</label>
+                <visible>1</visible>
+                <required>1</required>
+                <type>select</type>
+                <values>
+                    <list translate="label">
+                        <value>factoryx/instagram/list.phtml</value>
+                        <label>Instagram List Template</label>
+                    </list>
+                    <widget translate="label">
+                        <value>factoryx/instagram/widget.phtml</value>
+                        <label>Instagram Widget Template</label>
+                    </widget>
+                </values>
+            </template>
+            <limit>
+                <label>Limit</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </limit>
+        </parameters>
+    </instagram_list>
+</widgets>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * iKantam LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the iKantam EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://magento.ikantam.com/store/license-agreement
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade
+ * HouseConfigurator Module to newer versions in the future.
+ *
+ * @category   Ikantam
+ * @package    Ikantam_HouseConfigurator
+ * @author     iKantam Team <support@ikantam.com>
+ * @copyright  Copyright (c) 2012 iKantam LLC (http://www.ikantam.com)
+ * @license    http://magento.ikantam.com/store/license-agreement  iKantam EULA
+ */
+?>
+<?php /** @var $this Ikantam_InstagramConnect_Block_Adminhtml_System_Config_Form_Field_User */ ?>
+
+<?php
+$userData = $this->getUserData();
+//echo sprintf("userData=%s", print_r($userData, true));
+
+// userData=stdClass Object ( [code] => 400 [error_type] => OAuthException [error_message] => You must provide a code )
+if ($userData) {
+    // an error has occurred
+    if (isset($userData->code)) {
+        // $userData->error_type OAuthException
+        echo sprintf("<b>Error:</b> [%s] %s<br/>", $userData->code, $userData->error_message);
+    }
+    else { ?>
+        <div style='width: 270px; border:1px solid #aaa; padding:5px; margin-bottom: 5px;'>
+            <img style='padding-left: 20px;' width="50px" src="<?php echo $userData->user->profile_picture;  ?>" />
+            <pre><?php echo sprintf("%10s: %s\n", "Full Name", $userData->user->full_name);?>
+<?php echo sprintf("%10s: %s\n", "Username", $userData->user->username);?>
+<?php echo sprintf("%10s: %s\n", "ID", $userData->user->id); ?></pre></div>
+<?php }
+}
+?>
+<?php $authUrl = Mage::helper("adminhtml")->getUrl("adminhtml/instagram_auth/index"); ?>
+<button class="scalable save" type="button" title="Auth on Instagram" onclick="setLocation('<?php echo $authUrl; ?>')">
+    <span>
+        <span>
+            <span>Auth on Instagram</span>
+        </span>
+    </span>
+</button>

@@ -1,0 +1,22 @@
+.hoverwrapper > img,
+.hoverwrapper{
+    display: block;
+    position: relative;
+}
+.hoverwrapper{
+    overflow: hidden;
+}
+.hoverwrapper > div{
+    position: absolute;
+    background: #333;
+    background: rgba(75,75,75,0.7) !important;
+    width: 100%;
+    height: 100%;
+}
+.hoverwrapper > div.custom-hover-object{
+    position: absolute;
+    background: #333;
+    background: rgba(255,255,255,0.7);
+    width: 100%;
+    height: 100%;
+}
