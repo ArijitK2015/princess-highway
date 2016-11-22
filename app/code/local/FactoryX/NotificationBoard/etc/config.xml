@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_NotificationBoard>
+            <version>1.0.18</version>
+        </FactoryX_NotificationBoard>
+    </modules>
+    <global>
+        <models>
+            <factoryx_notificationboard>
+                <class>FactoryX_NotificationBoard_Model</class>
+                <resourceModel>factoryx_notificationboard_resource</resourceModel>
+            </factoryx_notificationboard>
+            <factoryx_notificationboard_resource>
+                <class>FactoryX_NotificationBoard_Model_Resource</class>
+                <entities>
+                    <notification>
+                        <table>fx_notification</table>
+                    </notification>
+                </entities>
+            </factoryx_notificationboard_resource>
+        </models>
+        <blocks>
+            <factoryx_notificationboard>
+                <class>FactoryX_NotificationBoard_Block</class>
+            </factoryx_notificationboard>
+        </blocks>
+        <helpers>
+            <factoryx_notificationboard>
+                <class>FactoryX_NotificationBoard_Helper</class>
+            </factoryx_notificationboard>
+        </helpers>
+        <resources>
+            <factoryx_notificationboard_setup>
+                <setup>
+                    <module>FactoryX_NotificationBoard</module>
+                </setup>
+            </factoryx_notificationboard_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <factoryx_notificationboard>
+                    <file>factoryx/notification.xml</file>
+                </factoryx_notificationboard>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_NotificationBoard before="Mage_Adminhtml">FactoryX_NotificationBoard_Adminhtml</FactoryX_NotificationBoard>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+</config>

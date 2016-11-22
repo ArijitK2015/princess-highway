@@ -1,0 +1,13 @@
+.site-wide-notification{
+    background: #9B9B9B;
+    color: #FFF;
+    text-align: center;
+    padding: 5px;
+}
+
+.site-wide-notification::after {
+    content: '\f00d';
+    float: right;
+    font-family: FontAwesome;
+    cursor:pointer;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <factoryx_menu>
+            <title>Factory X</title>
+            <sort_order>85</sort_order>
+            <children>
+                <factoryx_notification module="factoryx_notificationboard">
+                    <title>Notification</title>
+                    <sort_order>100</sort_order>
+                    <children>
+                        <factoryx_notification_new module="factoryx_notificationboard">
+                            <title>Add New Notification</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/notificationboard/new/</action>
+                        </factoryx_notification_new>
+                        <factoryx_notification_list module="factoryx_notificationboard">
+                            <title>View Notifications</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/notificationboard/index/</action>
+                        </factoryx_notification_list>
+                    </children>
+
+                </factoryx_notification>
+            </children>
+        </factoryx_menu>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <factoryx_menu>
+                        <children>
+                            <factoryx_notification>
+                                <title>Notification</title>
+                                <sort_order>100</sort_order>
+                                <children>
+                                    <factoryx_notification_new>
+                                        <title>Add New Notification</title>
+                                        <sort_order>10</sort_order>
+                                    </factoryx_notification_new>
+                                    <factoryx_notification_list>
+                                        <title>View Notifications</title>
+                                        <sort_order>20</sort_order>
+                                    </factoryx_notification_list>
+                                </children>
+                            </factoryx_notification>
+                        </children>
+                    </factoryx_menu>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

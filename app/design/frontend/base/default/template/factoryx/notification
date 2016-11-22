@@ -1,0 +1,61 @@
+<script>
+// add onclick to each site-wide-notification
+jQuery(document).ready(function () {
+    jQuery('.site-wide-notification').each(function() {
+        jQuery(this).on('click', function () {
+            var expDate = new Date();
+            var expTime = 10 * 365; // expire in days
+            expDate.setDate(expDate.getDate() + expTime);
+            Mage.Cookies.set(jQuery(this).attr('attr-id'),'true',expDate);
+            jQuery(this).slideUp();
+        });
+    });
+});
+</script>
+<?php
+// get the notifications
+$notifications = $this->getNotifications();
+// Loop
+foreach($notifications as $notification): ?>
+    <div class="site-wide-notification" id="notification_id_<?php echo $notification->getId()?>" attr-id="notification_id_<?php echo $notification->getId()?>" style="display:none;">
+        <?php echo $notification->getMessage()?>
+    </div>
+    <script>
+        // check cookie to display this notification?
+        jQuery(window).load(function() {
+            var today = new Date();
+            var cookieName = "notification_id_<?php echo $notification->getId(); ?>";
+            //console.log("show notification: " + cookieName + "?");
+            var startDate = null;
+            var startTs = <?php echo $notification->getStartDateUTC(); ?>;
+            if (startTs && startTs != 0) {
+                startDate = new Date(startTs * 1000);
+            }
+            //console.log("<?php echo __METHOD__; ?>" + cookieName + ":" + startDate);
+
+            var endDate = null;
+            var endTs = <?php echo $notification->getEndDateUTC(); ?>;
+            if (endTs && endTs != 0) {
+                endDate = new Date(endTs * 1000);
+            }
+
+            // check dates?
+            if (
+                // ended?
+            (endDate === null || today <= endDate)
+            &&
+                // started?
+            (startDate === null || today >= startDate)
+            ) {
+                if (Mage.Cookies.get(cookieName) === null) {
+                    //console.log("display notification");
+                    //jQuery("#" + cookieName).css('display','block');
+                    jQuery("#" + cookieName).slideDown();
+                }
+            }
+        });
+    </script>
+    <?php if ($notification->getStyle()): ?>
+        <style type="text/css"><?php echo $notification->getStyle() ?></style>
+    <?php endif;
+endforeach; ?>

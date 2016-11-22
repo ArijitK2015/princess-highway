@@ -1,0 +1,5 @@
+app/code/local/FactoryX/NotificationBoard
+app/etc/modules/FactoryX_NotificationBoard.xml
+app/design/frontend/base/default/template/factoryx/notification
+app/design/frontend/base/default/layout/factoryx/notification.xml
+skin/frontend/base/default/css/factoryx/notification/styles.css

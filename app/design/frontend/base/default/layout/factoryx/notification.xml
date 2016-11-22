@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <action block="head" method="addCss">
+            <stylesheet helper="factoryx_notificationboard/data/getStylesheet" />
+            <params/>
+        </action>
+        <reference name="after_body_start">
+            <block type="factoryx_notificationboard/notification" name="notification" template="factoryx/notification/default.phtml" />
+        </reference>
+    </default>
+</layout>
