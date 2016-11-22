@@ -18,8 +18,8 @@
  * =================================================================
  *
  * @category   AW
- * @package    AW_Advancedreports
- * @version    2.6.4
+ * @package    AW_Ajaxcatalog
+ * @version    2.0.1
  * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
  * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
  */
