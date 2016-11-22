@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_SortFx>
+            <version>0.0.2</version>
+        </FactoryX_SortFx>
+    </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <!-- Mage_Adminhtml_Block_Page_Menu -->
+                    <page_menu>FactoryX_SortFx_Block_Adminhtml_Page_Menu</page_menu>
+                    <!-- Mage_Adminhtml_Block_System_Config_Tabs -->
+                    <system_config_tabs>FactoryX_SortFx_Block_Adminhtml_System_Config_Tabs</system_config_tabs>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>
