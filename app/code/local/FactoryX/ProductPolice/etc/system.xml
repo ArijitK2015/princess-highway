@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <factoryx translate="label" module="contests">
+            <label>Factory X</label>
+            <sort_order>100</sort_order>
+        </factoryx>
+    </tabs>
+    <sections>
+        <productpolice>
+            <label>Product Police</label>
+            <tab>factoryx</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <options translate="label">
+                    <label>Product Police Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable product police</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to No, the observer won't be triggered on save event.</comment>
+                        </enable>
+                        <cron_enable translate="label">
+                            <label>Enable product police cron</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_enable>
+                        <frequency translate="label">
+                            <label>Run every</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>factoryx_productpolice/adminhtml_system_config_backend_productpolice_cron</backend_model>
+                            <comment>In hours (make sure 24%x == 0)</comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </frequency>
+                        <emails>
+                            <label>Emails</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>CSV list of emails the cron will send the report to</comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </emails>
+                        <email_from>
+                            <label>Email from</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Send email from this email address</comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </email_from>
+                        <run translate="label">
+                            <label>Re-scan database</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>factoryx_productpolice/adminhtml_button</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This will scan the database for faulty enabled products. Note: this might take a while. A report email will also be sent.</comment>
+                        </run>
+                    </fields>
+                </options>
+            </groups>
+        </productpolice>
+    </sections>
+</config>

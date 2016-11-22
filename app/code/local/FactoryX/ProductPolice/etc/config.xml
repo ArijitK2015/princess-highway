@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ProductPolice>
+            <version>1.1.12</version>
+        </FactoryX_ProductPolice>
+    </modules>
+    <global>
+        <models>
+            <factoryx_productpolice>
+                <class>FactoryX_ProductPolice_Model</class>
+                <resourceModel>factoryx_productpolice_resource</resourceModel>
+            </factoryx_productpolice>
+            <factoryx_productpolice_resource>
+                <class>FactoryX_ProductPolice_Model_Resource</class>
+                <entities>
+                    <item>
+                        <table>fx_product_police_item</table>
+                    </item>
+                </entities>
+            </factoryx_productpolice_resource>
+        </models>
+        <blocks>
+            <factoryx_productpolice>
+                <class>FactoryX_ProductPolice_Block</class>
+            </factoryx_productpolice>
+            <factoryx_productpolice_adminhtml>
+                <class>FactoryX_ProductPolice_Block_Adminhtml</class>
+            </factoryx_productpolice_adminhtml>
+        </blocks>
+        <helpers>
+            <factoryx_productpolice>
+                <class>FactoryX_ProductPolice_Helper</class>
+            </factoryx_productpolice>
+        </helpers>
+        <resources>
+            <factoryx_productpolice_setup>
+                <setup>
+                    <module>FactoryX_ProductPolice</module>
+                </setup>
+            </factoryx_productpolice_setup>
+        </resources>
+    </global>
+
+    <adminhtml>
+        <events>
+            <catalog_product_save_before>
+                <observers>
+                    <factoryx_productpolice_product_check_before>
+                        <type>singleton</type>
+                        <class>factoryx_productpolice/observer</class>
+                        <method>catalog_product_save_before</method>
+                    </factoryx_productpolice_product_check_before>
+                </observers>
+            </catalog_product_save_before>
+            <catalog_product_save_after>
+                <observers>
+                    <factoryx_productpolice_product_check_after>
+                        <type>singleton</type>
+                        <class>factoryx_productpolice/observer</class>
+                        <method>catalog_product_save_after</method>
+                    </factoryx_productpolice_product_check_after>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+    </adminhtml>
+
+    <admin>
+        <routers>
+
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_ProductPolice before="Mage_Adminhtml">FactoryX_ProductPolice_Adminhtml</FactoryX_ProductPolice>
+                    </modules>
+                </args>
+            </adminhtml>
+
+        </routers>
+    </admin>
+
+    <crontab>
+        <jobs>
+            <productpolice_recheck>
+                <run>
+                    <model>factoryx_productpolice/observer::recheck</model>
+                </run>
+            </productpolice_recheck>
+        </jobs>
+    </crontab>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_ProductPolice/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

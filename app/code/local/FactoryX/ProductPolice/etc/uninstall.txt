@@ -1,0 +1,2 @@
+app/code/local/FactoryX/ProductPolice
+app/etc/modules/FactoryX_ProductPolice.xml
