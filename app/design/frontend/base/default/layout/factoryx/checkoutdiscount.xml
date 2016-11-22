@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <checkout_cart_index>
+    	<block type="checkoutdiscount/checkout_cart" name="checkoutdiscount.cart" />
+    </checkout_cart_index>
+    
+    <checkout_onepage_index>
+    	<reference name="head">
+    		<action method="addItem" ifconfig="checkoutdiscount/config/enable">
+				<type>skin_js</type>
+				<name>js/factoryx/checkoutdiscount/checkout.js</name>
+			</action>
+    	</reference>
+
+		<reference name="checkout.onepage">
+			<block name="discount" type="checkoutdiscount/checkout_onepage_discount">
+				<action method="setTemplate" ifconfig="checkoutdiscount/config/enable">
+					<template>factoryx/checkoutdiscount/checkout/onepage/discount.phtml</template>
+				</action>
+			</block>
+		</reference>
+		
+		<reference name="checkout.progress">
+			<action method="setTemplate" ifconfig="checkoutdiscount/config/enable">
+				<template>factoryx/checkoutdiscount/checkout/onepage/progress.phtml</template>
+			</action>
+		</reference>
+    </checkout_onepage_index>
+    
+    <checkout_onepage_discount>
+    	<block name="root" output="toHtml" type="checkoutdiscount/checkout_onepage_discount">
+			<action method="setTemplate" ifconfig="checkoutdiscount/config/enable">
+				<template>factoryx/checkoutdiscount/checkout/onepage/discount.phtml</template>
+			</action>
+		</block>
+    </checkout_onepage_discount>
+    
+	<checkout_onepage_progress>
+		<reference name="root">
+			<action method="setTemplate" ifconfig="checkoutdiscount/config/enable"><template>factoryx/checkoutdiscount/checkout/onepage/progress.phtml</template></action>
+		</reference>
+	</checkout_onepage_progress>
+
+	<checkout_onepage_progress_discount>
+		<!-- Mage_Checkout -->
+		<remove name="right"/>
+		<remove name="left"/>
+
+		<block type="checkout/onepage_progress" name="root" output="toHtml">
+			<action method="setTemplate" ifconfig="checkoutdiscount/config/enable">
+				<template>factoryx/checkoutdiscount/checkout/onepage/progress/discount.phtml</template>
+			</action>
+			<action method="setInfoTemplate"><method></method><template></template></action>
+		</block>
+	</checkout_onepage_progress_discount>
+
+	<checkoutdiscount_index_remove>
+		<block type="checkout/onepage_progress" name="root" output="toHtml">
+			<action method="setTemplate" ifconfig="checkoutdiscount/config/enable">
+				<template>factoryx/checkoutdiscount/checkout/onepage/progress/discount.phtml</template>
+			</action>
+			<block type="checkout/onepage_progress" name="billing.progress" template="checkout/onepage/progress/billing.phtml"></block>
+			<block type="checkout/onepage_progress" name="shipping.progress" template="checkout/onepage/progress/shipping.phtml"></block>
+			<block type="checkout/onepage_progress" name="discount.progress" template="factoryx/checkoutdiscount/checkout/onepage/discount.phtml"></block>
+			<block type="checkout/onepage_progress" name="shippingmethod.progress" template="checkout/onepage/progress/shipping_method.phtml"></block>
+			<block type="checkout/onepage_progress" name="payment.progress" template="checkout/onepage/progress/payment.phtml"></block>
+		</block>
+	</checkoutdiscount_index_remove>
+</layout> 

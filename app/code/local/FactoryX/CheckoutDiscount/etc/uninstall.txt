@@ -1,0 +1,5 @@
+app/code/local/FactoryX/CheckoutDiscount
+app/etc/modules/FactoryX_CheckoutDiscount.xml
+app/design/frontend/base/default/template/factoryx/checkoutdiscount
+app/design/frontend/base/default/layout/factoryx/checkoutdiscount.xml
+skin/frontend/base/default/js/factoryx/checkoutdiscount
