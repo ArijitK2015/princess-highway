@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_CustomerPromo>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <FactoryX_ChooserWidget/>
+                <Mage_Customer/>
+            </depends>
+        </FactoryX_CustomerPromo>
+    </modules>
+</config> 

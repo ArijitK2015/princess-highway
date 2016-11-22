@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_CustomerPromo>
+            <version>0.0.4</version>
+        </FactoryX_CustomerPromo>
+    </modules>
+
+    <global>
+        <helpers>
+            <customerpromo>
+                <class>FactoryX_CustomerPromo_Helper</class>
+            </customerpromo>
+        </helpers>
+        <resources>
+            <customerpromo_setup>
+                <setup>
+                    <module>FactoryX_CustomerPromo</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customerpromo_setup>
+            <customerpromo_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customerpromo_write>
+            <customerpromo_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customerpromo_read>
+        </resources>
+    </global>
+</config>
