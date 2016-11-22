@@ -1,0 +1,76 @@
+<?php
+
+$OMNIVORE_URL = 'http://api.omnivore.com.au';
+//$OMNIVORE_URL = 'http://localhost:8080';
+
+$url = Mage::helper("adminhtml")->getUrl("adminhtml/index/index");
+
+$admin = Mage::getSingleton('admin/session')->getUser();
+$adminEmail = $admin->getEmail();
+
+error_log("Admin email = {$adminEmail}");
+
+$email = null;
+$key = null;
+$rego = null;
+
+$regos = Mage::getModel('citybeach_omnivore/rego')->getCollection()
+    ->addFieldToFilter('status', 'installed')
+    ->addFieldToFilter('email', array('null' => true));
+
+if ($regos->count() > 0 && isset($adminEmail))
+{
+    $rego = $regos->getFirstItem()
+        ->setEmail($adminEmail)
+        ->setStatus('assigned')
+        ->save();
+
+    error_log("Omnivore login assigned to {$adminEmail}");
+}
+else
+{
+    $rego = Mage::getModel('citybeach_omnivore/rego')->getCollection()
+        ->addFieldToFilter('status', 'assigned')
+        ->getFirstItem();
+    error_log("Using rego id = {$rego->getId()}, email = {$rego->getEmail()}");
+}
+
+$key = $rego->getKey();
+$email = $rego->getEmail();
+
+?>
+
+
+
+<h3>Create an Omnivore Account</h3>
+
+<p>
+    You will create an Omnivore account using this email/username: <?php echo $email; ?>
+    <br/>
+    The password was randomly generated when the extension was installed.
+</p>
+<form action="<?php echo $OMNIVORE_URL; ?>/magento/rego" method="post" target="_blank">
+
+    <input type="hidden" name="url" value="<?php echo $url; ?>" />
+    <input type="hidden" name="key" value="<?php echo $key; ?>" />
+    <input type="hidden" name="email" value="<?php echo $email; ?>" />
+
+    <button>Create</button>
+
+</form>
+
+
+<br/>
+
+<h3>Login to Omnivore</h3>
+<p>
+    If you've already registered, click Login to access your Omnivore account.
+</p>
+<form action="<?php echo $OMNIVORE_URL; ?>/j_spring_security_check" method="post" target="_blank">
+
+    <input type="hidden" name="j_password" value="<?php echo $key; ?>" />
+    <input type="hidden" name="j_username" value="<?php echo $email; ?>" />
+
+    <button>Login</button>
+
+</form>

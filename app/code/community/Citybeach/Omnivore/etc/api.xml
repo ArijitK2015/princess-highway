@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <omproduct translate="title" module="citybeach_omnivore">
+                <title>Omnivore extension to Product API</title>
+                <acl>omproduct</acl>
+                <model>Citybeach_Omnivore_Model_Product_Api</model> <!-- not in magento example -->
+                <methods>
+                    <info translate="title" module="citybeach_omnivore">
+                        <title>Retrieve product info and associated IDs</title>
+                        <acl>omproduct/info</acl>
+                    </info>
+                </methods>
+                <faults module="citybeach_omnivore">
+                </faults>
+            </omproduct>
+        </resources>
+        <acl>
+            <resources>
+                <omproduct translate="title" module="citybeach_omnivore">
+                    <title>Omnivore extension to Product API</title>
+                    <info translate="title" module="citybeach_omnivore">
+                        <title>Retrieve product info and associated IDs</title>
+                    </info>
+                </omproduct>
+            </resources>
+        </acl>
+    </api>
+</config> 
