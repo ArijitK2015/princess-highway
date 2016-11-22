@@ -1,0 +1,76 @@
+<?xml version="1.0"?><!--
+/**
+ * @category    SchumacherFM_OpCachePanel
+ * @package     Helper
+ * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+ * @copyright   Copyright (c)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <SchumacherFM_OpCachePanel>
+            <version>1.0.0</version>
+        </SchumacherFM_OpCachePanel>
+    </modules>
+
+    <global>
+        <models>
+            <opcache>
+                <class>SchumacherFM_OpCachePanel_Model</class>
+            </opcache>
+        </models>
+        <blocks>
+            <opcache>
+                <class>SchumacherFM_OpCachePanel_Block</class>
+            </opcache>
+        </blocks>
+        <helpers>
+            <opcache>
+                <class>SchumacherFM_OpCachePanel_Helper</class>
+            </opcache>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <opcache>
+                <use>standard</use>
+                <args>
+                    <module>SchumacherFM_OpCachePanel</module>
+                    <frontName>opcachepanel</frontName>
+                </args>
+            </opcache>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <opcache before="Mage_Adminhtml">SchumacherFM_OpCachePanel_Adminhtml</opcache>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <opcache>
+                    <file>opcachepanel.xml</file>
+                </opcache>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <SchumacherFM_OpCachePanel>
+                    <files>
+                        <default>SchumacherFM_OpCachePanel.csv</default>
+                    </files>
+                </SchumacherFM_OpCachePanel>
+            </modules>
+        </translate>
+    </adminhtml>
+
+</config>

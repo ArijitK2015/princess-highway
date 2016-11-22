@@ -1,0 +1,38 @@
+<config>
+    <sections>
+        <system>
+            <groups>
+                <opcachepanel translate="label">
+                    <label>OpCachePanel Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <api_key_name translate="label">
+                            <label>Name of the API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Fixed length: 32 characters. A-Z and 0-9</comment>
+                        </api_key_name>
+
+                        <api_key translate="label">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Minimum length: 32 characters. Each character can only occur once.</comment>
+                        </api_key>
+
+                    </fields>
+                </opcachepanel>
+            </groups>
+        </system>
+    </sections>
+</config>

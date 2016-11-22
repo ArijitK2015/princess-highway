@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    SchumacherFM_OpCachePanel
+ * @package     Model
+ * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+ * @copyright   Copyright (c)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<logging>
+    <opcache translate="label">
+        <label>Manage OpCache Keys</label>
+        <expected_models>
+            <opcache__banner/>
+        </expected_models>
+        <actions>
+            <adminhtml_opcache_edit>
+                <action>view</action>
+            </adminhtml_opcache_edit>
+
+            <adminhtml_opcache_save>
+                <action>save</action>
+                <skip_on_back>
+                    <adminhtml_opcache_edit/>
+                </skip_on_back>
+            </adminhtml_opcache_save>
+
+            <adminhtml_opcache_delete>
+                <action>delete</action>
+            </adminhtml_opcache_delete>
+
+            <adminhtml_opcache_massDelete>
+                <action>massDelete</action>
+            </adminhtml_opcache_massDelete>
+        </actions>
+    </opcache>
+</logging>
