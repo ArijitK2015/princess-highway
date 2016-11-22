@@ -1,0 +1,3 @@
+app/code/local/FactoryX/ColorMapping
+app/etc/modules/FactoryX_ColorMapping.xml
+app/design/adminhtml/default/default/template/factoryx/colormapping
