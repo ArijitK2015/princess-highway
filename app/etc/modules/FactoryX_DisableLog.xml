@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_DisableLog>
+            <active>true</active>
+            <codePool>local</codePool>
+        </FactoryX_DisableLog>
+    </modules>
+</config>

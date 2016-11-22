@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_DisableLog>
+            <version>0.0.3</version>
+        </FactoryX_DisableLog>
+    </modules>
+
+    <global>
+        <helpers>
+            <disablelog>
+                <class>FactoryX_DisableLog_Helper</class>
+            </disablelog>
+        </helpers>
+        <models>
+            <disablelog>
+                <class>FactoryX_DisableLog_Model</class>
+            </disablelog>
+        </models>
+    </global>
+
+    <crontab>
+        <jobs>
+            <factoryx_disablelog>
+                <schedule>
+                    <config_path>disablelog/options/cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>disablelog/observer::disableLog</model>
+                </run>
+            </factoryx_disablelog>
+        </jobs>
+    </crontab>
+
+    <default>
+        <disablelog>
+            <options>
+                <enable>0</enable>
+                <cron_expr>0 1 * * *</cron_expr>
+            </options>
+        </disablelog>
+    </default>
+</config>

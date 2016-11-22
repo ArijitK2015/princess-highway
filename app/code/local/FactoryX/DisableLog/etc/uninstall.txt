@@ -1,0 +1,2 @@
+app/code/local/FactoryX/DisableLog
+app/etc/modules/FactoryX_DisableLog.xml
