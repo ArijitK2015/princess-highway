@@ -1,0 +1,17 @@
+{
+  "require": {
+    "magento-hackathon/magento-composer-installer": "3.0.*",
+    "fontis/australia": "~3.1.6"
+  },
+  "repositories": {
+    "fontis_australia": {
+      "type": "git",
+      "url": "https://github.com/fontis/fontis_australia.git"
+    }
+  },
+  "extra": {
+    "magento-root-dir": "./",
+    "magento-deploystrategy": "copy",
+    "magento-force": true
+  }
+}
