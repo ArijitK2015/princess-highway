@@ -20,7 +20,7 @@
 <config>
     <modules>
         <FactoryX_ImageCdn>
-            <version>1.2.5</version>
+            <version>1.2.6</version>
         </FactoryX_ImageCdn>
     </modules>
     <global>
