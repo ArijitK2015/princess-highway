@@ -2,7 +2,7 @@
 <config>
     <modules>
         <FactoryX_NotificationBoard>
-            <version>1.0.18</version>
+            <version>1.0.19</version>
         </FactoryX_NotificationBoard>
     </modules>
     <global>

@@ -1,0 +1,85 @@
+<!--
+support fixed position header
+-->
+<script>
+jQuery(document).ready(function () {
+    jQuery('.site-wide-notification').each(function() {
+        jQuery(this).on('click', function(event) {
+            var expDate = new Date();
+            var expTime = 10 * 365; // expire in days
+            expDate.setDate(expDate.getDate() + expTime); 
+            Mage.Cookies.set(jQuery(this).attr('attr-id'),'true',expDate);
+            // adjust top
+            if (jQuery(".header-container").css("position") === "fixed") {
+                //console.log(jQuery(this).attr('id') + ".outerHeight(): " + jQuery(this).outerHeight());
+                var newTop = jQuery('.header-container').position().top - jQuery(this).outerHeight();
+                //console.log("change .header-container top " + newTop);
+                jQuery('.header-container').css('top', newTop + 'px');
+            }
+            jQuery(this).slideUp();
+            event.stopImmediatePropagation();
+        });
+    });
+});
+</script>
+<div class="site-wide-notifications" style="width:100%; z-index: 10;">
+<?php
+// Get the notifications
+$notifications = $this->getNotifications();
+// Loop
+foreach($notifications as $notification): ?>
+    <div class="site-wide-notification" id="notification_id_<?php echo $notification->getId()?>" attr-id="notification_id_<?php echo $notification->getId()?>" style="display:none;">
+        <?php echo $notification->getMessage()?>
+    </div>
+    <script>
+    // check cookie to display this notification?
+    jQuery(window).load(function() {
+        var today = new Date();
+        var cookieName = "notification_id_<?php echo $notification->getId(); ?>";
+        //console.log("show notification: " + cookieName + "?");
+        var startDate = null;
+        var startTs = <?php echo $notification->getStartDateUTC(); ?>;
+        if (startTs && startTs != 0) {
+            startDate = new Date(startTs * 1000);
+        }
+        //console.log("<?php echo __METHOD__; ?>" + cookieName + ":" + startDate);
+
+        var endDate = null;
+        var endTs = <?php echo $notification->getEndDateUTC(); ?>;
+        if (endTs && endTs != 0) {
+            endDate = new Date(endTs * 1000);
+        }
+
+        // check dates?
+        if (
+            // ended?
+        (endDate === null || today <= endDate)
+        &&
+            // started?
+        (startDate === null || today >= startDate)
+        ) {
+            if (Mage.Cookies.get(cookieName) === null) {
+                // check for fixed header-container
+                //console.log("header-container.position: " + jQuery(".header-container").css("position"));
+                if (jQuery(".header-container").css("position") === "fixed") {
+                    var oldTop = jQuery('.header-container').position().top;
+                    var newTop = jQuery('.header-container').position().top + jQuery("#" + cookieName).outerHeight();
+                    //console.log("change .header-container top " + newTop);
+                    jQuery('.header-container').css('top', newTop + 'px');
+                    
+                    // adjust notification
+                    //console.log("change #" + cookieName + " top " + oldTop);
+                    jQuery(".site-wide-notifications").css({position: 'fixed'});
+                    jQuery("#" + cookieName).css('top', oldTop + 'px');
+                }
+                //console.log("display notification");
+                jQuery("#" + cookieName).slideDown();
+            }
+        }
+    });
+    </script>
+    <?php if ($notification->getStyle()): ?>
+        <style type="text/css"><?php echo $notification->getStyle() ?></style>;
+    <?php endif;
+endforeach; ?>
+</div>
