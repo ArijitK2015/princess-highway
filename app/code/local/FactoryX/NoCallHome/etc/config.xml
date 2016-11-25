@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_NoCallHome>
+            <version>0.0.2</version>
+        </FactoryX_NoCallHome>
+    </modules>
+    <adminhtml>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <!-- AW -->
+                    <awall_exts>
+                        <type>disabled</type>
+                    </awall_exts>
+                    <awall_upds>
+                        <type>disabled</type>
+                    </awall_upds>
+                    <!-- Amasty -->
+                    <ambase_upds>
+                        <type>disabled</type>
+                    </ambase_upds>
+                    <!-- Aitoc -->
+                    <aitoc_notfications>
+                        <type>disabled</type>
+                    </aitoc_notfications>
+                    <!-- Itoris -->
+                    <itoris_installer_notifications>
+                        <type>disabled</type>
+                    </itoris_installer_notifications>
+                    <!-- Magestore -->
+                    <magestore_magenotification_observer>
+                        <type>disabled</type>
+                    </magestore_magenotification_observer>
+                    <!-- Ebizmarts MageMonkey -->
+                    <monkey_up>
+                        <type>disabled</type>
+                    </monkey_up>
+                    <!-- Mirasvit -->
+                    <mstcore_lc>
+                        <type>disabled</type>
+                    </mstcore_lc>
+                    <!-- Unirgy GiftCert -->
+                    <ugiftcert>
+                        <type>disabled</type>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+</config>
