@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <FactoryX_ToplinksOrder>
+            <version>0.0.5</version>
+        </FactoryX_ToplinksOrder>
+    </modules>
+    <global>
+        <blocks>
+            <page>
+                <!--
+                Mage_Page_Block_Template_Links
+                -->
+                <rewrite>
+                    <template_links>FactoryX_ToplinksOrder_Block_Page_Template_Links</template_links>
+                </rewrite>
+            </page>
+        </blocks>
+        <helpers>
+            <toplinksorder>
+                <class>FactoryX_ToplinksOrder_Helper</class>
+            </toplinksorder>
+        </helpers>
+    </global>
+    <phpunit>
+        <suite>
+            <modules>
+                <FactoryX_ToplinksOrder/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
