@@ -1,2 +1,0 @@
-app/code/local/FactoryX/CategoryBanners
-app/etc/modules/FactoryX_CategoryBanners.xml
