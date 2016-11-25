@@ -34,7 +34,8 @@ class FactoryX_Framework_Model_Observer
                 $newHtml = str_replace('My Wishlist',$text,$newHtml);
             }
         } else if ($block instanceof MageWorx_XSitemap_Block_Page_Template_Links
-            || $block instanceof Mage_Page_Block_Template_Links_Block) {
+            || $block instanceof Mage_Page_Block_Template_Links
+            || $block instanceof FactoryX_ToplinksOrder_Block_Page_Template_Links) {
             $newHtml = $observer->getTransport()->getHtml();
             if (Mage::helper('framework')->isCartBadge()) {
                 $newHtml = $this->_addBadge(array('>My Cart (',' item)<'),array(">My Cart <span class='badge'>",'</span><'),$newHtml);
