@@ -3,7 +3,7 @@
 /**
  * @category    design
  * @package     factoryx_princess
- * @author		Factory X Team <raphael@factoryx.com.au>
+ * @author        Factory X Team <raphael@factoryx.com.au>
  * @copyright   Copyright (c) 2015 Factory X
  */
 -->
@@ -14,23 +14,17 @@
     -->
 
     <default>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
         <reference name="head">
             <!-- Add main spreadsheet -->
             <action method="addItem">
                 <type>skin_css</type>
                 <name>css/style.css</name>
                 <params/>
-            </action>
-            <!-- Add main script -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/script.js</name>
-                <params/>
-            </action>
-            <!-- Remove Easy Tabs CSS -->
-            <action method="removeItem">
-                <type>skin_css</type>
-                <name>css/easytabs.css</name>
             </action>
         </reference>
 
@@ -39,317 +33,126 @@
             <action method="unsetChild">
                 <name>notification</name>
             </action>
-            <!-- Add cms block to after_body_start for things like google tags etc -->
-            <block type="cms/block" name="after-body-start">
-                <action method="setBlockId">
-                    <block_id>after-body-start</block_id>
-                </action>
-            </block>
         </reference>
 
         <reference name="header">
-            <!-- Add currency converter to header -->
-            <block type="directory/currency" name="top.currency" as="topCurrency" template="directory/currency.phtml"/>
-            <!-- Add left top links block -->
-            <block type="page/template_links" name="top.links.left" as="topLinksRight">
-                <action method="addLink" translate="label title" module="customer">
-                    <label>Sign In</label>
-                    <url helper="customer/getLoginUrl"/>
-                    <title>Sign In</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>1</position>
-                </action>
-                <action method="removeLinkByUrl" ifconfig="ajaxlogin/options/enable">
-                    <url helper="customer/getLoginUrl"/>
-                </action>
-                <action method="addLink" translate="label title" module="customer" ifconfig="ajaxlogin/options/enable">
-                    <label>Log In/Sign Up</label>
-                    <url helper="customer/getLoginUrl"/>
-                    <title>Sign In</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>1</position>
-                    <liParams/>
-                    <aParams>
-                        <class>ajaxlogin-login</class>
-                    </aParams>
-                </action>
-                <action method="addLink" translate="label title" module="customer">
-                    <label>Register</label>
-                    <url>/customer/account/create</url>
-                    <title>Register</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>2</position>
-                </action>
-                <action method="removeLinkByUrl" ifconfig="ajaxlogin/options/enable">
-                    <url>/customer/account/create</url>
-                </action>
-                <!-- action method="addLink" translate="label title" module="ustorelocator">
-                    <label>Find A Store</label>
-                    <url>/storelocations</url>
-                    <title>Find A Store</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>3</position>
-                </action -->
-            </block>
             <!-- Add the notification block -->
             <action method="insert">
                 <block>notification</block>
             </action>
-        </reference>
 
-        <reference name="top.menu">
-            <reference name="ms_megamenu">
-                <block type="core/template" name="navbar.search" template="bootstrap/navbar/search.phtml"/>
-                <block type="page/template_links" name="navbar.account" template="bootstrap/navbar/links.phtml">
-                    <action method="addLink" translate="label title" module="customer">
-                        <label>My Account</label>
-                        <url helper="customer/getAccountUrl"/>
-                        <title>My Account</title>
-                        <prepare/>
-                        <urlParams/>
-                        <position>10</position>
-                    </action>
-                    <block type="wishlist/links" name="wishlist_link"/>
-                    <action method="addLinkBlock">
-                        <blockName>wishlist_link</blockName>
-                    </action>
-                </block>
-                <block type="page/template_links" name="navbar.cart" template="bootstrap/navbar/links.phtml">
-                    <block type="checkout/links" name="checkout_cart_link_navbar">
-                        <action method="addCartLink"></action>
-                        <action method="addCheckoutLink"></action>
-                    </block>
-                </block>
-            </reference>
-        </reference>
-        <!--
-            Here we override the original navbar.account block creation as the default.xml is loaded before the local.xml from the default theme
-            Thus, if we use <reference name="navbar.account"><action method="addLink"> here, it is not going to work as the navbar.account block hasn't been instantiated yet
-            We also need to change its name as if we keep the same name, it is going to be overriden by the local.xml from default theme
-            We just have to change the name of the child block in the topmenu.phtml file
-            Same name update goes in the <customer_logged_in> and <customer_logged_out> handler
-        -->
-        <reference name="catalog.topnav">
-            <block type="page/template_links" name="navbar.account.extended" template="bootstrap/navbar/links.phtml">
-                <action method="addLink" translate="label title" module="customer">
-                    <label>My Account</label>
-                    <url helper="customer/getAccountUrl"/>
-                    <title>My Account</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>10</position>
-                </action>
-                <block type="wishlist/links" name="wishlist_link"/>
-                <action method="addLinkBlock">
-                    <blockName>wishlist_link</blockName>
-                </action>
-            </block>
-        </reference>
-        <!-- This part alone is not going to work without the part above as explained in the previous comment -->
-        <reference name="navbar.account.extended">
-            <action method="addLink" translate="label title" module="customer">
-                <label>Sign In</label>
-                <url helper="customer/getLoginUrl"/>
-                <title>Sign In</title>
-                <prepare/>
-                <urlParams/>
-                <position>1</position>
-            </action>
-            <action method="removeLinkByUrl" ifconfig="ajaxlogin/options/enable">
-                <url helper="customer/getLoginUrl"/>
-            </action>
-            <action method="addLink" translate="label title" module="customer" ifconfig="ajaxlogin/options/enable">
-                <label>Sign In</label>
-                <url helper="customer/getLoginUrl"/>
-                <title>Sign In</title>
-                <prepare/>
-                <urlParams/>
-                <position>1</position>
-                <liParams/>
-                <aParams>
-                    <class>ajaxlogin-login</class>
-                </aParams>
-            </action>
-            <action method="addLink" translate="label title" module="customer">
-                <label>Register</label>
-                <url>/customer/account/create</url>
-                <title>Register</title>
-                <prepare/>
-                <urlParams/>
-                <position>2</position>
-            </action>
-            <action method="addLink" translate="label title" module="ustorelocator">
-                <label>Find A Store</label>
-                <url>/storelocations</url>
-                <title>Find A Store</title>
-                <prepare/>
-                <urlParams/>
-                <position>3</position>
-            </action>
+            <!-- Add the currency block -->
+            <block type="directory/currency" name="header.currency" as="headerCurrency" template="directory/currency.phtml"/>
         </reference>
 
         <reference name="top.links">
-            <!-- Add the Subscribe Link -->
-            <action method="addLink" translate="label title" module="customer">
+            <!-- Add Subscribe Link -->
+            <action method="addLink" translate="label title" module="campaignmonitor">
                 <label>Subscribe</label>
-                <url>{{baseUrl}}subscribe</url>
+                <url>/subscribe</url>
                 <title>Subscribe</title>
                 <prepare/>
                 <urlParams/>
-                <position>1</position>
+                <position>10</position>
             </action>
+
+            <!-- Set wishlist position -->
+
+
             <!-- Remove OG cart and checkout links -->
-            <remove name="checkout_cart_link"/>
-            <action method="removeLinkByUrl">
-                <url helper="customer/getRegisterUrl"/>
-            </action>
+            <remove name="checkout_cart_link" />
+
+            <!-- To re-add 'My Cart' after removing both -->
+            <block type="checkout/links" name="cart_link">
+                <action method="addCartLink" />
+            </block>
         </reference>
 
         <reference name="left">
-            <!-- Unset the original newsletter -->
-            <action method="unsetChild">
-                <name>left.newsletter</name>
-            </action>
+            <!-- Remove currency block -->
+            <remove name="currency" />
+            <!-- Remove left callout -->
+            <remove name="left.permanent.callout" />
+            <!-- Remove newsletter -->
+            <remove name="left.newsletter" />
         </reference>
 
         <reference name="footer">
-            <action method="insert">
-                <block>top.links</block>
-                <sibling />
-                <sort />
-                <alias>topLinks</alias>
-            </action>
-            <action method="insert">
-                <block>top.links.left</block>
-                <sibling />
-                <sort />
-                <alias>topLinksRight</alias>
-            </action>
-            <!-- Add the static block to the footer -->
-            <block type="cms/block" name="cms_footer_links">
-                <action method="setBlockId"><block_id>cms_footer_links</block_id></action>
-            </block>
-            <!-- Add cms block to footer for the social links -->
-            <block type="cms/block" name="socialLinks">
-                <action method="setBlockId">
-                    <block_id>phtml_footer_social_icons</block_id>
+            <!-- Add footer links -->
+            <block type="page/template_links" name="footer.links" as="footerLinks" template="page/template/footer_links.phtml">
+                <!-- Log In link -->
+                <action method="addLink" translate="label title" module="customer" ifconfig="ajaxlogin/options/enable">
+                    <label>Log In / Sign Up</label>
+                    <url helper="customer/getLoginUrl"/>
+                    <title>Log In / Sign Up</title>
+                    <prepare/>
+                    <urlParams/>
+                    <position>10</position>
+                    <liParams/>
+                    <aParams><class>ajaxlogin-login</class></aParams>
+                </action>
+                <!-- Wishlist -->
+                <block type="wishlist/links" name="wishlist_footer_link" />
+                <!-- Add Subscribe Link -->
+                <action method="addLink" translate="label title" module="campaignmonitor">
+                    <label>Subscribe</label>
+                    <url>/subscribe</url>
+                    <title>Subscribe</title>
+                    <prepare/>
+                    <urlParams/>
+                    <position>100</position>
                 </action>
             </block>
-
-            <!-- Add currency converter to header -->
-            <action method="insert">
-                <block>top.currency</block>
-                <sibling />
-                <sort />
-                <alias>topCurrency</alias>
-            </action>
-
-            <!-- Add the feedback static block to the footer -->
-            <block type="cms/block" name="feedback">
-                <action method="setBlockId"><block_id>feedback</block_id></action>
+            <!-- Add cms block to footer for the social links -->
+            <block type="cms/block" name="social-links">
+                <action method="setBlockId">
+                    <block_id>social-links</block_id>
+                </action>
             </block>
-
-            <!-- Add newsletter form to footer -->
-            <action method="insert">
-                <block>left.newsletter</block>
-            </action>
+            <!-- Add bottom currency -->
+            <block type="directory/currency" name="footer.currency" as="footerCurrency" template="directory/currency_footer.phtml"/>
         </reference>
-
-        <!-- Remove extra features -->
-        <remove name="left.permanent.callout"/>
-        <remove name="right.permanent.callout"/>
-        <remove name="footer_links"/>
-
     </default>
 
-    <!--
-	Catalog Search Results Page
-    -->
-    <catalogsearch_result_index>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/2columns-left-2-10.phtml</template>
-            </action>
-        </reference>
-    </catalogsearch_result_index>
-
-    <!--
-	Category Page (Non-Anchor)
-    -->
+    <!-- Category Page (Non-Anchor) -->
     <catalog_category_default>
         <reference name="root">
             <action method="setTemplate">
                 <template>page/1column.phtml</template>
             </action>
-            <block type="core/template" name="category_banner" template="catalog/category/banner.phtml"/>
+            <block type="core/text_list" name="before_content" as="before_content" translate="label">
+                <label>Before Content Area</label>
+                <block type="core/template" name="category_image" template="bootstrap/category/image.phtml" />
+            </block>
         </reference>
     </catalog_category_default>
 
-    <!--
-        Category Page (Anchor)
-    -->
+    <!-- Category Page (Anchor) -->
     <catalog_category_layered>
         <reference name="root">
             <action method="setTemplate">
-                <template>page/2columns-left-2-10.phtml</template>
+                <template>page/2columns-left.phtml</template>
             </action>
-            <block type="core/template" name="category_banner" template="catalog/category/banner.phtml"/>
+            <block type="core/text_list" name="before_content" as="before_content" translate="label">
+                <label>Before Content Area</label>
+                <block type="core/template" name="category_image" template="bootstrap/category/image.phtml" />
+            </block>
         </reference>
-        <!-- reference name="product_list_toolbar">
-            <action method="insert"><blockName>left_first</blockName></action>
-        </reference -->
     </catalog_category_layered>
-    <!--
-        Product Page
-    -->
+
+    <!-- Catalog product view -->
     <catalog_product_view>
         <!-- Add jQuery UI -->
         <reference name="head">
-            <!-- Add extra items -->
-            <action method="addJs">
-                <script>jquery/jquery-ui.min.js</script>
-                <params/>
-            </action>
             <!-- Add vertical carousel -->
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/bootstrap/vertical.carousel.bootstrap.css</name>
-            </action>
+            <action method="addItem"><type>skin_css</type><name>css/bootstrap/vertical.carousel.bootstrap.css</name></action>
             <!-- Add js to disable MagicZoom on mobile -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/mzmobile.js</name>
-            </action>
+            <action method="addItem"><type>skin_js</type><name>js/mzmobile.js</name></action>
             <!-- Add js to handle carousel properly -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/carousel.js</name>
-            </action>
-            <!-- Add js to handle lightbox -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/jquery.lightbox.js</name>
-                <params/>
-            </action>
-            <action method="addItem">
-                <type>skin_css</type>
-                <name>css/lightbox.css</name>
-                <params/>
-            </action>
+            <action method="addItem"><type>skin_js</type><name>js/carousel.js</name></action>
             <!-- Add swiper for mobile -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/swiper.min.js</name>
-                <params/>
-            </action>
-            <action method="addCss">
-                <stylesheet>css/swiper.css</stylesheet>
-            </action>
+            <action method="addItem"><type>skin_js</type><name>js/swiper.min.js</name><params/></action>
+            <action method="addCss"><stylesheet>css/swiper.css</stylesheet></action>
         </reference>
 
         <reference name="root">
@@ -357,429 +160,84 @@
                 <template>page/1column.phtml</template>
             </action>
         </reference>
-
-        <reference name="product.info">
-            <!-- Sharing block -->
-            <block type="catalog/product_view" name="product.info.sharing" as="sharing"
-                   template="catalog/product/view/sharing.phtml"/>
-        </reference>
-
+        <!-- Move instagram -->
         <reference name="content">
-            <block type="core/template" name="product.info.after" after="product.info"
-                   template="catalog/product/view.after.phtml">
-                <!-- Add upsells to original Magento tabs -->
-                <block type="catalog/product_list_upsell" name="product.tab.upsells" as="tab_upsells"
-                       template="catalog/product/list/upsell.phtml">
-                    <action method="setColumnCount">
-                        <columns>4</columns>
-                    </action>
-                    <action method="setItemLimit">
-                        <type>upsell</type>
-                        <limit>4</limit>
-                    </action>
-                    <action method="addToParentGroup">
-                        <group>detailed_info</group>
-                    </action>
-                    <action method="setTitle" translate="value">
-                        <value>Style With</value>
-                    </action>
-                </block>
-                <!-- Add recently viewed products to original Magento tabs -->
-                <block type="reports/product_viewed" after="product.tab.upsells" name="reports.product.viewed"
-                       as="recently_viewed" template="reports/product_viewed.phtml">
-                    <action method="setColumnCount">
-                        <columns>4</columns>
-                    </action>
-                    <action method="setItemLimit">
-                        <type>recently_viewed</type>
-                        <limit>4</limit>
-                    </action>
-                    <action method="addToParentGroup">
-                        <group>detailed_info</group>
-                    </action>
-                    <action method="setTitle" translate="value">
-                        <value>Recently Viewed</value>
-                    </action>
-                </block>
-                <!-- Add product review to original Magento tabs -->
-                <block type="review/product_view_list" after="reports.product.viewed" name="product.tab.reviews" as="product_reviews" template="review/product/view/list.phtml">
-                    <action method="addToParentGroup"><group>detailed_info</group></action>
-                    <action method="setTitle" translate="value"><value>Reviews</value></action>
-                    <block type="review/form" name="product.review.form" as="review_form">
-                        <block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
-                            <label>Review Form Fields Before</label>
-                            <action method="setMayBeInvisible"><value>1</value></action>
-                        </block>
-                    </block>
-                </block>
+            <action method="unsetChild">
+                <name>product_instagram</name>
+            </action>
+        </reference>
+        <!-- Move pinterest -->
+        <reference name="product.info.extrahint">
+            <action method="unsetChild">
+                <name>factoryx_pinterest_button</name>
+            </action>
+        </reference>
+        <reference name="product.info.upsell">
+            <action method="setColumnCount"><columns>4</columns></action>
+            <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+            <action method="addToParentGroup"><group>detailed_info</group></action>
+            <action method="setTitle" translate="value"><value>Wear it With</value></action>
+        </reference>
+        <reference name="product.info">
+            <action method="insert">
+                <block>factoryx_pinterest_button</block>
+            </action>
+
+            <!-- Add recently viewed products to original Magento tabs -->
+            <block type="reports/product_viewed" after="product.tab.upsells" name="reports.product.viewed" as="recently_viewed" template="reports/product_viewed.phtml">
+                <action method="setColumnCount"><columns>4</columns></action>
+                <action method="setItemLimit"><type>recently_viewed</type><limit>4</limit></action>
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value"><value>Recently Viewed</value></action>
             </block>
         </reference>
-
-        <!-- Remove extra prices block -->
-        <remove name="product.clone_prices"/>
-        <!-- Remove original upsells block -->
-        <remove name="product.info.upsell"/>
-        <!-- Remove original description block from the tabs -->
-        <remove name="product.description"/>
+        <!-- Remove clones prices -->
+        <remove name="product.clone_prices" />
+        <!-- Remove addto -->
+        <remove name="product.info.addto" />
+        <!-- Remove description tab -->
+        <remove name="product.description" />
+        <!-- Remove additional informaiton -->
+        <remove name="product.attributes" />
     </catalog_product_view>
 
-    <!--
-        Cart Page
-    -->
+    <!-- Cart page -->
     <checkout_cart_index>
-        <reference name="head">
-            <block type="core/text" name="select2_external_js">
-                <action method="setText">
-                    <text><![CDATA[
-                    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-                    ]]>
-                    </text>
-                </action>
-            </block>
-        </reference>        <!-- Unremove from the checkout.xml using Alan Storm Extension -->
-        <x-unremove name="left"/>
         <reference name="checkout.cart">
-            <!-- Add the image static block to the content -->
-            <block type="cms/block" name="cart-empty-right">
-                <action method="setBlockId">
-                    <block_id>cart-empty-right</block_id>
-                </action>
-            </block>
-            <!-- Add the promo static block to the content -->
-            <block type="cms/block" name="checkout-promo">
-                <action method="setBlockId">
-                    <block_id>checkout-promo</block_id>
-                </action>
+            <block type="core/text_list" name="checkout.cart.extra" translate="label">
+                <label>Checkout Forms Extra</label>
+                <block type="cms/block" name="cart-message">
+                    <action method="setBlockId">
+                        <block_id>cart-message</block_id>
+                    </action>
+                </block>
             </block>
         </reference>
     </checkout_cart_index>
 
-    <!--
-        Onepage checkout
-    -->
-    <checkout_onepage_index>
-        <!-- Unremove from the checkout.xml using Alan Storm Extension -->
-        <x-unremove name="left"/>
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/2columns-left-3-9.phtml</template>
-            </action>
-        </reference>
-        <reference name="left">
-            <block type="core/text" name="offcanvas_wrapper_start">
-                <action method="setText">
-                    <text>
-                        <![CDATA[<div class="page-title"><h4>CHECKOUT</h4><br></div>
-                                 <button id="offcanvas-progress-btn" data-toggle="offcanvas" data-target="#offcanvas-progress"
-                                    data-canvas="body" class="visible-xs btn btn-primary button"> <span>Checkout Progress</span></button>
-                                 <div class="offcanvas-xs" id="offcanvas-progress" role="navigation">]]>
-                    </text>
-                </action>
-            </block>
-            <!-- Add custom message (managed from the backend static blocks) -->
-            <block type="cms/block" name="support-message">
-                <action method="setBlockId"><block_id>support-message</block_id></action>
-            </block>
-            <!-- Add the progress bar to the left column -->
-            <block type="page/html_wrapper" name="checkout.progress.wrapper" translate="label">
-                <label>Checkout Progress Wrapper</label>
-                <action method="setElementId"><value>checkout-progress-wrapper</value></action>
-                <block type="checkout/onepage_progress" name="checkout.progress" before="-" template="checkout/onepage/progress.phtml"/>
-            </block>
-            <block type="core/text" name="offcanvas_wrapper_end">
-                <action method="setText">
-                    <text>
-                        <![CDATA[</div>]]>
-                    </text>
-                </action>
-            </block>
-        </reference>
-        <reference name="checkout.onepage.login">
-            <!-- Add the promo static block to the content -->
-            <block type="cms/block" name="support-message">
-                <action method="setBlockId">
-                    <block_id>support-message</block_id>
-                </action>
-            </block>
-        </reference>
-        <!-- Remove the gift message part -->
-        <remove name="checkout.onepage.shipping_method.additional"/>
-    </checkout_onepage_index>
-
-    <!--
-        Onepage additional
-    -->
-    <checkout_onepage_additional>
-        <remove name="root"/>
-    </checkout_onepage_additional>
-
-    <!--
-        Onepage success
-    -->
-    <checkout_onepage_success>
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </checkout_onepage_success>
-
-    <!--
-	Contact Page
-    -->
-    <contacts_index_index>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </contacts_index_index>
-
-    <!--
-	Customer account pages, rendered for all tabs in dashboard
-    -->
-    <customer_account>
-        <!-- Handle navigation links via the CustomerLinks module -->
-        <reference name="customer_account_navigation">
-            <action method="removeLinkByName">
-                <name>newsletter</name>
-            </action>
-            <action method="removeLinkByName">
-                <name>billing_agreements</name>
-            </action>
-            <action method="removeLinkByName">
-                <name>recurring_profiles</name>
-            </action>
-            <action method="removeLinkByName">
-                <name>OAuth Customer Tokens</name>
-            </action>
-            <action method="addLink" translate="label" module="newsletter">
-                <name>newsletter</name>
-                <path>subscribe/</path>
-                <label>Newsletter Subscriptions</label>
-                <urlParams>
-                    <_secure>true</_secure>
-                </urlParams>
-            </action>
-        </reference>
-
-        <remove name="cart_sidebar"/>
-        <remove name="catalog.compare.sidebar"/>
-        <remove name="sale.reorder.sidebar"/>
-    </customer_account>
-
-    <!--
-	Customer Account Home Dashboard
-    -->
-    <customer_account_index>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-        <!-- Add the top image as a static block managed from the backend (keeping the old right img block ID) -->
-        <reference name="customer_account_dashboard">
-            <block type="cms/block" name="account-dashboard-right-img">
-                <action method="setBlockId">
-                    <block_id>account-dashboard-right-img</block_id>
-                </action>
-            </block>
-        </reference>
-    </customer_account_index>
-
-    <!--
-    Load this update on every page when customer is logged in
-    -->
-
-    <customer_logged_in>
-        <reference name="top.links.left">
-            <action method="removeLinkByUrl">
-                <url helper="customer/getLoginUrl"/>
-            </action>
-        </reference>
-        <reference name="navbar.account.extended">
-            <action method="removeLinkByUrl" module="customer">
-                <url helper="customer/getAccountUrl"/>
-            </action>
-            <action method="addLink" translate="label title" module="customer">
-                <label>Account Dashboard</label>
-                <url>/customer/account/</url>
-                <title>Account Dashboard</title>
-                <prepare/>
-                <urlParams/>
-                <position>1</position>
-            </action>
-            <action method="addLink" translate="label title" module="customer">
-                <label>Account Information</label>
-                <url>/customer/account/edit/</url>
-                <title>Account Information</title>
-                <prepare/>
-                <urlParams/>
-                <position>2</position>
-            </action>
-            <action method="addLink" translate="label title" module="customer">
-                <label>Address Book</label>
-                <url>/customer/address/</url>
-                <title>Address Book</title>
-                <prepare/>
-                <urlParams/>
-                <position>3</position>
-            </action>
-            <action method="addLink" translate="label title" module="sales">
-                <label>My Orders</label>
-                <url>/sales/order/history/</url>
-                <title>My Orders</title>
-                <prepare/>
-                <urlParams/>
-                <position>4</position>
-            </action>
-            <action method="addLink" translate="label title" module="review">
-                <label>My Product Reviews</label>
-                <url>/review/customer</url>
-                <title>My Product Reviews</title>
-                <prepare/>
-                <urlParams/>
-                <position>5</position>
-            </action>
-            <action method="addLink" translate="label title" module="ugiftcert">
-                <label>Gift Card Balance</label>
-                <url>/ugiftcert/customer/balance/</url>
-                <title>Gift Card Balance</title>
-                <prepare/>
-                <urlParams/>
-                <position>7</position>
-            </action>
-            <action method="addLink" translate="label title" module="newsletter">
-                <label>Newsletter Subscriptions</label>
-                <url>/subscribe/</url>
-                <title>Newsletter Subscriptions</title>
-                <urlParams>
-                    <_secure>true</_secure>
-                </urlParams>
-                <position>8</position>
-            </action>
-            <action method="addLink" translate="label title" module="customer">
-                <label>Log Out</label>
-                <url helper="customer/getLogoutUrl"/>
-                <title>Log Out</title>
-                <prepare/>
-                <urlParams/>
-                <position>300</position>
-            </action>
-            <action method="removeLinkByUrl" ifconfig="ajaxlogin/options/enable">
-                <url helper="customer/getLogoutUrl"/>
-            </action>
-            <action method="addLink" translate="label title" module="customer" ifconfig="ajaxlogin/options/enable">
-                <label>Log Out</label>
-                <url helper="customer/getLogoutUrl"/>
-                <title>Log Out</title>
-                <prepare/>
-                <urlParams/>
-                <position>100</position>
-                <liParams/>
-                <aParams>
-                    <class>ajaxlogin-logout</class>
-                </aParams>
-            </action>
-        </reference>
-    </customer_logged_in>
-
-    <!--
-    Load this update on every page when customer is logged out
-    -->
-
+    <!-- Logged out customer handle -->
     <customer_logged_out>
         <reference name="top.links">
-            <action method="removeLinkByUrl" module="customer">
+            <!-- Remove my account -->
+            <action method="removeLinkByUrl">
                 <url helper="customer/getAccountUrl"/>
             </action>
-            <action method="removeLinkByUrl">
+            <!-- Rename login link -->
+            <action method="rename">
                 <url helper="customer/getLoginUrl"/>
+                <name>Log In / Sign Up</name>
             </action>
-        </reference>
-        <reference name="navbar.account.extended">
-            <action method="addLink" translate="label title" module="customer">
-                <label>Log In</label>
+            <!-- Move login link -->
+            <action method="setPosition">
                 <url helper="customer/getLoginUrl"/>
-                <title>Log In</title>
-                <prepare/>
-                <urlParams/>
-                <position>100</position>
-            </action>
-            <action method="removeLinkByUrl" ifconfig="ajaxlogin/options/enable">
-                <url helper="customer/getLoginUrl"/>
-            </action>
-            <action method="addLink" translate="label title" module="customer" ifconfig="ajaxlogin/options/enable">
-                <label>Log In</label>
-                <url helper="customer/getLoginUrl"/>
-                <title>Log In</title>
-                <prepare/>
-                <urlParams/>
-                <position>100</position>
-                <liParams/>
-                <aParams>
-                    <class>ajaxlogin-login</class>
-                </aParams>
+                <position>40</position>
             </action>
         </reference>
     </customer_logged_out>
 
     <!--
-        Customer Survey Page
-    -->
-    <customersurvey_index_view>
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-        <reference name="survey_view">
-            <block type="cms/block" name="shop-womens-img">
-                <action method="setBlockId">
-                    <block_id>shop-womens-img</block_id>
-                </action>
-            </block>
-        </reference>
-    </customersurvey_index_view>
-
-    <!--
-	Feedback completed Page
-    -->
-    <customersurvey_index_complete>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </customersurvey_index_complete>
-
-    <!--
-        Careers Page
-    -->
-    <careers_index_index>
-        <reference name="careers">
-            <!-- Add the image static block to the content -->
-            <block type="cms/block" name="careers-img">
-                <action method="setBlockId">
-                    <block_id>careers-img</block_id>
-                </action>
-            </block>
-            <!-- Add the text static block to the content -->
-            <block type="cms/block" name="careers-txt">
-                <action method="setBlockId">
-                    <block_id>careers-txt</block_id>
-                </action>
-            </block>
-        </reference>
-    </careers_index_index>
-
-    <!--
-	Configurable Product Page
-    -->
+Configurable Product Page
+-->
     <PRODUCT_TYPE_configurable>
         <!-- Change default template -->
         <reference name="product.info.options.configurable">
@@ -787,49 +245,5 @@
                 <template>magiczoom/configurable.phtml</template>
             </action>
         </reference>
-        <!-- Remove the composite stockinventory detail -->
-        <remove name="product.info.configurable.extra"/>
     </PRODUCT_TYPE_configurable>
-
-    <!--
-    Gift Certificate Page
-    -->
-    <PRODUCT_TYPE_ugiftcert>
-        <remove name="product.info.tabs"/>
-    </PRODUCT_TYPE_ugiftcert>
-
-    <!--
-	Send To A Friend Page
-    -->
-    <sendfriend_product_send>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </sendfriend_product_send>
-
-    <!--
-        Review Notification Page
-    -->
-    <reviewnotification_front_postreviews>
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </reviewnotification_front_postreviews>
-
-    <!--
-	RSS Page
-    -->
-    <rss_index_index>
-        <!-- Change default template -->
-        <reference name="root">
-            <action method="setTemplate">
-                <template>page/1column.phtml</template>
-            </action>
-        </reference>
-    </rss_index_index>
 </layout>

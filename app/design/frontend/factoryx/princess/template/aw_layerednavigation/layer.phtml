@@ -1,0 +1,155 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Layerednavigation
+ * @version    1.3.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php /** @var AW_Layerednavigation_Block_Layer $this */ ?>
+<?php if($this->canShowBlock()): ?>
+    <div class="block block-layered-nav row" id="aw-ln-filters">
+        <h3 class="text-lowercase col-lg-12 col-mg-12 col-sm-12 col-xs-12">
+            <a data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="filter">
+                <strong><?php echo $this->__('Filter') ?></strong>
+            </a>
+            <span class="aw-ln-clear-all" <?php if(!$this->isLayerHasAppliedValue()): ?>style="visibility:hidden"<?php endif; ?>>
+                <a href="javascript:void(0)">
+                    <?php if (Mage::helper('framework')->isFaEnabled()):?>
+                        <i class="fa fa-times"></i>
+                    <?php else: ?>
+                        <?php echo $this->__("Clear All");?>
+                    <?php endif; ?>
+                </a>
+            </span>
+            <span><i class="fa fa-angle-down"></i></span>
+        </h3>
+        <div class="block-content toggle-content col-lg-12 col-mg-12 col-sm-12 col-xs-12" id="filter" style="display:none">
+            <script type="text/javascript">
+                var awLnUpdaterInstance = new awLnUpdater();
+            </script>
+            <?php /*<p class="block-subtitle block-subtitle--filter"">
+                <?php echo $this->__('Shopping Options') ?>
+            </p>*/ ?>
+            <dl id="aw-ln-filters-container" class="row">
+                <?php foreach ($this->getFilterList() as $_filter): ?>
+                    <?php if($this->getItemCountByFilter($_filter)): ?>
+                        <dt class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase">
+                            <div class="filters-title text-lowercase">
+                                <a data-toggle="collapse" data-target="#filter-<?php echo $_filter->getEntityId(); ?>" aria-expanded="<?php if ($this->isFilterHasAppliedValues($_filter)):?>true<?php else: ?>false<?php endif; ?>" aria-controls="filter">
+                                    <?php echo $_filter->getTitle() ?>
+                                </a>
+                                <span class="aw-ln-filter-clear" <?php if (!$this->isFilterHasAppliedValues($_filter)):?>style="visibility:hidden"<?php endif; ?>>
+                                    <a href="javascript:void(0)">
+                                        <?php if (Mage::helper('framework')->isFaEnabled()):?>
+                                            <i class="fa fa-times fa-lg"></i>
+                                        <?php else: ?>
+                                            <?php echo $this->__("Clear");?>
+                                        <?php endif; ?>
+                                    </a>
+                                </span>
+                                <span id="filter-<?php echo $_filter->getEntityId(); ?>-fa"><i class="fa fa-angle-down"></i></span>
+                            </div>
+                        </dt>
+                        <dd class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-uppercase" <?php if (!$this->isFilterHasAppliedValues($_filter)):?>style="display:none"<?php endif; ?> id="filter-<?php echo $_filter->getEntityId(); ?>">
+                            <div class="filters-content">
+                                <?php echo $this->renderFilter($_filter); ?>
+                            </div>
+                        </dd>
+                    <?php endif; ?>
+                    <script type="text/javascript">
+                        jQuery('#filter-<?php echo $_filter->getEntityId(); ?>').on('show.bs.collapse', function() {
+                            jQuery('#filter-<?php echo $_filter->getEntityId(); ?>-fa > i').removeClass('fa-angle-down');
+                            jQuery('#filter-<?php echo $_filter->getEntityId(); ?>-fa > i').addClass('fa-angle-up');
+                        });
+                        jQuery('#filter-<?php echo $_filter->getEntityId(); ?>').on('hide.bs.collapse', function() {
+                            jQuery('#filter-<?php echo $_filter->getEntityId(); ?>-fa > i').removeClass('fa-angle-up');
+                            jQuery('#filter-<?php echo $_filter->getEntityId(); ?>-fa > i').addClass('fa-angle-down');
+                        });
+                    </script>
+                <?php endforeach; ?>
+            </dl>
+            <script type="text/javascript">
+                <?php foreach ($this->getFilterList() as $_filter): ?>
+                    <?php if($this->getItemCountByFilter($_filter) == 0): ?>
+                        awLnUpdaterInstance.registerNoItemsFilterCode(<?php echo Zend_Json::encode($_filter->getCode());?>);
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </script>
+
+            <?php
+                $overlaySettings = $this->getOverlaySettings();
+                if (is_null($overlaySettings['image'])) {
+                    $overlaySettings['image'] = $this->getSkinUrl('aw_layerednavigation/img/ajax-loader-48px.gif');
+                }
+            ?>
+            <script type="text/javascript">
+                decorateDataList('aw-ln-filters-container');
+                //decorateDataList('aw-ln-filters');
+                awLnUpdaterInstance.init({
+                    layerContainerElSelector: ".block-layered-nav",
+                    productsContainerElSelectorList: [".products-grid", ".category-view", ".results-view", ".category-products", ".category_cms_block"],
+                    emptyProductsContainerElSelectorList: [".note-msg"],
+                    toolbarContainerElSelectorList: [
+                        ".category-view .toolbar",
+                        ".results-view .toolbar",
+                        ".category-products .toolbar"
+                    ],
+                    clearAllElSelector: '.aw-ln-clear-all',
+                    clearFilterElSelector: '.aw-ln-filter-clear',
+                    isAjax: <?php echo Zend_Json::encode($this->isAjax());?>,
+                    canAddNonFilteredParams: <?php echo Zend_Json::encode($this->canAddNonFilteredParams());?>,
+                    overlaySettings: <?php echo Zend_Json::encode($overlaySettings);?>,
+                    overlayCssClass: 'aw-ln-overlay',
+                    searchQueryParamCode: <?php echo Zend_Json::encode($this->getSearchQueryParamCode());?>
+                });
+            </script>
+
+            <script type="text/javascript">
+                jQuery('#filter').on('show.bs.collapse', function() {
+                   jQuery('#aw-ln-filters > h3 > span > i').removeClass('fa-angle-down');
+                   jQuery('#aw-ln-filters > h3 > span > i').addClass('fa-angle-up');
+                });
+                jQuery('#filter').on('hide.bs.collapse', function() {
+                   jQuery('#aw-ln-filters > h3 > span > i').removeClass('fa-angle-up');
+                   jQuery('#aw-ln-filters > h3 > span > i').addClass('fa-angle-down');
+                });
+                jQuery('#filter').on('shown.bs.collapse', function(){
+                    // To fix the price slider on mobile
+                    if (typeof awLNFilterOptionRangeInstance !== "undefined") {
+                        awLNFilterOptionRangeInstance.initSlider();
+                    }
+                    var expiryDate = new Date();
+                    expiryDate.setDate(expiryDate.getDate() + 60);
+                    Mage.Cookies.set('main-collapse', true, expiryDate);
+                });
+                jQuery('#filter').on('hidden.bs.collapse', function(){
+                    Mage.Cookies.clear('main-collapse');
+                })
+                jQuery(document).ready(function(){
+                   var ariaExpanded = Mage.Cookies.get('main-collapse');
+                   if (ariaExpanded) {
+                       jQuery('#filter').collapse('show');
+                   }
+                });
+            </script>
+        </div>
+    </div>
+<?php endif; ?>

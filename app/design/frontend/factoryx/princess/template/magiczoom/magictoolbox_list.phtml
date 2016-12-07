@@ -1,0 +1,210 @@
+<?php
+
+/**
+ * Magictoolbox product list template for Magento store.
+ * Allow use MagicTools on product list page.
+ * @mail support@magictoolbox.com
+ */
+
+$output_helper = $this->helper('catalog/output');
+$mzWidth = $tool->params->getValue('thumb-max-width');
+$mzHeight = $tool->params->getValue('thumb-max-height');
+
+// Color mapping system
+$colorMappingHelper = Mage::helper('colormapping');
+// Get the filtered color
+$filteredColor = $colorMappingHelper->getFilteredColor();
+if ($filteredColor) {
+    // Find potential normal colour based on filtered base colour
+    $potentialColors = $colorMappingHelper->getPossibleMatchingLabels(strtolower($filteredColor));
+} else {
+    $potentialColors = false;
+}
+
+// Backend model to add the media gallery without loading the entire product
+$_backendModel = $_productCollection->getResource()->getAttribute('media_gallery')->getBackend();
+
+foreach($_productCollection as $_product) {
+
+    $pid = $_product->getId();
+    $id = $group.'_'.$pid;
+    $_backendModel->afterLoad($_product);
+    if ($potentialColors) {
+        // Get the matching images based on the potential colors
+        list ($matchingImageFound,$matchingColor,$_image_file,$_small_image_file) = $colorMappingHelper->getMatchingImages($_product, $potentialColors);
+    } else {
+        $_image_file = $_product->getSmallImage();
+        $_small_image_file = null;
+    }
+
+    if($_image_file && $_image_file != 'no_selection') {
+        $title = $this->htmlEscape($_product->getName());
+        //$description = $this->htmlEscape($_product->getDescription());
+        $description = $this->htmlEscape($output_helper->productAttribute($_product, $_product->getDescription(), 'description'));
+        //$shortDescription = $this->htmlEscape($_product->getShortDescription());
+        $shortDescription = $this->htmlEscape($output_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description'));
+
+        if (!$_small_image_file) {
+            $_small_image_file = $_product->getSmall_image();
+        }
+        // NEVER EVER USE getOriginalSizeArray: CAUSES MEMORY LEAK
+        //$originalSizeArray = $this->helper('catalog/image')->getOriginalSizeArray();
+        $img = $this->helper('catalog/image')->init($_product, 'small_image', $_small_image_file)->__toString();
+        $originalSizeArray = @getimagesize($img);
+        if (!$originalSizeArray) {
+            $originalSizeArray = array($mzWidth,$mzHeight);
+        }
+        if($tool->params->checkValue('square-images', 'Yes')) {
+            $big_image_size = ($originalSizeArray[0] > $originalSizeArray[1]) ? $originalSizeArray[0] : $originalSizeArray[1];
+            $img = $this->helper('catalog/image')->watermark(null, null)->resize($big_image_size)->__toString();
+        }
+        list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+        $thumb = $this->helper('catalog/image')->watermark(null, null)->resize($w, $h)->__toString();
+
+        if($tool->params->checkValue('link-to-product-page', 'Yes')) {
+            //NOTE: get URL from $__product (not $_product) object
+            $link = $_product->getProductUrl();
+        } else {
+            $link = '';
+        }
+            if($tool->params->checkValue('drag-mode', 'Yes')) { //onclick only if drag mode is disabled
+                $link = '';
+            }
+
+        $html = $tool->getMainTemplate(compact('id', 'group', 'title', 'description', 'shortDescription', 'img', 'thumb', 'link'));
+
+        // Generate the gallery if it has not been generated yet
+        $gallery = $_product->getMediaGalleryImages();
+        // We get the image labels
+        $imagesLabels = $gallery->getColumnValues('label');
+
+        // Find the body shot
+        $bodyShotsLabels = preg_grep('/^inside 2/',$imagesLabels);
+        if (!empty($bodyShotsLabels)) {
+            // We get the corresponding image (first element of the array of body shots retrieved using reset)
+            $bodyShotImage = $gallery->getItemByColumnValue('label',reset($bodyShotsLabels));
+            $bodyShot = $this->helper('catalog/image')->init($_product, 'small_image', $bodyShotImage->getFile())->__toString();
+            if($tool->params->checkValue('square-images', 'Yes') && isset($big_image_size)) {
+                $bodyShot = $this->helper('catalog/image')->watermark(null, null)->resize($big_image_size)->__toString();
+            }
+            // Show body shot on mouse over
+            $html = str_replace('<img','<img onmouseover="this.src=\''.$bodyShot.'\'" onmouseout="this.src=\''.$img.'\'"',$html);
+        }
+
+        if($tool->params->checkValue('show-selectors-on-category-page', 'Yes')) {
+            if (!$gallery) $gallery = $_product->getMediaGalleryImages();
+
+            $html .= '<div class="MagicToolboxSelectorsContainer">';
+
+            // HTML
+            $htmlSwatch = "";
+            // Count
+            $swatchCnt = 0;
+
+            if ($filteredColor) {
+                $firstSwatch = $gallery->getItemByColumnValue('label', 'swatch_' . strtolower($filteredColor));
+                if ($firstSwatch) {
+                    $swatchCnt++;
+                    $_image_file = $firstSwatch->getFile();
+                    $_image_path  = $firstSwatch->getPath();
+                    $originalSizeArray = @getimagesize($_image_path);
+                    if (!$originalSizeArray) {
+                        $originalSizeArray = array($mzWidth,$mzHeight);
+                    }
+                    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $originalSizeArray);
+                    $width = $w;
+                    $height = $h;
+                    $thumb = $this->helper('catalog/image')->init($_product, 'thumbnail', $_image_file)->resize($w, $h)->__toString();
+                    // Picture corresponding to the swatch
+                    $filteredPictureToFind = str_replace("swatch","front",$this->htmlEscape($firstSwatch->getLabel()));
+                    $medium = $img;
+                    // Find the picture
+                    $filteredPictureToFindImages = array_search($filteredPictureToFind, $imagesLabels);
+                    if ($filteredPictureToFindImages !== false) {
+                        // We get the corresponding image (first element of the array of body shots retrieved using reset)
+                        $filteredPictureToFindImage = $gallery->getItemByColumnValue('label',$imagesLabels[$filteredPictureToFindImages]);
+                        $medium = $this->helper('catalog/image')->init($_product, 'small_image', $filteredPictureToFindImage->getFile())->resize($mzWidth, $mzHeight)->__toString();
+                        $img = $medium;
+                    }
+                    $a = $tool->getSelectorTemplate(compact('id', 'img', 'thumb', 'medium', 'title', 'width', 'height'));
+                    $htmlSwatch .= $a;
+                    // Remove the swatch from the gallery
+                    $gallery->removeItemByKey($firstSwatch->getId());
+                }
+            }
+
+            // Find the swatches
+            $swatches = preg_grep('/^swatch/', $imagesLabels);
+            foreach ($swatches as $swatch) {
+                $swatchCnt++;
+                $_image = $gallery->getItemByColumnValue('label',$swatch);
+                $_image_file = $_image->getFile();
+                $_image_path  = $_image->getPath();
+                // if($tool->params->checkValue('square-images', 'Yes')) {
+                // $big_image_size = ($originalSizeArray[0] > $originalSizeArray[1]) ? $originalSizeArray[0] : $originalSizeArray[1];
+                // $img = $this->helper('catalog/image')->init($_product, 'small_image', $_image_file)->resize($big_image_size)->__toString();
+                // } else {
+                // $img = $this->helper('catalog/image')->init($_product, 'small_image', $_image_file)->__toString();
+                // }
+                // list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+                $originalSizeArray = @getimagesize($_image_path);
+                if (!$originalSizeArray) {
+                    $originalSizeArray = array($mzWidth,$mzHeight);
+                }
+                // $medium = $this->helper('catalog/image')->watermark(null, null)->resize($w, $h)->__toString();
+                list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('selector', $originalSizeArray);
+                //$w = 20; $h = 20;
+                $width = $w;
+                $height = $h;
+                $thumb = $this->helper('catalog/image')->init($_product, 'thumbnail', $_image_file)->resize($w, $h)->__toString();
+                $pictureToFind = str_replace("swatch","front",$this->htmlEscape($_image->getLabel()));
+                $medium = $img;
+                // Find the picture
+                $pictureToFindImages = array_search($pictureToFind, $imagesLabels);
+                if ($pictureToFindImages !== false) {
+                    // We get the corresponding image (first element of the array of body shots retrieved using reset)
+                    $pictureToFindImage = $gallery->getItemByColumnValue('label',$imagesLabels[$pictureToFindImages]);
+                    $originalSizeArray = @getimagesize($pictureToFindImage->getPath());
+                    if (!$originalSizeArray) {
+                        $originalSizeArray = array($mzWidth,$mzHeight);
+                    }
+                    list($w, $h) = $magicToolboxHelper->magicToolboxGetSizes('thumb', $originalSizeArray);
+                    $medium = $this->helper('catalog/image')->init($_product, 'small_image', $pictureToFindImage->getFile())->resize($w, $h)->__toString();
+                    $img = $medium;
+                }
+                // $title = $this->htmlEscape($_image->getLabel());
+                $a = $tool->getSelectorTemplate(compact('id', 'img', 'thumb', 'medium', 'title', 'width', 'height'));
+                $htmlSwatch .= $a;
+            }
+
+            if ($swatchCnt > 1) {
+                $html .= $htmlSwatch;
+            }
+
+            $html .= '</div>';
+        }
+
+        $html = '<div class="MagicToolboxContainer">' . $html . '</div>';
+        //NOTE: get URL from $__product (not $_product) object
+        $pattern = '<a[^>]+href=\"' . preg_quote($_product->getProductUrl(), '/') . '\"[^>]*>\s*<img[^>]+\/>\s*<\/a>';
+        $contents_new = preg_replace('/' . $pattern . '/is', $html, $contents);
+        if($contents_new == $contents) {
+            $pattern = '<a[^>]+>\s*<img[^>]+?src="[^"]*?'.preg_quote($_small_image_file, '/').'"[^>]*>\s*<\/a>';
+            $contents_new = preg_replace('/'.$pattern.'/is', $html, $contents);
+        }
+        $contents = $contents_new;
+    }
+}
+?>
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery(".category-products .MagicToolboxSelectorsContainer a").click(function () {
+            // Unselect the previous swatch (CSS)
+            if (jQuery('.swatch-selected')) {
+                jQuery('.swatch-selected').removeClass('swatch-selected');
+            }
+            // Apply CSS selection on the swatch
+            jQuery(this).addClass('swatch-selected');
+        });
+    });
+</script>

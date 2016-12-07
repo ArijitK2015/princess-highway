@@ -1,0 +1,31 @@
+<div class="discount-form">
+    <form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="hidden" name="remove" id="remove-coupone" value="0" />
+                <input class="form-control input-text" id="coupon_code" name="coupon_code" placeholder="<?php echo $this->__('enter code here...') ?>" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />
+                <span class="input-group-btn text-lowercase">
+                    <button type="button" title="<?php echo $this->__('apply code') ?>" class="btn btn-default button" onclick="discountForm.submit(false)" value="<?php echo $this->__('apply code') ?>"><span><span><?php echo $this->__('apply code') ?></span></span></button>
+                    <?php if(strlen($this->getCouponCode())): ?>
+                        &nbsp; <button type="button" title="<?php echo $this->__('cancel code') ?>" class="btn btn-default button" onclick="discountForm.submit(true)" value="<?php echo $this->__('cancel code') ?>"><span><span><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-lg fa-times"></i><?php else: echo $this->__('cancel code'); endif; ?></span></span></button>
+                    <?php endif;?>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    var discountForm = new VarienForm('discount-coupon-form');
+    discountForm.submit = function (isRemove) {
+        if (isRemove) {
+            $('coupon_code').removeClassName('required-entry');
+            $('remove-coupone').value = "1";
+        } else {
+            $('coupon_code').addClassName('required-entry');
+            $('remove-coupone').value = "0";
+        }
+        return VarienForm.prototype.submit.bind(discountForm)();
+    }
+    //]]>
+</script>

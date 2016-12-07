@@ -1,0 +1,14 @@
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = Mage::registry('current_category');
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img class="img-responsive center-block" src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<?php if($_imgUrl): ?>
+    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+        <?php echo $_imgHtml ?>
+    </div>
+<?php endif; ?>

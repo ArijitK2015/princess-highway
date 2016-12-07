@@ -1,0 +1,17 @@
+<?php
+/** @var FactoryX_NotificationBoard_Block_Notification $this */
+/** @var FactoryX_NotificationBoard_Model_Resource_Notification_Collection $notifications */
+$notifications = $this->getNotifications();
+/** @var FactoryX_NotificationBoard_Model_Notification $notification */
+foreach($notifications as $notification): ?>
+    <div class="site-wide-notification"
+         id="notification_id_<?php echo $notification->getId()?>"
+         attr-id="notification_id_<?php echo $notification->getId()?>">
+        <?php echo $this->escapeHtml($notification->getMessage()) ?>
+    </div>
+    <?php if ($notification->getStyle()): ?>
+        <style type="text/css">
+            <?php echo $this->escapeHtml($notification->getStyle()) ?>
+        </style>
+    <?php endif; ?>
+<?php endforeach; ?>

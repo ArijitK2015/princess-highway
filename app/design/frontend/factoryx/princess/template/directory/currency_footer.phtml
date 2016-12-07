@@ -1,0 +1,22 @@
+<?php
+/**
+ * Currency switcher
+ *
+ * @see Mage_Directory_Block_Currency
+ */
+?>
+<?php if($this->getCurrencyCount()>1): ?>
+    <div class="col-xs-12 mobile-footer">
+        <div id="currency-switcher" class="dropdown row button-container">
+            <button class="btn btn-primary dropdown-toggle text-uppercase full-width-button" type="button" id="currencyFooterMenu" data-toggle="dropdown" aria-expanded="true">
+                <?php echo $this->getCurrentCurrencyCode() ?>&nbsp;&nbsp;
+                <i class="fa fa-lg fa-caret-down"></i>
+            </button>
+            <ul class="dropdown-menu full-width-button" role="menu" aria-labelledby="currencyFooterMenu">
+                <?php foreach ($this->getCurrencies() as $_code => $_name): ?>
+                    <li role="presentation"><a class="currency" role="menuitem" tabindex="-1" href="<?php echo $this->getSwitchCurrencyUrl($_code) ?>"><?php echo $_code ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

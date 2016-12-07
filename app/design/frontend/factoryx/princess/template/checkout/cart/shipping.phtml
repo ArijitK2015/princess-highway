@@ -1,0 +1,134 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php /** @var $this Mage_Checkout_Block_Cart_Shipping */ ?>
+<div class="col-md-4 col-lg-4 col-sm-12 hidden-xs shipping text-lowercase">
+    <h2><?php echo $this->__('Estimate Shipping and Tax') ?></h2>
+    <div class="shipping-form">
+       <form action="<?php echo $this->getUrl('checkout/cart/estimatePost') ?>" method="post" id="shipping-zip-form">
+            <p><?php echo $this->__('Enter your destination to get a shipping estimate.') ?></p>
+            <div class="form-group">
+                    <label for="country" class="required"><?php echo $this->__('Country') ?><em>*</em></label>
+                    <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>
+                    <script type="text/javascript">
+                        jQuery('#country').addClass('form-control');
+                        jQuery('#country').addClass('text-lowercase');
+                    </script>
+            </div>
+            <?php //if($this->getStateActive()): ?>
+               <div class="form-group">
+                   <label for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php echo $this->__('State/Province') ?><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?></label>
+                   <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="hidden text-lowercase form-control<?php echo ($this->isStateProvinceRequired() ? ' validate-select' : '') ?>">
+                       <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                   </select>
+                   <script type="text/javascript">
+                   //<![CDATA[
+                       $('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
+                   //]]>
+                   </script>
+                   <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="form-control input-text hidden" />
+                </div>
+            <?php //endif; ?>
+            <?php if($this->getCityActive()): ?>
+               <div class="form-group">
+                    <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php echo $this->__('City') ?><?php if ($this->isCityRequired()) echo '<em>*</em>' ?></label>
+                    <input class="form-control input-text<?php if ($this->isCityRequired()):?> required-entry<?php endif;?>" id="city" type="text" name="estimate_city" value="<?php echo $this->escapeHtml($this->getEstimateCity()) ?>" />
+                </div>
+            <?php endif; ?>
+           <div class="form-group">
+                <label for="postcode"<?php if ($this->isZipCodeRequired()) echo ' class="required"' ?>><?php echo $this->__('Zip/Postal Code') ?><?php if ($this->isZipCodeRequired()) echo '<em>*</em>' ?></label>
+                <input class="form-control input-text validate-postcode<?php if ($this->isZipCodeRequired()):?> required-entry<?php endif;?>" type="text" id="postcode" name="estimate_postcode" value="<?php echo $this->escapeHtml($this->getEstimatePostcode()) ?>" />
+            </div>
+            <div class="text-right">
+                <button type="button" title="<?php echo $this->__('get a quote') ?>" onclick="coShippingMethodForm.submit()" id="getaquote" class="button btn btn-default"><span><span><?php echo $this->__('get a quote') ?></span></span></button>
+            </div>
+        </form>
+        <script type="text/javascript">
+        //<![CDATA[
+            new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+        //]]>
+        </script>
+
+        <?php if (($_shippingRateGroups = $this->getEstimateRates())): ?>
+        <form id="co-shipping-method-form" action="<?php echo $this->getUrl('checkout/cart/estimateUpdatePost') ?>">
+            <dl class="sp-methods">
+                <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                    <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                        <?php foreach ($_rates as $_rate): ?>
+                            <li class="radio<?php if ($_rate->getErrorMessage()) echo ' error-msg';?>">
+                               <?php if ($_rate->getErrorMessage()): ?>
+                                    <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
+                               <?php else: ?>
+                                    <label for="s_method_<?php echo $_rate->getCode() ?>">
+                                    <input name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
+                                    <?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                    <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                    <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                                    <?php echo $_excl; ?>
+                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                    <?php endif; ?>
+                                    </label>
+                               <?php endif ?>
+                            </li>
+                        <?php endforeach; ?>
+                        </ul>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+            <div class="buttons-set">
+                <button type="submit" title="<?php echo $this->__('Update Total') ?>" class="btn btn-default button pull-right" name="do" value="<?php echo $this->__('Update Total') ?>"><span><span><?php echo $this->__('Update Total') ?></span></span></button>
+            </div>
+        </form>
+        <?php endif; ?>
+        <script type="text/javascript">
+        //<![CDATA[
+            var coShippingMethodForm = new VarienForm('shipping-zip-form');
+            var countriesWithOptionalZip = <?php echo $this->helper('directory')->getCountriesWithOptionalZip(true) ?>;
+
+            coShippingMethodForm.submit = function () {
+                var country = $F('country');
+                var optionalZip = false;
+
+                for (i=0; i < countriesWithOptionalZip.length; i++) {
+                    if (countriesWithOptionalZip[i] == country) {
+                        optionalZip = true;
+                    }
+                }
+                if (optionalZip) {
+                    $('postcode').removeClassName('required-entry');
+                }
+                else {
+                    $('postcode').addClassName('required-entry');
+                }
+                return VarienForm.prototype.submit.bind(coShippingMethodForm)();
+            }
+        //]]>
+        </script>
+    </div>
+</div>
