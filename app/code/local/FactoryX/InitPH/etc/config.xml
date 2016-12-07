@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_InitPH>
+            <version>0.0.17</version>
+        </FactoryX_InitPH>
+    </modules>
+
+    <global>
+
+        <helpers>
+            <initph>
+                <class>FactoryX_InitPH_Helper</class>
+            </initph>
+        </helpers>
+
+        <!-- Database access resources -->
+        <resources>
+            <fxinit_setup>
+                <setup>
+                    <module>FactoryX_InitPH</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </fxinit_setup>
+            <fxinit_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </fxinit_write>
+            <fxinit_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </fxinit_read>
+        </resources>
+
+    </global>
+
+</config>

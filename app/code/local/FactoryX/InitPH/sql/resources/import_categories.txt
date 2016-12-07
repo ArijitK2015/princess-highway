@@ -1,0 +1,16 @@
+- Default Category
+ - Shop
+  - Bags
+  - Belts
+  - Coats & Jackets
+  - Dresses
+  - Gifts & Home
+  - Headwear
+  - Knitwear
+  - Outerwear
+  - Pants & Shorts
+  - Shirts & Blouses
+  - Skirts
+  - Tops & Tees
+ - Sale
+ - Flash Sale
