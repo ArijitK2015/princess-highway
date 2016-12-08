@@ -11,9 +11,11 @@
                 <?php $borderclass = $relatedproducts ? ' noborder' : ''; ?>
                 <tr>
                     <?php $url = $this->getProductUrl($item); ?>
+                    <?php $_options = Mage::helper('catalog/product_configuration')->getConfigurableOptions($item); ?>
+                    <?php $_thumbnail = Mage::helper('cartimage')->getMatchingThumbnail($item->getProduct(), $_options); ?>
                     <td class="cartpopup_productimage<?php echo $borderclass; ?>">
                         <a href="<?php echo $url; ?>">
-                            <img src="<?php echo Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(60); ?>" alt="<?php echo $item->getName(); ?>" title="<?php echo $item->getName(); ?>" />
+                            <img src="<?php echo $_thumbnail ? $_thumbnail->resize(60, 90) : Mage::helper('catalog/image')->init($item->getProduct(), 'thumbnail')->resize(60, 90); ?>" alt="<?php echo $item->getName(); ?>" title="<?php echo $item->getName(); ?>" />
                         </a>
                     </td>
                     <td class="text-lowercase cartpopup_productname<?php echo $borderclass; ?>">
@@ -24,7 +26,7 @@
                         <?php foreach ($this->getItemMessages($item) as $message): ?>
                             <p class="item-msg <?php echo $message['type']; ?>"><?php echo $message['text']; ?></p>
                         <?php endforeach; ?>
-                        <?php if ($_options = Mage::helper('catalog/product_configuration')->getConfigurableOptions($item)):?>
+                        <?php if ($_options):?>
                             <p class="text-left">
                                 <?php foreach ($_options as $_option) : ?>
                                     <?php if (preg_match('/size/i', $_option['label'])): ?>

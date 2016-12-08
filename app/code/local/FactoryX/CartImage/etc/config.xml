@@ -3,7 +3,7 @@
 
     <modules>
         <FactoryX_CartImage>
-            <version>0.1.5</version>
+            <version>0.1.7</version>
         </FactoryX_CartImage>
     </modules>
 
@@ -22,6 +22,12 @@
             </checkout>
         </blocks>
 
+        <models>
+            <cartimage>
+                <class>FactoryX_CartImage_Model</class>
+            </cartimage>
+        </models>
+
         <helpers>
             <cartimage>
                 <class>FactoryX_CartImage_Helper</class>
@@ -29,4 +35,12 @@
         </helpers>
 
     </global>
+
+    <default>
+        <cartimage>
+            <general>
+                <custom_image_label>front</custom_image_label>
+            </general>
+        </cartimage>
+    </default>
 </config>
