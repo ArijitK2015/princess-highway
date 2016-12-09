@@ -3,7 +3,7 @@
 
     <modules>
         <FactoryX_CartImage>
-            <version>0.1.7</version>
+            <version>0.1.8</version>
         </FactoryX_CartImage>
     </modules>
 
@@ -20,6 +20,13 @@
                     <cart_item_renderer_configurable>FactoryX_CartImage_Block_Checkout_Cart_Item_Renderer_Configurable</cart_item_renderer_configurable>
                 </rewrite>
             </checkout>
+
+            <ajaxcartpro>
+                <rewrite>
+                    <!-- AW_Ajaxcartpro_Block_Confirmation_Items_Productimage -->
+                    <confirmation_items_productimage>FactoryX_CartImage_Block_AW_Ajaxcartpro_Confirmation_Items_Productimage</confirmation_items_productimage>
+                </rewrite>
+            </ajaxcartpro>
         </blocks>
 
         <models>
