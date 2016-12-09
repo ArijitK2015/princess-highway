@@ -92,7 +92,6 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
             }
             else {
                 $session->addException($e, $this->__('There was a problem with the subscription'));
-                $this->_redirectReferer();
             }
         }
         return false;
@@ -129,7 +128,6 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
             }
             else {
                 $session->addException($e, $this->__('There was a problem with the subscription'));
-                $this->_redirectReferer();
             }
         }
         return false;
