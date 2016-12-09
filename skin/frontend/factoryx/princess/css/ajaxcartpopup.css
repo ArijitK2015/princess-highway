@@ -32,7 +32,7 @@
 #cartpopup_slidecontainer .cartpopup_footer .cartpopup_subtotal .btn{font-size:11px; font-weight: bold;}
 #cartpopup_slidecontainer table { width:175px; }
 #cartpopup_slidecontainer thead th { height:22px; padding:2px 7px 0; font-size:13px; color:#fff; background-color:#2f2f2f; vertical-align:middle; }
-#cartpopup_slidecontainer #cartpopup_overlay { height:100%; width:100%; position:absolute; left:0; top:0; background:url(../images/ajaxcartpopup/overlay.png) center; }
+#cartpopup_slidecontainer #cartpopup_overlay { height:100%; width:100%; position:absolute; left:0; top:0; background:url(/skin/frontend/base/default/images/ajaxcartpopup/overlay.png) center; }
 #cartpopup_slidecontainer .cartpopup_overlay_center { height:50%; width:100%; position:relative; }
 #cartpopup_slidecontainer .cartpopup_overlay_center img { position:absolute; bottom:-12px; left:197px; }
 #cartpopup_slidecontainer .cartpopup_related div { float:left; padding:7px; }

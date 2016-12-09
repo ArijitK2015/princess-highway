@@ -125,7 +125,7 @@ $visibleXsImageH = 960;
 </div>
 <!-- End magiczoom -->
 <script type="text/javascript">
-jQuery(window).load(function() {
+/*jQuery(window).load(function() {
     try {
         jQuery("#lightboxLink").attr('href',jQuery('.MagicZoomBigImageCont img').attr('src'));
         jQuery('#thumbCarousel a:not(.carousel-control)').clone().appendTo('#linksContainer');
@@ -137,7 +137,7 @@ jQuery(window).load(function() {
     catch(err) {
         console.log(err.message);
     }
-});
+});*/
 jQuery('.product-image-thumbs a').on('click',function(){
     jQuery("#lightboxLink").attr('href',jQuery(this).attr('href'));
 });
