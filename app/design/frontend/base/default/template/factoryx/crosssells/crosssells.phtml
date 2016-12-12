@@ -1,0 +1,44 @@
+<?php
+if (
+    !Mage::helper('productcrosssell')->isEnabled()
+    ||
+    count($this->getItemCollection()->getItems()) == 0
+    ) {
+    return;
+}
+?>
+<?php
+$width = 120;
+$height = 180;
+?>
+<div id="the-model-wears" class="block block-related crosssell-products-list'">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('shop the look') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <ol class="mini-products-list" id="block-related">
+        <?php foreach($this->getItems() as $_link): ?>
+                <li class="item">
+                    <div class="product">
+                        <a target="_blank" rel="noopener noreferrer" href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" class="product-image">
+                            <img src="<?php
+                            if ($_link->getData('hero_image_src')) {
+                                echo $this->helper('catalog/image')->init($_link, 'thumbnail', $_link->getData('hero_image_src'))->resize($width, $height);
+                            }
+                            else {
+                                echo $this->helper('catalog/image')->init($_link, 'thumbnail')->resize($width, $height);
+                            }
+                            ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="<?php echo $this->escapeHtml($_link->getName()) ?>" /></a>
+                        <div class="product-details">
+                            <p class="product-name">
+                                <a target="_blank" rel="noopener noreferrer" href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->escapeHtml($_link->getName()) ?></a></p>
+                            <?php // echo $this->getPriceHtml($_link, true, '-related') ?>
+                            <?php echo $this->getPriceHtml($_link, true, '-crosssell') ?>
+                        </div>
+                    </div>
+                </li>
+        <?php endforeach; ?>
+        </ol>
+        <script type="text/javascript">decorateList('crosssell-products-list', 'none-recursive')</script>
+    </div>
+</div>

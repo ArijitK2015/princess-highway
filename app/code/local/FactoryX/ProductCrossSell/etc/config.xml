@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <FactoryX_ProductCrossSell>
+            <version>1.1.4</version>
+        </FactoryX_ProductCrossSell>
+    </modules>
+
+    <global>
+
+        <helpers>
+            <productcrosssell>
+                <class>FactoryX_ProductCrossSell_Helper</class>
+            </productcrosssell>
+        </helpers>
+
+        <blocks>
+            <productcrosssell>
+                <class>FactoryX_ProductCrossSell_Block</class>
+            </productcrosssell>
+        </blocks>
+
+        <models>
+            <productcrosssell>
+                <class>FactoryX_ProductCrossSell_Model</class>
+            </productcrosssell>
+        </models>
+
+        <events>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <productcrosssell_add_custom_image>
+                        <type>model</type>
+                        <class>productcrosssell/observer</class>
+                        <method>afterProductCollectionLoad</method>
+                    </productcrosssell_add_custom_image>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
+		<resources>
+			<productcrosssell_setup>
+				<setup>
+				    <module>FactoryX_ProductCrossSell</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</productcrosssell_setup>
+			<productcrosssell_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</productcrosssell_write>
+			<productcrosssell_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</productcrosssell_read>
+		</resources>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <productcrosssell>
+                    <file>factoryx/crosssells.xml</file>
+                </productcrosssell>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <default>
+        <productcrosssell>
+            <general>
+                <enable>1</enable>
+                <custom_image_label>front</custom_image_label>
+            </general>
+        </productcrosssell>
+    </default>
+</config>

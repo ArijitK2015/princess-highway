@@ -1,0 +1,5 @@
+app/code/local/FactoryX/ProductCrossSell
+app/etc/modules/FactoryX_ProductCrossSell.xml
+app/design/frontend/base/default/layout/factoryx/crosssells.xml
+app/design/frontend/base/default/template/factoryx/crosssells
+app/design/adminhtml/default/default/template/factoryx/crosssells
