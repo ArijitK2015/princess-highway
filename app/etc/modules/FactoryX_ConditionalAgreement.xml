@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <FactoryX_ConditionalAgreement>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Checkout />
+                <FactoryX_ChooserWidget/>
+            </depends>
+        </FactoryX_ConditionalAgreement>
+    </modules>
+</config>
