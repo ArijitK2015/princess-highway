@@ -39,11 +39,12 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_System_Config_Form_Field_Preferre
 
         // subscriber options
         $templateCollection =  Mage::getResourceSingleton('core/email_template_collection');
-        foreach($templateCollection as $template)
-        {
+        foreach($templateCollection as $template) {
             $this->optionsArray['template'][$template->getTemplateId()] = $template->getTemplateCode();
         }
-        asort($this->optionsArray['template']);
+        if (array_key_exists('template', $this->optionsArray)) {
+            asort($this->optionsArray['template']);
+        }
     }
 
     /**
@@ -61,14 +62,11 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_System_Config_Form_Field_Preferre
         if (isset($this->optionsArray[$columnName])){
             $rendered = '<select name="'.$inputName.'">';
             $rendered .= '<option value=""></option>';
-            foreach($this->optionsArray[$columnName] as $att => $name)
-            {
+            foreach($this->optionsArray[$columnName] as $att => $name) {
                 $rendered .= '<option value="'.$att.'">'.$name.'</option>';
             }
             $rendered .= '</select>';
-        }
-        else
-        {
+        } else {
             return '<input type="text" class="input-text" name="' . $inputName . '" value="#{' . $columnName . '}" ' . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . '/>';
         }
 

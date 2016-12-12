@@ -12,6 +12,12 @@ class FactoryX_CampaignMonitor_Block_Adminhtml_System_Config_Form_Field_List ext
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $listDetails = Mage::helper('campaignmonitor/cm')->getListDetails();
-        return parent::_getElementHtml($element) . "List Name: <strong>" . $listDetails->Title . "</strong>";
+        if ($listDetails && $title = $listDetails->Title) {
+            $html =  parent::_getElementHtml($element) . "List Name: <strong>" . $listDetails->Title . "</strong>";
+        } else {
+            $html =  parent::_getElementHtml($element);
+        }
+
+        return $html;
     }
 }
