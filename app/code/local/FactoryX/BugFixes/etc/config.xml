@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<FactoryX_BugFixes>
-			<version>0.2.11</version>
+			<version>0.2.12</version>
 		</FactoryX_BugFixes>
 	</modules>
 
@@ -14,6 +14,12 @@
                     <helper_mysql4>FactoryX_BugFixes_Model_Eav_Resource_Helper_Mysql4</helper_mysql4>
                 </rewrite>
             </eav_resource>
+            <eav>
+                <rewrite>
+                    <!-- Mage_Eav_Model_Entity_Attribute_Backend_Time_Created -->
+                    <entity_attribute_backend_time_created>FactoryX_BugFixes_Model_Eav_Entity_Attribute_Backend_Time_Created</entity_attribute_backend_time_created>
+                </rewrite>
+            </eav>
             <core>
                 <rewrite>
                     <!-- Mage_Core_Model_Config -->
