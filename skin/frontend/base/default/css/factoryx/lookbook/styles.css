@@ -281,14 +281,19 @@ div#lookbook ul#menu li img {
 }
 
 /* Slideshow */
-body.lookbook-index-slideshow {
+.lookbook-index-slideshow {
     margin: 0;
     text-align:center;
     overflow:hidden;
     padding:0px !important;
 }
-.jscarousal-contents-vertical{width:auto!important;}
-body.lookbook-index-slideshow #wrapper {
+.lookbook-index-slideshow div.gallerylayer img {
+    max-width: 100%;
+}
+.jscarousal-contents-vertical {
+    width:auto!important;
+}
+.lookbook-index-slideshow #wrapper {
     margin-top:2px;
     display: block;
     /*
@@ -317,12 +322,13 @@ body.lookbook-index-slideshow #wrapper {
     right:10px;
     background-color:#FFF
 }
-
-.slideNum{
+.slideNum {
     position:absolute;
     top:10px;
 }
-#slidePagination{margin-bottom:5px}
+#slidePagination {
+    margin-bottom:5px
+}
 #slidePagination div {
     display:inline-block;
     margin:5px 5px;

@@ -118,7 +118,9 @@ if (!$numOfLooks): ?>
             foreach ($_productCollection as $_product)
             {
                 $num++;
-
+                // get additional values
+                $_productDesc = $_product->getResource()->getAttributeRawValue($_product->getId(), 'description', Mage::app()->getStore()->getId());
+                
                 // Get original image as their resolution is ready for lookbook
                 $img = (string)Mage::helper('catalog/image')->init($_product, 'image');
 
@@ -199,7 +201,9 @@ if (!$numOfLooks): ?>
                             <?php endforeach; ?>
                         </div>
                     <?php elseif ($underProductDisplay == 3): ?>
-                        <div class="product_description"><?php echo nl2br(rtrim(strip_tags($_product->getDescription()))); ?></div>
+                        <div class="product_description">
+                            <?php echo nl2br(rtrim(strip_tags($_productDesc))); ?>
+                        </div>
                     <?php endif; ?>
 
                     <?php if ($lookbook->getShowLookNumber()): ?>
@@ -463,7 +467,9 @@ jQuery(window).resize(function(){
                             <?php endforeach; ?>
                         </div>
                     <?php elseif ($underProductDisplay == 3): ?>
-                        <div class="product_description"><?php echo nl2br(rtrim(strip_tags($_product->getDescription()))); ?></div>
+                        <div class="product_description">
+                            <?php echo nl2br(rtrim(strip_tags($_productDesc))); ?>
+                        </div>
                     <?php endif; ?>
 
                     <?php if ($lookbook->getShowLookNumber()): ?>
@@ -517,7 +523,7 @@ jQuery(window).resize(function(){
                 });
             $dialog.dialog('open');
 
-            jQuery('#bundle-iframe').load(function(){
+            jQuery('#bundle-iframe').on('load', function(){
                 var contentHeight = jQuery('#bundle-iframe').contents().find('.lookbook-index-bundle').height();
                 $dialog.height(contentHeight + 20);
                 jQuery('#bundle-iframe').contents().find('html').css('overflow','hidden');

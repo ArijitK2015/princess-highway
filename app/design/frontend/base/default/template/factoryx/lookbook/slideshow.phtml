@@ -18,7 +18,7 @@ $img = (string)Mage::helper('lookbook/image')->init($lookbook, 'image', $_image[
     // document.body.style.overflow = "hidden";
     jQuery.noConflict();
 
-    jQuery(window).load(function() {
+    jQuery(window).on('load', function() {
 
         var img = new Image();
         img.src = "<?php echo $img ?>";
