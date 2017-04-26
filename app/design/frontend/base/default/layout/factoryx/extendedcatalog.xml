@@ -22,6 +22,7 @@
             <action method="setTemplate" ifconfig="catalog/frontend/replace_default_option_text">
                 <template>factoryx/extendedcatalog/product/view/type/options/configurable.phtml</template>
             </action>
+            <block type="core/text_list" name="product.info.options.configurable.renderers" as="attr_renderers" />
         </reference>
     </PRODUCT_TYPE_configurable>
 

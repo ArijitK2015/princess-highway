@@ -239,4 +239,33 @@ class FactoryX_ExtendedCatalog_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getStoreConfig('catalog/frontend/'.$this->_getDefaultMode().'_per_page');
     }
 
+    function getFilteredColor($colourAttribute = 'colour_all') {
+        $uri = $_SERVER['REQUEST_URI'];
+        $arr = parse_url($uri);
+        // OG magento
+        if (array_key_exists('query', $arr)) {
+            // Cut query
+            parse_str($arr['query'], $arr);
+            if (array_key_exists($colourAttribute, $arr)) {
+                return $arr[$colourAttribute];
+            }
+        }
+        // MageWorx SeoSuite rewrite (see _setHiddenAttributeToRequest function under app/code/local/MageWorx/SeoSuite/Controller/Router.php)
+        if ($color = Mage::getModel('core/session')->getFilteredColor()) {
+            return $color;
+        }
+        return null;
+    }
+
+    /*
+     * Detect iPhone and iPad
+     */
+    function isiPad($user_agent = NULL) {
+        if(!isset($user_agent)) {
+            $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        }
+        return stripos($user_agent, 'ipad') !== FALSE;
+    }
+
+
 }

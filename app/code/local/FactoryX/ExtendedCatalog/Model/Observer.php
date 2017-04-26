@@ -231,12 +231,8 @@ class FactoryX_ExtendedCatalog_Model_Observer
             $cacheKey[] = $convertedParams;
         }
 
-        // Check for currency cookies (yum)
-        $currency = Mage::getModel('core/cookie')->get("currency");
-        if ($currency) {
-            $cacheKey[] = $currency;
-        }
-
+        // Currency
+        $cacheKey[] = Mage::app()->getStore()->getCurrentCurrency()->getCode();
         // Store ID
         $cacheKey[] = Mage::app()->getStore()->getId();
         // Package
@@ -334,12 +330,8 @@ class FactoryX_ExtendedCatalog_Model_Observer
             }
         }
 
-        // Check for currency cookies (yum)
-        $currency = Mage::getModel('core/cookie')->get("currency");
-        if ($currency) {
-            $cacheKey[] = $currency;
-        }
-
+        // Currency
+        $cacheKey[] = Mage::app()->getStore()->getCurrentCurrency()->getCode();
         // Store ID
         $cacheKey[] = Mage::app()->getStore()->getId();
         // Package
@@ -381,7 +373,7 @@ class FactoryX_ExtendedCatalog_Model_Observer
         // Product ID
         $cacheKey[] = Mage::app()->getRequest()->getRequestUri();
         // Currency
-        $cacheKey[] = Mage::getModel('core/cookie')->get("currency") ? Mage::getModel('core/cookie')->get("currency") : "";
+        $cacheKey[] = Mage::app()->getStore()->getCurrentCurrency()->getCode();;
 
         $key = array_values($cacheKey); // ignore array keys
         $key = implode('|', $key);
@@ -413,7 +405,7 @@ class FactoryX_ExtendedCatalog_Model_Observer
         }
 
         // currency AND url (the currency dropdown is used to switch the url)
-        $cacheKey[] = $currency = (Mage::getModel('core/cookie')->get("currency") ? Mage::getModel('core/cookie')->get("currency") : Mage::app()->getStore()->getDefaultCurrencyCode());
+        $cacheKey[] = $currency = Mage::app()->getStore()->getCurrentCurrency()->getCode();
         $cacheKey[] = Mage::helper('directory/url')->getSwitchCurrencyUrl(array('currency' => $currency));
 
         $key = array_values($cacheKey); // ignore array keys
@@ -443,7 +435,7 @@ class FactoryX_ExtendedCatalog_Model_Observer
         $cacheKey[] = Mage::getSingleton('customer/session')->isLoggedIn();
 
         // currency AND url (the currency dropdown is used to switch the url)
-        $cacheKey[] = $currency = (Mage::getModel('core/cookie')->get("currency") ? Mage::getModel('core/cookie')->get("currency") : Mage::app()->getStore()->getDefaultCurrencyCode());
+        $cacheKey[] = $currency = Mage::app()->getStore()->getCurrentCurrency()->getCode();
         $cacheKey[] = Mage::helper('directory/url')->getSwitchCurrencyUrl(['currency' => $currency]);
 
         $key = array_values($cacheKey); // ignore array keys
