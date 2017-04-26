@@ -103,7 +103,7 @@ class FactoryX_CartImage_Helper_Data extends Mage_Core_Helper_Abstract
      * @param $attributeValue
      * @return string
      */
-    protected function generateImageLabel($attributeValue): string
+    protected function generateImageLabel($attributeValue)
     {
         return sprintf(
             "%s_%s",
