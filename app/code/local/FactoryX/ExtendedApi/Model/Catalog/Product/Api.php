@@ -15,6 +15,8 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
     }
 
     /**
+     * return group pricing info
+     *
      * @param $productId
      * @param null $identifierType
      * @return array
@@ -22,13 +24,10 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
     public function info($productId, $identifierType = null) {
         $product = $this->_initProduct($productId, $identifierType);
         $groupPrices = $product->getData(self::ATTRIBUTE_CODE);
-        
         if (!is_array($groupPrices)) {
             return array();
         }
-        
         $result = array();
-        
         foreach ($groupPrices as $groupPrice) {
             $row = array();
             $row['customer_group_id'] = $groupPrice['cust_group'];
@@ -38,6 +37,30 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
             );
             $row['price'] = $groupPrice['price'];
             $result[] = $row;
+        }
+        return $result;
+    }
+
+    /**
+     * return parent info
+     *
+     * @param $productId
+     * @param null $identifierType
+     * @return array
+     */
+    public function parent($productId, $identifierType = null) {
+        Mage::helper('extended_api')->log(sprintf("%s->productId: %s [%s]", __METHOD__, $productId, $identifierType));
+        $_product = $this->_initProduct($productId, $identifierType);
+        Mage::helper('extended_api')->log(sprintf("%s->product[%d]['type']=%s", __METHOD__, $_product->getId(), $_product->getTypeId()));
+        $result = array();
+        if ($_product->getTypeId() == "simple") {
+            //$parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($_product->getId());
+            $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($_product->getId());
+            Mage::helper('extended_api')->log(sprintf("%s->parentIds: %s", __METHOD__, print_r($parentIds, true)) );
+            foreach($parentIds as $id) {
+                $result[] = $id;
+            }
+            //$result = $parentIds;
         }
         return $result;
     }
@@ -52,7 +75,7 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
     public function update($productId, $groupPrices, $identifierType = null) {
         $product = $this->_initProduct($productId, $identifierType);
     
-        $updatedGroupPrices = $this->prepareGroupPrices($product, $groupPrices);
+        $updatedGroupPrices = $this->_prepareGroupPrices($product, $groupPrices);
         if (is_null($updatedGroupPrices)) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Group Prices'));
         }
@@ -83,7 +106,7 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
      * @param null $groupPrices
      * @return array|null
      */
-    public function prepareGroupPrices($product, $groupPrices = null) {
+    private function _prepareGroupPrices($product, $groupPrices = null) {
         if (!is_array($groupPrices)) {
             return null;
         }
@@ -129,10 +152,17 @@ class FactoryX_ExtendedApi_Model_Catalog_Product_Api extends Mage_Api_Model_Reso
      * @return mixed
      */
     protected function _initProduct($productId, $identifierType = null) {
-        $product = Mage::helper('catalog/product')->getProduct($productId, 0, $identifierType);
+        $storeId =  Mage::app()->getStore()->getId();
+        if (!is_numeric($productId)) {
+            $productId = strtolower($productId);
+        }
+        Mage::helper('extended_api')->log(sprintf("%s->productId: %s|%s [%s]", __METHOD__, $productId, $storeId, $identifierType));
+        $product = Mage::helper('catalog/product')->getProduct($productId, $storeId);
+        //$product = Mage::helper('catalog/product')->getProduct($productId, $storeId, $identifierType);
+        Mage::helper('extended_api')->log(sprintf("%s->product: %s|%d", __METHOD__, get_class($product), $product->getId()));
         if (!$product->getId()) {
-            $this->_fault('product_not_exists');
-        }        
+            $this->_fault('not_exists');
+        }
         return $product;
     }
 }

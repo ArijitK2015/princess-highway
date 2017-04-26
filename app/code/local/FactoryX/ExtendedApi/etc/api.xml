@@ -3,68 +3,163 @@
     <api>
         <resources>
             <!-- FactoryX_ExtendedApi_Model_Catalog_Product_Api -->
-            <extended_api translate="title" module="extended_api">
+            <fx_catalog_product translate="title" module="extended_api">
                 <model>extended_api/catalog_product_api</model>
-                <acl>extended_api</acl>
-                <title>catalog_product_api</title>
+                <acl>extended_api/catalog_product</acl>
+                <title>Catalog Product Resource</title>
                 <methods>
                     <info translate="title" module="extended_api">
                         <title>catalog_product_attribute_group_price.info</title>
                         <method>info</method>
-                        <acl>extended_api/catalog_product_api/info</acl>
+                        <acl>extended_api/catalog_product/info</acl>
                     </info>
                     <update translate="title" module="extended_api">
                         <title>catalog_product_attribute_group_price.update</title>
                         <method>update</method>
-                        <acl>extended_api/catalog_product_api/update</acl>
+                        <acl>extended_api/catalog_product/update</acl>
                     </update>
+                    <parent translate="title" module="extended_api">
+                        <title>catalog_product.parent</title>
+                        <method>parent</method>
+                        <acl>extended_api/catalog_product/parent</acl>
+                    </parent>
                 </methods>
-            </extended_api>
+                <faults module="extended_api">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Product doesn't exist.</message>
+                    </not_exists>
+                    <product_not_exists>
+                        <code>100</code>
+                        <message>Product doesn't exist.</message>
+                    </product_not_exists>
+                </faults>                
+            </fx_catalog_product>
+
+            <!-- FactoryX_ExtendedApi_Model_Sales_Order_Api -->
+            <fx_sales_order translate="title" module="extended_api">
+                <model>extended_api/sales_order_api</model>
+                <acl>extended_api</acl>
+                <title>Sales Order Resource</title>
+                <methods>
+                    <find translate="title" module="extended_api">
+                        <title>Find order by purchase order number</title>
+                        <method>find</method>
+                        <acl>extended_api/sales_order/find</acl>
+                    </find>
+                </methods>
+            </fx_sales_order>
+
             <!-- FactoryX_ExtendedApi_Model_Transaction_Api -->
-            <transaction translate="title" module="extended_api">
+            <fx_transaction translate="title" module="extended_api">
                 <model>extended_api/transaction_api</model>
-                <acl>transaction</acl>
+                <acl>extended_api</acl>
                 <title>Transaction Resource</title>
                 <methods>
                     <info translate="title" module="extended_api">
                         <title>Retrieve transaction data</title>
                         <method>info</method>
-                        <acl>extended_api/transaction_api/info</acl>
+                        <acl>extended_api/transaction/info</acl>
                     </info>
+                    <list translate="title" module="extended_api">
+                        <title>Retrieve transaction list by filters</title>
+                        <method>items</method>
+                        <acl>extended_api/transaction/info</acl>
+                    </list>
                 </methods>
                 <faults module="extended_api">
                     <data_invalid>
-                        <code>100</code >
+                        <code>100</code>
                         <message>Invalid ...</message>
                     </data_invalid>
                     <filters_invalid>
-                        <code>101</code >
+                        <code>101</code>
                         <message>Invalid filters specified. Details in error message.</message>
                     </filters_invalid>
                     <not_exists>
-                        <code>102</code >
+                        <code>102</code>
                         <message>Transaction doesn't exist.</message>
                     </not_exists>
+                    <no_records>
+                        <code>103</code>
+                        <message>No transaction exist between times.</message>
+                    </no_records>
                 </faults>
-            </transaction>
+            </fx_transaction>
+
+            <!-- FactoryX_ExtendedApi_Model_Index_Api -->
+            <fx_index translate="title" module="extended_api">
+                <model>extended_api/index_api</model>
+                <acl>extended_api</acl>
+                <title>Index Resource</title>
+                <methods>
+                    <on translate="title" module="extended_api">
+                        <title>Turn index on</title>
+                        <method>turnIndexOn</method>
+                        <acl>extended_api/index</acl>
+                    </on>
+                    <off translate="title" module="extended_api">
+                        <title>Turn index off</title>
+                        <method>turnIndexOff</method>
+                        <acl>extended_api/index</acl>
+                    </off>
+                </methods>
+                <faults module="extended_api">
+                    <turn_on_failure>
+                        <code>100</code>
+                        <message>Failed to turn index on</message>
+                    </turn_on_failure>
+                    <turn_off_failure>
+                        <code>101</code>
+                        <message>Failed to turn index off</message>
+                    </turn_off_failure>
+                </faults>
+            </fx_index>
         </resources>
+
         <acl>
             <resources>
                 <extended_api translate="title" module="extended_api">
-                    <title>Extended Catalog Product API</title>
-                    <info translate="title" module="extended_api">
-                        <title>Catalog Product Attribute Group Price Info</title>
-                    </info>
-                    <update translate="title" module="extended_api">
-                        <title>Catalog Product Attribute Group Price Update</title>
-                    </update>
+                    <title>Extended API</title>
+                    <sort_order>1</sort_order>
+                    <catalog_product translate="title" module="extended_api">
+                        <title>Catalog Product</title>
+                        <sort_order>1</sort_order>
+                        <info translate="title" module="extended_api">
+                            <title>Attribute Group Price Info</title>
+                        </info>
+                        <update translate="title" module="extended_api">
+                            <title>Attribute Group Price Update</title>
+                        </update>
+                        <parent translate="title" module="extended_api">
+                            <title>Catalog Product Parent Info</title>
+                        </parent>
+                    </catalog_product>
+                    <sales_order translate="title" module="extended_api">
+                        <title>Sales Order</title>
+                        <sort_order>2</sort_order>
+                        <find translate="title" module="extended_api">
+                            <title>Find</title>
+                        </find>
+                    </sales_order>
+                    <transaction translate="title" module="extended_api">
+                        <title>Transaction</title>
+                        <sort_order>3</sort_order>
+                        <info translate="title" module="extended_api">
+                            <title>Info</title>
+                        </info>
+                    </transaction>
+                    <index translate="title" module="extended_api">
+                        <title>Index</title>
+                        <sort_order>4</sort_order>
+                        <on translate="title" module="extended_api">
+                            <title>On</title>
+                        </on>
+                        <off translate="title" module="extended_api">
+                            <title>Off</title>
+                        </off>
+                    </index>
                 </extended_api>
-                <transaction translate="title" module="extended_api">
-                    <title>Transaction</title>
-                    <info translate="title" module="extended_api">
-                        <title>Info</title>
-                    </info>
-                </transaction>
             </resources>
         </acl>
         <v2>
