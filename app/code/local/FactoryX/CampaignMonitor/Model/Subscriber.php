@@ -110,6 +110,15 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
             // Set subscription date
             $this->setData('subscriber_subscriptiondate',date("Y-m-d H:i:s"));
 
+            // Preferred store
+            if (Mage::helper('core')->isModuleEnabled('FactoryX_StoreLocator')) {
+                $ip = $this->_hlp()->getRemoteAddr();
+                if ($store = Mage::helper('ustorelocator')->getLocationByIpAddress($ip)) {
+                    $storeCode = $store->getData('store_code');
+                    $this->setData('subscriber_preferredstore', $storeCode);
+                }
+            }
+
             // Coupon stuff
             if ((!$sync || $first) && $confirmEmail)
             {
@@ -242,6 +251,18 @@ class FactoryX_CampaignMonitor_Model_Subscriber extends Mage_Newsletter_Model_Su
                 "Value" => md5($params['email'].$this->_hlp()->getApiKey())
             );
         }
+
+        // Preferred store
+        if (Mage::helper('core')->isModuleEnabled('FactoryX_StoreLocator')) {
+            $ip = $this->_hlp()->getRemoteAddr();
+            if ($store = Mage::helper('ustorelocator')->getLocationByIpAddress($ip)) {
+                $customFields[] = array(
+                    'Key' => 'From Store',
+                    'Value' => $store->getData('store_code')
+                );
+            }
+        }
+
         // Add new
         try
         {

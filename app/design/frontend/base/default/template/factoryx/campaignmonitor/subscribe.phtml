@@ -232,6 +232,13 @@ $email_hidden = ($pre_fill_email || $this->helper('customer')->isLoggedIn()) ? "
 				</tr>
 			<?php endif; ?>
 
+            <tr>
+                <td colspan="2"></td>
+                <td>
+                    <?php echo $this->getChildHtml('form.additional.info'); ?>
+                </td>
+            </tr>
+
 			<tr>
 				<td colspan="2"></td>
 				<td id="subscription-button-td">

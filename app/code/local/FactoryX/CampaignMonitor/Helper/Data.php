@@ -7,6 +7,11 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
     protected $logFileName = 'factoryx_campaignmonitor.log';
 
     /**
+     * Const for the mini subscription widget route
+     */
+    const CAMPAIGNMONITOR_SUBSCRIPTION_ROUTE = 'newsletter_subscriber_new';
+
+    /**
      * Check if the auth type is OAuth
      * @return bool
      */
@@ -59,6 +64,14 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
     public function getRedirectUrl()
     {
         return (Mage::getStoreConfig('newsletter/campaignmonitor/redirect_url') ? trim(Mage::getStoreConfig('newsletter/campaignmonitor/redirect_url')) : "/customer/account/");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function isMiniPopup()
+    {
+        return Mage::getStoreConfigFlag('newsletter/popup/mini_popup');
     }
 
     /**
@@ -569,6 +582,43 @@ class FactoryX_CampaignMonitor_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getRemoteAddr()
+    {
+        $remoteAddr = $this->_getIpAddress();
+        if (!$remoteAddr) {
+            return false;
+        }
+        return $ipToLong ? inet_pton($remoteAddr) : $remoteAddr;
+    }
+
+    /**
+     * @return string
+     */
+    private function _getIpAddress()
+    {
+        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+            if (array_key_exists($key, $_SERVER) === true) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip); // just to be safe
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                        return $ip;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRecaptchaAllowedOnSubscription()
+    {
+        return ((string)Mage::getConfig()->getModuleConfig('Studioforty9_Recaptcha')->active == 'true' && Mage::helper('studioforty9_recaptcha')->isAllowed(self::CAMPAIGNMONITOR_SUBSCRIPTION_ROUTE));
     }
 
 }

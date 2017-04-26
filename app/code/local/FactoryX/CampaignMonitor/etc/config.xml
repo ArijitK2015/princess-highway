@@ -3,7 +3,7 @@
 
     <modules>
         <FactoryX_CampaignMonitor>
-            <version>1.1.29</version>
+            <version>1.2.2</version>
         </FactoryX_CampaignMonitor>
     </modules>
 
@@ -45,8 +45,8 @@
             </updates>
         </layout>
 
-        <!-- Disable the default IWD OPC subscription system -->
         <events>
+            <!-- Disable the default IWD OPC subscription system -->
             <sales_order_place_after>
                 <observers>
                     <newsletter_order_place_after>
@@ -54,6 +54,16 @@
                     </newsletter_order_place_after>
                 </observers>
             </sales_order_place_after>
+            <!-- Called to add the ReCAPTCHA blocks dynamically -->
+            <controller_action_layout_load_before>
+                <observers>
+                    <factoryx_campaignmonitor_add_recaptcha_blocks>
+                        <type>singleton</type>
+                        <class>campaignmonitor/observer</class>
+                        <method>addRecaptchaBlocks</method>
+                    </factoryx_campaignmonitor_add_recaptcha_blocks>
+                </observers>
+            </controller_action_layout_load_before>
         </events>
     </frontend>
 
@@ -83,6 +93,16 @@
         </translate>
         <!-- Events observers -->
         <events>
+            <!-- Called by the ReCAPTCHA module -->
+            <studioforty9_recaptcha_routes>
+                <observers>
+                    <factoryx_campaignmonitor_add_route>
+                        <type>singleton</type>
+                        <class>campaignmonitor/observer</class>
+                        <method>addCustomRoute</method>
+                    </factoryx_campaignmonitor_add_route>
+                </observers>
+            </studioforty9_recaptcha_routes>
             <!-- Called after creating a block -->
             <core_layout_block_create_after>
                 <observers>

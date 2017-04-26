@@ -28,31 +28,43 @@
     <div class="block-title panel-heading">
         <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
     </div>
-    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+    <?php if (Mage::helper('campaignmonitor')->isMiniPopup()): ?>
         <div class="block-content panel-body">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" placeholder="<?php echo $this->__('Sign up for our newsletter') ?>" class="form-control input-text required-entry validate-email" />
-                    <?php
-                    $brands = Mage::helper('campaignmonitor')->getPreferredBrands();
-                    if (!empty($brands)):
-                        ?>
-                        <select id="brands" name="brands">
-                            <?php foreach ($brands as $brand): ?>
-                                <option value="<?php echo (($brand['list']=='all')? 'all':$brand['brand']); ?>">
-                                    <?php echo $brand['brand']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    <?php endif; ?>
-                    <input type="hidden" name="mini" id="mini" value="1" />
-                    <span class="input-group-btn">
-                        <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="btn btn-primary button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
-                    </span>
+                    <a data-toggle="modal" data-target="#subscribePopupModal" title="<?php echo $this->__('Subscribe') ?>" class="text-uppercase btn btn-primary button">
+                        <span><span><?php echo $this->__('Subscribe') ?></span></span>
+                    </a>
                 </div>
             </div>
         </div>
-    </form>
+    <?php else: ?>
+        <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+            <div class="block-content panel-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" placeholder="<?php echo $this->__('Sign up for our newsletter') ?>" class="form-control input-text required-entry validate-email" />
+                        <?php
+                        $brands = Mage::helper('campaignmonitor')->getPreferredBrands();
+                        if (!empty($brands)):
+                            ?>
+                            <select id="brands" name="brands">
+                                <?php foreach ($brands as $brand): ?>
+                                    <option value="<?php echo (($brand['list']=='all')? 'all':$brand['brand']); ?>">
+                                        <?php echo $brand['brand']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php endif; ?>
+                        <input type="hidden" name="mini" id="mini" value="1" />
+                        <span class="input-group-btn">
+                        <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="btn btn-primary button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <?php endif; ?>
     <script type="text/javascript">
         //<![CDATA[
         var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');

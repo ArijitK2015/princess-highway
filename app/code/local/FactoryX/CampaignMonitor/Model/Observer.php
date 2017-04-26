@@ -189,4 +189,26 @@ class FactoryX_CampaignMonitor_Model_Observer
         }
     }
 
+    /**
+     * Add custom routes to the ReCAPTCHA module
+     * @param Varien_Event_Observer $observer
+     */
+    public function addCustomRoute(Varien_Event_Observer $observer)
+    {
+        $routes = $observer->getEvent()->getRoutes();
+        $routes->add(FactoryX_CampaignMonitor_Helper_Data::CAMPAIGNMONITOR_SUBSCRIPTION_ROUTE, Mage::helper('campaignmonitor')->__('Newsletter Subscription'));
+    }
+
+    /**
+     * Add the recaptcha blocks dynamically based on the recaptcha module presence and configuration
+     * @param Varien_Event_Observer $observer
+     */
+    public function addRecaptchaBlocks(Varien_Event_Observer $observer)
+    {
+        if (Mage::helper('campaignmonitor')->isRecaptchaAllowedOnSubscription()) {
+            $layout = $observer->getLayout();
+            $layout->getUpdate()->addHandle('factoryx_campaignmonitor_recaptcha');
+        }
+    }
+
 }

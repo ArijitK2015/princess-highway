@@ -39,6 +39,27 @@
         </reference>
     </default>
 
+    <factoryx_campaignmonitor_recaptcha>
+        <reference name="popup">
+            <block type="core/text_list" name="form.additional.info">
+                <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit.mini" template="studioforty9/recaptcha/explicit.phtml">
+                    <action method="setAllow">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+        <reference name="newsletter_subscription_page">
+            <block type="core/text_list" name="form.additional.info">
+                <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit.subscrbe" template="studioforty9/recaptcha/explicit.phtml">
+                    <action method="setAllow">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </factoryx_campaignmonitor_recaptcha>
+
     <!-- Subscribe page -->
     <factoryx_campaignmonitor_subscriber_index>
         <reference name="root">
