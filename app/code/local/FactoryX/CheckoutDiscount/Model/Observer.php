@@ -34,7 +34,7 @@ class FactoryX_CheckoutDiscount_Model_Observer
 				$result = array('error' => 1, 'message' => $hlp->__("An error occured"));
 			}
 
-			if(!array_key_exists('error', $result) || $result['error']) {
+			if(!array_key_exists('error', $result) || !$result['error']) {
 				$steps = Mage::getSingleton('checkout/type_onepage')->getCheckout()->getSteps();
 				if ($steps['shipping_method']['is_show']) {
 					Mage::getSingleton('checkout/type_onepage')->getQuote()->getShippingAddress()->setCollectShippingRates(true);
@@ -72,10 +72,10 @@ class FactoryX_CheckoutDiscount_Model_Observer
 
 		if ($body['goto_section'] == "shipping_method" || $directToPayment) {
 			$body['goto_section'] = "discount";
-			$body['update_section'] = array(
+			/* $body['update_section'] = array(
 				'name' => 'discount',
 				'html' => $this->_getVendorHtml($controller)
-			);
+			); */
 		}
 		if ($directToPayment) {
 			$body['allow_sections'] = array('billing','discount');

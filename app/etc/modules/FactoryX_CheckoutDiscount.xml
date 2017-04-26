@@ -6,6 +6,7 @@
             <codePool>local</codePool>
             <depends>
                 <Mage_Checkout/>
+                <FactoryX_Framework/>   <!-- For loading the onepage checkout js after the framework -->
             </depends>
         </FactoryX_CheckoutDiscount>
     </modules>

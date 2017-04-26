@@ -13,18 +13,16 @@ Discount.prototype = {
       },
 
       validate: function() {
-          if(!this.validator.validate()) {
-              return false;
-          }
-          return true;
+          return this.validator.validate();
       },
 
       save: function(){
 
-          if (checkout.loadWaiting!=false) return;
-          if (this.validate()) {
+          if (checkout.loadWaiting!==false) return;
+          var validator = new Validation(this.form);
+          if (validator.validate()) {
               checkout.setLoadWaiting('discount');
-              var request = new Ajax.Request(
+              new Ajax.Request(
                   this.saveUrl,
                   {
                       method:'post',
@@ -35,44 +33,37 @@ Discount.prototype = {
                   }
               );
           }
+
       },
 
-      resetLoadWaiting: function(transport){
+      resetLoadWaiting: function(){
           checkout.setLoadWaiting(false);
       },
 
       nextStep: function(transport){
-    	  if (transport && transport.responseText){
-              try{
-                  response = eval('(' + transport.responseText + ')');
-              }
-              catch (e) {
-                  response = {};
-              }
-          }
+          var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+
           if (response.error){
-              if ((typeof response.message) == 'string') {
-                  alert(response.message);
+              if (Object.isString(response.message)) {
+                  alert(response.message.stripTags().toString());
               } else {
                   if (window.shippingRegionUpdater) {
                       shippingRegionUpdater.update();
                   }
                   response.message.join("\n");
               }
-
               return false;
           }
 
           checkout.setStepResponse(response);
       }
-}
+};
 
 function removeCoupon(url, gc)
 {
-    if (jQuery('.remove-'+gc).length) {
-        jQuery('.remove-'+gc).removeClass('fa-times');
-        jQuery('.remove-'+gc).addClass('fa-spinner');
-        jQuery('.remove-'+gc).addClass('fa-spin');
+    var remove_gc = jQuery('.remove-'+gc);
+    if (remove_gc.length) {
+        remove_gc.removeClass('fa-times').addClass('fa-spinner fa-spin');
     }
     new Ajax.Request(url, {
         method: 'post',
@@ -81,3 +72,8 @@ function removeCoupon(url, gc)
         }
     });
 }
+Checkout.prototype.parent_initialize = Checkout.prototype.initialize;
+Checkout.prototype.initialize = function(accordion, urls) {
+    this.parent_initialize(accordion, urls);
+    this.steps = ['login', 'billing', 'shipping', 'discount', 'shipping_method', 'payment', 'review'];
+};
