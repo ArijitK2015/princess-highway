@@ -98,11 +98,6 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
         }
 		if (empty($sender['name'])) { Mage::helper('contests')->log("Contest Module: Sender name not recognised."); return; }
 		
-		// Email template
-		$templateId = Mage::helper('contests')->getTemplate();	
-		if (!is_numeric($templateId)) { Mage::helper('contests')->log("Contest Module: Template ID is not numeric."); return; }
-		$templateId = intval($templateId);
-		
 		// Get the session
     	$session = Mage::getSingleton('core/session');
     	// $session = Mage::getSingleton("customer/session");
@@ -273,35 +268,9 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
 										->setContestId($contestId)
 										->setReferrerId($referrer->getId())
 										->save();
-						
-						// Create an array of variables to assign to template 
-						$emailTemplateVariables = array(); 
 
-						$emailTemplateVariables['referrer'] = $name;
-						$emailTemplateVariables['contest_identifier'] = $contest->getIdentifier();
-						$emailTemplateVariables['contest_identifier'] = sprintf("%s%s", Mage::getBaseUrl(), $contest->getIdentifier());
-						$emailTemplateVariables['contest_url'] = sprintf("%s%s", Mage::getBaseUrl(), $contest->getIdentifier());
-						
-						// Convert to frontend
-						$imageURL = Mage::getBaseUrl('media') . 'contest' . $contest->getEmailImageUrl();
-						
-						//Mage::helper('contests')->log(sprintf("%s->imageURL=%s", __METHOD__, $imageURL) );
-						
-						$emailTemplateVariables['contest_email_image'] = $imageURL;
-						$emailTemplateVariables['contest_title'] = $contest->getTitle();
-						
-						// Send email
-						//Mage::helper('contests')->log(sprintf("%s->friend=%s", __METHOD__, $friend) );
-						
-						Mage::getModel('core/email_template')
-								->sendTransactional(
-										$templateId,
-										$sender,
-										$friend,
-										null,
-										$emailTemplateVariables,
-										null);
-					}
+                        $this->_sendFriendEmail($name, $contest, $sender, $friend);
+                    }
 					catch (Mage_Core_Exception $e) 
 					{
 						$session->addException($e, $this->__('There was a problem with the contest subscription: %s', $e->getMessage()));
@@ -366,6 +335,10 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
                 }else{
                     $emailTemplate  = Mage::getModel('core/email_template')
                         ->load($templateId);
+                }
+
+                if ($emailSubject = $contest->getEmailSubject()) {
+                    $emailTemplate->setTemplateSubject($emailSubject);
                 }
 
                 //Create an array of variables to assign to template
@@ -439,6 +412,53 @@ class FactoryX_Contests_FacebookController extends Mage_Core_Controller_Front_Ac
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
         return $captchaParams[$formId];
-    } 
-	
+    }
+
+    /**
+     * @param $name
+     * @param $contest
+     * @param $sender
+     * @param $friend
+     * @return array
+     */
+    protected function _sendFriendEmail($name, $contest, $sender, $friend)
+    {
+        // Email template
+        $templateId = $contest->getEmailTemplateId() ? $contest->getEmailTemplateId() : Mage::helper('contests')->getTemplate();
+        if (!is_numeric($templateId)) {
+            Mage::helper('contests')->log("Contest Module: Template ID is not numeric.");
+            return;
+        }
+        $templateId = intval($templateId);
+        if (!$templateId || ($templateId == -1)) {
+            $emailTemplate  = Mage::getModel('core/email_template')->loadDefault('contests_options_template');
+        }
+        else {
+            $emailTemplate  = Mage::getModel('core/email_template')->load($templateId);
+        }
+        if ($emailSubject = $contest->getRefereeEmailSubject()) {
+            $emailTemplate->setTemplateSubject($emailSubject);
+        }
+
+        // Create an array of variables to assign to template
+        $emailTemplateVariables = array();
+
+        $emailTemplateVariables['referrer'] = $name;
+        $emailTemplateVariables['contest_identifier'] = $contest->getIdentifier();
+        $emailTemplateVariables['contest_identifier'] = sprintf("%s%s", Mage::getBaseUrl(), $contest->getIdentifier());
+        $emailTemplateVariables['contest_url'] = sprintf("%s%s", Mage::getBaseUrl(), $contest->getIdentifier());
+
+        // Convert to frontend
+        $imageURL = Mage::getBaseUrl('media') . 'contest' . $contest->getEmailImageUrl();
+
+        //Mage::helper('contests')->log(sprintf("%s->imageURL=%s", __METHOD__, $imageURL) );
+
+        $emailTemplateVariables['contest_email_image'] = $imageURL;
+        $emailTemplateVariables['contest_title'] = $contest->getTitle();
+
+        $emailTemplate->setSenderName($sender['name']);
+        $emailTemplate->setSenderEmail($sender['email']);
+        $emailTemplate->send($friendEmail, "", $emailTemplateVariables);
+    }
+
 }

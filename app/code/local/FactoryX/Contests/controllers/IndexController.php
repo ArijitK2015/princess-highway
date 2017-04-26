@@ -336,6 +336,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
                 else {
                     $emailTemplate  = Mage::getModel('core/email_template')->load($templateId);
                 }
+                if ($emailSubject = $contest->getEmailSubject()) {
+                    $emailTemplate->setTemplateSubject($emailSubject);
+                }
                 //Create an array of variables to assign to template
                 $emailTemplateVariables = array();
                 $emailTemplateVariables['contest_title'] = $contest->getData('title');
@@ -411,9 +414,10 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
      * @param $sender
      * @param $friendEmail
      */
-    protected function _sendFriendEmail($contest, $name, $sender, $friendEmail) {
+    protected function _sendFriendEmail($contest, $name, $sender, $friendEmail)
+    {
         // Email template
-        $templateId = Mage::helper('contests')->getTemplate();
+        $templateId = $contest->getEmailTemplateId() ? $contest->getEmailTemplateId() : Mage::helper('contests')->getTemplate();
         if (!is_numeric($templateId)) {
             Mage::helper('contests')->log("Contest Module: Template ID is not numeric.");
             return;
@@ -424,6 +428,9 @@ class FactoryX_Contests_IndexController extends Mage_Core_Controller_Front_Actio
         }
         else {
             $emailTemplate  = Mage::getModel('core/email_template')->load($templateId);
+        }
+        if ($emailSubject = $contest->getRefereeEmailSubject()) {
+            $emailTemplate->setTemplateSubject($emailSubject);
         }
         //Create an array of variables to assign to template
         $emailTemplateVariables = array();

@@ -3,7 +3,7 @@
 
 	<modules>
 		<FactoryX_Contests>
-			<version>1.3.22</version>
+			<version>1.4.0</version>
 		</FactoryX_Contests>
 	</modules>
 	
@@ -158,25 +158,16 @@
             </contests>
         </helpers>
 		
-		<default>
-			<contests>
-				<options>
-					<allow_duplicate_referrals>yes</allow_duplicate_referrals>
-				</options>
-			</contests>
-	   </default>
-		
-		
 		<template>
 			<email>
-				<contests_options_template translate="label" module="contests">
-					<label>Contests Email</label>
-					<file>factoryx/contests.html</file>
-					<type>html</type>
-				</contests_options_template>
+                <contests_options_template translate="label" module="contests">
+                    <label>Contest Referral Email</label>
+                    <file>factoryx/contests/contests.html</file>
+                    <type>html</type>
+                </contests_options_template>
                 <contest_confirmation_template translate="label" module="contests">
                     <label>Contests Confirmation Email</label>
-                    <file>factoryx/contests_confirmation.html</file>
+                    <file>factoryx/contests/contests_confirmation.html</file>
                     <type>html</type>
                 </contest_confirmation_template>
 			</email>
@@ -207,6 +198,7 @@
                 <cron_expr>*/5 * * * *</cron_expr>
                 <redirect_timeout>10</redirect_timeout>
                 <location_options>Australian Capital Territory,New South Wales,Northern Territory,Queensland,South Australia,Tasmania,Victoria,Western Australia,New Zealand,Other</location_options>
+                <allow_duplicate_referrals>1</allow_duplicate_referrals>
             </options>
         </contests>
     </default>

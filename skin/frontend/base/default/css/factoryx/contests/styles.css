@@ -35,6 +35,7 @@
 #winTerms .table_window {
     background-color: #fff;
 }
+#terms-div {padding: 10px}
 .col-main {padding:0px;}
 .validation-advice {display: none !important;}
 a.zoomable{cursor: default;}

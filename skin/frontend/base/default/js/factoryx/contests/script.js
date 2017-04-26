@@ -107,38 +107,30 @@ function daySuffix(d) {
 function popupTerms(storeCode, contestId, facebook)
 {
     facebook = (typeof facebook === "undefined") ? "index" : facebook;
-    var w = 700, h = 700;
-    if (document.all || document.layers)
-    {
-       w = screen.availWidth;
-       h = screen.availHeight;
-    }
-    var popW = 600, popH = 650;
-    var leftPos = (w-popW)/2, topPos = (h-popH)/2;
-    if (storeCode == "")
-    {
+    var viewport = document.viewport.getDimensions();
+    var popW = (viewport.width < 600) ? viewport.width : 600;
+    var popH = (viewport.height < 650) ? viewport.height : 650;
+    if (storeCode == "") {
         var urlToOpen = "/contests/"+facebook+"/terms/id/"+contestId;
-    }
-    else
-    {
+    } else {
         var urlToOpen = "/"+storeCode+"/contests/"+facebook+"/terms/id/"+contestId;
     }
-	win = new Window({ 
-		id: "winTerms", 
-		className: "default", 		
-		url:urlToOpen, 
-		zIndex:3000, 
-		destroyOnClose: true, 
-		recenterAuto:false, 
-		resizable: true, 
-		width:popW, 
-		height:popH, 
-		minimizable: false,
+    win = new Window({
+        id: "winTerms",
+        className: "default",
+        url:urlToOpen,
+        zIndex:3000,
+        destroyOnClose: true,
+        recenterAuto:false,
+        resizable: true,
+        width:popW,
+        height:popH,
+        minimizable: false,
         onload: function() {jQuery(document).on('click', 'body > .overlay_default', function() { jQuery( "#winTerms_close" ).click(); return false;});},
-		maximizable: false, 
-		draggable: false
-	});
-	win.showCenter(true);
+        maximizable: false,
+        draggable: false
+    });
+    win.showCenter(true);
 }
 
 function redirectTerms(storeCode, contestId)
