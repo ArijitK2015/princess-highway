@@ -12,6 +12,9 @@
     background: rgba(75,75,75,0.7) !important;
     width: 100%;
     height: 100%;
+    color: #ffffff;
+    white-space: pre-line;
+    padding: 8px;
 }
 .hoverwrapper > div.custom-hover-object{
     position: absolute;

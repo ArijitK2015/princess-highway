@@ -21,48 +21,106 @@
  */
 ?>
 <?php
-if (!$this->showInstagramImages()) {
-    return;
-}
+if (!$this->showInstagramImages()) return;
 $currentList = $this->getCurrentList();
-$limit    = $this->getData('limit') ? $this->getData('limit') : $currentList->getLimit();
-$image_size       = $currentList->getImageSize();
-$style            = $currentList->getStyle();
-$header_text      = $currentList->getTitle();
-$header_link      = $currentList->getLink();
+$limit = $this->getData('limit') ? $this->getData('limit') : $currentList->getLimit();
+$per_page = $this->getData('show_per_page') ? $this->getData('show_per_page') : $currentList->getShowPerPage();
+$image_size = $currentList->getImageSize();
+$style = $currentList->getStyle();
+$header_text = $currentList->getTitle();
+$header_link = $currentList->getLink();
+$hover = $currentList->getHover();
 
-if ($header_link)
-    $header_text = "<a href=$header_link>$header_text</a>";
+if ($header_link) $header_text = "<a href=$header_link>$header_text</a>";
+
+$ajax_loading = $this->getSkinUrl('images/ajax-loader.gif');
+if (strpos($ajax_loading, '/base/') !== false) $ajax_loading = $this->getJsUrl('lib/slick/ajax-loader.svg');
 ?>
 
+<?php if ($hover): ?>
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="<?php echo $this->getJsUrl('lib/factoryx/instagram/jquery.hoverdir.css') ?>">
+    <script type="text/javascript" src="<?php echo $this->getJsUrl('lib/factoryx/instagram/jquery.hoverdir.js') ?>"></script>
+<?php endif; ?>
+<?php if (!empty($per_page)): ?>
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="<?php echo $this->getJsUrl('lib/slick/slick.css') ?>">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="<?php echo $this->getJsUrl('lib/slick/slick-theme.css') ?>">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="<?php echo $this->getJsUrl('lib/slick/slick-fx.css') ?>">
+    <script type="text/javascript" src="<?php echo $this->getJsUrl('lib/slick/slick.min.js') ?>"></script>
+<?php endif; ?>
+
 <div class="instagram-title"><?php echo $header_text ?></div>
-<div class="instagram-view" id="instagram-widget"></div>
+<div class="instagram-view" id="instagram-widget">
+    <?php
+    $images = json_decode($this->getInstagramGalleryImages($limit));
+    foreach ($images as $image): ?>
+        <div class="item <?php echo ($hover) ? 'hoverdir' : ''; ?>">
+            <?php if ($image->link): ?>
+            <a class="hoverwrapper" rel="noopener noreferrer" target="_blank" href='<?php echo $image->link ?>'>
+                <?php else: ?>
+                <div class="hoverwrapper">
+                    <?php endif; ?>
+                    <?php if (!empty($per_page)): ?>
+                      <img src='<?php echo $ajax_loading; ?>' data-lazy='<?php echo $image->standard_resolution_url ?>'/>
+                    <?php else: ?>
+                      <img src='<?php echo $image->standard_resolution_url ?>'/>
+                    <?php endif; ?>
+                    <div class="instagram-caption">
+                        <?php
+                        echo $image->caption_text;
+                        if ($this->getCurrentList()->getDisplayLikes() && !empty($image->likes)) {
+                            echo $image->likes, " likes";
+                        }
+                        ?>
+                    </div>
+                    <?php if (!$image->link): ?>
+                </div>
+                <?php else: ?>
+            </a>
+        <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
 
-<script type="text/javascript">
-    var images = <?php echo $this->getInstagramGalleryImages($limit); ?>;
-
-    function renderPhoto(position) {
-        var image = images[position];
-        var html = "<img src='" + image.standard_resolution_url + "'/><div class=\"instagram-caption\">" + image.caption_text +<?php if ($this->getCurrentList()->getDisplayLikes()): ?>" " + image.likes +" likes" +<?php endif; ?> "</div>";
-        if (image.link) html = "<a target=\"_blank\" rel=\"noopener noreferrer\" href='" + image.link + "'>" + html + "</a>";
-        html = "<div class=\"item\">" + html + "</div>";
-        return html;
-    }
-
-    function renderArea() {
-        var content = "";
-        for (var i = 0, len = images.length; i < len; i++) {
-            content += renderPhoto(i);
+<script>
+    <?php if (!empty($per_page)): ?>
+    jQuery("#instagram-widget").slick(
+        {
+            slidesToShow: <?php echo $per_page ?>,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: <?php echo max($per_page - 1, 1) ?>
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: <?php echo max($per_page - 2, 1) ?>
+                    }
+                },
+                {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: <?php echo max($per_page - 3, 1) ?>
+                    }
+                }
+            ]
         }
-        document.getElementById('instagram-widget').innerHTML = content;
-    }
-
-    renderArea();
+    );
+    <?php endif; ?>
+    <?php if ($hover): ?>
+    jQuery(window).on('load', function () {
+        jQuery('.hoverdir').each(function () {
+            jQuery(this).hoverdir({hoverElem: '.instagram-caption'});
+        });
+    });
+    <?php endif; ?>
 </script>
 
 <style type="text/css">
-    .instagram-view div:last-child{
-        margin-right:0px;
+    .instagram-view div:last-child {
+        margin-right: 0px;
     }
     <?php echo $style ?>
 </style>

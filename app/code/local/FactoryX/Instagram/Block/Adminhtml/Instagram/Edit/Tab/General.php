@@ -97,7 +97,7 @@ class FactoryX_Instagram_Block_Adminhtml_Instagram_Edit_Tab_General extends Mage
         $fieldset->addField('show_per_page', 'text', array(
             'label' => Mage::helper('instagram')->__('Show Per Page'),
             'name' => 'show_per_page',
-            'note' => Mage::helper('instagram')->__('Only used when displayed as list')
+            'note' => Mage::helper('instagram')->__('Also used in widget for visible slides per carousel, 0 or null for no carousel')
         ));
 
         // Field for the display on children

@@ -41,8 +41,9 @@
             <a style="float:right;" onclick="return deleteImage('<?php echo $image->getImageId(); ?>','<?php echo $this->getUrl('*/instagram/deleteimage'); ?>');" href="javascript:void(0);">Delete</a>
         </div>
     <?php endforeach; ?>
-    <?php $nextUrl = Mage::getSingleton('core/session')->getNextUrl(); ?>
-    <?php if (is_array($nextUrl) && array_key_exists($this->getRequest()->getParam('id'),$nextUrl) && !empty($nextUrl[$this->getRequest()->getParam('id')])): ?>
+    <?php
+    $nextUrl = Mage::getSingleton('core/session')->getNextUrl();
+    if (!empty($nextUrl[$this->getRequest()->getParam('id')])): ?>
         <div class="item" style="width:150px;margin:10px; text-align:center; float:left;">
             <button style="height:150px;margin-top:25px" type="button" class="scalable add" onclick="setLocation('<?php echo $this->getUrl('*/*/update',array('id' => $this->getRequest()->getParam('id'))); ?>back/edit/')" title="Load More Images">
                 <span><span><span><?php echo $this->__('Load More Images'); ?></span></span></span>

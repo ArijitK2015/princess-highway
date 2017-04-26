@@ -133,7 +133,7 @@ function submitMerchandising() {
     }
 }
 
-jQuery(window).load(function() {
+jQuery(window).on('load',function() {
     var list = jQuery('ul.sortable');
     jQuery('#instagram_tabs_approved_tab').on('click', function () {
         list.imagesLoaded(function () {

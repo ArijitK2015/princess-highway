@@ -33,6 +33,12 @@
                 <required>0</required>
                 <type>text</type>
             </limit>
+            <show_per_page>
+                <label>Visible Slides Per Carousel</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>text</type>
+            </show_per_page>
         </parameters>
     </instagram_list>
 </widgets>
