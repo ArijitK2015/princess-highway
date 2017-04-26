@@ -34,10 +34,10 @@
 							<title>Worstsellers</title>
 							<action>adminhtml/worstsellers</action>
 						</worstsellers>
-						<customergroups translate="title" module="reports">
+						<orderedbycustomergroups translate="title" module="reports">
 							<title>Products Ordered by Customer Groups</title>
 							<action>adminhtml/orderedbycustomergroups</action>
-						</customergroups>
+						</orderedbycustomergroups>
 					</children>
 				</products>
 				<customers translate="title" module="reports">
@@ -97,9 +97,9 @@
 									<worstsellers translate="title" module="reports">
 										<title>Worst Sellers</title>
 									</worstsellers>
-									<customergroups translate="title" module="reports">
+									<orderedbycustomergroups translate="title" module="reports">
 										<title>Products Ordered by Customer Groups</title>
-									</customergroups>
+									</orderedbycustomergroups>
 								</children>
 							</products>
 							<customers translate="title" module="reports">
