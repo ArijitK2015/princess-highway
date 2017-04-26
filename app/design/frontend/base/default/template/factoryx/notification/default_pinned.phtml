@@ -33,7 +33,7 @@ foreach($notifications as $notification): ?>
     </div>
     <script>
     // check cookie to display this notification?
-    jQuery(window).load(function() {
+    jQuery(window).on('load', function() {
         var today = new Date();
         var cookieName = "notification_id_<?php echo $notification->getId(); ?>";
         //console.log("show notification: " + cookieName + "?");
