@@ -23,6 +23,7 @@ class FactoryX_Sales_Model_Observer {
 	 * @var bool
 	 */
 	private $_notify = false;
+    private $_notifyStage2 = false;
 
 	/**
 	 * Change the order status after a shipment has been saved
@@ -34,8 +35,10 @@ class FactoryX_Sales_Model_Observer {
 		$observedShipment = $observer->getEvent()->getShipment();
 		// Check if tracked
 		$tracked = true;
-		foreach($observedShipment->getOrder()->getShipmentsCollection() as $shipment) {
-			if (!$shipment->getAllTracks()) {
+		foreach($observedShipment->getOrder()->getShipmentsCollection() as $shipment)
+		{
+			if (!$shipment->getAllTracks())
+			{
 				$tracked = false;
 			}
 		}
@@ -69,6 +72,29 @@ class FactoryX_Sales_Model_Observer {
 				}
 			}
 		}
+		// handle status_preorder
+		elseif (
+		    $tracked
+		    &&
+	        $observedShipment->getOrder()->getState() == 'complete'
+	        &&
+	        $observedShipment->getOrder()->getData('status_preorder') == 'processing'
+		) {
+			// We ensure the order can be completed
+			if (!$observedShipment->getOrder()->isCanceled()
+				&& !$observedShipment->getOrder()->canUnhold()
+				&& !$observedShipment->getOrder()->canInvoice()
+				&& !$observedShipment->getOrder()->canShip()
+				&& (0 == $observedShipment->getOrder()->getBaseGrandTotal() || $observedShipment->getOrder()->canCreditmemo())) {
+				// We ensure the order is not already complete
+				Mage::log(sprintf("%s->order[state]=%s", __METHOD__, $observedShipment->getOrder()->getState()) );
+				$observedShipment->getOrder()->setState('complete', true, '');
+				$observedShipment->getOrder()->setStatusPreorder(Mage_Sales_Model_Order::STATE_COMPLETE, true);
+				$observedShipment->getOrder()->getResource()->saveAttribute($observedShipment->getOrder(),'state');
+				$observedShipment->getOrder()->getResource()->saveAttribute($observedShipment->getOrder(),'status');
+				$observedShipment->getOrder()->getResource()->saveAttribute($observedShipment->getOrder(),'status_preorder');
+		    }
+		}
 	}
 
 	/**
@@ -87,26 +113,44 @@ class FactoryX_Sales_Model_Observer {
 		$enabled = Mage::getStoreConfig(self::XML_PATH_EMAIL_ENABLED, Mage::app()->getStore()->getStoreId());
 		// Get the order
 		$order = $observer->getEvent()->getOrder();
-		//Mage::helper('fx_sales')->log(sprintf("%s", get_class($order)));
+		//Mage::helper('fx_sales')->log(sprintf("%s->%s", __METHOD__, get_class($order)) );
 
-		// Get the post data
-		$data = Mage::app()->getFrontController()->getRequest()->getPost('history');
-		// Set the notify flag
-		$this->_notify = isset($data['is_customer_notified']) ? $data['is_customer_notified'] : false;
-		//Mage::helper('fx_sales')->log(sprintf("historyComment=%s", $data['comment']));
-		//Mage::helper('fx_sales')->log(sprintf("status=%s", $data['status']));
-		//Mage::helper('fx_sales')->log(sprintf("request=%s", print_r($request, true)));	
+        // check if the request is from the api, then get data from event
+        if (Mage::getSingleton('api/server')->getAdapter() != null) {
+            $history = array(
+                'status' => $observer->getEvent()->getStatus(),
+                'comment' => $observer->getEvent()->getComment()
+            );
+            // is this event set? (see sales_order.addComment)
+            if ($observer->getEvent()->getIsCustomerNotified()) {
+                Mage::helper('fx_sales')->log(sprintf("%s->is_customer_notified: YES", __METHOD__) );
+                $history['is_customer_notified'] = $observer->getEvent()->getIsCustomerNotified();
+            }
+            $this->_notify = isset($history['is_customer_notified']) ? $history['is_customer_notified'] : false;
+            $this->_notifyStage2 = true;
+        }
+        else {
+            // Get the post data
+            $history = Mage::app()->getFrontController()->getRequest()->getPost('history');
+            // Set the notify flag
+            $this->_notify = isset($history['is_customer_notified']) ? $history['is_customer_notified'] : false;
+            $this->_notifyStage2 = $this->_notify;
+            // always send it!
+            $this->_notifyStage2 = true;
+        }
+
+        //Mage::helper('fx_sales')->log(sprintf("%s->history: %s", __METHOD__, print_r($history, true)) );
 
 		// Get the order state
-		$state = $order->getState();
+		//$state = $order->getState();
 		// Get the status change
-		$nextStatus = $data['status'];
+		//$nextStatus = $data['status'];
 		// Get the old status
-		$prevStatus = $order->getStatus();
-
+		//$prevStatus = $order->getStatus();
 		//Mage::helper('fx_sales')->log(sprintf("%s->state=%s,prevStatus=%s,nextStatus=%s", __METHOD__, $state, $prevStatus, $nextStatus));
+
 		// If stage 2 is not enabled nor the new status is stage 2 we stop here
-		if (!$enabled || !preg_match(sprintf("/^%s$/", FactoryX_Sales_Model_Order::STATUS_PROCESSING_STAGE2), $data['status'])) {
+		if (!$enabled || !preg_match(sprintf("/^%s$/", FactoryX_Sales_Model_Order::STATUS_PROCESSING_STAGE2), $history['status'])) {
 			//Mage::helper('fx_sales')->log("do nothing");
 			return $this;
 		}
@@ -121,7 +165,9 @@ class FactoryX_Sales_Model_Observer {
 			Mage::throwException(sprintf("WARNING: %s", $eventMsg));
 		}
 		// Send stage 2 email
-		$sentTo = $this->_sendStage2Email($order, $itemList, $data['comment']);
+        Mage::helper('fx_sales')->log(sprintf("%s->_sendStage2Email: %s", __METHOD__, $order->getCustomerEmail()) );
+		$sentTo = $this->_sendStage2Email($order, $itemList, $history['comment']);
+
 		// Log
 		$eventMsg = sprintf("stage2 processing email was sent to '%s'", $sentTo);
 		Mage::helper('fx_sales')->log($eventMsg);
@@ -212,7 +258,19 @@ class FactoryX_Sales_Model_Observer {
 				}
 			}
 			// Shipped no tracking
-			if (!$tracked) {
+			if ($tracked) {
+			    // fix status_preorder
+			    if (
+        	        $order->getState() == 'complete'
+        	        &&
+        	        $order->getStatus() == 'complete'
+        	        &&
+        	        $order->getData('status_preorder') == 'processing'
+                ) {
+    				$order->setStatusPreorder(Mage_Sales_Model_Order::STATE_COMPLETE, true)->save();
+			    }
+			}
+			else {
 				$state = FactoryX_Sales_Model_Order::STATE_PROCESSING;
 				$status = FactoryX_Sales_Model_Order::STATUS_PROCESSING_SHIPPED_NO_TRACKING;
 				$comment = sprintf("automatically set status to '%s->%s'", $state, $status);
@@ -309,7 +367,8 @@ class FactoryX_Sales_Model_Observer {
 		$emailInfo = Mage::getModel('core/email_info');
 
 		// add customer
-		if ($this->_notify) {
+        Mage::helper('fx_sales')->log(sprintf("%s->_notify: %d|%d", __METHOD__, $this->_notify, $this->_notifyStage2));
+		if ($this->_notifyStage2) {
 			$custEmail = $order->getCustomerEmail();
 			$emailInfo->addTo($custEmail, $customerName);
 			$sendTo .= (strlen($sendTo))?",".$custEmail:$custEmail;
@@ -325,7 +384,7 @@ class FactoryX_Sales_Model_Observer {
 		$mailer->addEmailInfo($emailInfo);
 
 		// Email copies are sent as separated emails if their copy method is 'copy'
-		if ($copyTo && ($copyMethod == 'copy' || !$this->_notify)) {
+		if ($copyTo && ($copyMethod == 'copy' || !$this->_notifyStage2)) {
 			foreach ($copyTo as $email) {
 				$emailInfo = Mage::getModel('core/email_info');
 				$emailInfo->addTo($email);

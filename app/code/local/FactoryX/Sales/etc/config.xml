@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<FactoryX_Sales>
-			<version>0.2.5</version>
+			<version>0.2.6</version>
 		</FactoryX_Sales>
 	</modules>
 
@@ -140,6 +140,20 @@
 			</fxsales_read>
 		</resources>
 	</global>
+
+    <!--
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <FactoryX_Sales before="Mage_Adminhtml">FactoryX_Sales_Adminhtml</FactoryX_Sales>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>	
+    -->
 
 	<!-- PHPUnit tests -->
 	<phpunit>
