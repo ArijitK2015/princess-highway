@@ -2,12 +2,15 @@
     <?php
     $count = 0;
     $homepages = $this->getHomepages();
-    if(empty($homepages)) return;
+    if(empty($homepages)) {
+        return;
+    }
     $count = 0;
-    foreach ($homepages as $homepage)
-    {
+    foreach ($homepages as $homepage) {
         ++$count;
-        if($homepage->getFullWidth()) continue;
+        if($homepage->getFullWidth()) {
+            continue;
+        }
         echo $this->getChildHtml('homepage_'.$count, false);
         if ($customCss = $homepage->getCustomCss()): ?>
             <script>

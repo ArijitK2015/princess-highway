@@ -5,6 +5,7 @@
 	$this->getChild('slider')->setData('slides', $this->getSlides());
 	$this->getChild('slider')->setData('nav', $this->getSliderNav());
 	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+	$this->getChild('slider')->setData('dir', $this->getSliderOrientation());
 	// Using the false parameter with getChildHtml is to tell not to cache block
 ?>
 <?php echo $this->getChildHtml('top', false) // TOP ?>

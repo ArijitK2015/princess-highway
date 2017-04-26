@@ -1,12 +1,15 @@
 <div id="homepages_fw" class="row text-center">
     <?php
     $homepages = $this->getHomepages();
-    if(empty($homepages)) return;
+    if(empty($homepages)) {
+        return;
+    }
     $count = 0;
-    foreach ($homepages as $homepage)
-    {
+    foreach ($homepages as $homepage) {
         ++$count;
-        if(!$homepage->getFullWidth()) continue;
+        if(!$homepage->getFullWidth()) {
+            continue;
+        }
         echo $this->getChildHtml('homepage_'.$count, false);
         if ($customCss = $homepage->getCustomCss()): ?>
             <script type="text/javascript">

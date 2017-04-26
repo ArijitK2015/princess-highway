@@ -13,19 +13,17 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 	 */
 	public function getCurrentHomepages($store = null)
 	{
-		if ($store == "")	$store = null;
+		if ($store == "") {
+		    $store = null;
+        }
 
-		try
-		{
+		try {
 			// If we are on the preview page
-			if (Mage::app()->getRequest()->getActionName() == "preview")
-			{
+			if (Mage::app()->getRequest()->getActionName() == "preview") {
 				// We retrieve the home page based on the id
 				$currentHomepages = Mage::getModel('homepage/homepage')->load(Mage::app()->getRequest()->getParam('id'));
                 return array($currentHomepages);
-			}
-			else
-			{
+			} else {
 				// Else we retrieve the enabled homepages
 				$currentHomepages = Mage::getModel('homepage/homepage')
 					->getCollection()
@@ -35,24 +33,19 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 			}
 
 			// Ensure the homepage is viewable in the store
-			if (!Mage::app()->isSingleStoreMode())
-			{
-				foreach ($currentHomepages as $currentHomepage)
-				{
-					if ($currentHomepage->isStoreViewable())
-						continue;
-					else
-						throw new Exception ('This homepage is not available with this store.');
+			if (!Mage::app()->isSingleStoreMode()) {
+				foreach ($currentHomepages as $currentHomepage) {
+					if ($currentHomepage->isStoreViewable()) {
+                        continue;
+                    } else {
+                        throw new Exception ('This homepage is not available with this store.');
+                    }
 				}
 				return $currentHomepages;
-			}
-			else
-			{
+			} else {
 				return $currentHomepages;
 			}
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			Mage::helper('homepage')->log($this->__('Exception caught in %s under % with message: %s', __FILE__, __FUNCTION__, $e->getMessage()));
 			return false;
 		}
@@ -66,12 +59,9 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 		parent::__construct();
 
 		// Retrieve the current home page and use the store id if multistore
-		if (!Mage::app()->isSingleStoreMode())
-		{
+		if (!Mage::app()->isSingleStoreMode()) {
 			$storeId = Mage::app()->getStore()->getId();
-		}
-		else
-		{
+		} else {
 			$storeId = "";
 		}
 		$homepages = $this->getCurrentHomepages($storeId);
@@ -79,8 +69,7 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 
 		$isModuleEnabled = Mage::helper('homepage')->isHomepageModuleUsed();
 
-		if ($homepages && $isModuleEnabled)
-		{
+		if ($homepages && $isModuleEnabled) {
 			// Set the template
 			// $this->setTemplate('factoryx/homepage/homepages.phtml');
 			// Assign the homepages
@@ -91,12 +80,9 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 	public function _beforeToHtml()
 	{
 		// Retrieve the current home page and use the store id if multistore
-		if (!Mage::app()->isSingleStoreMode())
-		{
+		if (!Mage::app()->isSingleStoreMode()) {
 			$storeId = Mage::app()->getStore()->getId();
-		}
-		else
-		{
+		} else {
 			$storeId = "";
 		}
 
@@ -105,11 +91,9 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 
 		$isModuleEnabled = Mage::helper('homepage')->isHomepageModuleUsed();
 
-		if ($homepages && $isModuleEnabled)
-		{
+		if ($homepages && $isModuleEnabled) {
 			$count = 0;
-			foreach($homepages as $homepage)
-			{
+			foreach($homepages as $homepage) {
 				$this->setChild('homepage_'.++$count, $this->getLayout()->createBlock('homepage/homepage', 'homepage', array('homepage'=>$homepage)));
 			}
 		}
@@ -132,23 +116,18 @@ class FactoryX_Homepage_Block_Homepages extends Mage_Core_Block_Template
 		// Mage::getDesign()->getTheme('frontend');
 
 		// Loop through the homepages
-		foreach ($homepages as $key => $homepage)
-		{
+		foreach ($homepages as $key => $homepage) {
 			// Get the homepage themes as an array
 			$homepageThemes = $homepage->getThemes();
-			if ($homepageThemes)
-			{
+			if ($homepageThemes) {
 				$homepageThemes = explode(',',$homepageThemes);
 
 				// Check if current theme is in the homepage themes array
-				if (!in_array($theme,$homepageThemes) && !in_array('all',$homepageThemes))
-				{
+				if (!in_array($theme,$homepageThemes) && !in_array('all',$homepageThemes)) {
 					// If not we won't display this homepage
 					$homepages->removeItemByKey($key);
 				}
-			}
-			else
-			{
+			} else {
 				$homepages->removeItemByKey($key);
 			}
 		}

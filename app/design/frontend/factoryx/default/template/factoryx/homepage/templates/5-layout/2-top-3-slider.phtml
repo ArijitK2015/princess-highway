@@ -9,6 +9,7 @@
 	$this->getChild('slider')->setData('speed', $this->getSliderSpeed());
 	$this->getChild('slider')->setData('nav', $this->getSliderNav());
 	$this->getChild('slider')->setData('pag', $this->getSliderPag());
+    $this->getChild('slider')->setData('dir', $this->getSliderOrientation());
 	// Using the false parameter with getChildHtml is to tell not to cache block
 ?>
 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">

@@ -61,6 +61,30 @@ class FactoryX_Homepage_Block_Adminhtml_Homepage_Edit_Tab_Design extends Mage_Ad
                 'note' => Mage::helper('homepage')->__('In seconds.')
             ));
 
+            // Field for the slider speed
+            $fieldset->addField('slider_direction', 'select', array(
+                'label' => Mage::helper('homepage')->__('Slider Direction'),
+                'name' => 'slider_direction',
+                'values' => array(
+                    array(
+                        'value' => 'both',
+                        'label' => Mage::helper('homepage')->__('Both'),
+                    ),
+                    array(
+                        'value' => 'vertical',
+                        'label' => Mage::helper('homepage')->__('Vertical'),
+                    ),
+                    array(
+                        'value' => 'horizontal',
+                        'label' => Mage::helper('homepage')->__('Horizontal'),
+                    ),
+                    array(
+                        'value' => 'none',
+                        'label' => Mage::helper('homepage')->__('None'),
+                    )
+                )
+            ));
+
             // Get corresponding folder
             $folder = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default')) . '/images/factoryx/homepage';;
             $subfolder = 'nav';
