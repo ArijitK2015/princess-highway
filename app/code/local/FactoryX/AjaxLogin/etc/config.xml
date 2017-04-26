@@ -2,7 +2,7 @@
 <config>
     <modules>
         <FactoryX_AjaxLogin>
-            <version>0.3.5</version>
+            <version>0.3.10</version>
         </FactoryX_AjaxLogin>
     </modules>
     <global>
@@ -16,6 +16,11 @@
                 <class>FactoryX_AjaxLogin_Block</class>
             </ajaxlogin>
         </blocks>
+        <models>
+            <ajaxlogin>
+                <class>FactoryX_AjaxLogin_Model</class>
+            </ajaxlogin>
+        </models>
     </global>
     <frontend>
         <routers>
@@ -37,6 +42,18 @@
                 </FactoryX_AjaxLogin>
             </updates>
         </layout>
+        <events>
+            <!-- Called to add the ReCAPTCHA blocks dynamically -->
+            <controller_action_layout_load_before>
+                <observers>
+                    <factoryx_ajaxlogin_add_recaptcha_blocks>
+                        <type>singleton</type>
+                        <class>ajaxlogin/observer</class>
+                        <method>addRecaptchaBlocks</method>
+                    </factoryx_ajaxlogin_add_recaptcha_blocks>
+                </observers>
+            </controller_action_layout_load_before>
+        </events>
     </frontend>
     <default>
         <ajaxlogin>
@@ -45,6 +62,20 @@
             </options>
         </ajaxlogin>
     </default>
+    <adminhtml>
+        <events>
+            <!-- Called by the ReCAPTCHA module -->
+            <studioforty9_recaptcha_routes>
+                <observers>
+                    <factoryx_ajaxlogin_add_route>
+                        <type>singleton</type>
+                        <class>ajaxlogin/observer</class>
+                        <method>addCustomRoute</method>
+                    </factoryx_ajaxlogin_add_route>
+                </observers>
+            </studioforty9_recaptcha_routes>
+        </events>
+    </adminhtml>
     <phpunit>
         <suite>
             <modules>

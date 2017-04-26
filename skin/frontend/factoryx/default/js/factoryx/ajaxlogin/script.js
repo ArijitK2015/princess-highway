@@ -1,4 +1,4 @@
-jQuery(window).load(function(){
+jQuery(window).on('load', function(){
     if (!Mage.Cookies.get('hasPersistentBeenClosed'))
     {
         jQuery('#persistent-cart-window').modal();
@@ -6,13 +6,17 @@ jQuery(window).load(function(){
 
     jQuery('.ajaxlogin-login').click(function(event){
         event.preventDefault();
-        jQuery('#ajaxforgotModal').modal('hide');
-        jQuery('#ajaxloginModal').modal();
+        if (currentPath != "/customer/account/login") {
+            jQuery('#ajaxforgotModal').modal('hide');
+            jQuery('#ajaxloginModal').modal();
+        }
     });
     jQuery('.ajaxlogin-forgot').click(function(event){
         event.preventDefault();
-        jQuery('#ajaxloginModal').modal('hide');
-        jQuery('#ajaxforgotModal').modal();
+        if (currentPath != "/customer/account/forgotpassword") {
+            jQuery('#ajaxloginModal').modal('hide');
+            jQuery('#ajaxforgotModal').modal();
+        }
     });
     jQuery('.ajaxlogin-logout').click(function(event){
         event.preventDefault();
@@ -20,8 +24,14 @@ jQuery(window).load(function(){
     });
     jQuery('.ajaxlogin-account').click(function(event){
         event.preventDefault();
-        jQuery('#ajaxloginModal').modal('hide');
-        jQuery('#ajaxcreateModal').modal();
+        // close if on main account create page
+        if (currentPath == "/customer/account/create") {
+            jQuery("#ajaxloginModal").modal('toggle');
+        }
+        else {
+            jQuery('#ajaxloginModal').modal('hide');
+            jQuery('#ajaxcreateModal').modal();
+        }
     });
     jQuery('#ajaxlogin-login-form') && jQuery('#ajaxlogin-login-form').on('submit', function(e) {
         e.preventDefault();
@@ -67,7 +77,15 @@ jQuery(window).load(function(){
                         jQuery(ul).prepend('<li class="bg-danger"><i class="fa fa-lg fa-exclamation-triangle pull-left"></i><ul class="list-unstyled"></ul></li>');
                         li = jQuery(ul).find('.bg-danger').first();
                     }
-                    jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    if (typeof response.error === "object" && response.error !== null) {
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                jQuery(li).find('ul').first().append('<li>' + response.error[key] + '</li>');
+                            }
+                        }
+                    } else {
+                        jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    }
                     var captchaEl = jQuery('#user_login');
                     if (captchaEl.length) {
                         captchaEl.captcha.refresh(captchaEl.previous('img.captcha-reload'));
@@ -158,7 +176,15 @@ jQuery(window).load(function(){
                         jQuery(ul).prepend('<li class="bg-danger"><i class="fa fa-lg fa-exclamation-triangle pull-left"></i><ul class="list-unstyled"></ul></li>');
                         li = jQuery(ul).find('.bg-danger').first();
                     }
-                    jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    if (typeof response.error === "object" && response.error !== null) {
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                jQuery(li).find('ul').first().append('<li>' + response.error[key] + '</li>');
+                            }
+                        }
+                    } else {
+                        jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    }
                     var captchaEl = jQuery('#user_forgotpassword');
                     if (captchaEl.length) {
                         captchaEl.captcha.refresh(captchaEl.previous('img.captcha-reload'));
@@ -302,7 +328,15 @@ jQuery(window).load(function(){
                         jQuery(ul).prepend('<li class="bg-danger"><i class="fa fa-lg fa-exclamation-triangle pull-left"></i><ul class="list-unstyled"></ul></li>');
                         li = jQuery(ul).find('.bg-danger').first();
                     }
-                    jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    if (typeof response.error === "object" && response.error !== null) {
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                jQuery(li).find('ul').first().append('<li>' + response.error[key] + '</li>');
+                            }
+                        }
+                    } else {
+                        jQuery(li).find('ul').first().append('<li>' + response.error + '</li>');
+                    }
                 }
                 if (response.redirect) {
                     document.location = response.redirect;

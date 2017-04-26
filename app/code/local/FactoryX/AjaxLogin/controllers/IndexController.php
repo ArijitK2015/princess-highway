@@ -130,6 +130,16 @@ class FactoryX_AjaxLogin_IndexController extends Mage_Core_Controller_Front_Acti
     }
 
     /**
+     * Get App
+     *
+     * @return Mage_Core_Model_App
+     */
+    protected function _getApp()
+    {
+        return Mage::app();
+    }
+
+    /**
      * Success Registration
      *
      * @param Mage_Customer_Model_Customer $customer

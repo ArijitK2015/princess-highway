@@ -18,6 +18,7 @@
                             <input type="password" name="login[password]" class="form-control input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" placeholder="<?php echo $this->__('Password') ?>" />
                         </div>
                         <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <?php echo $this->getChildHtml('form.additional.info.login'); ?>
                         <?php echo $this->getChildHtml('persistent.remember.me'); ?>
                         <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
                         <div class="buttons-set row">
@@ -73,6 +74,7 @@
                                 </div>
                             </div>
                             <?php echo $this->getChildHtml('form.additional.info'); ?>
+                            <?php echo $this->getChildHtml('form.additional.info.forgotpassword'); ?>
                         </div>
                         <div class="buttons-set row">
                             <div class="progress-indicator col-md-6 col-lg-6 col-xs-6 col-sm-6">
@@ -218,3 +220,13 @@
 
     <?php endif; ?>
 <?php endif; ?>
+
+<?php
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$url = Mage::getSingleton('core/url')->parseUrl($currentUrl);
+$path = $url->getPath();
+?>
+
+<script type="text/javascript">
+    var currentPath = '<?php echo $path; ?>';
+</script>

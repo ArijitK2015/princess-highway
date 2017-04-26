@@ -114,4 +114,44 @@
         </reference>
     </customer_logged_in>
 
+    <customer_account_create>
+        <remove name="customer_form_register_ajax" />
+    </customer_account_create>
+
+    <ajaxlogin_recaptcha_login>
+        <reference name="ajaxlogin">
+            <block type="core/text_list" name="form.additional.info.login">
+                <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit.login" template="studioforty9/recaptcha/explicit.phtml">
+                    <action method="setAllow">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </ajaxlogin_recaptcha_login>
+
+    <ajaxlogin_recaptcha_forgotpassword>
+        <reference name="ajaxlogin">
+            <block type="core/text_list" name="form.additional.info.forgotpassword">
+                <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit.forgotpassword" template="studioforty9/recaptcha/explicit.phtml">
+                    <action method="setAllow">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </ajaxlogin_recaptcha_forgotpassword>
+
+    <ajaxlogin_recaptcha_register>
+        <reference name="customer_form_register_ajax">
+            <block type="core/text_list" name="form.additional.info.register">
+                <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit.register" template="studioforty9/recaptcha/explicit.phtml">
+                    <action method="setAllow">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </ajaxlogin_recaptcha_register>
+
 </layout>
