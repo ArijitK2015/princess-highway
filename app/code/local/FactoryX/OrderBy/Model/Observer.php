@@ -43,14 +43,16 @@ class FactoryX_OrderBy_Model_Observer extends Mage_Core_Model_Abstract {
             else {
                 $session = Mage::getSingleton('admin/session');
             }
-            
-            $userId = $session->getUser()->getUserId();
-            $userUsername = $session->getUser()->getUsername();
-            //$order->setData('order_by',$userId);
-            $order->setData('created_by', $userUsername);
-            $order->getResource()->saveAttribute($order, 'created_by');
-            //Mage::helper('orderby')->log(var_dump($userUsername));
-            Mage::helper('orderby')->log(sprintf("%s->user %s[%s] placed the order id %s", __METHOD__, $userUsername, $userId, $orderId));
+
+            if ($session->getUser()) {
+                $userId = $session->getUser()->getUserId();
+                $userUsername = $session->getUser()->getUsername();
+                //$order->setData('order_by',$userId);
+                $order->setData('created_by', $userUsername);
+                $order->getResource()->saveAttribute($order, 'created_by');
+                //Mage::helper('orderby')->log(var_dump($userUsername));
+                Mage::helper('orderby')->log(sprintf("%s->user %s[%s] placed the order id %s", __METHOD__, $userUsername, $userId, $orderId));
+            }
         }
         Mage::helper('orderby')->log(sprintf("%s->done", __METHOD__) );
     }
