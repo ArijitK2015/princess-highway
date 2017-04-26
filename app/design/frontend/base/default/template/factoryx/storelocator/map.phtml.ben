@@ -78,7 +78,7 @@ $regions = $hlp->getRegions();
                         <?php endif; ?>
                             <h4 id="marker-<?php echo $location->location_id?>"><?php echo $location->title?> <i class="fa fa-location-arrow"></i></h4>
                             <p><div class="icon">
-                                <i class="fa fa-map-marker"></i></div><div class="info"><a target="_blank" rel="noopener noreferrer" href="https://maps.google.com.au/?q=<?php echo urlencode($location->address) ?>"><?php echo $location->address_display; ?></a></div></p>
+                                <i class="fa fa-map-marker"></i></div><div class="info"><a target="_blank" rel="noopener noreferrer" href="https://maps.google.com.au/?q=<?php echo urlencode($location->address) ?>"><?php echo implode(' ', array($location->address_display, $location->suburb, $location->postcode, $location->region))?></a></div></p>
                             <?php if ($location->phone): ?>
                                 <p><div class="icon"><i class="fa fa-phone"></i></div><div class="info"><a href="tel:<?php echo str_replace(" ","",$location->phone); ?>"><?php echo $location->phone; ?></a></div></p>
                             <?php endif; ?>

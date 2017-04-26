@@ -82,11 +82,11 @@ class FactoryX_StoreLocator_Block_Adminhtml_Location_Grid extends Mage_Adminhtml
                                          'align'  => 'left',
                                          'index'  => 'address',
                                     ));
-									
-		$this->addColumn('region', array(
-										'header'    => Mage::helper('ustorelocator')->__('Region'),
-										'align'     => 'left',
-										'index'     => 'region',
+                                    
+        $this->addColumn('region', array(
+                                        'header'    => Mage::helper('ustorelocator')->__('Region'),
+                                        'align'     => 'left',
+                                        'index'     => 'region',
         ));
 
         $this->addColumn('website_url', array(

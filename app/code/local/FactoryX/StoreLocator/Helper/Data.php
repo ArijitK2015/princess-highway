@@ -213,28 +213,28 @@ class FactoryX_StoreLocator_Helper_Data extends Mage_Core_Helper_Data
 
         return $_no_result;
     }
-	
-	/**
-	 * Returns the url query as associative array
-	 *
-	 * @param    string		query
-	 * @return   array		params
-	 */
-	public function convertUrlQuery($query) 
-	{
-		$params = array();
-		// check if there is any params
-		if (strpos($query, '=')) 
-		{
-			$queryParts = explode('&', $query);
-			foreach ($queryParts as $param) 
-			{
-				$item = explode('=', $param);
-				$params[$item[0]] = $item[1];
-			}
-		}   
-		return $params;
-	}
+    
+    /**
+     * Returns the url query as associative array
+     *
+     * @param    string        query
+     * @return   array        params
+     */
+    public function convertUrlQuery($query) 
+    {
+        $params = array();
+        // check if there is any params
+        if (strpos($query, '=')) 
+        {
+            $queryParts = explode('&', $query);
+            foreach ($queryParts as $param) 
+            {
+                $item = explode('=', $param);
+                $params[$item[0]] = $item[1];
+            }
+        }   
+        return $params;
+    }
 
     public function getLocationOptions()
     {
@@ -248,21 +248,21 @@ class FactoryX_StoreLocator_Helper_Data extends Mage_Core_Helper_Data
         return $store_array;
     }
 
-	/**
-	 * getLogFile
-	 */
+    /**
+     * getLogFile
+     */
     public function getLogFile() {
         return $this->logFileName;
     }
 
-	/**
-	 * Log data
-	 * @param string|object|array data to log
-	 */
-	public function log($data, $level = null)
-	{
-		Mage::log($data, $level, $this->logFileName);
-	}
+    /**
+     * Log data
+     * @param string|object|array data to log
+     */
+    public function log($data, $level = null)
+    {
+        Mage::log($data, $level, $this->logFileName);
+    }
 
     /**
      * Check if the configuration uses continents
@@ -290,17 +290,7 @@ class FactoryX_StoreLocator_Helper_Data extends Mage_Core_Helper_Data
                 'antarctica'    => 'Antarctica'
             );
         } else {
-            return array(
-                "act" 	=> 	"Australian Capital Territory",
-                "nsw" 	=> 	"New South Wales",
-                "nt" 	=> 	"Northern Territory",
-                "qld" 	=> 	"Queensland",
-                "sa" 	=> 	"South Australia",
-                "tas" 	=> 	"Tasmania",
-                "vic" 	=> 	"Victoria",
-                "wa" 	=> 	"Western Australia",
-                "nz" 	=> 	"New Zealand"
-            );
+            return Mage::getModel('ustorelocator/australianStates')->getAustralianStates();
         }
     }
 
@@ -342,5 +332,14 @@ class FactoryX_StoreLocator_Helper_Data extends Mage_Core_Helper_Data
             return 'vic';
         }
     }
-    
+
+    public function strLreplace($search, $replace, $subject)
+    {
+        $pos = strrpos($subject, $search);
+        if($pos !== false) {
+            $subject = substr_replace($subject, $replace, $pos, strlen($search));
+        }
+
+        return $subject;
+    }
 }

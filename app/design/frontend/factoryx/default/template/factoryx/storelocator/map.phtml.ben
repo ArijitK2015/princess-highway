@@ -88,7 +88,7 @@ $regions = $hlp->getRegions();
                             </div>
                             <div class="info">
                                 <a rel="noopener noreferrer" target="_blank" href="https://maps.google.com.au/?q=<?php echo urlencode($location->address)?>">
-                                    <?php echo $location->address_display; ?>
+                                    <?php echo implode(' ', array($location->address_display, $location->suburb, $location->postcode, $location->region))?>
                                 </a>
                             </div>
                             <?php if ($location->phone): ?>

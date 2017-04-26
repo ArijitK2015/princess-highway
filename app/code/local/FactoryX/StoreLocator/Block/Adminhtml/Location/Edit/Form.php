@@ -95,11 +95,24 @@ class FactoryX_StoreLocator_Block_Adminhtml_Location_Edit_Form extends Mage_Admi
 
         $fieldset->addField('address_display', 'textarea', array(
             'name'      => 'address_display',
-            'label'     => $hlp->__('Address to be displayed'),
+            'label'     => $hlp->__('Street Address'),
             'class'     => 'required-entry',
             'style'     => 'height:50px',
             'required'  => true,
-            'note'      => $hlp->__('This address will be shown to visitor and should have multiple lines formatting'),
+        ));
+
+        $fieldset->addField('postcode', 'text', array(
+            'name'      => 'postcode',
+            'label'     => $hlp->__('Postcode'),
+            'class'     => 'required-entry',
+            'required'  => true,
+        ));
+
+        $fieldset->addField('suburb', 'text', array(
+            'name'      => 'suburb',
+            'label'     => $hlp->__('Suburb'),
+            'class'     => 'required-entry',
+            'required'  => true,
         ));
 
         $fieldset->addField('region', 'select', array(
@@ -116,7 +129,7 @@ class FactoryX_StoreLocator_Block_Adminhtml_Location_Edit_Form extends Mage_Admi
         // Field to upload an image related to the store
         $fieldset->addField('image', 'storeimage', array(
             'label'     => $hlp->__('Store Image'),
-            'class'		=> 'required-file',
+            'class'     => 'required-file',
             'name'      => 'image'
         ));
 
@@ -261,6 +274,35 @@ class FactoryX_StoreLocator_Block_Adminhtml_Location_Edit_Form extends Mage_Admi
         $fieldsetCustomFields->addField('custom3', 'text', array(
             'name'      => 'data_serialized[custom3]',
             'label'     => $hlp->__('Custom field 3'),
+        ));
+
+        $fieldset = $form->addFieldset('label', array(
+            'legend'=>$hlp->__('Aupost Labels')
+        ));
+
+
+        if (class_exists('FactoryX_ShippedFrom_Model_System_Config_Source_LabelLayouts')) {
+            $fieldset->addField('label_layout', 'select', array(
+                'name' => 'label_layout',
+                'label' => $hlp->__("Label Layout"),
+                'values' => Mage::getModel('shippedfrom/system_config_source_labelLayouts')->toOptionArray()
+            ));
+        }
+
+        $fieldset->addField('label_branded', 'select', array(
+            'name'  => 'label_branded',
+            'label' => $hlp->__("Is Branded ?"),
+            'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray()
+        ));
+
+        $fieldset->addField('label_left_offset', 'text', array(
+            'name'  => 'label_left_offset',
+            'label' => $hlp->__("Label left offset")
+        ));
+
+        $fieldset->addField('label_top_offset', 'text', array(
+            'name'  => 'label_top_offset',
+            'label' => $hlp->__("Label left offset")
         ));
 
         Mage::dispatchEvent('ustorelocator_adminhtml_edit_prepare_form', array('block'=>$this, 'form'=>$form));

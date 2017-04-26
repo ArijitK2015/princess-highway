@@ -1,100 +1,129 @@
-<?php //004a2
-if(extension_loaded('bcompiler')&&file_exists(__FILE__.'b')){return(require(__FILE__.'b'));}if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='/ioncube/ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if((@$__id[1])==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl'))@dl($__ln);}else{die('The file '.__FILE__." is corrupted. Ensure that you use binary mode when transferring files with FTP and disable the 'TAR smart cr/lf feature' if using WinZIP\n");}if(function_exists('_il_exec')){return _il_exec();}die('The file <b>'.__FILE__.'</b> has been encoded with the <a href="http://www.ioncube.com">ionCube PHP Encoder</a> and requires the free '.basename($__ln).' <a href="http://www.ioncube.com/loader_download/">ionCube PHP Loader</a> to be installed.');
+<?php 
 
-?>
-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
+class Unirgy_StoreLocator_Helper_Protected
+{
+    private static $_licenseIsValid = array();
+
+    const SEARCH_TAG = "search_tag";
+    const COUNTRY = "country";
+
+    final public static function validateLicense($module = "Unirgy_StoreLocator")
+    {
+        if( !empty($_licenseIsValid[$module]) || in_array($_SERVER["REMOTE_ADDR"], array( "192.168.56.1" )) ) 
+        {
+            return true;
+        }
+
+        if( Mage::getconfig()->getNode("modules/Unirgy_SimpleLicense") ) 
+        {
+            $key = "VN29643YBOFNSD86R2VOEWYEIF" . microtime(true);
+            Unirgy_SimpleLicense_Helper_Protected::obfuscate($key);
+            $hash = Unirgy_SimpleLicense_Helper_Protected::validatemodulelicense($module);
+            if( sha1($key . $module) !== $hash ) 
+            {
+                Mage::throwexception("Invalid response from validation method");
+            }
+
+            $_licenseIsValid[$module] = true;
+            return true;
+        }
+
+        if( !ioncube_license_matches_server() ) 
+        {
+            Mage::throwexception("Invalid ionCube license for Unirgy_StoreLocator. Allowed servers: " . ioncube_licensed_servers());
+        }
+
+        if( ioncube_license_has_expired() ) 
+        {
+            Mage::throwexception("ionCube license for Unirgy_StoreLocator has expired");
+        }
+
+        $_licenseIsValid[$module] = true;
+        return true;
+    }
+
+    public function getCollection($request)
+    {
+        $collection = Mage::getmodel("ustorelocator/location")->getCollection();
+        $lat = $request["lat"];
+        $lng = $request["lng"];
+        $radius = $request["radius"];
+        $units = $request["units"];
+        if( $request["address"] ) 
+        {
+            $address = trim($request["address"]);
+            $address = "%" . str_replace(" ", "%", $address) . "%";
+            $collection->addFieldToFilter("title", array( "like" => $address ));
+        }
+
+        $sort = (Mage::getstoreconfig("ustorelocator/general/default_sort") == Unirgy_StoreLocator_Model_Settings_Sort::ALPHA ? "title" : "distance");
+        $loc_type = $request["loc_type"];
+        $tag = $this->getSearchTag($request);
+        if( $loc_type == self::COUNTRY ) 
+        {
+            $country = $request["short_name"];
+            $collection->addCountryFilter($lat, $lng, $country, $units);
+        }
+        else
+        {
+            $collection->addAreaFilter($lat, $lng, $radius, $units);
+        }
+
+        if( $tag ) 
+        {
+            $collection->addProductTypeFilter($tag);
+        }
+
+        $collection->addStoreFilter()->addOrder("is_featured", Zend_Db_Select::SQL_DESC)->addOrder($sort, Zend_Db_Select::SQL_ASC);
+        return $collection;
+    }
+
+    protected function getSearchTag($req)
+    {
+        $session = Mage::getsingleton("customer/session");
+        if( isset($req["tag"]) ) 
+        {
+            $session->setData(self::SEARCH_TAG, $req["tag"]);
+        }
+
+        return $session->getData(self::SEARCH_TAG);
+    }
+
+    protected function clearSearchTag()
+    {
+        $session = Mage::getsingleton("customer/session");
+        $session->unsetData(self::SEARCH_TAG);
+    }
+
+    protected function getSearchRequest($req)
+    {
+        $units = Mage::getstoreconfig("ustorelocator/general/distance_units");
+        $result = array( $req["lat"], $req["lng"], $req["radius"], (isset($req["units"]) ? $req["units"] : $units) );
+        return $result;
+    }
+
+    public function validateIconSize($filePath)
+    {
+        $info = getimagesize($filePath);
+        if( !$info ) 
+        {
+            throw new Exception("Uploaded file is not an image");
+        }
+
+        $width = $info[0];
+        $height = $info[1];
+        if( 100 < $width || 100 < $height ) 
+        {
+            throw new Exception("Uploaded image exceeds 100px width or height");
+        }
+
+        if( $info[2] != IMAGETYPE_PNG ) 
+        {
+            throw new Exception("Allowed icons of type PNG only.");
+        }
+
+    }
+
+}
+
+

@@ -17,8 +17,8 @@ class FactoryX_StoreLocator_Model_Varien_Data_Form_Element_StoreImage extends Va
      * @return string
      */
     public function getElementHtml()
-	{
-		$html = '';
+    {
+        $html = '';
         if ($this->getValue()) {
             $url = $this->_getUrl();
             if( !preg_match("/^http\:\/\/|https\:\/\//", $url) ) {
@@ -66,4 +66,4 @@ class FactoryX_StoreLocator_Model_Varien_Data_Form_Element_StoreImage extends Va
         return  $this->getData('name');
     }
 }
-	
+    

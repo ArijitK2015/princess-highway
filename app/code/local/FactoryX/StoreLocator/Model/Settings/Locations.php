@@ -24,4 +24,19 @@ class FactoryX_StoreLocator_Model_Settings_Locations
 
         return $opArray;
     }
+
+    /**
+     * @return array
+     */
+    public function toOptionHash($addCode = false)
+    {
+        /* @var $collection FactoryX_StoreLocator_Model_Mysql4_Location_Collection*/
+        $collection = Mage::getModel('ustorelocator/location')->getCollection();
+        $opArray = array();
+        foreach ($collection as $row) {
+            $opArray[$row->getLocationId()] = ($addCode ? $row->getStoreCode() . " - " : '') . $row->getTitle();
+        }
+
+        return $opArray;
+    }
 }
