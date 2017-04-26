@@ -19,5 +19,12 @@ class FactoryX_ProductPolice_Block_Adminhtml_Item extends Mage_Adminhtml_Block_W
     public function __construct(){
         parent::__construct();
         $this->_removeButton('add');
+        $url = Mage::helper("adminhtml")->getUrl("adminhtml/productpolice/dbscan");
+        $data = array(
+            'label'     => 'Scan Products',
+            'class'     => 'scalable',
+            'onclick'   => "setLocation('$url')",
+        );
+        $this->addButton('scan_button', $data);
     }
 }

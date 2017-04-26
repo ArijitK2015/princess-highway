@@ -12,7 +12,7 @@ class FactoryX_ProductPolice_Test_Config_Main extends EcomDev_PHPUnit_Test_Case_
     {
         // Testing configuration
         $this->assertModuleCodePool('local');
-        $this->assertModuleVersion("1.1.11");
+        $this->assertModuleVersion("1.1.13");
     }
 
     public function testClassAliasDefinitions()
