@@ -1,14 +1,16 @@
 <?php
+
 /**
-*/
-class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
+ * Class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend
+ */
+class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend
+{
 
     const ENCLOSURE = '"';
     const DELIMITER = ',';
 
-    protected $items = array();
-
-    protected static $stateCodes = array(
+    protected $_items = array();
+    protected static $_stateCodes = array(
         'VIC'   => "Victoria",
         'NSW'   => "New South Wales",
         'WA'    => "Western Australia",
@@ -22,8 +24,9 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
     /**
      * @param $header
      */
-    public function addHeaderItem($header) {
-        $this->items[] = $header;
+    public function addHeaderItem($header)
+    {
+        $this->_items[] = $header;
     }
 
     /**
@@ -207,14 +210,14 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
         }
         */
 
-        $this->items[] = $item;
+        $this->_items[] = $item;
     }
 
     /**
      * @param Mage_Sales_Model_Order $order
      * @return array
      */
-    private function getShippingConfiguration(Mage_Sales_Model_Order $order)
+    protected function getShippingConfiguration(Mage_Sales_Model_Order $order)
     {
         return explode('_', $order->getShippingMethod());
     }
@@ -223,7 +226,7 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
      * @param Mage_Sales_Model_Order $order
      * @return int|null
      */
-    private function getServiceCode(Mage_Sales_Model_Order $order)
+    protected function getServiceCode(Mage_Sales_Model_Order $order)
     {
         /*
         $serviceCode = array(
@@ -257,6 +260,7 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
         if (preg_match("/auto/i", $serviceCode)) {
             $serviceCode = (($order->getWeight() <= 0.5) ? "PPS" : "PP");
         }
+
         return $serviceCode;
     }
 
@@ -264,7 +268,7 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
      * @param Mage_Sales_Model_Order $order
      * @return int
      */
-    private function getArticleType(Mage_Sales_Model_Order $order)
+    protected function getArticleType(Mage_Sales_Model_Order $order)
     {
         /*
         if ($order->getShippingAddress()->getCountry() == 'AU') {
@@ -286,8 +290,8 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
      * @param $order
      * @return array
      */
-    private function getDimensions($order) {
-        
+    protected function getDimensions($order)
+    {
         $articleType = $this->getArticleType($order);
         
         $dimensions = array(
@@ -308,26 +312,22 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
             if ($articleType == 7) {
                 if ($order->getWeight() <= 0) {
                     $dimensions['weight'] = 0.001;
-                }
-                elseif ($order->getWeight() > 22) {
+                } elseif ($order->getWeight() > 22) {
                     $dimensions['weight'] = 22;
-                }
-                else {
+                } else {
                     $dimensions['weight'] = sprintf('%0.3f', $order->getWeight());
                 }
             }
-        }
-        // 20: Medium Flat Rate Satchel (up to 3kg)
-        else if ($articleType == 20) {
+        } else if ($articleType == 20) {
+            // 20: Medium Flat Rate Satchel (up to 3kg)
             $dimensions = array(
                 'length'    => 40.5,
                 'width'     => 31,
                 'height'    => 10,
                 'weight'    => 3
             );
-        }
-        // 21: Large Flat Rate Satchel (up to 5kg)
-        else if ($articleType == 21) {
+        } else if ($articleType == 21) {
+            // 21: Large Flat Rate Satchel (up to 5kg)
             $dimensions = array(
                 'length'    => 51,
                 'width'     => 43.5,
@@ -335,6 +335,7 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
                 'weight'    => 5
             );
         }
+
         return $dimensions;
     }
 
@@ -348,9 +349,11 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
         if ($handle == false) {
             return false;
         }
-        foreach ($this->items as $item) {
+
+        foreach ($this->_items as $item) {
             fputcsv($handle, array_values($item), self::DELIMITER, self::ENCLOSURE);
         }
+
         fclose($handle);
         return true;
     }
@@ -365,13 +368,17 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
     public function addExportToBulkAction($observer)
     {
         $url = Mage::helper("adminhtml")->getUrl('adminhtml/sales_order_clickandsend/export');        
-        //Mage::helper('shippedfrom')->log(sprintf("%s->observer->block=%s", __METHOD__, get_class($observer->getBlock())) );
+        //Mage::helper('shippedfrom')->log(sprintf("%s->observer->block=%s", __METHOD__, get_class($observer->getBlock())));
         $block = $observer->getBlock();
-        if ($block instanceof Mage_Adminhtml_Block_Sales_Order_Grid && Mage::helper('shippedfrom/clickandsend')->isClickAndSendEnabled()) {
-            $block->getMassactionBlock()->addItem('clickandsendexport', array(
-                'label' => $block->__('Export to CSV (Click & Send)'),
-                'url'   => $url
-            ));
+        if ($block instanceof Mage_Adminhtml_Block_Sales_Order_Grid
+            && Mage::helper('shippedfrom/clickandsend')->isClickAndSendEnabled()) {
+            $block->getMassactionBlock()->addItem(
+                'clickandsendexport',
+                array(
+                    'label' => $block->__('Export to CSV (Click & Send)'),
+                    'url'   => $url
+                )
+            );
         }
     }
 
@@ -379,15 +386,15 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend {
      * @param $stateName
      * @return int|string
      */
-    private static function getDeliveryState($stateName) {
+    protected static function getDeliveryState($stateName)
+    {
         $stateCode = $stateName;
-        foreach(self::$stateCodes as $code => $value) {
+        foreach (self::$_stateCodes as $code => $value) {
             if (preg_match(sprintf("/%s/i", $value), $stateName)) {
                 $stateCode = $code;
             }
         }
+
         return $stateCode;
-
     }
-
 }

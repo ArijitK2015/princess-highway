@@ -1,10 +1,16 @@
 <?php
+
 /**
+ * Class FactoryX_ShippedFrom_Model_System_Config_Source_ServiceCodes
  */
+class FactoryX_ShippedFrom_Model_System_Config_Source_ServiceCodes
+    extends Varien_Object
+{
 
-class FactoryX_ShippedFrom_Model_System_Config_Source_ServiceCodes extends Varien_Object {
-
-    protected $options = array(
+    /**
+     * @var array
+     */
+    protected $_options = array(
         'auto'  => "Automatic [by weight]",
         'PP'    => "PP - Parcel Post",
         'EP'    => "EP - Expres Post",
@@ -17,8 +23,9 @@ class FactoryX_ShippedFrom_Model_System_Config_Source_ServiceCodes extends Varie
      *
      * @return array $options
      */
-    public function toOptionArray() {
-        return $this->options;
+    public function toOptionArray()
+    {
+        return $this->_options;
     }
         
 }

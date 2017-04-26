@@ -1,5 +1,42 @@
 <?xml version="1.0" ?>
 <config>
+    <menu>
+        <factoryx_menu>
+            <children>
+                <auspost translate="title" module="shippedfrom">
+                    <title>AusPost</title>
+                    <sort_order>1</sort_order>
+                    <children>
+                        <accounts translate="title" module="shippedfrom">
+                            <title>Accounts</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/shippedfromaccount/index</action>
+                        </accounts>
+                        <products translate="title" module="shippedfrom">
+                            <title>Products</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/shippedfromproduct/index</action>
+                        </products>
+                        <shipments translate="title" module="shippedfrom">
+                            <title>Shipments</title>
+                            <sort_order>3</sort_order>
+                            <action>adminhtml/shippedfrom/auspost</action>
+                        </shipments>
+                        <orders translate="title" module="shippedfrom">
+                            <title>Orders</title>
+                            <sort_order>4</sort_order>
+                            <action>adminhtml/shippedfromorders/orders</action>
+                        </orders>
+                        <logs translate="title" module="shippedfrom">
+                            <title>Cron Logs</title>
+                            <sort_order>5</sort_order>
+                            <action>adminhtml/shippedfromlogs/index</action>
+                        </logs>
+                    </children>
+                </auspost>
+            </children>
+        </factoryx_menu>
+    </menu>
     <acl>
         <resources>
             <all>
@@ -23,6 +60,31 @@
                             </shipment>
                         </children>
                     </sales>
+                    <factoryx_menu>
+                        <children>
+                            <auspost translate="title" module="shippedfrom">
+                                <title>AusPost</title>
+                                <sort_order>1</sort_order>
+                                <children>
+                                    <accounts translate="title" module="shippedfrom">
+                                        <title>Accounts</title>
+                                    </accounts>
+                                    <products translate="title" module="shippedfrom">
+                                        <title>Products</title>
+                                    </products>
+                                    <shipments translate="title" module="shippedfrom">
+                                        <title>Shipments</title>
+                                    </shipments>
+                                    <orders translate="title" module="shippedfrom">
+                                        <title>Orders</title>
+                                    </orders>
+                                    <logs translate="title" module="shippedfrom">
+                                        <title>Cron Logs</title>
+                                    </logs>
+                                </children>
+                            </auspost>
+                        </children>
+                    </factoryx_menu>
                     <system>
                         <children>
                             <config>

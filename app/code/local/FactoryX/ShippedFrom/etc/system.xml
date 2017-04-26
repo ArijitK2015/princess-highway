@@ -531,6 +531,312 @@
                         </receiver_track_advice>
                     </fields>
                 </clickandsend>
+                <auspost translate="label">
+                    <label>Australia Post</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <dev_mode translate="label">
+                            <label>Developer Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </dev_mode>
+                        <dev_api_key translate="label">
+                            <label>Developer AusPost Global API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>1</dev_mode><enable>1</enable></depends>
+                        </dev_api_key>
+                        <dev_api_pwd translate="label">
+                            <label>Developer AusPost Global API Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>1</dev_mode><enable>1</enable></depends>
+                        </dev_api_pwd>
+                        <dev_account_no translate="label">
+                            <label>Developer AusPost Global Account Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>1</dev_mode><enable>1</enable></depends>
+                        </dev_account_no>
+                        <api_key translate="label">
+                            <label>AusPost Global API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>0</dev_mode><enable>1</enable></depends>
+                        </api_key>
+                        <api_pwd translate="label">
+                            <label>AusPost Global API Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>0</dev_mode><enable>1</enable></depends>
+                        </api_pwd>
+                        <account_no translate="label">
+                            <label>AusPost Global Account Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><dev_mode>0</dev_mode><enable>1</enable></depends>
+                        </account_no>
+                        <shipping_queue_cron_schedule translate="label">
+                            <label>Shipping Queue Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </shipping_queue_cron_schedule>
+                        <pending_labels_cron_schedule translate="label">
+                            <label>Pending Labels Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </pending_labels_cron_schedule>
+                        <manifests_cron_schedule translate="label">
+                            <label>Manifests Cron Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </manifests_cron_schedule>
+                        <!--
+                        @deprecated since 1.5.0
+                        <mapping translate="label comment">
+                            <label>Store / AusPost Account Mapping</label>
+                            <comment><![CDATA[Map a store to an AusPost account. Click Save after filling the API credentials to see the list of accounts]]></comment>
+                            <frontend_model>shippedfrom/adminhtml_system_config_form_field_auspostmapping</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </mapping>
+                        -->
+                        <free_shipping_default_product translate="label comment">
+                            <label>Free Shipping Default Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                            <comment>Regular Expression to match a product group e.g. Parcel or Express</comment>
+                        </free_shipping_default_product>
+                        <ebay_shipping_default_product translate="label comment">
+                            <label>Ebay Shipping Default Product</label>
+                            <frontend_model>shippedfrom/adminhtml_system_config_form_field_auspostebaymapping</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                            <comment>Regular Expression to match a product group e.g. Parcel or Express</comment>
+                        </ebay_shipping_default_product>
+                        <!--<ebay_shipping_default_express_product translate="label comment">
+                            <label>Ebay Shipping Express Default Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                            <comment>Regular Expression to match a product group e.g. Parcel or Express</comment>
+                        </ebay_shipping_default_express_product>
+                        <ebay_shipping_standard_default_product translate="label comment">
+                            <label>Ebay Shipping Standard Default Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                            <comment>Regular Expression to match a product group e.g. Parcel or Express</comment>
+                        </ebay_shipping_standard_default_product>-->
+                        <free_shipping_default_product translate="label comment">
+                            <label>Free Shipping Default Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                            <comment>Regular Expression to match a product group e.g. Parcel or Express</comment>
+                        </free_shipping_default_product>
+                        <label_layout translate="label">
+                            <label>Label Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shippedfrom/system_config_source_labelLayouts</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </label_layout>
+                        <label_branded translate="label">
+                            <label>Label Branded</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </label_branded>
+                        <label_left_offset translate="label">
+                            <label>Label Left Offset</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </label_left_offset>
+                        <label_top_offset translate="label">
+                            <label>Label Top Offset</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </label_top_offset>
+                        <separate_article_items translate="label comment">
+                            <label>Separate Article Items</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to Yes, there will be one parcel per shipped product.</comment>
+                            <depends><enable>1</enable></depends>
+                        </separate_article_items>
+                        <charge_to_master translate="label comment">
+                            <label>Charge All Orders to Master Account</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enable>1</enable></depends>
+                        </charge_to_master>
+                    </fields>
+                </auspost>
+                <auspost_log translate="label">
+                    <label>Australia Post Log Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <clean_after_day translate="label">
+                            <label>Save Log, Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clean_after_day>
+                        <enabled translate="label">
+                            <label>Enable Log Cleaning</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <time translate="label">
+                            <label>Start Time</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </time>
+                        <frequency translate="label">
+                            <label>Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cron_frequency</source_model>
+                            <backend_model>adminhtml/system_config_backend_log_cron</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </frequency>
+                        <error_email translate="label">
+                            <label>Error Email Recipient</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-email</validate>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </error_email>
+                        <error_email_identity translate="label">
+                            <label>Error Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </error_email_identity>
+                        <error_email_template translate="label">
+                            <label>Error Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </error_email_template>
+                    </fields>
+                </auspost_log>
             </groups>
         </shippedfrom>
     </sections>

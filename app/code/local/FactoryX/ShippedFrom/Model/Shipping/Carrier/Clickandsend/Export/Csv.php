@@ -3,7 +3,8 @@
 /**
  * Class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Export_Csv
  */
-class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Export_Csv extends FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abstract
+class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Export_Csv
+    extends FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abstract
 {
     /**
      * @param $orders
@@ -108,7 +109,13 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Export_Csv extend
             /*/** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->load($order);
 
-            Mage::helper('shippedfrom')->log(sprintf("%s->instanceof=%s", __METHOD__, get_class($order->getShippingCarrier())) );
+            Mage::helper('shippedfrom')->log(
+                sprintf(
+                    "%s->instanceof=%s",
+                    __METHOD__,
+                    get_class($order->getShippingCarrier())
+                )
+            );
             /*
             add everything!
 
@@ -125,7 +132,7 @@ class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Export_Csv extend
             // domestic only
             $shippingAddress = $order->getShippingAddress();
             // gift certs don;t have addresses
-            if ($shippingAddress && preg_match("/au/i", $shippingAddress->getCountry()) ) {
+            if ($shippingAddress && preg_match("/au/i", $shippingAddress->getCountry())) {
                 $clickandsend->addItem($order);
             }
         }

@@ -1,0 +1,33 @@
+<?php /* @var $this FactoryX_ShippedFrom_Block_Adminhtml_Auspost_Queue_View */ ?>
+<?php
+$data = $this->getData();
+//echo sprintf("<pre>%s</pre>", print_r($data, true));
+//echo sprintf("<pre>%s</pre>", print_r($this->getRenderedInfo(), true));
+?>
+<table cellspacing="2" class="box">
+<tbody>
+<?php foreach ($this->getRenderedInfo() as $row):?>
+    <?php
+    //echo sprintf("row: %s", print_r($row, true));
+    $isJson = preg_match("/json/i", $this->getObjectData($row, 'label'));
+    if ($isJson) {
+        $rowData = $row->getValue();
+        $rowData = sprintf("<textarea rows='%d' style='width:100%%;'>%s</textarea>", count(explode(PHP_EOL, $rowData)), $rowData);
+    }
+    else {
+        $rowData = $this->renderRowValue($row);
+    }
+    ?>
+    <tr>
+        <td>
+            <nobr><strong><?php echo $this->escapeHtml($this->getObjectData($row, 'label')) ?>&nbsp;</strong></nobr>
+        </td>
+        <td style='width:100%;'>
+            <?php echo $rowData; ?>
+        </td>
+    </tr>
+<?php endforeach;?>
+</tbody>
+</table>
+
+<a href="<?php echo $data['back_url']; ?>"><?php echo __('Go Back') ?></a>

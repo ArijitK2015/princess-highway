@@ -5,6 +5,7 @@
             <active>true</active>
             <codePool>local</codePool>
 		    <depends>
+                <Fontis_Australia />
                 <FactoryX_StoreLocator />
 				<Mage_Sales />
 			</depends>

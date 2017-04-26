@@ -7,6 +7,11 @@
 			</action>
 			<block type="shippedfrom/adminhtml_sales_order_shipment_view_shippedfrom" name="shippedfrom_view" template="factoryx/shippedfrom/sales/order/shipment/view/shippedfrom.phtml" />
 		</reference>
+		<reference name="shipment_tracking">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/view/tracking.phtml</template>
+			</action>
+		</reference>
 		<!--
 		<reference name="order_items">
 			<action method="setTemplate">
@@ -40,5 +45,48 @@
 	<adminhtml_sales_order_shipment_updatestore>
 		<block type="shippedfrom/adminhtml_sales_order_shipment_view_shippedfrom" name="shippedfrom_view" template="factoryx/shippedfrom/sales/order/shipment/view/shippedfrom.phtml" />
 	</adminhtml_sales_order_shipment_updatestore>
+
+	<adminhtml_shippedfromaccount_view>
+		<reference name="content">
+			<block type="shippedfrom/adminhtml_auspost_product_view" name="shippedfrom_austpost_product_view" template="factoryx/shippedfrom/auspost/product/view.phtml">
+				<action method="prepareViewData"/>
+				<action method="prepareReferenceInfo"/>
+			</block>
+		</reference>
+	</adminhtml_shippedfromaccount_view>
+
+	<adminhtml_shippedfromproduct_view>
+		<reference name="content">
+			<block type="shippedfrom/adminhtml_auspost_product_view" name="shippedfrom_austpost_product_view" template="factoryx/shippedfrom/auspost/product/view.phtml">
+				<action method="prepareViewData"/>
+				<action method="prepareReferenceInfo"/>
+			</block>
+		</reference>
+	</adminhtml_shippedfromproduct_view>
+
+	<adminhtml_sales_order_shipment_addtrack>
+		<reference name="shipment_tracking">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/view/tracking.phtml</template>
+			</action>
+		</reference>
+	</adminhtml_sales_order_shipment_addtrack>
+
+	<adminhtml_sales_order_shipment_removetrack>
+		<reference name="shipment_tracking">
+			<action method="setTemplate">
+				<template>factoryx/shippedfrom/sales/order/shipment/view/tracking.phtml</template>
+			</action>
+		</reference>
+	</adminhtml_sales_order_shipment_removetrack>
+
+	<adminhtml_shippedfrom_view>
+		<reference name="content">
+			<block type="shippedfrom/adminhtml_auspost_queue_view" name="shippedfrom_austpost_queue_view" template="factoryx/shippedfrom/auspost/queue/view.phtml">
+				<action method="prepareViewData"/>
+				<action method="prepareReferenceInfo"/>
+			</block>
+		</reference>
+	</adminhtml_shippedfrom_view>
 
 </layout>

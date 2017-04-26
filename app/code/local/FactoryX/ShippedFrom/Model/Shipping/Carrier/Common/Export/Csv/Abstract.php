@@ -6,7 +6,8 @@
  * @abstract Jonathan Melnick (http://www.dhmedia.com.au)
  * @author Slandsbek (http://www.magentocommerce.com/magento-connect/developer/slandsbek)
  */
-abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abstract extends Mage_Core_Model_Abstract
+abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abstract
+    extends Mage_Core_Model_Abstract
 {
     /**
      * Returns the name of the website, store and store view the order was placed in.
@@ -17,9 +18,10 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
     protected function getStoreName($order)
     {
         $storeId = $order->getStoreId();
-        if (is_null($storeId)) {
+        if ($storeId === null) {
             return $this->getOrder()->getStoreName();
         }
+
         $store = Mage::app()->getStore($storeId);
         $name = array(
                 $store->getWebsite()->getName(),
@@ -51,6 +53,7 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
         if (!$order->getIsVirtual() && $order->getShippingMethod()) {
             return $order->getShippingMethod();
         }
+
         return '';
     }
 
@@ -60,15 +63,16 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
      * @param Mage_Sales_Model_Order $order The order to return info from
      * @return int The total quantity of ordered items
      */
-    protected function getTotalQtyItemsOrdered($order) {
+    protected function getTotalQtyItemsOrdered($order)
+    {
         $qty = 0;
         $orderedItems = $order->getItemsCollection();
-        foreach ($orderedItems as $item)
-        {
+        foreach ($orderedItems as $item) {
             if (!$item->isDummy()) {
                 $qty += (int)$item->getQtyOrdered();
             }
         }
+
         return $qty;
     }
 
@@ -83,6 +87,7 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
         if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
             return $item->getProductOptionByCode('simple_sku');
         }
+
         return $item->getSku();
     }
 
@@ -98,12 +103,14 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
         $options = '';
         if ($orderOptions = $this->getItemOrderOptions($item)) {
             foreach ($orderOptions as $_option) {
-                if (strlen($options) > 0) {
+                if ($options !== "") {
                     $options .= ', ';
                 }
+
                 $options .= $_option['label'].': '.$_option['value'];
             }
         }
+
         return $options;
     }
 
@@ -112,7 +119,7 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
      * attributes_info.
      *
      * @param Mage_Sales_Model_Order_Item $item The item to return info from
-     * @return Array The item options
+     * @return array The item options
      */
     protected function getItemOrderOptions($item)
     {
@@ -121,13 +128,16 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -140,7 +150,10 @@ abstract class FactoryX_ShippedFrom_Model_Shipping_Carrier_Common_Export_Csv_Abs
      */
     protected function getItemTotal($item)
     {
-        return $item->getRowTotal() - $item->getDiscountAmount() + $item->getTaxAmount() + $item->getWeeeTaxAppliedRowAmount();
+        return $item->getRowTotal()
+            - $item->getDiscountAmount()
+            + $item->getTaxAmount()
+            + $item->getWeeeTaxAppliedRowAmount();
     }
 
     /**

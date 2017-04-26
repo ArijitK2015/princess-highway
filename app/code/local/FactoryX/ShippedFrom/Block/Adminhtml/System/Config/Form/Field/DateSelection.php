@@ -3,7 +3,8 @@
 /**
  * Class FactoryX_ShippedFrom_Block_Adminhtml_System_Config_Form_Field_DateSelection
  */
-class FactoryX_ShippedFrom_Block_Adminhtml_System_Config_Form_Field_DateSelection extends Mage_Adminhtml_Block_System_Config_Form_Field
+class FactoryX_ShippedFrom_Block_Adminhtml_System_Config_Form_Field_DateSelection
+    extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * @param Varien_Data_Form_Element_Abstract $element

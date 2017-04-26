@@ -1,10 +1,16 @@
 <?php
+
 /**
+ * Class FactoryX_ShippedFrom_Model_System_Config_Source_ArticleTypes
  */
+class FactoryX_ShippedFrom_Model_System_Config_Source_ArticleTypes
+    extends Varien_Object
+{
 
-class FactoryX_ShippedFrom_Model_System_Config_Source_ArticleTypes extends Varien_Object {
-
-    protected $options = array(
+    /**
+     * @var array
+     */
+    protected $_options = array(
         7       => '07 - Own Packaging',
         16      => '16 - Small Flat Rate Box (up to 1kg)',
         17      => '17 - Medium Flat Rate Box (up to 3kg)',
@@ -18,8 +24,9 @@ class FactoryX_ShippedFrom_Model_System_Config_Source_ArticleTypes extends Varie
      *
      * @return array $options
      */
-    public function toOptionArray() {
-        return $this->options;
+    public function toOptionArray()
+    {
+        return $this->_options;
     }
         
 }

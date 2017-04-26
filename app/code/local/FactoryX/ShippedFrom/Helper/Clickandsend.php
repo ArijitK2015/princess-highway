@@ -1,6 +1,4 @@
 <?php
-//use Auspost\Postage\Enum\ServiceCode;
-//use Auspost\Postage\Enum\ServiceOption;
 
 /**
  * Class FactoryX_ShippedFrom_Helper_Clickandsend
@@ -8,7 +6,6 @@
 class FactoryX_ShippedFrom_Helper_Clickandsend extends Mage_Core_Helper_Abstract
 {
     const CLICK_AND_SEND_MAXLEN_ADDRESS                     = 50;
-    
     const XML_PATH_CLICK_AND_SEND_ENABLED                   = 'shippedfrom/clickandsend/active';
     const XML_PATH_CLICK_AND_SEND_FILTER_SHIPPING_METHODS   = 'shippedfrom/clickandsend/filter';
     const XML_PATH_CLICK_AND_SEND_EXPORT_ALL                = 'shippedfrom/clickandsend/export_all';
@@ -121,21 +118,20 @@ class FactoryX_ShippedFrom_Helper_Clickandsend extends Mage_Core_Helper_Abstract
         // split on space
         $addrSplit = preg_split("/\s/", $fullAddress);
         $i = 0;
-        foreach($addrSplit as $part) {
-            // init
+        foreach ($addrSplit as $part) {
             if (!array_key_exists($i, $aAddress)) {
                 $aAddress[] = "";
             }
-            // append or start new
+
             $newLine = sprintf("%s%s%s", $aAddress[$i], (strlen($aAddress[$i]) ? " " : ""), $part);
             if (strlen($newLine) > self::CLICK_AND_SEND_MAXLEN_ADDRESS) {
                 $i++;
                 $aAddress[$i] = sprintf("%s", $part);
-            }
-            else {
+            } else {
                 $aAddress[$i] .= sprintf("%s%s", (strlen($aAddress[$i]) ? " " : ""), $part);
             }
         }
+
         return $aAddress;
     }
 
@@ -144,8 +140,8 @@ class FactoryX_ShippedFrom_Helper_Clickandsend extends Mage_Core_Helper_Abstract
      * @internal param string $string return preg_replace("/[^ \w]+/", "", $str);*
      * return preg_replace("/[^ \w]+/", "", $str);
      * @return string
-*/
-    private static function cleanString($str)
+     */
+    protected static function cleanString($str)
     {
         // replace ampersands with 'n'
         $str = preg_replace("/&/", 'n', $str);
@@ -217,14 +213,15 @@ class FactoryX_ShippedFrom_Helper_Clickandsend extends Mage_Core_Helper_Abstract
                 $config = sprintf("carriers/australiapost/default_%s", $attribute);
                 return Mage::getStoreConfig($config);
             }
+
             $_attribute = $items[0]->getData($attributeCode);
             if (empty($_attribute)) {
                 $config = sprintf("carriers/australiapost/default_%s", $attribute);
                 return Mage::getStoreConfig($config);
             }
+
             return $_attribute;
-        }
-        else {
+        } else {
             $config = sprintf("carriers/australiapost/default_%s", $attribute);
             return Mage::getStoreConfig($config);
         }
@@ -245,6 +242,7 @@ class FactoryX_ShippedFrom_Helper_Clickandsend extends Mage_Core_Helper_Abstract
                 $items[] = $item;
             }
         }
+
         return $items;
     }
     

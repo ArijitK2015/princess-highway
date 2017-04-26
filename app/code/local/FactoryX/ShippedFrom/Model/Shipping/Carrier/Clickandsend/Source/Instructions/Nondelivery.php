@@ -3,7 +3,8 @@
 /**
  * Class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Source_Instructions_Nondelivery
  */
-class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Source_Instructions_Nondelivery {
+class FactoryX_ShippedFrom_Model_Shipping_Carrier_Clickandsend_Source_Instructions_Nondelivery
+{
     const RETURN_BY_SURFACE = 1;
     const RETURN_BY_AIRMAIL = 2;
     const DELIVER_REDIRECT_BY_AIRMAIL = 3;

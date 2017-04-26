@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<FactoryX_ShippedFrom>
-			<version>1.3.8</version>
+			<version>1.6.0</version>
 		</FactoryX_ShippedFrom>
 	</modules>
 
@@ -32,6 +32,25 @@
             <cron_job_store_sales_report>
                 <cron_expr>30 16 * * *</cron_expr>
             </cron_job_store_sales_report>
+            <auspost>
+                <label_layout>A4-1pp</label_layout>
+                <label_branded>1</label_branded>
+                <label_left_offset>0</label_left_offset>
+                <label_top_offset>0</label_top_offset>
+                <shipping_queue_cron_schedule>*/5 * * * *</shipping_queue_cron_schedule>
+                <pending_labels_cron_schedule>*/5 * * * *</pending_labels_cron_schedule>
+                <manifests_cron_schedule>0 1 * * *</manifests_cron_schedule>
+                <separate_article_items>0</separate_article_items>
+            </auspost>
+            <auspost_log>
+                <clean_after_day>10</clean_after_day>
+                <enabled>1</enabled>
+                <time/>
+                <frequency>D</frequency>
+                <error_email/>
+                <error_email_identity>general</error_email_identity>
+                <error_email_template>factoryx_shippedfrom_log_error_email_template</error_email_template>
+            </auspost_log>
         </shippedfrom>
     </default>
 
@@ -59,7 +78,37 @@
         <models>
             <shippedfrom>
                 <class>FactoryX_ShippedFrom_Model</class>
+                <resourceModel>shippedfrom_mysql4</resourceModel>
             </shippedfrom>
+            <shippedfrom_mysql4>
+                <class>FactoryX_ShippedFrom_Model_Resource</class>
+                <entities>
+                    <shipment_item>
+                        <table>fx_shippedfrom_shipment_item</table>
+                    </shipment_item>
+                    <shipping_queue>
+                        <table>fx_shippedfrom_shipping_queue</table>
+                    </shipping_queue>
+                    <orders>
+                        <table>fx_shippedfrom_orders</table>
+                    </orders>
+                    <account>
+                        <table>fx_shippedfrom_account</table>
+                    </account>
+                    <account_product>
+                        <table>fx_shippedfrom_account_product</table>
+                    </account_product>
+                    <cron_log>
+                        <table>fx_shippedfrom_cron_log</table>
+                    </cron_log>
+                </entities>
+            </shippedfrom_mysql4>
+            <australia>
+                <rewrite>
+                    <!-- Fontis_Australia_Model_Shipping_Carrier_Australiapost -->
+                    <shipping_carrier_australiapost>FactoryX_ShippedFrom_Model_Australia_Shipping_Carrier_Australiapost</shipping_carrier_australiapost>
+                </rewrite>
+            </australia>
         </models>
         <events>
             <core_layout_block_create_after>
@@ -115,6 +164,15 @@
                     </shippedfrom_shipment_clickandsend_export_bulkaction>
                 </observers>
             </adminhtml_block_html_before>
+            <fontis_australia_auspost_tracking_info>
+                <observers>
+                    <shippedfrom_add_extra_tracking_info>
+                        <type>singleton</type>
+                        <class>shippedfrom/observer</class>
+                        <method>addExtraTrackingInfo</method>
+                    </shippedfrom_add_extra_tracking_info>
+                </observers>
+            </fontis_australia_auspost_tracking_info>
         </events>
         <blocks>
             <shippedfrom>
@@ -133,21 +191,26 @@
         </helpers>
         <template>
             <email>
-                <shippedfrom_packing_slip_html module="shippedfrom">
+                <shippedfrom_packing_slip_html translate="label" module="shippedfrom">
                     <label>Shipped From Stores Packing Slip HTML</label>
                     <file>factoryx/shippedfrom/shippedfrom_packing_slip.html</file>
                     <type>html</type>
                 </shippedfrom_packing_slip_html>
-                <shippedfrom_packing_slip_text module="shippedfrom">
+                <shippedfrom_packing_slip_text translate="label" module="shippedfrom">
                     <label>Shipped From Stores Packing Slip TXT</label>
                     <file>factoryx/shippedfrom/shippedfrom_packing_slip.txt</file>
                     <type>text</type>
                 </shippedfrom_packing_slip_text>
-                <shippedfrom_report module="shippedfrom">
+                <shippedfrom_report translate="label" module="shippedfrom">
                     <label>shippedfrom_report</label>
                     <file>factoryx/shippedfrom/shippedfrom_report.html</file>
                     <type>html</type>
                 </shippedfrom_report>
+                <factoryx_shippedfrom_log_error_email_template translate="label" module="shippedfrom">
+                    <label>Shippedfrom Log cleanup Warnings</label>
+                    <file>factoryx/shippedfrom/log_clean_warning.html</file>
+                    <type>text</type>
+                </factoryx_shippedfrom_log_error_email_template>
             </email>
         </template>
     </global>
@@ -164,7 +227,7 @@
                         e.g. any class under this space will fail, need to use observers!
                         <factoryx_shippedfrom before="Mage_Adminhtml">FactoryX_ShippedFrom_Adminhtml</factoryx_shippedfrom>
                         -->
-                        <factoryx_shippedfrom before="Mage_Adminhtml">FactoryX_ShippedFrom</factoryx_shippedfrom>
+                        <FactoryX_ShippedFrom before="Fontis_Australia">FactoryX_ShippedFrom_Adminhtml</FactoryX_ShippedFrom>
                     </modules>
                 </args>
             </adminhtml>
@@ -189,6 +252,35 @@
                     <model>shippedfrom/observer::storeSalesReport</model>
                 </run>
             </factoryx_shippedfrom_report>
+            <factoryx_shippedfrom_process_pending_shipping_queue>
+                <schedule>
+                    <config_path>shippedfrom/auspost/shipping_queue_cron_schedule</config_path>
+                </schedule>
+                <run>
+                    <model>shippedfrom/cron::processPendingShippingQueue</model>
+                </run>
+            </factoryx_shippedfrom_process_pending_shipping_queue>
+            <factoryx_shippedfrom_process_pending_label_queue>
+                <schedule>
+                    <config_path>shippedfrom/auspost/pending_labels_cron_schedule</config_path>
+                </schedule>
+                <run>
+                    <model>shippedfrom/cron::processPendingLabels</model>
+                </run>
+            </factoryx_shippedfrom_process_pending_label_queue>
+            <factoryx_shippedfrom_process_manifests>
+                <schedule>
+                    <config_path>shippedfrom/auspost/manifests_cron_schedule</config_path>
+                </schedule>
+                <run>
+                    <model>shippedfrom/cron::processManifests</model>
+                </run>
+            </factoryx_shippedfrom_process_manifests>
+            <factoryx_shippedfrom_log_clean>
+                <run>
+                    <model>shippedfrom/cron::logClean</model>
+                </run>
+            </factoryx_shippedfrom_log_clean>
         </jobs>
     </crontab>
     <phpunit>
