@@ -9,7 +9,8 @@ class FactoryX_CustomGrids_Model_Config_Order extends FactoryX_CustomGrids_Model
         Mage_Sales_Model_Order::ENTITY  => array(
             'sales_flat_order'          =>  'main_table.entity_id = sfo.entity_id',
             'sales_flat_order_address'  =>  'main_table.entity_id = sfoa.parent_id AND sfoa.address_type = "shipping"',
-            'sales_flat_order_payment'  =>  'main_table.entity_id = sfop.parent_id'
+            'sales_flat_order_payment'  =>  'main_table.entity_id = sfop.parent_id',
+            'sales_flat_order_item'     =>  'main_table.entity_id = sfoi.order_id'
         )
     );
 
@@ -138,6 +139,29 @@ class FactoryX_CustomGrids_Model_Config_Order extends FactoryX_CustomGrids_Model
                         'config'    => array(
                             'filter_index' => 'sfop.method',
                             'type'      => 'options'
+                        )
+                    ),
+                    array(
+                        'code'  =>  'po_number',
+                        'label' =>  'Purchase Order Number',
+                        'config'    => array(
+                            'filter_index' => 'sfop.po_number'
+                        )
+                    )
+                ),
+                'sales_flat_order_item' => array(
+                    array(
+                        'code'  => 'qty_ordered_total',
+                        'label' => 'Total Qty Ordered',
+                        /*
+                         * special case to support inner join or EQUIJOINs
+                         * e.g. INNER JOIN (select order_id, sum(qty_ordered) as qty_ordered_total from sales_flat_order_item where product_type = 'simple' group by order_id) sfoi on main_table.entity_id = sfoi.order_id
+                         * is an inner join required? as it doesn't make sense to have an order with no order items ...
+                         */
+                        'inner_join' => '(select order_id, sum(qty_ordered) as qty_ordered_total from sales_flat_order_item where product_type = \'simple\' group by order_id)',
+                        'config'    => array(
+                            'filter_index' => 'qty_ordered_total',
+                            'type' => 'number'
                         )
                     )
                 )

@@ -8,7 +8,8 @@ class FactoryX_CustomGrids_Model_Config_Sales extends FactoryX_CustomGrids_Model
     protected $_tableAlias = array(
         'sales_flat_order'          =>  'sfo',
         'sales_flat_order_address'  =>  'sfoa',
-        'sales_flat_order_payment'  =>  'sfop'
+        'sales_flat_order_payment'  =>  'sfop',
+        'sales_flat_order_item'     =>  'sfoi'
     );
 
     protected $_ambiguousColumns = array(
@@ -16,7 +17,8 @@ class FactoryX_CustomGrids_Model_Config_Sales extends FactoryX_CustomGrids_Model
         'increment_id',
         'base_grand_total',
         'grand_total',
-        'status'
+        'status',
+        'status_preorder'
     );
 
     protected $_collection;
@@ -26,7 +28,8 @@ class FactoryX_CustomGrids_Model_Config_Sales extends FactoryX_CustomGrids_Model
      * @param $table
      * @return bool
      */
-    public function getTableAlias($table) {
+    public function getTableAlias($table)
+    {
         $tableAlias = false;
         if (array_key_exists($table,$this->_tableAlias)) {
             $tableAlias = $this->_tableAlias[$table];

@@ -43,9 +43,9 @@ class FactoryX_CustomGrids_Helper_Data extends Mage_Core_Helper_Abstract
      * Log data
      * @param string|object|array data to log
      */
-    public function log($data)
+    public function log($data, $level = Zend_Log::DEBUG)
     {
-        Mage::log($data, null, $this->logFileName);
+        Mage::log($data, $level, $this->logFileName);
     }
 
     /**

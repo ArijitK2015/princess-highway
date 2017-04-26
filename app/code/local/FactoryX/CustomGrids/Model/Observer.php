@@ -230,17 +230,17 @@ class FactoryX_CustomGrids_Model_Observer
             $entityType = Mage::getSingleton('customgrids/config')->getRelatedEntityType($blockType);
             // Entity config
             $model = sprintf("customgrids/config_%s", $entityType);
-            //Mage::helper('customgrids')->log(sprintf("%s->model=%s", __METHOD__, $model) );
+            Mage::helper('customgrids')->log(sprintf("%s->model=%s", __METHOD__, $model) );
 
             $entityConfig = Mage::getSingleton($model);
             // Get the config of the column
             $config = $entityConfig->getConfig($column, $blockType);
-            /*
+
             Mage::helper('customgrids')->log(sprintf("%s->addColumnAfter[%s|%s|%s]", __METHOD__,
                 $column->getAttributeCode(),
                 $column->getAfterColumn(),
                 print_r($config, true)) );
-            */
+
             // Add the column
             $block->addColumnAfter(
                 $column->getAttributeCode(),
@@ -385,7 +385,7 @@ class FactoryX_CustomGrids_Model_Observer
         {
             $columnCollection = Mage::getResourceModel('customgrids/column_collection')->filterByModelAndBlock($collectionType,$blockType)->addFieldToFilter('remove',0);
 
-            $joints = array();
+            $joins = array();
 
             $entityType = Mage::getSingleton('customgrids/config')->getRelatedEntityType($blockType);
             $configModel = sprintf("customgrids/config_%s", $entityType);
@@ -402,21 +402,44 @@ class FactoryX_CustomGrids_Model_Observer
                 {
                     foreach ($attributes as $attribute)
                     {
-                        if ($column->getAttributeCode() == $attribute['code'])
-                        {
-                            if (!array_key_exists($key,$joints))
-                            {
-                                $joints[$key] = array();
+                        if ($column->getAttributeCode() != $attribute['code']) {
+                            continue;
+                        }
+                        Mage::helper('customgrids')->log(sprintf("%s->column->getAttributeCode(): %s == %s", __METHOD__, $column->getAttributeCode(), $attribute['code']) );
+                        if (!array_key_exists($key, $joins)) {
+                            $joins[$key] = array();
+                        }
+
+                        // Check if it's a custom SQL expression column
+                        if (
+                            array_key_exists('sql_expr', $attribute)
+                            &&
+                            $attribute['sql_expr']
+                        ) {
+                            Mage::helper('customgrids')->log(sprintf("%s->attributeCode: %s, with sql_expr", __METHOD__, $column->getAttributeCode()) );
+                            $joins[$key][$column->getAttributeCode()]['type'] = 'left';
+                            $joins[$key][$column->getAttributeCode()]['column'] = $column->getAttributeCode();
+                            $joins[$key][$column->getAttributeCode()]['sql_expr'] = new Zend_Db_Expr($attribute['sql_expr']);
+                        }
+                        elseif (
+                            array_key_exists('inner_join', $attribute)
+                            &&
+                            $attribute['inner_join']
+                        ) {
+                            Mage::helper('customgrids')->log(sprintf("%s->attributeCode: %s, with inner_join", __METHOD__, $column->getAttributeCode()));
+                            $joins[$key][$column->getAttributeCode()]['type'] = 'inner';
+                            //$joins[$key][$column->getAttributeCode()]['column'] = $column->getAttributeCode();
+                            $joins[$key][$column->getAttributeCode()]['column'] = $config->getTableAlias($key) . "." . $column->getAttributeCode();
+                            $joins[$key][$column->getAttributeCode()]['sql_expr'] = new Zend_Db_Expr($attribute['inner_join']);
+                        }
+                        else {
+                            $joins[$key][$column->getAttributeCode()]['type'] = 'left';
+                            // check for an alias
+                            if ($config->getTableAlias($key)) {
+                                $joins[$key][$column->getAttributeCode()]['column'] = $config->getTableAlias($key) . "." . $column->getAttributeCode();
                             }
-                            // Check if it's a custom SQL expression column
-                            if (array_key_exists('sql_expr',$attribute)
-                                && $attribute['sql_expr']
-                            ) {
-                                // Handle it differently
-                                $joints[$key][$column->getAttributeCode()]['column'] = $column->getAttributeCode();
-                                $joints[$key][$column->getAttributeCode()]['sql_expr'] = new Zend_Db_Expr($attribute['sql_expr']);
-                            } else {
-                                $joints[$key][$column->getAttributeCode()]['column'] = $config->getTableAlias($key) . "." . $column->getAttributeCode();
+                            else {
+                                $joins[$key][$column->getAttributeCode()]['column'] = $column->getAttributeCode();
                             }
                         }
                     }
@@ -431,12 +454,13 @@ class FactoryX_CustomGrids_Model_Observer
             why do we check for the first page?
             */
             $params = Mage::app()->getRequest()->getParams();
-            Mage::log(sprintf("%s->Params()=%s", __METHOD__, print_r(Mage::app()->getRequest()->getParams(), true)) );
+            //Mage::helper('customgrids')->log(sprintf("%s->Params()=%s", __METHOD__, print_r(Mage::app()->getRequest()->getParams(), true)) );
             
             if (
                 !Mage::helper('customgrids')->isExportCsv()
                 ||
-                (   Mage::helper('customgrids')->isExportCsv() 
+                (
+                    Mage::helper('customgrids')->isExportCsv()
                     &&
                     /*
                     this test fails with: Column not found, replaced with check below
@@ -446,37 +470,71 @@ class FactoryX_CustomGrids_Model_Observer
                     $params['page'] == 1 || !array_key_exists('page', $params)
                 )
             ) {
-                foreach ($joints as $table => $joint) {
+                Mage::helper('customgrids')->log(sprintf("%s->joins=%s", __METHOD__, print_r($joins, true)) );
+
+                /**
+                 *
+                 */
+                foreach ($joins as $table => $columns) {
+                    Mage::helper('customgrids')->log(sprintf("%s->%s: %s", __METHOD__, $table, print_r($columns, true)) );
+                    $joinType = false;
+                    $innerJoin = "";
                     $columnsToJoin = array();
-                    foreach ($joint as $attrCode => $data) {
+                    foreach ($columns as $attrCode => $data) {
+                        $joinType = $data['type'];
                         // Handle the custom SQL expression columns differently
-                        if (array_key_exists('sql_expr', $data)) {
+                        if (array_key_exists('sql_expr', $data) && $data['type'] == 'left') {
                             $columnsToJoin[$data['column']] = $data['sql_expr'];
+                        }
+                        else if (array_key_exists('sql_expr', $data) && $data['type'] == 'inner') {
+                            $innerJoin = $data['sql_expr'];
+                            $columnsToJoin[] = $data['column'];
                         }
                         else {
                             $columnsToJoin[] = $data['column'];
                         }
-                    }    
+                    }
+                    Mage::helper('customgrids')->log(sprintf("%s->columnsToJoin: %s", __METHOD__, print_r($columnsToJoin, true)) );
                     $tableRelation = $config->getTableRelation($entityType, $table);
+                    Mage::helper('customgrids')->log(sprintf("%s->tableRelation=%s", __METHOD__, $tableRelation) );
 
                     // In case there is a filter applied when exporting we might get a "cannot defined correlation name" error
                     $froms = $collection->getSelect()->getPart(Zend_Db_Select::FROM);
-                    if (!array_key_exists($config->getTableAlias($table), $froms)) {
-                        $collection->getSelect()->joinLeft(
-                            array($config->getTableAlias($table) => $table),
-                            $tableRelation,
-                            $columnsToJoin
-                        );
+                    Mage::helper('customgrids')->log(sprintf("%s->froms=%s", __METHOD__, print_r($froms, true)) );
+
+                    $tableAlias = $config->getTableAlias($table);
+                    //Mage::helper('customgrids')->log(sprintf("%s->tableAlias[%s]=%s[%d]", __METHOD__, $table, $tableAlias, array_key_exists($tableAlias, $froms)) );
+                    if ($tableAlias && !array_key_exists($tableAlias, $froms)) {
+                        Mage::helper('customgrids')->log(sprintf("%s->%s", __METHOD__,$joinType) );
+                        if ($joinType == 'left') {
+                            $collection->getSelect()->joinLeft(
+                                array($config->getTableAlias($table) => $table),
+                                $tableRelation,
+                                $columnsToJoin
+                            );
+                        }
+                        if ($joinType == 'inner' && $innerJoin) {
+                            $collection->getSelect()->joinInner(
+                                array($config->getTableAlias($table) => $innerJoin),
+                                $tableRelation,
+                                $columnsToJoin
+                            );
+                        }
+                    }
+                    else {
+                        Mage::helper('customgrids')->log(sprintf("table '%s' has no alias defined, see FactoryX_CustomGrids_Model_Config_Sales::_tableAlias", $table), Zend_Log::WARN);
                     }
                 }
+
                 // Fix the "Column in where clause is ambiguous" error
                 if ($where = $collection->getSelect()->getPart('where')) {
                     $ambiguousColumns = $config->getAmbiguousColumns();
                     $where = $this->_fixAmbiguousColumns($where, $ambiguousColumns);
-                    //Mage::helper('customgrids')->log(sprintf("%s->where=%s\n", __METHOD__, print_r($where,true)));
+                    //Mage::helper('customgrids')->log(sprintf("%s->where=%s", __METHOD__, print_r($where,true)));
                     $collection->getSelect()->setPart('where', $where);
                 }
             }
+            Mage::helper('customgrids')->log(sprintf("%s->SQL.2: %s", __METHOD__, $collection->getSelect()->__toString()) );
         }
     }
 
@@ -491,7 +549,7 @@ class FactoryX_CustomGrids_Model_Observer
         // Avoid sql error: column 'COLUMN_NAME' in where clause is ambiguous
         foreach ($where as $key => $condition)
         {
-            //Mage::helper('customgrids')->log(sprintf("%s->key=%s,condition=%s\n", __METHOD__, $key, $condition));
+            //Mage::helper('customgrids')->log(sprintf("%s->key=%s,condition=%s", __METHOD__, $key, $condition));
             foreach ($ambiguousColumns as $column)
             {
                 $old = "";
