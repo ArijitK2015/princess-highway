@@ -83,7 +83,7 @@ data-pin-build - causes pinit.js to expose its internal build function to the gl
             }
             // Magic Zoom Support
             if (jQuery('.MagicZoom img').length > 0) {
-                jQuery(".MagicZoom img").load(function() {
+                jQuery(".MagicZoom img").on('load', function() {
                     //console.log("MagicZoom img.load()");
                     jQuery('#pin-it-button').hide();
                     var pinThis = jQuery('.MagicZoom img').attr('src');
