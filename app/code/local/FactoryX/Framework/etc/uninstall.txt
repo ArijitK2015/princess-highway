@@ -41,6 +41,6 @@ skin/frontend/factoryx/default/images
 skin/frontend/factoryx/default/js/bootstrap
 skin/frontend/factoryx/default/js/lib/elevatezoom
 skin/frontend/factoryx/default/js/app.js
-skin/frontend/factoryx/default/js/opcheckout.js
+skin/frontend/factoryx/default/js/opcheckout-progressbar.js
 app/locale/en_AU/template/email/factoryx/contests
 js/lib/factoryx/framework

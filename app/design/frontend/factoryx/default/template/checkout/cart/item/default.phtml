@@ -28,9 +28,23 @@
 $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+
+$imgSrc = $this->getProductThumbnail()->resize(75);
 ?>
 <tr>
-    <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image thumbnail"><?php endif;?><img class="img-responsive" src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
+    <td class="cart-image">
+        <?php if ($this->hasProductUrl()):?>
+            <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image thumbnail">
+        <?php else:?>
+            <div class="product-image thumbnail">
+        <?php endif;?>
+        <img class="img-responsive" src="<?php echo $imgSrc ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" />
+        <?php if ($this->hasProductUrl()):?>
+            </a>        
+        <?php else:?>
+            </div>
+        <?php endif;?>
+    </td>
     <td>
         <h2 class="product-name">
             <?php if ($this->hasProductUrl()):?>

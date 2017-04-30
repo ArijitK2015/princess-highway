@@ -30,8 +30,6 @@
         <?php echo $this->__('Toggle Checkout Progress'); ?>
     </button>
 </div>
-<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
 <div class="panel-group opc" id="checkoutSteps">
     <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
         <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>

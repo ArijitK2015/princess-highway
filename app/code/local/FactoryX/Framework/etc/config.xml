@@ -4,7 +4,7 @@
 
     <modules>
         <FactoryX_Framework>
-            <version>0.3.33</version>
+            <version>0.3.34</version>
         </FactoryX_Framework>
     </modules>
 
@@ -23,7 +23,7 @@
                     <factoryx_framework_core_block_abstract_to_html_afterl>
                         <type>singleton</type>
                         <class>framework/observer</class>
-                        <method>modifyOutput</method>
+                        <method>addBootstrapClasses</method>
                     </factoryx_framework_core_block_abstract_to_html_afterl>
                 </observers>
             </core_block_abstract_to_html_after>
