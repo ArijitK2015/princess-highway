@@ -231,14 +231,14 @@ if (count($_attributes)):
         // END SIZE FUNCTIONALITY
         if ($_numberOfColors == $_numberOfSwatches) {
             echo '<script type="text/javascript">
-jQuery(window).load(function(){
+jQuery(window).on('load', function(){
      jQuery("#swatch-container div").first().trigger("click");
 });
 </script>';
         }
         else {
             echo '<script type="text/javascript">
-	jQuery(window).load(function(){
+	jQuery(window).on('load', function(){
 		jQuery(".super-attribute-select :nth-child(2)").prop("selected", true).trigger("change");
 	});
 	</script>';

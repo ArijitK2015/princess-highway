@@ -141,7 +141,7 @@ $visibleXsImageH = 960;
 jQuery('.product-image-thumbs a').on('click',function(){
     jQuery("#lightboxLink").attr('href',jQuery(this).attr('href'));
 });
-jQuery(window).load(function(){
+jQuery(window).on('load', function(){
     jQuery('#thumbCarousel a > img').addClass('img-responsive');
     var mySwiper = new Swiper('.swiper-container',{
         mode:'horizontal',

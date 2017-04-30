@@ -23,7 +23,7 @@ function toggleMagicZoom()
     }
 }
 
-jQuery(window).load(function(){
+jQuery(window).on('load', function(){
     toggleMagicZoom();
 });
 jQuery(window).resize(function(){

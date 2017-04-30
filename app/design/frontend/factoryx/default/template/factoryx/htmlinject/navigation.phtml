@@ -40,7 +40,7 @@
             });
             jQuery(id+' > ul > li').animate({'opacity':'1'},500);
         }
-        jQuery(window).load(function(){
+        jQuery(window).on('load', function(){
             // 768 is the breakpoint with default bootstrap when the original menu switches to mobile menu
             if (jQuery(window).width() >= 768 )
             {
