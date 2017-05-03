@@ -1,5 +1,7 @@
 <?php
 
+use \Zff\Html2Pdf\Html2PdfFactory;
+
 /**
  * Class FactoryX_ShippedFrom_Adminhtml_ShippedfromController
  */
@@ -48,7 +50,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     public function processPendingAction()
     {
         Mage::getModel('shippedfrom/cron')->processPendingShippingQueue();
-        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('shippedfrom')->__('Pending Shipping Queue has been processed'));
+        Mage::getSingleton('adminhtml/session')->addSuccess(
+            Mage::helper('shippedfrom')->__('Pending Shipping Queue has been processed')
+        );
         $this->_redirect('*/*/');
     }
 
@@ -58,7 +62,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     public function processPendingLabelsAction()
     {
         Mage::getModel('shippedfrom/cron')->processPendingLabels();
-        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('shippedfrom')->__('Pending Labels have been processed'));
+        Mage::getSingleton('adminhtml/session')->addSuccess(
+            Mage::helper('shippedfrom')->__('Pending Labels have been processed')
+        );
         $this->_redirect('*/*/');
     }
 
@@ -68,7 +74,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     public function processManifestsAction()
     {
         Mage::getModel('shippedfrom/cron')->processManifests();
-        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('shippedfrom')->__('Manifests have been processed'));
+        Mage::getSingleton('adminhtml/session')->addSuccess(
+            Mage::helper('shippedfrom')->__('Manifests have been processed')
+        );
         $this->_redirect('*/*/');
     }
 
@@ -79,7 +87,6 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleId  = (int) $this->getRequest()->getParam('schedule_id');
         if ($scheduleId) {
-
             try {
                 /** @var FactoryX_ShippedFrom_Model_Shipping_Queue $schedule */
                 $schedule = Mage::getModel('shippedfrom/shipping_queue');
@@ -131,6 +138,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -144,10 +152,72 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
             /** @var FactoryX_ShippedFrom_Model_Shipping_Queue $schedule */
             $schedule = Mage::getModel('shippedfrom/shipping_queue');
             $schedule->load($scheduleId);
-            $schedule->generateLocalPrintPdf();
+            if (!$schedule->getApConsignmentId()) {
+                Mage::throwException(
+                    Mage::helper('shippedfrom')->__(
+                        'Shipment schedule # %S cannot be printed as it does not have a consignment id yet',
+                        $schedule->getScheduleId()
+                    )
+                );
+            } else {
+                ob_start();
+                $html = $schedule->getLabelHeadHtml();
+                $html .= $schedule->getLabelGenerationHtml();
+                $html .= $schedule->getLabelFootHtml();
+                echo $html;
+                $content = ob_get_clean();
+                $htmlToPdf = Html2PdfFactory::factory(array('format'    => 'A6'));
+                $htmlToPdf->writeHtml($content);
+                $htmlToPdf->output();
+            }
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
+
+        $this->_redirect('*/*/');
+    }
+
+    /**
+     *
+     */
+    public function massPrintAction()
+    {
+        try {
+            $scheduleIds = $this->getRequest()->getParam('auspost');
+            if (!is_array($scheduleIds)) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('shippedfrom')->__('Please select shipment(s)')
+                );
+            } else {
+                /** @var FactoryX_ShippedFrom_Model_Shipping_Queue $schedule */
+                $schedule = Mage::getModel('shippedfrom/shipping_queue');
+                $html = $schedule->getLabelHeadHtml();
+                foreach ($scheduleIds as $scheduleId) {
+                    $schedule->load($scheduleId);
+                    if (!$schedule->getApConsignmentId()) {
+                        Mage::throwException(
+                            Mage::helper('shippedfrom')->__(
+                                'Shipment schedule # %S cannot be printed as it does not have a consignment id yet',
+                                $schedule->getScheduleId()
+                            )
+                        );
+                    } else {
+                        $html .= $schedule->getLabelGenerationHtml();
+                    }
+                }
+
+                $html .= $schedule->getLabelFootHtml();
+                ob_start();
+                echo $html;
+                $content = ob_get_clean();
+                $htmlToPdf = Html2PdfFactory::factory(array('format'    => 'A6'));
+                $htmlToPdf->writeHtml($content);
+                $htmlToPdf->output();
+            }
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        }
+
         $this->_redirect('*/*/');
     }
 
@@ -161,10 +231,18 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
             /** @var FactoryX_ShippedFrom_Model_Shipping_Queue $schedule */
             $schedule = Mage::getModel('shippedfrom/shipping_queue');
             $schedule->load($scheduleId);
+            /** @var FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments $shipmentsFactory */
             $shipmentsFactory = Mage::getModel('shippedfrom/auspost_shipping_shipments');
             $data = $shipmentsFactory->getShipment($schedule);
-            $this->getResponse()->setHeader('Content-type', 'application/json');
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($data));
+            if (!$data) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('shippedfrom')->__('No data found for this shipment')
+                );
+                $this->_redirect('*/*/');
+            } else {
+                $this->getResponse()->setHeader('Content-type', 'application/json');
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($data));
+            }
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             $this->_redirect('*/*/');
@@ -179,9 +257,13 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
         $scheduleIds = $this->getRequest()->getParam('auspost');
         $productId  = $this->getRequest()->getParam('product_id');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } elseif (!$productId) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select a new product id'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select a new product id')
+            );
         } else {
             try {
                 /** @var FactoryX_ShippedFrom_Model_Resource_Shipping_Queue_Collection $collection */
@@ -205,13 +287,15 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was deleted!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was deleted!')
+                    );
                 }
-
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -222,7 +306,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } else {
             try {
 
@@ -230,7 +316,12 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                 $collection = Mage::getResourceModel('shippedfrom/shipping_queue_collection')
                     ->addFieldToSelect('shipped_from')
                     ->addFieldToFilter('schedule_id', array('in' => $scheduleIds))
-                    ->addFieldToFilter('status', array('neq' => FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_INITIALIZED))
+                    ->addFieldToFilter(
+                        'status',
+                        array(
+                            'neq' => FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_INITIALIZED
+                        )
+                    )
                     ->distinct(true);
 
                 $count = 0;
@@ -238,7 +329,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                 if ($collection->getSize()) {
                     $shippedFromArray = $collection->getColumnValues('shipped_from');
 
-                    foreach($shippedFromArray as $shippedFrom) {
+                    foreach ($shippedFromArray as $shippedFrom) {
                         /** @var FactoryX_ShippedFrom_Model_Resource_Shipping_Queue_Collection $shipmentCollection */
                         $shipmentCollection = Mage::getResourceModel('shippedfrom/shipping_queue_collection')
                             ->addFieldToSelect(array('schedule_id', 'ap_shipment_id'))
@@ -256,6 +347,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         }
                     }
                 }
+
                 if ($count > 0) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
@@ -263,12 +355,15 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was deleted!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was deleted!')
+                    );
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -279,7 +374,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } else {
             try {
 
@@ -293,29 +390,17 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                 $count = 0;
 
                 if ($collection->getSize()) {
-                    $shippedFromArray = array();
-                    foreach ($collection as $queueEntry) {
-                        $shippedFrom = $queueEntry->getShippedFrom();
-                        $createdAtDate = substr($queueEntry->getCreatedAt(), 0, 10);
-                        if (array_key_exists($shippedFrom, $shippedFromArray)) {
-                            if (!array_key_exists($createdAtDate, $shippedFromArray[$shippedFrom])) {
-                                $shippedFromArray[$shippedFrom][] = $createdAtDate;
-                            }
-                        } else {
-                            $shippedFromArray[$shippedFrom][] = $createdAtDate;
-                        }
-                    }
-
+                    $shippedFromArray = $this->getShippedFromPerDates($collection);
                     $groupedShipments = array();
 
-                    foreach ($shippedFromArray as $shippedFrom => $dates) {
+                    foreach ($shippedFromArray as $shippedFromKey => $dates) {
                         foreach ($dates as $date) {
                             $startDate = $date . " 00:00:00";
                             $endDate = $date . " 23:59:59";
                             /** @var FactoryX_ShippedFrom_Model_Resource_Shipping_Queue_Collection $shipmentCollection */
                             $shipmentCollection = Mage::getResourceModel('shippedfrom/shipping_queue_collection')
                                 ->addFieldToSelect(array('schedule_id', 'ap_shipment_id', 'created_at'))
-                                ->addFieldToFilter('shipped_from', $shippedFrom)
+                                ->addFieldToFilter('shipped_from', $shippedFromKey)
                                 ->addFieldToFilter('created_at', array('from'   =>  $startDate, 'to'    =>  $endDate))
                                 ->addFieldToFilter('schedule_id', array('in' => $scheduleIds))
                                 ->addFieldToFilter('status', FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_LABEL_SENT);
@@ -324,7 +409,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                                 $apShipmentIds = $shipmentCollection->getColumnValues('ap_shipment_id');
 
                                 foreach ($apShipmentIds as $apShipmentId) {
-                                    $groupedShipments[$shippedFrom][] = array('shipment_id'    =>  $apShipmentId);
+                                    $groupedShipments[$shippedFromKey][] = array('shipment_id'    =>  $apShipmentId);
                                 }
 
                                 /** @var FactoryX_ShippedFrom_Model_Auspost_Shipping_Orders $ordersFactory */
@@ -336,6 +421,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         }
                     }
                 }
+
                 if ($count > 0) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
@@ -343,12 +429,15 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was ordered!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was ordered!')
+                    );
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -359,10 +448,11 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } else {
             try {
-
                 foreach ($scheduleIds as $scheduleId) {
                     /** @var FactoryX_ShippedFrom_Model_Shipping_Queue $schedule */
                     $schedule = Mage::getModel('shippedfrom/shipping_queue');
@@ -370,19 +460,22 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                     $this->hlp()->notifyStore($schedule);
                 }
 
-                if (count($scheduleIds) > 0) {
+                if (!empty($scheduleIds)) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
                             'Total of %d shipment(s) were successfully sent', count($scheduleIds)
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was sent!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was sent!')
+                    );
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -393,7 +486,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } else {
             try {
 
@@ -409,19 +504,22 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                     $labelsFactory->getAuspostLabel($queueEntry);
                 }
 
-                if (count($scheduleIds) > 0) {
+                if (!empty($scheduleIds)) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
                             'Total of %d shipment(s) had labels retrieved', count($scheduleIds)
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was retrieved!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was retrieved!')
+                    );
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -432,7 +530,9 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
         } else {
             try {
 
@@ -448,19 +548,22 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                     $labelsFactory->initAuspostLabel($queueEntry);
                 }
 
-                if (count($scheduleIds)) {
+                if (!empty($scheduleIds)) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
                             'Total of %d shipment(s) labels initialised', count($scheduleIds)
                         )
                     );
                 } else {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Nothing was initialised!'));
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('shippedfrom')->__('Nothing was initialised!')
+                    );
                 }
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -471,9 +574,10 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
     {
         $scheduleIds = $this->getRequest()->getParam('auspost');
         if (!is_array($scheduleIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('shippedfrom')->__('Please select shipment(s)'));
-        }
-        else {
+            Mage::getSingleton('adminhtml/session')->addError(
+                Mage::helper('shippedfrom')->__('Please select shipment(s)')
+            );
+        } else {
             try {
                 $errors = 0;
                 $trackingNumbers = array();
@@ -488,20 +592,21 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                     $shipmentsFactory = Mage::getModel('shippedfrom/auspost_shipping_shipments');
                     if ($trackingNumber = $shipmentsFactory->createAuspostShipment($queueEntry)) {
                         $trackingNumbers[] = $trackingNumber;
-                    }
-                    else {
+                    } else {
                         $errors++;
                     }
-                    Mage::helper('shippedfrom')->log(sprintf("%->errors: %s", __METHOD__, $errors) );
+
+                    Mage::helper('shippedfrom')->log(sprintf("%->errors: %s", __METHOD__, $errors));
                 }
-                Mage::helper('shippedfrom')->log(sprintf("%->trackingNumbers[%d]: %s", __METHOD__, count($trackingNumbers), print_r($trackingNumbers, true)) );
-                if (count($trackingNumbers)) {
+
+                if (!empty($trackingNumbers)) {
                     Mage::getSingleton('adminhtml/session')->addSuccess(
                         Mage::helper('shippedfrom')->__(
                             'Total of %d shipment(s) were successfully shipped', count($trackingNumbers)
                         )
                     );
                 }
+
                 if ($errors) {
                     Mage::getSingleton('adminhtml/session')->addError(
                         Mage::helper('shippedfrom')->__(
@@ -509,14 +614,18 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
                         )
                     );                    
                 }
+
                 if (count($scheduleIds) == 0 && $errors == 0) {
-                    Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('shippedfrom')->__('Nothing was shipped!'));
+                    Mage::getSingleton('adminhtml/session')->addNotice(
+                        Mage::helper('shippedfrom')->__('Nothing was shipped!')
+                    );
                 }
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -537,5 +646,27 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromController extends Mage_Adminhtm
             FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_COMPLETE,
             FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_LABEL_INITIALIZED
         );
+    }
+
+    /**
+     * @param $collection
+     * @return array
+     */
+    protected function getShippedFromPerDates($collection)
+    {
+        $shippedFromArray = array();
+        foreach ($collection as $queueEntry) {
+            $shippedFrom = $queueEntry->getShippedFrom();
+            $createdAtDate = substr($queueEntry->getCreatedAt(), 0, 10);
+            if (array_key_exists($shippedFrom, $shippedFromArray)) {
+                if (!array_key_exists($createdAtDate, $shippedFromArray[$shippedFrom])) {
+                    $shippedFromArray[$shippedFrom][] = $createdAtDate;
+                }
+            } else {
+                $shippedFromArray[$shippedFrom][] = $createdAtDate;
+            }
+        }
+
+        return $shippedFromArray;
     }
 }

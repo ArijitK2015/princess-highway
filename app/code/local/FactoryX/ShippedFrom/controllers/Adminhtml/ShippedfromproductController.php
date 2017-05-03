@@ -61,8 +61,15 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromproductController extends Mage_A
                 $product = Mage::getModel('shippedfrom/account_product');
                 $product->load($productId);
                 $productId = $product->getData('product_id');
-                $fromAccountName = Mage::getModel('shippedfrom/account')->load($product->getData('associated_account'))->getName();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__("The product item '%s' has been deleted from '%s'.", $productId, $fromAccountName));
+                $account = Mage::getModel('shippedfrom/account')->load($product->getData('associated_account'));
+                $fromAccountName = $account->getName();
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('shippedfrom')->__(
+                        "The product item '%s' has been deleted from '%s'.",
+                        $productId,
+                        $fromAccountName
+                    )
+                );
                 $product->delete();
                 $this->_redirect('*/*/');
                 return;
@@ -73,7 +80,10 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromproductController extends Mage_A
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to find a product item to delete.'));
+
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('shippedfrom')->__('Unable to find a product item to delete.')
+        );
         $this->_redirect('*/*/');
     }
 
@@ -105,6 +115,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromproductController extends Mage_A
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -112,13 +123,13 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromproductController extends Mage_A
      * @function         : exportCsvAction
      * @description      : Export data grid to CSV format
      * @params           : null
-     * @returns          : array
+     * @return Mage_Core_Controller_Varien_Action
      */
     public function exportCsvAction()
     {
         $fileName = sprintf("accounts_products-%s.csv", gmdate('YmdHis'));
         $blockName = "shippedfrom/adminhtml_product_grid";
         $grid = $this->getLayout()->createBlock($blockName);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        return $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
     }
 }

@@ -123,78 +123,6 @@ class FactoryX_ShippedFrom_Model_Shipping_Queue extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return $this
-     */
-    public function generateLocalPrintPdf()
-    {
-        if (!$this->getApConsignmentId()) {
-            return $this;
-        } else {
-            if (!class_exists(BarcodeGeneratorHTML::class)) {
-                Mage::throwException(Mage::helper('shippedfrom')->__('Class \Picquer\Barcode\BarcodeGeneratorHTML does not exist, please install https://github.com/picqer/php-barcode-generator'));
-            }
-
-            if (!class_exists(Html2PdfFactory::class)) {
-                Mage::throwException(Mage::helper('shippedfrom')->__('Class \Zff\Html2Pdf\Html2PdfFactory does not exist, please install https://github.com/fagundes/ZffHtml2pdf'));
-            }
-
-            $generator = new BarcodeGeneratorHTML();
-            try {
-                $barCodeHtml = $generator->getBarcode(
-                    self::BARCODE_PREFIX . $this->getApArticleId(),
-                    $generator::TYPE_CODE_128,
-                    1.1,
-                    75
-                );
-            } catch (Exception $e) {
-                $message = $e->getMessage();
-            }
-            $baseDir = Mage::getBaseDir() . DS;
-            $baseUrl = str_replace('index.php/', '', Mage::getBaseUrl());
-            $labelPath = str_replace($baseUrl, $baseDir, $this->getLocalLabelLink());
-            $qrCode = Mage::helper('shippedfrom/pdfDmtx')->generateDmtxFromPdf($labelPath, Mage::getBaseDir('media') . DS . 'auspost');
-            $qrCode = str_replace($baseDir, $baseUrl, $qrCode);
-            $phone = $this->getToPhone();
-            $toAddress = $this->getAddress('to');
-            $weight = $this->getWeight();
-            $consignmentId = $this->getApConsignmentId();
-            $articleId = $this->getApArticleId();
-            $shipmentNumber = $this->getShipmentId();
-            $fromAddress = $this->getAddress('from');
-            ob_start();
-            echo "<html xmlns='http://www.w3.org/1999/html'><head><style='text/css'>* {font-size:11px;}</style>";
-            echo "</head><body><div class='top-image'>";
-            echo "<img style='width: 100%' src='skin/adminhtml/default/default/images/factoryx/shippedfrom/express-000.jpg' alt='Auspost Logo' />";
-            echo "</div>";
-            /** @TODO signature required ? */
-            $signature = "Signature NOT required";
-            /** @TODO parcel ? */
-            $parcel = "1";
-            echo "<table style='width:100%'><tr><th style='text-align: left'><span>DELIVER TO</span><span style='margin-left:20px'>PHONE " . $phone . "</span></th><th></th></tr>";
-            echo "<tr><td valign='top'><div style='padding-bottom:70px'>" . $toAddress . "</div></td>";
-            /** @TODO QR Code */
-            echo "<td><img src='" . $qrCode . "' alt='QR Code'/></td></tr>";
-            echo "<tr><td style='border-top:1px solid black;height:40px;' valign='top'><strong>DELIVERY INSTRUCTIONS</strong></td><td style='border-top:1px solid black;text-align:right;height:40px;' valign='top'><strong>" . $weight . "</strong></td></tr>";
-            echo "<tr><td style='border-top:1px solid black;border-right:1px solid black' valign='top'><strong>" . $signature . "</strong></td><td style='border-top:1px solid black'>CON NO " . $consignmentId . "<br/><strong>PARCEL</strong> " . $parcel . "</td></tr>";
-            echo "<tr><td colspan='2' style='border-top:1px solid black;text-align:center'>AP Article Id: " . $articleId ."</td></tr>";
-            echo "<tr><td colspan='2'><div style='padding-left:30px;padding-top:5px'>" . $barCodeHtml . "</div></td></tr>";
-            echo "<tr><td colspan='2' style='text-align:center;'>AP Article Id: " . $articleId ."</td></tr>";
-            echo "</table>";
-            echo "<table style='width:100%;table-layout:fixed'>";
-            echo "<tr><td rowspan='2' style='width:40%;border-top:1px solid black;border-right:1px solid black' valign='top'><strong>SENDER</strong><br/>" . $fromAddress . "</td><td style='border-top:1px solid black;width:60%'>" . self::AVIATION_NOTICE_HTML . "</td></tr>";
-            echo "<tr><td style='border-top:1px solid black'>" . $shipmentNumber . "</td></tr>";
-            echo "</table>";
-            echo "</body></html>";
-            $content = ob_get_clean();
-            $htmlToPdf = Html2PdfFactory::factory(array('format'    => 'A6'));
-            $htmlToPdf->writeHtml($content);
-            $htmlToPdf->output();
-        }
-
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     protected function getToPhone()
@@ -255,5 +183,85 @@ class FactoryX_ShippedFrom_Model_Shipping_Queue extends Mage_Core_Model_Abstract
         }
 
         return $weight . "kg";
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelGenerationHtml()
+    {
+        if (!class_exists(BarcodeGeneratorHTML::class)) {
+            Mage::throwException(
+                Mage::helper('shippedfrom')->__(
+                    'Class \Picquer\Barcode\BarcodeGeneratorHTML does not exist, please install https://github.com/picqer/php-barcode-generator'
+                )
+            );
+        }
+
+        if (!class_exists(Html2PdfFactory::class)) {
+            Mage::throwException(
+                Mage::helper('shippedfrom')->__(
+                    'Class \Zff\Html2Pdf\Html2PdfFactory does not exist, please install https://github.com/fagundes/ZffHtml2pdf'
+                )
+            );
+        }
+
+        $html = "";
+        $generator = new BarcodeGeneratorHTML();
+        $barCodeHtml = $generator->getBarcode(
+            self::BARCODE_PREFIX . $this->getApArticleId(),
+            $generator::TYPE_CODE_128,
+            1.1,
+            75
+        );
+        $baseDir = Mage::getBaseDir() . DS;
+        $baseUrl = str_replace('index.php/', '', Mage::getBaseUrl());
+        $labelPath = str_replace($baseUrl, $baseDir, $this->getLocalLabelLink());
+        $qrCode = Mage::helper('shippedfrom/pdfDmtx')->generateDmtxFromPdf($labelPath,
+            Mage::getBaseDir('media') . DS . 'auspost');
+        $qrCode = str_replace($baseDir, $baseUrl, $qrCode);
+        $phone = $this->getToPhone();
+        $toAddress = $this->getAddress('to');
+        $weight = $this->getWeight();
+        $consignmentId = $this->getApConsignmentId();
+        $articleId = $this->getApArticleId();
+        $shipmentNumber = $this->getShipmentId();
+        $fromAddress = $this->getAddress('from');
+        $html .= "<div class='top-image'>";
+        $html .= "<img style='width: 100%' src='skin/adminhtml/default/default/images/factoryx/shippedfrom/express-000.jpg' alt='Auspost Logo' />";
+        $html .= "</div>";
+        /** @TODO signature required ? */
+        $signature = "Signature NOT required";
+        /** @TODO parcel ? */
+        $parcel = "1";
+        $html .= "<table style='width:100%'><tr><th valign='top' style='text-align: left'><span>DELIVER TO</span><span style='margin-left:20px'>PHONE " . $phone . "</span></th><th valign='top'><img width='50' height='50' src='" . $qrCode . "' alt='QR Code'/></th></tr>";
+        $html .= "<tr><td colspan='2' valign='top'><div style='padding-bottom:70px'>" . $toAddress . "</div></td></tr>";
+        $html .= "<tr><td style='border-top:1px solid black;height:40px;' valign='top'><strong>DELIVERY INSTRUCTIONS</strong></td><td style='border-top:1px solid black;text-align:right;height:40px;' valign='top'><strong>" . $weight . "</strong></td></tr>";
+        $html .= "<tr><td style='border-top:1px solid black;border-right:1px solid black' valign='top'><strong>" . $signature . "</strong></td><td style='border-top:1px solid black'>CON NO " . $consignmentId . "<br/><strong>PARCEL</strong> " . $parcel . "</td></tr>";
+        $html .= "<tr><td colspan='2' style='border-top:1px solid black;text-align:center'>AP Article Id: " . $articleId . "</td></tr>";
+        $html .= "<tr><td colspan='2'><div style='padding-left:30px;padding-top:5px'>" . $barCodeHtml . "</div></td></tr>";
+        $html .= "<tr><td colspan='2' style='text-align:center;'>AP Article Id: " . $articleId . "</td></tr>";
+        $html .= "</table>";
+        $html .= "<table style='width:100%;table-layout:fixed'>";
+        $html .= "<tr><td rowspan='2' style='width:40%;border-top:1px solid black;border-right:1px solid black' valign='top'><strong>SENDER</strong><br/>" . $fromAddress . "</td><td style='border-top:1px solid black;width:60%'>" . self::AVIATION_NOTICE_HTML . "</td></tr>";
+        $html .= "<tr><td style='border-top:1px solid black'>" . $shipmentNumber . "</td></tr>";
+        $html .= "</table>";
+        return $html;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelHeadHtml()
+    {
+        return "<html xmlns='http://www.w3.org/1999/html'><head><style='text/css'>* {font-size:11px;}</style></head><body>";
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelFootHtml()
+    {
+        return "</body></html>";
     }
 }

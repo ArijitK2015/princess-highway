@@ -34,10 +34,12 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
         $this->renderLayout();
     }
 
+    /**
+     * @return $this
+     */
     public function summaryAction()
     {
         $orderId  = $this->getRequest()->getParam('order_id');
-        Mage::helper('shippedfrom')->log(sprintf("%s->orderId=%s", __METHOD__, $orderId) );
         if ($orderId) {
             /** @var FactoryX_ShippedFrom_Model_Resource_Orders_Collection $orderCollection */
             $orderCollection = Mage::getResourceModel('shippedfrom/orders_collection')
@@ -50,26 +52,23 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
 
                 try {
                     // get the file locally OR download and store it
-                    if (
-                        $order->getOrderSummaryLink()
-                        && 
-                        is_file($order->getOrderSummaryLink())
-                    ) {
+                    if ($order->getOrderSummaryLink()
+                        && is_file($order->getOrderSummaryLink())) {
                         $file = $order->getOrderSummaryLink();
-                    }
-                    else {
+                    } else {
                         /** @var FactoryX_ShippedFrom_Model_Auspost_Shipping_Orders $orderRepository */
                         $orderRepository = Mage::getModel('shippedfrom/auspost_shipping_orders');
                         $file = $orderRepository->getSummary($orderId);
                     }
-                    Mage::helper('shippedfrom')->log(sprintf("%s->file: %s", __METHOD__, $file) );
 
-                    if (
-                        !is_file($file)
-                        ||
-                        !is_readable($file)
-                    ) {
-                        Mage::throwException(Mage::helper('shippedfrom')->__("Could not read specified order summary file%s!", (!empty($file) ? sprintf(" '%s'", $file) : "")) );
+                    if (!is_file($file)
+                        || !is_readable($file)) {
+                        Mage::throwException(
+                            Mage::helper('shippedfrom')->__(
+                                "Could not read specified order summary file%s!",
+                                (!empty($file) ? sprintf(" '%s'", $file) : "")
+                            )
+                        );
                     }
 
                     $this->prepareFileDownloadResponse($file);
@@ -80,11 +79,14 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
                     $this->_getSession()->addError($e->getMessage());
                 }
             } else {
-                $this->_getSession()->addError(Mage::helper('shippedfrom')->__("The order '%s' does not exist", $orderId));
+                $this->_getSession()->addError(
+                    Mage::helper('shippedfrom')->__("The order '%s' does not exist", $orderId)
+                );
             }
         } else {
             $this->_getSession()->addError(Mage::helper('shippedfrom')->__('Please choose an order'));
         }
+
         $this->_redirect('*/*/orders');
     }
 
@@ -103,7 +105,6 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
     public function updateAction()
     {
         $orderId = $this->getRequest()->getParam('order_id');
-        Mage::helper('shippedfrom')->log(sprintf("%s->orderId=%s", __METHOD__, $orderId) );
         if (!$orderId) {
             $this->_getSession()->addError(Mage::helper('shippedfrom')->__('Please choose an order'));
             $this->_redirect('*/*/orders');
@@ -122,25 +123,22 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
 
         $order = $orderCollection->getFirstItem();
         $id = $order->getId();
-        Mage::helper('shippedfrom')->log(sprintf("%s->orderId=%s|%s", __METHOD__, $orderId, $id) );
         try {
-            //$order = Mage::getModel('shippedfrom/orders');
             $order = Mage::getModel('shippedfrom/auspost_shipping_orders');
             $order->updateOrder($id);
         }
         catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
+
         $this->_redirect('*/*/orders');
     }
 
     /**
      * @param $file
-     * @param $content
      */
     protected function prepareFileDownloadResponse($file)
     {
-        $forceDownload = false;
         $contentType = "application/pdf";   // application/pdf | application/force-download
         $contentDisposition = "inline";     // inline | attachment
         
@@ -161,6 +159,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromordersController extends Mage_Ad
         while ($buffer = $ioAdapter->streamRead()) {
             print $buffer;
         }
+
         $ioAdapter->streamClose();
     }
 }

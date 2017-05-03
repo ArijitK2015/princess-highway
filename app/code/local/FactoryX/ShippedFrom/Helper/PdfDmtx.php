@@ -37,6 +37,13 @@ class FactoryX_ShippedFrom_Helper_PdfDmtx extends Mage_Core_Helper_Abstract
     private static $_appPath = "/usr/local/bin";
     private static $_outputPath = "/tmp";
 
+    /**
+     * generate dmtx image from a pdf document
+     *
+     * @param string $pdfPath
+     * @param string $outputPath
+     * @return string $barcodePath
+     */
     public static function generateDmtxFromPdf($pdfPath, $outputPath = false)
     {
         if (self::$debug) {
@@ -61,7 +68,15 @@ class FactoryX_ShippedFrom_Helper_PdfDmtx extends Mage_Core_Helper_Abstract
         return $barcodePath;
     }
 
-    protected static function dmtxwrite($barcode = "test", $barcodePath) {
+    /**
+     * dmtxwrite - create Data Matrix barcodes
+     *
+     * @param string $barcode
+     * @param string $barcodePath
+     * @return string
+     */
+    protected static function dmtxwrite($barcode = "test", $barcodePath)
+    {
         if (!self::commandExist(self::$_dmtxwrite)) {
             Mage::throwException(Mage::helper('shippedfrom')->__("cannot find dmtxwrite!"));
         }
@@ -77,8 +92,8 @@ class FactoryX_ShippedFrom_Helper_PdfDmtx extends Mage_Core_Helper_Abstract
             echo sprintf("output=%s\n", $output);
         }
 
-        $dmtxwriteCmd = sprintf("dmtxwrite \"%s\" > \"%s\" 2>&1",
-            $barcodeText, $barcodePath
+        $dmtxwriteCmd = sprintf("%s \"%s\" > \"%s\" 2>&1",
+            self::getCmd("dmtxwrite"), $barcodeText, $barcodePath
         );
         if (self::$debug) {
             echo sprintf("dmtxwriteCmd=%s\n", $dmtxwriteCmd);
@@ -90,11 +105,19 @@ class FactoryX_ShippedFrom_Helper_PdfDmtx extends Mage_Core_Helper_Abstract
         return $output;
     }
 
-    protected static function dmtxread($pdfPath) {
+    /**
+     * dmtxread - scan Data Matrix barcodes
+     *
+     * @param string $pdfPath
+     * @return string
+     */
+    protected static function dmtxread($pdfPath)
+    {
         if (!self::commandExist(self::$_dmtxread)) {
             Mage::throwException(Mage::helper('shippedfrom')->__("cannot find dmtxread!"));
         }
-        $dmtxreadCmd = sprintf("dmtxread --milliseconds=%d --stop-after=%d \"%s\" 2>&1",
+        $dmtxreadCmd = sprintf("%s --milliseconds=%d --stop-after=%d \"%s\" 2>&1",
+            self::getCmd("dmtxread"),
             $maxMilliseconds = 5000,
             $maxBarcodes = 1,
             $pdfPath);
@@ -105,9 +128,37 @@ class FactoryX_ShippedFrom_Helper_PdfDmtx extends Mage_Core_Helper_Abstract
         return $barcode;
     }
 
+    /**
+     * build cmd path
+     *
+     * @param string $cmd
+     * @return string
+     */
+    private static function getCmd($cmd)
+    {
+        $cmdPath = sprintf("%s/%s", self::$_appPath, $cmd);
+        return $cmdPath;
+    }
+
+    /**
+     * check cmd exists
+     *
+     * @param string $cmd
+     * @return boolean
+     */
     private static function commandExist($cmd)
     {
-        $return = shell_exec(sprintf("which %s", escapeshellarg($cmd)));
-        return !empty($return);
+        $retVal = false;
+        // try app path, then which
+        if (is_file(self::getCmd($cmd)) ) {
+            $retVal = true;
+        }
+        else {
+            // note. the app running as apache will fail
+            $whichCmd = sprintf("which %s", escapeshellarg($cmd));
+            $return = shell_exec($whichCmd);
+            $retVal = !empty($return);
+        }
+        return $retVal;
     }
 }

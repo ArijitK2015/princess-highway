@@ -388,7 +388,7 @@ class FactoryX_ShippedFrom_Adminhtml_ShippedfromaccountController extends Mage_A
     /**
      * Instantiate current product and put it into registry
      *
-     * @return Mage_Sales_Model_Recurring_Profile
+     * @return FactoryX_ShippedFrom_Model_Account_Product
      * @throws Mage_Core_Exception
      */
     protected function _initProduct()

@@ -262,6 +262,15 @@ class FactoryX_ShippedFrom_Block_Adminhtml_Auspost_Grid extends Mage_Adminhtml_B
             )
         );
 
+        // Print action
+        $this->getMassactionBlock()->addItem(
+            'print',
+            array(
+                'label' => Mage::helper('shippedfrom')->__('Print Labels'),
+                'url' => $this->getUrl('*/*/massPrint')
+            )
+        );
+
         return $this;
     }
 

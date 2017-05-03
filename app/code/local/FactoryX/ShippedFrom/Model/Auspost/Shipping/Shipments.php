@@ -12,13 +12,10 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
 
     /**
      * @param FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry
-     * @param null $cronLogger
      * @return bool
      */
     public function getShipment(FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry)
     {
-        /** @var Mage_Sales_Model_Order_Shipment $shipment */
-        $shipment = $this->hlpAuspost()->getShipmentFromQueueEntry($queueEntry);
         $accountNo = $this->getAccountNumberFromShipment($queueEntry->getShippedFrom());
         $apiKey = $this->getApiKeyFromShipment($queueEntry->getShippedFrom());
         $apiPassword = $this->getApiPasswordFromShipment($queueEntry->getShippedFrom());
@@ -31,6 +28,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
         }
         catch(Guzzle\Http\Exception\BadResponseException $e) {
             $message = $e->getMessage();
+            $result = "";
         }
 
         return $result;
@@ -38,11 +36,15 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
 
     /**
      * @param FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry
+     * @param $productId
      * @param null $cronLogger
-     * @return bool
+     * @return FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
      */
-    public function updateShipment(FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry, $productId, $cronLogger = null)
-    {
+    public function updateShipment(
+        FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry,
+        $productId,
+        $cronLogger = null
+    ) {
         $this->hlp()->log(sprintf("%s->queueEntry: %s", __METHOD__, get_class($queueEntry)));
 
         /** @var Mage_Sales_Model_Order_Shipment $shipment */
@@ -83,7 +85,11 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
 
         $shipmentUpdateSummary = array();
 
-        $cronMessage = $this->hlp()->__('Start UpdateShipment for shipment %s with product id %s', $shipment->getIncrementId(), $productId);
+        $cronMessage = $this->hlp()->__(
+            'Start UpdateShipment for shipment %s with product id %s',
+            $shipment->getIncrementId(),
+            $productId
+        );
         $this->addCronLoggerMessage($cronLogger, $cronMessage);
 
         try {
@@ -196,7 +202,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
         }
 
         $apArticleId = false;
-        if (!$shipmentCreationSummary && $message) {
+        if (!$shipmentCreationSummary && isset($message)) {
             $this->handleErrors(
                 $queueEntry,
                 array(
@@ -214,10 +220,11 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
             $cronMessage = $this->hlp()->__('End add tracking to shipment %s', $shipment->getIncrementId());
             $this->addCronLoggerMessage($cronLogger, $cronMessage);
 
-            $apShipmentId = $shipmentCreationSummary['shipments'][0]['shipment_id'];
-            $apConsignmentId = $shipmentCreationSummary['shipments'][0]['items'][0]['tracking_details']['consignment_id'];
-            $apArticleId = $shipmentCreationSummary['shipments'][0]['items'][0]['tracking_details']['article_id'];
-            $apProductId = $shipmentCreationSummary['shipments'][0]['items'][0]['product_id'];
+            $shipmentEntry = $shipmentCreationSummary['shipments'][0];
+            $apShipmentId = $shipmentEntry['shipment_id'];
+            $apConsignmentId = $shipmentEntry['items'][0]['tracking_details']['consignment_id'];
+            $apArticleId = $shipmentEntry['items'][0]['tracking_details']['article_id'];
+            $apProductId = $shipmentEntry['items'][0]['product_id'];
             $this->createItemEntry($queueEntry, $shipmentCreationSummary, $weight);
 
             $queueEntry->setData('status', FactoryX_ShippedFrom_Model_Shipping_Queue::STATUS_SHIPPED)
@@ -259,7 +266,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
             $shipmentDeletionSummary = false;
         }
 
-        if (!$shipmentDeletionSummary && $message) {
+        if (!$shipmentDeletionSummary && isset($message)) {
             $this->handleErrors(
                 $queueEntry,
                 array(
@@ -300,7 +307,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
             $message = $e->getMessage();
         }
 
-        if (!$shipmentDeletionSummary && $message) {
+        if (!$shipmentDeletionSummary && isset($message)) {
             $this->massHandleErrors(
                 $collection,
                 array(
@@ -318,10 +325,15 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
 
     /**
      * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param null $productId
+     * @param bool $scheduleId
      * @return array
      */
-    public function generateAuspostShipmentData(Mage_Sales_Model_Order_Shipment $shipment, $productId = null, $scheduleId = false)
-    {
+    public function generateAuspostShipmentData(
+        Mage_Sales_Model_Order_Shipment $shipment,
+        $productId = null,
+        $scheduleId = false
+    ) {
         
         $this->hlp()->log($this->hlp()->__("%s->shipment: %s", __METHOD__, print_r($shipment->getData(), true)));
         $shippedFrom = (int) $shipment->getShippedFrom();
@@ -407,6 +419,8 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
 
     /**
      * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param $productId
+     * @param $scheduleId
      * @return array
      */
     protected function generateItemsField(Mage_Sales_Model_Order_Shipment $shipment, $productId, $scheduleId)
@@ -414,18 +428,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
         $itemsData = array();
 
         if ($productId && $scheduleId) {
-            $itemCollection = Mage::getResourceModel('shippedfrom/shipment_item_collection');
-            $itemCollection->addFieldToFilter('schedule_id', $scheduleId);
-
-            foreach ($itemCollection as $item) {
-                $itemsData[] = array(
-                    'item_reference' => $item->getItemReference(),
-                    'item_id' => $item->getItemId(),
-                    'product_id' => $productId,
-                    'weight' => $item->getWeight()
-                );
-            }
-
+            $itemsData = $this->generateItemDataForUpdate($productId, $scheduleId, $itemsData);
         } else {
             /** @var Mage_Sales_Model_Resource_Order_Shipment_Item_Collection $itemCollection */
             $itemCollection = $shipment->getItemsCollection();
@@ -444,62 +447,7 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
                     )
                 );
             } elseif ($productId) {
-                if ($this->hlpAuspost()->areItemsSeparated()) {
-                    $itemsData = $this->getSeparatedItemsData($itemCollection, $productId, $itemsData);
-                } else {
-                    $finalWeight = 0;
-                    $itemDescription = "";
-                    $isThereAnyValidItems = false;
-                    foreach ($itemCollection as $item) {
-                        list($length, $width, $height, $weight) = $this->getDimensionsFromItem($item);
-                        if ($item->getQty() > 0) {
-                            $finalWeight += $weight;
-                            $itemDescription .= $item->getSku();
-                            $isThereAnyValidItems = true;
-                        }
-                    }
-
-                    /*
-                    causes Client error response - 400 - Bad Request
-                    */
-                    if (strlen($itemDescription) > self::MAX_ITEM_DESCRIPTION_LEN) {
-                        $this->hlp()->log(
-                            $this->hlp()->__(
-                                "%->truncate[%d]: %s",
-                                __METHOD__,
-                                self::MAX_ITEM_DESCRIPTION_LEN, $itemDescription
-                            )
-                        );
-                        $itemDescription = substr($itemDescription, 0, self::MAX_ITEM_DESCRIPTION_LEN);
-                    }
-
-                    /*
-                    any non-alphanumeric chars cause a 400 - Bad Request
-                    */
-                    if (preg_match("/[^A-Za-z0-9 ]/", $itemDescription)) {
-                        $this->hlp()->log(
-                            $this->hlp()->__(
-                                "%->strip non-alphanumeric chars from: '%s'",
-                                __METHOD__,
-                                $itemDescription
-                            )
-                        );
-                        $itemDescription = preg_replace("/[^A-Za-z0-9 ]/", '', $itemDescription);
-                    }
-
-                    if ($isThereAnyValidItems) {
-                        $itemsData[] = array(
-                            'item_reference'        =>  Mage::helper('core')->uniqHash(),
-                            'item_description'      =>  $itemDescription,
-                            'product_id'            =>  $productId,
-                            'length'                =>  $length,
-                            'width'                 =>  $width,
-                            'height'                =>  $height,
-                            'weight'                =>  $finalWeight,
-                            'authority_to_leave'    =>  true,
-                        );
-                    }
-                }
+                $itemsData = $this->generateItemDataForCreation($productId, $itemCollection, $itemsData);
             } else {
                 Mage::throwException($this->hlp()->__('This shipping method is not an Auspost shipping method'));
             }
@@ -574,11 +522,9 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
             $this->hlp()->__("%s->streetFull:%s", __METHOD__, print_r($streetFull, true))
         );
 
-        $phone = "";
         try {
             $phone = $this->hlpAuspost()->validatePhoneNumber($shippingAddress->getTelephone(), $state);
-        }
-        catch(Exception $ex) {
+        } catch(Exception $ex) {
             $phone = "";
             $warn = sprintf("WARNING: phone '%s' - %s", $shippingAddress->getTelephone(), $ex->getMessage());
             $this->hlp()->log(Zend_Log::WARN);
@@ -710,15 +656,20 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
                 );
             }
         }
+
         return $itemsData;
     }
 
     /**
      * @param FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry
      * @param $shipmentCreationSummary
+     * @param $weight
      */
-    protected function createItemEntry(FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry, $shipmentCreationSummary, $weight)
-    {
+    protected function createItemEntry(
+        FactoryX_ShippedFrom_Model_Shipping_Queue $queueEntry,
+        $shipmentCreationSummary,
+        $weight
+    ) {
         $apItemId = $shipmentCreationSummary['shipments'][0]['items'][0]['item_id'];
         $apItemReference = $shipmentCreationSummary['shipments'][0]['items'][0]['item_reference'];
 
@@ -730,6 +681,97 @@ class FactoryX_ShippedFrom_Model_Auspost_Shipping_Shipments
                 'weight'    =>  $weight
             )
         )->save();
+    }
+
+    /**
+     * @param $productId
+     * @param $scheduleId
+     * @param $itemsData
+     * @return array
+     */
+    protected function generateItemDataForUpdate($productId, $scheduleId, $itemsData)
+    {
+        $itemCollection = Mage::getResourceModel('shippedfrom/shipment_item_collection');
+        $itemCollection->addFieldToFilter('schedule_id', $scheduleId);
+
+        foreach ($itemCollection as $item) {
+            $itemsData[] = array(
+                'item_reference' => $item->getItemReference(),
+                'item_id' => $item->getItemId(),
+                'product_id' => $productId,
+                'weight' => $item->getWeight()
+            );
+        }
+
+        return $itemsData;
+    }
+
+    /**
+     * @param $productId
+     * @param $itemCollection
+     * @param $itemsData
+     * @return array
+     */
+    protected function generateItemDataForCreation($productId, $itemCollection, $itemsData)
+    {
+        if ($this->hlpAuspost()->areItemsSeparated()) {
+            $itemsData = $this->getSeparatedItemsData($itemCollection, $productId, $itemsData);
+        } else {
+            $finalWeight = 0;
+            $itemDescription = "";
+            $isThereAnyValidItems = false;
+            foreach ($itemCollection as $item) {
+                list($length, $width, $height, $weight) = $this->getDimensionsFromItem($item);
+                if ($item->getQty() > 0) {
+                    $finalWeight += $weight;
+                    $itemDescription .= $item->getSku();
+                    $isThereAnyValidItems = true;
+                }
+            }
+
+            /*
+            causes Client error response - 400 - Bad Request
+            */
+            if (strlen($itemDescription) > self::MAX_ITEM_DESCRIPTION_LEN) {
+                $this->hlp()->log(
+                    $this->hlp()->__(
+                        "%->truncate[%d]: %s",
+                        __METHOD__,
+                        self::MAX_ITEM_DESCRIPTION_LEN, $itemDescription
+                    )
+                );
+                $itemDescription = substr($itemDescription, 0, self::MAX_ITEM_DESCRIPTION_LEN);
+            }
+
+            /*
+            any non-alphanumeric chars cause a 400 - Bad Request
+            */
+            if (preg_match("/[^A-Za-z0-9 ]/", $itemDescription)) {
+                $this->hlp()->log(
+                    $this->hlp()->__(
+                        "%->strip non-alphanumeric chars from: '%s'",
+                        __METHOD__,
+                        $itemDescription
+                    )
+                );
+                $itemDescription = preg_replace("/[^A-Za-z0-9 ]/", '', $itemDescription);
+            }
+
+            if ($isThereAnyValidItems) {
+                $itemsData[] = array(
+                    'item_reference' => Mage::helper('core')->uniqHash(),
+                    'item_description' => $itemDescription,
+                    'product_id' => $productId,
+                    'length' => $length,
+                    'width' => $width,
+                    'height' => $height,
+                    'weight' => $finalWeight,
+                    'authority_to_leave' => true,
+                );
+            }
+        }
+
+        return $itemsData;
     }
 
 }
