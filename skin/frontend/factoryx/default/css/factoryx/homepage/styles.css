@@ -1,923 +1,1085 @@
-/* Bootstrap hack to be able to have five columns */
-.col-xs-15,
-.col-sm-15,
-.col-md-15,
-.col-lg-15 {
-    position: relative;
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
-}
-.col-xs-15 {
-    width: 20%;
-    float: left;
-}
+@charset "utf-8";
 @media (min-width: 768px) {
-    .col-sm-15 {
-        width: 20%;
-        float: left;
-    }
+  .container {
+    width: 750px;
+  }
 }
 @media (min-width: 992px) {
-    .col-md-15 {
-        width: 20%;
-        float: left;
-    }
+  .container {
+    width: 970px;
+  }
 }
 @media (min-width: 1200px) {
-    .col-lg-15 {
-        width: 20%;
-        float: left;
+  .container {
+    width: 1010px;
+  }
+}
+
+/****************************************************/
+@media (max-width: 1199px) {
+
+    .cat_bredcrumb {
+        margin-top: 0;
     }
+    .goto_top_wrap{
+        width: 100%;
+        padding: 0;
+    }
+	
 }
-/* End of bootstrap hack */
-.slides {
-    cursor: move;
-    overflow:hidden;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-#homepages :not(.slides) img{max-width:100%}
-#homepages .rowspan2 img{height:calc(100% / 2);}
-#homepages .rowspan3 img{height:calc(100% / 3);}
-#homepages .rowspan4 img{height:calc(100% / 4);}
-/* Remove bootstrap padding for the homepage */
-#homepages .col-xs-1,
-#homepages .col-sm-1,
-#homepages .col-md-1,
-#homepages .col-lg-1,
-#homepages .col-xs-2,
-#homepages .col-sm-2,
-#homepages .col-md-2,
-#homepages .col-lg-2,
-#homepages .col-xs-3,
-#homepages .col-sm-3,
-#homepages .col-md-3,
-#homepages .col-lg-3,
-#homepages .col-xs-4,
-#homepages .col-sm-4,
-#homepages .col-md-4,
-#homepages .col-lg-4,
-#homepages .col-xs-5,
-#homepages .col-sm-5,
-#homepages .col-md-5,
-#homepages .col-lg-5,
-#homepages .col-xs-6,
-#homepages .col-sm-6,
-#homepages .col-md-6,
-#homepages .col-lg-6,
-#homepages .col-xs-7,
-#homepages .col-sm-7,
-#homepages .col-md-7,
-#homepages .col-lg-7,
-#homepages .col-xs-8,
-#homepages .col-sm-8,
-#homepages .col-md-8,
-#homepages .col-lg-8,
-#homepages .col-xs-9,
-#homepages .col-sm-9,
-#homepages .col-md-9,
-#homepages .col-lg-9,
-#homepages .col-xs-10,
-#homepages .col-sm-10,
-#homepages .col-md-10,
-#homepages .col-lg-10,
-#homepages .col-xs-11,
-#homepages .col-sm-11,
-#homepages .col-md-11,
-#homepages .col-lg-11,
-#homepages .col-xs-12,
-#homepages .col-sm-12,
-#homepages .col-md-12,
-#homepages .col-lg-12,
-#homepages .col-xs-15,
-#homepages .col-sm-15,
-#homepages .col-md-15,
-#homepages .col-lg-15
-{
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-}
+/****************************************************/
+@media (max-width: 991px) {
 
-@media (min-width:1px) and (max-width:780px) {
-    #homepages :not(.slides) img{width:100%;height:auto}
+    .submenu_right{
+        width: 280px;
+    }
+    .submenu_right figure {
+        max-width: 176px;
+        margin-right: 2%;
+        width: 49%;
+    }
+    .header_top_middle{
+        font-size: 12px;
+    }
+    .quote_left {
+        float: none;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .quote_right{
+        float: none;
+        width: 100%;
+    }
+    .coupon_input{
+        width: 100%;
+        float: none;
+        margin-bottom: 2px;
+    }
+    .coupon_btn{
+        width: 100%;
+        float: none;
+    }
+    .product_left{
+        width: 60%;
+    }
+    .product_right{
+        width: 40%;
+        padding-top: 0;
+    }
+    .product_hero_slider{
+        width: 100%;
+        margin: 0 0 15px;
+    }
+    .p_thumbnail_slider{
+        width: 100%;
+        padding: 0 22px;
+    }
+    .slick-initialized .slick-slide.p_thumbnail{
+        padding: 0 2px;
+    }
+    .p_thumbnail_slider .slick-arrow.slick-prev{
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        left: 0;
+        right: auto;
+    }
+    .p_thumbnail_slider .slick-arrow.slick-next{
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        right: 0;
+        left: auto;
+    }
+    .blue_btn,
+    .yellow_btn{
+        min-width: inherit;
+    }
+    .login_form {
+        width: 100%;
+    }
+    .date_cell {
+        width: 60px;
+        margin-right: 0px;
+    }
+    .subscribe_popup .modal-dialog {
+        width: 700px;
+    }
+    .subscribe_right h3{
+        font-size: 20px;
+    }
+    .subscribe_right h2{
+        line-height: 36px;
+        font-size: 40px;
+    }
+    .subscribe_right h2 span {
+        font-size: 20px;
+    }
+    .subscribe_right p {
+        font-size: 14px;
+    }
+    .subscribe_right {
+        padding: 0 30px;
+    }
+	
 }
+/****************************************************/
+@media (max-width: 767px) {
 
-.text h1,.text a{ text-transform: uppercase;font-weight: normal;font-family: 'Helvetica Neue','Arial',san-serif;text-align: center;font-style:normal;font-size:16px;padding:10px 0px;text-decoration: none;display:block;}
-.text p{padding:10px;text-align: center;}
-.text {text-align: center;}
-.text hr{width:90%;margin:0 auto;}
+    .header_top{
+        display: none;
+    }
+    .header_bottom {
+        padding: 20px 0;
+        font-size: 0;
+    }
+    .header_nav_wrapper{
+        display: none;
+    }
+    .navbar-brand{
+        margin-bottom: 0px;
+        width: 40%;
+        padding: 9px 0 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .responsive_header_left,
+    .responsive_header_right{
+        display: block;
+        width: 30%;
+    }
+    .responsive_header_left{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .responsive_header_right{
+        display: inline-block;
+        vertical-align: middle;
+        text-align: right;
+        position: relative;
+    }
+    .responsive_srch_ico,
+    .responsive_cart_ico{
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        border: 0;
+        background-color: transparent;
+    }
+    .responsive_nav_ico{
+        width: 50px;
+        height: 50px;
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+    .featured_prudct_col{
+        height: 220px;
+    }
+    .responsive_footer{
+        display: block;
+        background-color: #2b3860;
+    }
+    .main_footer{
+        display: none;
+    }
+    .responsive_footer > ul > li{
+        border-bottom: solid 1px #fff;
+        text-align: center;
+    }
+    .responsive_footer > ul > li:last-child{
+        border-bottom: 0;
+    }
+    .responsive_footer > ul > li > a{
+        font-size: 26px;
+        color: #fff;
+        display: block;
+        font-family: 'DIN-Medium';
+        padding: 8px 0 12px;
+    }
+    .responsive_footer > ul > li.footer_responsive_social > a{
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0;
+        margin: 0 12px;
+    }
+    .responsive_footer > ul > li.footer_responsive_social{
+        padding: 10px 0;
+    }
+    .responsive_sale_section{
+        display: block;
+        background-color: #facbcd;
+        padding: 70px 40px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .responsive_sale_section img{
+        display: block;
+        margin: 0 auto;
+    }
+    .responsive_sale_section h3{
+        color: #fff;
+        font-family: 'DIN-Bold';
+        margin: 0;
+        font-size: 76px;
+    }
+    .responsive_sale_section a{
+        display: block;
+        margin: 0 0 25px;
+    }
+    .insta_feed{
+        display: none;
+    }
+    .featured_home_product {
+        padding-bottom: 15px;
+    }
+    .responsive_menu{
+        display: block;
+        width: 500px;
+        position: absolute;
+        top: 80px;
+        z-index: 9;
+        left: 0;
+        background-color: #fff;
+        border-top: solid 1px #373537;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+        display: none;
+    }
+    .responsive_menu > ul{
+        max-height: 80vh;
+        overflow: auto;
+    }
+    .responsive_menu > ul > li{
+        border-bottom: solid 1px #999b9e;
+    }
+    .responsive_menu > ul > li:last-child{
+        border-bottom: 0;
+    }
+    .responsive_menu > ul > li > a{
+        display: block;
+        color: #2b3860;
+        font-size: 29px;
+        font-family: 'DIN-Bold';
+        padding: 12px 38px;
+    }
+    .responsive_menu > ul > li > ul{
+        display: none;
+    }
+    .responsive_menu > ul > li > ul > li > a{
+        font-size: 29px;
+        color: #2b3860;
+        display: block;
+        padding: 8px 38px;
+        line-height: normal;
+    }
+    .responsive_menu > ul > li.hav_r_dropdown > a:after{
+        content: '\f107';
+        font-family: 'FontAwesome';
+        margin-left: 10px;
+        color: #231f20;
+    }
+    .responsive_menu > ul > li.hav_r_dropdown.drop_inner_active > a:after{
+        content: '\f106';
+    }
+    .responsive_menu:after, .responsive_menu:before {
+        bottom: 100%;
+        left: 40px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    .responsive_menu:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-bottom-color: #ffffff;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+    .responsive_menu:before {
+        border-color: rgba(55, 53, 55, 0);
+        border-bottom-color: #373537;
+        border-width: 11px;
+        margin-left: -11px;
+    }
+    .nav_cross_ico{
+        display: none;
+    }
+    .nav_active .nav_cross_ico{
+        display: inline-block;
+    }
+    .nav_active .bar_ico{
+        display: none;
+    }
+    .responsive_footer .payment_picker.bootstrap-select .btn-default:active:hover,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active:hover,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default:hover,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default:active:focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active:focus,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default:focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.focus:active,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active.focus,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default.focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default{
+        font-size: 26px;
+        color: #fff;
+        font-family:'DIN-Medium';
+        padding-right: 16px;
+    }
+    .responsive_footer .payment_picker.bootstrap-select.btn-group .dropdown-menu {
+        min-width: 70px;
+        top: 23px;
+    }
+    .responsive_footer .payment_picker.bootstrap-select.btn-group.dropup .dropdown-menu {
+        top: auto;
+        bottom: 40px;
+    }
+    .responsive_footer .payment_picker .dropdown-menu a {
+        font-size: 14px;
+    }
+    .responsive_footer .payment_picker.bootstrap-select.btn-group .dropdown-menu.inner{
+        background-color: #263256;
+    }
+    .responsive_footer > ul > li > ul > li > a{
+        color: #fff;
+        font-family: 'DIN-Medium';
+        font-size: 20px;
+        display: block;
+        padding: 5px 0;
+    }
+    .responsive_footer > ul > li.have_footer_drop > a:after{
+        content: '\f107';
+        font-family: 'FontAwesome';
+        margin-left: 10px;
+    }
+    .responsive_footer > ul > li.have_footer_drop.active > a:after{
+        content: '\f106';
+    }
+    .responsive_footer > ul > li > ul > li:last-child{
+        margin-bottom: 15px;
+    }
+    .responsive_header_right .cart_dropdown{
+        top: 54px;
+        right: 11px;
+    }
+    .category_right_head,
+    .filter-left{
+        display: none;
+    }
+    .category_right {
+        padding-left: 0px;
+    }
+    .img-boxes{
+        padding: 0 4px;
+        margin-bottom: 20px;
+    }
+    .catebody_lowe{
+        margin: 0 -4px;
+    }
+    .imgToggler .slick-dots{
+        margin-top: 5px;
+    }
+    .imgToggler {
+        margin-bottom: 5px;
+    }
+    .bredcrumb{
+        display: none;
+    }
+    .filter_sorts{
+        display: block;
+        font-size: 0;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    .fs_anc{
+        font-size: 26px;
+        color: #2b3860;
+        font-family: 'DIN-Medium';
+        display: inline-block;
+        vertical-align: middle;
+        width: 20%;
+    }
+    .found_style{
+        display: inline-block;
+        vertical-align: middle;
+        color: #939598;
+        font-size: 26px;
+        font-family: 'DIN-Medium';
+        width: 60%;
+    }
+    .fs_anc:after{
+        content: '\f107';
+        font-family:'FontAwesome';
+        margin-left: 6px;
+    }
+    .fs_anc[aria-expanded="true"]:after{
+        content: '\f106';
+    }
+    .category-area {
+        padding: 0px;
+    }
+    .sort_collapse{
+        position: absolute;
+        top: 52px;
+        left: -15px;
+        font-size: 24px;
+        right: -15px;
+        background-color: #e6e1d3;
+        z-index: 9;
+    }
+    .sort_collapse:after{
+        content: '';
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent #e6e1d3 transparent;
+        position: absolute;
+        top: -20px;
+        right: 40px;
+    }
+    .sort_collapse ul{
+        padding: 15px 0;
+    }
+    .sort_collapse ul li a{
+        display: block;
+        font-family: 'DIN-Bold';
+        color: #2b3860;
+        text-align: center;
+        padding: 7px 0;
+    }
+    .responsive_filter{
+        display: block;
+        height: 100vh;
+        overflow: auto;
+        background-color: rgba(255,255,255,0.9);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        transition: 0.3s;
+    }
+    .filter_active{
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+    }
+    .filter_active .responsive_filter{
+        opacity: 1;
+        visibility: visible;
+    }
+    .responsive_filter .filter-left{
+        display: block;
+        float: none;
+        width: 100%;
+        padding: 32px 45px;
+    }
+    .filter_heading{
+        font-size: 27px;
+        color: #2b3860;
+        font-family: 'DIN-Medium';
+        text-align: center;
+    }
+    .responsive_filter_top{
+        position: relative;
+        border-bottom: solid 1px #999b9e;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .refresh_btn{
+        border: 0;
+        background-color: transparent;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -15px;
+    }
+    .remove_filter{
+        border: 0;
+        background-color: transparent;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        margin-top: -15px;
+    }
+    .acc_head a{
+        line-height: normal;
+        font-size: 24px;
+        font-family: 'DIN-Medium';
+        padding: 20px 15px;
+    }
+    .responsive_filter .panel-collapse{
+        padding: 0 15px;
+    }
+    .responsive_filter .checkouter{
+        width: 48%;
+        display: inline-block;
+        margin-right: 1%;
+        margin-bottom: 20px;
+    }
+    .responsive_filter .checkouter label{
+        font-size: 24px;
+        font-family: 'DIN-Medium';
+        line-height: normal;
+        padding-left: 40px;
+        min-height: 32px;
+    }
+    .responsive_filter .checkouter label span {
+        height: 32px;
+        width: 32px;
+        font-size: 26px;
+        line-height: 24px;
+    }
+    .responsive_filter .checkouter label span:after {
+        font-size: 26px;
+        line-height: 24px;
+    }
+    .responsive_filter .radiosize label{
+        font-size: 26px;
+    }
+    .responsive_filter .radiocolor label{
+        height: 30px;
+        width: 30px;
+        background-repeat: repeat !important;
+    }
+    .but-apply input[type="button"]{
+        height: 62px;
+        font-size: 30px;
+    }
+    .category_banner.banner {
+        height: auto;
+    }
+    .category_banner.banner img{
+        width: 100%;
+        height: auto;
+    }
+    .cart_title{
+        display: block;
+        font-size: 27px;
+        text-align: center;
+        font-family: 'DIN-Medium';
+        color: #242e52;
+        margin: 0 0 10px;
+    }
+    .cart_table_th strong{
+        display: none;
+    }
+    .cart_img{
+        width: 87px;
+        margin-right: 15px;
+        vertical-align: top;
+    }
+    .cart_product_det{
+        vertical-align: top;
+    }
+    .refresh_cart{
+        display: none;
+    }
+    .cart_td_first {
+        width: 50%;
+    }
+    .p_code{
+        display: none;
+    }
+    .cart_product_det p.p_desc span{
+        display: none;
+    }
+    .cart_product_det p{
+        margin: 0 0 2px;
+        font-size: 21px;
+    }
+    .cart_product_det p span{
+        font-family: 'DIN-Bold';
+        font-size: 21px;
+    }
+    .remove_cart{
+        padding: 3px;
+        margin-top: 5px;
+    }
+    .responsive_invisible_cart{
+        display: none;
+    }
+    .responsive_subtotal{
+        display: table-row;
+    }
+    .responsive_subtotal .cart_table_td{
+        color:#2b3860;
+        font-size: 27px;
+        font-family: 'DIN-Medium';
+    }
+    .cart_table_td{
+        padding: 20px 0;
+    }
+    .cart_table_th{
+        font-size: 17px;
+    }
+    .cart_table_bottom,
+    .cart_bottom_imgs{
+        display: none;
+    }
+    .cart_r_blue_btn{
+        font-size: 26px;
+        color: #2b3860;
+        display: block;
+        border: solid 1px #888a8c;
+        text-align: center;
+        margin-bottom: 5px;
+        padding: 14px 0;
+        font-family: 'DIN-Medium';
+        background-color: transparent;
+    }
+    .cart_r_yellow_btn{
+        font-size: 26px;
+        color: #fff;
+        display: block;
+        border: 0;
+        text-align: center;
+        margin-bottom: 5px;
+        padding: 14px 0;
+        font-family: 'DIN-Medium';
+        background-color: #b0762d;
+    }
+    .cart_r_yellow_btn:focus,
+    .cart_r_yellow_btn:hover{
+        color: #fff;
+    }
+    .coupon_input {
+        width: 69%;
+        float: left;
+        height: 50px;
+    }
+    .coupon_btn {
+        width: 30%;
+        float: left;
+        height: 50px;
+    }
+    .responsive_cart_bottom{
+        margin-top: 60px;
+    }
+    .responsive_cart_bottom_btn{
+        margin-bottom: 40px;
+    }
+    .blue_btn{
+        margin-bottom: 5px;
+    }
+    .checkout_left{
+        display: none;
+    }
+    .checkout_right{
+        padding-left: 0;
+    }
+    .page_title{
+        text-align: center;
+    }
+    .checkout_container_click{
+        text-align: center;
+        color: #909599;
+        font-family: 'DIN-Regular';
+        padding: 10px 0;
+    }
+    .checkout_container_click[aria-expanded="true"]{
+        font-family: 'DIN-Bold';
+    }
+    .chk_method_non_responsive{
+        display: none;
+    }
+    .chk_method_responsive{
+        display: block;
+        text-align: center;
+    }
+    .mth_group a{
+        display: inline-block;
+        font-size: 14px;
+        color: #2b3860;
+        border: solid 1px #2b3860;
+        width: 48%;
+        padding: 4px 0;
+    }
+    .mth_or{
+        color: #909599;
+        padding: 20px 0 15px;
+        font-size: 16px;
+    }
+    .login_form h3{
+        text-align: center;
+    }
+    .login_form .login_input{
+        text-align: center;
+    }
+    .login_btn{
+        width: 100%;
+    }
+    .forgot_pass{
+        text-align: center;
+    }
+    .responsive_hidden{
+        display: none;
+    }
+    .checkout_panel .panel-collapse{
+        margin-top: 10px;
+    }
+    .back_btn,
+    .continue_btn{
+        width: 100%;
+    }
+    .back_btn{
+        margin-bottom: 5px;
+    }
+    .career_text h3,
+    .career_links {
+        font-size: 20px;
+    }
+    .subscribe_popup .modal-dialog {
+        width: 95%;
+    }
+    .subscribe_left_img{
+        display: none;
+    }
+    .subscribe_right {
+        padding: 40px 20px;
+    }
+    .dismiss_subscribe{
+        width: 40px;
+        height: 40px;
+    }
+    .radiocolor label:after {
+        height: 36px;
+        width: 36px;
+    }
 
-/* Jssor Slider Styles */
-/* jssor slider arrow navigator skin 01 css */
-/*
-.jssora01l              (normal)
-.jssora01r              (normal)
-.jssora01l:hover        (normal mouseover)
-.jssora01r:hover        (normal mouseover)
-.jssora01ldn            (mousedown)
-.jssora01rdn            (mousedown)
-*/
-.jssora01l, .jssora01r, .jssora01ldn, .jssora01rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a01.png) no-repeat;
-    overflow:hidden;
-    width: 45px;
-    height: 45px;
+	.responsive_cart_bottom {
+		display: block;
+	}	
 }
-.jssora01l { background-position: -8px -38px;z-index:1}
-.jssora01r { background-position: -68px -38px; z-index:1}
-.jssora01l:hover { background-position: -128px -38px; }
-.jssora01r:hover { background-position: -188px -38px; }
-.jssora01ldn { background-position: -8px -38px; }
-.jssora01rdn { background-position: -68px -38px; }
-/* jssor slider arrow navigator skin 02 css */
-/*
-.jssora02l              (normal)
-.jssora02r              (normal)
-.jssora02l:hover        (normal mouseover)
-.jssora02r:hover        (normal mouseover)
-.jssora02ldn            (mousedown)
-.jssora02rdn            (mousedown)
-*/
-.jssora02l, .jssora02r, .jssora02ldn, .jssora02rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a02.png) no-repeat;
-    overflow:hidden;
-    width: 55px;
-    height: 55px;
-}
-.jssora02l { background-position: -3px -33px; z-index:1}
-.jssora02r { background-position: -63px -33px;z-index:1 }
-.jssora02l:hover { background-position: -123px -33px; }
-.jssora02r:hover { background-position: -183px -33px; }
-.jssora02ldn { background-position: -3px -33px; }
-.jssora02rdn { background-position: -63px -33px; }
-/* jssor slider arrow navigator skin 03 css */
-/*
-.jssora03l              (normal)
-.jssora03r              (normal)
-.jssora03l:hover        (normal mouseover)
-.jssora03r:hover        (normal mouseover)
-.jssora03ldn            (mousedown)
-.jssora03rdn            (mousedown)
-*/
-.jssora03l, .jssora03r, .jssora03ldn, .jssora03rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a03.png) no-repeat;
-    overflow:hidden;
-    width: 55px;
-    height: 55px;
-}
-.jssora03l { background-position: -3px -33px;z-index:1 }
-.jssora03r { background-position: -63px -33px;z-index:1 }
-.jssora03l:hover { background-position: -123px -33px; }
-.jssora03r:hover { background-position: -183px -33px; }
-.jssora03ldn { background-position: -243px -33px; }
-.jssora03rdn { background-position: -303px -33px; }
-/* jssor slider arrow Navigator Skin 04 css */
-/*
-.jssora04l              (normal)
-.jssora04r              (normal)
-.jssora04l:hover        (normal mouseover)
-.jssora04r:hover        (normal mouseover)
-.jssora04ldn            (mousedown)
-.jssora04rdn            (mousedown)
-*/
-.jssora04l, .jssora04r, .jssora04ldn, .jssora04rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a04.png) no-repeat;
-    overflow:hidden;
-    width: 28px;
-    height: 40px;
-}
-.jssora04l { background-position: -16px -39px; z-index:1}
-.jssora04r { background-position: -76px -39px; z-index:1}
-.jssora04l:hover { background-position: -136px -39px; }
-.jssora04r:hover { background-position: -196px -39px; }
-.jssora04ldn { background-position: -256px -39px; }
-.jssora04rdn { background-position: -316px -39px; }
-/* jssor slider arrow navigator skin 05 css */
-/*
-.jssora05l              (normal)
-.jssora05r              (normal)
-.jssora05l:hover        (normal mouseover)
-.jssora05r:hover        (normal mouseover)
-.jssora05ldn            (mousedown)
-.jssora05rdn            (mousedown)
-*/
-.jssora05l, .jssora05r, .jssora05ldn, .jssora05rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a17.png) no-repeat;
-    overflow:hidden;
-    width: 40px;
-    height: 40px;
-}
-.jssora05l { background-position: -10px -40px; z-index:1}
-.jssora05r { background-position: -70px -40px; z-index:1}
-.jssora05l:hover { background-position: -130px -40px; }
-.jssora05r:hover { background-position: -190px -40px; }
-.jssora05ldn { background-position: -250px -40px; }
-.jssora05rdn { background-position: -310px -40px; }
-/* jssor slider arrow navigator skin 06 css */
-/*
-.jssora06l              (normal)
-.jssora06r              (normal)
-.jssora06l:hover        (normal mouseover)
-.jssora06r:hover        (normal mouseover)
-.jssora06ldn            (mousedown)
-.jssora06rdn            (mousedown)
-*/
-.jssora06l, .jssora06r, .jssora06ldn, .jssora06rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a06.png) no-repeat;
-    overflow:hidden;
-    width: 45px;
-    height: 45px;
-}
-.jssora06l { background-position: -8px -38px; z-index:1}
-.jssora06r { background-position: -68px -38px;z-index:1 }
-.jssora06l:hover { background-position: -128px -38px; }
-.jssora06r:hover { background-position: -188px -38px; }
-.jssora06ldn { background-position: -248px -38px; }
-.jssora06rdn { background-position: -308px -38px; }
-/* jssor slider arrow navigator skin 07 css */
-/*
-.jssora07l              (normal)
-.jssora07r              (normal)
-.jssora07l:hover        (normal mouseover)
-.jssora07r:hover        (normal mouseover)
-.jssora07ldn            (mousedown)
-.jssora07rdn            (mousedown)
-*/
-.jssora07l, .jssora07r, .jssora07ldn, .jssora07rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a07.png) no-repeat;
-    overflow:hidden;
-    width: 50px;
-    height: 50px;
-}
-.jssora07l { background-position: -5px -35px; z-index:1}
-.jssora07r { background-position: -65px -35px;z-index:1 }
-.jssora07l:hover { background-position: -125px -35px; }
-.jssora07r:hover { background-position: -185px -35px; }
-.jssora07ldn { background-position: -245px -35px; }
-.jssora07rdn { background-position: -305px -35px; }
-/* jssor slider arrow navigator skin 09 css */
-/*
-.jssora09l              (normal)
-.jssora09r              (normal)
-.jssora09l:hover        (normal mouseover)
-.jssora09r:hover        (normal mouseover)
-.jssora09ldn            (mousedown)
-.jssora09rdn            (mousedown)
-*/
-.jssora09l, .jssora09r, .jssora09ldn, .jssora09rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a09.png) no-repeat;
-    overflow:hidden;
-    opacity: .4;
-    filter:alpha(opacity=40);
-    width: 50px;
-    height: 50px;
-}
-.jssora09l { background-position: -5px -35px;z-index:1 }
-.jssora09r { background-position: -65px -35px; z-index:1}
-.jssora09l:hover { background-position: -5px -35px; opacity: .8; filter:alpha(opacity=80); }
-.jssora09r:hover { background-position: -65px -35px; opacity: .8; filter:alpha(opacity=80); }
-.jssora09ldn { background-position: -5px -35px; opacity: .3; filter:alpha(opacity=30); }
-.jssora09rdn { background-position: -65px -35px; opacity: .3; filter:alpha(opacity=30); }
-/* jssor slider arrow navigator skin 10 css */
-/*
-.jssora10l              (normal)
-.jssora10r              (normal)
-.jssora10l:hover        (normal mouseover)
-.jssora10r:hover        (normal mouseover)
-.jssora10ldn            (mousedown)
-.jssora10rdn            (mousedown)
-*/
-.jssora10l, .jssora10r, .jssora10ldn, .jssora10rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a10.png) no-repeat;
-    overflow:hidden;
-    width: 28px;
-    height: 40px;
-}
-.jssora10l { background-position: -16px -39px; z-index:1}
-.jssora10r { background-position: -76px -39px; z-index:1}
-.jssora10l:hover { background-position: -136px -39px; }
-.jssora10r:hover { background-position: -196px -39px; }
-.jssora10ldn { background-position: -256px -39px; }
-.jssora10rdn { background-position: -316px -39px; }
-/* jssor slider arrow navigator skin 11 css */
-/*
-.jssora11l              (normal)
-.jssora11r              (normal)
-.jssora11l:hover        (normal mouseover)
-.jssora11r:hover        (normal mouseover)
-.jssora11ldn            (mousedown)
-.jssora11rdn            (mousedown)
-*/
-.jssora11l, .jssora11r, .jssora11ldn, .jssora11rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a11.png) no-repeat;
-    overflow:hidden;
-    width: 37px;
-    height: 37px;
-}
-.jssora11l { background-position: -11px -41px;z-index:1 }
-.jssora11r { background-position: -71px -41px;z-index:1 }
-.jssora11l:hover { background-position: -131px -41px; }
-.jssora11r:hover { background-position: -191px -41px; }
-.jssora11ldn { background-position: -251px -41px; }
-.jssora11rdn { background-position: -311px -41px; }
-/* jssor slider arrow navigator skin 12 css */
-/*
-.jssora12l              (normal)
-.jssora12r              (normal)
-.jssora12l:hover        (normal mouseover)
-.jssora12r:hover        (normal mouseover)
-.jssora12ldn            (mousedown)
-.jssora12rdn            (mousedown)
-*/
-.jssora12l, .jssora12r, .jssora12ldn, .jssora12rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a12.png) no-repeat;
-    overflow:hidden;
-    width: 30px;
-    height: 46px;
-}
-.jssora12l { background-position: -16px -37px; z-index:1}
-.jssora12r { background-position: -75px -37px; z-index:1}
-.jssora12l:hover { background-position: -136px -37px; }
-.jssora12r:hover { background-position: -195px -37px; }
-.jssora12ldn { background-position: -256px -37px; }
-.jssora12rdn { background-position: -315px -37px; }
-/* jssor slider arrow navigator skin 13 css */
-/*
-.jssora13l              (normal)
-.jssora13r              (normal)
-.jssora13l:hover        (normal mouseover)
-.jssora13r:hover        (normal mouseover)
-.jssora13ldn            (mousedown)
-.jssora13rdn            (mousedown)
-*/
-.jssora13l, .jssora13r, .jssora13ldn, .jssora13rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a13.png) no-repeat;
-    overflow:hidden;
-    width: 40px;
-    height: 50px;
-}
-.jssora13l { background-position: -10px -35px;z-index:1 }
-.jssora13r { background-position: -70px -35px;z-index:1 }
-.jssora13l:hover { background-position: -130px -35px; }
-.jssora13r:hover { background-position: -190px -35px; }
-.jssora13ldn { background-position: -250px -35px; }
-.jssora13rdn { background-position: -310px -35px; }
-/* jssor slider arrow navigator skin 14 css */
-/*
-.jssora14l              (normal)
-.jssora14r              (normal)
-.jssora14l:hover        (normal mouseover)
-.jssora14r:hover        (normal mouseover)
-.jssora14ldn            (mousedown)
-.jssora14rdn            (mousedown)
-*/
-.jssora14l, .jssora14r, .jssora14ldn, .jssora14rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a14.png) no-repeat;
-    overflow:hidden;
-    width: 30px;
-    height: 50px;
-}
-.jssora14l { background-position: -15px -35px;z-index:1 }
-.jssora14r { background-position: -75px -35px;z-index:1 }
-.jssora14l:hover { background-position: -135px -35px; }
-.jssora14r:hover { background-position: -195px -35px; }
-.jssora14ldn { background-position: -255px -35px; }
-.jssora14rdn { background-position: -315px -35px; }
-/* jssor slider arrow navigator skin 15 css */
-/*
-.jssora15l              (normal)
-.jssora15r              (normal)
-.jssora15l:hover        (normal mouseover)
-.jssora15r:hover        (normal mouseover)
-.jssora15ldn            (mousedown)
-.jssora15rdn            (mousedown)
-*/
-.jssora15l, .jssora15r, .jssora15ldn, .jssora15rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a15.png) no-repeat;
-    overflow:hidden;
-    width: 20px;
-    height: 38px;
-}
-.jssora15l { background-position: -20px -41px;z-index:1 }
-.jssora15r { background-position: -80px -41px;z-index:1 }
-.jssora15l:hover { background-position: -140px -41px; }
-.jssora15r:hover { background-position: -200px -41px; }
-.jssora15ldn { background-position: -260px -41px; }
-.jssora15rdn { background-position: -320px -41px; }
-/* jssor slider arrow navigator skin 16 css */
-/*
-.jssora16l              (normal)
-.jssora16r              (normal)
-.jssora16l:hover        (normal mouseover)
-.jssora16r:hover        (normal mouseover)
-.jssora16ldn            (mousedown)
-.jssora16rdn            (mousedown)
-*/
-.jssora16l, .jssora16r, .jssora16ldn, .jssora16rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a16.png) no-repeat;
-    overflow:hidden;
-    width: 22px;
-    height: 36px;
-}
-.jssora16l { background-position: -19px -42px;z-index:1 }
-.jssora16r { background-position: -79px -42px; z-index:1}
-.jssora16l:hover { background-position: -139px -42px; }
-.jssora16r:hover { background-position: -199px -42px; }
-.jssora16ldn { background-position: -259px -42px; }
-.jssora16rdn { background-position: -319px -42px; }
-/* jssor slider arrow Navigator Skin 18 css */
-/*
-.jssora18l              (normal)
-.jssora18r              (normal)
-.jssora18l:hover        (normal mouseover)
-.jssora18r:hover        (normal mouseover)
-.jssora18ldn            (mousedown)
-.jssora18rdn            (mousedown)
-*/
-.jssora18l, .jssora18r, .jssora18ldn, .jssora18rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a18.png) no-repeat;
-    overflow:hidden;
-    width: 29px;
-    height: 29px;
-}
-.jssora18l {
-    background-position: -16px -45px;
-    z-index:1;
-}
+/****************************************************/
+@media (max-width: 568px) {
 
-.jssora18r {
-    background-position: -76px -45px;
-    z-index:1;
+    .header_bottom {
+        padding: 10px 0;
+    }
+    .responsive_nav_ico {
+        width: 30px;
+        height: 30px;
+    }
+    .responsive_srch_ico,
+    .responsive_cart_ico {
+        width: 30px;
+        height: 30px;
+    }
+    .responsive_cart_ico{
+        margin-left: 8px;
+    }
+    .navbar-brand{
+        padding: 2px 5% 0;
+        width: 60%;
+    }
+    .responsive_sale_section a{
+        width: 170px;
+        margin: 0 auto 10px;
+    }
+    .responsive_sale_section h3{
+        font-size: 44px;
+    }
+    .responsive_sale_section{
+        padding: 20px 40px;
+    }
+    .responsive_footer > ul > li > a{
+        font-size: 18px;
+        padding: 5px 0 7px;
+    }
+    .responsive_footer > ul > li > ul > li > a{
+        font-size: 18px;
+    }
+    .responsive_footer .payment_picker.bootstrap-select .btn-default:active:hover,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active:hover,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default:hover,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default:active:focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active:focus,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default:focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.focus:active,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default.active.focus,
+    .responsive_footer .payment_picker.bootstrap-select.open > .dropdown-toggle.btn-default.focus,
+    .responsive_footer .payment_picker.bootstrap-select .btn-default {
+        font-size: 18px;
+    }
+    .responsive_menu > ul > li > a{
+        padding: 8px 20px;
+        font-size: 18px;
+    }
+    .responsive_menu > ul > li > ul > li > a{
+        padding: 4px 20px;
+        font-size: 18px;
+    }
+    .responsive_menu{
+        width: 95%;
+        top: 60px;
+    }
+    .responsive_menu:after,
+    .responsive_menu:before {
+        left: 30px;
+    }
+    .responsive_header_left,
+    .responsive_header_right {
+        width: 20%;
+    }
+    .featured_home_product{
+        display: none;
+    }
+    .responsive_home_featured{
+        display: block;
+    }
+    .banner {
+        padding-bottom: 10px;
+    }
+    .responsive_sale_section{
+        margin-bottom: 10px;
+    }
+    .banner{
+        height: 350px;
+        overflow: hidden;
+    }
+    .banner img{
+        width: auto;
+        max-width: inherit;
+        height: 100%;
+    }
+    .fs_anc,
+    .found_style{
+        font-size: 16px;
+    }
+    .filter_sorts{
+        margin-bottom: 10px;
+    }
+    .sort_collapse ul li a{
+        padding: 5px 0;
+        font-family: 'DIN-Regular';
+    }
+    .sort_collapse{
+        font-size: 16px;
+        top: 34px;
+    }
+    .sort_collapse ul {
+        padding: 5px 0;
+    }
+    .sort_collapse ul li a {
+        padding: 4px 0;
+    }
+    .img-boxes {
+        width: 50%;
+    }
+    .img-boxes:nth-child(2n+1){
+        clear: both;
+    }
+    .responsive_filter .filter-left{
+        padding: 15px;
+    }
+    .responsive_filter .checkouter label {
+        font-size: 20px;
+    }
+    .sort_collapse:after {
+        top: -14px;
+        border-width: 7px;
+    }
+    .cart_td_first {
+        width: 35%;
+    }
+    .cart_img{
+        margin-bottom: 5px;
+    }
+    .cart_img,
+    .cart_product_det{
+        display: block;
+    }
+    .cart_product_det p span{
+        font-size: 14px;
+    }
+    .cart_product_det p{
+        font-size: 14px;
+    }
+    .responsive_subtotal .cart_table_td{
+        font-size: 16px;
+    }
+    .cart_table_td {
+        padding: 10px 0;
+    }
+    .responsive_cart_bottom {
+        margin-top: 30px;
+    }
+    .responsive_cart_bottom_btn {
+        margin-bottom: 10px;
+    }
+    .cart_r_blue_btn,
+    .cart_r_yellow_btn{
+        font-size: 16px;
+        padding: 5px 0;
+    }
+    .coupon_input,
+    .coupon_btn{
+        height: 40px;
+    }
+    .product_left,
+    .product_right {
+        width: 100%;
+        float: none;
+        padding: 0;
+    }
+    .p_thumbnail_slider{
+        display: none;
+    }
+    .product_hero_slider .slick-dots{
+        font-size: 0;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .product_hero_slider .slick-dots li{
+        display: inline-block;
+        padding: 0 5px;
+    }
+    .product_hero_slider .slick-dots button{
+        width: 13px;
+        height: 13px;
+        font-size: 0;
+        border: solid 1px #939598;
+        border-radius: 50%;
+        padding: 0;
+        background-color: #fff;
+    }
+    .product_hero_slider .slick-dots li.slick-active button{
+        background-color: #939598;
+    }
+    .product_style {
+        margin: 0;
+        float: left;
+        width: 50%;
+        padding-right: 10px;
+    }
+    .product_styles:after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .product_styles {
+        margin: 0 0 10px;
+    }
+    .blue_btn, .yellow_btn{
+        width: 49%;
+    }
+    .p_btn_group {
+        margin: 0 0 10px;
+    }
+    .size_chart{
+        margin: 0 0 10px;
+    }
+    .product_bottom_tab{
+        display: none;
+    }
+    .product_bredcrumb{
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 0;
+    }
+	
 }
+/****************************************************/
+@media (max-width: 420px) {
 
-.jssora18l:hover {
-    background-position: -136px -45px;
+    .responsive_srch_ico, .responsive_cart_ico, .responsive_nav_ico {
+        width: 20px;
+        height: 20px;
+    }
+    .responsive_srch_ico img,
+    .responsive_cart_ico img,
+    .responsive_nav_ico img{
+        max-height: 100%;
+    }
+    .banner {
+        height: 260px;
+    }
+    .responsive_sale_section a {
+        width: 120px;
+    }
+    .responsive_sale_section h3 {
+        font-size: 30px;
+    }
+    .responsive_menu > ul {
+        max-height: 78vh;
+    }
+    .fs_anc, .found_style {
+        font-size: 14px;
+    }
+    .fs_anc{
+        width: 24%;
+    }
+    .found_style{
+        width: 52%;
+    }
+    .acc_head a{
+        padding: 10px 0px;
+    }
+    .responsive_filter .panel-collapse {
+        padding: 0 0;
+    }
+    .responsive_filter .checkouter {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .but-apply input[type="button"] {
+        height: auto;
+        font-size: 26px;
+        padding: 0 0px 8px;
+    }
+    .sort_collapse{
+        top: 31px;
+    }
+	
 }
-
-.jssora18r:hover {
-    background-position: -196px -45px;
-}
-
-.jssora18ldn {
-    background-position: -256px -45px;
-}
-
-.jssora18rdn {
-    background-position: -316px -45px;
-}
-/* jssor slider arrow navigator skin 19 css */
-/*
-.jssora19l              (normal)
-.jssora19r              (normal)
-.jssora19l:hover        (normal mouseover)
-.jssora19r:hover        (normal mouseover)
-.jssora19ldn            (mousedown)
-.jssora19rdn            (mousedown)
-*/
-.jssora19l, .jssora19r, .jssora19ldn, .jssora19rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a19.png) no-repeat;
-    overflow:hidden;
-    width: 50px;
-    height: 50px;
-}
-.jssora19l { background-position: -5px -35px;z-index:1; }
-.jssora19r { background-position: -65px -35px;z-index:1; }
-.jssora19l:hover { background-position: -125px -35px; }
-.jssora19r:hover { background-position: -185px -35px; }
-.jssora19ldn { background-position: -245px -35px; }
-.jssora19rdn { background-position: -305px -35px; }
-/* jssor slider arrow navigator skin 20 css */
-/*
-.jssora20l              (normal)
-.jssora20r              (normal)
-.jssora20l:hover        (normal mouseover)
-.jssora20r:hover        (normal mouseover)
-.jssora20ldn            (mousedown)
-.jssora20rdn            (mousedown)
-*/
-.jssora20l, .jssora20r, .jssora20ldn, .jssora20rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a20.png) no-repeat;
-    overflow:hidden;
-    width: 55px;
-    height: 55px;
-}
-.jssora20l { background-position: -3px -33px;z-index:1; }
-.jssora20r { background-position: -63px -33px;z-index:1; }
-.jssora20l:hover { background-position: -123px -33px; }
-.jssora20r:hover { background-position: -183px -33px; }
-.jssora20ldn { background-position: -243px -33px; }
-.jssora20rdn { background-position: -303px -33px; }
-/* jssor slider arrow navigator skin 21 css */
-/*
-.jssora21l              (normal)
-.jssora21r              (normal)
-.jssora21l:hover        (normal mouseover)
-.jssora21r:hover        (normal mouseover)
-.jssora21ldn            (mousedown)
-.jssora21rdn            (mousedown)
-*/
-.jssora21l, .jssora21r, .jssora21ldn, .jssora21rdn
-{
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/nav/a21.png) center center no-repeat;
-    overflow: hidden;
-    width: 55px;
-    height: 55px;
-}
-.jssora21l { background-position: -3px -33px; z-index:1;}
-.jssora21r { background-position: -63px -33px; z-index:1;}
-.jssora21l:hover { background-position: -123px -33px; }
-.jssora21r:hover { background-position: -183px -33px; }
-.jssora21ldn { background-position: -243px -33px; }
-.jssora21rdn { background-position: -303px -33px; }
-/*
-            .jssorb02 div           (normal)
-            .jssorb02 div:hover     (normal mouseover)
-            .jssorb02 .av           (active)
-            .jssorb02 .av:hover     (active mouseover)
-            .jssorb02 .dn           (mousedown)
-            */
-.jssorb02{z-index:1;}
-.jssorb02 div, .jssorb02 div:hover, .jssorb02 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b02.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb02 div { background-position: -5px -5px;width: 21px; height: 21px; line-height:21px;  }
-.jssorb02 div:hover, .jssorb02 .av:hover { background-position: -35px -5px; }
-.jssorb02 .av { background-position: -65px -5px; }
-.jssorb02 .dn, .jssorb02 .dn:hover { background-position: -95px -5px; }
-/* jssor slider bullet navigator skin 03 css */
-/*
-.jssorb03 div           (normal)
-.jssorb03 div:hover     (normal mouseover)
-.jssorb03 .av           (active)
-.jssorb03 .av:hover     (active mouseover)
-.jssorb03 .dn           (mousedown)
-*/
-.jssorb03{z-index:1;}
-.jssorb03 div, .jssorb03 div:hover, .jssorb03 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b03.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb03 div { background-position: -5px -4px;width: 21px; height: 21px;line-height:21px;  }
-.jssorb03 div:hover, .jssorb03 .av:hover { background-position: -35px -4px; }
-.jssorb03 .av { background-position: -65px -4px; }
-.jssorb03 .dn, .jssorb03 .dn:hover { background-position: -95px -4px; }
-/* jssor slider bullet navigator skin 05 css */
-/*
-.jssorb05 div           (normal)
-.jssorb05 div:hover     (normal mouseover)
-.jssorb05 .av           (active)
-.jssorb05 .av:hover     (active mouseover)
-.jssorb05 .dn           (mousedown)
-*/
-.jssorb05{z-index:1;}
-.jssorb05 div, .jssorb05 div:hover, .jssorb05 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b05.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb05 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
-.jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
-.jssorb05 .av { background-position: -67px -7px; }
-.jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
-/*
-            .jssorb06 div           (normal)
-            .jssorb06 div:hover     (normal mouseover)
-            .jssorb06 .av           (active)
-            .jssorb06 .av:hover     (active mouseover)
-            .jssorb06 .dn           (mousedown)
-            */
-.jssorb06 {z-index:1;}
-.jssorb06 div, .jssorb06 div:hover, .jssorb06 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b06.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb06 div { background-position: -6px -6px; WIDTH: 18px; HEIGHT: 18px;}
-.jssorb06 div:hover, .jssorb06 .av:hover { background-position: -36px -6px; }
-.jssorb06 .av { background-position: -66px -6px; }
-.jssorb06 .dn, .jssorb06 .dn:hover { background-position: -96px -6px; }
-/*
-            .jssorb07 div           (normal)
-            .jssorb07 div:hover     (normal mouseover)
-            .jssorb07 .av           (active)
-            .jssorb07 .av:hover     (active mouseover)
-            .jssorb07 .dn           (mousedown)
-            */
-.jssorb07 {z-index:1;}
-.jssorb07 div, .jssorb07 div:hover, .jssorb07 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b07.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb07 div { background-position: -5px -5px;WIDTH: 20px; HEIGHT: 20px; }
-.jssorb07 div:hover, .jssorb07 .av:hover { background-position: -35px -5px; }
-.jssorb07 .av { background-position: -65px -5px; }
-.jssorb07 .dn, .jssorb07 .dn:hover { background-position: -95px -5px; }
-/*
-            .jssorb09 div           (normal)
-            .jssorb09 div:hover     (normal mouseover)
-            .jssorb09 .av           (active)
-            .jssorb09 .av:hover     (active mouseover)
-            .jssorb09 .dn           (mousedown)
-            */
-.jssorb09 {z-index:1;}
-.jssorb09 div, .jssorb09 div:hover, .jssorb09 .av
-{
-    filter: alpha(opacity=70);
-    opacity: .7;
-    overflow:hidden;
-    cursor: pointer;
-    border: #fff 1px solid;
-}
-.jssorb09 div { background-color: #d3d3d3; WIDTH: 12px; HEIGHT: 12px;}
-.jssorb09 div:hover, .jssorb09 .av:hover { background-color: gray; }
-.jssorb09 .av { background-color: #000; }
-.jssorb09 .dn, .jssorb09 .dn:hover { background-color: #a9a9a9; }
-/* jssor slider bullet navigator skin 10 css */
-/*
-.jssorb10 div           (normal)
-.jssorb10 div:hover     (normal mouseover)
-.jssorb10 .av           (active)
-.jssorb10 .av:hover     (active mouseover)
-.jssorb10 .dn           (mousedown)
-*/
-.jssorb10 {z-index:1;}
-.jssorb10 div, .jssorb10 div:hover, .jssorb10 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b10.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb10 div { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;}
-.jssorb10 div:hover, .jssorb10 .av:hover { background-position: -40px -10px; }
-.jssorb10 .av { background-position: -70px -10px; }
-.jssorb10 .dn, .jssorb10 .dn:hover { background-position: -100px -10px; }
-/* jssor slider bullet navigator skin 11 css */
-/*
-.jssorb11 div           (normal)
-.jssorb11 div:hover     (normal mouseover)
-.jssorb11 .av           (active)
-.jssorb11 .av:hover     (active mouseover)
-.jssorb11 .dn           (mousedown)
-*/
-.jssorb11 {z-index:1;}
-.jssorb11 div, .jssorb11 div:hover, .jssorb11 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b11.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb11 div { background-position: -10px -10px; WIDTH: 11px; HEIGHT: 11px;}
-.jssorb11 div:hover, .jssorb11 .av:hover { background-position: -40px -10px; }
-.jssorb11 .av { background-position: -70px -10px; }
-.jssorb11 .dn, .jssorb11 .dn:hover { background-position: -100px -10px; }
-/* jssor slider bullet navigator skin 12 css */
-/*
-.jssorb12 div           (normal)
-.jssorb12 div:hover     (normal mouseover)
-.jssorb12 .av           (active)
-.jssorb12 .av:hover     (active mouseover)
-.jssorb12 .dn           (mousedown)
-*/
-.jssorb12 {z-index:1;}
-.jssorb12 div, .jssorb12 div:hover, .jssorb12 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b12.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb12 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
-.jssorb12 div:hover, .jssorb12 .av:hover { background-position: -37px -7px; }
-.jssorb12 .av { background-position: -67px -7px; }
-.jssorb12 .dn, .jssorb12 .dn:hover { background-position: -97px -7px; }
-/* jssor slider bullet navigator skin 13 css */
-/*
-.jssorb13 div           (normal)
-.jssorb13 div:hover     (normal mouseover)
-.jssorb13 .av           (active)
-.jssorb13 .av:hover     (active mouseover)
-.jssorb13 .dn           (mousedown)
-*/
-.jssorb13 {z-index:1;}
-.jssorb13 div, .jssorb13 div:hover, .jssorb13 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b13.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb13 div { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px; }
-.jssorb13 div:hover, .jssorb13 .av:hover { background-position: -35px -5px; }
-.jssorb13 .av { background-position: -65px -5px; }
-.jssorb13 .dn, .jssorb13 .dn:hover { background-position: -95px -5px; }
-/* jssor slider bullet navigator skin 14 css */
-/*
-.jssorb14 div           (normal)
-.jssorb14 div:hover     (normal mouseover)
-.jssorb14 .av           (active)
-.jssorb14 .av:hover     (active mouseover)
-.jssorb14 .dn           (mousedown)
-*/
-.jssorb14 {z-index:1;}
-.jssorb14 div, .jssorb14 div:hover, .jssorb14 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b14.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb14 div { background-position: -9px -9px;WIDTH: 12px; HEIGHT: 12px; }
-.jssorb14 div:hover, .jssorb14 .av:hover { background-position: -39px -9px; }
-.jssorb14 .av { background-position: -69px -9px; }
-.jssorb14 .dn, .jssorb14 .dn:hover { background-position: -99px -9px; }
-/* jssor slider bullet navigator skin 16 css */
-/*
-.jssorb16 div           (normal)
-.jssorb16 div:hover     (normal mouseover)
-.jssorb16 .av           (active)
-.jssorb16 .av:hover     (active mouseover)
-.jssorb16 .dn           (mousedown)
-*/
-.jssorb16 {z-index:1;}
-.jssorb16 div, .jssorb16 div:hover, .jssorb16 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b16.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb16 div { background-position: -5px -5px;WIDTH: 21px; HEIGHT: 21px; }
-.jssorb16 div:hover, .jssorb16 .av:hover { background-position: -35px -5px; }
-.jssorb16 .av { background-position: -65px -5px; }
-.jssorb16 .dn, .jssorb16 .dn:hover { background-position: -95px -5px; }
-/* jssor slider bullet navigator skin 17 css */
-/*
-.jssorb17 div           (normal)
-.jssorb17 div:hover     (normal mouseover)
-.jssorb17 .av           (active)
-.jssorb17 .av:hover     (active mouseover)
-.jssorb17 .dn           (mousedown)
-*/
-.jssorb17 {z-index:1;}
-.jssorb17 div, .jssorb17 div:hover, .jssorb17 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b17.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb17 div { background-position: -7px -7px;WIDTH: 16px; HEIGHT: 16px; }
-.jssorb17 div:hover, .jssorb17 .av:hover { background-position: -37px -7px; }
-.jssorb17 .av { background-position: -67px -7px; }
-.jssorb17 .dn, .jssorb17 .dn:hover { background-position: -97px -7px; }
-/* jssor slider bullet navigator skin 18 css */
-/*
-.jssorb18 div           (normal)
-.jssorb18 div:hover     (normal mouseover)
-.jssorb18 .av           (active)
-.jssorb18 .av:hover     (active mouseover)
-.jssorb18 .dn           (mousedown)
-*/
-.jssorb18 {z-index:1;}
-.jssorb18 div, .jssorb18 div:hover, .jssorb18 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b18.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb18 div { background-position: -3px -3px;width: 24px; height: 24px; line-height: 24px }
-.jssorb18 div:hover, .jssorb18 .av:hover { background-position: -33px -3px; }
-.jssorb18 .av { background-position: -63px -3px; }
-.jssorb18 .dn, .jssorb18 .dn:hover { background-position: -93px -3px; }
-
-.jssorb18 .n
-{
-    display: none;
-    color: #000;
-}
-.jssorb18 div:hover .n, .jssorb18 .av .n, .jssorb18 .av:hover .n, .jssorb18 .dn .n { display: block; }
-/* jssor slider bullet navigator skin 20 css */
-/*
-.jssorb20 div           (normal)
-.jssorb20 div:hover     (normal mouseover)
-.jssorb20 .av           (active)
-.jssorb20 .av:hover     (active mouseover)
-.jssorb20 .dn           (mousedown)
-*/
-.jssorb20 {z-index:1;}
-.jssorb20 div, .jssorb20 div:hover, .jssorb20 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b20.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb20 div { background-position: -5px -5px;WIDTH: 19px; HEIGHT: 19px; line-height:19px; }
-.jssorb20 div:hover, .jssorb20 .av:hover { background-position: -35px -5px; }
-.jssorb20 .av { background-position: -65px -5px; }
-.jssorb20 .dn, .jssorb20 .dn:hover { background-position: -95px -5px; }
-/* jssor slider bullet navigator skin 21 css */
-/*
-.jssorb21 div           (normal)
-.jssorb21 div:hover     (normal mouseover)
-.jssorb21 .av           (active)
-.jssorb21 .av:hover     (active mouseover)
-.jssorb21 .dn           (mousedown)
-*/
-.jssorb21 {z-index:1;}
-.jssorb21 div, .jssorb21 div:hover, .jssorb21 .av
-{
-    background: url(/skin/frontend/base/default/images/factoryx/homepage/pag/b21.png) no-repeat;
-    overflow:hidden;
-    cursor: pointer;
-}
-.jssorb21 div { background-position: -5px -5px; WIDTH: 19px; HEIGHT: 19px;line-height:19px;}
-.jssorb21 div:hover, .jssorb21 .av:hover { background-position: -35px -5px; }
-.jssorb21 .av { background-position: -65px -5px; }
-.jssorb21 .dn, .jssorb21 .dn:hover { background-position: -95px -5px; }
+/****************************************************/
 
 
-#homepages_fw [class^="col-"][class$="-12"] {
-    padding-left: 0;
-    padding-right: 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

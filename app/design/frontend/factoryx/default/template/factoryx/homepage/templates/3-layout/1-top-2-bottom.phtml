@@ -1,4 +1,5 @@
 <?php
+	//echo 'arijit 1<pre>'; print_r($this->getTop()); echo '</pre>';
 	// Set images
 	$this->getChild('top')->setData('image', $this->getTop());
 	$this->getChild('top')->setData('over', $this->getOverTop());
@@ -8,12 +9,16 @@
 	$this->getChild('bottom2')->setData('over', $this->getOverBottom2());
 	// Using the false parameter with getChildHtml is to tell not to cache block
 ?>
-<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-    <?php echo $this->getChildHtml('top', false) // TOP ?>
+<div class="banner">
+	<?php echo $this->getChildHtml('top', true) // TOP ?>
 </div>
-<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-    <?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?>
-</div>
-<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-    <?php echo $this->getChildHtml('bottom2', false) // BOTTOM2 ?>
-</div>
+<div class="container">
+	<div class="featured_home_product">
+		<div class="featured_prudct_col">
+			<?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?>
+		</div>
+		<div class="featured_prudct_col">
+			<?php echo $this->getChildHtml('bottom1', false) // BOTTOM1 ?>
+		</div>
+	</div>
+</div>	

@@ -86,7 +86,7 @@ class FactoryX_ImageCdn_Model_Adapter_CoralCdn extends FactoryX_ImageCdn_Model_A
 	 * @internal param string $relFilename path (with filename) from the CDN root
 	 */
     public function getUrl($filename) {
-	    $filename = '/media' . $this->getRelative($filename);
+	    $filename = 'media' . $this->getRelative($filename);
 	    $var = Mage::app()->getStore()->isCurrentlySecure() ? 'imagecdn/coralcdn/url_base_secure' : 'imagecdn/coralcdn/url_base';
 	    return Mage::getStoreConfig($var) . $filename;  
     }

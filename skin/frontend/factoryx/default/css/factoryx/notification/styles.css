@@ -1,4 +1,4 @@
-.site-wide-notification{
+/*.site-wide-notification{
     background: #9B9B9B;
     color: #FFF;
     text-align: center;
@@ -9,5 +9,5 @@
     content: '\f00d';
     float: right;
     font-family: FontAwesome;
-    cursor:pointer;
+    */cursor:pointer;
 }

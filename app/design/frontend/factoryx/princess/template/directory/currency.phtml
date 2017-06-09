@@ -6,6 +6,14 @@
  */
 ?>
 <?php if($this->getCurrencyCount()>1): ?>
+<?php echo $this->__('Currency') ?>
+<select class="selectpicker payment_picker">
+						<option>AUD</option>
+						<option>GBP</option>
+						<option>CNY</option>
+						<option>EUR</option>
+						<option>USD</option>
+					</select>
 <div class="block block-currency hidden-xs">
     <div class="block-title text-uppercase hidden-sm">
         <span>

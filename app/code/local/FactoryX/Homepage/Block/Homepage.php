@@ -16,19 +16,24 @@ class FactoryX_Homepage_Block_Homepage extends Mage_Core_Block_Template
         parent::__construct();
 
         if ($id = Mage::app()->getRequest()->getParam('id')) {
+		
             $homepage = Mage::getModel('homepage/homepage')->load($id);
         } elseif (array_key_exists('homepage',$data)) {
+		
             $homepage = $data['homepage'];
         } else {
             $homepage = null;
         }
 
         $this->_homepage = $homepage;
-
+		
+		//echo'<pre>'; print_r($homepage); echo '</pre>';
         if ($homepage) {
             // Set the template based on the layout chosen
             $this->setTemplate('factoryx/homepage/templates/'.$homepage->getLayout().'.phtml');
 
+		  //echo 'arijit: '.$homepage->getLayout();
+		  
             // Switch based on the layout chosen
             switch ($homepage->getLayout()) {
                 // 1 image layout

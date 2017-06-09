@@ -8,87 +8,90 @@
  */
 -->
 <layout version="0.1.0">
-    <!--  Default layout, loads most of the pages  -->
-    <default>
-        <reference name="head">
-            <!--Removing items set in the page.xml we don't need anymore-->
-            <action method="removeItem">
-                <type>skin_css</type>
-                <name>css/styles.css</name>
-            </action>
-            <action method="removeItem">
-                <type>skin_css</type>
-                <name>css/styles-ie.css</name>
-            </action>
-            <action method="removeItem">
-                <type>skin_css</type>
-                <name>css/print.css</name>
-            </action>
-            <action method="removeItem">
-                <type>skin_css</type>
-                <name>css/widgets.css</name>
-            </action>
-            <action method="removeItem">
-                <type>skin_js</type>
-                <name>js/ie6.js</name>
-            </action>
-            <action method="removeItem">
-                <type>skin_js</type>
-                <name>js/ds-sleight.js</name>
-            </action>
-            <action method="removeItem">
-                <type>js</type>
-                <name>varien/menu.js</name>
-            </action>
-            <!-- Add responsive script for the grids -->
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/bootstrap/grids.js</name>
-                <params/>
-            </action>
-            <!-- Add small CSS to hack bootstrap if menu hover -->
-            <block type="core/text" name="hover_bootstrap">
-                <action method="setText" ifconfig="framework/navigation/hover">
-                    <text>
-                        <![CDATA[
-                            <style type="text/css">
-                                @media (min-width: 768px) {
-                                    #nav li.parent:hover > ul.dropdown-menu {
-                                        display: block;
-                                    }
-                                }
-                            </style>
-                        ]]>
-                    </text>
-                </action>
-            </block>
-        </reference>
-
-        <reference name="catalog.topnav">
-            <!-- Add extra items to the mobile menu -->
-            <block type="core/template" name="navbar.search" template="bootstrap/navbar/search.phtml"/>
-            <block type="page/template_links" name="navbar.account" template="bootstrap/navbar/links.phtml">
-                <action method="addLink" translate="label title" module="customer">
-                    <label>My Account</label>
-                    <url helper="customer/getAccountUrl"/>
-                    <title>My Account</title>
-                    <prepare/>
-                    <urlParams/>
-                    <position>10</position>
-                </action>
-                <block type="wishlist/links" name="wishlist_link"/>
-                <action method="addLinkBlock">
-                    <blockName>wishlist_link</blockName>
-                </action>
-            </block>
-            <block type="page/template_links" name="navbar.cart" template="bootstrap/navbar/links.phtml">
-                <block type="checkout/links" name="checkout_cart_link_navbar">
-                    <action method="addCartLink"></action>
-                    <action method="addCheckoutLink"></action>
-                </block>
-            </block>
-        </reference>
-
+	<!--  Default layout, loads most of the pages  -->
+	<default>
+		<reference name="head">
+			<!--Removing items set in the page.xml we don't need anymore-->
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/styles.css</name>
+			</action>
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/styles-ie.css</name>
+			</action>
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/print.css</name>
+			</action>
+			<action method="removeItem">
+				<type>skin_css</type>
+				<name>css/widgets.css</name>
+			</action>
+			<action method="removeItem">
+				<type>skin_js</type>
+				<name>js/ie6.js</name>
+			</action>
+			<action method="removeItem">
+				<type>skin_js</type>
+				<name>js/ds-sleight.js</name>
+			</action>
+			<action method="removeItem">
+				<type>js</type>
+				<name>varien/menu.js</name>
+			</action>
+			<!-- Add responsive script for the grids -->
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>js/bootstrap/grids.js</name>
+				<params/>
+			</action>
+			<!-- Add small CSS to hack bootstrap if menu hover -->
+			<block type="core/text" name="hover_bootstrap">
+				<action method="setText" ifconfig="framework/navigation/hover">
+					<text>
+						<![CDATA[
+							<style type="text/css">
+								@media (min-width: 768px) {
+									#nav li.parent:hover > ul.dropdown-menu {
+										display: block;
+									}
+								}
+							</style>
+						]]>
+					</text>
+				</action>
+			</block>
+		</reference>
+		<reference name="header">
+			<!-- Add the currency block -->
+			<block type="directory/currency" name="header.currency" as="headerCurrency" template="directory/currency.phtml"/>
+		</reference>
+		
+		<reference name="catalog.topnav">
+			<!-- Add extra items to the mobile menu -->
+			<block type="core/template" name="navbar.search" template="bootstrap/navbar/search.phtml"/>
+			<block type="page/template_links" name="navbar.account" template="bootstrap/navbar/links.phtml">
+				<action method="addLink" translate="label title" module="customer">
+					<label>My Account</label>
+					<url helper="customer/getAccountUrl"/>
+					<title>My Account</title>
+					<prepare/>
+					<urlParams/>
+					<position>10</position>
+				</action>
+				<block type="wishlist/links" name="wishlist_link"/>
+				<action method="addLinkBlock">
+					<blockName>wishlist_link</blockName>
+				</action>
+			</block>
+			<block type="page/template_links" name="navbar.cart" template="bootstrap/navbar/links.phtml">
+				<block type="checkout/links" name="checkout_cart_link_navbar">
+					<action method="addCartLink"></action>
+					<action method="addCheckoutLink"></action>
+				</block>
+			</block>
+		</reference>
     </default>
 
     <!-- Product page view -->
