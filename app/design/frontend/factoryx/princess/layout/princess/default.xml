@@ -26,6 +26,22 @@
                 <name>css/style.css</name>
                 <params/>
             </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/fonts.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/bootstrap-select.css</name>
+                <params/>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/developer.css</name>
+                <params/>
+            </action>
+            <action method="addItem"><type>skin_js</type><name>js/bootstrap-select.js</name></action>
         </reference>
 
         <reference name="after_body_start">

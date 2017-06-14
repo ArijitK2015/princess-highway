@@ -1,0 +1,59 @@
+@font-face {
+    font-family:'DIN-Regular';
+    src: url('../fonts/DIN-Regular.eot');
+	src: url('../fonts/DIN-Regular.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/DIN-Regular.woff2') format('woff2'),
+		url('../fonts/DIN-Regular.woff') format('woff'),
+		url('../fonts/DIN-Regular.ttf') format('truetype'),
+		url('../fonts/DIN-Regular.otf') format('opentype'),
+		url('../fonts/DIN-Regular.svg#DIN-Regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-02DC;
+}
+
+@font-face {
+    font-family:'DIN-Medium';
+    src: url('../fonts/DIN-Medium.eot');
+	src: url('../fonts/DIN-Medium.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/DIN-Medium.woff2') format('woff2'),
+		url('../fonts/DIN-Medium.woff') format('woff'),
+		url('../fonts/DIN-Medium.ttf') format('truetype'),
+		url('../fonts/DIN-Medium.otf') format('opentype'),
+		url('../fonts/DIN-Medium.svg#DIN-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-02DC;
+}
+
+@font-face {
+    font-family:'DIN-Light';
+    src: url('../fonts/DIN-Light.eot');
+	src: url('../fonts/DIN-Light.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/DIN-Light.woff2') format('woff2'),
+		url('../fonts/DIN-Light.woff') format('woff'),
+		url('../fonts/DIN-Light.ttf') format('truetype'),
+		url('../fonts/DIN-Light.otf') format('opentype'),
+		url('../fonts/DIN-Light.svg#DIN-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-02DC;
+}
+
+@font-face {
+    font-family:'DIN-Bold';
+    src: url('../fonts/DIN-Bold.eot');
+	src: url('../fonts/DIN-Bold.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/DIN-Bold.woff2') format('woff2'),
+		url('../fonts/DIN-Bold.woff') format('woff'),
+		url('../fonts/DIN-Bold.ttf') format('truetype'),
+		url('../fonts/DIN-Bold.otf') format('opentype'),
+		url('../fonts/DIN-Bold.svg#DIN-Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0008-02DC;
+}

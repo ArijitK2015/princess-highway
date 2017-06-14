@@ -1,0 +1,42 @@
+
+<!--- modal start -->
+    <div class="subscribe_popup" id="newsletterPopup" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+            <form action="<?php echo $this->getUrl('*/*/send') ?>"
+                  method="post" id="form-validate">			
+                <div class="modal-content">
+                    <div class="modal-body clearfix">
+                        <div class="subscribe_pop_table">
+                            <div class="subscribe_pop_tr">
+                                <div class="subscribe_left_img">
+                                    <!-- render from static blocks[subscribe_left_img] in amdin -->
+									<?php echo ($this->getLayout()->createBlock('cms/block')->setBlockId('subscribe_popup_left_image')->toHtml()); ?>
+                                </div>
+                                <div class="subscribe_right">
+                                    <!-- render from static blocks[newsletter_popup] in amdin  subs_input -->
+									<?php echo ($this->getLayout()->createBlock('cms/block')->setBlockId('newsletter_popup_content')->toHtml()); ?>
+                                    <div class="subscribe_form">                                        
+                                        <input type="text" name="email" id="email_address"
+                                               value="<?php echo $this->escapeHtml($this->getEmailValue()) ?>"
+                                               title="<?php echo $this->__('Email Address') ?>"
+                                               class="input-text validate-email required-entry subs_input" />
+                                        <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="subs_button" name="newsletter_submit">
+                                            <?php echo $this->__('subscribe') ?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+		</div>
+	</div>
+    
+    <script type="text/javascript">
+        //<![CDATA[
+            var newsletterSubscriberFormDetail = new VarienForm('form-validate',true);
+        //]]>			
+	</script>

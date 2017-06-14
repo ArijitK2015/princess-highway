@@ -19,36 +19,63 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
- * @package     base_default
- * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
+    /* @var $this Mage_Wishlist_Block_Customer_Wishlist_Items */
+?>
+<?php
     $columns = $this->getColumns();
 ?>
-<table class="table table-hover data-table" id="wishlist-table">
-    <thead>
-        <tr>
-            <?php foreach ($columns as $column): ?>
-                <th><?php echo $column->getTitle();?></th>
-            <?php endforeach; ?>
-        </tr>
-    </thead>
-    <tbody>
+        <div class="cart_table_tr">
+            <div class="cart_table_th">
+                <strong>my wishlist</strong>
+            </div>
+            <div class="cart_table_th">
+                &nbsp;
+            </div>
+            <div class="cart_table_th">
+                qty
+            </div>
+            <div class="cart_table_th">
+                price
+            </div>
+            <div class="cart_table_th responsive_invisible_cart">
+                subtotal
+            </div>
+            <div class="cart_table_th responsive_invisible_cart">
+                &nbsp;
+            </div>
+            
+        </div>
+   
         <?php if (count($this->getItems())): ?>
             <?php foreach ($this->getItems() as $item): ?>
-                <tr id="item_<?php echo $item->getId();?>">
-                    <?php foreach ($columns as $column): ?>
-                        <td><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                <div id="item_<?php echo $item->getId();?>" class="cart_table_tr">
+                    <?php
+                        foreach ($columns as $key => $column):
+                            $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
+
+                            /* Override default column title in layout, useful for certain cases like select all box */
+                            if ($column->getRwdTitle()) {
+                                $_rwdLabel = $column->getRwdTitle();
+                            } else {
+                                $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
+                            }
+                    ?>
+                    
+                        <?php $column->setItem($item);
+                           echo $column->toHtml($item);?>
                     <?php endforeach; ?>
-                </tr>
+                </div>
             <?php endforeach ?>
         <?php else: ?>
-            <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
+            <div colspan="<?php echo count($columns);?>" class="cart_table_td wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></div>
         <?php endif; ?>
-    </tbody>
-</table>
+   
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
 <?php endforeach; ?>

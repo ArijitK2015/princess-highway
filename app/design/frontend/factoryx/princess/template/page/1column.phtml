@@ -27,14 +27,13 @@
 			    </div>
 			</div>
 		</section>
-		<footer>
-		    <div class="footer" id="footer">
-			   <div class="container">
-				  <div class="row">
-					 <?php echo $this->getChildHtml('footer') ?>
-				  </div>
-			   </div>
-		    </div>
+		<footer class="main_footer">
+		    <div class="container">
+				<?php echo $this->getChildHtml('footer') ?>
+			</div>
+		</footer>
+		<footer class="responsive_footer">
+			<?php echo $this->getChildHtml('mobile_footer') ?>
 		</footer>
 		<?php echo $this->getChildHtml('before_body_end') ?>
 		<?php echo $this->getAbsoluteFooter() ?>

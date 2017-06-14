@@ -22,7 +22,7 @@
 			<div class="responsive_header_left">
 				<button type="button" class="responsive_nav_ico">
 					<img class="bar_ico" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
-					<img src="images/nav_cross.png" alt="nav_cross" class="nav_cross_ico" />
+					<img src="<?php echo Mage::getDesign()->getSkinUrl();?>images/nav_cross.png" alt="nav_cross" class="nav_cross_ico" />
 				</button>
 			</div>
 			<?php if ($this->getIsHomePage()):?>
@@ -56,17 +56,20 @@
 			    <?php echo $this->getChildHtml('topContainer'); ?>
 			</div>
 		</div>
-	</div>
 		
-	<div class="header_nav_wrapper">
-		<div class="container">
-			<div class="site_nav_area clearfix">
-				<nav class="main_nav pull-left">
-					<?php echo $this->getChildHtml('topMenu') ?>
-				</nav>
-				<div class="site_search pull-right">
-					<?php echo $this->getChildHtml('topSearch') ?>
+		<div class="header_nav_wrapper">
+			<div class="container">
+				<div class="site_nav_area clearfix">
+					<nav class="main_nav pull-left">
+						<?php echo $this->getChildHtml('topMenu') ?>
+					</nav>
+					<div class="site_search pull-right">
+						<?php echo $this->getChildHtml('topSearch') ?>
+					</div>
 				</div>
 			</div>
 		</div>
+		
+		
+		
 	</div>

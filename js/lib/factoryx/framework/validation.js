@@ -255,15 +255,15 @@ Object.extend(Validation, {
         this.updateCallback(elm, 'failed');
 
         elm.up().addClassName('has-error');
-        elm.up().addClassName('has-feedback');
+        elm.up().addClassName('original-file-was-has-feedback');
         elm.addClassName('validate-ajax');
         if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
             var container = elm.up(Validation.defaultOptions.containerClassName);
             if (container && this.allowContainerClassName(elm)) {
-                container.up().removeClassName('has-success');
-                container.up().removeClassName('has-feedback');
+                container.up().removeClassName('original-file-was-has-success');
+                container.up().removeClassName('original-file-was-has-feedback');
                 container.up().addClassName('has-error');
-                container.up().addClassName('has-feedback');
+                container.up().addClassName('original-file-was-has-feedback');
             }
         }
         this.createBootstrapFeedback(elm);
@@ -290,19 +290,19 @@ Object.extend(Validation, {
                 //}
                 elm[prop] = 1;
                 if (!elm.advaiceContainer) {
-                    elm.up('div').removeClassName('has-success');
-                    elm.up('div').removeClassName('has-feedback');
+                    elm.up('div').removeClassName('original-file-was-has-success');
+                    elm.up('div').removeClassName('original-file-was-has-feedback');
                     elm.up('div').addClassName('has-error');
-                    elm.up('div').addClassName('has-feedback');
+                    elm.up('div').addClassName('original-file-was-has-feedback');
                 }
 
                 if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                     var container = elm.up(Validation.defaultOptions.containerClassName);
                     if (container && this.allowContainerClassName(elm)) {
-                        container.up('div').removeClassName('has-success');
-                        container.up('div').removeClassName('has-feedback');
+                        container.up('div').removeClassName('original-file-was-has-success');
+                        container.up('div').removeClassName('original-file-was-has-feedback');
                         container.up('div').addClassName('has-error');
-                        container.up('div').addClassName('has-feedback');
+                        container.up('div').addClassName('original-file-was-has-feedback');
                     }
                 }
                 this.createBootstrapFeedback(elm);
@@ -313,21 +313,21 @@ Object.extend(Validation, {
                 this.updateCallback(elm, 'passed');
                 elm[prop] = '';
                 elm.up('div').removeClassName('has-error');
-                elm.up('div').removeClassName('has-feedback');
-                elm.up('div').addClassName('has-success');
-                elm.up('div').addClassName('has-feedback');
+                elm.up('div').removeClassName('original-file-was-has-feedback');
+                elm.up('div').addClassName('original-file-was-has-success');
+                elm.up('div').addClassName('original-file-was-has-feedback');
                 if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                     var container = elm.up(Validation.defaultOptions.containerClassName);
                     if (container && !container.down('.has-error') && this.allowContainerClassName(elm)) {
                         if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) {
-                            container.up('div').addClassName('has-success');
-                            container.up('div').addClassName('has-feedback');
+                            container.up('div').addClassName('original-file-was-has-success');
+                            container.up('div').addClassName('original-file-was-has-feedback');
                         } else {
-                            container.up('div').removeClassName('has-success');
-                            container.up('div').removeClassName('has-feedback');
+                            container.up('div').removeClassName('original-file-was-has-success');
+                            container.up('div').removeClassName('original-file-was-has-feedback');
                         }
                         container.up('div').removeClassName('has-error');
-                        container.up('div').removeClassName('has-feedback');
+                        container.up('div').removeClassName('original-file-was-has-feedback');
                     }
                 }
                 this.createBootstrapFeedback(elm);
@@ -352,7 +352,7 @@ Object.extend(Validation, {
         {
             return;
         }
-        if (elm.up('div').hasClassName('has-success'))
+        if (elm.up('div').hasClassName('original-file-was-has-success'))
         {
             feedback = "check";
             feedbackMsg = "(success)";
@@ -368,17 +368,17 @@ Object.extend(Validation, {
         }
         if (feedback !== false)
         {
-            if (elm.next() && elm.next().hasClassName('form-control-feedback'))
+            if (elm.next() && elm.next().hasClassName('original-file-was-form-control-feedback'))
             {
                 elm.next().remove();
                 elm.next().remove();
             }
-            else if (elm.next() && elm.next().next() && elm.next().next().hasClassName('form-control-feedback'))
+            else if (elm.next() && elm.next().next() && elm.next().next().hasClassName('original-file-was-form-control-feedback'))
             {
                 elm.next().next().remove();
                 elm.next().next().remove();
             }
-            feedbackEl = '<span class="form-control-feedback" aria-hidden="true"><i class="fa fa-' + feedback + '"></i></span><span class="sr-only">'+ feedbackMsg +'</span>';
+            feedbackEl = '';
             if (elm.up().nodeName == "DIV")
             {
                 elm.insert({after: feedbackEl});
@@ -433,11 +433,11 @@ Object.extend(Validation, {
                 elm[prop] = '';
             }
             elm.up().removeClassName('has-error');
-            elm.up().removeClassName('has-success');
+            elm.up().removeClassName('original-file-was-has-success');
             if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
                 if (container) {
-                    container.up().removeClassName('has-success');
+                    container.up().removeClassName('original-file-was-has-success');
                     container.up().removeClassName('has-error');
                 }
             }

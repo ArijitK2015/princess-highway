@@ -1,0 +1,17 @@
+<div class="col-md-10 col-lg-9 col-xs-12 col-sm-12 text-left text-center-sm">
+    <div class="hidden-lg hidden-md hidden-sm mobile-footer row">
+        <?php echo $this->getChildHtml('footerLinks'); ?>
+    </div>
+    <div class="mobile-footer row">
+        <?php echo $this->getChildHtml('cms_footer_links') ?>
+    </div>
+    <div class="hidden-lg hidden-md hidden-sm mobile-footer row">
+        <?php echo $this->getChildHtml('footerCurrency'); ?>
+    </div>
+</div>
+<div class="col-md-2 col-lg-3 col-xs-12 col-sm-12 text-right text-center-xs text-center-sm social-links">
+    <?php echo $this->getChildHtml('social-links') ?>
+</div>
+<?php //echo $this->getChildHtml('htmlinject') ?>
+<?php echo $this->getChildHtml('feedback') ?>
+<?php echo $this->getChildHtml('popup') ?>

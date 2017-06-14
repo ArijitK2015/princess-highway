@@ -20,31 +20,31 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php
-/*
-<label for="<?php echo $this->getFieldId('gender')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>>
-    <?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Gender') ?></label>
-*/
-?>
-<div class="form-group">
-    <?php $options = Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getAllOptions(); ?>
-    <?php // echo sprintf("options: <pre>%s</pre>", print_r($options, true)); ?>
-    <select id="<?php echo $this->getFieldId('gender')?>" name="<?php echo $this->getFieldName('gender')?>" title="<?php echo $this->__('Gender') ?>" class="form-control <?php if ($this->isRequired()):?>validate-select"<?php endif; ?> <?php echo $this->getFieldParams() ?>>
-        <option value=""><?php echo $this->__('Please select your gender') ?></option>
-        <?php $value = $this->getGender(); ?>
-        <?php foreach ($options as $option): ?>
-            <?php if ($option && array_key_exists('value', $option) && $option['value']): ?>
-                <option value="<?php echo $option['value'] ?>"<?php if ($option['value'] == $value) echo ' selected="selected"' ?>><?php echo $option['label'] ?></option>
-            <?php endif; ?>
-        <?php endforeach;?>
-    </select>
-    <script type="text/javascript">
-        /*
-        jQuery('#billing\\:gender').addClass('form-control');
-        */
-    </script>
-</div>
+<label for="<?php echo $this->getFieldId('gender')?>"
+       <?php if ($this->isRequired()){ echo ' class="required chk_label"'; }else{ echo ' class="chk_label"'; }; ?>>
+       <?php echo $this->__('gender') ?>
+       <?php if ($this->isRequired()) echo '<span>*</span>' ?>
+</label>
+
+<select id="<?php echo $this->getFieldId('gender')?>"
+        name="<?php echo $this->getFieldName('gender')?>"
+        title="<?php echo Mage::helper('core')->quoteEscape($this->__('Gender')) ?>"
+        <?php if ($this->isRequired()):?>
+        class="selectpicker shiping_select chk_select validate-select"
+        <?php else: ?>
+        class="selectpicker shiping_select chk_select"
+        <?php endif;?>
+        <?php echo $this->getFieldParams() ?>>
+    <?php $options = Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getAllOptions();?>
+    <?php $value = $this->getGender();?>
+    <?php foreach ($options as $option):?>
+        <option value="<?php echo $option['value'] ?>"
+            <?php if ($option['value'] == $value) echo ' selected="selected"' ?>>
+            <?php echo $option['label'] ?>
+        </option>
+    <?php endforeach;?>
+</select>

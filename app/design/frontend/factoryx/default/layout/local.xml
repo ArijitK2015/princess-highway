@@ -41,11 +41,29 @@
 				<name>varien/menu.js</name>
 			</action>
 			<!-- Add responsive script for the grids -->
-			<action method="addItem">
+			<!--<action method="addItem">
 				<type>skin_js</type>
 				<name>js/bootstrap/grids.js</name>
 				<params/>
-			</action>
+			</action>-->
+			
+			<action method="addItem">
+                <type>skin_js</type>
+                <script>js/bootstrap/grid.js</script>
+            </action>
+			
+			<!-- moderniser -->
+			<action method="addItem">
+                <type>skin_js</type>
+                <script>js/modernizr.custom.min.js</script>
+            </action>
+			
+			<!-- enquire js -->
+			<action method="addItem">
+                <type>skin_js</type>
+                <script>js/enquire.js</script>
+            </action>
+			
 			<!-- Add small CSS to hack bootstrap if menu hover -->
 			<block type="core/text" name="hover_bootstrap">
 				<action method="setText" ifconfig="framework/navigation/hover">

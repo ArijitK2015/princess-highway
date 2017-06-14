@@ -1,0 +1,53 @@
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<div class="page-header">
+    <h1><?php echo $this->__('Login or Create an Account') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
+    <?php echo $this->getBlockHtml('formkey'); ?>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 new-users">
+            <div class="content">
+                <h2><?php echo $this->__('New Customers') ?></h2>
+                <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+            </div>
+            <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="btn btn-default button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 registered-users">
+            <div class="content">
+                <h2><?php echo $this->__('Registered Customers') ?></h2>
+                <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="form-control input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" placeholder="<?php echo $this->__('Email Address') ?>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="login[password]" class="form-control input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" placeholder="<?php echo $this->__('Password') ?>"/>
+                </div>
+                <?php echo $this->getChildHtml('form.additional.info'); ?>
+                <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+                <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            </div>
+            <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="text-left f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
+            <button type="submit" class="pull-right btn btn-default button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+        </div>
+    </div>
+    <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+        <input name="context" type="hidden" value="checkout" />
+    <?php endif; ?>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('login-form', true);
+//]]>
+</script>

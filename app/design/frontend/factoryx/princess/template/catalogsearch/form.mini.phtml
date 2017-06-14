@@ -27,14 +27,22 @@
 /* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
-<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get" class="form-inline text-right hidden-xs" role="form">
+<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>"
+      method="get" class="form-inline text-right hidden-xs" role="form">
     <div class="form-search form-group">
-        <div class="input-group">
-            <span class="input-group-btn">
-                <button type="submit" title="<?php echo $this->__('Search') ?>" class="btn btn-default"><?php if (Mage::helper('framework')->isFaEnabled()):?><i class="fa fa-search"></i><?php else: echo $this->__('Search'); endif; ?></button>
-            </span>
-            <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="form-control input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="<?php echo $this->__('search site here') ?>" />
-        </div>
+        
+        <button type="submit" class="search_btn">
+            <?php if (Mage::helper('framework')->isFaEnabled()):?>
+              <img src="<?php echo Mage::getDesign()->getSkinUrl();?>images/search_ico.png" alt="search_ico" />
+            <?php endif;?>
+        </button>
+		<input id="search" type="text"
+               name="<?php echo $catalogSearchHelper->getQueryParamName() ?>"
+               value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>"
+               class="search_input input-text"
+               maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"
+               placeholder="<?php echo $this->__('search site here') ?>" />
+        
     </div>
     <div id="search_autocomplete" class="search-autocomplete"></div>
     <script type="text/javascript">

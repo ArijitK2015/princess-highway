@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ph_Subscribe>
+            <version>0.0.1</version>
+        </Ph_Subscribe>
+    </modules>
+    <global>
+        <blocks>
+            <subscribe><!-- block alias -->
+                <class>Ph_Subscribe_Block</class>
+            </subscribe>
+        </blocks>
+        <helpers>
+            <subscribe><!-- helper alias -->
+                <class>Ph_Subscribe_Helper</class>
+            </subscribe>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <subscribe>
+                <use>standard</use>
+                <args>
+                    <module>Ph_Subscribe</module>
+                    <frontName>subscribe</frontName><!-- url key for module -->
+                </args>
+            </subscribe>
+        </routers>
+        <layout>
+            <updates>
+                <Ph_Subscribe>
+                    <file>ph_subscribe.xml</file><!-- frontend layout file -->
+                </Ph_Subscribe>
+            </updates>
+        </layout>
+    </frontend>
+</config>

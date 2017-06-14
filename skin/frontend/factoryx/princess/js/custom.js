@@ -132,5 +132,35 @@ $(document).ready(function() {
     });
 
     $('#subscribePopup').modal('show');
+    
+    
+     jQuery('.header_top_left, .switch-show').not('.top-login').on("click", function(e){
+            var ul=jQuery(this).find('ul')
+            if(ul.is(':hidden'))
+             ul.slideDown()
+             ,jQuery(this).addClass('active')
+            else
+             ul.slideUp()
+             ,jQuery(this).removeClass('active')
+             jQuery('.header-button, .switch-show').not(this).removeClass('active'),
+             jQuery('.header-button, .switch-show').not(this).find('ul').slideUp()
+             jQuery('.header-button ul li, .switch-show ul li').click(function(e){
+                 e.stopPropagation(); 
+                });
+                return false;
+    });
+    jQuery(document).on('click',function(){ 
+        jQuery('.header-button, .switch-show').removeClass('active').find('ul').slideUp()
+    });
+    jQuery('.block-cart-header, .top-search').on('click',function(){ 
+        jQuery('.header-button').removeClass('active').find('ul').slideUp()
+    });
+
+    jQuery('.but-link').on('click',function(){ 
+        jQuery('.page').append('<span class="dfdf"></span>');
+    });    
+    
+    
+    
 
 });

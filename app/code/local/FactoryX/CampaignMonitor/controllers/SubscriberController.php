@@ -155,108 +155,154 @@ class FactoryX_CampaignMonitor_SubscriberController extends Mage_Newsletter_Subs
      */
     public function newAction()
     {
-        // Get all the parameters
-        $params = $this->getRequest()->getParams();
+        //// Get all the parameters
+        //$params = $this->getRequest()->getParams();
+        //
+        //// Get session
+        //$session = Mage::getSingleton('core/session');
+        //
+        //// Check if it's a new subscription
+        //$status = $this->retrieveAction($params['email'], false);
+        //$isNew = ($status == "NEW");
+        //$isExisting = ($status == "EXISTING");
+        //
+        //// No welcome email
+        //$welcome = (array_key_exists('welcome',$params) ? false : true);
+        //$welcome = ($isNew ? $welcome : false);
+        //
+        //// Subscriber model
+        //$subscriberModel = Mage::getModel('newsletter/subscriber');
+        //
+        //// Popup subscription
+        //$popup = ($this->getRequest()->getPost('popup') ? true : false);
+        //$params['popup'] = $popup;
+        //
+        //// Fullname handler
+        //$params = $this->_hlp()->handleFullName($params);
+        //
+        //// Subscribe to Magento
+        //$mageSub = $subscriberModel->subscribeWithDetails($params,$welcome,false,$isExisting);
+        //// Subscribe to CM
+        //$cmSub = $subscriberModel->subscribeWithDetailsCM($params,false,$isExisting);
+        //
+        //// New subscription
+        //if ($isNew)
+        //{
+        //    // Check if it worked and if it is not a popup
+        //    if ($mageSub && $cmSub && !$popup)
+        //    {
+        //        // Success message
+        //        $session->addSuccess($this->__('Thank you for your subscription.'));
+        //    }
+        //    elseif (!$popup)
+        //    {
+        //        // If it doesn't work but still not a popup, display error
+        //        $session->addException(new Exception("There was a problem with the subscription."), $this->__('There was a problem with the subscription.'));
+        //    }
+        //}
+        //// Subscription update / Unsubscription
+        //else
+        //{
+        //    
+        //    // Check if it worked
+        //    if ($mageSub && $cmSub)
+        //    {
+        //        // Unsubscription
+        //        if (array_key_exists('unsubscribe',$params) && $params['unsubscribe'] == 1)
+        //        {
+        //            $session->addSuccess($this->__('You have been successfully unsubscribed.'));
+        //        }
+        //        else
+        //        {
+        //            // Success and not popup
+        //            if (!$popup)
+        //            {
+        //                $session->addSuccess($this->__('Your subscription has been updated.'));
+        //            }
+        //            else
+        //            {
+        //                // Only for POPUP
+        //                $response = array();
+        //                $response["status"] = "existing";
+        //                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    elseif (!$popup)
+        //    {
+        //        // It failed
+        //        $session->addException(new Exception("There was a problem with the subscription."), $this->__('There was a problem with updating the subscription.'));
+        //    }
+        //}
+        //
+        //// Only for POPUP
+        //if ($this->getRequest()->isPost() && $popup)
+        //{
+        //    $response = array();
+        //    $response["status"] = "subscribed";
+        //    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
+        //    return;
+        //}
+        //
+        //
+        //// If done via the mini sub
+        //if (isset($params['mini']) && isset($params['mini']) == 1 && $isNew)
+        //{
+        //    // Generate the redirect URL
+        //    $url = sprintf("%ssubscribe", Mage::getBaseUrl());
+        //    // We add parameters to the URL so the form will be populated when they access it
+        //    $url .= '?email='.$params['email'].'&key='.md5($params['email'].$this->_hlp()->getApiKey());
+        //}
+        //else $url = Mage::getBaseUrl();
+        //
+        //// Redirect
+        //$this->_redirect('subscribe');
+        
+        
+        if ($this->getRequest()->isPost() && $this->getRequest()->getPost('email')) {
+            $session            = Mage::getSingleton('core/session');
+            $customerSession    = Mage::getSingleton('customer/session');
+            $email              = (string) $this->getRequest()->getPost('email');
 
-        // Get session
-        $session = Mage::getSingleton('core/session');
-
-        // Check if it's a new subscription
-        $status = $this->retrieveAction($params['email'], false);
-        $isNew = ($status == "NEW");
-        $isExisting = ($status == "EXISTING");
-
-        // No welcome email
-        $welcome = (array_key_exists('welcome',$params) ? false : true);
-        $welcome = ($isNew ? $welcome : false);
-
-        // Subscriber model
-        $subscriberModel = Mage::getModel('newsletter/subscriber');
-
-        // Popup subscription
-        $popup = ($this->getRequest()->getPost('popup') ? true : false);
-        $params['popup'] = $popup;
-
-        // Fullname handler
-        $params = $this->_hlp()->handleFullName($params);
-
-        // Subscribe to Magento
-        $mageSub = $subscriberModel->subscribeWithDetails($params,$welcome,false,$isExisting);
-        // Subscribe to CM
-        $cmSub = $subscriberModel->subscribeWithDetailsCM($params,false,$isExisting);
-
-        // New subscription
-        if ($isNew)
-        {
-            // Check if it worked and if it is not a popup
-            if ($mageSub && $cmSub && !$popup)
-            {
-                // Success message
-                $session->addSuccess($this->__('Thank you for your subscription.'));
-            }
-            elseif (!$popup)
-            {
-                // If it doesn't work but still not a popup, display error
-                $session->addException(new Exception("There was a problem with the subscription."), $this->__('There was a problem with the subscription.'));
-            }
-        }
-        // Subscription update / Unsubscription
-        else
-        {
-            // Check if it worked
-            if ($mageSub && $cmSub)
-            {
-                // Unsubscription
-                if (array_key_exists('unsubscribe',$params) && $params['unsubscribe'] == 1)
-                {
-                    $session->addSuccess($this->__('You have been successfully unsubscribed.'));
+            try {
+                if (!Zend_Validate::is($email, 'EmailAddress')) {
+                    Mage::throwException($this->__('Please enter a valid email address.'));
                 }
-                else
-                {
-                    // Success and not popup
-                    if (!$popup)
-                    {
-                        $session->addSuccess($this->__('Your subscription has been updated.'));
-                    }
-                    else
-                    {
-                        // Only for POPUP
-                        $response = array();
-                        $response["status"] = "existing";
-                        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
-                        return;
-                    }
+
+                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 && 
+                    !$customerSession->isLoggedIn()) {
+                    Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
+                }
+
+                $ownerId = Mage::getModel('customer/customer')
+                        ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                        ->loadByEmail($email)
+                        ->getId();
+                if ($ownerId !== null && $ownerId != $customerSession->getId()) {
+                    Mage::throwException($this->__('This email address is already assigned to another user.'));
+                }
+
+                $status = Mage::getModel('newsletter/subscriber')->subscribe($email);
+                if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+                    $session->addSuccess($this->__('Confirmation request has been sent.'));
+                }
+                else {
+                    $session->addSuccess($this->__('Thank you for your subscription.'));
                 }
             }
-            elseif (!$popup)
-            {
-                // It failed
-                $session->addException(new Exception("There was a problem with the subscription."), $this->__('There was a problem with updating the subscription.'));
+            catch (Mage_Core_Exception $e) {
+                $session->addException($e, $this->__('There was a problem with the subscription: %s', $e->getMessage()));
+            }
+            catch (Exception $e) {
+                $session->addException($e, $this->__('There was a problem with the subscription.'));
             }
         }
-
-        // Only for POPUP
-        if ($this->getRequest()->isPost() && $popup)
-        {
-            $response = array();
-            $response["status"] = "subscribed";
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
-            return;
-        }
-
-
-        // If done via the mini sub
-        if (isset($params['mini']) && isset($params['mini']) == 1 && $isNew)
-        {
-            // Generate the redirect URL
-            $url = sprintf("%ssubscribe", Mage::getBaseUrl());
-            // We add parameters to the URL so the form will be populated when they access it
-            $url .= '?email='.$params['email'].'&key='.md5($params['email'].$this->_hlp()->getApiKey());
-        }
-        else $url = Mage::getBaseUrl();
-
-        // Redirect
-        $this->_redirectUrl($url);
+        $this->_redirectReferer();
+        
+        
+        
+        
     }
 
 

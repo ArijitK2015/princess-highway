@@ -19,41 +19,44 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
- * @package     base_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Customer_Wishlist */
 ?>
-<?php if ($this->helper('wishlist')->isAllow()) : ?>
-    <div class="my-wishlist">
-        <div class="page-title title-buttons">
-            <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
+<style>
+    
+</style>
+<div class="main_wrapper cart_wrapper">
+    <div class="container">
+        <div class="cart_title">
+           <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
                 <a href="<?php echo $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
             <?php endif; ?>
-            <h1><?php echo $this->getTitle(); ?></h1>
+            <?php echo $this->getTitle(); ?>
         </div>
         <?php echo $this->getMessagesBlock()->toHtml() ?>
-
-        <?php if ($this->hasWishlistItems()): ?>
-            <div class="table-responsive">
-                <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>" method="post">
-                    <?php echo $this->getChildHtml('top'); ?>
-                    <fieldset>
+        <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>" method="post">
+            <?php echo $this->getChildHtml('top'); ?>
+            <div class="cart_table_wrap">
+                <div class="cart_table">
+                    <?php if ($this->hasWishlistItems()): ?>
                         <?php echo $this->getBlockHtml('formkey');?>
                         <?php $this->getChild('items')->setItems($this->getWishlistItems()); ?>
                         <?php echo $this->getChildHtml('items');?>
-                        <script type="text/javascript">decorateTable('wishlist-table')</script>
-                        <div class="buttons-set buttons-set2">
-                            <?php echo $this->getChild('control_buttons')->toHtml();?>
-                        </div>
-                    </fieldset>
-                </form>
+                        <script type="text/javascript">decorateTable('wishlist-table');</script>
+                    <?php else: ?>
+                        <h3 class="wishlist-empty" align="center"><?php echo $this->__('You have no items in your wishlist.') ?></h3>
+                    <?php endif ?>                   
+                </div>
+                <div>&nbsp;</div>
+                <div class="buttons-set buttons-set2 pull-right">
+                        <?php echo $this->getChildHtml('control_buttons');?>
+                </div>
             </div>
-        <?php else: ?>
-            <p class="wishlist-empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
-        <?php endif ?>
-
+        </form>
+        
         <form id="wishlist-allcart-form" action="<?php echo $this->getUrl('*/*/allcart') ?>" method="post">
             <?php echo $this->getBlockHtml('formkey') ?>
             <div class="no-display">
@@ -61,34 +64,60 @@
                 <input type="hidden" name="qty" id="qty" value="" />
             </div>
         </form>
-
+        
         <script type="text/javascript">
             //<![CDATA[
-            var wishlistForm = new Validation($('wishlist-view-form'));
-            var wishlistAllCartForm = new Validation($('wishlist-allcart-form'));
-
-            function calculateQty() {
-                var itemQtys = new Array();
-                $$('#wishlist-view-form .qty').each(
-                    function (input, index) {
-                        var idxStr = input.name;
-                        var idx = idxStr.replace( /[^\d.]/g, '' );
-                        itemQtys[idx] = input.value;
-                    }
-                );
-
-                $$('#qty')[0].value = JSON.stringify(itemQtys);
-            }
-
-            function addAllWItemsToCart() {
-                calculateQty();
-                wishlistAllCartForm.form.submit();
-            }
+                var wishlistForm = new Validation($('wishlist-view-form'));
+                var wishlistAllCartForm = new Validation($('wishlist-allcart-form'));
+    
+                function calculateQty() {
+                    var itemQtys = new Array();
+                    $$('#wishlist-view-form .qty').each(
+                        function (input, index) {
+                            var idxStr = input.name;
+                            var idx = idxStr.replace( /[^\d.]/g, '' );
+                            itemQtys[idx] = input.value;
+                        }
+                    );
+    
+                    $$('#qty')[0].value = JSON.stringify(itemQtys);
+                }
+    
+                function addAllWItemsToCart() {
+                    calculateQty();
+                    wishlistAllCartForm.form.submit();
+                }
             //]]>
+            
+            // get attribute details on click
+            
+            jQuery('.details').click(function(){
+                    jQuery(this).parent().find('.truncated_full_value').stop().slideToggle();
+            });
+            function truncateOptions() {
+                $$('.truncated').each(function(element){
+                    Event.observe(element, 'mouseover', function(){
+                        if (element.down('div.truncated_full_value')) {
+                            element.down('div.truncated_full_value').removeClassName('show');
+                        }
+                    });
+                });
+            }
+        
+            Event.observe(window, 'load', function(){
+               truncateOptions();
+            });
+        
+        
         </script>
-    </div>
-    <?php echo $this->getChildHtml('bottom'); ?>
-    <div class="buttons-set">
-        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-    </div>
-<?php endif ?>
+        <?php echo $this->getChildHtml('bottom'); ?>
+        <!--<div class="buttons-set cart_table_tr">-->
+        <!--    <p class="back-link">-->
+        <!--        <a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"-->
+        <!--           class="blue_btn">-->
+        <!--        <small>&laquo; </small>-->
+        <!--            <?php echo $this->__('back') ?>-->
+        <!--        </a>-->
+        <!--    </p>-->
+        <!--</div>-->
+</div>

@@ -49,24 +49,22 @@ Alternatively we could calculate widths automatically using block input paramete
  * @see Mage_Customer_Block_Widget_Dob
  */
 ?>
-<div class="customer-dob row">
-    <div class="dob-full form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="input-group">
-            <input class="form-control" placeholder="<?php echo $this->__('Date of Birth'); ?>" type="text" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />
-            <?php if (Mage::helper('framework')->isFaEnabled()):?>
-                <span class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                </span>
-            <?php endif; ?>
-        </div>
-    </div>
+<div class="col-md-12 col-sm-12">
+    <label for="<?php echo $this->getFieldId('month')?>"
+        <?php if ($this->isRequired()) echo ' class="required chk_label"'; else echo ' class="chk_label"'; ?>>
+         <?php echo $this->__('date of birth') ?>
+         <?php if ($this->isRequired()) echo '<span>*</span>' ?>
+    </label>
+    <input class="login_input" placeholder="<?php echo $this->__('Date of Birth'); ?>" type="text"
+           id="<?php echo $this->getFieldId('dob')?>"
+           name="<?php echo $this->getFieldName('dob')?>" />
 </div>
 <script type="text/javascript">
     //<![CDATA[
     jQuery(document).ready(function(){
-        jQuery('.customer-dob .dob-full input').Zebra_DatePicker({
+        jQuery('#dob').Zebra_DatePicker({
             format: "d/m/Y",
-            default_position: "below"
+            default_position: "above"
         });
         jQuery('.Zebra_DatePicker_Icon_Wrapper').css({'width':'100%'});
     });
